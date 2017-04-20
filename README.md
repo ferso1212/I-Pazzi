@@ -1,4 +1,5 @@
-# Project Template - Prova Finale (Ingegneria del Software)
+# Prova Finale (Ingegneria del Software)
+## Gruppo ps21: _Daniele Marsella_, _Fersini Dario_, _Fabrizio Indirli_
 
 ## Project Setup
 In order to set up your project, follow these steps
