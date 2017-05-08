@@ -21,6 +21,24 @@ private int orangeDiceModifier;
 private int blackDiceModifier;
 private int[] cardDiceModifier;
 
+/**CurrentModifier class constructor. Initializes all the values to 0.
+ * 
+ */
+CurrentModifier()
+{
+	this.propModifier=new ImmProperties(0,0,0,0,0,0,0,0);
+	this.harvestModifier=0;
+	this.productionModifier=0;
+	this.whiteDiceModifier=0;
+	this.orangeDiceModifier=0;
+	this.blackDiceModifier=0;
+	this.cardDiceModifier=new int[4];
+	this.cardDiceModifier[0]=0;
+	this.cardDiceModifier[1]=0;
+	this.cardDiceModifier[2]=0;
+	this.cardDiceModifier[3]=0;
+}
+
 /**Returns the value of the production modifier.
  *Production modifiers are modifiers that increase/reduce the production action value 
  * @return value of the production modifier.
