@@ -14,7 +14,7 @@ public class ImmProperties {
 	 * 
 	 * @param values array of integer values (resources and points values) , sorted in order to match the following semantics: 0_Coins, 1_Wood, 2_Stone, 3_Servants, 4_Privileges, 5_MilitaryPoints, 6_FaithPoints, 7_VictoryPoints
 	 */
-	ImmProperties(int[] values)
+	public ImmProperties(int[] values)
 	{
 		this.properties= new int[8];
 		for(int i=0; i<8; i++)
@@ -34,7 +34,7 @@ public class ImmProperties {
 	 * @param faithPoints number of Faith Points to store in the object
 	 * @param victoryPoints number of Victory Points to store in the object
 	 */
-	ImmProperties(int coins, int wood, int stone, int servants, int privileges, int militaryPoints, int faithPoints, int victoryPoints)
+	public ImmProperties(int coins, int wood, int stone, int servants, int privileges, int militaryPoints, int faithPoints, int victoryPoints)
 	{
 		this.properties= new int[8];
 		this.properties[0]=coins;

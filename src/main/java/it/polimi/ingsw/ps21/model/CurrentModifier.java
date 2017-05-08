@@ -5,7 +5,8 @@ import it.polimi.ingsw.ps21.CardType;
 /**
  * This class is used to store modifiers that may have effects on each action of
  * the player. Modifiers are induced by excommunications and by permanent
- * effects of development cards. It is possible to store the following kinds of
+ * effects of development cards. 
+ * It is possible to store the following kinds of
  * modifiers:
  * <li>Properties modifiers: modifiers that increase/reduce the amount of
  * resources or points acquired each time the player acquires points or
@@ -35,7 +36,7 @@ public class CurrentModifier {
 	 * CurrentModifier class constructor. Initializes all the values to 0.
 	 * 
 	 */
-	CurrentModifier() {
+	public CurrentModifier() {
 		this.propModifier = new ImmProperties(0, 0, 0, 0, 0, 0, 0, 0);
 		this.harvestModifier = 0;
 		this.productionModifier = 0;

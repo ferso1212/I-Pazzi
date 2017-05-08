@@ -16,7 +16,7 @@ public class Properties {
 	 * 
 	 * @param values array of integer values (resources and points values) , sorted in order to match the following semantics: 0_Coins, 1_Wood, 2_Stone, 3_Servants, 4_Privileges, 5_MilitaryPoints, 6_FaithPoints, 7_VictoryPoints
 	 */
-	Properties(int[] values)
+	public Properties(int[] values)
 	{
 		this.properties= new int[8];
 		for(int i=0; i<8; i++)
