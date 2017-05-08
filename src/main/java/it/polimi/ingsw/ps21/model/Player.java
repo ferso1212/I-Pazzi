@@ -2,6 +2,8 @@ package it.polimi.ingsw.ps21.model;
 import java.net.Socket;
 import java.util.*;
 
+import it.polimi.ingsw.ps21.CardType;
+
 /**Used to store the status of each player.
  * It stores the following datas of a player:
  * <li> Name
@@ -74,5 +76,23 @@ public class Player {
 	public int countPurpleCards()
 	{
 		return purpleCards.size();
+	}
+	
+	/**Returns the number of the cards of a specified type owned by the player.
+	 * 
+	 * @param type type of the cards to count. It can be a value of the CardType enum, except for EXCOMMUNICATION and LEADER. Accepted values are TERRITORY, BUILDING, CHARACTER and VENTURE.
+	 * @return
+	 * @throws IllegalArgumentException when 'type' parameter is EXCOMMUNICATION, LEADER or not a member of the CardType enum.
+	 */
+	public int countCards(CardType type) throws IllegalArgumentException
+	{
+		switch(type)
+		{
+		case CHARACTER: return this.countBlueCards();
+		case TERRITORY: return this.countGreenCards();
+		case BUILDING: return this.countYellowCards();
+		case VENTURE: return this.countPurpleCards();
+		default: throw new IllegalArgumentException();
+		}
 	}
 }
