@@ -251,7 +251,7 @@ Control
       <x>530</x>
       <y>190</y>
       <w>320</w>
-      <h>290</h>
+      <h>320</h>
     </coordinates>
     <panel_attributes>Player
 --
@@ -653,10 +653,10 @@ layer=1</panel_attributes>
     </coordinates>
     <panel_attributes>ExcommunicationCard
 --
-# cardNumber : int
+# cardId : int
 # cardEra : int
 --
-+ getName() :String
++ getId() :Int
 + getEra() : int</panel_attributes>
     <additional_attributes/>
   </element>
@@ -678,7 +678,7 @@ layer=1</panel_attributes>
       <x>210</x>
       <y>560</y>
       <w>320</w>
-      <h>320</h>
+      <h>360</h>
     </coordinates>
     <panel_attributes>CurrentModifier
 --
@@ -702,7 +702,7 @@ layer=1</panel_attributes>
 + getPurpleModifier() :int
 + getBlueModifier() :int
 + getDiceMod(color :MembersColor) :Int
-+ getCardModifier(type :CardType) :Int
++ getCardMod(type :CardType) :Int
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -710,13 +710,13 @@ layer=1</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>380</x>
-      <y>470</y>
+      <y>500</y>
       <w>350</w>
-      <h>110</h>
+      <h>80</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m1=</panel_attributes>
-    <additional_attributes>330.0;10.0;10.0;90.0</additional_attributes>
+    <additional_attributes>330.0;10.0;10.0;60.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>

@@ -178,7 +178,7 @@ public class CurrentModifier {
 	 * @return value of the modifier of the card whose type is specified in the 'type' parameter
 	 * @throws IllegalArgumentException when 'type' parameter is EXCOMMUNICATION, LEADER or not a member of the CardType enum.
 	 */
-	public int getCardModifier(CardType type) throws IllegalArgumentException
+	public int getCardMod(CardType type) throws IllegalArgumentException
 	{
 		switch(type)
 		{
