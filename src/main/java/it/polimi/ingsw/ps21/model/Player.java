@@ -22,7 +22,6 @@ public class Player {
 	private ArrayList<CharacterCard> blueCards;
 	private ArrayList<VentureCard> purpleCards;
 	private int roundCouncilBonus; //number of Council Privileges acquired during this Player's round
-	private playerMalus; //Not useful?
 	private Socket socket;
 	private Properties properties;
 	private CurrentModifier curModifier; 

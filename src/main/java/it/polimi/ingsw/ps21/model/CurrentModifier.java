@@ -7,7 +7,7 @@ package it.polimi.ingsw.ps21.model;
  * <li> Harvest modifiers: modifiers that increase/reduce the harvest action value
  * <li> Production modifiers: modifiers that increase/reduce the production action value
  * <li> Dice modifiers: modifiers that increase or reduce the value of a dice
- * <li> Dice modifier according to card color: ???
+ * <li> Dice modifier according to card color: modifiers that increase or reduce the value of a dice when used to acquire a card with a specific colour
  * @author fabri
  *
  */
@@ -38,6 +38,7 @@ CurrentModifier()
 	this.cardDiceModifier[2]=0;
 	this.cardDiceModifier[3]=0;
 }
+
 
 /**Returns the value of the production modifier.
  *Production modifiers are modifiers that increase/reduce the production action value 
@@ -93,21 +94,37 @@ public int orangeDiceMod()
 	return this.orangeDiceModifier;
 }
 
+/**Returns the value of the modifier that modifies the value of the dice used to acquire green cards.
+ * 
+ * @return value of the modifier that modifies the value of the dice used to acquire green cards
+ */
 public int getGreenModifier()
 {
 	return this.cardDiceModifier[0];
 }
 
+/**Returns the value of the modifier that modifies the value of the dice used to acquire yellow cards.
+ * 
+ * @return value of the modifier that modifies the value of the dice used to acquire yellow cards
+ */
 public int getYellowModifier()
 {
 	return this.cardDiceModifier[1];
 }
 
+/**Returns the value of the modifier that modifies the value of the dice used to acquire purple cards.
+ * 
+ * @return value of the modifier that modifies the value of the dice used to acquire purple cards
+ */
 public int getPurpleModifier()
 {
 	return this.cardDiceModifier[2];
 }
 
+/**Returns the value of the modifier that modifies the value of the dice used to acquire blue cards.
+ * 
+ * @return value of the modifier that modifies the value of the dice used to acquire blue cards
+ */
 public int getBlueModifier()
 {
 	return this.cardDiceModifier[3];
