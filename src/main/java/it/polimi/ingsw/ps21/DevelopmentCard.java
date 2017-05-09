@@ -13,7 +13,7 @@ public class DevelopmentCard {
 	protected PermanentEffect permanentEffect2;
 	
 	
-	public DevelopmentCard(String name, int era, ImmProperties req, InstantEffect ins, PermanentEffect perm){
+	public DevelopmentCard(String name, int era, ImmProperties req, InstantEffect ins,PermanentEffect perm){
 		this.name = name;
 		cardEra = era;
 		req1 = req;

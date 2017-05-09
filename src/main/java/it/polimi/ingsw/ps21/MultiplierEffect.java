@@ -6,7 +6,7 @@ public class MultiplierEffect extends Effect implements PermanentEffect,InstantE
 	private MultiplierType secondFactorType;
 	private int secondFactorValue;
 	
-	public void addInstantBonus(Player player){
+	private void multiplyEffect(Player player){
 		int bonusValue;
 		ImmProperties bonus;
 		switch(secondFactorType){
@@ -49,6 +49,7 @@ public class MultiplierEffect extends Effect implements PermanentEffect,InstantE
 		bonus = new ImmProperties(bonusProperties.getCoins()*bonusValue,bonusProperties.getWood()*bonusValue, bonusProperties.getStone()*bonusValue,
 				 bonusProperties.getServants()*bonusValue, bonusProperties.getPrivileges()*bonusValue, bonusProperties.getMilitaryPoints()*bonusValue,
 				 bonusProperties.getFaithPoints()*bonusValue, bonusProperties.getVictoryPoints()*bonusValue);
+	// Questa aggiunta non tiene conto della presenza di malus o bonus nel player //
 		player.getProperties().addCoins(bonus.getCoins());
 		player.getProperties().addWood(bonus.getWood());
 		player.getProperties().addStone(bonus.getStone());
@@ -57,6 +58,17 @@ public class MultiplierEffect extends Effect implements PermanentEffect,InstantE
 		player.getProperties().addFaithPoints(bonus.getFaithPoints());
 		player.getProperties().addMilitaryPoints(bonus.getMilitaryPoints());
 		player.getProperties().addVictoryPoints(bonus.getVictoryPoints());
+	 // gameLogic.addProperties(player, properties)
+	}
+	
+	public void addInstantBonus(Player player){
+		multiplyEffect(player);
+	}
+
+	@Override
+	public void addPermanentEffect(Player player) {
+		multiplyEffect(player);
+		
 	}
 	
 }

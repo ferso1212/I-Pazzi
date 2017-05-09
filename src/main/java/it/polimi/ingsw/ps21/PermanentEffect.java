@@ -4,7 +4,5 @@ import it.polimi.ingsw.ps21.model.Player;
 
 public abstract interface PermanentEffect {
 	
-	public default void addPermanentEffect(Player player){
-		
-	}
+	public void addPermanentEffect(Player player); // To be implemented in every interface
 }
