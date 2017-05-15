@@ -1,0 +1,11 @@
+--LEADERCARDS--
+
+-Francesco Sforza and Leonardo da Vinci: 
+
+-Ludovico Ariosto: GameLogic.PlaceFamMember() verifies whether the space is already occupied or not. 
+
+-Ludovico il Moro: setOrangeValue(), setBlackValue(), setWhiteValue() check if the fixedOrangeValue in the PlacementModifier is set: in this case, the setting is refused.
+
+-Lucrezia Borgia:  Player.getBlackValue(), adds bonusBlackValue to the return value. The same applies for the other members.
+
+-Sisto IV: GameLogic.vaticanReport() calls the Player.vaticanSupport() to know if the player wants to support the Vatican or not. If the player chooses to support the Vatican, it resets the Player's faith points and returns TRUE; otherwise, it returns FALSE. The GameLogic.vaticanReport() retrieves the excommunication by calling the Match.getExcomminucation() and assigns its effect to the Player by calling 
