@@ -47,6 +47,48 @@ public class ImmProperties {
 		this.properties[7]=victoryPoints;
 	}
 	
+	/**This constructor can be used when the object is used to store resources (Coins, wood, stone and servants).
+	 * Privileges, Military Points, Victory Points and Faith Points are automatically set to 0.
+	 * 
+	 * @param coins number of coins to store in the object
+	 * @param wood	number of wood pieces to store in the object
+	 * @param stone	number of stone pieces to store in the object
+	 * @param servants number of servants to store in the object
+	 * 
+	 */
+	public ImmProperties(int coins, int wood, int stone, int servants)
+	{
+		this.properties= new int[8];
+		this.properties[0]=coins;
+		this.properties[1]=wood;
+		this.properties[2]=stone;
+		this.properties[3]=servants;
+		this.properties[4]=0;
+		this.properties[5]=0;
+		this.properties[6]=0;
+		this.properties[7]=0;
+	}
+	
+	/**This constructor can be used when the object is used to store points (Victory Points, Faith Points and Military Points).
+	 * Privileges, Stones, Wood Pieces and and Servants are automatically set to 0.
+	 * 
+	 * @param militaryPoints number of Military Points to store in the object
+	 * @param faithPoints number of Faith Points to store in the object
+	 * @param victoryPoints number of Victory Points to store in the object
+	 */
+	public ImmProperties(int militaryPoints, int faithPoints, int victoryPoints)
+	{
+		this.properties= new int[8];
+		this.properties[0]=0;
+		this.properties[1]=0;
+		this.properties[2]=0;
+		this.properties[3]=0;
+		this.properties[4]=0;
+		this.properties[5]=militaryPoints;
+		this.properties[6]=faithPoints;
+		this.properties[7]=victoryPoints;
+	}
+	
 	/**The properties[] array store the values in its first 7 cells. 
 	 * Values stored in each cell are: 0_Coins, 1_Wood, 2_Stone, 3_Servants, 4_Privileges, 5_MilitaryPoints, 6_FaithPoints, 7_VictoryPoints
 	 */
