@@ -1,6 +1,4 @@
---LEADERCARDS--
-
--Francesco Sforza and Leonardo da Vinci: 
+--LEADERCARDS WITH PERMANENT EFFECTS--
 
 -Ludovico Ariosto: GameLogic.PlaceFamMember() verifies whether the space is already occupied or not. 
 
@@ -8,4 +6,24 @@
 
 -Lucrezia Borgia:  Player.getBlackValue(), adds bonusBlackValue to the return value. The same applies for the other members.
 
--Sisto IV: GameLogic.vaticanReport() calls the Player.vaticanSupport() to know if the player wants to support the Vatican or not. If the player chooses to support the Vatican, it resets the Player's faith points and returns TRUE; otherwise, it returns FALSE. The GameLogic.vaticanReport() retrieves the excommunication by calling the Match.getExcomminucation() and assigns its effect to the Player by calling 
+-Sisto IV: At the beginning GameLogic.vaticanReport() gets from Match the VaticanSupportRequirement and the ExcommunicationCard . Then it checks every Player's FaithPoints and if they are enough it calls the Player.vaticanSupport(). The player returns TRUE, resets his faith points and checks whether the player add VaticanSupportBonus to VictoryPoints if he doesn't want Excommunication or returns FALSE if he wants to keep his points.
+
+-Filippo Brunelleschi: if the chosen place is already occupied, GameLogic.placeFamMember() calls the Player.payForOccupiedTower(). The Player.payForOccupiedTower() checks if the Player.advancedModifiers.noPayOccupiedTower is TRUE: in this case, it allow the player to occupy the space without paying.
+
+-Cesare Borgia: Player.checkMilitaryForTerritory() returns always TRUE if Player.AdvancedModifier.noMilitaryForTerritory=TRUE.
+
+-Santa Rita: each activate() method in the PropEffect methods calls Player.getDoubleResourcesMod(): if it returns TRUE, than the activate() methoud doubles the number of resources added to the player.
+
+-Pico della Mirandola: when you have to take a card from the board, the GameLogic.placeFamMember() detects that the space is a TowerSpace and calls the Player.checkRequirements() and then, if the requirements are met, the Player.PayRequirements() is called; then, the GameLogic.placeFamMember() will call the getCard() method in the space. Player.checkRequirements() and Player.payRequirements() will reduce the requirements by Player.buildingCardDiscount value.
+
+--INSTANT LEADERCARDS--
+When the activate() method is called on these cards, it checks if the LeaderCard.Activated is equal to FALSE: in this case, it sets that value to TRUE and activates the effect.
+
+-Francesco Sforza and Leonardo da Vinci: In the Player.makeAction() routine, the player chooses to use this cards; the LeaderCard.activate() calls the  Player.makeExtraAction(WorkType, action_value) and then the GameLogic.work() is called.
+
+-Federico da Montefeltro: the LeaderCard.activate() calls Player.chooseColor(), which returns a DICE_COLOR;  then the LeaderCard.activate() calls the appropriate Player.FamilyMember.setBlackValue()/setWhiteValue()/setOrangeValue()
+
+--ENUM DESCRIPTION--
+
+-ActionType: used in the Player.makeAction() method to determine which type of action the player wants to execute. 
+
