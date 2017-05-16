@@ -1,8 +1,8 @@
-package it.polimi.ingsw.ps21;
+package it.polimi.ingsw.ps21.model;
 
 import it.polimi.ingsw.ps21.model.ImmProperties;
 
-public class DevelopmentCard {
+public class DevelopmentCard extends Card{
 
 	protected String name;
 	protected int cardEra;
