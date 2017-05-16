@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps21;
+package it.polimi.ingsw.ps21.model;
 
 /**Used to enumerate the different types of the cards
  * The game contains 6 different types of cards:

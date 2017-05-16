@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps21;
+package it.polimi.ingsw.ps21.model;
 
 import it.polimi.ingsw.ps21.model.Player;
 

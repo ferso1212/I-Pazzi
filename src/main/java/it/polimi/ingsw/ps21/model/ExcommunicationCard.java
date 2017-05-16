@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps21;
+package it.polimi.ingsw.ps21.model;
 
 /**Used to model Excommunication Cards.
  * @author fabri

@@ -1,6 +1,4 @@
-package it.polimi.ingsw.ps21;
-
-import it.polimi.ingsw.ps21.model.*;
+package it.polimi.ingsw.ps21.model;
 
 public class MultiplierEffect extends Effect implements PermanentEffect,InstantEffect {
 	private MultiplierType secondFactorType;
