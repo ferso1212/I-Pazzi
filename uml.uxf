@@ -1073,7 +1073,7 @@ m2=1</panel_attributes>
       <w>189</w>
       <h>161</h>
     </coordinates>
-    <panel_attributes>/FamilyMember/
+    <panel_attributes>FamilyMember
 --
 - value :Int
 - color: MembersColor
@@ -1091,16 +1091,18 @@ m2=1</panel_attributes>
       <w>245</w>
       <h>189</h>
     </coordinates>
-    <panel_attributes>PlayerFamilyMember
+    <panel_attributes>PlayerFamilyMembers
 --
 - members :FamilyMember[4]
 --
-+ setOrangeValue() :void
-+ setBlackValue() :void
-+ setWhiteValue() :void
++ setOrangeValue(value: int) :void
++ setBlackValue(value: int) :void
++ setWhiteValue(value: int) :void
++ setNeutralValue(value: int): void
 + getOrangeValue() :Int
 + getBlackValue() :Int
 + getWhiteValue() :Int
++ getNeutralValue() :Int
 + addOrangeValue(servants Int) :void
 + addBlackValue(servants Int) :void
 + addWhiteValue(servants Int) :void
