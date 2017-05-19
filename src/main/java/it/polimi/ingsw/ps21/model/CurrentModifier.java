@@ -1,6 +1,6 @@
 package it.polimi.ingsw.ps21.model;
 
-import it.polimi.ingsw.ps21.CardType;
+
 
 /**
  * This class is used to store modifiers that may have effects on each action of
@@ -30,24 +30,27 @@ public class CurrentModifier {
 	private int whiteDiceModifier;
 	private int orangeDiceModifier;
 	private int blackDiceModifier;
-	private int[] cardDiceModifier;
+	private int greenCardDiceMod; //modifier that increases or reduces the value of a dice when used to acquire green cards
+	private int blueCardDiceMod;  //modifier that increases or reduces the value of a dice when used to acquire blue cards
+	private int yellowCardDiceMod; //modifier that increases or reduces the value of a dice when used to acquire yellow cards
+	private int purpleCardDiceMod; ////modifier that increases or reduces the value of a dice when used to acquire purple cards
+	private int servantValue;
 
 	/**
 	 * CurrentModifier class constructor. Initializes all the values to 0.
 	 * 
 	 */
 	public CurrentModifier() {
-		this.propModifier = new ImmProperties(0, 0, 0, 0, 0, 0, 0, 0);
+		this.propModifier = new ImmProperties(0, 0, 0, 0, 0, 0, 0);
 		this.harvestModifier = 0;
 		this.productionModifier = 0;
 		this.whiteDiceModifier = 0;
 		this.orangeDiceModifier = 0;
 		this.blackDiceModifier = 0;
-		this.cardDiceModifier = new int[4];
-		this.cardDiceModifier[0] = 0;
-		this.cardDiceModifier[1] = 0;
-		this.cardDiceModifier[2] = 0;
-		this.cardDiceModifier[3] = 0;
+		this.greenCardDiceMod=0;
+		this.blueCardDiceMod=0;
+		this.yellowCardDiceMod=0;
+		this.purpleCardDiceMod=0;
 	}
 
 	/**
@@ -119,7 +122,7 @@ public class CurrentModifier {
 	 *         acquire green cards
 	 */
 	public int getGreenModifier() {
-		return this.cardDiceModifier[0];
+		return this.greenCardDiceMod;
 	}
 
 	/**
@@ -130,7 +133,7 @@ public class CurrentModifier {
 	 *         acquire yellow cards
 	 */
 	public int getYellowModifier() {
-		return this.cardDiceModifier[1];
+		return this.yellowCardDiceMod;
 	}
 
 	/**
@@ -141,7 +144,7 @@ public class CurrentModifier {
 	 *         acquire purple cards
 	 */
 	public int getPurpleModifier() {
-		return this.cardDiceModifier[2];
+		return this.purpleCardDiceMod;
 	}
 
 	/**
@@ -152,9 +155,19 @@ public class CurrentModifier {
 	 *         acquire blue cards
 	 */
 	public int getBlueModifier() {
-		return this.cardDiceModifier[3];
+		return this.blueCardDiceMod;
 	}
 	
+	
+	
+	/**Returns how much value is added to the dice by each servant when used.
+	 * This value may be different from 1 because of excommunications or other modifiers.
+	 * @return the value of 1 servant
+	 */
+	public int getServantValue() {
+		return this.servantValue;
+	}
+
 	/**Returns the value of the modifier of the dice whose color is specified in the 'color' parameter
 	 * 
 	 * @param color of the dice to which the modifier is associated. It can be a value of the MembersColor enum, apart from NEUTRAL. Accepted values are: ORANGE, BLACK, WHITE.
