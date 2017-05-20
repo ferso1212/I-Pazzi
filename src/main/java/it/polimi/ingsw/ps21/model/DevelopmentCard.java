@@ -1,45 +1,47 @@
 package it.polimi.ingsw.ps21.model;
 
-import it.polimi.ingsw.ps21.model.ImmProperties;
 
 public class DevelopmentCard extends Card{
 
-	protected String name;
 	protected int cardEra;
-	protected ImmProperties req1;
-	protected ImmProperties req2;
 	protected InstantEffect instantEffect;
 	protected PermanentEffect permanentEffect1;
 	protected PermanentEffect permanentEffect2;
 	
 	
-	public DevelopmentCard(String name, int era, ImmProperties req, InstantEffect ins,PermanentEffect perm){
-		this.name = name;
+	public DevelopmentCard(String name, int era, Requirement req, InstantEffect ins,PermanentEffect perm){
+		super(name, req);
 		cardEra = era;
-		req1 = req;
-		req2 = null;
 		instantEffect = ins;
 		permanentEffect1 = perm;
 		permanentEffect2 = null;		
 	}
 	
-	public DevelopmentCard(String name, int era, ImmProperties req1, ImmProperties req2, InstantEffect ins, PermanentEffect perm1, PermanentEffect perm2){
-		this.name = name;
+	public DevelopmentCard(String name, int era, Requirement reqs[], InstantEffect ins, PermanentEffect perm1, PermanentEffect perm2){
+		super(name, reqs);
 		cardEra = era;
-		this.req1 = req1;
-		this.req2 = req2;
 		instantEffect = ins;
 		permanentEffect1 = perm1;
 		permanentEffect2 = perm2;		
 	}
 	
-	public ImmProperties getRequirements(){
-		if (req2 != null)
-		{
-			// choicing the peroperty 
-		}
-		return req1;
+	public DevelopmentCard(String name, int era, Requirement[] reqs, InstantEffect ins, PermanentEffect perm1) {
+		// TODO Auto-generated constructor stub
+		super(name, reqs);
+		cardEra = era;
+		instantEffect = ins;
+		permanentEffect1 = perm1;
 	}
+
+	public DevelopmentCard(String name, int era, Requirement req, InstantEffect ins, PermanentEffect perm1,
+			PermanentEffect perm2) {
+		super(name, req);
+		cardEra = era; 
+		instantEffect = ins; 
+		permanentEffect1 = perm1;
+		permanentEffect2 = perm2;
+	}
+
 	public int getEra(){
 		return cardEra;
 	}
@@ -48,9 +50,16 @@ public class DevelopmentCard extends Card{
 	public String toString(){ 
 		StringBuilder temp = new StringBuilder();
 		temp.append("Nome Carta: " + name + "; Era: " + cardEra + "\nRequisiti carta: ");
-		if (req2 == null) temp.append(req1.toString());
-		else temp.append(req1.toString() + " o " + req2.toString());
+		for (Requirement r: requires){
+			temp.append(r.toString());
+		}
 		return temp.toString();
+	}
+
+	@Override
+	public Requirement getRequirement() throws Exception {
+		if (chosenReq == null) throw new Exception();
+		return chosenReq;
 	}
 
 }
