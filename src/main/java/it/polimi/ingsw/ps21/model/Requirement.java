@@ -1,11 +1,11 @@
 package it.polimi.ingsw.ps21.model;
 
-public class Requirements {
+public class Requirement {
 	private CardsNumber cardsNumber;
 	private ImmProperties properties;
 	private ImmProperties cost;
 	
-	public Requirements(CardsNumber card, ImmProperties prop){
+	public Requirement(CardsNumber card, ImmProperties prop){
 		cardsNumber = card;
 		properties = prop;
 		

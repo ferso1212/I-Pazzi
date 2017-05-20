@@ -45,13 +45,12 @@ public class MultiplierEffect extends Effect implements PermanentEffect,InstantE
 			break;
 		}
 		bonus = new ImmProperties(bonusProperties.getCoins()*bonusValue,bonusProperties.getWood()*bonusValue, bonusProperties.getStone()*bonusValue,
-				 bonusProperties.getServants()*bonusValue, bonusProperties.getPrivileges()*bonusValue, bonusProperties.getMilitaryPoints()*bonusValue,
+				 bonusProperties.getServants()*bonusValue, bonusProperties.getMilitaryPoints()*bonusValue,
 				 bonusProperties.getFaithPoints()*bonusValue, bonusProperties.getVictoryPoints()*bonusValue);
 	// Questa aggiunta non tiene conto della presenza di malus o bonus nel player //
 		player.getProperties().addCoins(bonus.getCoins());
 		player.getProperties().addWood(bonus.getWood());
 		player.getProperties().addStone(bonus.getStone());
-		player.getProperties().addPrivileges(bonus.getPrivileges());
 		player.getProperties().addServants(bonus.getServants());
 		player.getProperties().addFaithPoints(bonus.getFaithPoints());
 		player.getProperties().addMilitaryPoints(bonus.getMilitaryPoints());
