@@ -4,15 +4,19 @@ package it.polimi.ingsw.ps21.model;
  * This class is used to allow the player to take a development card from the board
  * and add it to his cards. 
  **/
-public class DevelopmentAction extends PlaceFamilyMember {
+public class DevelopmentAction extends Action {
 	
-	private SingleTowerSpace space;
+	private SingleTowerSpace<DevelopmentCard> space;
+	private FamilyMember famMember;
+	private Board board;
 
-	public DevelopmentAction(FamilyMember f, SingleTowerSpace s){
-		this.famMember=f;
-		this.space=s;
+	public DevelopmentAction(Match m, Player p, SingleTowerSpace<DevelopmentCard> space, FamilyMember famMember, Board board) {
+	super(m, p);
+	this.space = space;
+	this.famMember = famMember;
+	this.board = board;
 	}
-	
+
 	/**Returns a boolean that specifies if player has got the necessary resources to take a specific development card and if the family member has the necessary value to occupies the relative space on the tower. 
 	 * 
 	 * @return boolean indicating whether the action is legal or not.
@@ -31,8 +35,11 @@ public class DevelopmentAction extends PlaceFamilyMember {
 	 */
 	@Override
 	public boolean execute() {
-		boolean control;
-		control = player.addCard(space.getcard());
+		boolean controlAddCard;
+		boolean controlPlaceMember;
+		controlAddCard = player.addCard(space.getcard());
+		controlPlaceMember = board.
+		}
 		
 	}
 	

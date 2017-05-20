@@ -52,6 +52,10 @@ public class DevelopmentCard extends Card{
 		else temp.append(req1.toString() + " o " + req2.toString());
 		return temp.toString();
 	}
+	
+	public Effect[] getEffect(){
+		
+	}
 
 }
 
