@@ -508,12 +508,13 @@
       <x>1435</x>
       <y>2807</y>
       <w>231</w>
-      <h>217</h>
+      <h>245</h>
     </coordinates>
     <panel_attributes>Requirements
 --
-- cardsNumber :CardNumber
+- cardsNumber :CardsNumber
 - properties : ImmProperties
+- cost: ImmProperties
 --
 + getWood() : int
 + getStone() : int
@@ -526,6 +527,7 @@
 + getBlueCardsNum(): Int
 + getYellowCardsNum(): Int
 + getPurpleCardsNum(): Int
+
 
 
 
@@ -678,7 +680,7 @@ m2=0...1</panel_attributes>
       <w>203</w>
       <h>252</h>
     </coordinates>
-    <panel_attributes>CardNumber
+    <panel_attributes>CardsNumber
 --
 - greenCardsNum: int
 - blueCardsNum: int
@@ -749,7 +751,7 @@ m2=1</panel_attributes>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m1=1
-m2=1
+m2=2
 </panel_attributes>
     <additional_attributes>240.0;20.0;10.0;20.0</additional_attributes>
   </element>
@@ -966,17 +968,17 @@ m2=1</panel_attributes>
 - buildingCards :ArrayList&lt;BuildingCard&gt;
 - characterCards :ArrayList&lt;CharacterCard&gt;
 - ventureCards :ArrayList&lt;VentureCard&gt;
-- properties :PlayerProperties
-- familyMember :PlayerFamilyMember
-- currentModifiers: CurrExcomModifier
++ properties :Properties
++ familyMembers :PlayerFamilyMembers
+- currentModifiers: CurrentModifier
 - finalModifiers: FinalExcomModifier
 - observer :Observer
 --
 + getProperties() : Properties
 + countCards(type :CardType): Int
-+ getWorkCards(value: int, workType: String): DevelopmentCard[]
++ getWorkCards(value: int, workType: WorkType): DevelopmentCard[]
 + checkPoints(necessaryPoints :Points): Boolean
-+ checkCards(): Boolean
++ checkCards(CardsNumber req): Boolean
 + extraRoundActions() :Boolean
 + checkRequirements(requirements Requirement) :Boolean
 //metodi check verificano condizioni su numero risorse,punti,carte
@@ -986,14 +988,12 @@ m2=1</panel_attributes>
 + vaticanSupport: boolean
 + checkMilitaryForTerritory() :Boolean
 + payForOccupiedTower() :void
-+ payRequirements(requirements Requirement) :void
++ payRequirements(req Requirements) :void
 + makeAction() :void
 + makeAction(action :ActionType) :void
 //overloading della makeaction
-+ makeExtraAction(workType :WorkType, value :Int) :void
-+ makeExtraAction(developmentCard :DevelopmentCardType, value :Int) :void
-+ getCurrentModifier() :CurrentModifier 
-+ getPlayerFamilyMember() : PlayerFamilyMember</panel_attributes>
++ getCurrentModifiers() :CurrentModifier 
++ getPlayerFamilyMembers() : PlayerFamilyMembers</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -1030,7 +1030,7 @@ m2=1</panel_attributes>
       <w>210</w>
       <h>259</h>
     </coordinates>
-    <panel_attributes>PlayerProperties
+    <panel_attributes>Properties
 --
 - resources :Resources
 - points :Points
@@ -1695,9 +1695,9 @@ NEUTRAL</panel_attributes>
 - noYellowPoints: boolean
 - victoryPointsReductionDivisor: int
 - militaryDivisorVPointsReduction: int
-- buildingWoodDivisorVPointsReduction: int
-- buildingStoneDivisorVPointsReduction: int
-- resDivisorVPointsReduction: int</panel_attributes>
+- vPointsReductionBuildingWoodDivisor: int
+- vPointsReductionBuildingStoneDivisor: int
+- vPointsReductionResDivisor: int</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -1764,12 +1764,12 @@ m2=1</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1526</x>
-      <y>3010</y>
+      <y>3045</y>
       <w>161</w>
-      <h>140</h>
+      <h>105</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;180.0;210.0;180.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0;210.0;130.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>

@@ -1,12 +1,12 @@
 package it.polimi.ingsw.ps21.model;
 
-public class CardNumber {
+public class CardsNumber {
 	private int greenCardNum;
 	private int blueCardNum;
 	private int yellowCardNum;
 	private int purpleCardNum;
 	
-	public CardNumber(int green, int yellow, int blue, int purple){
+	public CardsNumber(int green, int yellow, int blue, int purple){
 		greenCardNum = green;
 		blueCardNum = blue;
 		yellowCardNum = yellow;

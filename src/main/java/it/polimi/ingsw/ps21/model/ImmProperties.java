@@ -10,13 +10,12 @@ public class ImmProperties {
 	private final Resources resources;
 	private final Points points;
 	
-	/**This constructor accepts 8 different integer parameters, one for each value to store in the object.
+	/**This constructor accepts 7 different integer parameters, one for each value to store in the object.
 	 * 
 	 * @param coins number of coins to store in the object
 	 * @param wood	number of wood pieces to store in the object
 	 * @param stone	number of stone pieces to store in the object
 	 * @param servants number of servants to store in the object
-	 * @param privileges number of privileges to store in the object
 	 * @param militaryPoints number of Military Points to store in the object
 	 * @param faithPoints number of Faith Points to store in the object
 	 * @param victoryPoints number of Victory Points to store in the object
@@ -28,7 +27,7 @@ public class ImmProperties {
 	}
 	
 	/**This constructor can be used when the object is used to store resources (Coins, wood, stone and servants).
-	 * Privileges, Military Points, Victory Points and Faith Points are automatically set to 0.
+	 * Military Points, Victory Points and Faith Points are automatically set to 0.
 	 * 
 	 * @param coins number of coins to store in the object
 	 * @param wood	number of wood pieces to store in the object
@@ -43,7 +42,7 @@ public class ImmProperties {
 	}
 	
 	/**This constructor can be used when the object is used to store points (Victory Points, Faith Points and Military Points).
-	 * Privileges, Stones, Wood Pieces and and Servants are automatically set to 0.
+	 * Stones, Wood Pieces and and Servants are automatically set to 0.
 	 * 
 	 * @param militaryPoints number of Military Points to store in the object
 	 * @param faithPoints number of Faith Points to store in the object
@@ -55,32 +54,29 @@ public class ImmProperties {
 		points = new Points(victoryPoints, militaryPoints, faithPoints);
 	}
 	
-	/**The properties[] array store the values in its first 7 cells. 
-	 * Values stored in each cell are: 0_Coins, 1_Wood, 2_Stone, 3_Servants, 4_Privileges, 5_MilitaryPoints, 6_FaithPoints, 7_VictoryPoints
-	 */
 	
-	/**Returns the value of Wood resources. 
+	/**Returns the number of Wood pieces. 
 	 * @return pieces of wood stored.*/
 	public int getWood()
 	{
 		return resources.getWood();
 	}
 	
-	/**Returns the value of Stone resources. 
+	/**Returns the value of Stones. 
 	 * @return number of stones.*/
 	public int getStone()
 	{
 		return resources.getStone();
 	}
 	
-	/**Returns the value of Coins. 
+	/**Returns the number of Coins. 
 	 * @return number of coins.*/
 	public int getCoins()
 	{
 		return resources.getCoins();
 	}
 	
-	/**Returns the value of Servants. 
+	/**Returns the number of Servants. 
 	 * @return number of servants.*/
 	public int getServants()
 	{
