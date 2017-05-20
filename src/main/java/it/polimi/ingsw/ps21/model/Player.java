@@ -154,6 +154,11 @@ public class Player {
 		return true;
 	} 
 	
+	/**Adds a territory card to the player's personal board.
+	 * 
+	 * @param card to add
+	 * @return
+	 */
 	public boolean addCard(TerritoryCard card)
 	{
 		this.greenCards.add(card);
@@ -161,6 +166,11 @@ public class Player {
 		
 	}
 	
+	/**Adds a building card to the player's personal board.
+	 * 
+	 * @param card to add
+	 * @return
+	 */
 	public boolean addCard(BuildingCard card)
 	{
 		this.yellowCards.add(card);
@@ -168,6 +178,11 @@ public class Player {
 		
 	}
 	
+	/**Adds a venture card to the player's personal board.
+	 * 
+	 * @param card to add
+	 * @return
+	 */
 	public boolean addCard(VentureCard card)
 	{
 		this.purpleCards.add(card);
@@ -175,6 +190,11 @@ public class Player {
 		
 	}
 	
+	/**Adds a character card to the player's personal board.
+	 * 
+	 * @param card to add
+	 * @return
+	 */
 	public boolean addCard(CharacterCard card)
 	{
 		this.blueCards.add(card);
@@ -182,6 +202,9 @@ public class Player {
 		
 	}
 	
+	/**Resets the value of all the family member at the start of a new round.
+	 * 
+	 */
 	public void roundReset()
 	{
 		this.familyMembers.setBlackValue(0);
@@ -229,7 +252,7 @@ public class Player {
 
 
 	/**
-	 * @return the curModifiers
+	 * @return the curModifiers. curModifiers includes all the modifiers that modify actions during the game
 	 */
 	public CurrentModifier getCurrentModifiers() {
 		return curModifiers;
