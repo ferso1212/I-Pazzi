@@ -35,13 +35,18 @@ public class WorkAction extends Action {
 		ArrayList<DevelopmentCard> cardToActivate;
 		switch (space.getType()) {
 		case HARVEST:
+		{
 			if(space instanceof SingleHarvestSpace){
 				cardToActivate = player.getWorkCards(famMember.getValue(), WorkType.HARVEST);
 			}
 			else if (space instanceof MultipleHarvestSpace){
 				cardToActivate = player.getWorkCards(famMember.getValue() - 3, WorkType.HARVEST);
 			}
+			break;}
 		case PRODUCTION:
+		{
+			break;
+		}
 			
 		}
 		int i;
