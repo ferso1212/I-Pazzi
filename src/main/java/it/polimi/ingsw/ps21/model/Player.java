@@ -24,11 +24,11 @@ public class Player {
 	private ArrayList<CharacterCard> blueCards;
 	private ArrayList<VentureCard> purpleCards;
 	private int roundCouncilBonus; //number of Council Privileges acquired during this Player's round
-	public Properties properties; //properties getters and adders methods should be visible outside
+	private Properties properties; 
 	private CurrentModifier curModifiers; 
 	private FinalExcomModifier finalModifiers;
 	private Observer Observer;
-	public PlayerFamilyMembers familyMembers;
+	private PlayerFamilyMembers familyMembers;
 	
 	/**Returns an object that contains the values of the resources (stone, wood, servants and coins) and points (military points, faith points and victory points) of the player. 
 	 * 
@@ -266,6 +266,7 @@ public class Player {
 	public PlayerFamilyMembers getPlayerFamilyMembers() {
 		return familyMembers;
 	}
+	
 	
 	
 }

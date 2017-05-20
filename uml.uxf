@@ -1826,12 +1826,12 @@ m2=1</panel_attributes>
     </coordinates>
     <panel_attributes>AdvancedPlayer
 --
-- LeaderCards: ArrayList&lt;LeaderCards&gt;
-- advModifier
+- leaderCards: ArrayList&lt;LeaderCards&gt;
+- advModifier: AdvancedModifier
 --
-+ getActivatedLeaderCards() : LeaderCards[] 
++ getActivatedLeaderCards() : ArrayList&lt;LeaderCards&gt; 
 + chooseLeaderCardToCopy() :LeaderCard
-+ getDoubleResourcesMod() :Boolean</panel_attributes>
++ getAdvMod() :AdvancedModifier</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -1914,7 +1914,35 @@ m2=1</panel_attributes>
 - vaticanSupportBonus: int
 - noMilitaryForTerritory: Boolean
 - doubleResources :Boolean
-- buildingCardDiscount: Boolean</panel_attributes>
+- buildingCardDiscount: Boolean
+
+--
++ canReoccupayPlaces(): boolean
++ setReoccupyPlaces(reoccupyPlaces: boolean): void
++ getFixedBlackValue(): int
++ setFixedBlackValue(int fixedBlackValue): void
++ getFixedOrangeValue(): int
++ setFixedOrangeValue(int fixedOrangeValue): void
++ getFixedWhiteValue(): int
++ setFixedWhiteValue(int fixedBlackValue): void
++ getFixedNeutralValue(): int
++ setFixedNeutralValue(int fixedBlackValue): void
++ getBonsuBlackValue(): int
++ setBonusBlackValue(bonsuValue: int): void
++ getBonsuOrangeValue(): int
++ setBonusOrangeValue(bonsuValue: int): void
++ getBonsuWhiteValue(): int
++ setBonusWhiteValue(bonsuValue: int): void
++ notPaysOccupiedTower(): boolean
++ setNoPayOccupiedTower(noPayOccupiedTower: boolean): void
++ hasVaticanSupportBonus(): boolean
++ setVaticanSupportBonus(vaticanSupportBonus: boolean): void
++ hasNoMilitaryForTerritory(): boolean
++ setNoMilitaryForTerritory(noMilitaryForTerritory: boolean)
++ acquiresDoubleResources(): boolean
++ setDoubleResources(doubleResources: boolean): void
++ hasBuildingCardDiscount(): boolean
++ setBuildingCardDiscount(buildingCardDiscount: boolean): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
