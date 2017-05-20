@@ -154,36 +154,51 @@ public class Player {
 		return true;
 	} 
 	
+	/**Adds a DevelopmentCard to the player's personal board.
+	 * 
+	 * @param card to add
+	 * @return
+	 */
+	public boolean addCard(DevelopmentCard card)
+	{
+		if((card instanceof TerritoryCard)==true) return this.addGreenCard((TerritoryCard) card);
+		if((card instanceof BuildingCard)==true) return this.addYellowCard((BuildingCard) card);
+		if((card instanceof VentureCard)==true) return this.addPurpleCard((VentureCard) card);
+		if((card instanceof CharacterCard)==true) return this.addBlueCard((CharacterCard) card);
+		return false;
+	} 
+	
 	/**Adds a territory card to the player's personal board.
 	 * 
 	 * @param card to add
 	 * @return
 	 */
-	public boolean addCard(TerritoryCard card)
+	private boolean addGreenCard(TerritoryCard card)
 	{
 		this.greenCards.add(card);
 		return true;
 		
 	}
 	
+	
 	/**Adds a building card to the player's personal board.
 	 * 
 	 * @param card to add
 	 * @return
 	 */
-	public boolean addCard(BuildingCard card)
+	private boolean addYellowCard(BuildingCard card)
 	{
 		this.yellowCards.add(card);
 		return true;
 		
-	}
+	} 
 	
 	/**Adds a venture card to the player's personal board.
 	 * 
 	 * @param card to add
 	 * @return
 	 */
-	public boolean addCard(VentureCard card)
+	private boolean addPurpleCard(VentureCard card)
 	{
 		this.purpleCards.add(card);
 		return true;
@@ -195,9 +210,9 @@ public class Player {
 	 * @param card to add
 	 * @return
 	 */
-	public boolean addCard(CharacterCard card)
+	public boolean addBlueCard(CharacterCard card)
 	{
-		this.blueCards.add(card);
+		this.blueCards.add((CharacterCard) card);
 		return true;
 		
 	}
