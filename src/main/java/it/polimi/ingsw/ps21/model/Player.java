@@ -154,10 +154,95 @@ public class Player {
 		return true;
 	} 
 	
-	public boolean addCard(DevelopmentCard card)
+	public boolean addCard(TerritoryCard card)
 	{
-		
+		this.greenCards.add(card);
+		return true;
 		
 	}
+	
+	public boolean addCard(BuildingCard card)
+	{
+		this.yellowCards.add(card);
+		return true;
+		
+	}
+	
+	public boolean addCard(VentureCard card)
+	{
+		this.purpleCards.add(card);
+		return true;
+		
+	}
+	
+	public boolean addCard(CharacterCard card)
+	{
+		this.blueCards.add(card);
+		return true;
+		
+	}
+	
+	public void roundReset()
+	{
+		this.familyMembers.setBlackValue(0);
+		this.familyMembers.setOrangeValue(0);
+		this.familyMembers.setWhiteValue(0);
+		this.familyMembers.setNeutralValue(0);
+	}
+	
+	public boolean vaticanSupport()
+	{
+		
+	}
+	
+	public boolean checkMilitaryForTerritory()
+	{
+		
+	}
+	
+	public void payForOccupiedTower()
+	{
+		
+	}
+	
+	public void payRequirements(Requirements req)
+	{
+		this.properties.addCoins(-req.getCost().getCoins());
+		this.properties.addServants(-req.getCost().getServants());
+		this.properties.addWood(-req.getCost().getWood());
+		this.properties.addStone(-req.getCost().getStone());
+		this.properties.addFaithPoints(-req.getCost().getFaithPoints());
+		this.properties.addMilitaryPoints(-req.getCost().getMilitaryPoints());
+		this.properties.addVictoryPoints(-req.getCost().getVictoryPoints());
+	}
+	
+	public void makeAction()
+	{
+		
+	}
+	
+	public void makeAction(ActionType action)
+	{
+		
+	}
+
+
+
+	/**
+	 * @return the curModifiers
+	 */
+	public CurrentModifier getCurrentModifiers() {
+		return curModifiers;
+	}
+
+
+
+	/**
+	 * @return the familyMembers
+	 */
+	public PlayerFamilyMembers getPlayerFamilyMembers() {
+		return familyMembers;
+	}
+	
 	
 }
