@@ -512,7 +512,7 @@
     </coordinates>
     <panel_attributes>Requirements
 --
-- cardsNumber :CardNumber
+- cardsNumber :CardsNumber
 - properties : ImmProperties
 --
 + getWood() : int
@@ -678,7 +678,7 @@ m2=0...1</panel_attributes>
       <w>203</w>
       <h>252</h>
     </coordinates>
-    <panel_attributes>CardNumber
+    <panel_attributes>CardsNumber
 --
 - greenCardsNum: int
 - blueCardsNum: int
@@ -966,17 +966,17 @@ m2=1</panel_attributes>
 - buildingCards :ArrayList&lt;BuildingCard&gt;
 - characterCards :ArrayList&lt;CharacterCard&gt;
 - ventureCards :ArrayList&lt;VentureCard&gt;
-- properties :PlayerProperties
-- familyMember :PlayerFamilyMember
-- currentModifiers: CurrExcomModifier
++ properties :Properties
++ familyMembers :PlayerFamilyMembers
+- currentModifiers: CurrentModifier
 - finalModifiers: FinalExcomModifier
 - observer :Observer
 --
 + getProperties() : Properties
 + countCards(type :CardType): Int
-+ getWorkCards(value: int, workType: String): DevelopmentCard[]
++ getWorkCards(value: int, workType: WorkType): DevelopmentCard[]
 + checkPoints(necessaryPoints :Points): Boolean
-+ checkCards(): Boolean
++ checkCards(CardsNumber req): Boolean
 + extraRoundActions() :Boolean
 + checkRequirements(requirements Requirement) :Boolean
 //metodi check verificano condizioni su numero risorse,punti,carte
@@ -1695,9 +1695,9 @@ NEUTRAL</panel_attributes>
 - noYellowPoints: boolean
 - victoryPointsReductionDivisor: int
 - militaryDivisorVPointsReduction: int
-- buildingWoodDivisorVPointsReduction: int
-- buildingStoneDivisorVPointsReduction: int
-- resDivisorVPointsReduction: int</panel_attributes>
+- vPointsReductionBuildingWoodDivisor: int
+- vPointsReductionBuildingStoneDivisor: int
+- vPointsReductionResDivisor: int</panel_attributes>
     <additional_attributes/>
   </element>
   <element>

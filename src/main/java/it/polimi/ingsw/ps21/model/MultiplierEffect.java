@@ -9,7 +9,7 @@ public class MultiplierEffect extends Effect implements PermanentEffect,InstantE
 		ImmProperties bonus;
 		switch(secondFactorType){
 		case BLUE_CARD:
-			bonusValue = player.countBlueCards() * secondFactorValue;
+			bonusValue = player.countCards(CardType.CHARACTER) * secondFactorValue;
 			break;
 		case COINS:
 			bonusValue = player.getProperties().getCoins();
@@ -18,13 +18,13 @@ public class MultiplierEffect extends Effect implements PermanentEffect,InstantE
 			bonusValue = player.getProperties().getFaithPoints();
 			break;
 		case GREEN_CARD:
-			bonusValue = player.countGreenCards() * secondFactorValue;
+			bonusValue = player.countCards(CardType.TERRITORY) * secondFactorValue;
 			break;
 		case MILITARY_POINTS:
 			bonusValue = player.getProperties().getMilitaryPoints();
 			break;
 		case PURPLE_CARD:
-			bonusValue = player.countPurpleCards() * secondFactorValue;
+			bonusValue = player.countCards(CardType.VENTURE) * secondFactorValue;
 			break;
 		case SERVANT:
 			bonusValue = player.getProperties().getServants();
@@ -39,7 +39,7 @@ public class MultiplierEffect extends Effect implements PermanentEffect,InstantE
 			bonusValue = player.getProperties().getWood();
 			break;
 		case YELLOW_CARD:
-			bonusValue = player.countYellowCards() * secondFactorValue;
+			bonusValue = player.countCards(CardType.BUILDING) * secondFactorValue;
 			break;
 		default: bonusValue = 0;
 			break;

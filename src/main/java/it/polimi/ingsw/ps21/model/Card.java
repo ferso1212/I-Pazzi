@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 public abstract class Card {
 	protected String name;
-	protected ArrayList<Requirement> requires;
+	protected ArrayList<Requirements> requires;
 	
-	public Card(String name, Requirement reqs[]){
+	public Card(String name, Requirements reqs[]){
 		this.name = name;
-		this.requires = new ArrayList<Requirement>();
+		this.requires = new ArrayList<Requirements>();
 		
 	}
 	
-	public Requirement getRequirement(){
+	public Requirements getRequirement(){
 		return requires.a
 	}
 }

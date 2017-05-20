@@ -1,11 +1,11 @@
 package it.polimi.ingsw.ps21.model;
 
-public class Requirement {
-	private CardNumber cardNumber;
+public class Requirements {
+	private CardsNumber cardsNumber;
 	private ImmProperties properties;
 	
-	public Requirement(CardNumber card, ImmProperties prop){
-		cardNumber = card;
+	public Requirements(CardsNumber card, ImmProperties prop){
+		cardsNumber = card;
 		properties = prop;
 		
 	}
@@ -18,8 +18,8 @@ public class Requirement {
 		return properties.getPoints();
 	}
 	
-	public CardNumber getCardNumber(){
-		return cardNumber;
+	public CardsNumber getCardsNumber(){
+		return cardsNumber;
 	}
 
 }
