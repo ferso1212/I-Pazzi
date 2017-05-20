@@ -30,31 +30,35 @@ public class WorkAction extends Action {
 
 	@Override
 	public boolean execute() {
+		boolean controlOccupation = space.occupy(this.player);
+		boolean controlEffect;
+		ArrayList<DevelopmentCard> cardToActivate;
 		switch (space.getType()) {
 		case HARVEST:
-			if(space instanceof SingleProductionSpace){
-				boolean controlOccupation = space.occupy(this.player);
-				boolean controlEffect;
-				ArrayList<DevelopmentCard> cardToActivate = player.getWorkCards(famMember.getValue(), WorkType.HARVEST);
-				int i;
-				for(i=0; i<cardToActivate.size(); i++){
-					Effect[] effetti = cardToActivate.get(i).getEffect();
-					if ((effetti[0]==null) && (effetti[1]==null)){ //caso in cui non ci sono effetti permanenti
-						controlEffect=true;
-					}
-					else if ((effetti[0]==null)){
-						controlEffect=effetti[1].activate(player);
-					}
-					else if ((effetti[1]==null)){
-						controlEffect=effetti[0].activate(player);
-					}
-					else if ((effetti[0]!=null) && (effetti[1]!=null)){
-						//implementazione della scelta dell'effetto
-					}
-				}
+			if(space instanceof SingleHarvestSpace){
+				cardToActivate = player.getWorkCards(famMember.getValue(), WorkType.HARVEST);
+			}
+			else if (space instanceof MultipleHarvestSpace){
+				cardToActivate = player.getWorkCards(famMember.getValue() - 3, WorkType.HARVEST);
 			}
 		case PRODUCTION:
-		default: return false;
+			
+		}
+		int i;
+		for(i=0; i<cardToActivate.size(); i++){
+			Effect[] effetti = cardToActivate.get(i).getEffect();
+			if ((effetti[0]==null) && (effetti[1]==null)){ //caso in cui non ci sono effetti permanenti
+				controlEffect=true;
+			}
+			else if ((effetti[0]==null)){
+				controlEffect=effetti[1].activate(player);
+			}
+			else if ((effetti[1]==null)){
+				controlEffect=effetti[0].activate(player);
+			}
+			else if ((effetti[0]!=null) && (effetti[1]!=null)){
+				//implementazione della scelta dell'effetto
+			}
 		}
 		
 	}
