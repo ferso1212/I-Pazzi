@@ -1,45 +1,46 @@
 package it.polimi.ingsw.ps21.model;
 
+import java.util.ArrayList;
 
 public class DevelopmentCard extends Card{
 
 	protected int cardEra;
-	protected InstantEffect instantEffect;
-	protected PermanentEffect permanentEffect1;
-	protected PermanentEffect permanentEffect2;
+	protected Effect instantEffect;
+	protected ArrayList<Effect> permanentEffects = new ArrayList<Effect>();
 	
 	
-	public DevelopmentCard(String name, int era, Requirement req, InstantEffect ins,PermanentEffect perm){
+	public DevelopmentCard(String name, int era, Requirement req, Effect instant, Effect permanent){
 		super(name, req);
 		cardEra = era;
-		instantEffect = ins;
-		permanentEffect1 = perm;
-		permanentEffect2 = null;		
+		instantEffect = instant;
+		permanentEffects.add(permanent);
 	}
 	
-	public DevelopmentCard(String name, int era, Requirement reqs[], InstantEffect ins, PermanentEffect perm1, PermanentEffect perm2){
+	public DevelopmentCard(String name, int era, Requirement reqs[], Effect instant, Effect permanent){
 		super(name, reqs);
 		cardEra = era;
-		instantEffect = ins;
-		permanentEffect1 = perm1;
-		permanentEffect2 = perm2;		
+		instantEffect = instant;
+		permanentEffects.add(permanent);
+		
 	}
 	
-	public DevelopmentCard(String name, int era, Requirement[] reqs, InstantEffect ins, PermanentEffect perm1) {
+	public DevelopmentCard(String name, int era, Requirement[] reqs, Effect instant, Effect permanents[]){
 		// TODO Auto-generated constructor stub
 		super(name, reqs);
 		cardEra = era;
-		instantEffect = ins;
-		permanentEffect1 = perm1;
+		instantEffect = instant;
+		for (Effect e: permanents){
+			permanentEffects.add(e);
+		}
 	}
 
-	public DevelopmentCard(String name, int era, Requirement req, InstantEffect ins, PermanentEffect perm1,
-			PermanentEffect perm2) {
+	public DevelopmentCard(String name, int era, Requirement req, Effect instant, Effect permanents[]) {
 		super(name, req);
 		cardEra = era; 
-		instantEffect = ins; 
-		permanentEffect1 = perm1;
-		permanentEffect2 = perm2;
+		instantEffect = instant; 
+		for (Effect e: permanents){
+			permanentEffects.add(e);
+		}
 	}
 
 	public int getEra(){
@@ -53,6 +54,11 @@ public class DevelopmentCard extends Card{
 		for (Requirement r: requires){
 			temp.append(r.toString());
 		}
+		temp.append("\nEffetto immediato: " + instantEffect.toString() + "\nEffetti Permanenti: ");
+		for (Effect e: permanentEffects){
+			temp.append(e.toString() + ", ");
+		}
+		temp.append("\n");
 		return temp.toString();
 	}
 
