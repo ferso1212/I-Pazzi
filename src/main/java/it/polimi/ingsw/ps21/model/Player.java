@@ -16,7 +16,6 @@ import java.util.*;
  *
  */
 public class Player {
-	private static final int MAX_GREEN_CARDS_NUM = 6;
 	private String name;
 	//Since there is not a "Personal Board" class, player's cards are stored here
 	private ArrayList<TerritoryCard> greenCards;
@@ -26,7 +25,7 @@ public class Player {
 	private Properties properties; 
 	private CurrentModifier curModifiers; 
 	private FinalExcomModifier finalModifiers;
-	private Observer Observer;
+	private PersonalBonusTile personalBonusTile;
 	private PlayerFamilyMembers familyMembers;
 	private int[] militaryForTerritoryReq; //Contains the number of military points required to acquire territory cards. 
 	//For example, militaryForTerritoryReq[0] is the number of military points required to acquire the first territory card.
@@ -300,16 +299,18 @@ public class Player {
 
 
 
-	public Player(String name, Properties properties, java.util.Observer observer, int[] militaryForTerritoryReq) 
+	public Player(String name, Properties properties, int[] militaryForTerritoryReq) 
 	{
 		super();
 		this.name = name;
 		this.properties = properties;
-		Observer = observer;
 		this.militaryForTerritoryReq = militaryForTerritoryReq;
 	}
 	
-	
+	public PersonalBonusTile getPersonalBonusTile()
+	{
+		return this.personalBonusTile;
+	}
 	
 	
 }
