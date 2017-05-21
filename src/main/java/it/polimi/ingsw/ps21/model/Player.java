@@ -16,19 +16,20 @@ import java.util.*;
  *
  */
 public class Player {
-	private static final int MAX_WORK_CARDS =6;
+	private static final int MAX_GREEN_CARDS_NUM = 6;
 	private String name;
 	//Since there is not a "Personal Board" class, player's cards are stored here
 	private ArrayList<TerritoryCard> greenCards;
 	private ArrayList<BuildingCard> yellowCards;
 	private ArrayList<CharacterCard> blueCards;
 	private ArrayList<VentureCard> purpleCards;
-	private int roundCouncilBonus; //number of Council Privileges acquired during this Player's round
 	private Properties properties; 
 	private CurrentModifier curModifiers; 
 	private FinalExcomModifier finalModifiers;
 	private Observer Observer;
 	private PlayerFamilyMembers familyMembers;
+	private int[] militaryForTerritoryReq; //Contains the number of military points required to acquire territory cards. 
+	//For example, militaryForTerritoryReq[0] is the number of military points required to acquire the first territory card.
 	
 	/**Returns an object that contains the values of the resources (stone, wood, servants and coins) and points (military points, faith points and victory points) of the player. 
 	 * 
@@ -41,6 +42,24 @@ public class Player {
 	
 
 	
+	/**
+	 * @return the player's name
+	 */
+	public String getName() {
+		return name;
+	}
+
+
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
 	/**Returns the number of the cards of a specified type owned by the player.
 	 * 
 	 * @param type type of the cards to count. It can be a value of the CardType enum, except for EXCOMMUNICATION and LEADER. Accepted values are TERRITORY, BUILDING, CHARACTER and VENTURE.
@@ -68,13 +87,11 @@ public class Player {
 	 */
 	public ArrayList<DevelopmentCard> getWorkCards(int value, WorkType workType) throws IllegalArgumentException
 	{
-	
+		ArrayList<DevelopmentCard> output = new ArrayList<DevelopmentCard>(); //output is the ArrayList that the method will return
+		output.clear();
 		if(workType==WorkType.HARVEST) 
 		{
-			ArrayList<TerritoryCard> input;
-			input=greenCards;
-			ArrayList<DevelopmentCard> output = new ArrayList<DevelopmentCard>();
-			output.clear();
+			ArrayList<TerritoryCard> input=greenCards;	
 			for(TerritoryCard card: input)
 			{
 				if(value >= card.getEffect().getReq()) {output.add(card);}
@@ -84,10 +101,8 @@ public class Player {
 		}
 		else if(workType==WorkType.PRODUCTION) 
 		{
-			ArrayList<BuildingCard> input;
-			input=yellowCards;
-			ArrayList<DevelopmentCard> output = new ArrayList<DevelopmentCard>();
-			output.clear();
+			ArrayList<BuildingCard> input = yellowCards;
+			
 			for(BuildingCard card: input)
 			{
 				if(value >= card.getEffect().getReq()) {output.add(card);}
@@ -146,7 +161,7 @@ public class Player {
 	 * @param requirements
 	 * @return TRUE if the player satisfies the requirements (i.e. : he has at least the number of resources, points and cards required), FALSE if not.
 	 */
-	public boolean checkRequirements(Requirements requirements)
+	public boolean checkRequirements(Requirement requirements)
 	{
 		if(this.checkPoints(requirements.getPoints())==false) return false;
 		if(this.checkCards(requirements.getCardsNumber())==false) return false;
@@ -161,10 +176,10 @@ public class Player {
 	 */
 	public boolean addCard(DevelopmentCard card)
 	{
-		if((card instanceof TerritoryCard)==true) return this.addGreenCard((TerritoryCard) card);
-		if((card instanceof BuildingCard)==true) return this.addYellowCard((BuildingCard) card);
-		if((card instanceof VentureCard)==true) return this.addPurpleCard((VentureCard) card);
-		if((card instanceof CharacterCard)==true) return this.addBlueCard((CharacterCard) card);
+		if(card instanceof TerritoryCard) return this.addGreenCard((TerritoryCard) card);
+		if(card instanceof BuildingCard) return this.addYellowCard((BuildingCard) card);
+		if(card instanceof VentureCard) return this.addPurpleCard((VentureCard) card);
+		if(card instanceof CharacterCard) return this.addBlueCard((CharacterCard) card);
 		return false;
 	} 
 	
@@ -235,7 +250,8 @@ public class Player {
 	
 	public boolean checkMilitaryForTerritory()
 	{
-		
+		if(this.getProperties().getMilitaryPoints()>=this.militaryForTerritoryReq[greenCards.size()]) return true;
+		else return false;
 	}
 	
 	public void payForOccupiedTower()
@@ -243,7 +259,7 @@ public class Player {
 		
 	}
 	
-	public void payRequirements(Requirements req)
+	public void payRequirements(Requirement req)
 	{
 		this.properties.addCoins(-req.getCost().getCoins());
 		this.properties.addServants(-req.getCost().getServants());
@@ -281,6 +297,18 @@ public class Player {
 	public PlayerFamilyMembers getPlayerFamilyMembers() {
 		return familyMembers;
 	}
+
+
+
+	public Player(String name, Properties properties, java.util.Observer observer, int[] militaryForTerritoryReq) 
+	{
+		super();
+		this.name = name;
+		this.properties = properties;
+		Observer = observer;
+		this.militaryForTerritoryReq = militaryForTerritoryReq;
+	}
+	
 	
 	
 	
