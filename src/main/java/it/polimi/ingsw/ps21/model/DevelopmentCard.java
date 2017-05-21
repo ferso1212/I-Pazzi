@@ -61,6 +61,10 @@ public class DevelopmentCard extends Card{
 		temp.append("\n");
 		return temp.toString();
 	}
+	
+	public Effect[] getEffect(){
+		
+	}
 
 	@Override
 	public Requirement getRequirement() throws Exception {

@@ -1,6 +1,6 @@
 # Prova Finale (Ingegneria del Software)
-#### Gruppo ps21: _Fersini Dario_, _Fabrizio Indirli_, _Daniele Marsella_
+#### Group ps21: _Dario Fersini_, _Fabrizio Indirli_, _Daniele Marsella_
 
-### Introduzione
-Il progetto è una implementazione del gioco da tavolo _Lorenzo Il Magnifico_ della [**Cranio Creations**](http://www.craniocreations.it) in un applicativo Java.
+### Introduction
+The project consists in a Java software implementation of the _Lorenzo Il Magnifico_ board game, which is produced by [**Cranio Creations**](http://www.craniocreations.it)
 

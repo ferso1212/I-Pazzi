@@ -2,9 +2,10 @@ package it.polimi.ingsw.ps21.model;
 
 public class Board {
 	
+	
 	private SingleTowerSpace<TerritoryCard> territoryTower;
 	private SingleTowerSpace<BuildingCard> buildingTower;
-	private SingleTowerSpace<CharacteryCard> characterTower;
+	private SingleTowerSpace<CharacterCard> characterTower;
 	private SingleTowerSpace<VentureCard> ventureTower;
 	private int[] faithTrack;
 	private int militaryBonus1;
@@ -16,6 +17,7 @@ public class Board {
 	private MultipleSpace multiProdPlace;
 	private MultipleSpace councilPalace;
 	
+	
 	public board (){
 		
 	}
@@ -23,6 +25,8 @@ public class Board {
 	public boolean addToCouncil(Player player, MembersColor member) {
 		
 	}
+	
+
 	
 
 }
