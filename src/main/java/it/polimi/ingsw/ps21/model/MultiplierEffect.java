@@ -1,6 +1,6 @@
 package it.polimi.ingsw.ps21.model;
 
-public class MultiplierEffect extends Effect implements PermanentEffect,InstantEffect {
+public class MultiplierEffect extends Effect {
 	private MultiplierType secondFactorType;
 	private int secondFactorValue;
 	
@@ -58,14 +58,10 @@ public class MultiplierEffect extends Effect implements PermanentEffect,InstantE
 	 // gameLogic.addProperties(player, properties)
 	}
 	
-	public void addInstantBonus(Player player){
-		multiplyEffect(player);
-	}
-
 	@Override
-	public void addPermanentEffect(Player player) {
+	public boolean activate(Player player){
 		multiplyEffect(player);
-		
+		return true;
 	}
 	
 }

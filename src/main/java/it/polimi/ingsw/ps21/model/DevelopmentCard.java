@@ -62,9 +62,11 @@ public class DevelopmentCard extends Card{
 		return temp.toString();
 	}
 	
-	public Effect[] getEffect(){
-		
+	public Effect getInstantEffect(){
+		return instantEffect;
 	}
+	
+	
 
 	@Override
 	public Requirement getRequirement() throws Exception {
