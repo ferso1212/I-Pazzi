@@ -1,7 +1,5 @@
 package it.polimi.ingsw.ps21.model;
 
-import it.polimi.ingsw.ps21.model.ImmProperties;
-
 public class CharacterCard extends DevelopmentCard {
 
 	public CharacterCard(String name, int era, Requirement reqs[], InstantEffect ins,
@@ -19,3 +17,4 @@ public class CharacterCard extends DevelopmentCard {
 	}
 	
 }
+ 

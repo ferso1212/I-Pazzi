@@ -1,7 +1,5 @@
 package it.polimi.ingsw.ps21.model;
 
-import it.polimi.ingsw.ps21.model.ImmProperties;
-
 public class TerritoryCard extends DevelopmentCard {
 	private int diceReq;
 	

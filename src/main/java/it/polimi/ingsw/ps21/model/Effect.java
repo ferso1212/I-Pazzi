@@ -1,10 +1,12 @@
 package it.polimi.ingsw.ps21.model;
 
 public abstract class Effect {
-	protected ImmProperties bonusProperties; 
+	protected Requirement req;
 	
-	public boolean activate(Player player){
-		
+	public Effect(Requirement req){
+		this.req = req;
 	}
-
+	
+	public abstract boolean activate(Player playe);
+	
 }
