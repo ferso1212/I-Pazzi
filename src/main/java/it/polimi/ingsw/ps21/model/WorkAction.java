@@ -64,7 +64,7 @@ public class WorkAction extends Action {
 		default: cardToActivate = null;
 		}
 		int i;
-		if (cardToActivate != null){
+		if (cardToActivate.size()==0){
 			for(i=0; i<cardToActivate.size(); i++){
 				Effect[] effetti = cardToActivate.get(i).getEffect();
 				if ((effetti[0]==null) && (effetti[1]==null)){ //caso in cui non ci sono effetti permanenti
