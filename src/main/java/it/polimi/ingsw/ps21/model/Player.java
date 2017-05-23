@@ -26,7 +26,7 @@ public class Player {
 	protected FinalExcomModifier finalModifiers;
 	protected PersonalBonusTile personalBonusTile;
 	private Family family;
-	protected DiscountModifier discountMod;
+	protected AllDiscounts discounts;
 	protected int[] militaryForTerritoryReq; //Contains the number of military points required to acquire territory cards. 
 	//For example, militaryForTerritoryReq[0] is the number of military points required to acquire the first territory card.
 	
@@ -84,7 +84,7 @@ public class Player {
 	 * @param value the value of the harvest/production action, which determines which cards can be activated.
 	 * @param workType HARVEST or PRODUCTION
 	 * @return an ArrayList of DevelopmentCards, containing the harvest/production cards that the player can activate.
-	 * @throws IllegalArgumentException if workType argument is not one fo HARVEST or PRODUCTION.
+	 * @throws IllegalArgumentException if workType argument is not one of HARVEST or PRODUCTION.
 	 */
 	public ArrayList<DevelopmentCard> getWorkCards(int value, WorkType workType) throws IllegalArgumentException
 	{
@@ -96,7 +96,7 @@ public class Player {
 			ArrayList<TerritoryCard> input=greenCards;	
 			for(TerritoryCard card: input)
 			{
-				if(value >= card.getEffect().getReq()) {output.add(card);}
+				if(value >= card.getPermanentEffect().getReq()) {output.add(card);}
 			}
 			return output;
 			
@@ -108,7 +108,7 @@ public class Player {
 			
 			for(BuildingCard card: input)
 			{
-				if(value >= card.getEffect().getReq()) {output.add(card);}
+				if(value >= card.getPermanentEffect().getReq()) {output.add(card);}
 			}
 			return output;
 		}
@@ -249,12 +249,13 @@ public class Player {
 	 */
 	public void roundReset()
 	{
-		this.familyMembers.setBlackValue(0);
-		this.familyMembers.setOrangeValue(0);
-		this.familyMembers.setWhiteValue(0);
-		this.familyMembers.setNeutralValue(0);
+		this.family.getMember(MembersColor.WHITE).setValue(0);
+		this.family.getMember(MembersColor.ORANGE).setValue(0);
+		this.family.getMember(MembersColor.BLACK).setValue(0);
+		this.family.getMember(MembersColor.NEUTRAL).setValue(0);
 	}
 	
+	//TODO
 	public boolean vaticanSupport()
 	{
 		
@@ -274,23 +275,38 @@ public class Player {
 	//TODO : handle discount modifiers
 	public void payCard(DevelopmentCard card)
 	{
-		this.properties.addCoins(-card.getRequirement().getCost().getCoins();
-		this.properties.addServants(-card.getRequirement().getCost().getServants());
-		this.properties.addWood(-card.getRequirement().getCost().getWood());
-		this.properties.addStone(-card.getRequirement().getCost().getStone());
-		this.properties.addFaithPoints(-card.getRequirement().getCost().getFaithPoints());
-		this.properties.addMilitaryPoints(-card.getRequirement().getCost().getMilitaryPoints());
-		this.properties.addVictoryPoints(-card.getRequirement().getCost().getVictoryPoints());
+		DevelopmentCardType cardType = null;
+		if(card instanceof TerritoryCard) cardType= DevelopmentCardType.TERRITORY;
+		else if(card instanceof BuildingCard) cardType= DevelopmentCardType.BUILDING;
+		else if(card instanceof VentureCard) cardType= DevelopmentCardType.VENTURE;
+		else if(card instanceof CharacterCard) cardType= DevelopmentCardType.CHARACTER;
+		try {
+			int tempCost;
+			tempCost= card.getRequirement().getCost().getCoins() + this.getDiscountMod().getDevMod(cardType);
+			if(tempCost > 0) this.properties.addCoins(-tempCost);
+			
+			this.properties.addServants(-card.getRequirement().getCost().getServants());
+			this.properties.addWood(-card.getRequirement().getCost().getWood());
+			this.properties.addStone(-card.getRequirement().getCost().getStone());
+			this.properties.addFaithPoints(-card.getRequirement().getCost().getFaithPoints());
+			this.properties.addMilitaryPoints(-card.getRequirement().getCost().getMilitaryPoints());
+			this.properties.addVictoryPoints(-card.getRequirement().getCost().getVictoryPoints());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
+	//TODO implement
 	public void makeAction()
 	{
-		
+		return;
 	}
 	
+	//TODO implement
 	public void makeAction(ActionType action)
 	{
-		
+		return;
 	}
 
 
