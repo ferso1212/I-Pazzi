@@ -282,7 +282,6 @@ public class Player {
 		else if(card instanceof CharacterCard) cardType= DevelopmentCardType.CHARACTER;
 		try {
 			int tempCost;
-			tempCost= card.getRequirement().getCost().getCoins() + this.getDiscountMod().getDevMod(cardType);
 			if(tempCost > 0) this.properties.addCoins(-tempCost);
 			
 			this.properties.addServants(-card.getRequirement().getCost().getServants());
