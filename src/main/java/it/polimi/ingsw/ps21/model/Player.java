@@ -3,7 +3,6 @@ package it.polimi.ingsw.ps21.model;
 import java.util.*;
 
 
-
 /**Used to store the status of each player.
  * It stores the following datas of a player:
  * <li> Name
@@ -16,20 +15,22 @@ import java.util.*;
  *
  */
 public class Player {
-	private String name;
+	protected String name;
 	//Since there is not a "Personal Board" class, player's cards are stored here
-	private ArrayList<TerritoryCard> greenCards;
-	private ArrayList<BuildingCard> yellowCards;
-	private ArrayList<CharacterCard> blueCards;
-	private ArrayList<VentureCard> purpleCards;
-	private Properties properties; 
-	private CurrentModifier curModifiers; 
-	private FinalExcomModifier finalModifiers;
-	private PersonalBonusTile personalBonusTile;
-	private PlayerFamilyMembers familyMembers;
-	private int[] militaryForTerritoryReq; //Contains the number of military points required to acquire territory cards. 
+	protected ArrayList<TerritoryCard> greenCards;
+	protected ArrayList<BuildingCard> yellowCards;
+	protected ArrayList<CharacterCard> blueCards;
+	protected ArrayList<VentureCard> purpleCards;
+	protected Properties properties; 
+	protected ActionModifier actionMod; 
+	protected FinalExcomModifier finalModifiers;
+	protected PersonalBonusTile personalBonusTile;
+	private Family family;
+	protected int[] militaryForTerritoryReq; //Contains the number of military points required to acquire territory cards. 
 	//For example, militaryForTerritoryReq[0] is the number of military points required to acquire the first territory card.
 	
+	protected PlayerColor color;
+	protected WorkModifier workMod;
 	/**Returns an object that contains the values of the resources (stone, wood, servants and coins) and points (military points, faith points and victory points) of the player. 
 	 * 
 	 * @return object containing the player's properties.
@@ -90,6 +91,7 @@ public class Player {
 		output.clear();
 		if(workType==WorkType.HARVEST) 
 		{
+			value += this.workMod.getHarvMod();
 			ArrayList<TerritoryCard> input=greenCards;	
 			for(TerritoryCard card: input)
 			{
@@ -100,6 +102,7 @@ public class Player {
 		}
 		else if(workType==WorkType.PRODUCTION) 
 		{
+			value += this.workMod.getProdMod();
 			ArrayList<BuildingCard> input = yellowCards;
 			
 			for(BuildingCard card: input)
@@ -110,6 +113,15 @@ public class Player {
 		}
 		else throw new IllegalArgumentException();
 		
+	}
+	
+	public int getMemberValue(FamilyMember member, DevelopmentCard card) throws IllegalArgumentException
+	{
+		if(card instanceof TerritoryCard) return (member.getValue() + this.actionMod.getCardPickingValueMod(DevelopmentCardType.TERRITORY));
+		if(card instanceof BuildingCard) return (member.getValue() + this.actionMod.getCardPickingValueMod(DevelopmentCardType.BUILDING));
+		if(card instanceof CharacterCard) return (member.getValue() + this.actionMod.getCardPickingValueMod(DevelopmentCardType.CHARACTER));
+		if(card instanceof VentureCard) return (member.getValue() + this.actionMod.getCardPickingValueMod(DevelopmentCardType.VENTURE));
+		throw new IllegalArgumentException();
 	}
 	
 	
@@ -258,15 +270,16 @@ public class Player {
 		
 	}
 	
-	public void payRequirements(Requirement req)
+	//TODO : handle discount modifiers
+	public void payCard(DevelopmentCard card)
 	{
-		this.properties.addCoins(-req.getCost().getCoins());
-		this.properties.addServants(-req.getCost().getServants());
-		this.properties.addWood(-req.getCost().getWood());
-		this.properties.addStone(-req.getCost().getStone());
-		this.properties.addFaithPoints(-req.getCost().getFaithPoints());
-		this.properties.addMilitaryPoints(-req.getCost().getMilitaryPoints());
-		this.properties.addVictoryPoints(-req.getCost().getVictoryPoints());
+		this.properties.addCoins(-card.getRequirement().getCost().getCoins();
+		this.properties.addServants(-card.getRequirement().getCost().getServants());
+		this.properties.addWood(-card.getRequirement().getCost().getWood());
+		this.properties.addStone(-card.getRequirement().getCost().getStone());
+		this.properties.addFaithPoints(-card.getRequirement().getCost().getFaithPoints());
+		this.properties.addMilitaryPoints(-card.getRequirement().getCost().getMilitaryPoints());
+		this.properties.addVictoryPoints(-card.getRequirement().getCost().getVictoryPoints());
 	}
 	
 	public void makeAction()
@@ -284,8 +297,8 @@ public class Player {
 	/**
 	 * @return the curModifiers. curModifiers includes all the modifiers that modify actions during the game
 	 */
-	public CurrentModifier getCurrentModifiers() {
-		return curModifiers;
+	public ActionModifier getActionMod() {
+		return actionMod;
 	}
 
 
@@ -293,8 +306,8 @@ public class Player {
 	/**
 	 * @return the familyMembers
 	 */
-	public PlayerFamilyMembers getPlayerFamilyMembers() {
-		return familyMembers;
+	public Family getFamily() {
+		return family;
 	}
 
 
@@ -312,5 +325,16 @@ public class Player {
 		return this.personalBonusTile;
 	}
 	
+	public void setWorkMod(WorkType type, int mod) throws IllegalArgumentException
+	{
+		if(type==WorkType.HARVEST) this.workMod.setHarvestModifier(mod);
+		if(type==WorkType.PRODUCTION) this.workMod.setProductionModifier(mod);
+		else throw new IllegalArgumentException();
 	
+	}
+	
+	public int finalVictoryPoints()
+	{
+		
+	}
 }

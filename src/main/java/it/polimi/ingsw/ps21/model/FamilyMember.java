@@ -6,8 +6,9 @@ package it.polimi.ingsw.ps21.model;
  *
  */
 public class FamilyMember {
-	private int value;
-	private MembersColor color;
+	protected int value;
+	protected MembersColor color;
+	protected int modifier;
 	
 	/**
 	 * Returns the value of the family member, which is the number on the corresponding dice + the number of servants used in the action.
@@ -15,14 +16,14 @@ public class FamilyMember {
 	 */
 	public int getValue()
 	{
-		return this.value;
+		return (this.value + this.modifier);
 	}
 	
 	/**Increases the value of the Member by the number of servants used when placed.
 	 * 
 	 * @param servants number of servants used in the action
 	 */
-	public void addValue(int servants)
+	public void increaseValue(int servants)
 	{
 		this.value += servants;
 	}
@@ -44,6 +45,7 @@ public class FamilyMember {
 	{
 		this.value=0;
 		this.color=color;
+		this.modifier=0;
 	}
 
 	/**
@@ -52,6 +54,15 @@ public class FamilyMember {
 	public void setValue(int value) {
 		this.value = value;
 	}
+
+	/**
+	 * @param modifier the modifier to set
+	 */
+	public void setModifier(int modifier) {
+		this.modifier = modifier;
+	}
+	
+	
 	
 	
 }
