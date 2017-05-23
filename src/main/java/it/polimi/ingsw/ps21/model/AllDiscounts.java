@@ -5,30 +5,17 @@ public class AllDiscounts {
 	private CardDiscount buildingDisc;
 	private CardDiscount characterDisc;
 	private CardDiscount ventureDisc;
-	/**
-	 * @return the territoryDisc
-	 */
-	public CardDiscount getTerritoryDisc() {
-		return territoryDisc;
-	}
-	/**
-	 * @return the buildingDisc
-	 */
-	public CardDiscount getBuildingDisc() {
-		return buildingDisc;
-	}
-	/**
-	 * @return the characterDisc
-	 */
-	public CardDiscount getCharacterDisc() {
-		return characterDisc;
-	}
-	/**
-	 * @return the ventureDisc
-	 */
-	public CardDiscount getVentureDisc() {
-		return ventureDisc;
-	}
 	
+	public CardDiscount getCardDiscount(DevelopmentCardType type) throws IllegalArgumentException
+	{
+		switch(type)
+		{
+		case BUILDING: return this.buildingDisc;
+		case TERRITORY: return this.territoryDisc;
+		case CHARACTER: return this.characterDisc;
+		case VENTURE: return this.ventureDisc;
+		default: throw new IllegalArgumentException();
+		}
+	}
 	
 }

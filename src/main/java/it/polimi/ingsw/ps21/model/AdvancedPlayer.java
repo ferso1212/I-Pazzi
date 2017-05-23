@@ -1,10 +1,17 @@
 package it.polimi.ingsw.ps21.model;
 
+import java.util.ArrayList;
+
 public class AdvancedPlayer extends Player {
-	private ArrayList<LeaderCards> leaderCards;
+	private ArrayList<LeaderCard> leaderCards;
 	private AdvancedModifier advModifier;
 	
-	public ArrayList<LeaderCards> getActivatedLeaderCards()
+	public AdvancedPlayer(String name, Properties properties, int[] militaryForTerritoryReq)
+	{
+		super(name, properties, militaryForTerritoryReq);
+	}
+	
+	public ArrayList<LeaderCard> getActivatedLeaderCards()
 	{
 		
 	}

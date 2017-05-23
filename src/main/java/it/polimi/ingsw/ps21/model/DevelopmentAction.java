@@ -36,7 +36,7 @@ public class DevelopmentAction extends Action {
 		boolean controlAddCard;
 		boolean controlPlaceMember;
 		controlAddCard = player.addCard(space.getcard());
-		controlPlaceMember = board.
+		//controlPlaceMember = 
 		}
 		
 	}

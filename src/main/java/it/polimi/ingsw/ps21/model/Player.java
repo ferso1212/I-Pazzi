@@ -258,7 +258,7 @@ public class Player {
 	//TODO
 	public boolean vaticanSupport()
 	{
-		
+		return false;
 	}
 	
 	public boolean checkMilitaryForTerritory()
@@ -281,15 +281,13 @@ public class Player {
 		else if(card instanceof VentureCard) cardType= DevelopmentCardType.VENTURE;
 		else if(card instanceof CharacterCard) cardType= DevelopmentCardType.CHARACTER;
 		try {
-			int tempCost;
-			if(tempCost > 0) this.properties.addCoins(-tempCost);
-			
-			this.properties.addServants(-card.getRequirement().getCost().getServants());
-			this.properties.addWood(-card.getRequirement().getCost().getWood());
-			this.properties.addStone(-card.getRequirement().getCost().getStone());
-			this.properties.addFaithPoints(-card.getRequirement().getCost().getFaithPoints());
-			this.properties.addMilitaryPoints(-card.getRequirement().getCost().getMilitaryPoints());
-			this.properties.addVictoryPoints(-card.getRequirement().getCost().getVictoryPoints());
+			this.properties.payCoins(card.getRequirement().getCost().getCoins() - this.getDiscounts().getCardDiscount(cardType).getResDiscount().getCoins());
+			this.properties.payServants(card.getRequirement().getCost().getServants() - this.getDiscounts().getCardDiscount(cardType).getResDiscount().getServants());
+			this.properties.payWood(card.getRequirement().getCost().getWood() - this.getDiscounts().getCardDiscount(cardType).getResDiscount().getWood());
+			this.properties.payStone(card.getRequirement().getCost().getStone() - this.getDiscounts().getCardDiscount(cardType).getResDiscount().getStone());
+			this.properties.payFaithPoints(card.getRequirement().getCost().getFaithPoints()- this.getDiscounts().getCardDiscount(cardType).getPointsDiscount().getFaithPoints());
+			this.properties.payVictoryPoints(card.getRequirement().getCost().getVictoryPoints()- this.getDiscounts().getCardDiscount(cardType).getPointsDiscount().getVictoryPoints());
+			this.properties.payMilitaryPoints(card.getRequirement().getCost().getMilitaryPoints()- this.getDiscounts().getCardDiscount(cardType).getPointsDiscount().getMilitaryPoints());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -349,17 +347,18 @@ public class Player {
 	
 	}
 	
+	//TODO
 	public int finalVictoryPoints()
 	{
-		
+		return 0;
 	}
 
 
 	/**
 	 * @return the discountMod
 	 */
-	public DiscountModifier getDiscountMod() {
-		return discountMod;
+	public AllDiscounts getDiscounts() {
+		return discounts;
 	}
 	
 	
