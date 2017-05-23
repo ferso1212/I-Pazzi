@@ -26,6 +26,7 @@ public class Player {
 	protected FinalExcomModifier finalModifiers;
 	protected PersonalBonusTile personalBonusTile;
 	private Family family;
+	protected DiscountModifier discountMod;
 	protected int[] militaryForTerritoryReq; //Contains the number of military points required to acquire territory cards. 
 	//For example, militaryForTerritoryReq[0] is the number of military points required to acquire the first territory card.
 	
@@ -337,4 +338,14 @@ public class Player {
 	{
 		
 	}
+
+
+	/**
+	 * @return the discountMod
+	 */
+	public DiscountModifier getDiscountMod() {
+		return discountMod;
+	}
+	
+	
 }
