@@ -1,8 +1,16 @@
 package it.polimi.ingsw.ps21.model;
 
 public class MultiplierEffect extends Effect {
+	private ImmProperties bonusProperties;
 	private MultiplierType secondFactorType;
 	private int secondFactorValue;
+	
+	public MultiplierEffect(Requirement req, ImmProperties bonus, MultiplierType mult, int multValue){
+		super(req);
+		bonusProperties = bonus;
+		secondFactorType = mult;
+		secondFactorValue = multValue;
+	}
 	
 	private void multiplyEffect(Player player){
 		int bonusValue;

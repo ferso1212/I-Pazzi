@@ -87,53 +87,115 @@ public class Properties {
 	
 	/**Increases the value of Wood stored in the object by num units. 
 	 * @param num number of wood pieces to add.*/
-	public void addWood(int num)
+	public void addWood(int num) throws IllegalArgumentException
 	{
+		if (num < 0) throw new IllegalArgumentException();
 		this.resources.setWood(this.resources.getWood() + num + this.resMod.getWood());
 	}
 	
 	/**Increases the value of stones stored in the object by num units. 
 	 * @param num number of stones to add.*/
-	public void addStone(int num)
+	public void addStone(int num) throws IllegalArgumentException
 	{
+		if (num < 0) throw new IllegalArgumentException();
 		this.resources.setStone(this.resources.getStone() + num + this.resMod.getStone());
 	}
 	
 	/**Increases the number of coins stored in the object by num units. 
 	 * @param num number of Coins to add.*/
-	public void addCoins(int num)
+	public void addCoins(int num) throws IllegalArgumentException
 	{
+		if (num < 0) throw new IllegalArgumentException();
 		this.resources.setCoins(this.resources.getCoins() + num + this.resMod.getCoins());
 	}
 	
 	/**Increases the value of Servants stored in the object by num units. 
 	 * @param num number of Servants to add.*/
-	public void addServants(int num)
+	public void addServants(int num) throws IllegalArgumentException
 	{
+		if (num < 0) throw new IllegalArgumentException();
 		this.resources.setServants(this.resources.getServants() + num + this.resMod.getServants());
 	}
 	
 	/**Increases the value of Victory Points stored in the object by num units. 
 	 * @param num number of Victory Points to add.*/
-	public void addVictoryPoints(int num)
+	public void addVictoryPoints(int num) throws IllegalArgumentException
 	{
+		if (num < 0) throw new IllegalArgumentException();
 		this.points.setVictoryPoints(this.points.getVictoryPoints() + num + this.pointsMod.getVictoryPoints());
 	}
 	
 	/**Increases the value of Military Points stored in the object by num units. 
 	 * @param num number of Military Points to add.*/
-	public void addMilitaryPoints(int num)
+	public void addMilitaryPoints(int num) throws IllegalArgumentException
 	{
+		if (num < 0) throw new IllegalArgumentException();
 		this.points.setMilitaryPoints(this.points.getMilitaryPoints() + num + this.pointsMod.getMilitaryPoints());
 	}
 	
 	/**Increases the value of Faith Points stored in the object by num units.
 	 * @param num number of Faith Points to add. */
-	public void addFaithPoints(int num)
+	public void addFaithPoints(int num) throws IllegalArgumentException
 	{
+		if (num < 0) throw new IllegalArgumentException();
 		this.points.setFaithPoints(this.points.getFaithPoints() + num + this.pointsMod.getFaithPoints());
 	}
+	
+	public void payCoins(int num) throws IllegalArgumentException
+	{
+		if (num < 0) throw new IllegalArgumentException();
+		int temp = this.resources.getCoins() - num;
+		if (temp < 0) throw new IllegalArgumentException();
+		this.resources.setCoins(temp);
+		
+	}
+	
+	public void payWood(int num) throws IllegalArgumentException
+	{
+		if (num < 0) throw new IllegalArgumentException();
+		int temp = this.resources.getWood() - num;
+		if (temp < 0) throw new IllegalArgumentException();
+		this.resources.setWood(temp);
+	}
+	
+	public void payStone(int num) throws IllegalArgumentException
+	{
+		if (num < 0) throw new IllegalArgumentException();
+		int temp = this.resources.getStone() - num;
+		if (temp < 0) throw new IllegalArgumentException();
+		this.resources.setStone(temp);
+	}
 
+	public void payServants(int num) throws IllegalArgumentException
+	{
+		if (num < 0) throw new IllegalArgumentException();
+		int temp = this.resources.getServants() - num;
+		if (temp < 0) throw new IllegalArgumentException();
+		this.resources.setServants(temp);
+	}
+	
+	public void payMilitaryPoints(int num) throws IllegalArgumentException
+	{
+		if (num < 0) throw new IllegalArgumentException();
+		int temp = this.points.getMilitaryPoints() - num;
+		if (temp < 0) throw new IllegalArgumentException();
+		this.points.setMilitaryPoints(temp);
+	}
+	
+	public void payVictoryPoints(int num) throws IllegalArgumentException
+	{
+		if (num < 0) throw new IllegalArgumentException();
+		int temp = this.points.getVictoryPoints() - num;
+		if (temp < 0) throw new IllegalArgumentException();
+		this.points.setVictoryPoints(temp);
+	}
+	public void payFaithPoints(int num) throws IllegalArgumentException
+	{
+		if (num < 0) throw new IllegalArgumentException();
+		int temp = this.points.getFaithPoints() - num;
+		if (temp < 0) throw new IllegalArgumentException();
+		this.points.setFaithPoints(temp);
+	}
 	/**
 	 * @return the resources
 	 */
