@@ -6,15 +6,13 @@ package it.polimi.ingsw.ps21.model;
  **/
 public class DevelopmentAction extends Action {
 	
-	private SingleTowerSpace<DevelopmentCard> space;
-	private FamilyMember famMember;
-	private Board board;
+	protected SingleTowerSpace<DevelopmentCard> space;
+	protected FamilyMember famMember;
 
 	public DevelopmentAction(Match m, Player p, SingleTowerSpace<DevelopmentCard> space, FamilyMember famMember, Board board) {
 	super(m, p);
 	this.space = space;
 	this.famMember = famMember;
-	this.board = board;
 	}
 
 	/**Returns a boolean that specifies if player has got the necessary resources to take a specific development card and if the family member has the necessary value to occupies the relative space on the tower. 
