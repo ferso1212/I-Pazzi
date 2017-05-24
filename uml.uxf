@@ -536,7 +536,8 @@ m2=0...1</panel_attributes>
 - properties: PropertiesSet
 --
 + ImmProperties(List&lt;Property&gt;)
-+ getPropertyValue(id: String): Int
++ getPropertyValue(id: PropertiesId): Int
++ getPropertiesIds(): ArrayList&lt;PropertiesId&gt;
 
 
 
@@ -902,9 +903,9 @@ m2=1..n</panel_attributes>
 --
 - properties: PropertiesSet
 --
-+ getProperty(id :String) : Property
-+ increaseProperties(props: ImmPropertiesSet)
-+ payProperties(props: ImmPropertiesSet)
++ getProperty(id :PropertiesId) : Property
++ increaseProperties(props: ImmProperties): void
++ payProperties(props: ImmPropertiesSet): void
 
 </panel_attributes>
     <additional_attributes/>
@@ -3093,7 +3094,7 @@ m2=1</panel_attributes>
 - propertiesMap :EnumMap&lt;PropertiesId, Property&gt;
 --
 + getProperty(id :PropertiesId) : Property
-+ getProperties(): Collection&lt;Property&gt;
++ getProperties(): ArrayList&lt;Property&gt;
 + PropertiesSet(Int...prop)
 + increaseProperties(props: PropertiesSet): boolean
 + payProperties(props: PropertiesSet): boolean</panel_attributes>

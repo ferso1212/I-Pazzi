@@ -1,25 +1,28 @@
 package it.polimi.ingsw.ps21.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumMap;
 
+/**Set of properties.
+ * 
+ * @author fabri
+ *
+ */
 public class PropertiesSet {
 
 	// maps each of the possible id values to the corresponding property
 	private EnumMap<PropertiesId, Property> propertiesMap;
 
 	/**
-	 * Constructs the PropertiesSet object by initializing the propertiesMap
-	 * with the properties Ids and the corresponding initial values.
-	 * 
+	 * Constructs the PropertiesSet object by initializing the propertiesMap with the properties Ids and the corresponding initial values. 
+	 * The properties' Ids are taken from the PropertiesId enum.
 	 * @param initValues
 	 */
 	public PropertiesSet(int... initValues) {
 		this.propertiesMap = new EnumMap<PropertiesId, Property>(PropertiesId.class);
 		int i = 0; // index to move through initValues[] array
-		for (PropertiesId propId : PropertiesId.values()) // for each value in
-															// the PropertiesId
-															// enum
+		for (PropertiesId propId : PropertiesId.values()) // for each value in the PropertiesId enum
 		{
 			/*
 			 * Since the constructor accepts a dynamic number of integer
@@ -31,13 +34,14 @@ public class PropertiesSet {
 			 * value) are set to 0.
 			 */
 			int value;
-			if (initValues.length > i)
-				value = initValues[i];
+			if (initValues.length > i) //checks if the current index is in the bounds of the array
+				{value = initValues[i];}
 			else
-				value = 0;
+				{value = 0;}
 
 			Property newProp = new Property(propId, value);
 			propertiesMap.put(propId, newProp);
+			i++;
 		}
 	}
 
@@ -52,12 +56,13 @@ public class PropertiesSet {
 	}
 
 	/**
-	 * Returns a collection containing all the Property objects stored.
+	 * Returns an ArrayList containing all the Property objects stored.
 	 * 
-	 * @return Collection of all the properties stored in the object.
+	 * @return ArrayList of all the properties stored in the object.
 	 */
-	public Collection<Property> getProperties() {
-		return this.propertiesMap.values();
+	public ArrayList<Property> getProperties() {
+		ArrayList<Property> props= new ArrayList<Property>(this.propertiesMap.values());
+		return props;
 	}
 
 	/**
