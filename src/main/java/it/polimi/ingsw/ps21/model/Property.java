@@ -9,7 +9,7 @@ package it.polimi.ingsw.ps21.model;
  *
  */
 public class Property {
-	private String id;
+	private PropertiesId id;
 	private int value;
 	private int modifier;
 	
@@ -18,9 +18,9 @@ public class Property {
 	 * @param id the name (a string) of the property
 	 * @param initialValue the initial value of the property
 	 */
-	public Property(String id, int initialValue)
+	public Property(PropertiesId id, int initialValue)
 	{
-		this.id=new String(id);
+		this.id=id;
 		this.value=initialValue;
 		this.modifier=0;
 	}
@@ -42,7 +42,7 @@ public class Property {
 	/**Returns the identifier of the property.
 	 * @return the id of the property.
 	 */
-	public String getId() {
+	public PropertiesId getId() {
 		return id;
 	}
 	

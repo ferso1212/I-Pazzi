@@ -1,6 +1,6 @@
 package it.polimi.ingsw.ps21.model;
 
-import java.util.Map;
+
 
 /**This class is used to store immutable resource and points values.
 *For example, it is used to store card effects on resources and points.

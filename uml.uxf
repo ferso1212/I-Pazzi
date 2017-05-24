@@ -882,13 +882,13 @@ m2=1</panel_attributes>
     <coordinates>
       <x>1080</x>
       <y>3510</y>
-      <w>180</w>
+      <w>144</w>
       <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m1=1
 m2=1..n</panel_attributes>
-    <additional_attributes>180.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>140.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -903,6 +903,8 @@ m2=1..n</panel_attributes>
 - properties: PropertiesSet
 --
 + getProperty(id :String) : Property
++ increaseProperties(props: ImmPropertiesSet)
++ payProperties(props: ImmPropertiesSet)
 
 </panel_attributes>
     <additional_attributes/>
@@ -3068,43 +3070,67 @@ layer=-1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1458</x>
+      <x>1422</x>
       <y>3285</y>
-      <w>27</w>
+      <w>63</w>
       <h>189</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m1=1
 m2=1</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;190.0</additional_attributes>
+    <additional_attributes>50.0;10.0;10.0;190.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1242</x>
+      <x>1206</x>
       <y>3456</y>
-      <w>261</w>
-      <h>108</h>
+      <w>306</w>
+      <h>135</h>
     </coordinates>
     <panel_attributes>PropertiesSet
 --
-# propertiesMap :Map&lt;String, Property&gt;
+- propertiesMap :EnumMap&lt;PropertiesId, Property&gt;
 --
-+ getProperty(id :String) : Property
-+ PropertiesSet(Int...prop)</panel_attributes>
++ getProperty(id :PropertiesId) : Property
++ getProperties(): Collection&lt;Property&gt;
++ PropertiesSet(Int...prop)
++ increaseProperties(props: PropertiesSet): boolean
++ payProperties(props: PropertiesSet): boolean</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1431</x>
-      <y>3555</y>
-      <w>27</w>
-      <h>198</h>
+      <x>1395</x>
+      <y>3582</y>
+      <w>63</w>
+      <h>171</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m1=1
 m2=1</panel_attributes>
-    <additional_attributes>10.0;200.0;10.0;10.0</additional_attributes>
+    <additional_attributes>50.0;170.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3672</x>
+      <y>4365</y>
+      <w>243</w>
+      <h>162</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+PropertiesId
+--
+COINS
+WOOD
+STONES
+SERVANTS
+VICTORYPOINTS
+MILITARYPOINTS
+FAITHPOINTS
+</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>
