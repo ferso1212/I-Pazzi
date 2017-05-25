@@ -9,24 +9,24 @@ public class DevelopmentCard extends Card{
 	protected ArrayList<Effect> permanentEffects = new ArrayList<Effect>();
 	
 	
-	public DevelopmentCard(String name, int era, Requirement req, Effect instant, Effect permanent){
-		super(name, req);
+	public DevelopmentCard(String name, int era, Requirement req, ImmProperties cost, Effect instant, Effect permanent){
+		super(name, req, cost);
 		cardEra = era;
 		instantEffect = instant;
 		permanentEffects.add(permanent);
 	}
 	
-	public DevelopmentCard(String name, int era, Requirement reqs[], Effect instant, Effect permanent){
-		super(name, reqs);
+	public DevelopmentCard(String name, int era, Requirement reqs[], ImmProperties cost, Effect instant, Effect permanent){
+		super(name, reqs,cost);
 		cardEra = era;
 		instantEffect = instant;
 		permanentEffects.add(permanent);
 		
 	}
 	
-	public DevelopmentCard(String name, int era, Requirement[] reqs, Effect instant, Effect permanents[]){
+	public DevelopmentCard(String name, int era, Requirement[] reqs,ImmProperties cost, Effect instant, Effect permanents[]){
 		// TODO Auto-generated constructor stub
-		super(name, reqs);
+		super(name, reqs, cost);
 		cardEra = era;
 		instantEffect = instant;
 		for (Effect e: permanents){
@@ -34,8 +34,8 @@ public class DevelopmentCard extends Card{
 		}
 	}
 
-	public DevelopmentCard(String name, int era, Requirement req, Effect instant, Effect permanents[]) {
-		super(name, req);
+	public DevelopmentCard(String name, int era, Requirement req, ImmProperties cost, Effect instant, Effect permanents[]) {
+		super(name, req, cost);
 		cardEra = era; 
 		instantEffect = instant; 
 		for (Effect e: permanents){
