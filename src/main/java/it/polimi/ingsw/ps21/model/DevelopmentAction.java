@@ -21,7 +21,7 @@ public class DevelopmentAction extends Action {
 	 */
 	@Override
 	public boolean isLegal() {
-		if ((player.checkRequirements(space.getcard().getRequirement())) && (famMember.getValue() >= space.getRequirement())){
+		if ((player.checkRequirements(space.getcard().getRequirement())) && (famMember.getValue() >= space.getRequirement()) && ()){
 			return true;
 		}
 		return false;
@@ -35,8 +35,7 @@ public class DevelopmentAction extends Action {
 	public boolean execute() {
 		boolean controlAddCard;
 		boolean controlPlaceMember;
-		controlAddCard = player.addCard(space.getcard());
-		controlPlaceMember = board.
+		
 		}
 		
 	}

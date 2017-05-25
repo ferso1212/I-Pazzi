@@ -28,10 +28,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2023</x>
-      <y>2422</y>
-      <w>217</w>
-      <h>70</h>
+      <x>2002</x>
+      <y>2387</y>
+      <w>238</w>
+      <h>105</h>
     </coordinates>
     <panel_attributes>/Card/
 --
@@ -469,13 +469,13 @@
     <coordinates>
       <x>1470</x>
       <y>2450</y>
-      <w>567</w>
+      <w>546</w>
       <h>371</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m1=1
 m2=0...</panel_attributes>
-    <additional_attributes>790.0;10.0;10.0;10.0;10.0;510.0</additional_attributes>
+    <additional_attributes>760.0;10.0;10.0;10.0;10.0;510.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -728,11 +728,11 @@ m2=1
       <x>2121</x>
       <y>2338</y>
       <w>49</w>
-      <h>98</h>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 builds</panel_attributes>
-    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -1229,6 +1229,7 @@ m2=16</panel_attributes>
     <panel_attributes>SingleSpace
 --
 # occupant :Player
+# type: SingleSpaceType
 --
 + getOccupant() :Player
 + occupy(Player) :boolean
@@ -2951,6 +2952,8 @@ m2=4...6</panel_attributes>
     <panel_attributes>MultipleSpace
 --
 - occupants :Queue&lt;Player&gt;
+- diceMalus :Int
+- type: MultipleSpaceType
 --
 + getOccupants() :Queue&lt;Player&gt;
 + occupy(Player) :boolean
@@ -3305,9 +3308,8 @@ m2=1</panel_attributes>
     </coordinates>
     <panel_attributes>/Space/
 --
-# requirement :Int
+# diceRequirement :int
 # instantBonus :ImmProperties
-# type: SingleSpaceType
 --
 + getOccupant() :Player
 + getInstantBonus() :ImmProperties

@@ -1,30 +1,33 @@
 package it.polimi.ingsw.ps21.model;
 
+import java.util.Queue;
+
 public class MultipleSpace extends Space{
 	
-	protected Player[] occupants;
+	protected Queue<Player> occupants;
 	protected int diceMalus;
 	
-	public MultipleSpace(){
-		super();
+	public MultipleSpace(int diceRequirement, ImmProperties instantBonus, SpaceType type, Queue<Player> occupants,
+			int diceMalus) {
+		super(diceRequirement, instantBonus, type);
+		this.occupants = occupants;
+		this.diceMalus = diceMalus;
 	}
 
-	
-	
-	
-	public Player[] getOccupants() {
+	public Queue<Player> getOccupants() {
 		return occupants;
 	}
 
 	public boolean occupy(Player player){
-		Match match = new Match();
-		for (int i=0; i < match.getPlayers().length; i++) {
-			if (occupants[i] == null){
-				occupants[i] = player;
-				return true;
-			} 
-		} 
-		return false;
+		switch (type) {
+		case value: COUNCIL
+		
+			
+			break;
+
+		default:
+			break;
+		}
 	}
 
 	public int getDiceMalus() {

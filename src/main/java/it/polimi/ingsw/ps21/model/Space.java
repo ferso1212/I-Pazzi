@@ -1,46 +1,31 @@
 package it.polimi.ingsw.ps21.model;
 
-public class Space {
+import java.util.Queue;
+
+public abstract class Space {
 	
-	protected Player occupant;
-	protected int requirement;
+	protected int diceRequirement;
 	protected ImmProperties instantBonus;
-	protected SpaceType type;
 	
-	public Space(Player occupant, int requirement, ImmProperties instantBonus, SpaceType type){
+	public Space(int diceRequirement, ImmProperties instantBonus) {
 		
-		this.occupant=occupant;
-		this.requirement=requirement;
-		this.instantBonus=instantBonus;
-		this.type=type;
-		
+		this.diceRequirement = diceRequirement;
+		this.instantBonus = instantBonus;
 	}
 
-	public Player getOccupant() {
-		return occupant;
-	}
+	public abstract Player getOccupant();
+	
+	public abstract Queue<Player> getOccupants();
 
 	public ImmProperties getInstantBonus() {
 		return instantBonus;
 	}
 	
-	public int getRequirement() {
-		return requirement;
+	public int getDiceRequirement() {
+		return diceRequirement;
 	}
 	
-	public boolean occupy(Player player) {
-		this.occupant=player;
-		if(this.occupant==player)
-			return true;
-		return false;
-	}
+	public abstract boolean occupy(Player player);
 
-	public SpaceType getType() {
-		return type;
-	}
-	
-	
-	
-	
 
 }
