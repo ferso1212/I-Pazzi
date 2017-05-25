@@ -1,11 +1,16 @@
 package it.polimi.ingsw.ps21.model;
 
+/**
+ * Implementation of Building Card that is a WorkCard and so it has a dice requirement for WorkAction
+ * @author daniele
+ *
+ */
 
 public class BuildingCard extends DevelopmentCard{
 	private int diceRequirements; 
 	
-	public BuildingCard(String name, int era, Requirement req, Effect instant, Effect permanent, int diceReq){
-		super(name, era, req, instant, permanent);
+	public BuildingCard(String name, int era, Requirement req, ImmProperties cost, Effect instant, Effect permanent, int diceReq){
+		super(name, era, req, cost, instant, permanent);
 		this.diceRequirements = diceReq;
 	}
 	
