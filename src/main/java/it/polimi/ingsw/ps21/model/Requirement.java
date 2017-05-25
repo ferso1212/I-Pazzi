@@ -10,12 +10,8 @@ public class Requirement {
 		
 	}
 	
-	public Resources getResources(){
-		return properties.getResources();
-	}
-	
-	public Points getPoints(){
-		return properties.getPoints();
+	public ImmProperties getProperties(){
+		return this.properties;
 	}
 	
 	public CardsNumber getCardsNumber(){
