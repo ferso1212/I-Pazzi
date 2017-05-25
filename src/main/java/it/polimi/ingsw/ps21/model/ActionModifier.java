@@ -25,10 +25,6 @@ package it.polimi.ingsw.ps21.model;
 public class ActionModifier {
 
 	
-	private int greenCardDiceMod; //modifier that increases or reduces the value of a dice when used to acquire green cards
-	private int blueCardDiceMod;  //modifier that increases or reduces the value of a dice when used to acquire blue cards
-	private int yellowCardDiceMod; //modifier that increases or reduces the value of a dice when used to acquire yellow cards
-	private int purpleCardDiceMod; ////modifier that increases or reduces the value of a dice when used to acquire purple cards
 	private boolean delayFirstAction;
 	private boolean noMarketAction;
 	private boolean noPlacementBonus;
@@ -39,10 +35,7 @@ public class ActionModifier {
 	 */
 	public ActionModifier() {
 	
-		this.greenCardDiceMod=0;
-		this.blueCardDiceMod=0;
-		this.yellowCardDiceMod=0;
-		this.purpleCardDiceMod=0;
+
 		this.delayFirstAction=false;
 		this.noMarketAction=false;
 		this.noPlacementBonus=false;
@@ -51,68 +44,6 @@ public class ActionModifier {
 	
 
 	
-	/**
-	 * Returns the value of the modifier that modifies the value of the dice
-	 * used to acquire green cards.
-	 * 
-	 * @return value of the modifier that modifies the value of the dice used to
-	 *         acquire green cards
-	 */
-	private int getGreenModifier() {
-		return this.greenCardDiceMod;
-	}
-
-	/**
-	 * Returns the value of the modifier that modifies the value of the dice
-	 * used to acquire yellow cards.
-	 * 
-	 * @return value of the modifier that modifies the value of the dice used to
-	 *         acquire yellow cards
-	 */
-	private int getYellowModifier() {
-		return this.yellowCardDiceMod;
-	}
-
-	/**
-	 * Returns the value of the modifier that modifies the value of the dice
-	 * used to acquire purple cards.
-	 * 
-	 * @return value of the modifier that modifies the value of the dice used to
-	 *         acquire purple cards
-	 */
-	private int getPurpleModifier() {
-		return this.purpleCardDiceMod;
-	}
-
-	/**
-	 * Returns the value of the modifier that modifies the value of the dice
-	 * used to acquire blue cards.
-	 * 
-	 * @return value of the modifier that modifies the value of the dice used to
-	 *         acquire blue cards
-	 */
-	private int getBlueModifier() {
-		return this.blueCardDiceMod;
-	}
-	
-	
-	/**Returns the value of the modifier of the cards whose color is specified in the 'color' parameter
-	 * 
-	 * @param type of the card to which the modifier is associated. It can be a value of the CardType enum, except for EXCOMMUNICATION and LEADER. Accepted values are TERRITORY, BUILDING, CHARACTER and VENTURE.
-	 * @return value of the modifier of the card whose type is specified in the 'type' parameter
-	 * @throws IllegalArgumentException when 'type' parameter is EXCOMMUNICATION, LEADER or not a member of the CardType enum.
-	 */
-	public int getCardPickingValueMod(DevelopmentCardType type) throws IllegalArgumentException
-	{
-		switch(type)
-		{
-		case TERRITORY: return this.greenCardDiceMod;
-		case BUILDING: return this.yellowCardDiceMod;
-		case VENTURE: return this.purpleCardDiceMod;
-		case CHARACTER: return this.blueCardDiceMod;
-		default: throw new IllegalArgumentException();
-		}
-	}
 	
 	
 	

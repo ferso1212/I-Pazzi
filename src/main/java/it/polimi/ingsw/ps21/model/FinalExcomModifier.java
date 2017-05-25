@@ -13,7 +13,7 @@ package it.polimi.ingsw.ps21.model;
  * @author fabri
  *
  */
-public class FinalExcomModifier {
+public class FinalExcomModifier extends Modifier{
 	private boolean noGreenPoints;
 	private boolean noBluePoints;
 	private boolean noYellowPoints;
