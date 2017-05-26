@@ -508,7 +508,7 @@ m2=1...2</panel_attributes>
     <coordinates>
       <x>2331</x>
       <y>2758</y>
-      <w>1659</w>
+      <w>1652</w>
       <h>147</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -727,7 +727,7 @@ m2=1
     <coordinates>
       <x>2121</x>
       <y>2338</y>
-      <w>49</w>
+      <w>42</w>
       <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
@@ -1522,10 +1522,10 @@ NEUTRAL</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1351</x>
-      <y>1155</y>
-      <w>427</w>
-      <h>294</h>
+      <x>1456</x>
+      <y>1169</y>
+      <w>238</w>
+      <h>182</h>
     </coordinates>
     <panel_attributes>ActionModifier
 --
@@ -1536,11 +1536,8 @@ NEUTRAL</panel_attributes>
 //card effect: you can't take instant bonus from development space
 
 --
-+ getCardPickingValueMod(type: DevelopmentCardType): Int
-+ getCardMod(type :CardType) :Int
 + marketActionForbidden(): boolean
 + firstActionDelayed(): boolean
-+ setCardPickingValueMod(type: DevelopmentCardType, mod: int): void
 + setDelayFirstAction(): void
 + forbidMarketAction(): void
 + noPlacementBonus(): boolean
@@ -2199,7 +2196,7 @@ PLAY_LEADERCARD</panel_attributes>
     <coordinates>
       <x>6160</x>
       <y>679</y>
-      <w>245</w>
+      <w>238</w>
       <h>532</h>
     </coordinates>
     <panel_attributes>lt=&lt;-&gt;
@@ -2895,7 +2892,7 @@ m2=4
     <coordinates>
       <x>3395</x>
       <y>1960</y>
-      <w>140</w>
+      <w>133</w>
       <h>378</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -2969,7 +2966,7 @@ COUNCIL</panel_attributes>
     <coordinates>
       <x>3073</x>
       <y>1974</y>
-      <w>42</w>
+      <w>35</w>
       <h>364</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -3222,10 +3219,10 @@ m2= 1..n</panel_attributes>
       <x>798</x>
       <y>357</y>
       <w>910</w>
-      <h>812</h>
+      <h>826</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;1280.0;10.0;1280.0;1140.0</additional_attributes>
+    <additional_attributes>10.0;10.0;1280.0;10.0;1280.0;1160.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
