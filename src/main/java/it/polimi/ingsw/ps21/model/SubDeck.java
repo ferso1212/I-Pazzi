@@ -30,7 +30,7 @@ public class SubDeck<T extends DevelopmentCard> {
 		}
 	}
 	
-	public T getCard(int era) throws Exception{
+	public T getCard(int era) {
 		T result;
 		switch (era) {
 		case 1:
@@ -46,7 +46,7 @@ public class SubDeck<T extends DevelopmentCard> {
 			thirdEra.remove(result);
 			return result;
 		default:
-			throw new Exception();
+			throw new RuntimeException("Illegal Eran number");
 		}
 	}
 }

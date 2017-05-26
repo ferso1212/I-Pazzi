@@ -5,14 +5,28 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-public class Match extends Observable {
+
+/**
+ * Class that represent all information about match and commnicates with Controller
+ * 
+ * @author gullit
+ *
+ */
+public class Match extends Observable implements Cloneable {
 	private MatchState currentMatch;
 	private ArrayList<Observer> observers;
+	private Player players[];
 	private Board board;
+	private final String greenCardsFileName = "deck_greencards.xml" ;
+	private final String yellowCardsFileName = "deck_yellowcards.xml";
+	private final String blueCardsFileName = "deck_bluecards.xml";
+	private final String purpleCardsFileName = "deck_purplecards.xml";
 	
 	public Match(Player players[]){
 		currentMatch = new StartingMatch(this);
 		observers = new ArrayList<Observer>();
+		this.players = players;
+		board = new Board();
 	}
 	
 	public void registerObserver(Observer o){
@@ -23,8 +37,12 @@ public class Match extends Observable {
 		currentMatch = currentMatch.goNext();
 	}
 
-	public void initializeDeck(File file){
+	public void initializeMatch(){
 		
-		
+	}
+	
+	
+	public Match getCopy() throws CloneNotSupportedException{
+		return (Match) this.clone();
 	}
 }
