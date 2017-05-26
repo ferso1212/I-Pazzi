@@ -40,4 +40,6 @@ public abstract class Card {
 	}
 	
 	public abstract Requirement getRequirement() throws Exception;
+	
+	
 }

@@ -3,26 +3,16 @@ package it.polimi.ingsw.ps21.model;
 
 
 /**
- * This class is used to store modifiers that may have effects on each action of
- * the player. Modifiers are induced by excommunications and by permanent
- * effects of development cards. 
- * It is possible to store the following kinds of
- * modifiers:
- * <li>Properties modifiers: modifiers that increase/reduce the amount of
- * resources or points acquired each time the player acquires points or
- * resources.
- * <li>Harvest modifiers: modifiers that increase/reduce the harvest action
- * value
- * <li>Production modifiers: modifiers that increase/reduce the production
- * action value
- * <li>Dice modifiers: modifiers that increase or reduce the value of a dice
- * <li>Dice modifier according to card color: modifiers that increase or reduce
- * the value of a dice when used to acquire a card with a specific colour
- * 
+ * This class is used to store modifiers that may have effects on members placement or on the order of play. 
+ * Modifiers are induced by excommunications and by permanenteffects of development cards. 
+ * It is possible to store the following modifiers:
+ * <li> delayFirstAction: if true, the first action of the player will be delayed to the end of the round-
+ * <li> noMarketAction: if true, the player can't place his family members in the market spaces.
+ * <li> noPlacementBonus: if true, the player does not acquire instant bonuses from placing his family members on action spaces.
  * @author fabri
  *
  */
-public class ActionModifier {
+public class ActionModifier{
 
 	
 	private boolean delayFirstAction;
@@ -30,7 +20,7 @@ public class ActionModifier {
 	private boolean noPlacementBonus;
 
 	/**
-	 * CurrentModifier class constructor. Initializes all the values to 0.
+	 * CurrentModifier class constructor. Initializes all the values to false.
 	 * 
 	 */
 	public ActionModifier() {
@@ -40,28 +30,6 @@ public class ActionModifier {
 		this.noMarketAction=false;
 		this.noPlacementBonus=false;
 	}
-
-	
-
-	
-	
-	
-	
-
-	
-	public void setCardPickingValueMod(DevelopmentCardType type, int mod) throws IllegalArgumentException
-	{
-		switch(type)
-		{
-		case TERRITORY: this.greenCardDiceMod=mod; break;
-		case BUILDING: this.yellowCardDiceMod=mod; break;
-		case VENTURE: this.purpleCardDiceMod=mod; break;
-		case CHARACTER: this.blueCardDiceMod=mod; break;
-		default: throw new IllegalArgumentException();
-		}
-	}
-
-
 
 
 	/**

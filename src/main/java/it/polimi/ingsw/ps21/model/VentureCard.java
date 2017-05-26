@@ -10,6 +10,9 @@ public class VentureCard extends DevelopmentCard {
 		super(name, era, req, cost, ins, perm);
 	}
 	
-	
+	public DevelopmentCardType getCardType()
+	{
+		return DevelopmentCardType.VENTURE;
+	}
 
 }

@@ -17,26 +17,18 @@ import java.util.*;
 public class Player {
 	protected String name;
 	//Since there is not a "Personal Board" class, player's cards are stored here
-	protected ArrayList<TerritoryCard> greenCards;
-	protected ArrayList<BuildingCard> yellowCards;
-	protected ArrayList<CharacterCard> blueCards;
-	protected ArrayList<VentureCard> purpleCards;
-	protected Properties properties; 
-	protected ActionModifier actionMod; 
-	protected FinalExcomModifier finalModifiers;
+	protected PropertiesSet properties; 
+	protected ModifiersSet modifiers;
 	protected PersonalBonusTile personalBonusTile;
 	private Family family;
-	protected AllDiscounts discounts;
-	protected int[] militaryForTerritoryReq; //Contains the number of military points required to acquire territory cards. 
-	//For example, militaryForTerritoryReq[0] is the number of military points required to acquire the first territory card.
-	
 	protected PlayerColor color;
-	protected WorkModifier workMod;
+	protected PlayerDeck devCards;
+
 	/**Returns an object that contains the values of the resources (stone, wood, servants and coins) and points (military points, faith points and victory points) of the player. 
 	 * 
 	 * @return object containing the player's properties.
 	 */
-	public Properties getProperties()
+	public PropertiesSet getProperties()
 	{
 		return this.properties;
 	}
@@ -61,23 +53,7 @@ public class Player {
 
 
 
-	/**Returns the number of the cards of a specified type owned by the player.
-	 * 
-	 * @param type type of the cards to count. It can be a value of the CardType enum, except for EXCOMMUNICATION and LEADER. Accepted values are TERRITORY, BUILDING, CHARACTER and VENTURE.
-	 * @return
-	 * @throws IllegalArgumentException when 'type' parameter is EXCOMMUNICATION, LEADER or not a member of the CardType enum.
-	 */
-	public int countCards(CardType type) throws IllegalArgumentException
-	{
-		switch(type)
-		{
-		case CHARACTER: return this.blueCards.size();
-		case TERRITORY: return this.greenCards.size();
-		case BUILDING: return this.yellowCards.size();
-		case VENTURE: return this.purpleCards.size();
-		default: throw new IllegalArgumentException();
-		}
-	}
+	
 	
 	/**
 	 * Used to retrieve the cards that the player can activate when he does a harvest/production action.
@@ -86,7 +62,7 @@ public class Player {
 	 * @return an ArrayList of DevelopmentCards, containing the harvest/production cards that the player can activate.
 	 * @throws IllegalArgumentException if workType argument is not one of HARVEST or PRODUCTION.
 	 */
-	public ArrayList<DevelopmentCard> getWorkCards(int value, WorkType workType) throws IllegalArgumentException
+	/*public ArrayList<DevelopmentCard> getWorkCards(int value, WorkType workType) throws IllegalArgumentException
 	{
 		ArrayList<DevelopmentCard> output = new ArrayList<DevelopmentCard>(); //output is the ArrayList that the method will return
 		output.clear();
@@ -114,31 +90,17 @@ public class Player {
 		}
 		else throw new IllegalArgumentException();
 		
-	}
+	}*/
 	
-	public int getMemberValue(FamilyMember member, DevelopmentCard card) throws IllegalArgumentException
+	public int getMemberValue(FamilyMember member, DevelopmentCard card)
 	{
-		if(card instanceof TerritoryCard) return (member.getValue() + this.actionMod.getCardPickingValueMod(DevelopmentCardType.TERRITORY));
-		if(card instanceof BuildingCard) return (member.getValue() + this.actionMod.getCardPickingValueMod(DevelopmentCardType.BUILDING));
-		if(card instanceof CharacterCard) return (member.getValue() + this.actionMod.getCardPickingValueMod(DevelopmentCardType.CHARACTER));
-		if(card instanceof VentureCard) return (member.getValue() + this.actionMod.getCardPickingValueMod(DevelopmentCardType.VENTURE));
-		throw new IllegalArgumentException();
+		return (member.getValue() + this.modifiers.getDiceMods().getDiceMod(card.getCardType()).getValue());
+	
 	}
 	
 	
 	
-	/**This method can be used to check whether the player meets specific requirements on victory points, faith points and/or military points.
-	 * 
-	 * @param necessaryPoints An object containing the values of victory points, faith points and/or military points that the player should satisfy.
-	 * @return TRUE if the player satisfies the requirements (i.e. : he has at least the number of points required), FALSE if not.
-	 */
-	public boolean checkPoints(Points necessaryPoints)
-	{
-		if(this.properties.getFaithPoints() < necessaryPoints.getFaithPoints()) return false;
-		if(this.properties.getVictoryPoints() < necessaryPoints.getVictoryPoints()) return false;
-		if(this.properties.getMilitaryPoints() < necessaryPoints.getMilitaryPoints()) return false;
-		return true;
-	}
+
 	
 	/**This method can be used to check whether the player meets specific requirements on the number of territory cards, building cards, venture cards and character cards.
 	 * 
@@ -147,102 +109,30 @@ public class Player {
 	 */
 	public boolean checkCards(CardsNumber req)
 	{
-		if(req.getBlueCardNum()>this.countCards(CardType.CHARACTER)) return false;
-		if(req.getYellowCardNum()>this.countCards(CardType.BUILDING)) return false;
-		if(req.getGreenCardNum()>this.countCards(CardType.TERRITORY)) return false;
-		if(req.getPurpleCardNum()>this.countCards(CardType.VENTURE)) return false;
+		if(req.getBlueCardNum()>this.devCards.countCards(DevelopmentCardType.CHARACTER)) return false;
+		if(req.getYellowCardNum()>this.devCards.countCards(DevelopmentCardType.BUILDING)) return false;
+		if(req.getGreenCardNum()>this.devCards.countCards(DevelopmentCardType.TERRITORY)) return false;
+		if(req.getPurpleCardNum()>this.devCards.countCards(DevelopmentCardType.VENTURE)) return false;
 		return true;
 	}
 	
-	/**This method can be used to check whether the player meets specific requirements on the resources he owns.
+	/**This method can be used to check whether the player meets specific requirements on his properties.
 	 * 
 	 * @param necessaryResources
 	 * @return TRUE if the player satisfies the requirements (i.e. : he has at least the number of resources required), FALSE if not.
 	 */
-	public boolean checkResources(Resources necessaryResources)
+	public boolean checkProperties(ImmProperties necessaryProperties)
 	{
-		if(this.properties.getCoins() < necessaryResources.getCoins()) return false;
-		if(this.properties.getServants() < necessaryResources.getServants()) return false;
-		if(this.properties.getStone() < necessaryResources.getStone()) return false;
-		if(this.properties.getWood() < necessaryResources.getWood()) return false;
+		for(Property prop: this.properties.getProperties())
+		{
+			if(prop.getValue()<necessaryProperties.getPropertyValue(prop.getId())) return false;
+		}
 		return true;
 	}
 	
-	/**This method can be used to check whether the player meets specific requirements on the resources, points and cards he owns.
-	 * 
-	 * @param requirements
-	 * @return TRUE if the player satisfies the requirements (i.e. : he has at least the number of resources, points and cards required), FALSE if not.
-	 */
-	public boolean checkRequirements(Requirement requirements)
-	{
-		if(this.checkPoints(requirements.getPoints())==false) return false;
-		if(this.checkCards(requirements.getCardsNumber())==false) return false;
-		if(this.checkResources(requirements.getResources())==false) return false;
-		return true;
-	} 
-	
-	/**Adds a DevelopmentCard to the player's personal board.
-	 * 
-	 * @param card to add
-	 * @return
-	 */
-	public boolean addCard(DevelopmentCard card)
-	{
-		if(card instanceof TerritoryCard) return this.addGreenCard((TerritoryCard) card);
-		if(card instanceof BuildingCard) return this.addYellowCard((BuildingCard) card);
-		if(card instanceof VentureCard) return this.addPurpleCard((VentureCard) card);
-		if(card instanceof CharacterCard) return this.addBlueCard((CharacterCard) card);
-		return false;
-	} 
-	
-	/**Adds a territory card to the player's personal board.
-	 * 
-	 * @param card to add
-	 * @return
-	 */
-	private boolean addGreenCard(TerritoryCard card)
-	{
-		this.greenCards.add(card);
-		return true;
-		
-	}
+
 	
 	
-	/**Adds a building card to the player's personal board.
-	 * 
-	 * @param card to add
-	 * @return
-	 */
-	private boolean addYellowCard(BuildingCard card)
-	{
-		this.yellowCards.add(card);
-		return true;
-		
-	} 
-	
-	/**Adds a venture card to the player's personal board.
-	 * 
-	 * @param card to add
-	 * @return
-	 */
-	private boolean addPurpleCard(VentureCard card)
-	{
-		this.purpleCards.add(card);
-		return true;
-		
-	}
-	
-	/**Adds a character card to the player's personal board.
-	 * 
-	 * @param card to add
-	 * @return
-	 */
-	public boolean addBlueCard(CharacterCard card)
-	{
-		this.blueCards.add((CharacterCard) card);
-		return true;
-		
-	}
 	
 	/**Resets the value of all the family member at the start of a new round.
 	 * 
@@ -261,11 +151,6 @@ public class Player {
 		
 	}
 	
-	public boolean checkMilitaryForTerritory()
-	{
-		if(this.getProperties().getMilitaryPoints()>=this.militaryForTerritoryReq[greenCards.size()]) return true;
-		else return false;
-	}
 	
 	public void payForOccupiedTower()
 	{

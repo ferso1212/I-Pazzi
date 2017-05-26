@@ -73,6 +73,11 @@ public class DevelopmentCard extends Card{
 		if (chosenReq == null) throw new Exception();
 		return chosenReq;
 	}
-
+	
+	//TODO
+	public DevelopmentCardType getCardType()
+	{
+		return null;
+	}
 }
 

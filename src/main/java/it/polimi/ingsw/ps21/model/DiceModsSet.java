@@ -2,7 +2,7 @@ package it.polimi.ingsw.ps21.model;
 
 import java.util.EnumMap;
 
-public class DiceModsSet extends Modifier{
+public class DiceModsSet{
 	private EnumMap<DevelopmentCardType, DiceMod> diceMods;
 	
 	public DiceModsSet()

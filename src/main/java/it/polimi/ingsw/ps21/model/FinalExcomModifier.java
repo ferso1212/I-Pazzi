@@ -13,7 +13,7 @@ package it.polimi.ingsw.ps21.model;
  * @author fabri
  *
  */
-public class FinalExcomModifier extends Modifier{
+public class FinalExcomModifier{
 	private boolean noGreenPoints;
 	private boolean noBluePoints;
 	private boolean noYellowPoints;
@@ -117,6 +117,18 @@ public class FinalExcomModifier extends Modifier{
 	 */
 	public void setvPointsReductionResDivisor(int vPointsReductionResDivisor) {
 		this.vPointsReductionResDivisor = vPointsReductionResDivisor;
+	}
+	
+	public FinalExcomModifier()
+	{
+		this.victoryPointsReductionDivisor=0;
+		this.militaryDivisorVPointsReduction=0;
+		this.vPointsReductionBuildingStoneDivisor=0;
+		this.vPointsReductionBuildingWoodDivisor=0;
+		this.vPointsReductionResDivisor=0;
+		this.noBluePoints=false;
+		this.noGreenPoints=false;
+		this.noYellowPoints=false;
 	}
 	
 	

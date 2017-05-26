@@ -29,5 +29,10 @@ public class CardDiscount {
 		return pointsDiscount;
 	}
 	
-	
+	public CardDiscount()
+	{
+		this.diceDiscount=0;
+		this.resDiscount=new Resources(0,0,0,0);
+		this.pointsDiscount= new Points(0,0,0);
+	}
 }

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.ps21.model;
 
-public class WorkModifier extends Modifier {
+public class WorkModifier {
 	private int harvestModifier;
 	private int productionModifier;
 	

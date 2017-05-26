@@ -17,4 +17,9 @@ public class BuildingCard extends DevelopmentCard{
 	public int getDiceRequirement(){
 		return diceRequirements;
 	}
+	
+	public DevelopmentCardType getCardType()
+	{
+		return DevelopmentCardType.BUILDING;
+	}
 }

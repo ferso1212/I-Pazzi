@@ -15,5 +15,9 @@ public class CharacterCard extends DevelopmentCard {
 		super(name, era, reqs, cost, ins, perm1);
 	}
 	
+	public DevelopmentCardType getCardType()
+	{
+		return DevelopmentCardType.CHARACTER;
+	}
 }
  

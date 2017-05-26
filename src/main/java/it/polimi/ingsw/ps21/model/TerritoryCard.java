@@ -23,4 +23,9 @@ public class TerritoryCard extends DevelopmentCard {
 	public int getDiceRequirement(){
 		return diceReq;
 	}
+	
+	public DevelopmentCardType getCardType()
+	{
+		return DevelopmentCardType.TERRITORY;
+	}
 }
