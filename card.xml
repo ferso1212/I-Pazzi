@@ -1,0 +1,40 @@
+<?xml version=”1.0″ ?>
+<deck>
+    <card name="name" era="1">
+        <requirement>
+            <cardsNum>
+                <greenCardsNum>0</greenCardsNum>
+                <blueCardsNum>0</blueCardsNum>
+                <yellowCardsNum>0</yellowCardsNum>
+                <purpleCardsNum>0</purpleCardsNum>
+            </cardsNum>
+            <properties>
+                <resources>
+                    <wood>0</wood>
+                    <stones>0</stones>
+                    <servants>0</servants>
+                    <coins>0</coins>
+                </resources>
+                <points>
+                    <militaryPoints>0</militaryPoints>
+                    <victoryPoints>0</victoryPoints>
+                    <faithPoints>0</faithPoints>
+                </points>
+            </properties>
+            <cost>
+                <resources>
+                    <wood>0</wood>
+                    <stones>0</stones>
+                    <servants>0</servants>
+                    <coins>0</coins>
+                </resources>
+                <points>
+                    <militaryPoints>0</militaryPoints>
+                    <victoryPoints>0</victoryPoints>
+                    <faithPoints>0</faithPoints>
+                </points>
+            </cost>
+        </requirement>
+        
+    </card>
+</deck>

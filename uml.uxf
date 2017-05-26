@@ -1181,6 +1181,7 @@ m2=1</panel_attributes>
 + getDevelopmentFinalBonus(type :DevelopmentCardType, number : Int) : Int 
 + getMilitaryBonus1() :Int
 + getMilitaryBonus2() :Int
++ getTower(select :Int) :SingleTowerSpace&lt;T&gt;[]
 
 
 layer=1</panel_attributes>
@@ -1523,10 +1524,10 @@ NEUTRAL</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1351</x>
-      <y>1155</y>
-      <w>427</w>
-      <h>294</h>
+      <x>1456</x>
+      <y>1169</y>
+      <w>238</w>
+      <h>182</h>
     </coordinates>
     <panel_attributes>ActionModifier
 --
@@ -1537,11 +1538,8 @@ NEUTRAL</panel_attributes>
 //card effect: you can't take instant bonus from development space
 
 --
-+ getCardPickingValueMod(type: DevelopmentCardType): Int
-+ getCardMod(type :CardType) :Int
 + marketActionForbidden(): boolean
 + firstActionDelayed(): boolean
-+ setCardPickingValueMod(type: DevelopmentCardType, mod: int): void
 + setDelayFirstAction(): void
 + forbidMarketAction(): void
 + noPlacementBonus(): boolean
@@ -3224,10 +3222,10 @@ m2= 1..n</panel_attributes>
       <x>798</x>
       <y>357</y>
       <w>910</w>
-      <h>812</h>
+      <h>826</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;1280.0;10.0;1280.0;1140.0</additional_attributes>
+    <additional_attributes>10.0;10.0;1280.0;10.0;1280.0;1160.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
