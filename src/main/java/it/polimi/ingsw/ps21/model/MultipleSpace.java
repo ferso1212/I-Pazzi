@@ -4,35 +4,38 @@ import java.util.Queue;
 
 public class MultipleSpace extends Space{
 	
-	protected Queue<Player> occupants;
-	protected int diceMalus;
+	private Queue<Player> occupants;
+	private int diceMalus;
+	private MultipleSpaceType type;
 	
-	public MultipleSpace(int diceRequirement, ImmProperties instantBonus, SpaceType type, Queue<Player> occupants,
-			int diceMalus) {
-		super(diceRequirement, instantBonus, type);
+	
+
+	public MultipleSpace(int diceRequirement, ImmProperties instantBonus, Queue<Player> occupants, int diceMalus,
+			MultipleSpaceType type) {
+		super(diceRequirement, instantBonus);
 		this.occupants = occupants;
 		this.diceMalus = diceMalus;
+		this.type = type;
 	}
 
 	public Queue<Player> getOccupants() {
 		return occupants;
 	}
 
-	public boolean occupy(Player player){
-		switch (type) {
-		case value: COUNCIL
-		
-			
-			break;
-
-		default:
-			break;
+	@Override
+	public boolean isOccupable(Player player) {
+		if ((!this.type.equals(MultipleSpaceType.COUNCIL)) && (occupants.contains(player))){
+			return false;
 		}
+		return true;
 	}
 
-	public int getDiceMalus() {
-		return diceMalus;
+	@Override
+	public boolean occupy(Player player) {
+		return occupants.add(player);
 	}
+
+	
 	
 	 
 }
