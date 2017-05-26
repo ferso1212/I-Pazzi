@@ -1,7 +1,5 @@
 package it.polimi.ingsw.ps21.model;
 
-import java.util.Queue;
-
 public abstract class Space {
 	
 	protected int diceRequirement;
@@ -13,9 +11,7 @@ public abstract class Space {
 		this.instantBonus = instantBonus;
 	}
 
-	public abstract Player getOccupant();
-	
-	public abstract Queue<Player> getOccupants();
+	public abstract boolean isOccupable(Player player);
 
 	public ImmProperties getInstantBonus() {
 		return instantBonus;
