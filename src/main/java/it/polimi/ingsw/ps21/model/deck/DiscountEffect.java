@@ -2,7 +2,6 @@ package it.polimi.ingsw.ps21.model.deck;
 
 import java.util.Set;
 
-import it.polimi.ingsw.ps21.model.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.player.DiscountsSet;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
@@ -35,7 +34,7 @@ public class DiscountEffect extends Effect {
 				}
 	}
 	@Override
-	public boolean activate(Player player) {
+	public void activate(Player player) {
 		DiscountsSet modifier = player.getModifiers().getDiscountsMods();
 		for (DevelopmentCardType d: types) {
 			modifier.getDiscount(d).getPropertiesDisc().increaseProperties(discount);

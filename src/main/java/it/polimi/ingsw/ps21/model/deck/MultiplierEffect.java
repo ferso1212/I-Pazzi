@@ -1,11 +1,9 @@
 package it.polimi.ingsw.ps21.model.deck;
 
-import it.polimi.ingsw.ps21.model.CardType;
-import it.polimi.ingsw.ps21.model.DevelopmentCardType;
-import it.polimi.ingsw.ps21.model.MultiplierType;
-import it.polimi.ingsw.ps21.model.PropertiesId;
+
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
+import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 
 public class MultiplierEffect extends Effect {
 	
@@ -65,9 +63,7 @@ public class MultiplierEffect extends Effect {
 				bonusProperties.getPropertyValue(PropertiesId.STONES)*bonusValue,
 				 bonusProperties.getPropertyValue(PropertiesId.SERVANTS)*bonusValue, bonusProperties.getPropertyValue(PropertiesId.MILITARYPOINTS)*bonusValue,
 				 bonusProperties.getPropertyValue(PropertiesId.FAITHPOINTS)*bonusValue, bonusProperties.getPropertyValue(PropertiesId.VICTORYPOINTS)*bonusValue);
-	// Questa aggiunta non tiene conto della presenza di malus o bonus nel player //
 		player.getProperties().increaseProperties(bonus);
-	 // gameLogic.addProperties(player, properties)
 	}
 	
 	@Override

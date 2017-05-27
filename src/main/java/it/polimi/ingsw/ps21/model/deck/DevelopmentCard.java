@@ -44,13 +44,6 @@ public abstract class DevelopmentCard extends Card{
 	public Effect getInstantEffect(){
 		return instantEffect;
 	}
-	
-	
-
-	@Override
-	public OrRequirement getRequirement() throws Exception {
-		return requirement;
-	}
 
 	public abstract DevelopmentCardType getCardType();
 	

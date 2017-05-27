@@ -19,7 +19,4 @@ public class Requirement {
 	public CardsNumber getCardsNumber(){
 		return cardsNumber;
 	}
-	
-
-	public boolean requirementMet
 }

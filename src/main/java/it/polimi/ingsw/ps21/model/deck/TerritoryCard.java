@@ -11,8 +11,8 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 public class TerritoryCard extends DevelopmentCard {
 	private int diceReq;
 	
-	public TerritoryCard(String name, int era, Effect instantEffect, TerritoryEffect permanentEffect1, int dicereq){
-		super(name, era, new OrRequirement(new Requirement(new CardsNumber(0, 0, 0, 0), new ImmProperties(0,0,0,0,0,0,0) )), new OrCosts(new ImmProperties(0,0,0,0,0,0)), (Effect) instantEffect,   (Effect) permanentEffect1);
+	public TerritoryCard(String name, int era,int dicereq, Effect instantEffect, PropEffect... perms ){
+		super(name, era, new OrRequirement(new Requirement(new CardsNumber(0, 0, 0, 0), new ImmProperties(0,0,0,0,0,0,0) )), new OrCosts(new ImmProperties(0,0,0,0,0,0)), (Effect) instantEffect,   (Effect[]) perms);
 		diceReq = dicereq;
 		
 	}

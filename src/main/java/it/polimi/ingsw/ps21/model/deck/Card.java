@@ -26,6 +26,11 @@ public abstract class Card {
 		
 	}
 	
-	public abstract OrRequirement getRequirement() throws Exception;
+	public OrRequirement getRequirement(){
+		return requirement;
+	}
 	
+	public OrCosts getCosts(){
+		return cost;
+	}
 }

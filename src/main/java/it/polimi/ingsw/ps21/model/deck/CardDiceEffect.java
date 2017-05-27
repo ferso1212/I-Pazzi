@@ -2,9 +2,10 @@ package it.polimi.ingsw.ps21.model.deck;
 
 import java.util.Set;
 
-import it.polimi.ingsw.ps21.model.DevelopmentCardType;
-import it.polimi.ingsw.ps21.model.WorkType;
+import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.player.Player;
+
+
 
 public class CardDiceEffect extends Effect {
 
