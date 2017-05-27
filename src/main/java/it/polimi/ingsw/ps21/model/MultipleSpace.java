@@ -23,15 +23,15 @@ public class MultipleSpace extends Space{
 	}
 
 	@Override
-	public boolean isOccupable(Player player) {
-		if ((!this.type.equals(MultipleSpaceType.COUNCIL)) && (occupants.contains(player))){
+	public boolean isOccupable(FamilyMember member) {
+		if ((!this.type.equals(MultipleSpaceType.COUNCIL)) && (occupants.contains(member))){
 			return false;
 		}
 		return true;
 	}
 
 	@Override
-	public boolean occupy(Player player) {
+	public void occupy(Player player) {
 		return occupants.add(player);
 	}
 

@@ -47,11 +47,11 @@
     <id>UMLClass</id>
     <coordinates>
       <x>2250</x>
-      <y>3276</y>
+      <y>3258</y>
       <w>333</w>
-      <h>144</h>
+      <h>162</h>
     </coordinates>
-    <panel_attributes>DevelopmentCard
+    <panel_attributes>/DevelopmentCard/
 --
 - era :Int
 - instantEffect :Effect
@@ -113,13 +113,13 @@
     <id>Relation</id>
     <coordinates>
       <x>2430</x>
-      <y>3222</y>
+      <y>3213</y>
       <w>630</w>
-      <h>72</h>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=-
 </panel_attributes>
-    <additional_attributes>10.0;60.0;10.0;20.0;680.0;20.0;680.0;30.0</additional_attributes>
+    <additional_attributes>10.0;50.0;10.0;30.0;680.0;30.0;680.0;40.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -198,25 +198,25 @@
     <id>Relation</id>
     <coordinates>
       <x>2115</x>
-      <y>3447</y>
+      <y>3438</y>
       <w>630</w>
-      <h>81</h>
+      <h>90</h>
     </coordinates>
     <panel_attributes>lt=-
 </panel_attributes>
-    <additional_attributes>10.0;60.0;10.0;20.0;680.0;20.0;680.0;70.0</additional_attributes>
+    <additional_attributes>10.0;70.0;10.0;30.0;680.0;30.0;680.0;80.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>2313</x>
-      <y>3447</y>
+      <y>3438</y>
       <w>243</w>
-      <h>81</h>
+      <h>90</h>
     </coordinates>
     <panel_attributes>lt=-
 </panel_attributes>
-    <additional_attributes>10.0;60.0;10.0;20.0;250.0;20.0;250.0;70.0</additional_attributes>
+    <additional_attributes>10.0;70.0;10.0;30.0;250.0;30.0;250.0;80.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -249,13 +249,13 @@
     <id>Relation</id>
     <coordinates>
       <x>2997</x>
-      <y>3411</y>
+      <y>3402</y>
       <w>360</w>
-      <h>72</h>
+      <h>81</h>
     </coordinates>
     <panel_attributes>lt=-
 </panel_attributes>
-    <additional_attributes>10.0;60.0;10.0;20.0;380.0;20.0;380.0;60.0</additional_attributes>
+    <additional_attributes>10.0;70.0;10.0;30.0;380.0;30.0;380.0;70.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -388,13 +388,13 @@
     <id>Relation</id>
     <coordinates>
       <x>3708</x>
-      <y>3933</y>
+      <y>3924</y>
       <w>279</w>
-      <h>153</h>
+      <h>162</h>
     </coordinates>
     <panel_attributes>lt=-
 </panel_attributes>
-    <additional_attributes>10.0;150.0;10.0;20.0;290.0;20.0;290.0;150.0</additional_attributes>
+    <additional_attributes>10.0;160.0;10.0;30.0;290.0;30.0;290.0;160.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -511,7 +511,7 @@ m2=1...2</panel_attributes>
     <coordinates>
       <x>2997</x>
       <y>3546</y>
-      <w>2124</w>
+      <w>2133</w>
       <h>189</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -565,15 +565,15 @@ m2=1</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1647</x>
-      <y>3825</y>
+      <y>3816</y>
       <w>234</w>
-      <h>45</h>
+      <h>54</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m1=1
 m2=2
 </panel_attributes>
-    <additional_attributes>240.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>240.0;30.0;10.0;30.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -622,7 +622,7 @@ m2=1
     <coordinates>
       <x>2727</x>
       <y>3006</y>
-      <w>54</w>
+      <w>63</w>
       <h>81</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
@@ -783,7 +783,7 @@ m2=1</panel_attributes>
     </coordinates>
     <panel_attributes>Player
 --
-
+# id :String
 # properties :Properties
 - family :Family
 # modifiers: ModifiersSet
@@ -812,6 +812,7 @@ m2=1</panel_attributes>
 + setWorkMod(type: WorkType, mod: int): void
 + finalVictoryPoints(): int
 + getDiscounts() :AllDiscounts
++ getOwnerId() :String
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -832,30 +833,32 @@ m2=1</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>90</x>
-      <y>900</y>
+      <y>891</y>
       <w>279</w>
-      <h>207</h>
+      <h>243</h>
     </coordinates>
     <panel_attributes>FamilyMember
 --
 # value :Int
 # color: MembersColor
 # modifier: int
+# ownerId :String
 --
 + getValue() :Int
 + increaseValue(servants :Int) :void
 + getColor() :MembersColor
 + setValue(value: int): void
 + addValue(servants Int) :void
-+ setMod(mod: int): void</panel_attributes>
++ setMod(mod: int): void
++ setOwnerId() :void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>558</x>
+      <x>522</x>
       <y>1161</y>
-      <w>369</w>
+      <w>405</w>
       <h>180</h>
     </coordinates>
     <panel_attributes>Family
@@ -879,15 +882,15 @@ m2=1</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>279</x>
-      <y>1098</y>
-      <w>297</w>
-      <h>162</h>
+      <y>1125</y>
+      <w>261</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=1
 m2=4
 </panel_attributes>
-    <additional_attributes>310.0;160.0;210.0;120.0;10.0;10.0</additional_attributes>
+    <additional_attributes>270.0;130.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -984,7 +987,7 @@ m2=1</panel_attributes>
       <x>3726</x>
       <y>2043</y>
       <w>648</w>
-      <h>504</h>
+      <h>522</h>
     </coordinates>
     <panel_attributes>Board
 --
@@ -1045,7 +1048,7 @@ layer=1</panel_attributes>
     <coordinates>
       <x>4365</x>
       <y>2439</y>
-      <w>477</w>
+      <w>486</w>
       <h>549</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -1056,19 +1059,19 @@ m2=16</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4275</x>
+      <x>4248</x>
       <y>2988</y>
-      <w>279</w>
+      <w>306</w>
       <h>144</h>
     </coordinates>
     <panel_attributes>SingleSpace
 --
-# occupant :Player
+# occupant :FamilyMember
 # type: SingleSpaceType
 --
 + getOccupant() :Player
 + getType() :SingleSpaceType
-+ occupy(Player) :boolean
++ occupy(FamilyMember) :void
 + isOccupable(player :Player) :boolean
 </panel_attributes>
     <additional_attributes/>
@@ -1693,13 +1696,13 @@ m2=1</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>6039</x>
-      <y>3807</y>
+      <y>3798</y>
       <w>288</w>
-      <h>90</h>
+      <h>99</h>
     </coordinates>
     <panel_attributes>lt=-
 </panel_attributes>
-    <additional_attributes>10.0;80.0;10.0;20.0;300.0;20.0;300.0;80.0</additional_attributes>
+    <additional_attributes>10.0;90.0;10.0;30.0;300.0;30.0;300.0;90.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -1717,13 +1720,13 @@ m2=1</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>6300</x>
-      <y>3807</y>
+      <y>3798</y>
       <w>351</w>
-      <h>90</h>
+      <h>99</h>
     </coordinates>
     <panel_attributes>lt=-
 </panel_attributes>
-    <additional_attributes>10.0;80.0;10.0;20.0;370.0;20.0;370.0;80.0</additional_attributes>
+    <additional_attributes>10.0;90.0;10.0;30.0;370.0;30.0;370.0;90.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -1850,13 +1853,13 @@ PLAY_LEADERCARD</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>5922</x>
-      <y>4464</y>
+      <y>4455</y>
       <w>297</w>
-      <h>90</h>
+      <h>99</h>
     </coordinates>
     <panel_attributes>lt=-
 </panel_attributes>
-    <additional_attributes>10.0;80.0;10.0;20.0;310.0;20.0;310.0;80.0</additional_attributes>
+    <additional_attributes>10.0;90.0;10.0;30.0;310.0;30.0;310.0;90.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -2032,7 +2035,7 @@ PLAY_LEADERCARD</panel_attributes>
     <coordinates>
       <x>7920</x>
       <y>873</y>
-      <w>306</w>
+      <w>315</w>
       <h>684</h>
     </coordinates>
     <panel_attributes>lt=&lt;-&gt;
@@ -2231,7 +2234,13 @@ m2=1</panel_attributes>
 --
 + WorkAction(member: FamilyMember, space: WorkSpace)
 + isLegal():boolean
-+ execute(): void</panel_attributes>
++ execute(): void
+//Controllare se un giocatore ha già
+//un familiare in uno dei due spazi produzione
+//(singolo o multiplo) se così fosse può 
+//piazzare solo il familiare neutro
+//Se ho piazzat oper primo il familiare nautro 
+//posso piazzare un altro familiare colorato</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -2462,8 +2471,8 @@ variabile del Match</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>576</x>
-      <y>900</y>
+      <x>495</x>
+      <y>963</y>
       <w>423</w>
       <h>144</h>
     </coordinates>
@@ -2482,13 +2491,13 @@ variabile del Match</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>909</x>
-      <y>1035</y>
-      <w>342</w>
-      <h>153</h>
+      <x>900</x>
+      <y>1071</y>
+      <w>351</w>
+      <h>117</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>360.0;150.0;10.0;10.0</additional_attributes>
+    <additional_attributes>370.0;110.0;370.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -2583,19 +2592,19 @@ m2=2..4</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>180</x>
-      <y>1098</y>
+      <y>1125</y>
       <w>27</w>
-      <h>414</h>
+      <h>387</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;440.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;410.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>630</x>
+      <x>540</x>
       <y>1728</y>
-      <w>333</w>
+      <w>423</w>
       <h>135</h>
     </coordinates>
     <panel_attributes>AdvFamily
@@ -2624,14 +2633,14 @@ m2=2..4</panel_attributes>
     <coordinates>
       <x>324</x>
       <y>1512</y>
-      <w>324</w>
+      <w>234</w>
       <h>261</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=1
 m2=4
 </panel_attributes>
-    <additional_attributes>340.0;270.0;200.0;120.0;10.0;10.0</additional_attributes>
+    <additional_attributes>240.0;270.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -2681,13 +2690,13 @@ m2=4
     <id>Relation</id>
     <coordinates>
       <x>3960</x>
-      <y>3933</y>
+      <y>3924</y>
       <w>279</w>
-      <h>153</h>
+      <h>162</h>
     </coordinates>
     <panel_attributes>lt=-
 </panel_attributes>
-    <additional_attributes>10.0;150.0;10.0;20.0;290.0;20.0;290.0;150.0</additional_attributes>
+    <additional_attributes>10.0;160.0;10.0;30.0;290.0;30.0;290.0;160.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -2728,7 +2737,7 @@ m2=4
     <coordinates>
       <x>4365</x>
       <y>2520</y>
-      <w>171</w>
+      <w>180</w>
       <h>486</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -2739,17 +2748,17 @@ m2=4...6</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4275</x>
+      <x>4266</x>
       <y>3195</y>
-      <w>279</w>
+      <w>288</w>
       <h>90</h>
     </coordinates>
     <panel_attributes>AdvSingleSpace
 --
-- otherOccupant: Player
+- otherOccupant: FamilyMember
 --
-+ getOtherOccupant(): Player
-+ occupy(Player) :boolean</panel_attributes>
++ getOtherOccupant(): FamilyMember
++ occupy(Player) :void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -2766,19 +2775,19 @@ m2=4...6</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3915</x>
+      <x>3870</x>
       <y>2988</y>
-      <w>279</w>
+      <w>324</w>
       <h>144</h>
     </coordinates>
     <panel_attributes>MultipleSpace
 --
-- occupants :Queue&lt;Player&gt;
+- occupants :Queue&lt;FamilyMember&gt;
 - diceMalus :Int
 - type: MultipleSpaceType
 --
-+ getOccupants() :Queue&lt;Player&gt;
-+ occupy(Player) :boolean
++ getOccupants() :Queue&lt;FamilyMember&gt;
++ occupy(Player) :void
 + isOccupable(player :Player): boolean</panel_attributes>
     <additional_attributes/>
   </element>
@@ -2802,22 +2811,22 @@ COUNCIL</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>3951</x>
-      <y>2538</y>
-      <w>45</w>
-      <h>468</h>
+      <y>2556</y>
+      <w>54</w>
+      <h>450</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m1=1
 m2=1...3</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;500.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;480.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1035</x>
+      <x>936</x>
       <y>810</y>
-      <w>369</w>
-      <h>162</h>
+      <w>468</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>DiscountsSet
 --
@@ -3053,8 +3062,8 @@ m2=1</panel_attributes>
 # diceRequirement :int
 # instantBonus :ImmProperties
 --
-+ isOccupable(player :Player) :boolean
-+ occupy(Player) :boolean
++ isOccupable(player :FamilyMember) :boolean
++ occupy(FamilyMember) :void
 + getDiceRequirement(): Int
 + getInstantBonus() :ImmProperties</panel_attributes>
     <additional_attributes/>
@@ -3241,9 +3250,9 @@ m2=1</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>720</x>
-      <y>396</y>
+      <y>360</y>
       <w>315</w>
-      <h>198</h>
+      <h>234</h>
     </coordinates>
     <panel_attributes>ModifiersSet
 --
