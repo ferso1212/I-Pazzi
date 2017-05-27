@@ -3,7 +3,7 @@ package it.polimi.ingsw.ps21.model.player;
 public class AdvFamilyMember extends FamilyMember {
 	private boolean fixed;
 
-	public AdvFamilyMember(MembersColor color, String id) {
+	public AdvFamilyMember(MembersColor color, int id) {
 		super(color, id);
 		this.fixed=false;
 	}

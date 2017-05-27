@@ -1,9 +1,11 @@
 package it.polimi.ingsw.ps21.model.player;
 
-import it.polimi.ingsw.ps21.model.properties.PropertiesSet;
+import java.util.ArrayList;
+import it.polimi.ingsw.ps21.model.deck.LeaderCard;
+
 
 public class AdvancedPlayer extends Player {
-	public AdvancedPlayer(String name, PropertiesSet properties, String id) {
+	public AdvancedPlayer(String name, PlayerProperties properties, int id) {
 		super(name, properties, id);
 		// TODO Auto-generated constructor stub
 	}

@@ -11,8 +11,8 @@ package it.polimi.ingsw.ps21.model.properties;
 public class Property {
 	private PropertiesId id;
 	private int value;
-	private int payingModifier;
-	private int increasingModifier;
+	private int paymentModifier;
+	private int additionModifier;
 	
 	/**Constructs a Property object with custom id and initial value. The modifier is automatically set to 0.
 	 * 
@@ -23,7 +23,8 @@ public class Property {
 	{
 		this.id=id;
 		this.value=initialValue;
-		this.modifier=0;
+		this.paymentModifier=0;
+		this.additionModifier=0;
 	}
 	
 	/**Returns the value of the property.
@@ -55,7 +56,7 @@ public class Property {
 	public boolean addValue(int num)
 	{
 		if(num<0) return false; //this method can't be used to subtract values
-		int modifiedNum = num + this.increasingModifier; //adds the modifier value to the value that should be added 
+		int modifiedNum = num + this.additionModifier; //adds the modifier value to the value that should be added 
 		this.value+=modifiedNum;
 		return true;
 	}
@@ -68,7 +69,7 @@ public class Property {
 	public boolean payValue(int num)
 	{
 		if(num<0) return false; //this method can't be used to add values
-		int modifiedNum = num + this.payingModifier; //adds the modifier value to the value that should be payed
+		int modifiedNum = num + this.paymentModifier; //adds the modifier value to the value that should be payed
 		if(this.value<modifiedNum) return false; 
 		this.value-=modifiedNum;
 		return true;
@@ -89,8 +90,8 @@ public class Property {
 	 * When the payValue(num) method is called, (num + modifier) is subtracted from the property's value.
 	 * @param modifier the value of the modifier to set
 	 */
-	public void setPayingModifier(int modifier) {
-		this.payingModifier = modifier;
+	public void setPaymentModifier(int modifier) {
+		this.paymentModifier = modifier;
 	}
 	
 	
@@ -98,15 +99,9 @@ public class Property {
 	 * When the addValue(num) method is called, (num + modifier) is added to the property's value.
 	 * @param increasingModifier the increasingModifier to set
 	 */
-	public void setIncreasingModifier(int increasingModifier) {
-		this.increasingModifier = increasingModifier;
+	public void setAdditionModifier(int increasingModifier) {
+		this.additionModifier = increasingModifier;
 	}
 
-	/**Used to increase the value of the modifier  by num units.
-	 * If num<0, the value of the modifier is reduced by |num| units.
-	 * @param num the number to add to the modifier value
-	 */
-	public void increaseModifier(int num) {
-		this.modifier += num;
-	}
+
 }

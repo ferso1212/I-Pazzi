@@ -9,7 +9,7 @@ public class FamilyMember {
 	protected int value;
 	protected MembersColor color;
 	protected int modifier;
-	protected String ownerId;
+	protected int ownerId;
 	protected boolean used;
 	
 	/**
@@ -43,7 +43,7 @@ public class FamilyMember {
 	 * Sets the inner value of the new member to 0 and its color to the one passed as parameter.
 	 * @param color the color to set in the new family member
 	 */
-	public FamilyMember(MembersColor color, String id)
+	public FamilyMember(MembersColor color, int id)
 	{
 		this.value=0;
 		this.color=color;
@@ -68,7 +68,7 @@ public class FamilyMember {
 	/**
 	 * @return the playerId
 	 */
-	public String getOwnerId() {
+	public int getOwnerId() {
 		return this.ownerId;
 	}
 

@@ -1,38 +1,37 @@
 package it.polimi.ingsw.ps21.model.player;
 
 import java.util.*;
-
 import it.polimi.ingsw.ps21.model.actions.ActionType;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.deck.CardsNumber;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
-import it.polimi.ingsw.ps21.model.deck.Effect;
 import it.polimi.ingsw.ps21.model.deck.IllegalCardTypeException;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.deck.TerritoryCard;
-import it.polimi.ingsw.ps21.model.deck.VentureCard;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesSet;
 import it.polimi.ingsw.ps21.model.properties.Property;
 import it.polimi.ingsw.ps21.model.deck.BuildingCard;
 import it.polimi.ingsw.ps21.model.deck.Card;
-import it.polimi.ingsw.ps21.model.deck.VentureCard;;
 
 
 /**Used to store the status of each player.
  * It stores the following datas of a player:
- * <li> Name
- * <li>Cards (Territory Cards, Building Cards, Character Cards and Venture Cards)
- * <li> Number of council privileges acquired during this Player's round
- * <li>Properties: resources (wood, coins, servants, stones) and points (military points, victory points and faith points).
- * <li>Modifiers of player's actions 
+ * <li> Name: a string containing the player's name
+ * <li> Id: an auto-generated integer number, different for each player, that identifies the player in the match
+ * <li> Player's deck, containing the cards he acquired during the game (Territory Cards, Building Cards, Character Cards and Venture Cards)
+ * <li> Personal bonus tile
+ * <li> Color: one of the possible values of the PlayerColor enum
+ * <li> Properties: resources (wood, coins, servants, stones) and points (military points, victory points and faith points).
+ * <li> Modifiers of player's actions 
+ * <li> Family: the player's family members.
  * @author fabri
  *
  */
 public class Player {
 	protected String name;
-	protected String id;
+	protected int id;
 	//Since there is not a "Personal Board" class, player's cards are stored here
 	protected PlayerProperties properties; 
 	protected ModifiersSet modifiers;
@@ -68,7 +67,7 @@ public class Player {
 
 
 	/**
-	 * Used to retrieve the cards that the player can activate when he does a harvest/production action.
+	 * Used to retrieve the work cards that the player can activate when he does a harvest/production action.
 	 * @param value the value of the harvest/production action, which determines which cards can be activated.
 	 * @param workType HARVEST or PRODUCTION
 	 * @return an ArrayList of DevelopmentCards, containing the harvest/production cards that the player can activate.
@@ -81,7 +80,8 @@ public class Player {
 		//convert WorkType in DevelopmentCardType to pass it as the parameter of the PlayerDeck.getCards(cardType) method
 		DevelopmentCardType cardType = null;
 		if(workType==WorkType.HARVEST) cardType=DevelopmentCardType.TERRITORY;
-		if(workType==WorkType.PRODUCTION) cardType=DevelopmentCardType.BUILDING;
+		else if(workType==WorkType.PRODUCTION) cardType=DevelopmentCardType.BUILDING;
+		else throw new IllegalCardTypeException();
 		
 		//modify action value according to work action modifier
 		int modVal=value + this.getModifiers().getWorkMods().getWorkMod(workType);
@@ -90,7 +90,7 @@ public class Player {
 		DevelopmentCard[] input = this.getDeck().getCards(cardType);
 		
 		//For each card in the list of the player's harvest/production cards, checks if the value is equal or greater
-		//its Dice Requirement: if the check returns true, the card is added to the output list.
+		//than its Dice Requirement: if the check returns true, the card is added to the output list.
 		for(DevelopmentCard c: input)
 		{
 			if(c instanceof TerritoryCard)
@@ -106,6 +106,12 @@ public class Player {
 		return output;
 	}
 	
+	/**Returns the dice value required to acquire a specific card.
+	 * This method takes into account also the modifiers that modifies the value according to the type of the card.
+	 * @param member Family Member used to acquire the card
+	 * @param card	Card to acquire.
+	 * @return the dice value required to acquire a specific card.
+	 */
 	public int getMemberValue(FamilyMember member, DevelopmentCard card)
 	{
 		return (member.getValue() + this.modifiers.getDiceMods().getDiceMod(card.getCardType()).getValue());
@@ -128,7 +134,7 @@ public class Player {
 		return true;
 	}
 	
-	/**This method can be used to check whether the player meets specific requirements on his properties.
+	/**Checks whether the player meets specific requirements on his properties.
 	 * 
 	 * @param necessaryResources
 	 * @return TRUE if the player satisfies the requirements (i.e. : he has at least the number of resources required), FALSE if not.
@@ -146,10 +152,13 @@ public class Player {
 	//TODO
 	public boolean vaticanSupport()
 	{
-		
+		return true; //method stub to avoid compilation error
 	}
 	
-	
+	/**Pays the cost of the card, taking into account the discount modifiers and the payment modifiers
+	 * @param card
+	 * @throws InsufficientPropsException
+	 */
 	public void payCard(DevelopmentCard card) throws InsufficientPropsException
 	{		
 		//PropertiesSet contenente gli sconti per il tipo di carta associato alla carta passata come parametro
@@ -188,14 +197,22 @@ public class Player {
 		return family;
 	}
 
-
-	public Player(String name, PlayerProperties properties, String id) 
+	/**Player constructor. 
+	 * @param name A String containing the name of the player.
+	 * @param startingProperties The resources and points that the player will have at the beginning of the match.
+	 * @param id an integer that identifies the player.
+	 */
+	public Player(String name, PlayerProperties startingProperties, int id) 
 	{
 		this.name = name;
-		this.properties = properties;
+		this.properties = startingProperties;
 		this.id=id;
 	}
 	
+	/**Provides the personal bonus tile of the player.
+	 * The personal bonus tile contains additional bonuses activated when work actions are performed.
+	 * @return the personal bonus tile of the player.
+	 */
 	public PersonalBonusTile getPersonalBonusTile()
 	{
 		return this.personalBonusTile;
@@ -223,6 +240,10 @@ public class Player {
 	}
 */
 	
+	/**Checks if the player has enough properties (points and resources) to meet the requirements passed as argument.
+	 * @param req requirements that are compared to the player's properties
+	 * @return true if the player's properties are greater than the requirements (the requirements are met); otherwise false
+	 */
 	public boolean checkRequirement(Requirement req)
 	{
 		//checks cards number requirement
@@ -234,8 +255,11 @@ public class Player {
 		return true; 
 	}
 	
-	
-	public ArrayList<Requirement> checkCardRequirements(Card card)
+	/**Between all the requirements (in OR) of the card, this method returns only the ones that are met by the player.
+	 * @param card the card 
+	 * @return the card's requirements that are met by the player.
+	 */
+	public ArrayList<Requirement> metCardRequirements(Card card)
 	{
 		ArrayList<Requirement> output= new ArrayList<Requirement>();
 		for(Requirement req: card.getRequirement().getChoices())
@@ -245,10 +269,23 @@ public class Player {
 		return output;
 	}
 	
-	/**
-	 * @return the id
+	/**Checks the card's requirements in OR and returns TRUE if at least one of them is met by the player.
+	 * @param card
+	 * @return TRUE if the player has enough points/resources to acquire the card
 	 */
-	public String getId() {
+	public boolean checkCardRequirements(Card card)
+	{
+		for(Requirement req: card.getRequirement().getChoices())
+		{
+			if(this.checkRequirement(req)) return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * @return the player's id
+	 */
+	public int getId() {
 		return id;
 	}
 

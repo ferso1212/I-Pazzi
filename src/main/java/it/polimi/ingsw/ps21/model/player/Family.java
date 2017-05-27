@@ -14,7 +14,7 @@ public class Family {
 	/**
 	 * The members are stored in an EnumMap that maps each value of the MembersColor enum to the corresponding Family Member.
 	 */
-	public Family(String playerId)
+	public Family(int playerId)
 	{
 		this.members=new EnumMap<MembersColor, FamilyMember>(MembersColor.class);
 		for(MembersColor mColor: MembersColor.values())

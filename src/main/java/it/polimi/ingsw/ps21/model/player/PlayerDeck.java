@@ -1,13 +1,8 @@
 package it.polimi.ingsw.ps21.model.player;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.management.RuntimeErrorException;
-
+import java.util.EnumMap;
 import it.polimi.ingsw.ps21.model.deck.BuildingCard;
-import it.polimi.ingsw.ps21.model.deck.Card;
 import it.polimi.ingsw.ps21.model.deck.CardsNumber;
 import it.polimi.ingsw.ps21.model.deck.CharacterCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
@@ -16,7 +11,6 @@ import it.polimi.ingsw.ps21.model.deck.IllegalCardTypeException;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.deck.TerritoryCard;
 import it.polimi.ingsw.ps21.model.deck.VentureCard;
-import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class PlayerDeck{
 	
@@ -27,11 +21,11 @@ public class PlayerDeck{
 	
 	//nella k-esima cella dell'array Requirement[], c'è il requisito che il player deve soddisfare per
 	//poter acquisire la (k+1)esima carta di quel tipo
-	private Map<DevelopmentCardType, Requirement[]> requirementMap;
+	private EnumMap<DevelopmentCardType, Requirement[]> requirementMap;
 	
 	public PlayerDeck(){
 		super();
-		requirementMap = new HashMap<DevelopmentCardType, ImmProperties[]>();
+		requirementMap = new EnumMap<DevelopmentCardType, Requirement[]>(DevelopmentCardType.class);
 	}
 	
 	public int countCards(DevelopmentCardType type){
@@ -45,13 +39,9 @@ public class PlayerDeck{
 	if (card instanceof VentureCard) this.purpleCards.add((VentureCard) card);
 	}
 	
-	public Requirement getAddingCardRequirement(Card card) throws RuntimeException{
+	public Requirement getAddingCardRequirement(DevelopmentCard card) {
 		
-		if (card instanceof TerritoryCard) return requirementMap.get(DevelopmentCardType.TERRITORY)[countCards(DevelopmentCardType.TERRITORY) + 1];
-		if (card instanceof BuildingCard) return requirementMap.get(DevelopmentCardType.BUILDING)[countCards(DevelopmentCardType.BUILDING) + 1];
-		if (card instanceof CharacterCard) return requirementMap.get(DevelopmentCardType.CHARACTER)[countCards(DevelopmentCardType.CHARACTER) + 1];
-		if (card instanceof VentureCard) return requirementMap.get(DevelopmentCardType.VENTURE)[countCards(DevelopmentCardType.VENTURE) + 1];
-		throw new RuntimeException("Illegal Card Type");
+		return requirementMap.get(card.getCardType())[countCards(card.getCardType())];
 	}
 	
 	public DevelopmentCard[] getCards(DevelopmentCardType type) throws IllegalCardTypeException{
