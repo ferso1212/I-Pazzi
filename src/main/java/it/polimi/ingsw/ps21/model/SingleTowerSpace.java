@@ -1,13 +1,12 @@
 package it.polimi.ingsw.ps21.model;
 
-public class SingleTowerSpace <T extends DevelopmentCard> extends SingleSpace {
-	
+public class SingleTowerSpace<T extends DevelopmentCard> extends SingleSpace {
 
 	private T card;
-	
-	public SingleTowerSpace(int diceRequirement, ImmProperties instantBonus, Player occupant, SingleSpaceType type,
+
+	public SingleTowerSpace(int diceRequirement, ImmProperties instantBonus, FamilyMember member, SingleSpaceType type,
 			T card) {
-		super(diceRequirement, instantBonus, occupant, type);
+		super(diceRequirement, instantBonus, member, type);
 		this.card = card;
 	}
 
@@ -18,7 +17,5 @@ public class SingleTowerSpace <T extends DevelopmentCard> extends SingleSpace {
 	public void setCard(T card) {
 		this.card = card;
 	}
-	
-	
 
 }

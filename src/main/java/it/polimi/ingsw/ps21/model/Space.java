@@ -11,7 +11,7 @@ public abstract class Space {
 		this.instantBonus = instantBonus;
 	}
 
-	public abstract boolean isOccupable(Player player);
+	public abstract boolean isOccupable(FamilyMember member);
 
 	public ImmProperties getInstantBonus() {
 		return instantBonus;
@@ -21,7 +21,7 @@ public abstract class Space {
 		return diceRequirement;
 	}
 	
-	public abstract boolean occupy(Player player);
+	public abstract void occupy(FamilyMember member) throws NotOccupableException;
 
 
 }
