@@ -6,6 +6,7 @@ import it.polimi.ingsw.ps21.model.actions.ActionType;
 import it.polimi.ingsw.ps21.model.deck.CardsNumber;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesSet;
 import  it.polimi.ingsw.ps21.model.deck.Card;
 
@@ -156,7 +157,7 @@ public class Player {
 	
 	
 	//TODO : handle discount modifiers
-	public void payCard(DevelopmentCard card)
+	public void payCard(DevelopmentCard card) throws InsufficientPropsException
 	{
 		/*DevelopmentCardType cardType = null;
 		if(card instanceof TerritoryCard) cardType= DevelopmentCardType.TERRITORY;
@@ -177,7 +178,9 @@ public class Player {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/	
-		this.properties.payProperties(card.getCost())
+		ImmProperties propsToPay= new ImmProperties(); //è come scrivere new ImmProperties(0,0,0,0,0,0,0) perchè il costruttore dell'ImmProperties chiama il costruttore del PropertiesSet che crea automaticamente i valri mancanti, settandoli a 0
+		
+		if(this.properties.payProperties(card.getCosts().getCost())==false) throw new InsufficientPropsException();
 	}
 	
 	//TODO implement

@@ -33,6 +33,10 @@ public class Family {
 		return this.members.get(color);
 	}
 	
+	/**If the family has not been used, it sets it as used.
+	 * @param membToUse
+	 * @return true if it succeeds, false if the Family Member was already used. 
+	 */
 	public boolean useMember(FamilyMember membToUse)
 	{
 		if(membToUse.isUsed()) return false;

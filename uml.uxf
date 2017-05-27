@@ -828,6 +828,7 @@ m2=1</panel_attributes>
 # color: MembersColor
 # modifier: int
 # ownerId :String
+# used: boolean
 --
 + getValue() :Int
 + increaseValue(servants :Int) :void
@@ -835,7 +836,9 @@ m2=1</panel_attributes>
 + setValue(value: int): void
 + addValue(servants Int) :void
 + setMod(mod: int): void
-+ setOwnerId() :void</panel_attributes>
++ setOwnerId() :void
++ isUsed(): boolean;
++ setUsed(used: Boolean): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -854,7 +857,7 @@ m2=1</panel_attributes>
 
 + getMember(color: MembersColor) :FamilyMember
 + roundReset() :void
-+ useMember(membToUse: FamilyMember): void
++ useMember(membToUse: FamilyMember): boolean
 
 
 
