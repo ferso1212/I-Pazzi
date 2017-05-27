@@ -11,7 +11,7 @@ public class AdvancedPlayer extends Player {
 	private ArrayList<LeaderCard> leaderCards;
 	private AdvancedModifier advModifier;
 	
-	public ArrayList<LeaderCards> getActivatedLeaderCards()
+	public ArrayList<LeaderCard> getActivatedLeaderCards()
 	{
 		
 	}

@@ -5,8 +5,8 @@ import it.polimi.ingsw.ps21.model.MembersColor;
 public class AdvFamilyMember extends FamilyMember {
 	private boolean fixed;
 
-	public AdvFamilyMember(MembersColor color) {
-		super(color);
+	public AdvFamilyMember(MembersColor color, String id) {
+		super(color, id);
 		this.fixed=false;
 	}
 
