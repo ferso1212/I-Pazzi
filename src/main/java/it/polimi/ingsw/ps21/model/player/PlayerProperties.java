@@ -70,4 +70,13 @@ public class PlayerProperties {
 		}
 		return true;
 	}
+
+	/**
+	 * @return the properties
+	 */
+	public PropertiesSet getPropertiesSet() {
+		return properties;
+	}
+	
+	
 }

@@ -3,12 +3,21 @@ package it.polimi.ingsw.ps21.model.player;
 import java.util.*;
 
 import it.polimi.ingsw.ps21.model.actions.ActionType;
+import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.deck.CardsNumber;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
+import it.polimi.ingsw.ps21.model.deck.Effect;
+import it.polimi.ingsw.ps21.model.deck.IllegalCardTypeException;
+import it.polimi.ingsw.ps21.model.deck.Requirement;
+import it.polimi.ingsw.ps21.model.deck.TerritoryCard;
+import it.polimi.ingsw.ps21.model.deck.VentureCard;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesSet;
-import  it.polimi.ingsw.ps21.model.deck.Card;
+import it.polimi.ingsw.ps21.model.properties.Property;
+import it.polimi.ingsw.ps21.model.deck.BuildingCard;
+import it.polimi.ingsw.ps21.model.deck.Card;
+import it.polimi.ingsw.ps21.model.deck.VentureCard;;
 
 
 /**Used to store the status of each player.
@@ -16,7 +25,6 @@ import  it.polimi.ingsw.ps21.model.deck.Card;
  * <li> Name
  * <li>Cards (Territory Cards, Building Cards, Character Cards and Venture Cards)
  * <li> Number of council privileges acquired during this Player's round
- * <li>Socket
  * <li>Properties: resources (wood, coins, servants, stones) and points (military points, victory points and faith points).
  * <li>Modifiers of player's actions 
  * @author fabri
@@ -42,7 +50,6 @@ public class Player {
 		return this.properties;
 	}
 	
-
 	
 	/**
 	 * @return the player's name
@@ -50,7 +57,6 @@ public class Player {
 	public String getName() {
 		return name;
 	}
-
 
 
 	/**
@@ -61,9 +67,6 @@ public class Player {
 	}
 
 
-
-	
-	
 	/**
 	 * Used to retrieve the cards that the player can activate when he does a harvest/production action.
 	 * @param value the value of the harvest/production action, which determines which cards can be activated.
@@ -71,34 +74,36 @@ public class Player {
 	 * @return an ArrayList of DevelopmentCards, containing the harvest/production cards that the player can activate.
 	 * @throws IllegalArgumentException if workType argument is not one of HARVEST or PRODUCTION.
 	 */
-	public ArrayList<DevelopmentCard> getActivableWorks(int value, WorkType workType) throws IllegalArgumentException
+	public ArrayList<DevelopmentCard> getActivableWorks(int value, WorkType workType) throws IllegalCardTypeException
 	{
-		ArrayList<DevelopmentCard> output = new ArrayList<DevelopmentCard>(); //output is the ArrayList that the method will return
-		output.clear();
-		if(workType==WorkType.HARVEST) 
-		{
-			value += this.modifiers.getWorkMods().getHarvMod();
-			ArrayList<TerritoryCard> input=this.devCards.getCards(DevelopmentCardType.TERRITORY);	
-			for(TerritoryCard card: input)
-			{
-				if(value >= card.getPermanentEffect().getReq()) {output.add(card);}
-			}
-			return output;
-			
-		}
-		else if(workType==WorkType.PRODUCTION) 
-		{
-			value += this.workMod.getProdMod();
-			ArrayList<BuildingCard> input = yellowCards;
-			
-			for(BuildingCard card: input)
-			{
-				if(value >= card.getPermanentEffect().getReq()) {output.add(card);}
-			}
-			return output;
-		}
-		else throw new IllegalArgumentException();
+		ArrayList<DevelopmentCard> output= new ArrayList<DevelopmentCard>();
 		
+		//convert WorkType in DevelopmentCardType to pass it as the parameter of the PlayerDeck.getCards(cardType) method
+		DevelopmentCardType cardType = null;
+		if(workType==WorkType.HARVEST) cardType=DevelopmentCardType.TERRITORY;
+		if(workType==WorkType.PRODUCTION) cardType=DevelopmentCardType.BUILDING;
+		
+		//modify action value according to work action modifier
+		int modVal=value + this.getModifiers().getWorkMods().getWorkMod(workType);
+		
+		//get Harvest or Production cards belonging to the player
+		DevelopmentCard[] input = this.getDeck().getCards(cardType);
+		
+		//For each card in the list of the player's harvest/production cards, checks if the value is equal or greater
+		//its Dice Requirement: if the check returns true, the card is added to the output list.
+		for(DevelopmentCard c: input)
+		{
+			if(c instanceof TerritoryCard)
+			{
+				if(modVal>=(((TerritoryCard)c).getDiceRequirement())) output.add(c);
+			}
+			
+			if(c instanceof BuildingCard)
+			{
+				if(modVal>=(((BuildingCard)c).getDiceRequirement())) output.add(c);
+			}
+		}
+		return output;
 	}
 	
 	public int getMemberValue(FamilyMember member, DevelopmentCard card)
@@ -130,24 +135,13 @@ public class Player {
 	 */
 	public boolean checkProperties(ImmProperties necessaryProperties)
 	{
-		for(Property prop: this.properties.getProperties())
+		for(Property prop: this.properties.getPropertiesSet().getProperties())
 		{
 			if(prop.getValue()<necessaryProperties.getPropertyValue(prop.getId())) return false;
 		}
 		return true;
 	}
 	
-	
-	/**Resets the value of all the family member at the start of a new round.
-	 * 
-	 */
-	public void roundReset()
-	{
-		this.family.getMember(MembersColor.WHITE).setValue(0);
-		this.family.getMember(MembersColor.ORANGE).setValue(0);
-		this.family.getMember(MembersColor.BLACK).setValue(0);
-		this.family.getMember(MembersColor.NEUTRAL).setValue(0);
-	}
 	
 	//TODO
 	public boolean vaticanSupport()
@@ -156,32 +150,15 @@ public class Player {
 	}
 	
 	
-	//TODO : handle discount modifiers
 	public void payCard(DevelopmentCard card) throws InsufficientPropsException
-	{
-		/*DevelopmentCardType cardType = null;
-		if(card instanceof TerritoryCard) cardType= DevelopmentCardType.TERRITORY;
-		else if(card instanceof BuildingCard) cardType= DevelopmentCardType.BUILDING;
-		else if(card instanceof VentureCard) cardType= DevelopmentCardType.VENTURE;
-		else if(card instanceof CharacterCard) cardType= DevelopmentCardType.CHARACTER;
-		try {
-			int tempCost;
-			if(tempCost > 0) this.properties.addCoins(-tempCost);
-			
-			this.properties.addServants(-card.getRequirement().getCost().getServants());
-			this.properties.addWood(-card.getRequirement().getCost().getWood());
-			this.properties.addStone(-card.getRequirement().getCost().getStone());
-			this.properties.addFaithPoints(-card.getRequirement().getCost().getFaithPoints());
-			this.properties.addMilitaryPoints(-card.getRequirement().getCost().getMilitaryPoints());
-			this.properties.addVictoryPoints(-card.getRequirement().getCost().getVictoryPoints());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/	
-		ImmProperties propsToPay= new ImmProperties(); //è come scrivere new ImmProperties(0,0,0,0,0,0,0) perchè il costruttore dell'ImmProperties chiama il costruttore del PropertiesSet che crea automaticamente i valri mancanti, settandoli a 0
-		propsToPay=card.getCosts().getCost();
+	{		
+		//PropertiesSet contenente gli sconti per il tipo di carta associato alla carta passata come parametro
+		PropertiesSet discountPropsSet= this.modifiers.getDiscountsMods().getDiscount(card.getCardType()).getPropertiesDisc();
 		
-		if(this.properties.payProperties()==false) throw new InsufficientPropsException();
+		if(this.properties.payProperties(card.getCosts().getCost(), discountPropsSet)==false)
+		{throw new InsufficientPropsException();
+		}
+		
 	}
 	
 	//TODO implement
@@ -204,14 +181,12 @@ public class Player {
 	}
 
 
-
 	/**
 	 * @return the familyMembers
 	 */
 	public Family getFamily() {
 		return family;
 	}
-
 
 
 	public Player(String name, PlayerProperties properties, String id) 
@@ -228,20 +203,54 @@ public class Player {
 	
 	
 	//TODO
-	public int finalVictoryPoints()
+	/*public int finalVictoryPoints(int[] yellowCardBonus, int[] yellowCardBonus)
 	{
-		return 0;
+		//enables Venture Cards permanent effect, that adds victory points at the end of the match.
+		try {
+			for(DevelopmentCard c: this.devCards.getCards(DevelopmentCardType.VENTURE))
+			{
+				c.getPemanentEffect().activate(this);
+			}
+		} catch (IllegalCardTypeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(!this.modifiers.getFinalMods().isNoYellowPoints())
+		{
+			
+		}
 	}
-
-
-
+*/
+	
+	public boolean checkRequirement(Requirement req)
+	{
+		//checks cards number requirement
+		if(!this.devCards.checkCardsNumReq(req.getCardsNumber())) return false;
+		
+		//checks properties requirements
+		if(!this.checkProperties(req.getProperties())) return false;
+		
+		return true; 
+	}
+	
+	
+	public ArrayList<Requirement> checkCardRequirements(Card card)
+	{
+		ArrayList<Requirement> output= new ArrayList<Requirement>();
+		for(Requirement req: card.getRequirement().getChoices())
+		{
+			if(this.checkRequirement(req)) output.add(req);
+		}
+		return output;
+	}
+	
 	/**
 	 * @return the id
 	 */
 	public String getId() {
 		return id;
 	}
-
 
 
 	/**
