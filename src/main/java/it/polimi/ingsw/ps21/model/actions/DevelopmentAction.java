@@ -18,9 +18,9 @@ public class DevelopmentAction extends Action {
 	protected SingleTowerSpace<DevelopmentCard> space;
 	protected FamilyMember famMember;
 
-	public DevelopmentAction(Match m, Player p, SingleTowerSpace<DevelopmentCard> space, FamilyMember famMember,
+	public DevelopmentAction(Match match, Player player, SingleTowerSpace<DevelopmentCard> space, FamilyMember famMember,
 			Board board) {
-		super(m, p);
+		super(match, player);
 		this.space = space;
 		this.famMember = famMember;
 	}
@@ -54,7 +54,7 @@ public class DevelopmentAction extends Action {
 		player.getDeck().addCard(space.getCard()); // aggiunta della carta al
 													// deck del player, potrebbe
 
-		space.occupy(famMember); // piazzare il familiare
+		match.getBoard(). // piazzare il familiare
 
 		if (!player.getFamily().useMember(famMember)) {
 			throw new NotExecutableException(); //

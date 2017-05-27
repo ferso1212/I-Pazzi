@@ -14,9 +14,9 @@ public abstract class Action {
 	protected Match match;
 	protected Player player;
 	
-	public Action(Match m, Player p){
-		match = m;
-		player = p;
+	public Action(Match match, Player player){
+		this.match = match;
+		this.player = player;
 	}
 	
 	public abstract boolean isLegal();
