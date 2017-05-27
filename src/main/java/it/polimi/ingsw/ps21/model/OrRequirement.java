@@ -2,20 +2,19 @@ package it.polimi.ingsw.ps21.model;
 
 import java.util.ArrayList;
 
-public class OrRequirement extends Requirement {
+public class OrRequirement {
 	private ArrayList<Requirement> choices;
+	private Requirement chosenRequirement;
 	
 	
-	public OrRequirement(Requirement[] reqs) throws LoopRequirementException{
-		super(null, null);
-		for (Requirement r: reqs){
-			if (r instanceof OrRequirement) throw new LoopRequirementException();
-			choices.add(r);
+	public OrRequirement(Requirement... reqs) {
+		for(int i = 0; i< reqs.length; i++){
+			choices.add(reqs[i]);
 		}
+		chosenRequirement = reqs[0];
 	}
 	
-	public void addPossibiliy(Requirement newReq) throws LoopRequirementException{
-		if (newReq instanceof OrRequirement) throw new LoopRequirementException(); 
+	public void addPossibiliy(Requirement newReq) {
 		choices.add(newReq);
 	}
 	
@@ -25,7 +24,6 @@ public class OrRequirement extends Requirement {
 	
 	public void setChoice(Requirement chosenReq) throws IllegalChoiceException{
 		if (!(choices.contains(chosenReq))) throw new IllegalChoiceException();	
-		this.properties = chosenReq.properties;
-		this.cardsNumber = chosenReq.cardsNumber;
+		this.chosenRequirement = chosenReq;
 	}
 }
