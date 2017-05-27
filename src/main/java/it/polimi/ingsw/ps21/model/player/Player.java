@@ -2,6 +2,9 @@ package it.polimi.ingsw.ps21.model.player;
 
 import java.util.*;
 
+import it.polimi.ingsw.ps21.model.PlayerColor;
+import it.polimi.ingsw.ps21.model.properties.PropertiesSet;
+
 
 /**Used to store the status of each player.
  * It stores the following datas of a player:

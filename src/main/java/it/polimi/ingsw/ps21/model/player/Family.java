@@ -1,5 +1,7 @@
 package it.polimi.ingsw.ps21.model.player;
 
+import java.util.EnumMap;
+
 import it.polimi.ingsw.ps21.model.MembersColor;
 
 /**Used to store the set of the Family Members of a Player
@@ -8,35 +10,29 @@ import it.polimi.ingsw.ps21.model.MembersColor;
  *
  */
 public class Family {
-	private FamilyMember orange;
-	private FamilyMember white;
-	private FamilyMember neutral;
-	private FamilyMember black;
+	private EnumMap<MembersColor, FamilyMember> members;
 	protected int servantsForOne;
 	
 	/**
-	 * The members are stored in an array of 4 element, each one of the FamilyMember type.
-	 * The constructor initializes the array with 4 Family Members, each one with his color.
+	 * The members are stored in an EnumMap that maps each value of the MembersColor enum to the corresponding Family Member.
 	 */
-	public Family()
+	public Family(String playerId)
 	{
-	
-		white= new FamilyMember(MembersColor.WHITE);
-		orange= new FamilyMember(MembersColor.ORANGE);
-		black= new FamilyMember(MembersColor.BLACK);
-		neutral= new FamilyMember(MembersColor.NEUTRAL);
+		this.members=new EnumMap<MembersColor, FamilyMember>(MembersColor.class);
+		for(MembersColor mColor: MembersColor.values())
+		{
+			this.members.put(mColor, new FamilyMember(mColor, playerId));
+		}
 	}
 	
-	public FamilyMember getMember(MembersColor color) throws IllegalArgumentException
+	/**Returns the Family Member of the specified color.
+	 * 
+	 * @param color color of the family member required
+	 * @return the family member
+	 */
+	public FamilyMember getMember(MembersColor color)
 	{
-		switch(color)
-		{
-		case WHITE: return this.white;
-		case ORANGE: return this.orange;
-		case BLACK: return this.black;
-		case NEUTRAL: return this.neutral;
-		default: throw new IllegalArgumentException();
-		}
+		return this.members.get(color);
 	}
 	
 	
@@ -45,10 +41,7 @@ public class Family {
 	 */
 	public void roundReset()
 	{
-		this.white.setValue(0);
-		this.orange.setValue(0);
-		this.black.setValue(0);
-		this.neutral.setValue(0);
-	
+	for(FamilyMember m: this.members.values())
+		m.setValue(0);
 	}
 }
