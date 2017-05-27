@@ -21,5 +21,5 @@ public class Requirement {
 	}
 	
 
-
+	public boolean requirementMet
 }

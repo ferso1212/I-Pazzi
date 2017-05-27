@@ -36,11 +36,11 @@
     <panel_attributes>/Card/
 --
 - name :String
-- requirement :ArrayList&lt;Requirements&gt;
-- cost :ArrayList&lt;ImmProperties&gt;
+- requirement :OrRequirements
+- cost :OrCosts
 --
-+ getRequirement() :Requirement
-+ getCost() :ImmProperties</panel_attributes>
++ getRequirements() :OrRequirements
++ getCosts() :OrCosts</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -186,17 +186,6 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1876</x>
-      <y>2786</y>
-      <w>21</w>
-      <h>28</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
       <x>1631</x>
       <y>3073</y>
       <w>490</w>
@@ -336,7 +325,7 @@
     <panel_attributes>CardDiceEffect
 --
 - value: Int
-- type: DevelopmentCardType[]
+- type: Set&lt;DevelopmentCardType&gt;
 --
 + activate(player :Player) :void</panel_attributes>
     <additional_attributes/>
@@ -367,7 +356,7 @@
     <panel_attributes>DiscountEffect
 --
 - discount: ImmProperties
-- cardType: DevelopmentCardType[]
+- cardType: Set&lt;DevelopmentCardType&gt;
 --
 + activate(player :Player) :void</panel_attributes>
     <additional_attributes/>
@@ -472,12 +461,12 @@
       <x>1547</x>
       <y>2842</y>
       <w>455</w>
-      <h>147</h>
+      <h>140</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m1=1
 m2=0...</panel_attributes>
-    <additional_attributes>630.0;10.0;10.0;10.0;10.0;190.0</additional_attributes>
+    <additional_attributes>630.0;10.0;10.0;10.0;10.0;180.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -778,7 +767,7 @@ m2=1</panel_attributes>
       <x>791</x>
       <y>1015</y>
       <w>420</w>
-      <h>378</h>
+      <h>343</h>
     </coordinates>
     <panel_attributes>Player
 --
@@ -816,14 +805,14 @@ m2=1</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>574</x>
-      <y>1386</y>
+      <y>1351</y>
       <w>329</w>
-      <h>539</h>
+      <h>574</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=1
 m2=1</panel_attributes>
-    <additional_attributes>450.0;10.0;10.0;750.0</additional_attributes>
+    <additional_attributes>450.0;10.0;10.0;800.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -865,6 +854,7 @@ m2=1</panel_attributes>
 
 + getMember(color: MembersColor) :FamilyMember
 + roundReset() :void
++ useMember(membToUse: FamilyMember): void
 
 
 
@@ -1493,12 +1483,12 @@ NEUTRAL</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>973</x>
-      <y>1386</y>
+      <y>1351</y>
       <w>63</w>
-      <h>175</h>
+      <h>210</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;70.0;230.0</additional_attributes>
+    <additional_attributes>10.0;10.0;70.0;280.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -2531,7 +2521,7 @@ GREEN</panel_attributes>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=1
 m2=2..4</panel_attributes>
-    <additional_attributes>1420.0;10.0;910.0;440.0;160.0;700.0;10.0;350.0</additional_attributes>
+    <additional_attributes>1420.0;10.0;910.0;440.0;160.0;700.0;10.0;300.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -2995,14 +2985,14 @@ m2=1</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1155</x>
-      <y>1386</y>
+      <y>1351</y>
       <w>154</w>
-      <h>357</h>
+      <h>392</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=1
 m2=1</panel_attributes>
-    <additional_attributes>10.0;10.0;200.0;490.0</additional_attributes>
+    <additional_attributes>10.0;10.0;200.0;540.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -3240,9 +3230,9 @@ m2=1</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>1421</x>
-      <y>2975</y>
-      <w>210</w>
-      <h>91</h>
+      <y>2968</y>
+      <w>266</w>
+      <h>98</h>
     </coordinates>
     <panel_attributes>OrRequirements
 --
@@ -3252,7 +3242,8 @@ m2=1</panel_attributes>
 // Può essere instanziato con un numero variabile di requirement
 + getPossibleChoices() :Requirement[]
 + setChoice(chosen :Requirement) void
-+ getRequirement() :Requirement </panel_attributes>
++ getRequirement() :Requirement 
++ addRequirement(newRequirement: Requirement): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -3362,5 +3353,39 @@ bg=white</panel_attributes>
 layer=0
 bg=light_gray</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1456</x>
+      <y>2737</y>
+      <w>210</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>OrCosts
+--
+- chosenCost :ImmProperties
+- choices :ArrayList&lt;ImmProperties&gt;
+--
+// Può essere instanziato con un numero variabile di requirement
++ getPossibleChoices() :Requirement[]
++ setChoice(chosen :Requirement) void
++ getRequirement() :Requirement 
++ addCost(): void
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1659</x>
+      <y>2793</y>
+      <w>343</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1..n</panel_attributes>
+    <additional_attributes>470.0;40.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>

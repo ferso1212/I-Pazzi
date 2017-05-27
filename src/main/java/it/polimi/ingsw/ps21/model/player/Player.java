@@ -7,6 +7,7 @@ import it.polimi.ingsw.ps21.model.deck.CardsNumber;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.properties.PropertiesSet;
+import  it.polimi.ingsw.ps21.model.deck.Card;
 
 
 /**Used to store the status of each player.
@@ -176,7 +177,7 @@ public class Player {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/	
-		this.properties.
+		this.properties.payProperties(card.getCost())
 	}
 	
 	//TODO implement
