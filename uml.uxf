@@ -2838,12 +2838,10 @@ m2=1...3</panel_attributes>
     <panel_attributes>CardDiscount
 --
 - diceDiscount: int
-- resDiscount: Resources
-- pointsDiscount: Points
+- propDiscounts: PropertiesSet
 --
 + getDiceDisc(): int
-+ getResDisc(): Resources
-+ getPointsDisc(): Points
++ getPropertiesMods(): PropertiesSet
 + setDiceDisc(): int
 </panel_attributes>
     <additional_attributes/>

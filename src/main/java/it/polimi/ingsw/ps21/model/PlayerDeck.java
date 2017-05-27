@@ -38,4 +38,9 @@ public class PlayerDeck{
 		if (card instanceof VentureCard) return requirementMap.get(DevelopmentCardType.VENTURE)[countCards(DevelopmentCardType.VENTURE) + 1];
 		throw new RuntimeException("Illegal Card Type");
 	}
+	
+	public ArrayList<? extends DevelopmentCard> getCards(DevelopmentCardType type)
+	{
+		
+	}
 }

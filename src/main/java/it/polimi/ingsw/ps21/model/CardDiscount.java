@@ -2,8 +2,8 @@ package it.polimi.ingsw.ps21.model;
 
 public class CardDiscount {
 	private int diceDiscount;
-	private Resources resDiscount;
-	private Points pointsDiscount;
+	private PropertiesSet propDiscounts;
+	
 	/**
 	 * @return the diceDiscount
 	 */
@@ -19,20 +19,17 @@ public class CardDiscount {
 	/**
 	 * @return the resDiscount
 	 */
-	public Resources getResDiscount() {
-		return resDiscount;
+	public PropertiesSet getPropertiesDisc() {
+		return this.propDiscounts;
 	}
 	/**
 	 * @return the pointsDiscount
 	 */
-	public Points getPointsDiscount() {
-		return pointsDiscount;
-	}
+	
 	
 	public CardDiscount()
 	{
 		this.diceDiscount=0;
-		this.resDiscount=new Resources(0,0,0,0);
-		this.pointsDiscount= new Points(0,0,0);
+		this.propDiscounts=new PropertiesSet();
 	}
 }
