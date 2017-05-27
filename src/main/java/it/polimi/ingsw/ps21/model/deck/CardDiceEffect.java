@@ -27,11 +27,9 @@ public class CardDiceEffect extends Effect {
 
 	}
 	
-	public boolean activate(Player player) {
+	public void activate(Player player) {
 		for (DevelopmentCardType worktype: types) {
 			player.getModifiers().getDiceMods().getDiceMod(worktype).setValue(cardDiceValue);
-		}
-		return true;
-		
+		}		
 	}
 }

@@ -71,9 +71,8 @@ public class MultiplierEffect extends Effect {
 	}
 	
 	@Override
-	public boolean activate(Player player){
+	public void activate(Player player){
 		multiplyEffect(player);
-		return true;
-	}
+		}
 	
 }

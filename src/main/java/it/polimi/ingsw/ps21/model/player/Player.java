@@ -2,8 +2,12 @@ package it.polimi.ingsw.ps21.model.player;
 
 import java.util.*;
 
-import it.polimi.ingsw.ps21.model.PlayerColor;
+import it.polimi.ingsw.ps21.model.actions.ActionType;
+import it.polimi.ingsw.ps21.model.deck.CardsNumber;
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.properties.PropertiesSet;
+import  it.polimi.ingsw.ps21.model.deck.Card;
 
 
 /**Used to store the status of each player.
@@ -21,7 +25,7 @@ public class Player {
 	protected String name;
 	protected String id;
 	//Since there is not a "Personal Board" class, player's cards are stored here
-	protected PropertiesSet properties; 
+	protected PlayerProperties properties; 
 	protected ModifiersSet modifiers;
 	protected PersonalBonusTile personalBonusTile;
 	private Family family;
@@ -32,7 +36,7 @@ public class Player {
 	 * 
 	 * @return object containing the player's properties.
 	 */
-	public PropertiesSet getProperties()
+	public PlayerProperties getProperties()
 	{
 		return this.properties;
 	}
@@ -104,8 +108,6 @@ public class Player {
 	
 	
 	
-
-	
 	/**This method can be used to check whether the player meets specific requirements on the number of territory cards, building cards, venture cards and character cards.
 	 * 
 	 * @param req
@@ -133,9 +135,6 @@ public class Player {
 		}
 		return true;
 	}
-	
-
-	
 	
 	
 	/**Resets the value of all the family member at the start of a new round.
@@ -177,10 +176,8 @@ public class Player {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
-		
-		
-		
+		}*/	
+		this.properties.payProperties(card.getCost())
 	}
 	
 	//TODO implement
@@ -194,9 +191,6 @@ public class Player {
 	{
 		return;
 	}
-
-
-
 	
 	/**
 	 * @return the modifiers
@@ -216,7 +210,7 @@ public class Player {
 
 
 
-	public Player(String name, PropertiesSet properties, String id) 
+	public Player(String name, PlayerProperties properties, String id) 
 	{
 		this.name = name;
 		this.properties = properties;
@@ -245,5 +239,14 @@ public class Player {
 	}
 
 
+
+	/**
+	 * @return the devCards
+	 */
+	public PlayerDeck getDeck() {
+		return devCards;
+	}
+
+	
 	
 }

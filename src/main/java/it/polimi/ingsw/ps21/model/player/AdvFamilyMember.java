@@ -1,7 +1,5 @@
 package it.polimi.ingsw.ps21.model.player;
 
-import it.polimi.ingsw.ps21.model.MembersColor;
-
 public class AdvFamilyMember extends FamilyMember {
 	private boolean fixed;
 

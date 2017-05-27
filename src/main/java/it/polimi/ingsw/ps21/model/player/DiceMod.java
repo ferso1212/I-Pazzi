@@ -1,6 +1,6 @@
 package it.polimi.ingsw.ps21.model.player;
 
-import it.polimi.ingsw.ps21.model.DevelopmentCardType;
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 
 public class DiceMod {
 	

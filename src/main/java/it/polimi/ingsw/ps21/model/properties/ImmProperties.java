@@ -2,8 +2,6 @@ package it.polimi.ingsw.ps21.model.properties;
 
 import java.util.ArrayList;
 
-import it.polimi.ingsw.ps21.model.PropertiesId;
-
 /**This class is used to store immutable resource and points values.
 *For example, it is used to store card effects on resources and points.
 
@@ -47,4 +45,6 @@ public ArrayList<PropertiesId> getPropertiesIds()
 	}
 	return output;
 }
+
+public boolean Compare()
 }

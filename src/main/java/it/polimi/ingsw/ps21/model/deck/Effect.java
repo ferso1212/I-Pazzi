@@ -13,6 +13,6 @@ public abstract class Effect {
 		return player.checkRequirement(req);
 	}
 	
-	public abstract boolean activate(Player player);
+	public abstract void activate(Player player);
 	
 }

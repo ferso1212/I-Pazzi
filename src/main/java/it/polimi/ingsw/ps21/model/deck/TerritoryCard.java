@@ -1,6 +1,5 @@
 package it.polimi.ingsw.ps21.model.deck;
 
-import it.polimi.ingsw.ps21.model.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 /**

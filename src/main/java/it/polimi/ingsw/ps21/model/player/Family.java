@@ -2,8 +2,6 @@ package it.polimi.ingsw.ps21.model.player;
 
 import java.util.EnumMap;
 
-import it.polimi.ingsw.ps21.model.MembersColor;
-
 /**Used to store the set of the Family Members of a Player
  * Exposes methods to set, increase and get the value of each family member.
  * @author fabri
@@ -35,13 +33,22 @@ public class Family {
 		return this.members.get(color);
 	}
 	
+	public boolean useMember(FamilyMember membToUse)
+	{
+		if(membToUse.isUsed()) return false;
+		else{membToUse.setUsed(true);
+		return true;}
+	}
 	
 	/** Resets all the Family members' values to 0.
 	 * 
 	 */
 	public void roundReset()
 	{
-	for(FamilyMember m: this.members.values())
-		m.setValue(0);
+		for(FamilyMember m: members.values())
+		{
+			m.setValue(0);
+			m.setUsed(false);
+		}
 	}
 }
