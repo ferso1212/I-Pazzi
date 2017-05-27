@@ -33,9 +33,11 @@ public class Family {
 		return this.members.get(color);
 	}
 	
-	public void useMember(FamilyMember membToUse)
+	public boolean useMember(FamilyMember membToUse)
 	{
-		members.remove(membToUse.getColor());
+		if(membToUse.isUsed()) return false;
+		else{membToUse.setUsed(true);
+		return true;}
 	}
 	
 	/** Resets all the Family members' values to 0.
@@ -43,7 +45,10 @@ public class Family {
 	 */
 	public void roundReset()
 	{
-	for(FamilyMember m: this.members.values())
-		this.members.put(mColor, new FamilyMember(mColor, playerId));
+		for(FamilyMember m: members.values())
+		{
+			m.setValue(0);
+			m.setUsed(false);
+		}
 	}
 }
