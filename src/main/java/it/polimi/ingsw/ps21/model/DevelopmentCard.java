@@ -2,7 +2,7 @@ package it.polimi.ingsw.ps21.model;
 
 import java.util.ArrayList;
 
-public class DevelopmentCard extends Card{
+public abstract class DevelopmentCard extends Card{
 
 	protected int cardEra;
 	protected Effect instantEffect;
@@ -74,10 +74,7 @@ public class DevelopmentCard extends Card{
 		return chosenReq;
 	}
 	
-	//TODO
-	public DevelopmentCardType getCardType()
-	{
-		return null;
-	}
+	public abstract DevelopmentCardType getCardType();
+	
 }
 
