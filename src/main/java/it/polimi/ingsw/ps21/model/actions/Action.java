@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps21.model.actions;
 
+import it.polimi.ingsw.ps21.model.board.NotOccupableException;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.Player;
 
@@ -19,5 +20,5 @@ public abstract class Action {
 	
 	public abstract boolean isLegal();
 	
-	public abstract boolean execute();
+	public abstract void execute() throws NotExecutableException, NotOccupableException;
 }
