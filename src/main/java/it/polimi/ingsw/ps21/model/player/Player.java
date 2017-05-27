@@ -245,5 +245,14 @@ public class Player {
 	}
 
 
+
+	/**
+	 * @return the devCards
+	 */
+	public PlayerDeck getDevCards() {
+		return devCards;
+	}
+
+	
 	
 }

@@ -2477,13 +2477,13 @@ variabile del Match</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>490</x>
+      <x>495</x>
       <y>670</y>
-      <w>195</w>
+      <w>190</w>
       <h>65</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>370.0;110.0;370.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>360.0;110.0;360.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -2595,10 +2595,7 @@ m2=2..4</panel_attributes>
     </coordinates>
     <panel_attributes>AdvFamily
 --
-- orange: AdvFamilyMember;
-- white: AdvFamilyMember;
-- neutral: AdvFamilyMember:
-- black: AdvFamilyMember;
+- members: EnumMap&lt;advMembersColor, FamilyMember&gt;
 --
 + getMember(color: MembersColor) : AdvFamilyMember</panel_attributes>
     <additional_attributes/>
