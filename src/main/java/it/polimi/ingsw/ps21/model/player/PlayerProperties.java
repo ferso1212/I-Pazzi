@@ -2,8 +2,8 @@ package it.polimi.ingsw.ps21.model.player;
 
 import java.util.ArrayList;
 
-import it.polimi.ingsw.ps21.model.PropertiesId;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
+import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.model.properties.PropertiesSet;
 import it.polimi.ingsw.ps21.model.properties.Property;
 

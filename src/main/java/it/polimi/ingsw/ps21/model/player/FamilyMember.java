@@ -1,7 +1,5 @@
 package it.polimi.ingsw.ps21.model.player;
 
-import it.polimi.ingsw.ps21.model.MembersColor;
-
 /**Stores the color and the value of each family member.
  * 
  * @author fabri

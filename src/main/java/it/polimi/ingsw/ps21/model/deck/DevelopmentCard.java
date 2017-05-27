@@ -2,7 +2,6 @@ package it.polimi.ingsw.ps21.model.deck;
 
 import java.util.ArrayList;
 
-import it.polimi.ingsw.ps21.model.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public abstract class DevelopmentCard extends Card{

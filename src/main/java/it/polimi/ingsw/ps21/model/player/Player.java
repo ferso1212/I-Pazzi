@@ -2,7 +2,7 @@ package it.polimi.ingsw.ps21.model.player;
 
 import java.util.*;
 
-import it.polimi.ingsw.ps21.model.PlayerColor;
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.properties.PropertiesSet;
 
 
@@ -249,7 +249,7 @@ public class Player {
 	/**
 	 * @return the devCards
 	 */
-	public PlayerDeck getDevCards() {
+	public PlayerDeck getDeck() {
 		return devCards;
 	}
 

@@ -1,10 +1,10 @@
 package it.polimi.ingsw.ps21.model.board;
 
-import it.polimi.ingsw.ps21.model.MembersColor;
 import it.polimi.ingsw.ps21.model.deck.BuildingCard;
 import it.polimi.ingsw.ps21.model.deck.CharacterCard;
 import it.polimi.ingsw.ps21.model.deck.TerritoryCard;
 import it.polimi.ingsw.ps21.model.deck.VentureCard;
+import it.polimi.ingsw.ps21.model.player.MembersColor;
 
 public class Board {
 	
