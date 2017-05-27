@@ -2,6 +2,7 @@ package it.polimi.ingsw.ps21.model.deck;
 
 import it.polimi.ingsw.ps21.model.CardType;
 import it.polimi.ingsw.ps21.model.MultiplierType;
+import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class MultiplierEffect extends Effect {
@@ -23,7 +24,7 @@ public class MultiplierEffect extends Effect {
 		ImmProperties bonus;
 		switch(secondFactorType){
 		case BLUE_CARD:
-			bonusValue = player.countCards(CardType.CHARACTER) * secondFactorValue;
+			bonusValue = player * secondFactorValue;
 			break;
 		case COINS:
 			bonusValue = player.getProperties().getCoins();

@@ -1,5 +1,7 @@
 package it.polimi.ingsw.ps21.model.deck;
 
+import it.polimi.ingsw.ps21.model.player.Player;
+
 public abstract class Effect {
 	protected Requirement req;
 	
@@ -7,6 +9,6 @@ public abstract class Effect {
 		this.req = req;
 	}
 	
-	public abstract boolean activate(Player playe);
+	public abstract boolean activate(Player player);
 	
 }

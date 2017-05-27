@@ -10,9 +10,8 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
  */
 public abstract class Card {
 	protected String name;
-	protected ArrayList<Requirement> requires;
-	protected Requirement chosenReq;	
-	protected ImmProperties cost;
+	protected OrRequirement requirement;
+	protected OrCosts cost;
 	
 	/**
 	 * Constructor for a card that provide only one cost and only one requirement
@@ -20,12 +19,13 @@ public abstract class Card {
 	 * @param req
 	 * @param cost
 	 */
-	public Card(String name, Requirement... reqs, ImmProperties... costs){
+	public Card(String name, OrRequirement req, OrCosts cost){
 		this.name = name;
-		this.requires = new ArrayList<Requirement>();
+		this.requirement = req;
+		this.cost = cost;
 		
 	}
 	
-	public abstract Requirement getRequirement() throws Exception;
+	public abstract OrRequirement getRequirement() throws Exception;
 	
 }
