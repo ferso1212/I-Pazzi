@@ -48,6 +48,9 @@ public class Match extends Observable {
 		
 	}
 	
+	public Board getBoard() {
+		return board;
+	}
 	
 	public Match getCopy() throws CloneNotSupportedException{
 		//Player copyOfPlayers[];
