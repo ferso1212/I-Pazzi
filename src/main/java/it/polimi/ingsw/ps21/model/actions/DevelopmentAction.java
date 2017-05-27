@@ -7,6 +7,7 @@ import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.Player;
+import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
 
 /**
  * This class is used to allow the player to take a development card from the
@@ -33,8 +34,9 @@ public class DevelopmentAction extends Action {
 	 */
 	@Override
 	public boolean isLegal() {
-		if ((player.checkRequirements(space.getcard().getRequirement()))
-				&& (famMember.getValue() >= space.getRequirement()) && space.isOccupable(famMember)) {
+		if ((player.checkRequirements(space.getCard()))
+				&& (famMember.getValue() >= space.getDiceRequirement()) && space.isOccupable(famMember)
+				&& (!famMember.isUsed())) {
 			return true;
 		}
 		return false;
@@ -47,20 +49,23 @@ public class DevelopmentAction extends Action {
 	 * @return boolean indicating if the action has taken place correctly.
 	 */
 	@Override
-	public void execute() throws NotExecutableException, NotOccupableException, RequirementNotMetException { 
-																					
-		player.getDeck().addCard(space.getCard());   // aggiunta della carta al deck del player, potrebbe 
-		
+	public void execute() throws NotExecutableException, NotOccupableException, RequirementNotMetException {
+
+		player.getDeck().addCard(space.getCard()); // aggiunta della carta al
+													// deck del player, potrebbe
+
 		space.occupy(famMember); // piazzare il familiare
-		
-		
-		
-		if (!player.getModifiers().getActionMods().noPlacementBonus()) {
-			player.getProperties().increaseProperties(space.getInstantBonus()); // Aggiungi le risorse dell'istant-bonus dello space, se è permesso
+
+		if (!player.getFamily().useMember(famMember)) {
+			throw new NotExecutableException(); //
 		}
-		
-		player.payCard(space.getCard());    //Player paga il costo della carta
-		
+
+		if (!player.getModifiers().getActionMods().noPlacementBonus()) {
+			player.getProperties().increaseProperties(space.getInstantBonus()); // Aggiungi le risorse dell'instant-bonus dello space, se è permesso
+		}
+
+		player.payCard(space.getCard()); // Player paga il costo della carta
+
 	}
 
 }

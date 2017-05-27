@@ -1,9 +1,7 @@
 package it.polimi.ingsw.ps21.model.board;
 
-
-import it.polimi.ingsw.ps21.model.SingleSpaceType;
-import it.polimi.ingsw.ps21.model.actions.NotOccupableException;
-
+import it.polimi.ingsw.ps21.model.player.FamilyMember;
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class SingleSpace extends Space {
 

@@ -2,21 +2,20 @@ package it.polimi.ingsw.ps21.model.actions;
 
 import java.util.ArrayList;
 
-import it.polimi.ingsw.ps21.model.MultipleHarvestSpace;
-import it.polimi.ingsw.ps21.model.MultipleProductionSpace;
-import it.polimi.ingsw.ps21.model.SingleHarvestSpace;
-import it.polimi.ingsw.ps21.model.SingleProductionSpace;
+import it.polimi.ingsw.ps21.model.board.SingleSpace;
+import it.polimi.ingsw.ps21.model.board.Space;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.Effect;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
+import it.polimi.ingsw.ps21.model.player.Player;
 
 public class WorkAction extends Action {
 	
-	private WorkSpace space;
+	private Space space;
 	private FamilyMember famMember;
 	
-	public WorkAction(Match m, Player p, WorkSpace space, FamilyMember famMember) {
+	public WorkAction(Match m, Player p, Space space, FamilyMember famMember) {
 		super(m, p);
 		this.space = space;
 		this.famMember = famMember;
@@ -24,8 +23,8 @@ public class WorkAction extends Action {
 
 	@Override
 	public boolean isLegal() {
-		if((space instanceof SingleProductionSpace)||(space instanceof SingleHarvestSpace)){
-			if ((famMember.getValue() >= space.getRequirement()) && (space.getOccupant()==null)){
+		if(space instanceof SingleSpace){
+			if ((famMember.getValue() >= space.getDiceRequirement()) && (space.isOccupable(famMember) && (!famMember.isUsed()))){
 				return true;
 			}
 		}
