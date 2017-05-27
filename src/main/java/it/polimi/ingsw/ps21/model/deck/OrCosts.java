@@ -15,7 +15,7 @@ public class OrCosts {
 	 * @param costs
 	 */
 	
-	public OrCost(ImmProperties... costs){
+	public OrCosts(ImmProperties... costs){
 		chosenCost = costs[0];
 		choices = new ArrayList<ImmProperties>();
 		for(ImmProperties i: costs)	{
@@ -37,7 +37,7 @@ public class OrCosts {
 	}
 	
 	public ImmProperties getCost(){
-		return chosenCost
+		return chosenCost;
 	}
 
 }

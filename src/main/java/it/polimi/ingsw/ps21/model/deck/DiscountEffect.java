@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps21.model.deck;
 
+import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class DiscountEffect extends Effect {
@@ -12,7 +13,7 @@ public class DiscountEffect extends Effect {
 	}
 	@Override
 	public boolean activate(Player player) {
-		ImmProperties modifier = player.getModifierSet().getModifier(Modifierid.PROP_MODIFIER);
+		ImmProperties modifier = player.getModifiers();
 		modifier.setCoins(modifier.getCoins() - discount.getCoins());
 		modifier.setStone(modifier.getStone() - discount.getStone());
 		modifier.setWood(modifier.getWood() - discount.getWood());

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps21.model.deck;
 
 import it.polimi.ingsw.ps21.model.CardType;
+import it.polimi.ingsw.ps21.model.player.Player;
 
 public class CardDiceEffect extends Effect {
 
@@ -18,5 +19,4 @@ public class CardDiceEffect extends Effect {
 		
 		return false;
 	}
-
 }
