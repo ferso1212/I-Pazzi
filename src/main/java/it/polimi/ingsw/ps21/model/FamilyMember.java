@@ -9,6 +9,7 @@ public class FamilyMember {
 	protected int value;
 	protected MembersColor color;
 	protected int modifier;
+	protected String ownerId;
 	
 	/**
 	 * Returns the value of the family member, which is the number on the corresponding dice + the number of servants used in the action.
@@ -41,11 +42,12 @@ public class FamilyMember {
 	 * Sets the inner value of the new member to 0 and its color to the one passed as parameter.
 	 * @param color the color to set in the new family member
 	 */
-	public FamilyMember(MembersColor color)
+	public FamilyMember(MembersColor color, String id)
 	{
 		this.value=0;
 		this.color=color;
 		this.modifier=0;
+		this.ownerId=id;
 	}
 
 	/**
@@ -60,6 +62,13 @@ public class FamilyMember {
 	 */
 	public void setModifier(int modifier) {
 		this.modifier = modifier;
+	}
+
+	/**
+	 * @return the playerId
+	 */
+	public String getPlayerId() {
+		return playerId;
 	}
 	
 	

@@ -16,6 +16,7 @@ import java.util.*;
  */
 public class Player {
 	protected String name;
+	protected String id;
 	//Since there is not a "Personal Board" class, player's cards are stored here
 	protected PropertiesSet properties; 
 	protected ModifiersSet modifiers;
@@ -212,11 +213,12 @@ public class Player {
 
 
 
-	public Player(String name, PropertiesSet properties, int[] militaryForTerritoryReq) 
+	public Player(String name, PropertiesSet properties, int[] militaryForTerritoryReq, String id) 
 	{
 		super();
 		this.name = name;
 		this.properties = properties;
+		this.id=id;
 	}
 	
 	public PersonalBonusTile getPersonalBonusTile()
@@ -232,6 +234,14 @@ public class Player {
 	}
 
 
-	
+
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+
 	
 }
