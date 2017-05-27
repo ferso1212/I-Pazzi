@@ -15,10 +15,10 @@ import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
  **/
 public class DevelopmentAction extends Action {
 
-	protected SingleTowerSpace<DevelopmentCard> space;
+	protected SingleTowerSpace space;
 	protected FamilyMember famMember;
 
-	public DevelopmentAction(Match match, Player player, SingleTowerSpace<DevelopmentCard> space, FamilyMember famMember,
+	public DevelopmentAction(Match match, Player player, SingleTowerSpace space, FamilyMember famMember,
 			Board board) {
 		super(match, player);
 		this.space = space;
@@ -34,7 +34,7 @@ public class DevelopmentAction extends Action {
 	 */
 	@Override
 	public boolean isLegal() {
-		if ((player.checkRequirements(space.getCard()))
+		if ((player.checkCardRequirements(space.getCard()).size()!=0)
 				&& (famMember.getValue() >= space.getDiceRequirement()) && space.isOccupable(famMember)
 				&& (!famMember.isUsed())) {
 			return true;

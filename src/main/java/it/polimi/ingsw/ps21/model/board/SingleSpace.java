@@ -25,6 +25,10 @@ public class SingleSpace extends Space {
 	public void occupy(FamilyMember member) throws NotOccupableException {
 		if (occupant == null) {
 			this.occupant = member;
+			if(member.isUsed()){
+				throw new NotOccupableException();//cambiare eccezione in AlreadyUsedException
+			}
+			member.setUsed(true);
 		} else
 			throw new NotOccupableException();
 

@@ -7,9 +7,9 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class MultipleSpace extends Space{
 	
-	private Queue<FamilyMember> occupants;
-	private int diceMalus;
-	private MultipleSpaceType type;
+	protected Queue<FamilyMember> occupants;
+	protected int diceMalus;
+	protected MultipleSpaceType type;
 	
 	
 
@@ -34,8 +34,12 @@ public class MultipleSpace extends Space{
 	}
 
 	@Override
-	public void occupy(FamilyMember famMember) {
+	public void occupy(FamilyMember famMember) throws NotOccupableException{
 		occupants.add(famMember);
+		if(famMember.isUsed()){
+			throw new NotOccupableException();//cambiare eccezione in AlreadyUsedException
+		}
+		famMember.setUsed(true);
 	}
 
 	
