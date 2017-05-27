@@ -179,8 +179,9 @@ public class Player {
 			e.printStackTrace();
 		}*/	
 		ImmProperties propsToPay= new ImmProperties(); //è come scrivere new ImmProperties(0,0,0,0,0,0,0) perchè il costruttore dell'ImmProperties chiama il costruttore del PropertiesSet che crea automaticamente i valri mancanti, settandoli a 0
+		propsToPay=card.getCosts().getCost();
 		
-		if(this.properties.payProperties(card.getCosts().getCost())==false) throw new InsufficientPropsException();
+		if(this.properties.payProperties()==false) throw new InsufficientPropsException();
 	}
 	
 	//TODO implement

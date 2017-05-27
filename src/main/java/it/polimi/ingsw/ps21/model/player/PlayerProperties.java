@@ -41,8 +41,8 @@ public class PlayerProperties {
 	}
 	
 	/**
-	 * Decreases the value of all the properties in this object by a number of units specified in another ImmProperties object, 
-	 * plus the value of the modifier of each property.
+	 * Decreases the value of all the properties in this object by a number of units specified in another ImmProperties object. 
+	 * 
 	 * @param props the object containing the properties to add.
 	 * @return true if the operation succeeds, otherwise false.
 	 */
@@ -56,5 +56,18 @@ public class PlayerProperties {
 		return true;
 	}
 	
-	
+	/**
+	 * Decreases the value of all the properties in this object by a number of units specified in another ImmProperties object, minus the discount. 
+	 * @param props the object containing the properties to add.
+	 * @return true if the operation succeeds, otherwise false.
+	 */
+	public boolean payProperties(ImmProperties propsToPay, PropertiesSet discount)
+	{
+		ArrayList<PropertiesId> propIdsToScan = propsToPay.getPropertiesIds();
+		for(PropertiesId id: propIdsToScan)
+		{
+			if((this.properties.getProperty(id).payValue(propsToPay.getPropertyValue(id)-discount.getProperty(id).getValue()))==false) return false;
+		}
+		return true;
+	}
 }
