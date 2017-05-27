@@ -11,7 +11,8 @@ package it.polimi.ingsw.ps21.model.properties;
 public class Property {
 	private PropertiesId id;
 	private int value;
-	private int modifier;
+	private int payingModifier;
+	private int increasingModifier;
 	
 	/**Constructs a Property object with custom id and initial value. The modifier is automatically set to 0.
 	 * 
@@ -54,7 +55,8 @@ public class Property {
 	public boolean addValue(int num)
 	{
 		if(num<0) return false; //this method can't be used to subtract values
-		this.value+=num;
+		int modifiedNum = num + this.increasingModifier; //adds the modifier value to the value that should be added 
+		this.value+=modifiedNum;
 		return true;
 	}
 	
@@ -66,7 +68,7 @@ public class Property {
 	public boolean payValue(int num)
 	{
 		if(num<0) return false; //this method can't be used to add values
-		int modifiedNum = num + this.modifier; //adds the modifier value to the value that should be payed
+		int modifiedNum = num + this.payingModifier; //adds the modifier value to the value that should be payed
 		if(this.value<modifiedNum) return false; 
 		this.value-=modifiedNum;
 		return true;
@@ -83,13 +85,23 @@ public class Property {
 		else return false;
 	}
 
-	/**Sets the modifier
+	/**Sets the modifier that modifies the number that is subtracted from the property's value when the payValue(num) method is called.
+	 * When the payValue(num) method is called, (num + modifier) is subtracted from the property's value.
 	 * @param modifier the value of the modifier to set
 	 */
-	public void setModifier(int modifier) {
-		this.modifier = modifier;
+	public void setPayingModifier(int modifier) {
+		this.payingModifier = modifier;
 	}
 	
+	
+	/**Sets the modifier that modifies the number that is added to the property's value when the addValue(num) method is called
+	 * When the addValue(num) method is called, (num + modifier) is added to the property's value.
+	 * @param increasingModifier the increasingModifier to set
+	 */
+	public void setIncreasingModifier(int increasingModifier) {
+		this.increasingModifier = increasingModifier;
+	}
+
 	/**Used to increase the value of the modifier  by num units.
 	 * If num<0, the value of the modifier is reduced by |num| units.
 	 * @param num the number to add to the modifier value

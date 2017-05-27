@@ -7,13 +7,13 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class MultipleSpace extends Space{
 	
-	private Queue<Player> occupants;
+	private Queue<FamilyMember> occupants;
 	private int diceMalus;
 	private MultipleSpaceType type;
 	
 	
 
-	public MultipleSpace(int diceRequirement, ImmProperties instantBonus, Queue<Player> occupants, int diceMalus,
+	public MultipleSpace(int diceRequirement, ImmProperties instantBonus, Queue<FamilyMember> occupants, int diceMalus,
 			MultipleSpaceType type) {
 		super(diceRequirement, instantBonus);
 		this.occupants = occupants;
@@ -21,7 +21,7 @@ public class MultipleSpace extends Space{
 		this.type = type;
 	}
 
-	public Queue<Player> getOccupants() {
+	public Queue<FamilyMember> getOccupants() {
 		return occupants;
 	}
 
@@ -34,8 +34,8 @@ public class MultipleSpace extends Space{
 	}
 
 	@Override
-	public void occupy(Player player) {
-		return occupants.add(player);
+	public void occupy(FamilyMember famMember) {
+		occupants.add(famMember);
 	}
 
 	

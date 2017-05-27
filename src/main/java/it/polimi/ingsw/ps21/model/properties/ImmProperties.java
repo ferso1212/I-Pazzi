@@ -46,5 +46,4 @@ public ArrayList<PropertiesId> getPropertiesIds()
 	return output;
 }
 
-public boolean Compare()
 }

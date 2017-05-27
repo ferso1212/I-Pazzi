@@ -1,7 +1,9 @@
 package it.polimi.ingsw.ps21.model.actions;
 
+import it.polimi.ingsw.ps21.model.board.NotOccupableException;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.Player;
+import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
 
 /**
  * This class is created in the view and is checked in the controller
@@ -19,5 +21,5 @@ public abstract class Action {
 	
 	public abstract boolean isLegal();
 	
-	public abstract boolean execute();
+	public abstract void execute() throws NotExecutableException, NotOccupableException, RequirementNotMetException ;
 }
