@@ -21,7 +21,7 @@ public class Player {
 	protected String name;
 	protected String id;
 	//Since there is not a "Personal Board" class, player's cards are stored here
-	protected PropertiesSet properties; 
+	protected PlayerProperties properties; 
 	protected ModifiersSet modifiers;
 	protected PersonalBonusTile personalBonusTile;
 	private Family family;
@@ -32,7 +32,7 @@ public class Player {
 	 * 
 	 * @return object containing the player's properties.
 	 */
-	public PropertiesSet getProperties()
+	public PlayerProperties getProperties()
 	{
 		return this.properties;
 	}
@@ -216,7 +216,7 @@ public class Player {
 
 
 
-	public Player(String name, PropertiesSet properties, String id) 
+	public Player(String name, PlayerProperties properties, String id) 
 	{
 		this.name = name;
 		this.properties = properties;
