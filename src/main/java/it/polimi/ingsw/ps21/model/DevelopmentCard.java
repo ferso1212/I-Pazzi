@@ -73,7 +73,7 @@ public abstract class DevelopmentCard extends Card{
 		if (chosenReq == null) throw new Exception();
 		return chosenReq;
 	}
-	
+
 	public abstract DevelopmentCardType getCardType();
 	
 }

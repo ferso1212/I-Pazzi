@@ -52,6 +52,5 @@ public class PlayerDeck{
 		default:
 			throw new IllegalCardTypeException();
 		}
-		
 	}
 }

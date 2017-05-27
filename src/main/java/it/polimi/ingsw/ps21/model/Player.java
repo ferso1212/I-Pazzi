@@ -62,14 +62,14 @@ public class Player {
 	 * @return an ArrayList of DevelopmentCards, containing the harvest/production cards that the player can activate.
 	 * @throws IllegalArgumentException if workType argument is not one of HARVEST or PRODUCTION.
 	 */
-	/*public ArrayList<DevelopmentCard> getWorkCards(int value, WorkType workType) throws IllegalArgumentException
+	public ArrayList<DevelopmentCard> getActivableWorks(int value, WorkType workType) throws IllegalArgumentException
 	{
 		ArrayList<DevelopmentCard> output = new ArrayList<DevelopmentCard>(); //output is the ArrayList that the method will return
 		output.clear();
 		if(workType==WorkType.HARVEST) 
 		{
-			value += this.workMod.getHarvMod();
-			ArrayList<TerritoryCard> input=greenCards;	
+			value += this.modifiers.getWorkMods().getHarvMod();
+			ArrayList<TerritoryCard> input=this.devCards.getCards(DevelopmentCardType.TERRITORY);	
 			for(TerritoryCard card: input)
 			{
 				if(value >= card.getPermanentEffect().getReq()) {output.add(card);}
@@ -90,7 +90,7 @@ public class Player {
 		}
 		else throw new IllegalArgumentException();
 		
-	}*/
+	}
 	
 	public int getMemberValue(FamilyMember member, DevelopmentCard card)
 	{
@@ -152,15 +152,10 @@ public class Player {
 	}
 	
 	
-	public void payForOccupiedTower()
-	{
-		
-	}
-	
 	//TODO : handle discount modifiers
 	public void payCard(DevelopmentCard card)
 	{
-		DevelopmentCardType cardType = null;
+		/*DevelopmentCardType cardType = null;
 		if(card instanceof TerritoryCard) cardType= DevelopmentCardType.TERRITORY;
 		else if(card instanceof BuildingCard) cardType= DevelopmentCardType.BUILDING;
 		else if(card instanceof VentureCard) cardType= DevelopmentCardType.VENTURE;
@@ -178,7 +173,10 @@ public class Player {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
+		
+		
+		
 	}
 	
 	//TODO implement
@@ -195,11 +193,12 @@ public class Player {
 
 
 
+	
 	/**
-	 * @return the curModifiers. curModifiers includes all the modifiers that modify actions during the game
+	 * @return the modifiers
 	 */
-	public ActionModifier getActionMod() {
-		return actionMod;
+	public ModifiersSet getModifiers() {
+		return modifiers;
 	}
 
 
@@ -213,12 +212,11 @@ public class Player {
 
 
 
-	public Player(String name, Properties properties, int[] militaryForTerritoryReq) 
+	public Player(String name, PropertiesSet properties, int[] militaryForTerritoryReq) 
 	{
 		super();
 		this.name = name;
 		this.properties = properties;
-		this.militaryForTerritoryReq = militaryForTerritoryReq;
 	}
 	
 	public PersonalBonusTile getPersonalBonusTile()
@@ -226,26 +224,14 @@ public class Player {
 		return this.personalBonusTile;
 	}
 	
-	public void setWorkMod(WorkType type, int mod) throws IllegalArgumentException
-	{
-		if(type==WorkType.HARVEST) this.workMod.setHarvestModifier(mod);
-		if(type==WorkType.PRODUCTION) this.workMod.setProductionModifier(mod);
-		else throw new IllegalArgumentException();
 	
-	}
-	
+	//TODO
 	public int finalVictoryPoints()
 	{
-		
+		return 0;
 	}
 
 
-	/**
-	 * @return the discountMod
-	 */
-	public DiscountModifier getDiscountMod() {
-		return discountMod;
-	}
 	
 	
 }
