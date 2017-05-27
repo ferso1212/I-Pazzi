@@ -2,6 +2,7 @@ package it.polimi.ingsw.ps21.model.actions;
 
 import java.util.ArrayList;
 
+import it.polimi.ingsw.ps21.model.board.MultipleSpace;
 import it.polimi.ingsw.ps21.model.board.SingleSpace;
 import it.polimi.ingsw.ps21.model.board.Space;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
@@ -24,13 +25,14 @@ public class WorkAction extends Action {
 	@Override
 	public boolean isLegal() {
 		if(space instanceof SingleSpace){
-			if ((famMember.getValue() >= space.getDiceRequirement()) && (space.isOccupable(famMember) && (!famMember.isUsed()))){
+			if ((famMember.getValue() >= space.getDiceRequirement()) && (space.isOccupable(famMember)) && (!famMember.isUsed())){
 				return true;
 			}
 		}
-		else if((space instanceof MultipleProductionSpace)||(space instanceof MultipleHarvestSpace)){
-			if (famMember.getValue() - 3 >= space.getRequirement()){
-				return true;
+		else if(space instanceof MultipleSpace){
+			if ((famMember.getValue() - 3 >= space.getDiceRequirement()) && (space.isOccupable(famMember)) && ((!famMember.isUsed()))){
+
+				
 			}
 		}
 		return false;

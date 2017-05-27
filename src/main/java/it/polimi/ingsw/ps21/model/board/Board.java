@@ -1,36 +1,79 @@
 package it.polimi.ingsw.ps21.model.board;
 
-import it.polimi.ingsw.ps21.model.deck.BuildingCard;
-import it.polimi.ingsw.ps21.model.deck.CharacterCard;
-import it.polimi.ingsw.ps21.model.deck.TerritoryCard;
-import it.polimi.ingsw.ps21.model.deck.VentureCard;
-import it.polimi.ingsw.ps21.model.player.MembersColor;
+import java.util.EnumMap;
+
+import it.polimi.ingsw.ps21.model.deck.Deck;
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
+import it.polimi.ingsw.ps21.model.player.FamilyMember;
+import it.polimi.ingsw.ps21.model.player.Player;
+
 
 public class Board {
 	
 	
-	private SingleTowerSpace<TerritoryCard> territoryTower;
-	private SingleTowerSpace<BuildingCard> buildingTower;
-	private SingleTowerSpace<CharacterCard> characterTower;
-	private SingleTowerSpace<VentureCard> ventureTower;
-	private int[] faithTrack;
-	private int militaryBonus1;
-	private int militaryBonus2;
-	private Space[] marketPlaces;
-	private Space singHarvPlace;
-	private Space singProdPlace;
-	private MultipleSpace multiHarvPlace;
-	private MultipleSpace multiProdPlace;
-	private MultipleSpace councilPalace;
+	protected EnumMap<DevelopmentCardType , Tower> towers;
+	protected int[] faithTrack;
+	protected int militaryBonus1;
+	protected int militaryBonus2;
+	protected Space[] marketPlaces;
+	protected SingleSpace singleHarvPlace;
+	protected SingleSpace singleProdPlace;
+	protected MultipleSpace multipleHarvPlace;
+	protected MultipleSpace multipleProdPlace;
+	protected MultipleSpace councilPalace;
+	protected int[] greenCardBonus;
+	protected int[] yellowCardBonus;
+	protected int[] blueCardBonus;
+	protected int[] purpleCardBonus;
 	
 	
-	public board (){
-		
+	
+	public Board(EnumMap<DevelopmentCardType, Tower> towers, int[] faithTrack, int militaryBonus1, int militaryBonus2,
+			Space[] marketPlaces, SingleSpace singleHarvPlace, SingleSpace singleProdPlace,
+			MultipleSpace multipleHarvPlace, MultipleSpace multipleProdPlace, MultipleSpace councilPalace,
+			int[] greenCardBonus, int[] yellowCardBonus, int[] blueCardBonus, int[] purpleCardBonus) {
+		super();
+		this.towers = towers;
+		this.faithTrack = faithTrack;
+		this.militaryBonus1 = militaryBonus1;
+		this.militaryBonus2 = militaryBonus2;
+		this.marketPlaces = marketPlaces;
+		this.singleHarvPlace = singleHarvPlace;
+		this.singleProdPlace = singleProdPlace;
+		this.multipleHarvPlace = multipleHarvPlace;
+		this.multipleProdPlace = multipleProdPlace;
+		this.councilPalace = councilPalace;
+		this.greenCardBonus = greenCardBonus;
+		this.yellowCardBonus = yellowCardBonus;
+		this.blueCardBonus = blueCardBonus;
+		this.purpleCardBonus = purpleCardBonus;
+	}
+
+
+
+	public void addToCouncil(Player player, FamilyMember member) throws NotOccupableException{
+		councilPalace.occupy(member);
 	}
 	
-	public boolean addToCouncil(Player player, MembersColor member) {
-		
+	public void placeCards (int era , Deck deck){
+		for (DevelopmentCardType type : DevelopmentCardType.values()){
+			Tower myTower = towers.get(type);
+			for (int i=1; i<5; i++ ){
+				myTower.getTowerSpace(i).setCard(deck.getCard(era , type));
+			}
+		}
 	}
+	
+	public void removeCardsAndMembers (){
+		for (DevelopmentCardType type : DevelopmentCardType.values()){
+			Tower myTower = towers.get(type);
+			for (int i=1; i<5; i++ ){
+				myTower.getTowerSpace(i).setCard(null);
+			}
+		}
+	}
+	
+	
 	
 
 	
