@@ -1,6 +1,6 @@
 package it.polimi.ingsw.ps21.model.deck;
 
-import java.util.ArrayList;
+
 
 public class Deck {
 	protected SubDeck<TerritoryCard> greenCards;
@@ -22,6 +22,21 @@ public class Deck {
 		if(card instanceof CharacterCard) blueCards.addCard((CharacterCard) card, ((DevelopmentCard) card).getEra());
 		if(card instanceof VentureCard) purpleCards.addCard((VentureCard) card, ((DevelopmentCard) card).getEra());
 		throw new RuntimeException("Illegal Card");
+	}
+	
+	public DevelopmentCard getCard(int era, DevelopmentCardType type){
+		switch(type){
+		case BUILDING:
+			return yellowCards.getCard(era);
+		case CHARACTER:
+			return blueCards.getCard(era);
+		case TERRITORY:
+			return greenCards.getCard(era);
+		case VENTURE:
+			purpleCards.getCard(era);
+		default:
+			throw new RuntimeException("Illegal Card Type");
+		}
 	}
 	
 	public void shuffle(){

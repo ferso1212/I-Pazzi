@@ -10,7 +10,7 @@ import it.polimi.ingsw.ps21.model.player.Player;
 
 
 /**
- * Class that represent all information about match and commnicates with Controller
+ * Class that represent all information about match and communicates with Controller
  * 
  * @author gullit
  *
@@ -24,6 +24,9 @@ public class Match extends Observable {
 	private final String yellowCardsFileName = "deck_yellowcards.xml";
 	private final String blueCardsFileName = "deck_bluecards.xml";
 	private final String purpleCardsFileName = "deck_purplecards.xml";
+	private int orangeDice;
+	private int blackDice;
+	private int whiteDice;
 	
 	public Match(Player players[]){
 		currentMatch = new StartingMatch(this);
@@ -43,6 +46,13 @@ public class Match extends Observable {
 	public void goNext(){
 		currentMatch = currentMatch.goNext();
 	}
+	
+	
+	public void throwDices(){
+		orangeDice = (int) Math.random() * 5 + 1;
+		blackDice = (int) Math.random() * 5 + 1;
+		whiteDice = (int) Math.random() * 5 + 1;
+	}
 
 	public void initializeMatch(){
 		
@@ -61,5 +71,17 @@ public class Match extends Observable {
 		// copy.setBoard(board.getCopy());
 		return copy;
 		
+	}
+
+	/**
+	 * 
+	 * @return first value = orangeDice, second value = blackDice, third value = whiteDice 
+	 */
+	public int[] getDices() {
+		int returnValues[] = new int[3];
+		returnValues[0] = orangeDice;
+		returnValues[1] = blackDice;
+		returnValues[2] = whiteDice;
+		return returnValues;
 	}
 }
