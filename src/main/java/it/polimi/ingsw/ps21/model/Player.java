@@ -213,9 +213,8 @@ public class Player {
 
 
 
-	public Player(String name, PropertiesSet properties, int[] militaryForTerritoryReq, String id) 
+	public Player(String name, PropertiesSet properties, String id) 
 	{
-		super();
 		this.name = name;
 		this.properties = properties;
 		this.id=id;
