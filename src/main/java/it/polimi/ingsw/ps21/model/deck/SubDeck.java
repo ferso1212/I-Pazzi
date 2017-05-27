@@ -8,9 +8,9 @@ public class SubDeck<T extends DevelopmentCard> {
 	private ArrayList<T> thirdEra;
 	
 	public SubDeck(){
-		firstEra = new ArrayList<T>();
-		secondEra = new ArrayList<T>();
-		thirdEra = new ArrayList<T>();
+		firstEra = new ArrayList<>();
+		secondEra = new ArrayList<>();
+		thirdEra = new ArrayList<>();
 	}
 	
 	public void addCard(T card, int era) throws Exception{

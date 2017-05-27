@@ -26,4 +26,8 @@ public class OrRequirement {
 		if (!(choices.contains(chosenReq))) throw new IllegalChoiceException();	
 		this.chosenRequirement = chosenReq;
 	}
+	
+	public Requirement getRequirement(){
+		return chosenRequirement;
+	}
 }

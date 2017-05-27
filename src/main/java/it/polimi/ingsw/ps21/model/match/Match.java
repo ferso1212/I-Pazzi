@@ -6,6 +6,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import it.polimi.ingsw.ps21.model.board.Board;
+import it.polimi.ingsw.ps21.model.player.Player;
 
 
 /**
@@ -14,7 +15,7 @@ import it.polimi.ingsw.ps21.model.board.Board;
  * @author gullit
  *
  */
-public class Match extends Observable implements Cloneable {
+public class Match extends Observable {
 	private MatchState currentMatch;
 	private ArrayList<Observer> observers;
 	private Player players[];
@@ -31,6 +32,10 @@ public class Match extends Observable implements Cloneable {
 		board = new Board();
 	}
 	
+	public void setBoard(){
+		this.board = board;
+	}
+	
 	public void registerObserver(Observer o){
 		observers.add(o);
 	}
@@ -45,6 +50,13 @@ public class Match extends Observable implements Cloneable {
 	
 	
 	public Match getCopy() throws CloneNotSupportedException{
-		return (Match) this.clone();
+		//Player copyOfPlayers[];
+		//for (int i =0; i<players.length; i++){
+		//	copyOfPlayers[i] = players[i].getCopy();
+		//}
+		Match copy = new Match(players);
+		// copy.setBoard(board.getCopy());
+		return copy;
+		
 	}
 }

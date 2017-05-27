@@ -15,7 +15,7 @@ public abstract class DevelopmentCard extends Card{
 		super(name, req, cost);
 		cardEra = era;
 		instantEffect = instant;
-		permanentEffects = new ArrayList<Effect>();
+		permanentEffects = new ArrayList<>();
 		for (Effect e: permanent){
 		permanentEffects.add(e);
 		}
@@ -44,7 +44,10 @@ public abstract class DevelopmentCard extends Card{
 	public Effect getInstantEffect(){
 		return instantEffect;
 	}
-
+	
+	public Effect getPemanentEffect(){
+		return permanentEffects.get(0); // Metodo di ripiego, si deve implementare la scelta di effetti permanenti
+	}
 	public abstract DevelopmentCardType getCardType();
 	
 }
