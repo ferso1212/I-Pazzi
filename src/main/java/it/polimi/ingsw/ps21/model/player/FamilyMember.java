@@ -10,6 +10,7 @@ public class FamilyMember {
 	protected MembersColor color;
 	protected int modifier;
 	protected String ownerId;
+	protected boolean used;
 	
 	/**
 	 * Returns the value of the family member, which is the number on the corresponding dice + the number of servants used in the action.
@@ -69,6 +70,20 @@ public class FamilyMember {
 	 */
 	public String getOwnerId() {
 		return this.ownerId;
+	}
+
+	/**
+	 * @return the used
+	 */
+	public boolean isUsed() {
+		return used;
+	}
+
+	/**
+	 * @param used the used to set
+	 */
+	public void setUsed(boolean used) {
+		this.used = used;
 	}
 	
 	
