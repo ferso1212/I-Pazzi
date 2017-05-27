@@ -1,7 +1,12 @@
 package it.polimi.ingsw.ps21.model;
 
 public class AdvancedPlayer extends Player {
-	private ArrayList<LeaderCards> leaderCards;
+	public AdvancedPlayer(String name, PropertiesSet properties, String id) {
+		super(name, properties, id);
+		// TODO Auto-generated constructor stub
+	}
+
+	private ArrayList<LeaderCard> leaderCards;
 	private AdvancedModifier advModifier;
 	
 	public ArrayList<LeaderCards> getActivatedLeaderCards()
