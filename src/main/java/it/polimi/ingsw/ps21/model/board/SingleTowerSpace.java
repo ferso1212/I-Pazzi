@@ -21,5 +21,10 @@ public class SingleTowerSpace extends SingleSpace {
 	public void setCard(DevelopmentCard card) {
 		this.card = card;
 	}
+	
+	public void reset(){
+		this.occupant=null;
+		this.card=null;
+	}
 
 }

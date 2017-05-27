@@ -786,8 +786,8 @@ m2=1</panel_attributes>
 //familiare in funzione del tipo di carta
 //per cui è usato
 + extraRoundActions() :Boolean
-+ checkRequirements(req Requirement) :Boolean
-+ checkRequirements(card Card) :Boolean
++ checkRequirement(req Requirement) :Boolean
++ checkCardRequirements(card Card) :ArrayList&lt;Requirement&gt;
 //metodi check verificano condizioni su numero risorse,punti,carte
 + getPersonalBonusTile(): PersonalBonusTile
 + vaticanSupport(): boolean
@@ -1027,6 +1027,7 @@ layer=1</panel_attributes>
 --
 + getCard() :T
 + setCard() :void
++ reset() :void
 
 
 layer=1</panel_attributes>
@@ -2938,7 +2939,7 @@ m2=1</panel_attributes>
       <x>925</x>
       <y>1225</y>
       <w>285</w>
-      <h>85</h>
+      <h>95</h>
     </coordinates>
     <panel_attributes>PlayerDeck // classe innestate del player
 --

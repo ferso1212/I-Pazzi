@@ -9,10 +9,10 @@ public class Tower {
 		this.tower = tower;
 	}
 	
-	public SingleTowerSpace getTowerSpace(int floor) throws Exception{
+	public SingleTowerSpace getTowerSpace(int floor) throws IllegalArgumentException{
 		if ( (0 < floor) && (floor < 5) ){
 			return tower[floor - 1];			
-		} else throw new Exception();
+		} else throw new IllegalArgumentException();
 	}
 
 }
