@@ -33,6 +33,10 @@ public class Family {
 		return this.members.get(color);
 	}
 	
+	public void useMember(FamilyMember membToUse)
+	{
+		members.remove(membToUse.getColor());
+	}
 	
 	/** Resets all the Family members' values to 0.
 	 * 
@@ -40,6 +44,6 @@ public class Family {
 	public void roundReset()
 	{
 	for(FamilyMember m: this.members.values())
-		m.setValue(0);
+		this.members.put(mColor, new FamilyMember(mColor, playerId));
 	}
 }

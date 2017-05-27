@@ -12,6 +12,7 @@ import it.polimi.ingsw.ps21.model.deck.CharacterCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.IllegalCardTypeException;
+import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.deck.TerritoryCard;
 import it.polimi.ingsw.ps21.model.deck.VentureCard;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
@@ -22,7 +23,10 @@ public class PlayerDeck{
 	private ArrayList<BuildingCard> yellowCards;
 	private ArrayList<CharacterCard> blueCards;
 	private ArrayList<VentureCard> purpleCards;
-	private Map<DevelopmentCardType, ImmProperties[]> requirementMap;
+	
+	//nella k-esima cella dell'array Requirement[], c'è il requisito che il player deve soddisfare per
+	//poter acquisire la (k+1)esima carta di quel tipo
+	private Map<DevelopmentCardType, Requirement[]> requirementMap;
 	
 	public PlayerDeck(){
 		super();
@@ -33,14 +37,14 @@ public class PlayerDeck{
 		return requirementMap.get(type).length;
 	}
 	
-	public void addCard(DevelopmentCard card) throws Exception{
+	public void addCard(DevelopmentCard card) throws RequirementNotMetException{	
 	if (card instanceof TerritoryCard ) this.greenCards.add((TerritoryCard) card);
 	if (card instanceof BuildingCard ) this.yellowCards.add((BuildingCard) card);
 	if (card instanceof CharacterCard ) this.blueCards.add((CharacterCard) card);
 	if (card instanceof VentureCard) this.purpleCards.add((VentureCard) card);
 	}
 	
-	public ImmProperties getAddingCardRequirement(Card card) throws RuntimeException{
+	public Requirement getAddingCardRequirement(Card card) throws RuntimeException{
 		
 		if (card instanceof TerritoryCard) return requirementMap.get(DevelopmentCardType.TERRITORY)[countCards(DevelopmentCardType.TERRITORY) + 1];
 		if (card instanceof BuildingCard) return requirementMap.get(DevelopmentCardType.BUILDING)[countCards(DevelopmentCardType.BUILDING) + 1];
