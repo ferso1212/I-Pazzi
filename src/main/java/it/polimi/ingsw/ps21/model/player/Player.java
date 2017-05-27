@@ -2,7 +2,10 @@ package it.polimi.ingsw.ps21.model.player;
 
 import java.util.*;
 
-import it.polimi.ingsw.ps21.model.PlayerColor;
+import it.polimi.ingsw.ps21.model.actions.ActionType;
+import it.polimi.ingsw.ps21.model.deck.CardsNumber;
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.properties.PropertiesSet;
 
 
@@ -104,8 +107,6 @@ public class Player {
 	
 	
 	
-
-	
 	/**This method can be used to check whether the player meets specific requirements on the number of territory cards, building cards, venture cards and character cards.
 	 * 
 	 * @param req
@@ -133,9 +134,6 @@ public class Player {
 		}
 		return true;
 	}
-	
-
-	
 	
 	
 	/**Resets the value of all the family member at the start of a new round.
@@ -177,10 +175,8 @@ public class Player {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
-		
-		
-		
+		}*/	
+		this.properties.
 	}
 	
 	//TODO implement
@@ -194,9 +190,6 @@ public class Player {
 	{
 		return;
 	}
-
-
-
 	
 	/**
 	 * @return the modifiers
@@ -249,7 +242,7 @@ public class Player {
 	/**
 	 * @return the devCards
 	 */
-	public PlayerDeck getDevCards() {
+	public PlayerDeck getDeck() {
 		return devCards;
 	}
 

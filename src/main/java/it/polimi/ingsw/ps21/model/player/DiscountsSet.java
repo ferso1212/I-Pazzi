@@ -2,7 +2,7 @@ package it.polimi.ingsw.ps21.model.player;
 
 import java.util.EnumMap;
 
-import it.polimi.ingsw.ps21.model.DevelopmentCardType;
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 
 public class DiscountsSet {
  private EnumMap<DevelopmentCardType, CardDiscount> discounts;

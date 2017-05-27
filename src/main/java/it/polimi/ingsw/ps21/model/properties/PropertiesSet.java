@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumMap;
 
-import it.polimi.ingsw.ps21.model.PropertiesId;
-
 /**Set of properties.
  * 
  * @author fabri

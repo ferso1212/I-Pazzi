@@ -1,7 +1,5 @@
 package it.polimi.ingsw.ps21.model.properties;
 
-import it.polimi.ingsw.ps21.model.PropertiesId;
-
 /**Used to store datas of resources and points. 
  * The following datas are stored for each property: 
  * <li>the <b>id</b>, which is a string that identifies the property;

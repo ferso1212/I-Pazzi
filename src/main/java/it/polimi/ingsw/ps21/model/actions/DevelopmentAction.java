@@ -47,15 +47,20 @@ public class DevelopmentAction extends Action {
 	 * @return boolean indicating if the action has taken place correctly.
 	 */
 	@Override
-	public void execute() throws NotExecutableException, NotOccupableException { 
+	public void execute() throws NotExecutableException, NotOccupableException, RequirementNotMetException { 
 																					
+		player.getDeck().addCard(space.getCard());   // aggiunta della carta al deck del player, potrebbe 
+		
 		space.occupy(famMember); // piazzare il familiare
+		
+		
 		
 		if (!player.getModifiers().getActionMods().noPlacementBonus()) {
 			player.getProperties().increaseProperties(space.getInstantBonus()); // Aggiungi le risorse dell'istant-bonus dello space, se è permesso
 		}
 		
-		player.payCard(space.getCard());
+		player.payCard(space.getCard());    //Player paga il costo della carta
+		
 	}
 
 }

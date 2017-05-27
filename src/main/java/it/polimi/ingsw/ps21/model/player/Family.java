@@ -2,8 +2,6 @@ package it.polimi.ingsw.ps21.model.player;
 
 import java.util.EnumMap;
 
-import it.polimi.ingsw.ps21.model.MembersColor;
-
 /**Used to store the set of the Family Members of a Player
  * Exposes methods to set, increase and get the value of each family member.
  * @author fabri

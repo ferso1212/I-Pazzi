@@ -1,7 +1,5 @@
 package it.polimi.ingsw.ps21.model.board;
 
-import it.polimi.ingsw.ps21.model.SingleSpaceType;
-
 public class AdvSingleSpace extends SingleSpace {
 
 	private Player otherOccupant;
