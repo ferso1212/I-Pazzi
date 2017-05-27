@@ -67,8 +67,8 @@ public class FamilyMember {
 	/**
 	 * @return the playerId
 	 */
-	public String getPlayerId() {
-		return playerId;
+	public String getOwnerId() {
+		return this.ownerId;
 	}
 	
 	
