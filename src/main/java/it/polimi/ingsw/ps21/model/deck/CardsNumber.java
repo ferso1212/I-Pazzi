@@ -29,5 +29,15 @@ public class CardsNumber {
 		return purpleCardNum;
 	}
 	
+	public int getCardsNumReq(DevelopmentCardType type) {
+		switch (type) {
+		case TERRITORY: return this.greenCardNum;
+		case BUILDING: return this.yellowCardNum;
+		case VENTURE: return this.purpleCardNum;
+		case CHARACTER: return this.blueCardNum;
+		default: return 0;
+			
+		}
+	}
 	
 }

@@ -8,6 +8,7 @@ import javax.management.RuntimeErrorException;
 
 import it.polimi.ingsw.ps21.model.deck.BuildingCard;
 import it.polimi.ingsw.ps21.model.deck.Card;
+import it.polimi.ingsw.ps21.model.deck.CardsNumber;
 import it.polimi.ingsw.ps21.model.deck.CharacterCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
@@ -66,5 +67,14 @@ public class PlayerDeck{
 		default:
 			throw new IllegalCardTypeException();
 		}
+	}
+	
+	public boolean checkCardsNumReq(CardsNumber req)
+	{
+		for(DevelopmentCardType cardType: DevelopmentCardType.values())
+		{
+			if(req.getCardsNumReq(cardType)>this.countCards(cardType)) return false;
+		}
+		return true;
 	}
 }
