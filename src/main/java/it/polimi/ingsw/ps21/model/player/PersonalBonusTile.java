@@ -1,7 +1,7 @@
 package it.polimi.ingsw.ps21.model.player;
 
-import it.polimi.ingsw.ps21.model.ImmProperties;
 import it.polimi.ingsw.ps21.model.WorkType;
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class PersonalBonusTile {
 	private ImmProperties harvBonus;
