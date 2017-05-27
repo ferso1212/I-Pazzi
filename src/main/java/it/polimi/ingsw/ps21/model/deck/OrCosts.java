@@ -27,7 +27,7 @@ public class OrCosts {
 		return (ImmProperties[]) choices.toArray();
 	}
 	
-	public void addChoice(ImmProperties newCost){
+	public void addCost(ImmProperties newCost){
 		choices.add(newCost);
 	}
 	

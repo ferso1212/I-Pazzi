@@ -9,6 +9,10 @@ public abstract class Effect {
 		this.req = req;
 	}
 	
+	public boolean isActivable(Player player){
+		return player.checkRequirement(req);
+	}
+	
 	public abstract boolean activate(Player player);
 	
 }
