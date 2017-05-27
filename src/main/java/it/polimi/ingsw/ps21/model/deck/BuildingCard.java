@@ -11,7 +11,7 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 public class BuildingCard extends DevelopmentCard{
 	private int diceRequirements; 
 	
-	public BuildingCard(String name, int era, Requirement req, ImmProperties cost, Effect instant, Effect permanent, int diceReq){
+	public BuildingCard(String name, int era, OrRequirement req, OrCosts cost, int diceReq, Effect instant, Effect... permanent){
 		super(name, era, req, cost, instant, permanent);
 		this.diceRequirements = diceReq;
 	}

@@ -14,7 +14,7 @@ public class OrRequirement {
 		chosenRequirement = reqs[0];
 	}
 	
-	public void addPossibiliy(Requirement newReq) {
+	public void addRequirement(Requirement newReq) {
 		choices.add(newReq);
 	}
 	
