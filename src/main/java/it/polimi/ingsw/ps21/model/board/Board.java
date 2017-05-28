@@ -26,25 +26,9 @@ public class Board {
 	protected int[] blueCardBonus;
 	protected int[] purpleCardBonus;
 
-	public Board(EnumMap<DevelopmentCardType, Tower> towers, int[] faithTrack, int militaryBonus1, int militaryBonus2,
-			SingleSpace[] marketPlaces, SingleSpace singleHarvPlace, SingleSpace singleProdPlace,
-			MultipleSpace multipleHarvPlace, MultipleSpace multipleProdPlace, CouncilPalace councilPalace,
-			int[] greenCardBonus, int[] yellowCardBonus, int[] blueCardBonus, int[] purpleCardBonus) {
+	public Board(String file) {
 		super();
-		this.towers = towers;
-		this.faithTrack = faithTrack;
-		this.militaryBonus1 = militaryBonus1;
-		this.militaryBonus2 = militaryBonus2;
-		this.marketPlaces = marketPlaces;
-		this.singleHarvPlace = singleHarvPlace;
-		this.singleProdPlace = singleProdPlace;
-		this.multipleHarvPlace = multipleHarvPlace;
-		this.multipleProdPlace = multipleProdPlace;
-		this.councilPalace = councilPalace;
-		this.greenCardBonus = greenCardBonus;
-		this.yellowCardBonus = yellowCardBonus;
-		this.blueCardBonus = blueCardBonus;
-		this.purpleCardBonus = purpleCardBonus;
+		
 	}
 
 	public void addToCouncil(Player player, FamilyMember member) throws NotOccupableException {

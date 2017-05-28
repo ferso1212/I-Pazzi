@@ -19,6 +19,13 @@ public abstract class LeaderCard extends Card {
 	
 	public abstract void activate(Player player);
 	public abstract void resetAction();
+
+	/**
+	 * @return the activated
+	 */
+	public boolean isActivated() {
+		return activated;
+	}
 	
 	 
 	
