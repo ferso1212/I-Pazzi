@@ -12,7 +12,7 @@ public class CardDiceEffect extends Effect {
 	private int cardDiceValue;
 	private Set<DevelopmentCardType> types;
 	
-	public CardDiceEffect(Requirement req, int diceValue, WorkType...types) throws TooManyArgumentException{
+	public CardDiceEffect(OrRequirement req, int diceValue, WorkType...types) throws TooManyArgumentException{
 		super(req);
 		if (types.length > 2) throw new TooManyArgumentException();
 		cardDiceValue = diceValue;

@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 
 import it.polimi.ingsw.ps21.model.board.Board;
 import it.polimi.ingsw.ps21.model.player.Player;
@@ -32,7 +33,7 @@ public class Match extends Observable {
 		currentMatch = new StartingMatch(this);
 		observers = new ArrayList<Observer>();
 		this.players = players;
-		board = new Board();
+		// board = new Board();
 	}
 	
 	public void setBoard(){
@@ -49,9 +50,10 @@ public class Match extends Observable {
 	
 	
 	public void throwDices(){
-		orangeDice = (int) Math.random() * 5 + 1;
-		blackDice = (int) Math.random() * 5 + 1;
-		whiteDice = (int) Math.random() * 5 + 1;
+		Random generator = new Random();
+		orangeDice = (int) generator.nextInt(5) + 1;
+		blackDice = (int) generator.nextInt(5) + 1;
+		whiteDice = (int) generator.nextInt(5) + 1;
 	}
 
 	public void initializeMatch(){

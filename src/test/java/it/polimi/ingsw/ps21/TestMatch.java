@@ -26,9 +26,9 @@ public class TestMatch
     {
         super( testName );
         Player testPlayers[] = new Player[3];
-        testPlayers[0] = new Player("daniele", new PlayerProperties(), "rosso");
-        testPlayers[1] = new Player("antonio", new PlayerProperties(), "blu");
-        testPlayers[2] = new Player("giada",  new PlayerProperties(), "verde");
+        testPlayers[0] = new Player("daniele", new PlayerProperties(), 1);
+        testPlayers[1] = new Player("antonio", new PlayerProperties(), 2);
+        testPlayers[2] = new Player("giada",  new PlayerProperties(), 3);
         testedMatch = new Match(testPlayers);
     }
 

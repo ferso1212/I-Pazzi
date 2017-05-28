@@ -7,7 +7,7 @@ public class PropEffect extends Effect {
 
 	private ImmProperties bonus;
 	
-	public PropEffect(Requirement req, ImmProperties bonus) {
+	public PropEffect(OrRequirement req, ImmProperties bonus) {
 		super(req);
 		this.bonus = bonus;
 	}
