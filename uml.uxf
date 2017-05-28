@@ -1469,7 +1469,7 @@ NEUTRAL</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>984</x>
+      <x>976</x>
       <y>1768</y>
       <w>360</w>
       <h>176</h>
@@ -1480,7 +1480,7 @@ NEUTRAL</panel_attributes>
 - advModifier: AdvancedModifier
 --
 + getActivatedLeaderCards() : ArrayList&lt;LeaderCards&gt; 
-+ chooseLeaderCardToCopy() :LeaderCard
++ chooseLeaderCardToCopy(activeLeaders :LeaderCard[]) :LeaderCard
 + getAdvMod() :AdvancedModifier
 + choosePersBonusTile(): void
 + pickLeaderCard(cards: ArrayList&lt;LeaderCard&gt;
@@ -1493,11 +1493,11 @@ NEUTRAL</panel_attributes>
     <coordinates>
       <x>1112</x>
       <y>1544</y>
-      <w>72</w>
+      <w>64</w>
       <h>240</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;70.0;280.0</additional_attributes>
+    <additional_attributes>10.0;10.0;60.0;280.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -1602,13 +1602,13 @@ NEUTRAL</panel_attributes>
     <coordinates>
       <x>1136</x>
       <y>1936</y>
-      <w>32</w>
+      <w>24</w>
       <h>104</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=1
 m2=1</panel_attributes>
-    <additional_attributes>20.0;10.0;10.0;110.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
