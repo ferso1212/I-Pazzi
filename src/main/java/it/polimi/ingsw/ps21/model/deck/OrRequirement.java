@@ -11,11 +11,12 @@ public class OrRequirement {
 		for(int i = 0; i< reqs.length; i++){
 			choices.add(reqs[i]);
 		}
-		chosenRequirement = reqs[0];
+		if (reqs.length!=0) chosenRequirement = reqs[0];
 	}
 	
 	public void addRequirement(Requirement newReq) {
 		choices.add(newReq);
+		if (choices.size()-1 == 0) chosenRequirement = newReq; //Set by default first requirement to default one
 	}
 	
 	public Requirement[] getChoices(){

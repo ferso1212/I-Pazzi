@@ -17,12 +17,31 @@ public class Deck {
 	
 
 	public void addCard(Card card) throws Exception{
-		if(card instanceof TerritoryCard) greenCards.addCard((TerritoryCard) card, ((DevelopmentCard) card).getEra());
-		if(card instanceof BuildingCard) yellowCards.addCard((BuildingCard) card, ((DevelopmentCard) card).getEra());
-		if(card instanceof CharacterCard) blueCards.addCard((CharacterCard) card, ((DevelopmentCard) card).getEra());
-		if(card instanceof VentureCard) purpleCards.addCard((VentureCard) card, ((DevelopmentCard) card).getEra());
-		throw new RuntimeException("Illegal Card");
+		if(card instanceof TerritoryCard) greenCards.addCard((TerritoryCard) card);
+		else if(card instanceof BuildingCard) yellowCards.addCard((BuildingCard) card);
+			else if(card instanceof CharacterCard) blueCards.addCard((CharacterCard) card);
+				else if(card instanceof VentureCard) purpleCards.addCard((VentureCard) card);
+					else	throw new RuntimeException("Illegal Card");
 	}
+	
+	public void setGreenDeck(SubDeck<TerritoryCard> greenDeck){
+		greenCards = greenDeck;
+		
+	}
+	
+	public void setPurpleDeck(SubDeck<VentureCard> purpleDeck){
+		purpleCards = purpleDeck;
+	}
+	
+	public void setBlueDeck(SubDeck<CharacterCard> blueDeck){
+		blueCards = blueDeck;
+	
+	}
+	
+	public void setYellowDeck(SubDeck<BuildingCard> yellowDeck){
+		yellowCards = yellowDeck;
+	}
+	
 	
 	public DevelopmentCard getCard(int era, DevelopmentCardType type){
 		switch(type){
@@ -40,9 +59,21 @@ public class Deck {
 	}
 	
 	public void shuffle(){
-	
+		blueCards.shuffle();
+		greenCards.shuffle();
+		purpleCards.shuffle();
+		yellowCards.shuffle();
 	}
 	
+	public String toString(){
+		StringBuilder temp = new StringBuilder();
+		
+		
+		return temp.toString();
+	}
 	
+	public boolean isEmpty(){
+		return (greenCards.isEmpty() && yellowCards.isEmpty() && blueCards.isEmpty() && purpleCards.isEmpty());
+	}
 	
 }

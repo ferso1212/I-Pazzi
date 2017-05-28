@@ -9,6 +9,7 @@ public class CharacterCard extends DevelopmentCard {
 		super(name, era, req, cost, ins, perms);
 	}
 	
+	@Override
 	public DevelopmentCardType getCardType()
 	{
 		return DevelopmentCardType.CHARACTER;

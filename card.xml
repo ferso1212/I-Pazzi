@@ -1,40 +1,35 @@
 <?xml version=”1.0″ ?>
-<deck>
-    <card name="name" era="1">
-        <requirement>
-            <cardsNum>
-                <greenCardsNum>0</greenCardsNum>
-                <blueCardsNum>0</blueCardsNum>
-                <yellowCardsNum>0</yellowCardsNum>
-                <purpleCardsNum>0</purpleCardsNum>
-            </cardsNum>
-            <properties>
-                <resources>
-                    <wood>0</wood>
-                    <stones>0</stones>
-                    <servants>0</servants>
-                    <coins>0</coins>
-                </resources>
-                <points>
-                    <militaryPoints>0</militaryPoints>
-                    <victoryPoints>0</victoryPoints>
-                    <faithPoints>0</faithPoints>
-                </points>
-            </properties>
-            <cost>
-                <resources>
-                    <wood>0</wood>
-                    <stones>0</stones>
-                    <servants>0</servants>
-                    <coins>0</coins>
-                </resources>
-                <points>
-                    <militaryPoints>0</militaryPoints>
-                    <victoryPoints>0</victoryPoints>
-                    <faithPoints>0</faithPoints>
-                </points>
-            </cost>
-        </requirement>
-        
-    </card>
-</deck>
+<!DOCTYPE SubDeckBlue SYSTEM “blue-deck-schema.dtd”>
+<SubDeckBlue>
+    <CharacterCard name="name" era="1">
+        <Requirement>
+            <Properties>
+                    <Wood value="0"/>
+                    <Stones value="2"/>
+                    <Servants value="3"/>
+                    <Coins value="3"/>
+                    <MilitaryPoints/>
+                    <VictoryPoints/>
+                    <FaithPoints/>
+            </Properties>
+	    <CardsNum>
+                <Green/>
+                <Blue/>
+                <Yellow/>
+                <Purple/>
+            </CardsNum>
+            <Cost>
+                <Properties>
+                    <Wood/>
+                    <Stones/>
+                    <Servants/>
+                    <Coins/>
+                    <MilitaryPoints/>
+                    <VictoryPoints/>
+                    <FaithPoints/>
+		</Properties>
+            </Cost>
+        </Requirement>
+	<InstantEffect/>
+    </CharacterCard>
+</SubDeckBlue>

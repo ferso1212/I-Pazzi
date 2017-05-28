@@ -20,6 +20,7 @@ public class BuildingCard extends DevelopmentCard{
 		return diceRequirements;
 	}
 	
+	@Override
 	public DevelopmentCardType getCardType()
 	{
 		return DevelopmentCardType.BUILDING;

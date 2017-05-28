@@ -9,7 +9,8 @@ public class NoPayOccupiedTower extends PermanentLeaderEffect {
 
 	@Override
 	public void activate(Player player) {
-		// TODO Auto-generated method stub
+		// To be implemented
+		player.getModifiers().getActionMods();
 
 	}
 

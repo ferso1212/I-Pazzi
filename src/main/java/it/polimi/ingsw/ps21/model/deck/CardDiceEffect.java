@@ -28,6 +28,7 @@ public class CardDiceEffect extends Effect {
 
 	}
 	
+	@Override
 	public void activate(Player player) {
 		for (DevelopmentCardType worktype: types) {
 			player.getModifiers().getDiceMods().getDiceMod(worktype).setValue(cardDiceValue);

@@ -9,8 +9,8 @@ public class DoubleResources extends PermanentLeaderEffect {
 
 	@Override
 	public void activate(Player player) {
-		// TODO Auto-generated method stub
-
+		// To be implemented
+		player.getProperties();
 	}
 
 }

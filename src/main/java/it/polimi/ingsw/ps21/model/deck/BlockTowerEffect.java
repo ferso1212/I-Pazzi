@@ -16,6 +16,7 @@ public class BlockTowerEffect extends Effect {
 		super(new OrRequirement(new Requirement(new CardsNumber(0, 0, 0, 0), new ImmProperties(0,0,0,0,0,0,0))));
 	}
 	
+	@Override
 	public void activate(Player player) {
 		player.getModifiers().getActionMods().setNoPlacementBonus();
 	}

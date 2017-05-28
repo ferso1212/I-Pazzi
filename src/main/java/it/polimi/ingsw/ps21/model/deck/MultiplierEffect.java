@@ -19,7 +19,7 @@ public class MultiplierEffect extends Effect {
 		this.secondFactorValue = secondFactorValue;
 		
 	}
-	private void multiplyEffect(Player player){
+	private ImmProperties calculateBonus(Player player){
 		int bonusValue;
 		ImmProperties bonus;
 		switch(secondFactorType){
@@ -63,12 +63,13 @@ public class MultiplierEffect extends Effect {
 				bonusProperties.getPropertyValue(PropertiesId.STONES)*bonusValue,
 				 bonusProperties.getPropertyValue(PropertiesId.SERVANTS)*bonusValue, bonusProperties.getPropertyValue(PropertiesId.MILITARYPOINTS)*bonusValue,
 				 bonusProperties.getPropertyValue(PropertiesId.FAITHPOINTS)*bonusValue, bonusProperties.getPropertyValue(PropertiesId.VICTORYPOINTS)*bonusValue);
-		player.getProperties().increaseProperties(bonus);
+		return bonus;
 	}
 	
 	@Override
 	public void activate(Player player){
-		multiplyEffect(player);
-		}
+		ImmProperties bonus = calculateBonus(player);
+		player.getProperties().increaseProperties(bonus);
+	}
 	
 }

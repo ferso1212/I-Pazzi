@@ -10,8 +10,7 @@ public class MemberBonus extends InstantLeaderEffect {
 
 	@Override
 	public void activate(Player player) {
-		// TODO Auto-generated method stub
-
+		// To be implemented
 	}
 
 }

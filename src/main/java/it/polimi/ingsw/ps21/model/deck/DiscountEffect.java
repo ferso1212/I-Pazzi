@@ -33,6 +33,7 @@ public class DiscountEffect extends Effect {
 				types.add(t);
 				}
 	}
+	
 	@Override
 	public void activate(Player player) {
 		DiscountsSet modifier = player.getModifiers().getDiscountsMods();
