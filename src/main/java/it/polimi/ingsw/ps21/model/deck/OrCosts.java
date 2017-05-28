@@ -16,11 +16,11 @@ public class OrCosts {
 	 */
 	
 	public OrCosts(ImmProperties... costs){
-		chosenCost = costs[0];
 		choices = new ArrayList<ImmProperties>();
 		for(ImmProperties i: costs)	{
 			choices.add(i);
 		}
+		if (!choices.isEmpty()) chosenCost = choices.get(0);
 	}
 	
 	public ImmProperties[] getChoices(){
@@ -29,6 +29,7 @@ public class OrCosts {
 	
 	public void addCost(ImmProperties newCost){
 		choices.add(newCost);
+		if (choices.size() -1 == 0) chosenCost = choices.get(0);
 	}
 	
 	public void setChoice(ImmProperties chosen) throws IllegalChoiceException{

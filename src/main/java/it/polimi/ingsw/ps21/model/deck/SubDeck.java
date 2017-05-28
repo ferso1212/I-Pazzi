@@ -20,16 +20,15 @@ public class SubDeck<T extends DevelopmentCard> {
 		switch (card.cardEra) {
 		case 1:
 			firstEra.add(card);
-			break;
-			
+			return;
 		case 2:
 			secondEra.add(card);		
-			break;
+			return;
 		case 3:
 			thirdEra.add(card);
-			break;
+			return;
 		default:
-			throw new Exception();
+			throw new Exception("Invalid Era number");
 		}
 	}
 	

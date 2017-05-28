@@ -8,6 +8,7 @@ public class OrRequirement {
 	
 	
 	public OrRequirement(Requirement... reqs) {
+		choices = new ArrayList<>();
 		for(int i = 0; i< reqs.length; i++){
 			choices.add(reqs[i]);
 		}
