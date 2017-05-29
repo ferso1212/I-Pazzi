@@ -298,6 +298,14 @@ public class Player {
 		return devCards;
 	}
 
+
+	/**
+	 * @return the color
+	 */
+	public PlayerColor getColor() {
+		return color;
+	}
+
 	
 	
 }

@@ -8,7 +8,7 @@ package it.polimi.ingsw.ps21.model.properties;
  * @author fabri
  *
  */
-public class Property {
+public class Property implements Cloneable{
 	private PropertiesId id;
 	private int value;
 	private int paymentModifier;
@@ -103,5 +103,13 @@ public class Property {
 		this.additionModifier = increasingModifier;
 	}
 
-
+	public Property clone()
+	{
+		try {
+			return (Property)super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

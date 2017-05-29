@@ -1,9 +1,10 @@
 package it.polimi.ingsw.ps21.model.deck;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public abstract class DevelopmentCard extends Card{
+public abstract class DevelopmentCard extends Card implements Serializable{
 
 	protected int cardEra;
 	protected Effect instantEffect;

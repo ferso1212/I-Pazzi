@@ -12,7 +12,7 @@ import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.deck.TerritoryCard;
 import it.polimi.ingsw.ps21.model.deck.VentureCard;
 
-public class PlayerDeck{
+public class PlayerDeck implements Cloneable{
 	
 	/*private ArrayList<TerritoryCard> greenCards;
 	private ArrayList<BuildingCard> yellowCards;
@@ -54,5 +54,22 @@ public class PlayerDeck{
 			if(req.getCardsNumReq(cardType)>this.countCards(cardType)) return false;
 		}
 		return true;
+	}
+	
+	/*public PlayerDeck clone()
+	{
+		EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>> clonedDecksMap= new EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>>(DevelopmentCardType.class);
+		
+		for(DevelopmentCardType cardType: DevelopmentCardType.values())
+		{
+			clonedDecksMap.put(cardType, (ArrayList<DevelopmentCard>)this.decksMap.get(cardType).clone());
+		}
+	}*/
+
+	public PlayerDeck(EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>> decksMap,
+			EnumMap<DevelopmentCardType, Requirement[]> requirementMap) {
+		super();
+		this.decksMap = decksMap;
+		this.requirementMap = requirementMap;
 	}
 }

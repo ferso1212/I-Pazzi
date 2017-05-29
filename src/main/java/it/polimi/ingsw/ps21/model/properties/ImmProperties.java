@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps21.model.properties;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**This class is used to store immutable resource and points values.
@@ -7,8 +8,12 @@ import java.util.ArrayList;
 
 *@author fabri
  */
-public class ImmProperties {
+public class ImmProperties implements Serializable, Cloneable{
 
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 private PropertiesSet properties;
 
 /**
@@ -46,4 +51,16 @@ public ArrayList<PropertiesId> getPropertiesIds()
 	return output;
 }
 
+/**Performs a deep copy of the object.
+ * 
+ */
+public ImmProperties clone()
+{
+	try {
+		return (ImmProperties)(super.clone());
+	} catch (CloneNotSupportedException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
 }
