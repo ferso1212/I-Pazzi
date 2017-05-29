@@ -1,0 +1,35 @@
+<?xml version=”1.0″ ?>
+<!DOCTYPE SubDeckBlue SYSTEM “blue-deck-schema.dtd”>
+<SubDeckBlue>
+    <CharacterCard name="name" era="1">
+        <Requirement>
+            <Properties>
+                    <Wood value="0"/>
+                    <Stones value="2"/>
+                    <Servants value="3"/>
+                    <Coins value="3"/>
+                    <MilitaryPoints/>
+                    <VictoryPoints/>
+                    <FaithPoints/>
+            </Properties>
+	    <CardsNum>
+                <Green/>
+                <Blue/>
+                <Yellow/>
+                <Purple/>
+            </CardsNum>
+            <Cost>
+                <Properties>
+                    <Wood/>
+                    <Stones/>
+                    <Servants/>
+                    <Coins/>
+                    <MilitaryPoints/>
+                    <VictoryPoints/>
+                    <FaithPoints/>
+		</Properties>
+            </Cost>
+        </Requirement>
+	<InstantEffect/>
+    </CharacterCard>
+</SubDeckBlue>
