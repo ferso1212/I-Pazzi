@@ -1,7 +1,5 @@
 package it.polimi.ingsw.ps21.model.deck;
 
-import it.polimi.ingsw.ps21.model.properties.ImmProperties;
-
 /**
  * Implementation of Venture card
  * @author daniele

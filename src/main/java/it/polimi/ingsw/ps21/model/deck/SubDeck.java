@@ -1,7 +1,11 @@
 package it.polimi.ingsw.ps21.model.deck;
 
+import java.awt.List;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
@@ -16,7 +20,7 @@ public class SubDeck<T extends DevelopmentCard> {
 		thirdEra = new ArrayDeque<>();
 	}
 	
-	public void addCard(T card) throws Exception{
+	public void addCard(T card) throws IllegalCardException{
 		switch (card.cardEra) {
 		case 1:
 			firstEra.add(card);
@@ -28,11 +32,11 @@ public class SubDeck<T extends DevelopmentCard> {
 			thirdEra.add(card);
 			return;
 		default:
-			throw new Exception("Invalid Era number");
+			throw new IllegalCardException();
 		}
 	}
 	
-	public T getCard(int era) {
+	public T getCard(int era) throws IllegalCardException {
 		T result;
 		switch (era) {
 		case 1:
@@ -48,14 +52,14 @@ public class SubDeck<T extends DevelopmentCard> {
 			thirdEra.remove(result);
 			return result;
 		default:
-			throw new RuntimeException("Illegal Era number");
+			throw new IllegalCardException();
 		}
 	}
 	
 	
 	public void shuffle(){		
 		Random generator = new Random();
-		ArrayList<T> tempDeck = new ArrayList<>();;
+		ArrayList<T> tempDeck = new ArrayList<>();
 		Queue<T> shuffledDeck = new ArrayDeque<>();
 		while(!firstEra.isEmpty()){
 			tempDeck.add(firstEra.poll());
@@ -87,11 +91,18 @@ public class SubDeck<T extends DevelopmentCard> {
 			shuffledDeck.add(tempDeck.get(i));
 			tempDeck.remove(i);
 		}
-		thirdEra = shuffledDeck;			
+		thirdEra = shuffledDeck;
 	}
 
 	public boolean isEmpty() {
 		return firstEra.isEmpty() && secondEra.isEmpty() && thirdEra.isEmpty();
 	}
+	
+	public String toString(){
+	 StringBuilder temp = new StringBuilder();
+	 temp.append("{ " + firstEra.toString() + "\n" + secondEra.toString() + "\n" + thirdEra.toString() + " }");
+	 return temp.toString();
+	}
+	
 }
 

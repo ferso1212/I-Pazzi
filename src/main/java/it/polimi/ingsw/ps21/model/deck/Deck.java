@@ -9,19 +9,22 @@ public class Deck {
 	protected SubDeck<VentureCard> purpleCards;
 	
 	public Deck(){
-		greenCards = new SubDeck<TerritoryCard>();
-		yellowCards = new SubDeck<BuildingCard>();
-		blueCards = new SubDeck<CharacterCard>();
-		purpleCards = new SubDeck<VentureCard>();
+		greenCards = new SubDeck<>();
+		yellowCards = new SubDeck<>();
+		blueCards = new SubDeck<>();
+		purpleCards = new SubDeck<>();
 	}
 	
 
-	public void addCard(Card card) throws Exception{
+	public void addCard(Card card) throws IllegalCardException{
 		if(card instanceof TerritoryCard) greenCards.addCard((TerritoryCard) card);
-		else if(card instanceof BuildingCard) yellowCards.addCard((BuildingCard) card);
-			else if(card instanceof CharacterCard) blueCards.addCard((CharacterCard) card);
-				else if(card instanceof VentureCard) purpleCards.addCard((VentureCard) card);
-					else	throw new RuntimeException("Illegal Card");
+		else 
+			if(card instanceof BuildingCard) yellowCards.addCard((BuildingCard) card);
+			else 
+				if(card instanceof CharacterCard) blueCards.addCard((CharacterCard) card);
+				else 
+					if(card instanceof VentureCard) purpleCards.addCard((VentureCard) card);
+					else	throw new IllegalCardException();
 	}
 	
 	public void setGreenDeck(SubDeck<TerritoryCard> greenDeck){
@@ -43,7 +46,7 @@ public class Deck {
 	}
 	
 	
-	public DevelopmentCard getCard(int era, DevelopmentCardType type){
+	public DevelopmentCard getCard(int era, DevelopmentCardType type) throws IllegalCardException{
 		switch(type){
 		case BUILDING:
 			return yellowCards.getCard(era);
@@ -52,9 +55,9 @@ public class Deck {
 		case TERRITORY:
 			return greenCards.getCard(era);
 		case VENTURE:
-			purpleCards.getCard(era);
+			return purpleCards.getCard(era);
 		default:
-			throw new RuntimeException("Illegal Card Type");
+			throw new IllegalCardException();
 		}
 	}
 	
@@ -65,6 +68,7 @@ public class Deck {
 		yellowCards.shuffle();
 	}
 	
+	@Override
 	public String toString(){
 		StringBuilder temp = new StringBuilder();
 		
@@ -73,7 +77,7 @@ public class Deck {
 	}
 	
 	public boolean isEmpty(){
-		return (greenCards.isEmpty() && yellowCards.isEmpty() && blueCards.isEmpty() && purpleCards.isEmpty());
+		return greenCards.isEmpty() && yellowCards.isEmpty() && blueCards.isEmpty() && purpleCards.isEmpty();
 	}
 	
 }

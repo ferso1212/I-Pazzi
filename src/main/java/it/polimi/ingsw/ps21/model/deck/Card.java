@@ -1,8 +1,5 @@
 package it.polimi.ingsw.ps21.model.deck;
 
-import java.util.ArrayList;
-
-import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 /**
  * Class that implements an abstraction of a card
  * @author daniele
