@@ -36,7 +36,10 @@ public class MatchBuilder {
 	private final String blueCardsFilePath = "/home/gullit/Progetti/Git/I-Pazzi/blue-deck.xml";
 	private final String purpleCardsFilePath = "/home/gullit/Progetti/Git/I-Pazzi/purple-deck.xml";
 	private DocumentBuilder builder;
-	
+	/**
+	 * Constructor 
+	 * @throws ParserConfigurationException
+	 */
 	public MatchBuilder() throws ParserConfigurationException{
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setValidating(true);

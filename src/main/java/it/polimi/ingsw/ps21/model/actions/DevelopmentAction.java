@@ -34,7 +34,7 @@ public class DevelopmentAction extends Action {
 	 */
 	@Override
 	public boolean isLegal() {
-		if ((player.checkCardRequirements(space.getCard()).size()!=0)
+		if ((player.checkCardRequirements(space.getCard()))
 				&& (famMember.getValue() >= space.getDiceRequirement()) && space.isOccupable(famMember)
 				&& (!famMember.isUsed())) {
 			return true;
@@ -54,7 +54,7 @@ public class DevelopmentAction extends Action {
 		player.getDeck().addCard(space.getCard()); // aggiunta della carta al
 													// deck del player, potrebbe
 
-		match.getBoard(). // piazzare il familiare
+	 // TODO piazzare il familiare
 
 		if (!player.getFamily().useMember(famMember)) {
 			throw new NotExecutableException(); //
@@ -64,7 +64,7 @@ public class DevelopmentAction extends Action {
 			player.getProperties().increaseProperties(space.getInstantBonus()); // Aggiungi le risorse dell'instant-bonus dello space, se è permesso
 		}
 
-		player.payCard(space.getCard()); // Player paga il costo della carta
+		// TODO player.payCard(space.getCard()); // Player paga il costo della carta
 
 	}
 

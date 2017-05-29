@@ -37,9 +37,10 @@ public class WorkAction extends Action {
 		}
 		return false;
 	}
-
+	
 	@Override
-	public boolean execute() {
+	public void execute() {
+		/* TODO
 		boolean controlOccupation = space.occupy(this.player);
 		boolean controlEffect = false;
 		ArrayList<DevelopmentCard> cardToActivate = null;
@@ -97,8 +98,10 @@ public class WorkAction extends Action {
 		}
 		return false;
 		
+		*/
+		
+		
 	}
-	
 	
 	
 			
