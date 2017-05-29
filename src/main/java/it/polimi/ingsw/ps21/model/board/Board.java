@@ -5,6 +5,7 @@ import java.util.EnumMap;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.deck.Deck;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
+import it.polimi.ingsw.ps21.model.deck.IllegalCardException;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
@@ -12,30 +13,36 @@ import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 public class Board {
 
 	protected EnumMap<DevelopmentCardType, Tower> towers;
-	protected int[] faithTrack;
-	protected int militaryBonus1;
-	protected int militaryBonus2;
+	protected TrackBonuses trackBonuses;
 	protected SingleSpace[] marketPlaces;
 	protected SingleSpace singleHarvPlace;
 	protected SingleSpace singleProdPlace;
 	protected MultipleSpace multipleHarvPlace;
 	protected MultipleSpace multipleProdPlace;
 	protected CouncilPalace councilPalace;
-	protected int[] greenCardBonus;
-	protected int[] yellowCardBonus;
-	protected int[] blueCardBonus;
-	protected int[] purpleCardBonus;
-
-	public Board(String file) {
+	protected EnumMap<DevelopmentCardType, int[]> cardBonus;
+	
+	public Board(EnumMap<DevelopmentCardType, Tower> towers, TrackBonuses trackBonuses, SingleSpace[] marketSpace,
+			SingleSpace singleHarvPlace, SingleSpace singleProdPlace, MultipleSpace multipleHarvPlace,
+			MultipleSpace multipleProdPlace, CouncilPalace councilPalace,
+			EnumMap<DevelopmentCardType, int[]> cardBonus) {
 		super();
-		
+		this.towers = towers;
+		this.trackBonuses = trackBonuses;
+		this.marketPlaces = marketSpace;
+		this.singleHarvPlace = singleHarvPlace;
+		this.singleProdPlace = singleProdPlace;
+		this.multipleHarvPlace = multipleHarvPlace;
+		this.multipleProdPlace = multipleProdPlace;
+		this.councilPalace = councilPalace;
+		this.cardBonus = cardBonus;
 	}
 
 	public void addToCouncil(Player player, FamilyMember member) throws NotOccupableException {
 		councilPalace.occupy(member);
 	}
 
-	public void placeCards(int era, Deck deck) {
+	public void placeCards(int era, Deck deck) throws IllegalCardException {
 		for (DevelopmentCardType type : DevelopmentCardType.values()) {
 			Tower myTower = towers.get(type);
 			for (int i = 1; i < 5; i++) {
@@ -118,6 +125,18 @@ public class Board {
 			return false;
 		}
 
+	}
+	
+	public int getDevelopmentFinalBonus(DevelopmentCardType type, int numberOfCards){
+		if (numberOfCards > this.cardBonus.get(type).length){
+			return this.cardBonus.get(type)[this.cardBonus.get(type).length - 1];
+		} else {
+			return this.cardBonus.get(type)[numberOfCards];
+		}
+	}
+	
+	public TrackBonuses getTrackBonuses(){
+		return this.trackBonuses;
 	}
 
 }

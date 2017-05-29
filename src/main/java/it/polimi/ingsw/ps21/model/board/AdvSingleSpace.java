@@ -1,34 +1,37 @@
 package it.polimi.ingsw.ps21.model.board;
 
+import it.polimi.ingsw.ps21.model.player.FamilyMember;
+import it.polimi.ingsw.ps21.model.player.Player;
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
+
 public class AdvSingleSpace extends SingleSpace {
 
-	private Player otherOccupant;
+	private FamilyMember otherOccupant;
 
-	public AdvSingleSpace(int diceRequirement, ImmProperties instantBonus, Player occupant, SingleSpaceType type,
-			Player otherOccupant) {
+	public AdvSingleSpace(int diceRequirement, ImmProperties instantBonus, FamilyMember occupant, SingleSpaceType type,
+			FamilyMember otherOccupant) {
 		super(diceRequirement, instantBonus, occupant, type);
 		this.otherOccupant = otherOccupant;
 	}
 
-	public Player getOtherOccupant() {
+	public FamilyMember getOtherOccupant() {
 		return otherOccupant;
 	}
 
 	@Override
-	public boolean occupy(Player player) {
+	public void occupy(FamilyMember famMember) throws NotOccupableException{
 		
 		if (occupant == null) {
-			this.occupant = player;
-			return true;
+			this.occupant = famMember;
 		}
-		else switch (player.getAdvModifier()) {
+		else switch () {
 		case false:
 		{
 			return false;
 		}
 		case true:
 		{
-			if (otherOccupant==null){
+			if (this.otherOccupant==null){
 				this.otherOccupant=player;
 				return true;
 			}
@@ -36,6 +39,6 @@ public class AdvSingleSpace extends SingleSpace {
 		}	
 
 		default: return false;
-		}
+		} 
 		
 	}
