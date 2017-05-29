@@ -898,61 +898,47 @@ m2=1</panel_attributes>
       <x>3288</x>
       <y>882</y>
       <w>414</w>
-      <h>414</h>
+      <h>336</h>
     </coordinates>
     <panel_attributes>/Match/
 --
 
-# currentMatch MatchState
 # board: Board
-# playersOrder :ArrayList&lt;Player&gt;
+# players :ArrayList&lt;Player&gt;
 # playersActionOrder: Queue&lt;Player&gt;
 //playersOrder contains one Player object for each player and is used to store the order of play, as defined from the Council Palace
 //playersActionOrder contains 4 objects for each player and contenis the order of the actions of an entire round
-# players :Player[]
 # deck :Deck
 # board :Board
 # orangeDice :int
 # whiteDice :int
 # blackDice :int
 --
-+ nextPlayer () :Player
-+ notify (): void
-+ notify(arg: Object): void
-+ updateBoard (next :Player, action :Action): void
 + getDices() :int[]
 //0:nero 1:bianco 2:arancione
 + getPlayers: Player[]
-+ newMatchState() : MatchState
-+ goNextState(match: Match): MatchState
-- initializeMatch()
 - start() :void 
 // loop del gioco finche non il model non diventa
-+ nextPlayer(sortedPlayer :Player[], currentPlayer :int) :Player
 + throwDices() : Int 
 + work(player: Player, member: MembersColor, space: Space, servants: int): void
 + activateCards(player: Player, cards: DevelopmentCard[]): void
 //la activateWorkCards riceve le carte territorio/palazzo attivabili dalla getWorkCards() e ne attiva gli effetti permanenti
-+ startMatch(players: Player[], type: MatchType): void
-+ vaticanReport(): void
-+ doAction(action: Action, player: Player): void
++ doAction(action: Action): void
 //doAction() should check the Player.getActionMod().marketActionForbidden()
 + getCopy() :Match
-+ setOrder(): void
 //sets both PlayersOrder (if used) and PlayersActionOrder.
 // to set PlayersActionOrder, it should also check Player.getActionMod().firstActionDelayed()
 + getBoard() :Board
-+ calculateFinalPoints (player :Player) :Int
 //calcola i punti vittoria finali di un giocatore</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3336</x>
-      <y>1344</y>
-      <w>228</w>
-      <h>72</h>
+      <x>2946</x>
+      <y>912</y>
+      <w>270</w>
+      <h>84</h>
     </coordinates>
     <panel_attributes>AdvancedMatch
 --
@@ -962,13 +948,13 @@ m2=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3438</x>
-      <y>1290</y>
-      <w>18</w>
-      <h>66</h>
+      <x>3210</x>
+      <y>942</y>
+      <w>90</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+    <additional_attributes>130.0;100.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -1098,128 +1084,6 @@ m2=1</panel_attributes>
 m1=1
 m2=1</panel_attributes>
     <additional_attributes>220.0;1460.0;220.0;1260.0;20.0;1260.0;10.0;650.0;20.0;280.0;560.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>3060</x>
-      <y>1608</y>
-      <w>324</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>MatchEra
---
-- era :Int
---
-MatchEra(match :MatchState, era :Int) :v
-+ getExcommunicationReq() : Requirement
-+ getExcommunication() : ExcommunicationCard
-- start() :void </panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>3030</x>
-      <y>1278</y>
-      <w>246</w>
-      <h>162</h>
-    </coordinates>
-    <panel_attributes>/MatchState/
---
-+ getExcommunicationReq() : Requirement
-+ getExcommunication() : ExcommunicationCard
-+ endRound() : MatchState
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>3162</x>
-      <y>1434</y>
-      <w>18</w>
-      <h>186</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;290.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>3174</x>
-      <y>1146</y>
-      <w>126</w>
-      <h>144</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
-m1=1
-m2=1</panel_attributes>
-    <additional_attributes>190.0;10.0;10.0;10.0;10.0;220.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>3066</x>
-      <y>1434</y>
-      <w>18</w>
-      <h>84</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>3264</x>
-      <y>1434</y>
-      <w>18</w>
-      <h>102</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;150.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>3246</x>
-      <y>1524</y>
-      <w>162</w>
-      <h>48</h>
-    </coordinates>
-    <panel_attributes>MatchEnd
---
---
-+ defWinner (players: Player[]) :Player</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLNote</id>
-    <coordinates>
-      <x>3000</x>
-      <y>1116</y>
-      <w>162</w>
-      <h>78</h>
-    </coordinates>
-    <panel_attributes>Utile per definire
-il comportamento 
-in base allo stato in cui
-si trova il match
-(State Pattern)
-(Permette l'aggiunta di più ere)</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>3084</x>
-      <y>1188</y>
-      <w>18</w>
-      <h>102</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.
-</panel_attributes>
-    <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -2180,20 +2044,6 @@ m2=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2976</x>
-      <y>1506</y>
-      <w>144</w>
-      <h>54</h>
-    </coordinates>
-    <panel_attributes>StartingMatch
---
-+ addPlayer(player: Player)
-+ orderDef () :Player[]</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
       <x>1764</x>
       <y>666</y>
       <w>294</w>
@@ -2417,30 +2267,6 @@ layer=-1</panel_attributes>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;390.0;190.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLNote</id>
-    <coordinates>
-      <x>3390</x>
-      <y>1428</y>
-      <w>210</w>
-      <h>42</h>
-    </coordinates>
-    <panel_attributes>Da implementare come sotto classe del
-match, in modo che possa accedere alle
-variabile del Match</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>3270</x>
-      <y>1422</y>
-      <w>132</w>
-      <h>18</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>10.0;10.0;200.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -3230,8 +3056,8 @@ layer=0</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>2934</x>
-      <y>828</y>
+      <x>2886</x>
+      <y>780</y>
       <w>870</w>
       <h>930</h>
     </coordinates>
@@ -3618,5 +3444,110 @@ order :int[]
 --
 playerId </panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3030</x>
+      <y>1428</y>
+      <w>198</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>UnsettedMatch
+// GameServer must use this class to create new Match
+--
+
+
+--
++ startMatch() : Match
+// Set random order of player and return first InitialRoundMatch
+
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3246</x>
+      <y>1446</y>
+      <w>168</w>
+      <h>138</h>
+    </coordinates>
+    <panel_attributes>InitialRoundMatch
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3630</x>
+      <y>1374</y>
+      <w>114</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>EndedMatch
+--
+
+--
++ getWinner() : Player
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3318</x>
+      <y>1212</y>
+      <w>72</w>
+      <h>246</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>100.0;10.0;10.0;390.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3168</x>
+      <y>1212</y>
+      <w>144</w>
+      <h>228</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>220.0;10.0;10.0;360.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3468</x>
+      <y>1212</y>
+      <w>240</w>
+      <h>174</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;380.0;270.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3444</x>
+      <y>1440</y>
+      <w>168</w>
+      <h>138</h>
+    </coordinates>
+    <panel_attributes>FinalRounMatch
+// Quando esegue doAction() se viene eseguita l'ultima azione 
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3438</x>
+      <y>1212</y>
+      <w>60</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;80.0;380.0</additional_attributes>
   </element>
 </diagram>
