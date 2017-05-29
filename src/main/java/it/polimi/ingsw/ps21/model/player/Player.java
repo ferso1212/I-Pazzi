@@ -88,7 +88,7 @@ public class Player {
 		int modVal=value + this.getModifiers().getWorkMods().getWorkMod(workType);
 		
 		//get Harvest or Production cards belonging to the player
-		DevelopmentCard[] input = this.getDeck().getCards(cardType);
+		ArrayList<DevelopmentCard> input = this.getDeck().getCards(cardType);
 		
 		//For each card in the list of the player's harvest/production cards, checks if the value is equal or greater
 		//than its Dice Requirement: if the check returns true, the card is added to the output list.
