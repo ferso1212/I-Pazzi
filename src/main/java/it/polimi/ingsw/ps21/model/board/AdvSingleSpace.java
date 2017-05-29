@@ -18,7 +18,8 @@ public class AdvSingleSpace extends SingleSpace {
 		return otherOccupant;
 	}
 
-	@Override
+	// TODO 
+	/*@Override
 	public void occupy(FamilyMember famMember) throws NotOccupableException{
 		
 		if (occupant == null) {
@@ -39,6 +40,6 @@ public class AdvSingleSpace extends SingleSpace {
 		}	
 
 		default: return false;
-		} 
+		} */
 		
 	}
