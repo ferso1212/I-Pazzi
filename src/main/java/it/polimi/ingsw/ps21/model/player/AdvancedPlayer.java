@@ -37,6 +37,6 @@ public class AdvancedPlayer extends Player {
 		return this.advModifier;
 	}
 	
-	public void 
+	
 	
 }

@@ -10,6 +10,7 @@ import it.polimi.ingsw.ps21.model.deck.IllegalCardTypeException;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.deck.TerritoryCard;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
+import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.model.properties.PropertiesSet;
 import it.polimi.ingsw.ps21.model.properties.Property;
 import it.polimi.ingsw.ps21.model.deck.BuildingCard;
@@ -150,9 +151,9 @@ public class Player {
 	
 	
 	//TODO
-	public boolean vaticanSupport()
+	public void vaticanSupport()
 	{
-		return true; //method stub to avoid compilation error
+		this.properties.getProperty(PropertiesId.FAITHPOINTS).setValue(0);
 	}
 	
 	/**Pays the cost of the card, taking into account the discount modifiers and the payment modifiers
