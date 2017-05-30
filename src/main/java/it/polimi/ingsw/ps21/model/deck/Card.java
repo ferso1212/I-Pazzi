@@ -27,6 +27,12 @@ public abstract class Card {
 		}
 	}
 	
+	public Card(String name, Requirement req) {
+		this.name = name;
+		possibleRequirement = new ArrayList<>();
+		possibleRequirement.add(req);
+	}
+
 	public Requirement[] getRequirements(){
 		return (Requirement []) possibleRequirement.toArray();
 	}

@@ -27,6 +27,18 @@ public abstract class DevelopmentCard extends Card implements Serializable{
 		permanentEffects.add(e);
 		}
 	}
+	
+	public DevelopmentCard(String name, int era, Requirement req, ImmProperties cost, Effect instant, Effect... permanent){
+		super(name, req);
+		this.costs = new ArrayList<>();
+		this.costs.add(cost);
+		cardEra = era;
+		instantEffect = instant;
+		permanentEffects = new ArrayList<>();
+		for (Effect e: permanent){
+		permanentEffects.add(e);
+		}
+	}
 
 	public int getEra(){
 		return cardEra;

@@ -9,6 +9,11 @@ public class CharacterCard extends DevelopmentCard {
 		super(name, era, reqs, costs, ins, perms);
 	}
 	
+	public CharacterCard(String name, int era, Requirement req,ImmProperties cost, Effect ins,
+			Effect...perms) {
+		super(name, era, req, cost, ins, perms);
+	}
+	
 	@Override
 	public DevelopmentCardType getCardType()
 	{

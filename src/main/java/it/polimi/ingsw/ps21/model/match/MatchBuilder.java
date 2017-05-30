@@ -137,10 +137,8 @@ public class MatchBuilder {
 		String cardName = cardAttributes.getNamedItem("name").getNodeValue();
 		int cardEra = new Integer(cardAttributes.getNamedItem("era").getNodeValue());
 		int diceReq = new Integer(cardAttributes.getNamedItem("diceRequirement").getNodeValue());
-		Requiremnt  cardReq;
-		OrCosts cardCosts = new OrCosts();
 		// To be implemented
-		Effect instantEffect = new PropEffect(new OrRequirement(new Requirement(new CardsNumber(0, 0, 0, 0), new ImmProperties(0,0,0,0,0))), new ImmProperties(1,0,0,1,0));
+		Effect instantEffect = new PropEffect(new Requirement(new CardsNumber(0, 0, 0, 0), new ImmProperties(0,0,0,0,0)), new ImmProperties(1,0,0,1,0));
 		// To be implemented
 		PropEffect permanentEffects[] = new PropEffect[1];
 		NodeList cardProps = cardNode.getChildNodes();
@@ -149,14 +147,8 @@ public class MatchBuilder {
 			Node prop = cardProps.item(i);
 			if (prop.getNodeType() == prop.ELEMENT_NODE){ // Evito i nodi che non rappresentano elementi in xml
 				switch (prop.getNodeName()) {
-				case "Requirement":
-					cardReq.addRequirement(makeRequirement((Element)prop));
-					break;
-				case "Cost":
-					cardCosts.addCost(makeCost((Element) prop));
-					break;
 				case "InstantEffect":
-					instantEffect = new PropEffect(new OrRequirement(new Requirement(new CardsNumber(0, 0, 0, 0), new ImmProperties(0,0,0,0,0))), new ImmProperties(1,0,0,1,0));
+					instantEffect = new PropEffect(new Requirement(new CardsNumber(0, 0, 0, 0), new ImmProperties(0,0,0,0,0)), new ImmProperties(1,0,0,1,0));
 					break;
 				default:
 					throw new BuildingCardException();
@@ -174,10 +166,10 @@ public class MatchBuilder {
 		NamedNodeMap cardAttributes = cardNode.getAttributes();
 		String cardName = cardAttributes.getNamedItem("name").getNodeValue();
 		int cardEra = new Integer(cardAttributes.getNamedItem("era").getNodeValue());
-		OrRequirement cardReq = new OrRequirement();
-		OrCosts cardCosts = new OrCosts();
+		ArrayList<Requirement> cardReq = new ArrayList<>();
+		ArrayList<ImmProperties> cardCosts = new ArrayList<>();
 		// To be implemented
-		Effect instantEffect = new PropEffect(new OrRequirement(new Requirement(new CardsNumber(0, 0, 0, 0), new ImmProperties(0,0,0,0,0))), new ImmProperties(1,0,0,1,0));
+		Effect instantEffect = new PropEffect(new Requirement(new CardsNumber(0, 0, 0, 0), new ImmProperties(0,0,0,0,0)), new ImmProperties(1,0,0,1,0));
 		// To be implemented
 		Effect permanentEffects[] = new Effect[1];
 		NodeList cardProps = cardNode.getChildNodes();
@@ -187,20 +179,20 @@ public class MatchBuilder {
 			if (prop.getNodeType() == prop.ELEMENT_NODE){ // Evito i nodi che non rappresentano elementi in xml
 				switch (prop.getNodeName()) {
 				case "Requirement":
-					cardReq.addRequirement(makeRequirement((Element)prop));
+					cardReq.add(makeRequirement((Element)prop));
 					break;
 				case "Cost":
-					cardCosts.addCost(makeCost((Element) prop));
+					cardCosts.add(makeCost((Element) prop));
 					break;
 				case "InstantEffect":
-					instantEffect = new PropEffect(new OrRequirement(new Requirement(new CardsNumber(0, 0, 0, 0), new ImmProperties(0,0,0,0,0))), new ImmProperties(1,0,0,1,0));
+					instantEffect = new PropEffect(new Requirement(new CardsNumber(0, 0, 0, 0), new ImmProperties(0,0,0,0,0)), new ImmProperties(1,0,0,1,0));
 					break;
 				default:
 					throw new BuildingCardException();
 					}
 				}
 			}
-		return new CharacterCard(cardName, cardEra, cardReq, cardCosts, instantEffect, permanentEffects);
+		return new CharacterCard(cardName, cardEra, (Requirement []) cardReq.toArray(), (ImmProperties []) cardCosts.toArray(), instantEffect, permanentEffects);
 		}
 			catch (XMLParseException x) {
 				throw new BuildingCardException();
@@ -211,12 +203,12 @@ public class MatchBuilder {
 		NamedNodeMap cardAttributes = cardNode.getAttributes();
 		String cardName = cardAttributes.getNamedItem("name").getNodeValue();
 		int cardEra = new Integer(cardAttributes.getNamedItem("era").getNodeValue());
-		OrRequirement cardReq = new OrRequirement();
-		OrCosts cardCosts = new OrCosts();
+		ArrayList<Requirement> cardReq = new ArrayList<>();
+		ArrayList<ImmProperties> cardCosts = new ArrayList<>();
 		// TODO implement InstantEffect e PermanentEffect in xml
-		Effect instantEffect = new PropEffect(new OrRequirement(new Requirement(new CardsNumber(0, 0, 0, 0), new ImmProperties(0,0,0,0,0))), new ImmProperties(1,0,0,1,0));
+		Effect instantEffect = new PropEffect(new Requirement(new CardsNumber(), new ImmProperties()), new ImmProperties());
 		// TODO
-		Effect permanentEffects = new PropEffect(cardReq, new ImmProperties(0,0,0));
+		Effect permanentEffects = new PropEffect((Requirement [])cardReq.toArray(), new ImmProperties(0,0,0));
 		
 		NodeList cardProps = cardNode.getChildNodes();
 		try {
@@ -225,20 +217,20 @@ public class MatchBuilder {
 			if (prop.getNodeType() == prop.ELEMENT_NODE){ // Evito i nodi che non rappresentano elementi in xml
 				switch (prop.getNodeName()) {
 				case "Requirement":
-					cardReq.addRequirement(makeRequirement((Element)prop));
+					cardReq.add(makeRequirement((Element)prop));
 					break;
 				case "Cost":
-					cardCosts.addCost(makeCost((Element) prop));
+					cardCosts.add(makeCost((Element) prop));
 					break;
 				case "InstantEffect":
-					instantEffect = new PropEffect(new OrRequirement(new Requirement(new CardsNumber(0, 0, 0, 0), new ImmProperties(0,0,0,0,0))), new ImmProperties(1,0,0,1,0));
+					instantEffect = new PropEffect(new Requirement(new CardsNumber(0, 0, 0, 0), new ImmProperties(0,0,0,0,0)), new ImmProperties(1,0,0,1,0));
 					break;
 				default:
 					throw new BuildingCardException();
 					}
 				}
 			}
-		return new VentureCard(cardName, cardEra, cardReq, cardCosts, instantEffect, permanentEffects);
+		return new VentureCard(cardName, cardEra, (Requirement []) cardReq.toArray(), (ImmProperties []) cardCosts.toArray(), instantEffect, permanentEffects);
 		}
 			catch (XMLParseException x) {
 				throw new BuildingCardException();

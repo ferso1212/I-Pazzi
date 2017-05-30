@@ -1,10 +1,15 @@
 package it.polimi.ingsw.ps21.model.match;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.EnumMap;
+import java.util.List;
 import java.util.Vector;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
+import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.player.Player;
 
@@ -13,12 +18,10 @@ public class UnsettedMatch extends Match {
 	
 	private MatchBuilder builder;
 	
-	public UnsettedMatch(Player players[]) throws ParserConfigurationException {
+	public UnsettedMatch() throws ParserConfigurationException {
 		super();
 		builder = new MatchBuilder();
-		for (Player p: players){
-			this.players.add(p);
-		}
+		players = new EnumMap<>(PlayerColor.class);
 		orangeDice = 0;
 		blackDice = 0;
 		whiteDice = 0;
@@ -30,10 +33,20 @@ public class UnsettedMatch extends Match {
 		return this;
 	}
 	
+	public void addPlayer(Player newPlayer, PlayerColor id) throws InvalidIDException, CompleteMatchException{
+		if (players.containsKey(id)) throw new InvalidIDException();
+		players.put(id, newPlayer);
+		if (players.containsKey(PlayerColor.BLUE) && players.containsKey(PlayerColor.GREEN) && players.containsKey(PlayerColor.RED) && players.containsKey(PlayerColor.YELLOW))
+			throw new CompleteMatchException();
+		
+	}
+	
+	
 	public Match startMatch(){
-		Collections.shuffle(players);
+		List<Player> shuffledPlayers = new ArrayList<Player>(players.values());
+		Collections.shuffle(shuffledPlayers);
 		for (int i=0; i <4 ; i++){
-			for (Player p: players){
+			for (Player p: shuffledPlayers){
 				order.add(p);
 			}
 		}

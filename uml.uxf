@@ -473,7 +473,7 @@ m2=0...</panel_attributes>
     <coordinates>
       <x>1981</x>
       <y>2982</y>
-      <w>238</w>
+      <w>245</w>
       <h>245</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -486,7 +486,7 @@ m2=1...2</panel_attributes>
     <coordinates>
       <x>2310</x>
       <y>2961</y>
-      <w>812</w>
+      <w>819</w>
       <h>329</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -583,7 +583,7 @@ m2=1
     <coordinates>
       <x>2100</x>
       <y>2730</y>
-      <w>42</w>
+      <w>49</w>
       <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
@@ -878,7 +878,8 @@ m2=1</panel_attributes>
 # players :EnumMap&lt;PlayerColor, Player&gt;
 # playersActionOrder: Queue&lt;Player&gt;
 //playersActionOrder contains 4 objects for each player and contains the order of the actions of an entire round
-# deck :Deck
+# era :int
+# round : int
 # board :Board
 # orangeDice :int
 # whiteDice :int
@@ -932,7 +933,7 @@ m2=1</panel_attributes>
       <x>2163</x>
       <y>1183</y>
       <w>504</w>
-      <h>280</h>
+      <h>308</h>
     </coordinates>
     <panel_attributes>Board
 --
@@ -959,7 +960,7 @@ m2=1</panel_attributes>
 + placeMember(player: Player, familyMember: FamilyMember , space: Space): boolean
 + getDevelopmentFinalBonus(type :DevelopmentCardType, numberOfCards : Int) : Int 
 + getTrackBonuses() :TrackBonuses
-
++ setEra(newEra :int) :void
 
 
 
@@ -2366,7 +2367,7 @@ m2=4
     <coordinates>
       <x>2660</x>
       <y>1456</y>
-      <w>133</w>
+      <w>140</w>
       <h>406</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -2440,14 +2441,14 @@ COUNCIL</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>2338</x>
-      <y>1456</y>
-      <w>35</w>
-      <h>406</h>
+      <y>1484</y>
+      <w>42</w>
+      <h>378</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m1=1
 m2=1...3</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;560.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;520.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -2763,7 +2764,7 @@ m2=1..n</panel_attributes>
     <coordinates>
       <x>518</x>
       <y>2415</y>
-      <w>105</w>
+      <w>112</w>
       <h>217</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -3316,6 +3317,9 @@ layer=1</panel_attributes>
       <h>161</h>
     </coordinates>
     <panel_attributes>InitialRoundMatch
+--
+
+
 layer=1</panel_attributes>
     <additional_attributes/>
   </element>
@@ -3371,16 +3375,14 @@ layer=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4004</x>
-      <y>1722</y>
+      <x>3822</x>
+      <y>1771</y>
       <w>196</w>
       <h>161</h>
     </coordinates>
     <panel_attributes>FinalRoundMatch
 --
 // Quando esegue doAction() se viene eseguita l'ultima azione
-
-+ vaticanReport(): void
 //notifica la Controller.gameLoop passando come oggetto una scelta VaticanChoice
 layer=1</panel_attributes>
     <additional_attributes/>
@@ -3388,13 +3390,13 @@ layer=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>4011</x>
+      <x>3864</x>
       <y>1414</y>
-      <w>56</w>
-      <h>322</h>
+      <w>168</w>
+      <h>371</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;60.0;440.0</additional_attributes>
+    <additional_attributes>220.0;10.0;10.0;510.0</additional_attributes>
   </element>
   <element>
     <id>UMLPackage</id>
@@ -4029,9 +4031,9 @@ layer=1</panel_attributes>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>5180</x>
+      <x>5166</x>
       <y>1575</y>
-      <w>112</w>
+      <w>140</w>
       <h>63</h>
     </coordinates>
     <panel_attributes>Visitable
@@ -4042,9 +4044,9 @@ layer=1</panel_attributes>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>5523</x>
+      <x>5516</x>
       <y>630</y>
-      <w>140</w>
+      <w>154</w>
       <h>98</h>
     </coordinates>
     <panel_attributes>Visitor
@@ -4109,5 +4111,60 @@ layer=1</panel_attributes>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;310.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4060</x>
+      <y>1778</y>
+      <w>287</w>
+      <h>161</h>
+    </coordinates>
+    <panel_attributes>VaticanSupport
+--
+- choices :Map&lt;Player, Boolean&gt;
+--
++ setSupport(player :Player, choice :Boolean) :void
+// Puo' lanciare unchosenException per notificare il controller della mancazna di una scelta
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4025</x>
+      <y>1414</y>
+      <w>77</w>
+      <h>378</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;520.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2947</x>
+      <y>3654</y>
+      <w>189</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>NullEffect
+--
+// Utile per carte che non prevedono un effetto istantaneo o uno permanente
+--
++ activate()
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2751</x>
+      <y>3556</y>
+      <w>301</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;410.0;10.0;410.0;140.0</additional_attributes>
   </element>
 </diagram>

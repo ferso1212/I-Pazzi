@@ -9,10 +9,8 @@ import it.polimi.ingsw.ps21.model.player.Player;
 public class FinalRoundMatch extends Match {
 	
 	public FinalRoundMatch(Match prevState) {
-		super();
-		this.players = prevState.players;
-		this.order = prevState.order;
-		this.observers = prevState.observers;
+		super(prevState);
+		round = 2;
 		throwDices();
 		// TODO Auto-generated constructor stub
 	}
@@ -32,14 +30,13 @@ public class FinalRoundMatch extends Match {
 
 	private Match nextState() {
 		for (int i=0; i<4; i++){
-			for (Player p: board.getCouncilPalace().getOccupants()));
+			for (Player p: board.getCouncilPalace().getOccupants());
 			// TODO need a method that return playerOrder in councilPalace
 		}
-		for (Player p: players){
+		for (Player p: players.values()){
 			// vatican Support
 			board.resetFaithPoints(p);			
 		}
-		
 		return new InitialRoundMatch(this);
 	}
 	@Override

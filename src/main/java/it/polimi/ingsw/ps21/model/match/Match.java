@@ -32,12 +32,26 @@ public abstract class Match extends Observable {
 	protected int orangeDice;
 	protected int blackDice;
 	protected int whiteDice;
+	protected int era; 
+	protected int round;
 	
 	public  Match(){
 		this.observers = new ArrayList<>();
-		this.board = new Board(MatchBuilder.);
+		// this.board = new Board(MatchBuilder.);
 		order = new ArrayDeque<>();
 		players = new EnumMap<>(PlayerColor.class);
+	}
+	
+	public Match(Match previousMatch){
+		this.board = previousMatch.board;
+		this.blackDice = previousMatch.blackDice;
+		this.orangeDice = previousMatch.orangeDice;
+		this.whiteDice = previousMatch.whiteDice;
+		this.observers = previousMatch.observers;
+		this.players = previousMatch.players;
+		this.order = previousMatch.order;
+		this.era = previousMatch.era;
+		this.round = previousMatch.round;
 	}
 	
 	public void registerObserver(Observer o){
@@ -65,7 +79,7 @@ public abstract class Match extends Observable {
 		return order.element();
 	}
 	
-	public abstract Match makeAction(Action nextAction);
+	public abstract Match makeAction(Action nextAction) throws MatchException;
 	
 	public abstract Match getCopy() throws CloneNotSupportedException;
 

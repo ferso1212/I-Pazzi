@@ -9,10 +9,9 @@ public class InitialRoundMatch extends Match {
 
 	
 	public InitialRoundMatch(Match previousState) {
-		super();
-		this.observers = previousState.observers;
-		this.players = previousState.players;
-		this.order = previousState.order;
+		super(previousState);
+		era = era + 1;
+		round = 1;
 		throwDices();
 		notifyObservers();
 		// TODO Auto-generated constructor stub

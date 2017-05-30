@@ -8,10 +8,14 @@ import it.polimi.ingsw.ps21.model.player.Player;
 
 public class NoMilitaryForTerritory extends PermanentLeaderEffect {
 
+	public NoMilitaryForTerritory(Requirement requirement) {
+		super();
+	}
+	
+
 	@Override
 	public void activate(Player player) {
-		// TODO Auto-generated method stub
-
+		// TODO need a specific Modifier in player
 	}
 
 }

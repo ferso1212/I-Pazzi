@@ -7,10 +7,13 @@ import it.polimi.ingsw.ps21.model.player.Player;
  */
 public class NoPayOccupiedTower extends PermanentLeaderEffect {
 
+	public NoPayOccupiedTower() {
+		super();
+	}
+
 	@Override
 	public void activate(Player player) {
 		// To be implemented
-		player.getModifiers().getActionMods();
 
 	}
 

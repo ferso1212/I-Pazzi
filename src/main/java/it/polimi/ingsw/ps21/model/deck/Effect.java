@@ -2,6 +2,7 @@ package it.polimi.ingsw.ps21.model.deck;
 
 import java.util.ArrayList;
 
+import it.polimi.ingsw.ps21.controller.UnchosenException;
 import it.polimi.ingsw.ps21.model.player.Player;
 
 public abstract class Effect {
@@ -24,6 +25,6 @@ public abstract class Effect {
 		// return player.checkRequirement(req.getRequirement());
 	}
 	
-	public abstract void activate(Player player);
+	public abstract void activate(Player player) throws UnchosenException;
 	
 }
