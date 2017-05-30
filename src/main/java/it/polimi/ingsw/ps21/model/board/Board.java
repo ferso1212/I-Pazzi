@@ -119,7 +119,7 @@ public class Board {
 	public boolean placeMember(Player player, FamilyMember famMember, Space space) {
 
 		try {
-			space.occupy(famMember);
+			space.occupy(player, famMember);
 			return true;
 		} catch (NotOccupableException e) {
 			return false;
