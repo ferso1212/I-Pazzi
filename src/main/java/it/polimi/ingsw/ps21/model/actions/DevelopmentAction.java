@@ -8,7 +8,7 @@ import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
-
+s
 /**
  * This class is used to allow the player to take a development card from the
  * board and add it to his cards.
@@ -50,7 +50,7 @@ public class DevelopmentAction extends Action {
 	 */
 	@Override
 	public void execute() throws NotExecutableException, NotOccupableException, RequirementNotMetException {
-
+		// Choose cost 
 		player.getDeck().addCard(space.getCard()); // aggiunta della carta al
 													// deck del player, potrebbe
 

@@ -12,17 +12,17 @@ public class CardDiceEffect extends Effect {
 	private int cardDiceValue;
 	private Set<DevelopmentCardType> types;
 	
-	public CardDiceEffect(OrRequirement req, int diceValue, WorkType...types) throws TooManyArgumentException{
-		super(req);
+	public CardDiceEffect(Requirement reqs[], int diceValue, DevelopmentCardType...types) throws TooManyArgumentException{
+		super(reqs);
 		if (types.length > 2) throw new TooManyArgumentException();
 		cardDiceValue = diceValue;
 		if (types.length == 0){
-			this.types.add(DevelopmentCardType.BUILDING);
-			this.types.add(DevelopmentCardType.TERRITORY);
+			for (DevelopmentCardType d: DevelopmentCardType.values()){
+				this.types.add(d);
+			}
 		}
-		for(WorkType w: types){
-			if(w == WorkType.HARVEST) this.types.add(DevelopmentCardType.BUILDING);
-			else this.types.add(DevelopmentCardType.TERRITORY);
+		for(DevelopmentCardType w: types){
+			this.types.add(w);
 		}
 		
 
@@ -30,8 +30,8 @@ public class CardDiceEffect extends Effect {
 	
 	@Override
 	public void activate(Player player) {
-		for (DevelopmentCardType worktype: types) {
-			player.getModifiers().getDiceMods().getDiceMod(worktype).setValue(cardDiceValue);
+		for (DevelopmentCardType devType: types) {
+			player.getModifiers().getDiceMods().getDiceMod(devType).setValue(cardDiceValue);
 		}		
 	}
 }
