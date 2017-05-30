@@ -57,6 +57,7 @@ public class Property implements Cloneable{
 	{
 		if(num<0) return false; //this method can't be used to subtract values
 		int modifiedNum = num + this.additionModifier; //adds the modifier value to the value that should be added 
+		if(modifiedNum<0) modifiedNum=0; //if the modified number is <0, no value is added.
 		this.value+=modifiedNum;
 		return true;
 	}
