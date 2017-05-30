@@ -11,10 +11,15 @@ public abstract class DevelopmentCard extends Card implements Serializable{
 	protected int cardEra;
 	protected Effect instantEffect;
 	protected ArrayList<Effect> permanentEffects;
+	protected ArrayList<ImmProperties> costs;
 	
 	
 	public DevelopmentCard(String name, int era, Requirement reqs[], ImmProperties costs[], Effect instant, Effect... permanent){
-		super(name, reqs, costs);
+		super(name, reqs);
+		this.costs = new ArrayList<>();
+		for (ImmProperties c: costs){
+			this.costs.add(c);
+		}
 		cardEra = era;
 		instantEffect = instant;
 		permanentEffects = new ArrayList<>();
@@ -51,6 +56,10 @@ public abstract class DevelopmentCard extends Card implements Serializable{
 		return (Effect []) permanentEffects.toArray(); // Metodo di ripiego, si deve implementare la scelta di effetti permanenti
 	}
 	public abstract DevelopmentCardType getCardType();
+	
+	public ImmProperties[] getCosts(){
+		return (ImmProperties []) costs.toArray();
+	}
 	
 }
 

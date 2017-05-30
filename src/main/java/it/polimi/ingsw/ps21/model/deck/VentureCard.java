@@ -7,7 +7,7 @@ package it.polimi.ingsw.ps21.model.deck;
  */
 public class VentureCard extends DevelopmentCard {
 
-	public VentureCard(String name, int era, OrRequirement req, OrCosts cost, Effect ins, Effect perm) {
+	public VentureCard(String name, int era, Requirement reqs[], Cost costs[], Effect ins, Effect perm) {
 		super(name, era, req, cost, ins, perm);
 	}
 	

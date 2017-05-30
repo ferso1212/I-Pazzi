@@ -47,6 +47,11 @@ public class PlayerDeck implements Cloneable{
 		return this.decksMap.get(type);
 	}
 	
+	/**Used to check whether the player has enough territory cards, building cards, venture cards and character cards to meet a specific requirement.
+	 * 
+	 * @param req
+	 * @return TRUE if the player satisfies the requirements (i.e. : he has at least the number of cards required), FALSE if not.
+	 */
 	public boolean checkCardsNumReq(CardsNumber req)
 	{
 		for(DevelopmentCardType cardType: DevelopmentCardType.values())
