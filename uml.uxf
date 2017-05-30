@@ -763,7 +763,6 @@ m2=1</panel_attributes>
 + metCardRequirements(card: Card): ArrayList&lt;Requirement&gt;
 //metodi check verificano condizioni su numero risorse,punti,carte
 + getPersonalBonusTile(): PersonalBonusTile
-+ vaticanSupport(): void
 + payCard(cardType :DevelopmentCardType, cost: ImmProperties) :void
 //overloading della makeaction
 + getModifiers() : ModifierSet 
