@@ -1,8 +1,14 @@
 package it.polimi.ingsw.ps21;
 
 import it.polimi.ingsw.ps21.model.match.Match;
-import it.polimi.ingsw.ps21.model.player.Player;
-import it.polimi.ingsw.ps21.model.player.PlayerProperties;
+import it.polimi.ingsw.ps21.model.match.UnsettedMatch;
+import it.polimi.ingsw.ps21.model.player.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,15 +30,19 @@ public class TestMatch {
      */
     /**
      * Rigourous Test :-)
+     * @throws ParserConfigurationException 
      */
     
     @Before
-    public void setUp(){
-        Player testPlayers[] = new Player[3];
-        testPlayers[0] = new Player("daniele", new PlayerProperties(), 1);
-        testPlayers[1] = new Player("antonio", new PlayerProperties(), 2);
-        testPlayers[2] = new Player("giada",  new PlayerProperties(), 3);
-        testedMatch = new Match(testPlayers);
+    public void setUp() throws ParserConfigurationException{
+        Map<PlayerColor, Player> testPlayers = new HashMap<>();
+        testPlayers.put( PlayerColor.BLUE, new Player("daniele", new PlayerProperties(), 1));
+        testPlayers.put( PlayerColor.GREEN, new Player("antonio", new PlayerProperties(), 2));
+        testPlayers.put( PlayerColor.YELLOW, new Player("giada",  new PlayerProperties(), 3));
+        testedMatch = new UnsettedMatch();
+        for (Player p: testPlayers.values()){
+        	((UnsettedMatch )testedMatch).addPlayer()
+        }
     }
     
     @Test
