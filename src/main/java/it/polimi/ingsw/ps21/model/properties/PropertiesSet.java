@@ -20,7 +20,7 @@ public class PropertiesSet implements Cloneable{
 	 * @param initValues
 	 */
 	public PropertiesSet(int... initValues) {
-		this.propertiesMap = new EnumMap<PropertiesId, Property>(PropertiesId.class);
+		this.propertiesMap = new EnumMap<>(PropertiesId.class);
 		int i = 0; // index to move through initValues[] array
 		for (PropertiesId propId : PropertiesId.values()) // for each value in the PropertiesId enum
 		{
