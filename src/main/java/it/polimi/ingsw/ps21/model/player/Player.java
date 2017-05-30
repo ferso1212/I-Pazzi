@@ -3,7 +3,6 @@ package it.polimi.ingsw.ps21.model.player;
 import java.util.*;
 import it.polimi.ingsw.ps21.model.actions.ActionType;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
-import it.polimi.ingsw.ps21.model.deck.CardsNumber;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.IllegalCardTypeException;
@@ -68,7 +67,7 @@ public class Player {
 
 
 	/**
-	 * Used to retrieve the work cards that the player can activate when he does a harvest/production action.
+	 * Used to retrieve the work cards that the player can activate when he performs a harvest/production action.
 	 * @param value the value of the harvest/production action, which determines which cards can be activated.
 	 * @param workType HARVEST or PRODUCTION
 	 * @return an ArrayList of DevelopmentCards, containing the harvest/production cards that the player can activate.
@@ -78,7 +77,7 @@ public class Player {
 	{
 		ArrayList<DevelopmentCard> output= new ArrayList<DevelopmentCard>();
 		
-		//convert WorkType in DevelopmentCardType to pass it as the parameter of the PlayerDeck.getCards(cardType) method
+		//convert WorkType in DevelopmentCardType to pass it to the PlayerDeck.getCards(cardType) method
 		DevelopmentCardType cardType = null;
 		if(workType==WorkType.HARVEST) cardType=DevelopmentCardType.TERRITORY;
 		else if(workType==WorkType.PRODUCTION) cardType=DevelopmentCardType.BUILDING;
@@ -121,20 +120,6 @@ public class Player {
 	
 	
 	
-	/**This method can be used to check whether the player meets specific requirements on the number of territory cards, building cards, venture cards and character cards.
-	 * 
-	 * @param req
-	 * @return TRUE if the player satisfies the requirements (i.e. : he has at least the number of cards required), FALSE if not.
-	 */
-	public boolean checkCards(CardsNumber req)
-	{
-		if(req.getBlueCardNum()>this.devCards.countCards(DevelopmentCardType.CHARACTER)) return false;
-		if(req.getYellowCardNum()>this.devCards.countCards(DevelopmentCardType.BUILDING)) return false;
-		if(req.getGreenCardNum()>this.devCards.countCards(DevelopmentCardType.TERRITORY)) return false;
-		if(req.getPurpleCardNum()>this.devCards.countCards(DevelopmentCardType.VENTURE)) return false;
-		return true;
-	}
-	
 	/**Checks whether the player meets specific requirements on his properties.
 	 * 
 	 * @param necessaryResources
@@ -150,38 +135,23 @@ public class Player {
 	}
 	
 	
-	//TODO
-	public void vaticanSupport()
-	{
-		this.properties.getProperty(PropertiesId.FAITHPOINTS).setValue(0);
-	}
 	
-	/**Pays the cost of the card, taking into account the discount modifiers and the payment modifiers
+	/**Pays the chosen cost of the card, taking into account the discount modifiers and the payment modifiers
 	 * @param card
+	 * @param cost
 	 * @throws InsufficientPropsException
 	 */
-	public void payCard(DevelopmentCard card) throws InsufficientPropsException
+	public void payCard(DevelopmentCardType cardType, ImmProperties cost) throws InsufficientPropsException
 	{		
 		//PropertiesSet contenente gli sconti per il tipo di carta associato alla carta passata come parametro
-		PropertiesSet discountPropsSet= this.modifiers.getDiscountsMods().getDiscount(card.getCardType()).getPropertiesDisc();
+		PropertiesSet discountPropsSet= this.modifiers.getDiscountsMods().getDiscount(cardType).getPropertiesDisc();
 		
-		if(this.properties.payProperties(card.getCosts().getCost(), discountPropsSet)==false)
+		if(this.properties.payProperties(cost, discountPropsSet)==false)
 		{throw new InsufficientPropsException();
 		}
 		
 	}
 	
-	//TODO implement
-	public void makeAction()
-	{
-		return;
-	}
-	
-	//TODO implement
-	public void makeAction(ActionType action)
-	{
-		return;
-	}
 	
 	/**
 	 * @return the modifiers
@@ -220,28 +190,8 @@ public class Player {
 	}
 	
 	
-	//TODO
-	/*public int finalVictoryPoints(int[] yellowCardBonus, int[] yellowCardBonus)
-	{
-		//enables Venture Cards permanent effect, that adds victory points at the end of the match.
-		try {
-			for(DevelopmentCard c: this.devCards.getCards(DevelopmentCardType.VENTURE))
-			{
-				c.getPemanentEffect().activate(this);
-			}
-		} catch (IllegalCardTypeException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		if(!this.modifiers.getFinalMods().isNoYellowPoints())
-		{
-			
-		}
-	}
-*/
 	
-	/**Checks if the player has enough properties (points and resources) to meet the requirements passed as argument.
+	/**Checks if the player has enough properties (points, resources and number of cards) to meet the requirements passed as argument.
 	 * @param req requirements that are compared to the player's properties
 	 * @return true if the player's properties are greater than the requirements (the requirements are met); otherwise false
 	 */
@@ -263,7 +213,7 @@ public class Player {
 	public ArrayList<Requirement> metCardRequirements(Card card)
 	{
 		ArrayList<Requirement> output= new ArrayList<Requirement>();
-		for(Requirement req: card.getRequirement().getChoices())
+		for(Requirement req: card.getRequirements())
 		{
 			if(this.checkRequirement(req)) output.add(req);
 		}
@@ -276,7 +226,7 @@ public class Player {
 	 */
 	public boolean checkCardRequirements(Card card)
 	{
-		for(Requirement req: card.getRequirement().getChoices())
+		for(Requirement req: card.getRequirements())
 		{
 			if(this.checkRequirement(req)) return true;
 		}
@@ -296,6 +246,14 @@ public class Player {
 	 */
 	public PlayerDeck getDeck() {
 		return devCards;
+	}
+
+
+	/**
+	 * @return the color
+	 */
+	public PlayerColor getColor() {
+		return color;
 	}
 
 	

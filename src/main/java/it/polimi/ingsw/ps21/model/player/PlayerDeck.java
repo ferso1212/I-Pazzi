@@ -12,7 +12,7 @@ import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.deck.TerritoryCard;
 import it.polimi.ingsw.ps21.model.deck.VentureCard;
 
-public class PlayerDeck{
+public class PlayerDeck implements Cloneable{
 	
 	/*private ArrayList<TerritoryCard> greenCards;
 	private ArrayList<BuildingCard> yellowCards;
@@ -47,6 +47,11 @@ public class PlayerDeck{
 		return this.decksMap.get(type);
 	}
 	
+	/**Used to check whether the player has enough territory cards, building cards, venture cards and character cards to meet a specific requirement.
+	 * 
+	 * @param req
+	 * @return TRUE if the player satisfies the requirements (i.e. : he has at least the number of cards required), FALSE if not.
+	 */
 	public boolean checkCardsNumReq(CardsNumber req)
 	{
 		for(DevelopmentCardType cardType: DevelopmentCardType.values())
@@ -54,5 +59,22 @@ public class PlayerDeck{
 			if(req.getCardsNumReq(cardType)>this.countCards(cardType)) return false;
 		}
 		return true;
+	}
+	
+	/*public PlayerDeck clone()
+	{
+		EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>> clonedDecksMap= new EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>>(DevelopmentCardType.class);
+		
+		for(DevelopmentCardType cardType: DevelopmentCardType.values())
+		{
+			clonedDecksMap.put(cardType, (ArrayList<DevelopmentCard>)this.decksMap.get(cardType).clone());
+		}
+	}*/
+
+	public PlayerDeck(EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>> decksMap,
+			EnumMap<DevelopmentCardType, Requirement[]> requirementMap) {
+		super();
+		this.decksMap = decksMap;
+		this.requirementMap = requirementMap;
 	}
 }

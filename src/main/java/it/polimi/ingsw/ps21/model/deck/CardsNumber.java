@@ -1,43 +1,23 @@
 package it.polimi.ingsw.ps21.model.deck;
 
+import java.util.EnumMap;
+
 public class CardsNumber {
-	private int greenCardNum;
-	private int blueCardNum;
-	private int yellowCardNum;
-	private int purpleCardNum;
+	private EnumMap<DevelopmentCardType, Integer> cardsNums;
 	
-	public CardsNumber(int green, int yellow, int blue, int purple){
-		greenCardNum = green;
-		blueCardNum = blue;
-		yellowCardNum = yellow;
-		purpleCardNum = purple;
+	public CardsNumber(int...values){
+		cardsNums=new EnumMap<>(DevelopmentCardType.class);
+		int i=0, val=0;
+		for(DevelopmentCardType cardType: DevelopmentCardType.values())
+			{if(i<values.length) val=values[i];
+			else val=0;
+			cardsNums.put(cardType, val);
+			}
 	}
 
-	public int getGreenCardNum() {
-		return greenCardNum;
-	}
-
-	public int getBlueCardNum() {
-		return blueCardNum;
-	}
-
-	public int getYellowCardNum() {
-		return yellowCardNum;
-	}
-
-	public int getPurpleCardNum() {
-		return purpleCardNum;
-	}
+	
 	
 	public int getCardsNumReq(DevelopmentCardType type) {
-		switch (type) {
-		case TERRITORY: return this.greenCardNum;
-		case BUILDING: return this.yellowCardNum;
-		case VENTURE: return this.purpleCardNum;
-		case CHARACTER: return this.blueCardNum;
-		default: return 0;
-			
-		}
-	}
-	
+		return cardsNums.get(type);
+}
 }

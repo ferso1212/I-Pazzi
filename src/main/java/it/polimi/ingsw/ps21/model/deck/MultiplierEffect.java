@@ -12,8 +12,8 @@ public class MultiplierEffect extends Effect {
 	
 	private int secondFactorValue;
 	
-	public MultiplierEffect(OrRequirement req, ImmProperties bonus, MultiplierType secondFactorType, int secondFactorValue ){
-		super(req);
+	public MultiplierEffect(Requirement reqs[], ImmProperties bonus, MultiplierType secondFactorType, int secondFactorValue ){
+		super(reqs);
 		bonusProperties = bonus;
 		this.secondFactorType = secondFactorType;
 		this.secondFactorValue = secondFactorValue;

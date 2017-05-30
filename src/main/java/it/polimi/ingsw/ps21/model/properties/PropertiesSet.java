@@ -9,7 +9,7 @@ import java.util.EnumMap;
  * @author fabri
  *
  */
-public class PropertiesSet {
+public class PropertiesSet implements Cloneable{
 
 	// maps each of the possible id values to the corresponding property
 	private EnumMap<PropertiesId, Property> propertiesMap;
@@ -20,7 +20,7 @@ public class PropertiesSet {
 	 * @param initValues
 	 */
 	public PropertiesSet(int... initValues) {
-		this.propertiesMap = new EnumMap<PropertiesId, Property>(PropertiesId.class);
+		this.propertiesMap = new EnumMap<>(PropertiesId.class);
 		int i = 0; // index to move through initValues[] array
 		for (PropertiesId propId : PropertiesId.values()) // for each value in the PropertiesId enum
 		{
@@ -91,5 +91,20 @@ public class PropertiesSet {
 		}
 		return true;
 
+	}
+	
+	/**Performs a deep copy of this object.
+	 * 
+	 */
+	@Override
+	public PropertiesSet clone()
+	{
+		int[] constructorInitValues= new int[this.propertiesMap.size()];
+		int i=0;
+		for(Property prop: this.propertiesMap.values())
+		{
+			constructorInitValues[i]=prop.getValue();
+		}
+		return new PropertiesSet(constructorInitValues);
 	}
 }

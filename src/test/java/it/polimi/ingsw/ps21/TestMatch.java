@@ -3,17 +3,15 @@ package it.polimi.ingsw.ps21;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerProperties;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Unit test to check Match class
  * @author gullit
  */
-public class TestMatch 
-    extends TestCase
-{
+public class TestMatch {
     /**
      * Create the test case
      *
@@ -21,28 +19,23 @@ public class TestMatch
      */
 	
 	private Match testedMatch;
-	
-    public TestMatch( String testName )
-    {
-        super( testName );
+    /**
+     * @return the suite of tests being tested
+     */
+    /**
+     * Rigourous Test :-)
+     */
+    
+    @Before
+    public void setUp(){
         Player testPlayers[] = new Player[3];
         testPlayers[0] = new Player("daniele", new PlayerProperties(), 1);
         testPlayers[1] = new Player("antonio", new PlayerProperties(), 2);
         testPlayers[2] = new Player("giada",  new PlayerProperties(), 3);
         testedMatch = new Match(testPlayers);
     }
-
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( TestMatch.class );
-    }
-
-    /**
-     * Rigourous Test :-)
-     */
+    
+    @Test
     public void testApp()
     {
         assert(checkThrows());
