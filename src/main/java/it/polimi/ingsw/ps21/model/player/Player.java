@@ -156,16 +156,17 @@ public class Player {
 		this.properties.getProperty(PropertiesId.FAITHPOINTS).setValue(0);
 	}
 	
-	/**Pays the cost of the card, taking into account the discount modifiers and the payment modifiers
+	/**Pays the chosen cost of the card, taking into account the discount modifiers and the payment modifiers
 	 * @param card
+	 * @param cost
 	 * @throws InsufficientPropsException
 	 */
-	public void payCard(DevelopmentCard card) throws InsufficientPropsException
+	public void payCard(DevelopmentCardType cardType, ImmProperties cost) throws InsufficientPropsException
 	{		
 		//PropertiesSet contenente gli sconti per il tipo di carta associato alla carta passata come parametro
-		PropertiesSet discountPropsSet= this.modifiers.getDiscountsMods().getDiscount(card.getCardType()).getPropertiesDisc();
+		PropertiesSet discountPropsSet= this.modifiers.getDiscountsMods().getDiscount(cardType).getPropertiesDisc();
 		
-		if(this.properties.payProperties(card.getCosts().getCost(), discountPropsSet)==false)
+		if(this.properties.payProperties(cost, discountPropsSet)==false)
 		{throw new InsufficientPropsException();
 		}
 		
@@ -276,7 +277,7 @@ public class Player {
 	 */
 	public boolean checkCardRequirements(Card card)
 	{
-		for(Requirement req: card.getRequirement().getChoices())
+		for(Requirement req: card.getRequirements())
 		{
 			if(this.checkRequirement(req)) return true;
 		}
