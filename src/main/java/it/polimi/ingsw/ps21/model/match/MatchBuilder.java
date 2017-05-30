@@ -321,10 +321,10 @@ public class MatchBuilder {
 
 	public Deck makeDeck() throws BuildingDeckException{
 		Deck result = new Deck();
-		result.setGreenDeck(makeGreenDeck());
+		// TODO result.setGreenDeck(makeGreenDeck());
 		result.setBlueDeck(makeBlueDeck());
-		result.setYellowDeck(makeYellowDeck());
-		result.setPurpleDeck(makePurpleDeck());	
+		// TODO result.setYellowDeck(makeYellowDeck());
+		// TODO result.setPurpleDeck(makePurpleDeck());	
 		return result;
 	}
 
