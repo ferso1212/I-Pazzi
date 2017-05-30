@@ -3,6 +3,8 @@ package it.polimi.ingsw.ps21.model.deck;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
+
 
 public abstract class DevelopmentCard extends Card implements Serializable{
 
@@ -11,8 +13,8 @@ public abstract class DevelopmentCard extends Card implements Serializable{
 	protected ArrayList<Effect> permanentEffects;
 	
 	
-	public DevelopmentCard(String name, int era, OrRequirement req, OrCosts cost, Effect instant, Effect... permanent){
-		super(name, req, cost);
+	public DevelopmentCard(String name, int era, Requirement reqs[], ImmProperties costs[], Effect instant, Effect... permanent){
+		super(name, reqs, costs);
 		cardEra = era;
 		instantEffect = instant;
 		permanentEffects = new ArrayList<>();
@@ -29,9 +31,9 @@ public abstract class DevelopmentCard extends Card implements Serializable{
 	public String toString(){ 
 		StringBuilder temp = new StringBuilder();
 		temp.append("\nPossible Requirements: ");
-		for (int i=0; i< requirement.getChoices().length; i++){
+		for (int i=0; i< possibleRequirement.size(); i++){
 			if (i!=0) temp.append(", ");
-			temp.append(requirement.getChoices()[i]);
+			temp.append(possibleRequirement.get(i));
 		}
 		temp.append("\nInstant Effect: " + instantEffect.toString() + "\nEffetti Permanenti: ");
 		for (Effect e: permanentEffects){
@@ -45,8 +47,8 @@ public abstract class DevelopmentCard extends Card implements Serializable{
 		return instantEffect;
 	}
 	
-	public Effect getPemanentEffect(){
-		return permanentEffects.get(0); // Metodo di ripiego, si deve implementare la scelta di effetti permanenti
+	public Effect[] getPemanentEffect(){
+		return (Effect []) permanentEffects.toArray(); // Metodo di ripiego, si deve implementare la scelta di effetti permanenti
 	}
 	public abstract DevelopmentCardType getCardType();
 	

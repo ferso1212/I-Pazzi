@@ -30,21 +30,23 @@ import it.polimi.ingsw.ps21.model.properties.Property;
 
 public class MatchBuilder {
 	
-	private Document configuration;
-	private final String greenCardsFilePath = "/home/gullit/Progetti/Git/I-Pazzi/green-deck.xml";
-	private final String yellowCardsFilePath = "/home/gullit/Progetti/Git/I-Pazzi/yellow-deck.xml";
-	private final String blueCardsFilePath = "/home/gullit/Progetti/Git/I-Pazzi/blue-deck.xml";
-	private final String purpleCardsFilePath = "/home/gullit/Progetti/Git/I-Pazzi/purple-deck.xml";
-	private DocumentBuilder builder;
+	private static Document configuration;
+	private final static String greenCardsFilePath = "/home/gullit/Progetti/Git/I-Pazzi/green-deck.xml";
+	private final static String yellowCardsFilePath = "/home/gullit/Progetti/Git/I-Pazzi/yellow-deck.xml";
+	private final static String blueCardsFilePath = "/home/gullit/Progetti/Git/I-Pazzi/blue-deck.xml";
+	private final static String purpleCardsFilePath = "/home/gullit/Progetti/Git/I-Pazzi/purple-deck.xml";
+	private static DocumentBuilder builder;
 	/**
 	 * Constructor 
 	 * @throws ParserConfigurationException
 	 */
-	public MatchBuilder() throws ParserConfigurationException{
+	
+	public static void initialize() throws ParserConfigurationException{
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setValidating(true);
 		builder = factory.newDocumentBuilder();
 	}
+	
 	
 	private SubDeck<TerritoryCard> makeGreenDeck() throws BuildingDeckException{
 		File greenDeckFile = new File(greenCardsFilePath);
@@ -135,7 +137,7 @@ public class MatchBuilder {
 		String cardName = cardAttributes.getNamedItem("name").getNodeValue();
 		int cardEra = new Integer(cardAttributes.getNamedItem("era").getNodeValue());
 		int diceReq = new Integer(cardAttributes.getNamedItem("diceRequirement").getNodeValue());
-		OrRequirement cardReq = new OrRequirement();
+		Requiremnt  cardReq;
 		OrCosts cardCosts = new OrCosts();
 		// To be implemented
 		Effect instantEffect = new PropEffect(new OrRequirement(new Requirement(new CardsNumber(0, 0, 0, 0), new ImmProperties(0,0,0,0,0))), new ImmProperties(1,0,0,1,0));

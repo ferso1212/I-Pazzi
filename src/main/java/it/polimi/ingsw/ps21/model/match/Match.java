@@ -3,7 +3,9 @@ package it.polimi.ingsw.ps21.model.match;
 import java.io.File;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Queue;
@@ -13,6 +15,7 @@ import java.util.Vector;
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.board.Board;
 import it.polimi.ingsw.ps21.model.player.Player;
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
 
 /**
@@ -23,7 +26,7 @@ import it.polimi.ingsw.ps21.model.player.Player;
  */
 public abstract class Match extends Observable {
 	protected ArrayList<Observer> observers;
-	protected List<Player> players;
+	protected EnumMap<PlayerColor, Player> players;
 	protected Queue<Player> order;
 	protected Board board;
 	protected int orangeDice;
@@ -32,9 +35,9 @@ public abstract class Match extends Observable {
 	
 	public  Match(){
 		this.observers = new ArrayList<>();
-		this.board = new Board();
+		this.board = new Board(MatchBuilder.);
 		order = new ArrayDeque<>();
-		players = new Vector<>();
+		players = new EnumMap<>(PlayerColor.class);
 	}
 	
 	public void registerObserver(Observer o){
