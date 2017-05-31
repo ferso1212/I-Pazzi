@@ -267,9 +267,9 @@
     <id>UMLClass</id>
     <coordinates>
       <x>2142</x>
-      <y>3402</y>
+      <y>3388</y>
       <w>203</w>
-      <h>119</h>
+      <h>133</h>
     </coordinates>
     <panel_attributes>/Effect/
 --
@@ -280,6 +280,8 @@
 + getReqs(): Requirement[]
 + activate(player :Player) :void
 + isActivable(player: Player): boolean
++ getType(): String
++ getDescription(): String
 
 </panel_attributes>
     <additional_attributes/>
@@ -3177,10 +3179,10 @@ layer=1</panel_attributes>
       <x>2198</x>
       <y>3325</y>
       <w>21</w>
-      <h>91</h>
+      <h>77</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -4054,5 +4056,39 @@ layer=1</panel_attributes>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
     <additional_attributes>10.0;10.0;410.0;10.0;410.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5103</x>
+      <y>1106</y>
+      <w>252</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>DevCardData
+--
+- name: String
+- requirementsInOr: ArrayList&lt;Requirement&gt;;
+- era: int;
+- permanentEffects: EffectData[] ;
+- instantEffects: EffectData[] ;
+- costsInOr: ImmProperties[] ;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4844</x>
+      <y>1120</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>EffectData
+--
+
+- reqs: Requirement[]
+- type: String
+- description: String</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>

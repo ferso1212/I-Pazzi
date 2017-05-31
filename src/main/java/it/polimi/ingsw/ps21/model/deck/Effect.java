@@ -8,6 +8,7 @@ import it.polimi.ingsw.ps21.model.player.Player;
 public abstract class Effect {
 	protected ArrayList<Requirement> req;
 	
+	
 	public Effect(Requirement reqs[]){
 		req = new ArrayList<>();
 		for (Requirement r: reqs){
@@ -26,5 +27,13 @@ public abstract class Effect {
 	}
 	
 	public abstract void activate(Player player) throws UnchosenException;
+	
+	public Requirement[] getReqs()
+	{
+		return this.req.toArray(new Requirement[0]);
+	}
+
+	
+	
 	
 }

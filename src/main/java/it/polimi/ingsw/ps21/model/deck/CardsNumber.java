@@ -1,8 +1,9 @@
 package it.polimi.ingsw.ps21.model.deck;
 
+import java.io.Serializable;
 import java.util.EnumMap;
 
-public class CardsNumber {
+public class CardsNumber implements Serializable{
 	private EnumMap<DevelopmentCardType, Integer> cardsNums;
 	
 	public CardsNumber(int...values){

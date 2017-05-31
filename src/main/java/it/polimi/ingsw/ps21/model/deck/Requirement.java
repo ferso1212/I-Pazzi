@@ -1,8 +1,10 @@
 package it.polimi.ingsw.ps21.model.deck;
 
+import java.io.Serializable;
+
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
-public class Requirement {
+public class Requirement implements Serializable{
 	protected CardsNumber cardsNumber;
 	protected ImmProperties properties;
 	
