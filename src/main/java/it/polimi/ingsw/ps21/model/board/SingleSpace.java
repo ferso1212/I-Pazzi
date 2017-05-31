@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps21.model.board;
 
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
+import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class SingleSpace extends Space {
@@ -22,7 +23,7 @@ public class SingleSpace extends Space {
 		return type;
 	}
 
-	public void occupy(FamilyMember member) throws NotOccupableException {
+	public void occupy(Player player, FamilyMember member) throws NotOccupableException {
 		if (occupant == null) {
 			this.occupant = member;
 			if(member.isUsed()){
@@ -35,7 +36,7 @@ public class SingleSpace extends Space {
 	}
 
 	@Override
-	public boolean isOccupable(FamilyMember member) {
+	public boolean isOccupable(Player player, FamilyMember member) {
 		if (occupant == null) {
 			return true;
 		}

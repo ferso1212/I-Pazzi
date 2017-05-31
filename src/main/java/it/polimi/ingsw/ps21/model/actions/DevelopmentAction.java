@@ -6,6 +6,7 @@ import it.polimi.ingsw.ps21.model.board.SingleTowerSpace;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
+import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
 
@@ -15,8 +16,9 @@ import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
  **/
 public class DevelopmentAction extends Action {
 
-	protected SingleTowerSpace space;
-	protected FamilyMember famMember;
+	private SingleTowerSpace space;
+	private FamilyMember famMember;
+	private int choosenCost;
 
 	public DevelopmentAction(Match match, Player player, SingleTowerSpace space, FamilyMember famMember,
 			Board board) {
@@ -34,12 +36,14 @@ public class DevelopmentAction extends Action {
 	 */
 	@Override
 	public boolean isLegal() {
+		
 		if ((player.checkCardRequirements(space.getCard()))
-				&& (famMember.getValue() >= space.getDiceRequirement()) && space.isOccupable(famMember)
+				&& (famMember.getValue() >= space.getDiceRequirement()) && space.isOccupable(player, famMember)
 				&& (!famMember.isUsed())) {
 			return true;
 		}
-		return false;
+		return false;			
+		
 	}
 
 	/**
@@ -49,12 +53,12 @@ public class DevelopmentAction extends Action {
 	 * @return boolean indicating if the action has taken place correctly.
 	 */
 	@Override
-	public void execute() throws NotExecutableException, NotOccupableException, RequirementNotMetException {
+	public void execute() throws NotExecutableException, NotOccupableException, RequirementNotMetException, InsufficientPropsException{
 
 		player.getDeck().addCard(space.getCard()); // aggiunta della carta al
 													// deck del player, potrebbe
 
-	 // TODO piazzare il familiare
+		this.match.getBoard().placeMember(player, famMember, space);
 
 		if (!player.getFamily().useMember(famMember)) {
 			throw new NotExecutableException(); //
@@ -64,7 +68,7 @@ public class DevelopmentAction extends Action {
 			player.getProperties().increaseProperties(space.getInstantBonus()); // Aggiungi le risorse dell'instant-bonus dello space, se è permesso
 		}
 
-		// TODO player.payCard(space.getCard()); // Player paga il costo della carta
+		player.payCard(space.getCard().getCardType(), space.getCard().getCosts()[choosenCost]); // Player paga il costo della carta
 
 	}
 

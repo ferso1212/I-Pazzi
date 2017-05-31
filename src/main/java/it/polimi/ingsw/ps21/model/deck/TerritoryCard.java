@@ -12,7 +12,7 @@ public class TerritoryCard extends DevelopmentCard {
 	private int diceReq;
 	
 	public TerritoryCard(String name, int era,int dicereq, Effect instantEffect, PropEffect... perms ){
-		super(name, era, new OrRequirement(new Requirement(new CardsNumber(0, 0, 0, 0), new ImmProperties(0,0,0,0,0,0,0) )), new OrCosts(new ImmProperties(0,0,0,0,0,0)), (Effect) instantEffect,   (Effect[]) perms);
+		super(name, era, new Requirement(new CardsNumber(0, 0, 0, 0), new ImmProperties(0,0,0,0,0,0,0)), new ImmProperties(0,0,0,0,0,0), (Effect) instantEffect,   (Effect[]) perms);
 		diceReq = dicereq;
 		
 	}

@@ -1,13 +1,21 @@
 package it.polimi.ingsw.ps21.model.match;
 
 import java.io.File;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Queue;
 import java.util.Random;
+import java.util.Vector;
 
+import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.board.Board;
 import it.polimi.ingsw.ps21.model.player.Player;
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
 
 /**
@@ -16,36 +24,38 @@ import it.polimi.ingsw.ps21.model.player.Player;
  * @author gullit
  *
  */
-public class Match extends Observable {
-	private MatchState currentMatch;
-	private ArrayList<Observer> observers;
-	private Player players[];
-	private Board board;
-	private final String greenCardsFileName = "deck_greencards.xml" ;
-	private final String yellowCardsFileName = "deck_yellowcards.xml";
-	private final String blueCardsFileName = "deck_bluecards.xml";
-	private final String purpleCardsFileName = "deck_purplecards.xml";
-	private int orangeDice;
-	private int blackDice;
-	private int whiteDice;
+public abstract class Match extends Observable {
+	protected ArrayList<Observer> observers;
+	protected EnumMap<PlayerColor, Player> players;
+	protected Queue<Player> order;
+	protected Board board;
+	protected int orangeDice;
+	protected int blackDice;
+	protected int whiteDice;
+	protected int era; 
+	protected int round;
 	
-	public Match(Player players[]){
-		currentMatch = new StartingMatch(this);
-		observers = new ArrayList<Observer>();
-		this.players = players;
-		// board = new Board();
+	public  Match(){
+		this.observers = new ArrayList<>();
+		// this.board = new Board(MatchBuilder.);
+		order = new ArrayDeque<>();
+		players = new EnumMap<>(PlayerColor.class);
 	}
 	
-	public void setBoard(){
-		this.board = board;
+	public Match(Match previousMatch){
+		this.board = previousMatch.board;
+		this.blackDice = previousMatch.blackDice;
+		this.orangeDice = previousMatch.orangeDice;
+		this.whiteDice = previousMatch.whiteDice;
+		this.observers = previousMatch.observers;
+		this.players = previousMatch.players;
+		this.order = previousMatch.order;
+		this.era = previousMatch.era;
+		this.round = previousMatch.round;
 	}
 	
 	public void registerObserver(Observer o){
 		observers.add(o);
-	}
-	
-	public void goNext(){
-		currentMatch = currentMatch.goNext();
 	}
 	
 	
@@ -55,25 +65,23 @@ public class Match extends Observable {
 		blackDice = (int) generator.nextInt(5) + 1;
 		whiteDice = (int) generator.nextInt(5) + 1;
 	}
-
-	public void initializeMatch(){
-		
-	}
 	
 	public Board getBoard() {
 		return board;
 	}
 	
-	public Match getCopy() throws CloneNotSupportedException{
-		//Player copyOfPlayers[];
-		//for (int i =0; i<players.length; i++){
-		//	copyOfPlayers[i] = players[i].getCopy();
-		//}
-		Match copy = new Match(players);
-		// copy.setBoard(board.getCopy());
-		return copy;
-		
+	/**
+	 * This method is needed by Action.isLegal()
+	 * @return First Player in order without removing it
+	 */
+	
+	public Player getCurrentPlayer(){
+		return order.element();
 	}
+	
+	public abstract Match makeAction(Action nextAction) throws MatchException;
+	
+	public abstract Match getCopy() throws CloneNotSupportedException;
 
 	/**
 	 * 
@@ -86,4 +94,5 @@ public class Match extends Observable {
 		returnValues[2] = whiteDice;
 		return returnValues;
 	}
+	
 }

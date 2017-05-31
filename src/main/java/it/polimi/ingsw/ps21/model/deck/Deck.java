@@ -1,8 +1,13 @@
 package it.polimi.ingsw.ps21.model.deck;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import it.polimi.ingsw.ps21.controller.PlayerData;
 
 
-public class Deck {
+public class Deck implements Cloneable {
+	private final static Logger LOGGER = Logger.getLogger(PlayerData.class.getName());
 	protected SubDeck<TerritoryCard> greenCards;
 	protected SubDeck<BuildingCard> yellowCards;
 	protected SubDeck<CharacterCard> blueCards;
@@ -80,4 +85,15 @@ public class Deck {
 		return greenCards.isEmpty() && yellowCards.isEmpty() && blueCards.isEmpty() && purpleCards.isEmpty();
 	}
 	
+	//TODO implement deep clone
+	public Deck clone()
+	{
+		try {
+			return (Deck)super.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			LOGGER.log(Level.SEVERE, "Unclonable", e);
+			return null;
+		}
+	}
 }

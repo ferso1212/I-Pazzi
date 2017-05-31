@@ -1,16 +1,22 @@
 package it.polimi.ingsw.ps21.model.properties;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import it.polimi.ingsw.ps21.model.match.MatchBuilder;
 
 /**Set of properties.
  * 
  * @author fabri
  *
  */
-public class PropertiesSet {
+public class PropertiesSet implements Cloneable, Serializable{
 
+	private final static Logger LOGGER = Logger.getLogger(PropertiesSet.class.getName());
 	// maps each of the possible id values to the corresponding property
 	private EnumMap<PropertiesId, Property> propertiesMap;
 
@@ -20,7 +26,7 @@ public class PropertiesSet {
 	 * @param initValues
 	 */
 	public PropertiesSet(int... initValues) {
-		this.propertiesMap = new EnumMap<PropertiesId, Property>(PropertiesId.class);
+		this.propertiesMap = new EnumMap<>(PropertiesId.class);
 		int i = 0; // index to move through initValues[] array
 		for (PropertiesId propId : PropertiesId.values()) // for each value in the PropertiesId enum
 		{
@@ -91,5 +97,27 @@ public class PropertiesSet {
 		}
 		return true;
 
+	}
+	
+	/**Performs a deep copy of this object.
+	 * 
+	 */
+	@Override
+	public PropertiesSet clone()
+	{
+		PropertiesSet output;
+		try {
+			output=(PropertiesSet)super.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			LOGGER.log(Level.SEVERE, "Clone failed", e);
+			return null;
+		}
+	
+		for(Property prop: this.propertiesMap.values())
+		{
+			//TODO
+		}
+		return output;
 	}
 }

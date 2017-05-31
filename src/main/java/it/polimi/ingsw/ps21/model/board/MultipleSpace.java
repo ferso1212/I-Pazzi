@@ -3,6 +3,7 @@ package it.polimi.ingsw.ps21.model.board;
 import java.util.Queue;
 
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
+import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class MultipleSpace extends Space{
@@ -26,7 +27,7 @@ public class MultipleSpace extends Space{
 	}
 
 	@Override
-	public boolean isOccupable(FamilyMember member) {
+	public boolean isOccupable(Player player, FamilyMember member) {
 		if ((!this.type.equals(MultipleSpaceType.COUNCIL)) && (occupants.contains(member))){
 			return false;
 		}
@@ -34,7 +35,7 @@ public class MultipleSpace extends Space{
 	}
 
 	@Override
-	public void occupy(FamilyMember famMember) throws NotOccupableException{
+	public void occupy(Player palyer, FamilyMember famMember) throws NotOccupableException{
 		occupants.add(famMember);
 		if(famMember.isUsed()){
 			throw new NotOccupableException();//cambiare eccezione in AlreadyUsedException

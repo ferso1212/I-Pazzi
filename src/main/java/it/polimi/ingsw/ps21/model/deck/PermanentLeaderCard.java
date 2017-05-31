@@ -2,31 +2,18 @@ package it.polimi.ingsw.ps21.model.deck;
 
 import it.polimi.ingsw.ps21.model.player.Player;
 
-public class PermanentLeaderCard extends LeaderCard {
+public abstract class PermanentLeaderCard extends LeaderCard {
 	
 	private Effect permanentEffect;
 	
-	public PermanentLeaderCard(String name, OrRequirement req, PermanentLeaderEffect perm){
-		super(name, req, (Effect) perm);
-		
+	public PermanentLeaderCard(String name, Requirement reqs[], PermanentLeaderEffect perm){
+		super(name, reqs, (Effect) perm);
 	}
 
 	@Override
 	public Effect getEffect() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.permanentEffect;
 	}
 
-	@Override
-	public void activate(Player player) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void resetAction() {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public abstract void activate(Player player);
 }

@@ -1,5 +1,10 @@
 package it.polimi.ingsw.ps21.model.deck;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
+
 /**
  * Class that implements an abstraction of a card
  * @author daniele
@@ -7,8 +12,7 @@ package it.polimi.ingsw.ps21.model.deck;
  */
 public abstract class Card {
 	protected String name;
-	protected OrRequirement requirement;
-	protected OrCosts cost;
+	protected ArrayList<Requirement> possibleRequirement;
 	
 	/**
 	 * Constructor for a card that provide only one cost and only one requirement
@@ -16,18 +20,22 @@ public abstract class Card {
 	 * @param req
 	 * @param cost
 	 */
-	public Card(String name, OrRequirement req, OrCosts cost){
+	public Card(String name, Requirement reqs[]){
 		this.name = name;
-		this.requirement = req;
-		this.cost = cost;
-		
+		possibleRequirement = new ArrayList<>();
+		for (Requirement r: reqs){
+			possibleRequirement.add(r);
+		}
 	}
 	
-	public OrRequirement getRequirement(){
-		return requirement;
+	public Card(String name, Requirement req) {
+		this.name = name;
+		possibleRequirement = new ArrayList<>();
+		possibleRequirement.add(req);
 	}
-	
-	public OrCosts getCosts(){
-		return cost;
+
+	public Requirement[] getRequirements(){
+		return possibleRequirement.toArray(new Requirement[0]);
 	}
+
 }

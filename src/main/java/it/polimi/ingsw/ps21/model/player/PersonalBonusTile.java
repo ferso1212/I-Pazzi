@@ -28,4 +28,10 @@ public class PersonalBonusTile {
 		}
 		
 	}
+	
+	public int getDiceReq(WorkType type)
+	{
+		if(type==WorkType.HARVEST) return this.harvDiceReq;
+		else return this.prodDiceReq;
+	}
 }

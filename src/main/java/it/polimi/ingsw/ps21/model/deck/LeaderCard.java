@@ -8,8 +8,8 @@ public abstract class LeaderCard extends Card {
 	protected boolean activated = false;
 	protected Effect leaderEffect;
 	
-	public LeaderCard(String name, OrRequirement req, Effect effect) {
-		super(name, req, new OrCosts(new ImmProperties(0,0,0,0,0,0,0)));
+	public LeaderCard(String name, Requirement reqs[], Effect effect) {
+		super(name, reqs);
 		this.leaderEffect = effect;	
 	}
 	
@@ -18,7 +18,6 @@ public abstract class LeaderCard extends Card {
 	}
 	
 	public abstract void activate(Player player);
-	public abstract void resetAction();
 
 	/**
 	 * @return the activated

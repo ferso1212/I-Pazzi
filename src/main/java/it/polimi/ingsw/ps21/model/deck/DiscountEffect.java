@@ -16,8 +16,8 @@ public class DiscountEffect extends Effect {
 
 	private ImmProperties discount;
 	private Set<DevelopmentCardType> types;
-	public DiscountEffect(OrRequirement req, ImmProperties discount, DevelopmentCardType... cardType) throws TooManyArgumentException {
-		super(req);
+	public DiscountEffect(Requirement reqs[], ImmProperties discount, DevelopmentCardType... cardType) throws TooManyArgumentException {
+		super(reqs);
 		if (cardType.length > 4) throw new TooManyArgumentException();
 		this.discount = discount;
 		
@@ -36,7 +36,7 @@ public class DiscountEffect extends Effect {
 	
 	@Override
 	public void activate(Player player) {
-		DiscountsSet modifier = player.getModifiers().getDiscountsMods();
+		//DiscountsSet modifier = player.getModifiers().getDiscountsMods();
 		//TODO for (DevelopmentCardType d: types) {
 		//	modifier.getDiscount(d).getPropertiesDisc().increaseProperties(discount);
 		//}
