@@ -7,9 +7,9 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 /* 
  * To be Implemented
  */
-public class LorenzoIlMagnifico extends PermanentLeaderEffect {
-	public LorenzoIlMagnifico(Requirement req) {
-		super(req);
+public class LorenzoIlMagnificoEffect extends PermanentLeaderEffect {
+	public LorenzoIlMagnificoEffect() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -20,5 +20,8 @@ public class LorenzoIlMagnifico extends PermanentLeaderEffect {
 		if (chosenLeaderCopy == null) throw new UnchosenException();
 		chosenLeaderCopy.activate(player);
 	}
-
+	
+	public void setChoose(LeaderCard copied){
+		chosenLeaderCopy = copied;
+	}
 }

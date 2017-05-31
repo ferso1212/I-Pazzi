@@ -4,6 +4,12 @@ import it.polimi.ingsw.ps21.controller.UnchosenException;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
+
+/**
+ * This effect is used in Cards without InstantEffect or PermanentEffect to avoid use of NULL Pointer 
+ * @author gullit
+ *
+ */
 public class NullEffect extends Effect {
 
 	public NullEffect() {

@@ -1700,8 +1700,8 @@ PLAY_LEADERCARD</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>6118</x>
-      <y>1071</y>
+      <x>6083</x>
+      <y>1176</y>
       <w>231</w>
       <h>98</h>
     </coordinates>
@@ -1717,8 +1717,8 @@ PLAY_LEADERCARD</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>6055</x>
-      <y>812</y>
+      <x>6020</x>
+      <y>938</y>
       <w>294</w>
       <h>175</h>
     </coordinates>
@@ -1741,19 +1741,19 @@ PLAY_LEADERCARD</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>6216</x>
-      <y>980</y>
+      <x>6181</x>
+      <y>1106</y>
       <w>21</w>
-      <h>105</h>
+      <h>84</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>6216</x>
-      <y>546</y>
+      <x>5887</x>
+      <y>574</y>
       <w>231</w>
       <h>196</h>
     </coordinates>
@@ -1889,7 +1889,7 @@ observes</panel_attributes>
     <panel_attributes>lt=&lt;-
 observes
 </panel_attributes>
-    <additional_attributes>10.0;1640.0;440.0;1630.0;450.0;990.0;450.0;10.0;2890.0;10.0;2890.0;620.0</additional_attributes>
+    <additional_attributes>10.0;1640.0;440.0;1630.0;450.0;990.0;450.0;10.0;2890.0;10.0;2420.0;660.0</additional_attributes>
   </element>
   <element>
     <id>UMLPackage</id>
@@ -2219,24 +2219,24 @@ GREEN</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>6223</x>
-      <y>735</y>
-      <w>112</w>
-      <h>91</h>
+      <x>6006</x>
+      <y>763</y>
+      <w>203</w>
+      <h>189</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>140.0;10.0;10.0;110.0</additional_attributes>
+    <additional_attributes>10.0;10.0;270.0;250.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>6335</x>
-      <y>735</y>
-      <w>154</w>
-      <h>91</h>
+      <x>6006</x>
+      <y>763</y>
+      <w>483</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;200.0;110.0</additional_attributes>
+    <additional_attributes>10.0;10.0;670.0;70.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -2544,15 +2544,15 @@ playRound
     <id>Relation</id>
     <coordinates>
       <x>5684</x>
-      <y>679</y>
-      <w>546</w>
-      <h>168</h>
+      <y>707</y>
+      <w>217</w>
+      <h>140</h>
     </coordinates>
     <panel_attributes>lt=&lt;.&gt;
 communication
 m1=1
 m2=1</panel_attributes>
-    <additional_attributes>10.0;220.0;390.0;120.0;760.0;10.0</additional_attributes>
+    <additional_attributes>10.0;180.0;290.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
