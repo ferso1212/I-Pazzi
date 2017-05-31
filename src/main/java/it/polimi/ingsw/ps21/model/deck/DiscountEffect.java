@@ -16,6 +16,7 @@ public class DiscountEffect extends Effect {
 
 	private ImmProperties discount;
 	private Set<DevelopmentCardType> types;
+	
 	public DiscountEffect(Requirement reqs[], ImmProperties discount, DevelopmentCardType... cardType) throws TooManyArgumentException {
 		super(reqs);
 		if (cardType.length > 4) throw new TooManyArgumentException();
@@ -58,6 +59,17 @@ public class DiscountEffect extends Effect {
 		//TODO for (DevelopmentCardType d: types) {
 		//	modifier.getDiscount(d).getPropertiesDisc().increaseProperties(discount);
 		//}
+	}
+
+	@Override
+	public String getType() {
+		return new String("Discount Effect");
+	}
+
+	@Override
+	public String getDesc() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

@@ -12,4 +12,16 @@ public class ChurcSupport extends PermanentLeaderEffect {
 
 	}
 
+	@Override
+	public String getType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getDesc() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

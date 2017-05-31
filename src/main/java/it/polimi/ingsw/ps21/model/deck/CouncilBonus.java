@@ -27,4 +27,15 @@ public class CouncilBonus extends InstantLeaderEffect {
  		}
 	}
 
+	@Override
+	public String getType() {
+		return new String("Council Bonus");
+	}
+
+	@Override
+	public String getDesc() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

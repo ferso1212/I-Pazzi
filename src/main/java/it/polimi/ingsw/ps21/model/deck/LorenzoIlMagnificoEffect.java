@@ -22,4 +22,14 @@ public class LorenzoIlMagnificoEffect extends PermanentLeaderEffect {
 	public void setChoose(LeaderCard copied){
 		chosenLeaderCopy = copied;
 	}
+
+	@Override
+	public String getType() {
+		return new String("Clone Leader card");
+	}
+
+	@Override
+	public String getDesc() {
+		return new String("Copy the skill of another leader played by an opponent. The chosen skill cannot be changed.");
+	}
 }

@@ -21,4 +21,15 @@ public class BlockTowerEffect extends Effect {
 		player.getModifiers().getActionMods().setNoPlacementBonus();
 	}
 
+	@Override
+	public String getType() {
+		return new String("Forbid tower space bonuses");
+		
+	}
+
+	@Override
+	public String getDesc() {
+		return new String("You don’t take the bonuses when you take a Development Card from the towers (through a Family Member or as an effect of another card.)");
+	}
+
 }

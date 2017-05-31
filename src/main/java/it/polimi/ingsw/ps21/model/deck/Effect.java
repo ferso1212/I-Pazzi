@@ -32,7 +32,9 @@ public abstract class Effect {
 	{
 		return this.req.toArray(new Requirement[0]);
 	}
-
+	
+	public abstract String getType();
+	public abstract String getDesc();
 	
 	
 	

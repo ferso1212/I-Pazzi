@@ -71,5 +71,15 @@ public class MultiplierEffect extends Effect {
 		ImmProperties bonus = calculateBonus(player);
 		player.getProperties().increaseProperties(bonus);
 	}
+	@Override
+	public String getType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String getDesc() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

@@ -13,4 +13,14 @@ public class DoubleResources extends PermanentLeaderEffect {
 		player.getProperties();
 	}
 
+	@Override
+	public String getType() {
+		return new String("Double resources on instant effects");
+	}
+
+	@Override
+	public String getDesc() {
+		return new String("Each time you receive a properties bonus from the instant effect of a development card, you receive the bonus twice.");
+	}
+
 }
