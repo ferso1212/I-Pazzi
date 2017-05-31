@@ -88,6 +88,8 @@ public abstract class DevelopmentCard extends Card{
 	}
 	public abstract DevelopmentCardType getCardType();
 	
+	public abstract DevelopmentCard clone();
+	
 	public ImmProperties[] getCosts(){
 		return (ImmProperties []) costs.toArray(new ImmProperties[0]);
 	}

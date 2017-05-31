@@ -19,5 +19,10 @@ public class CharacterCard extends DevelopmentCard {
 	{
 		return DevelopmentCardType.CHARACTER;
 	}
+
+	@Override
+	public DevelopmentCard clone() {
+		return new CharacterCard(name, cardEra, (Requirement[])possibleRequirement.toArray(),(ImmProperties []) costs.toArray(), instantEffect,(Effect[]) permanentEffects.toArray());
+	}
 }
  

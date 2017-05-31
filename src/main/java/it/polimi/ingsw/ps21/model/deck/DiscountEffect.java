@@ -34,6 +34,24 @@ public class DiscountEffect extends Effect {
 				}
 	}
 	
+	public DiscountEffect(Requirement requirement, ImmProperties discount, DevelopmentCardType...cardType) throws TooManyArgumentException {
+		super(requirement);
+		if (cardType.length > 4) throw new TooManyArgumentException();
+		this.discount = discount;
+		
+		//If no cardType parameters passed, by default discount go on every card
+		if (cardType.length == 0) {
+			types.add(DevelopmentCardType.BUILDING);
+			types.add(DevelopmentCardType.CHARACTER);
+			types.add(DevelopmentCardType.VENTURE);
+			types.add(DevelopmentCardType.TERRITORY);
+		}
+		else	
+			for(DevelopmentCardType t: cardType){
+				types.add(t);
+				}
+	}
+
 	@Override
 	public void activate(Player player) {
 		//DiscountsSet modifier = player.getModifiers().getDiscountsMods();
