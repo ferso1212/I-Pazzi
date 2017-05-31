@@ -31,25 +31,43 @@ import it.polimi.ingsw.ps21.model.properties.Property;
 public class MatchBuilder {
 	
 	private static Document configuration;
-	private final static String greenCardsFilePath = "/home/gullit/Progetti/Git/I-Pazzi/green-deck.xml";
-	private final static String yellowCardsFilePath = "/home/gullit/Progetti/Git/I-Pazzi/yellow-deck.xml";
-	private final static String blueCardsFilePath = "/home/gullit/Progetti/Git/I-Pazzi/blue-deck.xml";
-	private final static String purpleCardsFilePath = "/home/gullit/Progetti/Git/I-Pazzi/purple-deck.xml";
+	private File greenDeckFile;
+	private File blueDeckFile;
+	private File yellowDeckFile;
+	private File purpleDeckFile;	
 	private static DocumentBuilder builder;
+	private static Deck configuratedDeck;
 	/**
 	 * Constructor 
 	 * @throws ParserConfigurationException
+	 * @throws IOException 
 	 */
 	
-	public static void initialize() throws ParserConfigurationException{
+	/**
+	 * 
+	 * @param greenPath path of the XML file for greenDeck configuration
+	 * @param yellowPath path of the XML file for yellowDeck configuration
+	 * @param bluePath path of the XML file for blueDeck configuration
+	 * @param purplePath path of the XML file for purpleDeck configuration
+	 * @throws ParserConfigurationException
+	 * @throws IOException
+	 */
+	public static void initialize(String greenPath, String yellowPath, String bluePath, String purplePath) throws ParserConfigurationException, IOException{
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setValidating(true);
 		builder = factory.newDocumentBuilder();
+		File greenDeckFile = new File(greenPath);
+		if (!(greenDeckFile.exists() && greenDeckFile.canRead())) throw new IOException("Impossible to open file");
+		File blueDeckFile = new File(bluePath);
+		if (!(blueDeckFile.exists() && blueDeckFile.canRead())) throw new IOException("Impossible to open file");
+		File purpleDeckFile = new File(purplePath);
+		if (!(purpleDeckFile.exists() && purpleDeckFile.canRead())) throw new IOException("Impossible to open file");
+		File yellowDeckFile = new File(yellowPath);
+		if (!(yellowDeckFile.exists() && yellowDeckFile.canRead())) throw new IOException("Impossible to open file");
 	}
 	
 	
 	private SubDeck<TerritoryCard> makeGreenDeck() throws BuildingDeckException{
-		File greenDeckFile = new File(greenCardsFilePath);
 		SubDeck<TerritoryCard> result;
 		try {
 			configuration = builder.parse(greenDeckFile);
@@ -82,7 +100,6 @@ public class MatchBuilder {
 	}
 		
 	private SubDeck<CharacterCard> makeBlueDeck() throws BuildingDeckException{
-		File blueDeckFile = new File(blueCardsFilePath);
 		SubDeck<CharacterCard> result;
 		try {
 			configuration = builder.parse(blueDeckFile);
@@ -138,9 +155,9 @@ public class MatchBuilder {
 		int cardEra = new Integer(cardAttributes.getNamedItem("era").getNodeValue());
 		int diceReq = new Integer(cardAttributes.getNamedItem("diceRequirement").getNodeValue());
 		// To be implemented
-		Effect instantEffect = new PropEffect(new Requirement(new CardsNumber(0, 0, 0, 0), new ImmProperties(0,0,0,0,0)), new ImmProperties(1,0,0,1,0));
+		ArrayList<Effect> instantEffect = new ArrayList<>();
 		// To be implemented
-		PropEffect permanentEffects[] = new PropEffect[1];
+		ArrayList<PropEffect> permanentEffects = new ArrayList<>();
 		NodeList cardProps = cardNode.getChildNodes();
 		try {
 			for (int i=0; i < cardProps.getLength(); i++){
@@ -148,20 +165,23 @@ public class MatchBuilder {
 			if (prop.getNodeType() == prop.ELEMENT_NODE){ // Evito i nodi che non rappresentano elementi in xml
 				switch (prop.getNodeName()) {
 				case "InstantEffect":
-					instantEffect = new PropEffect(new Requirement(new CardsNumber(0, 0, 0, 0), new ImmProperties(0,0,0,0,0)), new ImmProperties(1,0,0,1,0));
+					
+					instantEffect.add(makeEffect((Element) prop));
 					break;
 				default:
 					throw new BuildingCardException();
 					}
 				}
 			}
-		return new TerritoryCard(cardName, cardEra, diceReq, instantEffect, permanentEffects);
+		return new TerritoryCard(cardName, cardEra, diceReq, instantEffect.get(0), (PropEffect []) permanentEffects.toArray());
 		}
 			catch (XMLParseException x) {
 				throw new BuildingCardException();
 			}
 	}
-	
+
+
+
 	private CharacterCard makeCharacterCard(Element cardNode) throws BuildingCardException {
 		NamedNodeMap cardAttributes = cardNode.getAttributes();
 		String cardName = cardAttributes.getNamedItem("name").getNodeValue();
@@ -312,14 +332,27 @@ public class MatchBuilder {
 		}
 		return new CardsNumber(tempCardValues[0],tempCardValues[1], tempCardValues[2], tempCardValues[3]);
 	}
+	
+	
+	private Effect makeEffect(Element prop) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	public Deck makeDeck() throws BuildingDeckException{
-		Deck result = new Deck();
-		result.setGreenDeck(makeGreenDeck());
-		result.setBlueDeck(makeBlueDeck());
-		result.setYellowDeck(makeYellowDeck());
-		result.setPurpleDeck(makePurpleDeck());	
-		return result;
+	/**
+	 * If the deck is already configurated it will be utilized by every Match
+	 * @return
+	 * @throws BuildingDeckException
+	 */
+	public static Deck makeDeck() throws BuildingDeckException{
+		if (configuratedDeck == null){
+			configuratedDeck = new Deck();
+			configuratedDeck.setGreenDeck(makeGreenDeck());
+			configuratedDeck.setBlueDeck(makeBlueDeck());
+			configuratedDeck.setYellowDeck(makeYellowDeck());
+			configuratedDeck.setPurpleDeck(makePurpleDeck());
+		}
+		return (Deck) configuratedDeck.clone();
 	}
 
 

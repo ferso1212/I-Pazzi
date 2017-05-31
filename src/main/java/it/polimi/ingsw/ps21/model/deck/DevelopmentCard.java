@@ -2,7 +2,9 @@ package it.polimi.ingsw.ps21.model.deck;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Optional;
 
+import it.polimi.ingsw.ps21.controller.UnchosenException;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 
@@ -12,6 +14,8 @@ public abstract class DevelopmentCard extends Card implements Serializable{
 	protected Effect instantEffect;
 	protected ArrayList<Effect> permanentEffects;
 	protected ArrayList<ImmProperties> costs;
+	protected Optional<ImmProperties> chosenCost;
+	protected Optional<Effect> chosenEffect;
 	
 	
 	public DevelopmentCard(String name, int era, Requirement reqs[], ImmProperties costs[], Effect instant, Effect... permanent){
@@ -20,24 +24,31 @@ public abstract class DevelopmentCard extends Card implements Serializable{
 		for (ImmProperties c: costs){
 			this.costs.add(c);
 		}
+		if (this.costs.size() == 1) chosenCost =  Optional.of(this.costs.get(0));
+		else chosenCost = Optional.empty();
 		cardEra = era;
 		instantEffect = instant;
 		permanentEffects = new ArrayList<>();
 		for (Effect e: permanent){
 		permanentEffects.add(e);
 		}
+		if (permanentEffects.size() == 1) chosenEffect = Optional.of(permanentEffects.get(0));
+		else chosenEffect = Optional.empty();
 	}
 	
 	public DevelopmentCard(String name, int era, Requirement req, ImmProperties cost, Effect instant, Effect... permanent){
 		super(name, req);
 		this.costs = new ArrayList<>();
 		this.costs.add(cost);
+		chosenCost = Optional.of(cost);
 		cardEra = era;
 		instantEffect = instant;
 		permanentEffects = new ArrayList<>();
 		for (Effect e: permanent){
 		permanentEffects.add(e);
 		}
+		if (permanentEffects.size() == 1) chosenEffect = Optional.of(permanentEffects.get(0));
+		else chosenEffect = Optional.empty();
 	}
 
 	public int getEra(){
@@ -64,8 +75,16 @@ public abstract class DevelopmentCard extends Card implements Serializable{
 		return instantEffect;
 	}
 	
-	public Effect[] getPemanentEffect(){
-		return (Effect []) permanentEffects.toArray(); // Metodo di ripiego, si deve implementare la scelta di effetti permanenti
+	public Effect[] getPossibleEffects(){
+		return (Effect []) permanentEffects.toArray();
+	}
+	
+	public ImmProperties[] getPossibleCosts(){
+		return (ImmProperties []) costs.toArray();
+	}
+	public Effect getChosenPemanentEffect()throws UnchosenException{
+		if (chosenEffect.isPresent()) throw new UnchosenException();
+		return chosenEffect.get(); // Metodo di ripiego, si deve implementare la scelta di effetti permanenti
 	}
 	public abstract DevelopmentCardType getCardType();
 	

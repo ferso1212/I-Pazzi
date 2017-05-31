@@ -1,0 +1,36 @@
+<!ELEMENT SubDeckGreen (TerritoryCard*)>
+<!ELEMENT TerritoryCard (InstantEffect, PermanentEffect*)>
+
+<!ELEMENT Requirement (Properties, CardNumber?)>
+
+<!ELEMENT Properties (Coins, Wood, Stone, Servants, MilitaryPoints, FaithPoints, VictoryPoints)>
+<!ELEMENT Coins EMPTY>
+<!ELEMENT Stone EMPTY>
+<!ELEMENT Wood EMPTY>
+<!ELEMENT Servants EMPTY>
+<!ELEMENT MiltaryPoints EMPTY>
+<!ELEMENT FaithPoints EMPTY>
+<!ELEMENT VictoryPoints EMPTY>
+
+<!ELEMENT InstantEffect (PropEffect)>
+
+<!ELEMENT PermanentEffect (PropEffect*)>
+
+<!ELEMENT PropEffect (Requirement*, Properties)> 
+
+<!ATTLIST Coins value CDATA #REQUIRED>
+<!ATTLIST Stones value CDATA #REQUIRED>
+<!ATTLIST Wood value CDATA #REQUIRED>
+<!ATTLIST Servants value CDATA #REQUIRED>
+<!ATTLIST MilitaryPoints value CDATA #REQUIRED>
+<!ATTLIST FaithPoints value CDATA #REQUIRED>
+<!ATTLIST VictoryPoints value CDATA #REQUIRED>
+
+<!ATTLIST Green value CDATA #REQUIRED>
+<!ATTLIST Yellow value CDATA #REQUIRED>
+<!ATTLIST Blue value CDATA #REQUIRED>
+<!ATTLIST Purple value CDATA #REQUIRED>
+<!ATTLIST TerritoryCard
+	name CDATA #REQUIRED
+	era CDATA #REQUIRED
+	diceRequirement CDATA #REQUIRED>

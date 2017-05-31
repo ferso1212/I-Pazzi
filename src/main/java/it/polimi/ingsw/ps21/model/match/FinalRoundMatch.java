@@ -6,6 +6,13 @@ import it.polimi.ingsw.ps21.model.board.NotOccupableException;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
 import it.polimi.ingsw.ps21.model.player.Player;
 
+/**
+ * This state reprent Match in a final Round of an Era
+ * @author gullit
+ *
+ */
+
+
 public class FinalRoundMatch extends Match {
 	
 	public FinalRoundMatch(Match prevState) {

@@ -2,7 +2,7 @@ package it.polimi.ingsw.ps21.model.deck;
 
 
 
-public class Deck {
+public class Deck implements Cloneable {
 	protected SubDeck<TerritoryCard> greenCards;
 	protected SubDeck<BuildingCard> yellowCards;
 	protected SubDeck<CharacterCard> blueCards;

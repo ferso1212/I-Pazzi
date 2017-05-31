@@ -49,7 +49,7 @@
       <x>1729</x>
       <y>2926</y>
       <w>259</w>
-      <h>126</h>
+      <h>147</h>
     </coordinates>
     <panel_attributes>/DevelopmentCard/
 --
@@ -59,8 +59,11 @@
 --
 + getEra :Int
 + getInstantEffect() :Effect
-+ getPermanentEffect() :ArrayList&lt;Effect&gt;
++ getChosenPermanentEffect() :ArrayList&lt;Effect&gt;
 + getCardType(): DevelopmentCardType
+* getChosenCost() : ImmProperties
+* getPossibleRequirements() : Requirement[]
+* getPossibleCosts() : ImmProperties[]
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -769,7 +772,7 @@ m2=1</panel_attributes>
 + getFamily() : PlayerFamilyMembers
 + finalVictoryPoints(): int
 + getDeck(): PlayerDeck
-+ getColorId: PlayerColor
++ getID: PlayerColor
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -900,7 +903,8 @@ m2=1</panel_attributes>
 //sets both PlayersOrder (if used) and PlayersActionOrder.
 // to set PlayersActionOrder, it should also check Player.getActionMod().firstActionDelayed()
 + getBoard() :Board
-//calcola i punti vittoria finali di un giocatore</panel_attributes>
+//calcola i punti vittoria finali di un giocatore
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -961,7 +965,7 @@ m2=1</panel_attributes>
 + getDevelopmentFinalBonus(type :DevelopmentCardType, numberOfCards : Int) : Int 
 + getTrackBonuses() :TrackBonuses
 + setEra(newEra :int) :void
-
++ setDeck(newDeck :Deck) :void
 
 
 layer=1</panel_attributes>
@@ -3304,6 +3308,7 @@ playerId :</panel_attributes>
 --
 + startMatch() : Match
 // Set random order of player and return first InitialRoundMatch
++ addPlayer(Player) :void
 
 layer=1</panel_attributes>
     <additional_attributes/>

@@ -15,17 +15,14 @@ import it.polimi.ingsw.ps21.model.player.Player;
 
 public class UnsettedMatch extends Match {
 
-	
-	private MatchBuilder builder;
-	
 	public UnsettedMatch() throws ParserConfigurationException {
 		super();
-		builder = new MatchBuilder();
+		MatchBuilder.initialize("", "", "", "");
 		players = new EnumMap<>(PlayerColor.class);
 		orangeDice = 0;
 		blackDice = 0;
 		whiteDice = 0;
-		board.setDeck(builder.makeDeck());
+		board.setDeck(MatchBuilder.makeDeck());
 	}
 	@Override
 	public Match getCopy() throws CloneNotSupportedException {
@@ -33,15 +30,24 @@ public class UnsettedMatch extends Match {
 		return this;
 	}
 	
-	public void addPlayer(Player newPlayer, PlayerColor id) throws InvalidIDException, CompleteMatchException{
-		if (players.containsKey(id)) throw new InvalidIDException();
-		players.put(id, newPlayer);
+	/**
+	 * 
+	 * @param newPlayer
+	 * @throws InvalidIDException It means that this ID is already taken
+	 * @throws CompleteMatchException
+	 */
+	public void addPlayer(Player newPlayer) throws InvalidIDException, CompleteMatchException{
+		if (players.containsKey(newPlayer.getId())) throw new InvalidIDException();
+		players.put(newPlayer.getId(), newPlayer);
 		if (players.containsKey(PlayerColor.BLUE) && players.containsKey(PlayerColor.GREEN) && players.containsKey(PlayerColor.RED) && players.containsKey(PlayerColor.YELLOW))
 			throw new CompleteMatchException();
 		
 	}
 	
-	
+	/**
+	 * 
+	 * @return Will created a new InitialRound match with era = 1
+	 */
 	public Match startMatch(){
 		List<Player> shuffledPlayers = new ArrayList<Player>(players.values());
 		Collections.shuffle(shuffledPlayers);
