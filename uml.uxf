@@ -39,8 +39,8 @@
 - requirement :ArrayList&lt;Requirement&gt;
 - cost :ArrayList&lt;ImmProperties&gt;
 --
-+ getRequirements() :OrRequirements
-+ getCosts() :OrCosts</panel_attributes>
++ getRequirements() :Requirements[]
++ getCosts() :ImmProperties[]</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -54,14 +54,13 @@
     <panel_attributes>/DevelopmentCard/
 --
 - era :Int
-- instantEffect :Effect
-- permanentEffect :ArrayList&lt;Effect&gt;
+- instantEffects :ArrayList&lt;EffectsSet&gt;
+- permanentEffects :ArrayList&lt;EffectsSet&gt;
 --
 + getEra :Int
-+ getInstantEffect() :Effect
-+ getChosenPermanentEffect() :ArrayList&lt;Effect&gt;
++ getInstantEffects() :ArrayList&lt;EffectsSet&gt;
++ getChosenPermanentEffect() :EffectsSet
 + getCardType(): DevelopmentCardType
-* getChosenCost() : ImmProperties
 * getPossibleRequirements() : Requirement[]
 * getPossibleCosts() : ImmProperties[]
 </panel_attributes>
@@ -274,11 +273,11 @@
     </coordinates>
     <panel_attributes>/Effect/
 --
-# effectReq: OrRequirements
-
+# effectReq: Requirement[]
+//requirements in OR
 
 --
-+ getReq(): OrRequirements
++ getReqs(): Requirement[]
 + activate(player :Player) :void
 + isActivable(player: Player): boolean
 
@@ -476,7 +475,7 @@ m2=0...</panel_attributes>
     <coordinates>
       <x>1981</x>
       <y>2982</y>
-      <w>245</w>
+      <w>238</w>
       <h>245</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -489,7 +488,7 @@ m2=1...2</panel_attributes>
     <coordinates>
       <x>2310</x>
       <y>2961</y>
-      <w>819</w>
+      <w>812</w>
       <h>329</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -586,7 +585,7 @@ m2=1
     <coordinates>
       <x>2100</x>
       <y>2730</y>
-      <w>49</w>
+      <w>42</w>
       <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
@@ -2371,7 +2370,7 @@ m2=4
     <coordinates>
       <x>2660</x>
       <y>1456</y>
-      <w>140</w>
+      <w>133</w>
       <h>406</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -2446,7 +2445,7 @@ COUNCIL</panel_attributes>
     <coordinates>
       <x>2338</x>
       <y>1484</y>
-      <w>42</w>
+      <w>35</w>
       <h>378</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -2768,7 +2767,7 @@ m2=1..n</panel_attributes>
     <coordinates>
       <x>518</x>
       <y>2415</y>
-      <w>112</w>
+      <w>105</w>
       <h>217</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -3162,14 +3161,12 @@ layer=1
       <w>203</w>
       <h>119</h>
     </coordinates>
-    <panel_attributes>EffectSet
+    <panel_attributes>EffectsSet
 //effetti in and
 --
-- effectSet :ArrayList&lt;Effect&gt;
+- effectsSet :ArrayList&lt;Effect&gt;
 --
-+ getReq(): OrRequirements
-+ activate(player :Player) :void
-+ isActivable(player: Player): boolean
++ getChosenEffect(chosen: int): Effect[]
 
 layer=1</panel_attributes>
     <additional_attributes/>
@@ -3404,35 +3401,6 @@ layer=1</panel_attributes>
     <additional_attributes>220.0;10.0;10.0;510.0</additional_attributes>
   </element>
   <element>
-    <id>UMLPackage</id>
-    <coordinates>
-      <x>3318</x>
-      <y>70</y>
-      <w>1148</w>
-      <h>756</h>
-    </coordinates>
-    <panel_attributes>Choices
---
-fg=dark_gray</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>3843</x>
-      <y>140</y>
-      <w>224</w>
-      <h>105</h>
-    </coordinates>
-    <panel_attributes>/Choice/
---
-- playerId: PlayerColor
---
-+ setChoser(player: PlayerColor): void
-fg=dark_gray</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>Relation</id>
     <coordinates>
       <x>994</x>
@@ -3442,91 +3410,6 @@ fg=dark_gray</panel_attributes>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>1410.0;190.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>3703</x>
-      <y>329</y>
-      <w>203</w>
-      <h>98</h>
-    </coordinates>
-    <panel_attributes>CostChoice
---
--choices: ImmProperties[]
--chosen: ImmProperties
---
-+ getChoices(): ImmProperties[]
-+ getChosen: ImmProperties
-+ setChosen(chosen: ImmProperties): void
-fg=dark_gray</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>3934</x>
-      <y>322</y>
-      <w>189</w>
-      <h>105</h>
-    </coordinates>
-    <panel_attributes>EffectChoice
---
--choices: Effect[]
--chosen: Effect
---
-+ getChoices(): Effect[]
-+ getChosen: Effect
-+ setChosen(chosen: Effect): void
-fg=dark_gray</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>4144</x>
-      <y>329</y>
-      <w>182</w>
-      <h>91</h>
-    </coordinates>
-    <panel_attributes>VaticanChoice
---
-- wantsToSupport: boolean
-fg=dark_gray</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>3808</x>
-      <y>238</y>
-      <w>119</w>
-      <h>105</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>150.0;10.0;10.0;130.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>3941</x>
-      <y>238</y>
-      <w>49</w>
-      <h>98</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;50.0;120.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>4018</x>
-      <y>238</y>
-      <w>217</w>
-      <h>105</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;290.0;130.0</additional_attributes>
   </element>
   <element>
     <id>UMLPackage</id>
@@ -4036,9 +3919,9 @@ layer=1</panel_attributes>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>5166</x>
+      <x>5180</x>
       <y>1575</y>
-      <w>140</w>
+      <w>112</w>
       <h>63</h>
     </coordinates>
     <panel_attributes>Visitable
@@ -4049,9 +3932,9 @@ layer=1</panel_attributes>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>5516</x>
+      <x>5523</x>
       <y>630</y>
-      <w>154</w>
+      <w>140</w>
       <h>98</h>
     </coordinates>
     <panel_attributes>Visitor
