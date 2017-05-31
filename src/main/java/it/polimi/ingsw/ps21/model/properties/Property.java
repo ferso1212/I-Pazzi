@@ -1,5 +1,10 @@
 package it.polimi.ingsw.ps21.model.properties;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import it.polimi.ingsw.ps21.controller.PlayerData;
+
 /**Used to store datas of resources and points. 
  * The following datas are stored for each property: 
  * <li>the <b>id</b>, which is a string that identifies the property;
@@ -9,6 +14,7 @@ package it.polimi.ingsw.ps21.model.properties;
  *
  */
 public class Property implements Cloneable{
+	private final static Logger LOGGER = Logger.getLogger(Property.class.getName());
 	private PropertiesId id;
 	private int value;
 	private int paymentModifier;
@@ -109,7 +115,7 @@ public class Property implements Cloneable{
 		try {
 			return (Property)super.clone();
 		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Clone failed", e);
 			return null;
 		}
 	}

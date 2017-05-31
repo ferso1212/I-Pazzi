@@ -19,10 +19,9 @@ import it.polimi.ingsw.ps21.model.deck.Card;
 /**Used to store the status of each player.
  * It stores the following datas of a player:
  * <li> Name: a string containing the player's name
- * <li> Id: an auto-generated integer number, different for each player, that identifies the player in the match
  * <li> Player's deck, containing the cards he acquired during the game (Territory Cards, Building Cards, Character Cards and Venture Cards)
  * <li> Personal bonus tile
- * <li> Color: one of the possible values of the PlayerColor enum
+ * <li> Color: one of the possible values of the PlayerColor enum, used also to identify the player
  * <li> Properties: resources (wood, coins, servants, stones) and points (military points, victory points and faith points).
  * <li> Modifiers of player's actions 
  * <li> Family: the player's family members.
@@ -31,13 +30,12 @@ import it.polimi.ingsw.ps21.model.deck.Card;
  */
 public class Player {
 	protected String name;
-	protected int id;
+	protected PlayerColor id;
 	//Since there is not a "Personal Board" class, player's cards are stored here
 	protected PlayerProperties properties; 
 	protected ModifiersSet modifiers;
 	protected PersonalBonusTile personalBonusTile;
 	private Family family;
-	protected PlayerColor color;
 	protected PlayerDeck devCards;
 
 	/**Returns an object that contains the values of the resources (stone, wood, servants and coins) and points (military points, faith points and victory points) of the player. 
@@ -78,7 +76,7 @@ public class Player {
 		ArrayList<DevelopmentCard> output= new ArrayList<DevelopmentCard>();
 		
 		//convert WorkType in DevelopmentCardType to pass it to the PlayerDeck.getCards(cardType) method
-		DevelopmentCardType cardType = null;
+		DevelopmentCardType cardType;
 		if(workType==WorkType.HARVEST) cardType=DevelopmentCardType.TERRITORY;
 		else if(workType==WorkType.PRODUCTION) cardType=DevelopmentCardType.BUILDING;
 		else throw new IllegalCardTypeException();
@@ -173,7 +171,7 @@ public class Player {
 	 * @param startingProperties The resources and points that the player will have at the beginning of the match.
 	 * @param id an integer that identifies the player.
 	 */
-	public Player(String name, PlayerProperties startingProperties, int id) 
+	public Player(String name, PlayerProperties startingProperties, PlayerColor id) 
 	{
 		this.name = name;
 		this.properties = startingProperties;
@@ -236,7 +234,7 @@ public class Player {
 	/**
 	 * @return the player's id
 	 */
-	public int getId() {
+	public PlayerColor getId() {
 		return id;
 	}
 
@@ -249,12 +247,7 @@ public class Player {
 	}
 
 
-	/**
-	 * @return the color
-	 */
-	public PlayerColor getColor() {
-		return color;
-	}
+
 
 	
 	

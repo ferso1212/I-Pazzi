@@ -9,7 +9,7 @@ public class AdvancedPlayer extends Player {
 	private ArrayList<LeaderCard> leaderCards;
 	private AdvancedModifier advModifier;
 	
-	public AdvancedPlayer(String name, PlayerProperties properties, int id) {
+	public AdvancedPlayer(String name, PlayerProperties properties, PlayerColor id) {
 		super(name, properties, id);
 	}
 
@@ -24,7 +24,7 @@ public class AdvancedPlayer extends Player {
 		return output;
 	}
 	
-	//TODO
+	//TODO implement leader choice
 	public LeaderCard chooseLeaderCardToCopy(LeaderCard[] activeLeaders)
 	{
 		LeaderCard chosen;

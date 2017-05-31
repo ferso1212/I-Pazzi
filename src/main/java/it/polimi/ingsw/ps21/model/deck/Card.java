@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps21.model.deck;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
@@ -34,7 +35,7 @@ public abstract class Card {
 	}
 
 	public Requirement[] getRequirements(){
-		return (Requirement []) possibleRequirement.toArray();
+		return possibleRequirement.toArray(new Requirement[0]);
 	}
 
 }

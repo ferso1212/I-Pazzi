@@ -36,7 +36,7 @@ public class DiscountEffect extends Effect {
 	
 	@Override
 	public void activate(Player player) {
-		DiscountsSet modifier = player.getModifiers().getDiscountsMods();
+		//DiscountsSet modifier = player.getModifiers().getDiscountsMods();
 		//TODO for (DevelopmentCardType d: types) {
 		//	modifier.getDiscount(d).getPropertiesDisc().increaseProperties(discount);
 		//}

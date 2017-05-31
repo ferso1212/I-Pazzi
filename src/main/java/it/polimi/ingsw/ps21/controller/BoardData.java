@@ -8,7 +8,7 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 
 public class BoardData implements Serializable{
-	private DevelopmentCard[][] cards;
+	/*private DevCardData[][] cards;
 	private FamilyMemberData[][] towerSpaces;
 	private ImmProperties[][] towerBonuses;
 	private FamilyMemberData[] market;
@@ -22,4 +22,5 @@ public class BoardData implements Serializable{
 	private int orangeDice;
 	private int whiteDice;
 	private int blackDice;
+	*/
 }

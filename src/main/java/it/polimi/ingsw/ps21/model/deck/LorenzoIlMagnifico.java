@@ -9,7 +9,7 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
  */
 public class LorenzoIlMagnifico extends PermanentLeaderEffect {
 	public LorenzoIlMagnifico(Requirement req) {
-		super(req);
+		super(); //should be super(req)
 		// TODO Auto-generated constructor stub
 	}
 

@@ -3,6 +3,8 @@ package it.polimi.ingsw.ps21.model.match;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.management.modelmbean.XMLParseException;
 import javax.xml.parsers.*;
@@ -10,14 +12,13 @@ import javax.xml.parsers.*;
 import org.w3c.dom.*;
 import org.xml.sax.*;
 
+import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.model.deck.BuildingCard;
 import it.polimi.ingsw.ps21.model.deck.CardsNumber;
 import it.polimi.ingsw.ps21.model.deck.CharacterCard;
 import it.polimi.ingsw.ps21.model.deck.Deck;
 import it.polimi.ingsw.ps21.model.deck.Effect;
 import it.polimi.ingsw.ps21.model.deck.IllegalCardException;
-import it.polimi.ingsw.ps21.model.deck.OrCosts;
-import it.polimi.ingsw.ps21.model.deck.OrRequirement;
 import it.polimi.ingsw.ps21.model.deck.PropEffect;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.deck.SubDeck;
@@ -29,7 +30,7 @@ import it.polimi.ingsw.ps21.model.properties.PropertiesSet;
 import it.polimi.ingsw.ps21.model.properties.Property;
 
 public class MatchBuilder {
-	
+	private final static Logger LOGGER = Logger.getLogger(MatchBuilder.class.getName());
 	private static Document configuration;
 	private File greenDeckFile;
 	private File blueDeckFile;
@@ -73,9 +74,11 @@ public class MatchBuilder {
 			configuration = builder.parse(greenDeckFile);
 			configuration.normalize();
 		} catch (SAXException e) {
+			LOGGER.log(Level.WARNING, "SAXException", e);
 			throw new BuildingDeckException("Error Parsing green Subedeck");
 		}
 		catch (IOException i) {
+			LOGGER.log(Level.WARNING, "IOException", i);
 			throw new BuildingDeckException("Error opening green card file");
 		}
 		
@@ -89,9 +92,11 @@ public class MatchBuilder {
 					try {
 					result.addCard(makeTerritoryCard((Element) cardNode));
 				} catch (BuildingCardException c) {
+					LOGGER.log(Level.WARNING, "Building Card Exception", c);
 					throw new BuildingDeckException("Error creating Territory card number " + i);
 				}
 				catch (IllegalCardException x) {
+					LOGGER.log(Level.WARNING, "Building Deck Exception", x);
 					throw new BuildingDeckException("Error adding Territory card number " + i);
 				}
 		}
@@ -105,9 +110,11 @@ public class MatchBuilder {
 			configuration = builder.parse(blueDeckFile);
 			configuration.normalize();
 		} catch (SAXException e) {
+			LOGGER.log(Level.WARNING, "SAXException", e);
 			throw new BuildingDeckException("Error Parsing blue Subedeck");
 		}
 		catch (IOException i) {
+			LOGGER.log(Level.WARNING, "IOException", i);
 			throw new BuildingDeckException("Error opening blue card file");
 		}
 		
@@ -121,9 +128,11 @@ public class MatchBuilder {
 					try {
 					result.addCard(makeCharacterCard((Element) cardNode));
 				} catch (BuildingCardException c) {
+					LOGGER.log(Level.WARNING, "Building Card Exception", c);
 					throw new BuildingDeckException("Error creating Character card number " + i);
 				}
 				catch (IllegalCardException x) {
+					LOGGER.log(Level.WARNING, "Building Deck Exception", x);
 					throw new BuildingDeckException("Error adding Character card number " + i);
 				}
 		}
@@ -152,8 +161,8 @@ public class MatchBuilder {
 	private TerritoryCard makeTerritoryCard(Element cardNode) throws BuildingCardException{
 		NamedNodeMap cardAttributes = cardNode.getAttributes();
 		String cardName = cardAttributes.getNamedItem("name").getNodeValue();
-		int cardEra = new Integer(cardAttributes.getNamedItem("era").getNodeValue());
-		int diceReq = new Integer(cardAttributes.getNamedItem("diceRequirement").getNodeValue());
+		int cardEra = Integer.parseInt(cardAttributes.getNamedItem("era").getNodeValue());
+		int diceReq = Integer.parseInt(cardAttributes.getNamedItem("diceRequirement").getNodeValue());
 		// To be implemented
 		ArrayList<Effect> instantEffect = new ArrayList<>();
 		// To be implemented
@@ -173,11 +182,12 @@ public class MatchBuilder {
 					}
 				}
 			}
-		return new TerritoryCard(cardName, cardEra, diceReq, instantEffect.get(0), (PropEffect []) permanentEffects.toArray());
+		return new TerritoryCard(cardName, cardEra, diceReq, instantEffect.get(0), (PropEffect []) permanentEffects.toArray(new PropEffect[0]));
 		}
-			catch (XMLParseException x) {
+			/* catch (XMLParseException x) {
 				throw new BuildingCardException();
-			}
+			}*/
+		finally{}
 	}
 
 
@@ -185,7 +195,7 @@ public class MatchBuilder {
 	private CharacterCard makeCharacterCard(Element cardNode) throws BuildingCardException {
 		NamedNodeMap cardAttributes = cardNode.getAttributes();
 		String cardName = cardAttributes.getNamedItem("name").getNodeValue();
-		int cardEra = new Integer(cardAttributes.getNamedItem("era").getNodeValue());
+		int cardEra = Integer.parseInt(cardAttributes.getNamedItem("era").getNodeValue());
 		ArrayList<Requirement> cardReq = new ArrayList<>();
 		ArrayList<ImmProperties> cardCosts = new ArrayList<>();
 		// To be implemented
@@ -212,9 +222,10 @@ public class MatchBuilder {
 					}
 				}
 			}
-		return new CharacterCard(cardName, cardEra, (Requirement []) cardReq.toArray(), (ImmProperties []) cardCosts.toArray(), instantEffect, permanentEffects);
+		return new CharacterCard(cardName, cardEra, (Requirement []) cardReq.toArray(new Requirement[0]), (ImmProperties []) cardCosts.toArray(new ImmProperties[0]), instantEffect, permanentEffects);
 		}
 			catch (XMLParseException x) {
+				LOGGER.log(Level.SEVERE, "Error parsing the XML", x);
 				throw new BuildingCardException();
 			}
 	}
@@ -222,13 +233,13 @@ public class MatchBuilder {
 	private VentureCard makeVentureCard(Element cardNode) throws BuildingCardException {
 		NamedNodeMap cardAttributes = cardNode.getAttributes();
 		String cardName = cardAttributes.getNamedItem("name").getNodeValue();
-		int cardEra = new Integer(cardAttributes.getNamedItem("era").getNodeValue());
+		int cardEra = Integer.parseInt(cardAttributes.getNamedItem("era").getNodeValue());
 		ArrayList<Requirement> cardReq = new ArrayList<>();
 		ArrayList<ImmProperties> cardCosts = new ArrayList<>();
 		// TODO implement InstantEffect e PermanentEffect in xml
 		Effect instantEffect = new PropEffect(new Requirement(new CardsNumber(), new ImmProperties()), new ImmProperties());
 		// TODO
-		Effect permanentEffects = new PropEffect((Requirement [])cardReq.toArray(), new ImmProperties(0,0,0));
+		Effect permanentEffects = new PropEffect((Requirement [])cardReq.toArray(new Requirement[0]), new ImmProperties(0,0,0));
 		
 		NodeList cardProps = cardNode.getChildNodes();
 		try {
@@ -250,10 +261,12 @@ public class MatchBuilder {
 					}
 				}
 			}
-		return new VentureCard(cardName, cardEra, (Requirement []) cardReq.toArray(), (ImmProperties []) cardCosts.toArray(), instantEffect, permanentEffects);
+		return new VentureCard(cardName, cardEra, (Requirement []) cardReq.toArray(new Requirement[0]), (ImmProperties []) cardCosts.toArray(new ImmProperties[0]), instantEffect, permanentEffects);
 		}
 			catch (XMLParseException x) {
+				LOGGER.log(Level.SEVERE, "Error parsing the XML", x);
 				throw new BuildingCardException();
+				
 			}
 	}
 	/**
@@ -302,7 +315,7 @@ public class MatchBuilder {
 		for (int i=0; i < propChilds.getLength(); i++){
 			Node valueNode = propChilds.item(i);
 			if(valueNode.getNodeType() == valueNode.ELEMENT_NODE)
-				tempPropsValue[PropertiesId.valueOf(((Element) valueNode).getTagName().toUpperCase()).ordinal()] = new Integer(valueNode.getAttributes().getNamedItem("value").getNodeValue());
+				tempPropsValue[PropertiesId.valueOf(((Element) valueNode).getTagName().toUpperCase()).ordinal()] = Integer.parseInt(valueNode.getAttributes().getNamedItem("value").getNodeValue());
 			}		
 		return new ImmProperties(tempPropsValue);
 	}
@@ -313,7 +326,7 @@ public class MatchBuilder {
 		for (int i =0; i < children.getLength(); i++){
 			Node child = children.item(i);
 			if (child.getNodeType() == child.ELEMENT_NODE){
-				int tempValue = new Integer(child.getAttributes().getNamedItem("value").getNodeValue());
+				int tempValue = Integer.parseInt(child.getAttributes().getNamedItem("value").getNodeValue());
 				switch (((Element) child).getTagName()){
 				case "Green":
 					tempCardValues[0]= tempValue;
@@ -345,14 +358,15 @@ public class MatchBuilder {
 	 * @throws BuildingDeckException
 	 */
 	public static Deck makeDeck() throws BuildingDeckException{
-		if (configuratedDeck == null){
+		/*TODO if (configuratedDeck == null){
 			configuratedDeck = new Deck();
 			configuratedDeck.setGreenDeck(makeGreenDeck());
 			configuratedDeck.setBlueDeck(makeBlueDeck());
 			configuratedDeck.setYellowDeck(makeYellowDeck());
-			configuratedDeck.setPurpleDeck(makePurpleDeck());
+			configuratedDeck.setPurpleDeck(makePurpleDeck()); 
 		}
-		return (Deck) configuratedDeck.clone();
+		TODO return (Deck) configuratedDeck.clone(); */
+		return null; //Stub to be removed
 	}
 
 

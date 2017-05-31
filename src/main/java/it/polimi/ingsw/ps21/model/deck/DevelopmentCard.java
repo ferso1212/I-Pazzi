@@ -8,7 +8,7 @@ import it.polimi.ingsw.ps21.controller.UnchosenException;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 
-public abstract class DevelopmentCard extends Card implements Serializable{
+public abstract class DevelopmentCard extends Card{
 
 	protected int cardEra;
 	protected Effect instantEffect;
@@ -76,20 +76,20 @@ public abstract class DevelopmentCard extends Card implements Serializable{
 	}
 	
 	public Effect[] getPossibleEffects(){
-		return (Effect []) permanentEffects.toArray();
+		return (Effect []) permanentEffects.toArray(new Effect[0]);
 	}
 	
 	public ImmProperties[] getPossibleCosts(){
-		return (ImmProperties []) costs.toArray();
+		return (ImmProperties []) costs.toArray(new ImmProperties[0]);
 	}
 	public Effect getChosenPemanentEffect()throws UnchosenException{
 		if (chosenEffect.isPresent()) throw new UnchosenException();
-		return chosenEffect.get(); // Metodo di ripiego, si deve implementare la scelta di effetti permanenti
+		return null; //TODO Metodo di ripiego, si deve implementare la scelta di effetti permanenti
 	}
 	public abstract DevelopmentCardType getCardType();
 	
 	public ImmProperties[] getCosts(){
-		return (ImmProperties []) costs.toArray();
+		return (ImmProperties []) costs.toArray(new ImmProperties[0]);
 	}
 	
 }

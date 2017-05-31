@@ -2,6 +2,9 @@ package it.polimi.ingsw.ps21.model.player;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import it.polimi.ingsw.ps21.model.deck.BuildingCard;
 import it.polimi.ingsw.ps21.model.deck.CardsNumber;
 import it.polimi.ingsw.ps21.model.deck.CharacterCard;
@@ -11,8 +14,10 @@ import it.polimi.ingsw.ps21.model.deck.IllegalCardTypeException;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.deck.TerritoryCard;
 import it.polimi.ingsw.ps21.model.deck.VentureCard;
+import it.polimi.ingsw.ps21.model.match.MatchBuilder;
 
 public class PlayerDeck implements Cloneable{
+	private final static Logger LOGGER = Logger.getLogger(PlayerDeck.class.getName());
 	
 	/*private ArrayList<TerritoryCard> greenCards;
 	private ArrayList<BuildingCard> yellowCards;
@@ -61,15 +66,26 @@ public class PlayerDeck implements Cloneable{
 		return true;
 	}
 	
-	/*public PlayerDeck clone()
-	{
-		EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>> clonedDecksMap= new EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>>(DevelopmentCardType.class);
+	//TODO implement Playerdeck.clone
+	@Override
+	public PlayerDeck clone()
+	{	 
+	    try {
+			PlayerDeck output=(PlayerDeck) super.clone();
+			return output;
+		} catch (CloneNotSupportedException e) {
+			LOGGER.log(Level.SEVERE, "Clone failed", e);
+			return null;
+		}
+		/*EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>> clonedDecksMap= new EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>>(DevelopmentCardType.class);
 		
 		for(DevelopmentCardType cardType: DevelopmentCardType.values())
 		{
 			clonedDecksMap.put(cardType, (ArrayList<DevelopmentCard>)this.decksMap.get(cardType).clone());
+			
 		}
-	}*/
+		*/
+	}
 
 	public PlayerDeck(EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>> decksMap,
 			EnumMap<DevelopmentCardType, Requirement[]> requirementMap) {
