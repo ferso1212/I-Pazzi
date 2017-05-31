@@ -13,7 +13,12 @@ import it.polimi.ingsw.ps21.model.player.Player;
 
 public class WorkAction extends Action {
 	
-	private Space space;
+	public WorkAction(Match match, Player player) {
+		super(match, player);
+		// TODO Auto-generated constructor stub
+	}
+
+	/*private Space space;
 	private FamilyMember famMember;
 	
 	public WorkAction(Match m, Player p, Space space, FamilyMember famMember) {
@@ -38,9 +43,11 @@ public class WorkAction extends Action {
 		return false;
 	}
 	
+	*/
+	
 	@Override
 	public void execute() {
-		/* TODO
+		/* TODO fix work action
 		boolean controlOccupation = space.occupy(this.player);
 		boolean controlEffect = false;
 		ArrayList<DevelopmentCard> cardToActivate = null;
@@ -101,6 +108,12 @@ public class WorkAction extends Action {
 		*/
 		
 		
+	}
+
+	@Override
+	public boolean isLegal() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	

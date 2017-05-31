@@ -2,6 +2,10 @@ package it.polimi.ingsw.ps21.model.properties;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import it.polimi.ingsw.ps21.controller.PlayerData;
 
 /**This class is used to store immutable resource and points values.
 *For example, it is used to store card effects on resources and points.
@@ -9,7 +13,7 @@ import java.util.ArrayList;
 *@author fabri
  */
 public class ImmProperties implements Serializable, Cloneable{
-
+	private final static Logger LOGGER = Logger.getLogger(ImmProperties.class.getName());
 /**
 	 * 
 	 */
@@ -59,7 +63,7 @@ public ImmProperties clone()
 	try {
 		return (ImmProperties)(super.clone());
 	} catch (CloneNotSupportedException e) {
-		e.printStackTrace();
+		LOGGER.log(Level.SEVERE, "Clone failed", e);
 		return null;
 	}
 }

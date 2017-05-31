@@ -1,6 +1,6 @@
 package it.polimi.ingsw.ps21.model.match;
 
-public class UnsoppertedActionException extends MatchException {
+public class UnsupportedActionException extends MatchException {
 
 	/**
 	 * 

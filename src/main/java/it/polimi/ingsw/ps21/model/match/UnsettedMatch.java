@@ -17,16 +17,16 @@ public class UnsettedMatch extends Match {
 
 	public UnsettedMatch() throws ParserConfigurationException {
 		super();
-		MatchBuilder.initialize("", "", "", "");
+		//MatchBuilder.initialize("", "", "", "");
 		players = new EnumMap<>(PlayerColor.class);
 		orangeDice = 0;
 		blackDice = 0;
 		whiteDice = 0;
-		board.setDeck(MatchBuilder.makeDeck());
+		//board.setDeck(MatchBuilder.makeDeck());
 	}
 	@Override
 	public Match getCopy() throws CloneNotSupportedException {
-		// TODO
+		// TODO getCopy
 		return this;
 	}
 	

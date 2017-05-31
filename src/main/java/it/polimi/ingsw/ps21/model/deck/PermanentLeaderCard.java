@@ -8,7 +8,6 @@ public abstract class PermanentLeaderCard extends LeaderCard {
 	
 	public PermanentLeaderCard(String name, Requirement reqs[], PermanentLeaderEffect perm){
 		super(name, reqs, (Effect) perm);
-		;	
 	}
 
 	@Override

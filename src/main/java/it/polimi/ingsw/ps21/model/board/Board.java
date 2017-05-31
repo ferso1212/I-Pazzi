@@ -1,6 +1,9 @@
 package it.polimi.ingsw.ps21.model.board;
 
 import java.util.EnumMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.deck.Deck;
@@ -9,9 +12,10 @@ import it.polimi.ingsw.ps21.model.deck.IllegalCardException;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
+import it.polimi.ingsw.ps21.model.properties.Property;
 
 public class Board {
-
+	private final static Logger LOGGER = Logger.getLogger(Board.class.getName());
 	protected EnumMap<DevelopmentCardType, Tower> towers;
 	protected TrackBonuses trackBonuses;
 	protected SingleSpace[] marketPlaces;
@@ -20,7 +24,7 @@ public class Board {
 	protected MultipleSpace multipleHarvPlace;
 	protected MultipleSpace multipleProdPlace;
 	protected CouncilPalace councilPalace;
-	protected EnumMap<DevelopmentCardType, int[]> cardBonus;
+	protected Map<DevelopmentCardType, int[]> cardBonus;
 	
 	public Board(EnumMap<DevelopmentCardType, Tower> towers, TrackBonuses trackBonuses, SingleSpace[] marketSpace,
 			SingleSpace singleHarvPlace, SingleSpace singleProdPlace, MultipleSpace multipleHarvPlace,
@@ -39,7 +43,7 @@ public class Board {
 	}
 
 	public void addToCouncil(Player player, FamilyMember member) throws NotOccupableException {
-		councilPalace.occupy(member);
+		councilPalace.occupy(player, member);
 	}
 
 	public void placeCards(int era, Deck deck) throws IllegalCardException {
@@ -51,7 +55,7 @@ public class Board {
 		}
 	}
 
-	public void removeCardsAndMembers() throws IllegalArgumentException {
+	public void removeCardsAndMembers() {
 		for (DevelopmentCardType type : DevelopmentCardType.values()) {
 			Tower myTower = towers.get(type);
 			for (int i = 1; i < 5; i++) {
@@ -122,6 +126,7 @@ public class Board {
 			space.occupy(player, famMember);
 			return true;
 		} catch (NotOccupableException e) {
+			LOGGER.log(Level.INFO, "Space not occupable", e);
 			return false;
 		}
 

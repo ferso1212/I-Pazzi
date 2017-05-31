@@ -10,9 +10,7 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 public class LorenzoIlMagnificoEffect extends PermanentLeaderEffect {
 	public LorenzoIlMagnificoEffect() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-
 	private LeaderCard chosenLeaderCopy;
 	
 	@Override

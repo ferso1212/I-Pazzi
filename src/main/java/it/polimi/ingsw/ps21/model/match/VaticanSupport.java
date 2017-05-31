@@ -8,15 +8,15 @@ import it.polimi.ingsw.ps21.model.player.Player;
 
 public class VaticanSupport extends Match {
 
-	public Map<Player, Boolean> supportChoices;
+	private Map<Player, Boolean> supportChoices;
 	
 	public VaticanSupport(Match previousMatch) {
 		super(previousMatch);
 	}
 	
 	@Override
-	public Match makeAction(Action nextAction) throws UnsoppertedActionException {
-		throw new UnsoppertedActionException();
+	public Match makeAction(Action nextAction) throws UnsupportedActionException {
+		throw new UnsupportedActionException();
 	}
 	
 	
@@ -26,7 +26,7 @@ public class VaticanSupport extends Match {
 			if (!(supportChoices.containsKey(p))) throw new UnchosenException();
 		}
 		if (era < 3){
-			board.nextEra(era + 1);
+			//TODO board.nextEra(era + 1);
 			return new InitialRoundMatch(this);
 		}	
 		else return new EndedMatch(this);

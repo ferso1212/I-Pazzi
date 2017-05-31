@@ -1,9 +1,15 @@
 package it.polimi.ingsw.ps21.model.match;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.actions.NotExecutableException;
 import it.polimi.ingsw.ps21.model.board.NotOccupableException;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
+import it.polimi.ingsw.ps21.model.player.FamilyMember;
+import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.Player;
 
 /**
@@ -14,6 +20,7 @@ import it.polimi.ingsw.ps21.model.player.Player;
 
 
 public class FinalRoundMatch extends Match {
+	private final static Logger LOGGER = Logger.getLogger(FinalRoundMatch.class.getName());
 	
 	public FinalRoundMatch(Match prevState) {
 		super(prevState);
@@ -22,11 +29,12 @@ public class FinalRoundMatch extends Match {
 		// TODO Auto-generated constructor stub
 	}
 	@Override
-	public Match makeAction(Action nextAction) {
+	public Match makeAction(Action nextAction)  {
 		// if (nextAction.isLegal())
 				try {
 					nextAction.execute();
-				} catch (NotExecutableException | NotOccupableException | RequirementNotMetException e) {
+				} catch (NotExecutableException | NotOccupableException | RequirementNotMetException| InsufficientPropsException e) {
+					LOGGER.log(Level.WARNING, "Not activable action", e);
 					return this;
 				}
 				order.poll();
@@ -37,8 +45,11 @@ public class FinalRoundMatch extends Match {
 
 	private Match nextState() {
 		for (int i=0; i<4; i++){
-			for (Player p: board.getCouncilPalace().getOccupants());
-			// TODO need a method that return playerOrder in councilPalace
+			for (FamilyMember p: board.getCouncilPalace().getOccupants())
+			{
+				// TODO need a method that return playerOrder in councilPalace
+			}
+			
 		}
 		for (Player p: players.values()){
 			// vatican Support
