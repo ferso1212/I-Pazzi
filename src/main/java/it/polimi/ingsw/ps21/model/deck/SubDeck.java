@@ -104,5 +104,21 @@ public class SubDeck<T extends DevelopmentCard> {
 	 return temp.toString();
 	}
 	
+	public SubDeck<T> clone(){
+		SubDeck<T> clone = new SubDeck<>();
+		ArrayList<T> clonedCards = new ArrayList<>();
+		clonedCards.addAll(firstEra);
+		clonedCards.addAll(secondEra);
+		clonedCards.addAll(thirdEra);
+		for (T c: clonedCards){
+			try {
+				clone.addCard((T) c.clone());
+			} catch (IllegalCardException e) {
+				e.printStackTrace();
+			}
+		}
+		return clone();
+	}
+	
 }
 

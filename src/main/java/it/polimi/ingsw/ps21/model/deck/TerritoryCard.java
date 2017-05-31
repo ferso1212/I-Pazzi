@@ -21,8 +21,14 @@ public class TerritoryCard extends DevelopmentCard {
 		return diceReq;
 	}
 	
+	@Override
 	public DevelopmentCardType getCardType()
 	{
 		return DevelopmentCardType.TERRITORY;
+	}
+	
+	@Override
+	public DevelopmentCard clone() {
+		return new TerritoryCard(name, cardEra, diceReq, instantEffect,(PropEffect[]) permanentEffects.toArray());
 	}
 }

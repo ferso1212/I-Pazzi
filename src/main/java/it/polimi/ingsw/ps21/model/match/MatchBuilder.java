@@ -31,11 +31,10 @@ import it.polimi.ingsw.ps21.model.properties.Property;
 
 public class MatchBuilder {
 	private final static Logger LOGGER = Logger.getLogger(MatchBuilder.class.getName());
-	private static Document configuration;
-	private File greenDeckFile;
-	private File blueDeckFile;
-	private File yellowDeckFile;
-	private File purpleDeckFile;	
+	private static File greenDeckFile;
+	private static File blueDeckFile;
+	private static File yellowDeckFile;
+	private static File purpleDeckFile;	
 	private static DocumentBuilder builder;
 	private static Deck configuratedDeck;
 	/**
@@ -53,6 +52,10 @@ public class MatchBuilder {
 	 * @throws ParserConfigurationException
 	 * @throws IOException
 	 */
+	/*
+	 * TODO Implement makeEffect
+	 * TODO Implement makePurpleCard and makeYellowCard
+	 */
 	public static void initialize(String greenPath, String yellowPath, String bluePath, String purplePath) throws ParserConfigurationException, IOException{
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setValidating(true);
@@ -68,7 +71,8 @@ public class MatchBuilder {
 	}
 	
 	
-	private SubDeck<TerritoryCard> makeGreenDeck() throws BuildingDeckException{
+	private static SubDeck<TerritoryCard> makeGreenDeck() throws BuildingDeckException{
+		Document configuration;
 		SubDeck<TerritoryCard> result;
 		try {
 			configuration = builder.parse(greenDeckFile);
@@ -104,7 +108,8 @@ public class MatchBuilder {
 		return result;
 	}
 		
-	private SubDeck<CharacterCard> makeBlueDeck() throws BuildingDeckException{
+	private static SubDeck<CharacterCard> makeBlueDeck() throws BuildingDeckException{
+		Document configuration;
 		SubDeck<CharacterCard> result;
 		try {
 			configuration = builder.parse(blueDeckFile);
@@ -139,11 +144,12 @@ public class MatchBuilder {
 		
 		return result;
 	}
-	private SubDeck<BuildingCard> makeYellowDeck(){
+	private static SubDeck<BuildingCard> makeYellowDeck(){
+		Document configuration;
 		// To be implemented
 		return new SubDeck<BuildingCard>();
 	}
-	private SubDeck<VentureCard> makePurpleDeck(){
+	private static SubDeck<VentureCard> makePurpleDeck(){
 		// To be implemented
 		return new SubDeck<VentureCard>();
 	}
@@ -158,7 +164,7 @@ public class MatchBuilder {
 	 * @param cardNode
 	 * @return
 	 */
-	private TerritoryCard makeTerritoryCard(Element cardNode) throws BuildingCardException{
+	private static TerritoryCard makeTerritoryCard(Element cardNode) throws BuildingCardException{
 		NamedNodeMap cardAttributes = cardNode.getAttributes();
 		String cardName = cardAttributes.getNamedItem("name").getNodeValue();
 		int cardEra = Integer.parseInt(cardAttributes.getNamedItem("era").getNodeValue());
@@ -192,7 +198,7 @@ public class MatchBuilder {
 
 
 
-	private CharacterCard makeCharacterCard(Element cardNode) throws BuildingCardException {
+	private static CharacterCard makeCharacterCard(Element cardNode) throws BuildingCardException {
 		NamedNodeMap cardAttributes = cardNode.getAttributes();
 		String cardName = cardAttributes.getNamedItem("name").getNodeValue();
 		int cardEra = Integer.parseInt(cardAttributes.getNamedItem("era").getNodeValue());
@@ -230,7 +236,7 @@ public class MatchBuilder {
 			}
 	}
 	
-	private VentureCard makeVentureCard(Element cardNode) throws BuildingCardException {
+	private static VentureCard makeVentureCard(Element cardNode) throws BuildingCardException {
 		NamedNodeMap cardAttributes = cardNode.getAttributes();
 		String cardName = cardAttributes.getNamedItem("name").getNodeValue();
 		int cardEra = Integer.parseInt(cardAttributes.getNamedItem("era").getNodeValue());
@@ -273,7 +279,7 @@ public class MatchBuilder {
 	 * @param cost is the node that identify Cost Element in XML configuration file
 	 * @return
 	 */
-	private ImmProperties makeCost(Element cost) {
+	private static ImmProperties makeCost(Element cost) {
 		NodeList costChilds = cost.getElementsByTagName("Properties"); // Must be only one in xml
 		return makeImmProperites((Element) costChilds.item(0));
 	}
@@ -284,7 +290,7 @@ public class MatchBuilder {
 	 * @return
 	 * @throws XMLParseException 
 	 */
-	private Requirement makeRequirement(Element req) throws XMLParseException { // Must be a Requirement Element
+	private static Requirement makeRequirement(Element req) throws XMLParseException { // Must be a Requirement Element
 		if (req.getTagName() != "Requirement") throw new XMLParseException("Not a Requirement element");
 		else {
 			CardsNumber tempCardNum = new CardsNumber(0, 0, 0, 0); //Temporary values
@@ -309,7 +315,7 @@ public class MatchBuilder {
 		
 	}
 
-	private ImmProperties makeImmProperites(Element propsNode) {
+	private static ImmProperties makeImmProperites(Element propsNode) {
 		int tempPropsValue[] = {0,0,0,0,0,0,0};// 
 		NodeList propChilds = propsNode.getChildNodes();
 		for (int i=0; i < propChilds.getLength(); i++){
@@ -320,7 +326,7 @@ public class MatchBuilder {
 		return new ImmProperties(tempPropsValue);
 	}
 
-	private CardsNumber makeCardNums(Element cardNode) {
+	private static CardsNumber makeCardNums(Element cardNode) {
 		int tempCardValues[] = {0,0,0,0} ;
 		NodeList children = cardNode.getChildNodes();
 		for (int i =0; i < children.getLength(); i++){
@@ -358,14 +364,14 @@ public class MatchBuilder {
 	 * @throws BuildingDeckException
 	 */
 	public static Deck makeDeck() throws BuildingDeckException{
-		/*TODO if (configuratedDeck == null){
+		if (configuratedDeck == null){
 			configuratedDeck = new Deck();
 			configuratedDeck.setGreenDeck(makeGreenDeck());
 			configuratedDeck.setBlueDeck(makeBlueDeck());
 			configuratedDeck.setYellowDeck(makeYellowDeck());
 			configuratedDeck.setPurpleDeck(makePurpleDeck()); 
 		}
-		TODO return (Deck) configuratedDeck.clone(); */
+		return (Deck) configuratedDeck.clone();
 		return null; //Stub to be removed
 	}
 

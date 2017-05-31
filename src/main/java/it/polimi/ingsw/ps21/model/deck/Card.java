@@ -33,6 +33,8 @@ public abstract class Card {
 		possibleRequirement = new ArrayList<>();
 		possibleRequirement.add(req);
 	}
+	
+	public abstract Card clone();
 
 	public Requirement[] getRequirements(){
 		return possibleRequirement.toArray(new Requirement[0]);

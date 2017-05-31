@@ -21,5 +21,10 @@ public class VentureCard extends DevelopmentCard {
 	{
 		return DevelopmentCardType.VENTURE;
 	}
+	
+	@Override
+	public DevelopmentCard clone() {
+		return new VentureCard(name, cardEra, (Requirement[])possibleRequirement.toArray(),(ImmProperties []) costs.toArray(), instantEffect,permanentEffects.get(0));
+	}
 
 }

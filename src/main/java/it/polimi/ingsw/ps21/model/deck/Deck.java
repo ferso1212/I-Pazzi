@@ -88,12 +88,11 @@ public class Deck implements Cloneable {
 	//TODO implement deep clone
 	public Deck clone()
 	{
-		try {
-			return (Deck)super.clone();
-		} catch (CloneNotSupportedException e) {
-			// TODO Auto-generated catch block
-			LOGGER.log(Level.SEVERE, "Unclonable", e);
-			return null;
-		}
+		Deck clone = new Deck();
+		clone.setBlueDeck(blueCards.clone());
+		clone.setYellowDeck(yellowCards.clone());
+		clone.setPurpleDeck(purpleCards.clone());
+		clone.setGreenDeck(greenCards.clone());
+		return clone;
 	}
 }
