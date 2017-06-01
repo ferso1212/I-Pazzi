@@ -64,6 +64,11 @@ public class FamilyMember {
 	public void setModifier(int modifier) {
 		this.modifier = modifier;
 	}
+	
+	public void increaseModifier(int valueToAdd)
+	{
+		this.modifier+=valueToAdd;
+	}
 
 	/**
 	 * @return the playerId

@@ -55,4 +55,24 @@ public class Family {
 			m.setUsed(false);
 		}
 	}
+	
+	/**Sets the number of servants required to increase by one the value of an action
+	 * 
+	 * @param servantsForOne
+	 */
+	public void setServantsForOne(int servantsForOne) {
+		this.servantsForOne = servantsForOne;
+	}
+	
+	/**Returns the value of the member, modified by the number of servants used.
+	 * 
+	 * @param servants used in the action
+	 * @param color color of the family member used.
+	 * @return the value of the member, modified by the number of servants used.
+	 */
+	public int getMemberValueWithServants(int servants, MembersColor color)
+	{
+		return this.getMember(color).getValue() + (servants/this.servantsForOne);
+	}
+	
 }
