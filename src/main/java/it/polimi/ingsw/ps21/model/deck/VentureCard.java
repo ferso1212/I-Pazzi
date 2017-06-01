@@ -9,11 +9,11 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
  */
 public class VentureCard extends DevelopmentCard {
 
-	public VentureCard(String name, int era, Requirement reqs[], ImmProperties costs[], Effect ins, Effect perm) {
+	public VentureCard(String name, int era, Requirement reqs[], ImmProperties costs[], EffectSet ins, EffectSet perm) {
 		super(name, era, reqs, costs, ins, perm);
 	}
 	
-	public VentureCard(String name, int era, Requirement req, ImmProperties cost, Effect ins, Effect perm) {
+	public VentureCard(String name, int era, Requirement req, ImmProperties cost, EffectSet ins, EffectSet perm) {
 		super(name, era, req, cost, ins, perm);
 	}
 	

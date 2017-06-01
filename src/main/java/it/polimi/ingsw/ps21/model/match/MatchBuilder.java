@@ -18,6 +18,7 @@ import it.polimi.ingsw.ps21.model.deck.CardsNumber;
 import it.polimi.ingsw.ps21.model.deck.CharacterCard;
 import it.polimi.ingsw.ps21.model.deck.Deck;
 import it.polimi.ingsw.ps21.model.deck.Effect;
+import it.polimi.ingsw.ps21.model.deck.EffectSet;
 import it.polimi.ingsw.ps21.model.deck.IllegalCardException;
 import it.polimi.ingsw.ps21.model.deck.PropEffect;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
@@ -181,14 +182,14 @@ public class MatchBuilder {
 				switch (prop.getNodeName()) {
 				case "InstantEffect":
 					
-					instantEffect.add(makeEffect((Element) prop));
+					// TODO implement makeEffect instantEffect.add(makeEffect((Element) prop));
 					break;
 				default:
 					throw new BuildingCardException();
 					}
 				}
 			}
-		return new TerritoryCard(cardName, cardEra, diceReq, instantEffect.get(0), (PropEffect []) permanentEffects.toArray(new PropEffect[0]));
+		return new TerritoryCard(cardName, cardEra, diceReq, new EffectSet(instantEffect.get(0)), new EffectSet((PropEffect []) permanentEffects.toArray(new PropEffect[0])));
 		}
 			/* catch (XMLParseException x) {
 				throw new BuildingCardException();
@@ -209,6 +210,7 @@ public class MatchBuilder {
 		// To be implemented
 		Effect permanentEffects[] = new Effect[1];
 		NodeList cardProps = cardNode.getChildNodes();
+		// TODO implement makeEffectSet and EffectSet variable
 		try {
 			for (int i=0; i < cardProps.getLength(); i++){
 			Node prop = cardProps.item(i);
@@ -228,7 +230,7 @@ public class MatchBuilder {
 					}
 				}
 			}
-		return new CharacterCard(cardName, cardEra, (Requirement []) cardReq.toArray(new Requirement[0]), (ImmProperties []) cardCosts.toArray(new ImmProperties[0]), instantEffect, permanentEffects);
+		return new CharacterCard(cardName, cardEra, (Requirement []) cardReq.toArray(new Requirement[0]), (ImmProperties []) cardCosts.toArray(new ImmProperties[0]), new EffectSet(instantEffect), new EffectSet(permanentEffects));
 		}
 			catch (XMLParseException x) {
 				LOGGER.log(Level.SEVERE, "Error parsing the XML", x);
@@ -267,7 +269,7 @@ public class MatchBuilder {
 					}
 				}
 			}
-		return new VentureCard(cardName, cardEra, (Requirement []) cardReq.toArray(new Requirement[0]), (ImmProperties []) cardCosts.toArray(new ImmProperties[0]), instantEffect, permanentEffects);
+		return new VentureCard(cardName, cardEra, (Requirement []) cardReq.toArray(new Requirement[0]), (ImmProperties []) cardCosts.toArray(new ImmProperties[0]),new EffectSet(instantEffect), new EffectSet(permanentEffects));
 		}
 			catch (XMLParseException x) {
 				LOGGER.log(Level.SEVERE, "Error parsing the XML", x);
@@ -372,7 +374,6 @@ public class MatchBuilder {
 			configuratedDeck.setPurpleDeck(makePurpleDeck()); 
 		}
 		return (Deck) configuratedDeck.clone();
-		return null; //Stub to be removed
 	}
 
 

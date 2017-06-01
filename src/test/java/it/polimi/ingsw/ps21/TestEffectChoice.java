@@ -2,6 +2,7 @@ package it.polimi.ingsw.ps21;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -64,6 +65,12 @@ public class TestEffectChoice implements Chooser{
 		if (testcase == 1) validation = validation && true;
 		else validation = validation && false;
 		testcase = 0; 
+		
+	}
+	
+	@After
+	public void clean(){
+		testedEffectChoice = null;
 		
 	}
 

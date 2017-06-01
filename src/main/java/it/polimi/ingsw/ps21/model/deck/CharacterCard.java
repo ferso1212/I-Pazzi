@@ -4,13 +4,13 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class CharacterCard extends DevelopmentCard {
 
-	public CharacterCard(String name, int era, Requirement reqs[],ImmProperties costs[], Effect ins,
-			Effect...perms) {
+	public CharacterCard(String name, int era, Requirement reqs[],ImmProperties costs[], EffectSet ins,
+			EffectSet...perms) {
 		super(name, era, reqs, costs, ins, perms);
 	}
 	
-	public CharacterCard(String name, int era, Requirement req,ImmProperties cost, Effect ins,
-			Effect...perms) {
+	public CharacterCard(String name, int era, Requirement req,ImmProperties cost, EffectSet ins,
+			EffectSet...perms) {
 		super(name, era, req, cost, ins, perms);
 	}
 	
@@ -22,7 +22,7 @@ public class CharacterCard extends DevelopmentCard {
 
 	@Override
 	public DevelopmentCard clone() {
-		return new CharacterCard(name, cardEra, (Requirement[])possibleRequirement.toArray(),(ImmProperties []) costs.toArray(), instantEffect,(Effect[]) permanentEffects.toArray());
+		return new CharacterCard(name, cardEra, (Requirement[])possibleRequirement.toArray(),(ImmProperties []) costs.toArray(), instantEffect,(EffectSet[]) permanentEffects.toArray());
 	}
 }
  

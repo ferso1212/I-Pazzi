@@ -11,10 +11,9 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 public class TerritoryCard extends DevelopmentCard {
 	private int diceReq;
 	
-	public TerritoryCard(String name, int era,int dicereq, Effect instantEffect, PropEffect... perms ){
-		super(name, era, new Requirement(new CardsNumber(0, 0, 0, 0), new ImmProperties(0,0,0,0,0,0,0)), new ImmProperties(0,0,0,0,0,0), (Effect) instantEffect,   (Effect[]) perms);
+	public TerritoryCard(String name, int era,int dicereq, EffectSet instantEffect, EffectSet... perms ){
+		super(name, era, new Requirement(new CardsNumber(0, 0, 0, 0), new ImmProperties(0,0,0,0,0,0,0)), new ImmProperties(0,0,0,0,0,0), instantEffect,   (EffectSet[]) perms);
 		diceReq = dicereq;
-		
 	}
 	
 	public int getDiceRequirement(){
@@ -29,6 +28,6 @@ public class TerritoryCard extends DevelopmentCard {
 	
 	@Override
 	public DevelopmentCard clone() {
-		return new TerritoryCard(name, cardEra, diceReq, instantEffect,(PropEffect[]) permanentEffects.toArray());
+		return new TerritoryCard(name, cardEra, diceReq, instantEffect,(EffectSet[]) permanentEffects.toArray());
 	}
 }

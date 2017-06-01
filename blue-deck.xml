@@ -1,35 +1,49 @@
 <?xml version="1.0" ?>
 <!DOCTYPE SubDeckBlue SYSTEM "blue-deck-schema.dtd">
 <SubDeckBlue>
-    <CharacterCard name="name" era="1">
+    <CharacterCard name="Messo Papale" era="2">
         <Requirement>
             <Properties>
                     <Wood value="0"/>
-                    <Stones value="2"/>
-                    <Servants value="3"/>
-                    <Coins value="3"/>
+                    <Stones value="0"/>
+                    <Servants value="0"/>
+                    <Coins value="0"/>
                     <MilitaryPoints value="0"/>
-                    <VictoryPoints value="1"/>
-                    <FaithPoints value="2"/>
+                    <VictoryPoints value="0"/>
+                    <FaithPoints value="0"/>
             </Properties>
 	    <CardsNumber>
-                <Green value="2"/>
+                <Green value="0"/>
 		<Yellow value="0"/>                
 		<Blue value="0"/>           
                 <Purple value="0"/>
             </CardsNumber>
         </Requirement>
  	<Cost>
-         <Properties>
+         	<Properties>
                     <Wood value="0"/>
-                    <Stones value="2"/>
-                    <Servants value="3"/>
-                    <Coins value="3"/>
+                    <Stones value="0"/>
+                    <Servants value="0"/>
+                    <Coins value="5"/>
                     <MilitaryPoints value="0"/>
-                    <VictoryPoints value="1"/>
-                    <FaithPoints value="2"/>
-	</Properties>
+                    <VictoryPoints value="0"/>
+                    <FaithPoints value="0"/>
+		</Propertie>
          </Cost>
-	<InstantEffect/>
+	<InstantEffect>
+		<EffectSet>
+			<PropEffect>
+				<Properties>
+                    			<Wood value="0"/>
+                    			<Stones value="0"/>
+                    			<Servants value="0"/>
+                    			<Coins value="0"/>
+                    			<MilitaryPoints value="0"/>
+                    			<VictoryPoints value="0"/>
+                    			<FaithPoints value="3"/>
+				</Properties>
+			</PropEffect>
+		</EffectSet>	
+	</InstantEffect>
     </CharacterCard>
 </SubDeckBlue>

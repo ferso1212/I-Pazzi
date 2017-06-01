@@ -14,12 +14,21 @@ public class NullEffect extends Effect {
 
 	public NullEffect() {
 		super(new Requirement(new CardsNumber(0), new ImmProperties(0)));
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void activate(Player player) throws UnchosenException {
 		return;
+	}
+
+	@Override
+	public String getType() {
+		return "NullEffect";
+	}
+
+	@Override
+	public String getDesc() {
+		return "This effect does nothing";
 	}
 
 }

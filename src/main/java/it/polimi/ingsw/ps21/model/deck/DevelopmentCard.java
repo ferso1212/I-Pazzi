@@ -11,14 +11,14 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 public abstract class DevelopmentCard extends Card{
 
 	protected int cardEra;
-	protected Effect instantEffect;
-	protected ArrayList<Effect> permanentEffects;
+	protected EffectSet instantEffect;
+	protected ArrayList<EffectSet> permanentEffects;
 	protected ArrayList<ImmProperties> costs;
 	protected Optional<ImmProperties> chosenCost;
-	protected Optional<Effect> chosenEffect;
+	protected Optional<EffectSet> chosenEffect;
 	
 	
-	public DevelopmentCard(String name, int era, Requirement reqs[], ImmProperties costs[], Effect instant, Effect... permanent){
+	public DevelopmentCard(String name, int era, Requirement reqs[], ImmProperties costs[], EffectSet instant, EffectSet... permanent){
 		super(name, reqs);
 		this.costs = new ArrayList<>();
 		for (ImmProperties c: costs){
@@ -29,14 +29,14 @@ public abstract class DevelopmentCard extends Card{
 		cardEra = era;
 		instantEffect = instant;
 		permanentEffects = new ArrayList<>();
-		for (Effect e: permanent){
+		for (EffectSet e: permanent){
 		permanentEffects.add(e);
 		}
 		if (permanentEffects.size() == 1) chosenEffect = Optional.of(permanentEffects.get(0));
 		else chosenEffect = Optional.empty();
 	}
 	
-	public DevelopmentCard(String name, int era, Requirement req, ImmProperties cost, Effect instant, Effect... permanent){
+	public DevelopmentCard(String name, int era, Requirement req, ImmProperties cost, EffectSet instant, EffectSet... permanent){
 		super(name, req);
 		this.costs = new ArrayList<>();
 		this.costs.add(cost);
@@ -44,7 +44,7 @@ public abstract class DevelopmentCard extends Card{
 		cardEra = era;
 		instantEffect = instant;
 		permanentEffects = new ArrayList<>();
-		for (Effect e: permanent){
+		for (EffectSet e: permanent){
 		permanentEffects.add(e);
 		}
 		if (permanentEffects.size() == 1) chosenEffect = Optional.of(permanentEffects.get(0));
@@ -64,25 +64,25 @@ public abstract class DevelopmentCard extends Card{
 			temp.append(possibleRequirement.get(i));
 		}
 		temp.append("\nInstant Effect: " + instantEffect.toString() + "\nEffetti Permanenti: ");
-		for (Effect e: permanentEffects){
+		for (EffectSet e: permanentEffects){
 			temp.append(e.toString() + ", ");
 		}
 		temp.append("\n");
 		return temp.toString();
 	}
 	
-	public Effect getInstantEffect(){
+	public EffectSet getInstantEffect(){
 		return instantEffect;
 	}
 	
-	public Effect[] getPossibleEffects(){
-		return (Effect []) permanentEffects.toArray(new Effect[0]);
+	public EffectSet[] getPossibleEffects(){
+		return (EffectSet []) permanentEffects.toArray();
 	}
 	
 	public ImmProperties[] getPossibleCosts(){
 		return (ImmProperties []) costs.toArray(new ImmProperties[0]);
 	}
-	public Effect getChosenPemanentEffect()throws UnchosenException{
+	public EffectSet getChosenPemanentEffect()throws UnchosenException{
 		if (chosenEffect.isPresent()) throw new UnchosenException();
 		return null; //TODO Metodo di ripiego, si deve implementare la scelta di effetti permanenti
 	}

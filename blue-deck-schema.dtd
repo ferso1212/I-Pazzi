@@ -3,6 +3,16 @@
 <!ELEMENT Requirement (Properties, CardsNumber)>
 <!ELEMENT Cost (Properties)>
 
+<!ELEMENT InstantEffect (EffectSet*)>
+
+<!ELEMENT EffectSet (NullEffect?, PropEffect?, DiscountEffect?, CardDiceEffect?, BlockTowerEffect?, CouncilEffect?, MultiplierEffect?, PickAnotherCardEffect?, ExtraWorkEffect?)>
+
+<!ELEMENT PropEffect (Requirement*, Properties)>
+<!ELEMENT NullEffect EMPTY>
+<!ELEMENT DiscountEffect (Requirement*,>
+
+<!ELEMENT PickAnotherCard (DevelopmentCardType?, DevelopmentCardType?, DevelopmentCardType?, DevelopmentCardType?)>
+
 <!ELEMENT Properties (Wood, Stones, Servants, Coins, MilitaryPoints, VictoryPoints, FaithPoints)>
 <!ELEMENT Coins EMPTY>
 <!ELEMENT Stones EMPTY>
@@ -36,3 +46,4 @@
 	name CDATA #REQUIRED
 	era CDATA #REQUIRED>
 
+<!ATTLIST PickAnotherCard diceValue CDATA #REQUIRED>

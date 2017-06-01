@@ -18,4 +18,5 @@ public class NoMilitaryForTerritory extends PermanentLeaderEffect {
 		// TODO need a specific Modifier in player
 	}
 
+
 }
