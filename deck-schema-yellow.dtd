@@ -1,5 +1,5 @@
-<!ELEMENT SubDeckGreen (TerritoryCard*)>
-<!ELEMENT TerritoryCard (Requirement*, Cost*, InstantEffect, PermanentEffect*)>
+<!ELEMENT SubDeckYellow (BuildingCard*)>
+<!ELEMENT BuildingCard (Requirement*, Cost*, InstantEffect, PermanentEffect*)>
 <!ELEMENT Requirement (Properties, CardsNumber)>
 <!ELEMENT Cost (Properties)>
 

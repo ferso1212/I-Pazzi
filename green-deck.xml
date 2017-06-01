@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<!DOCTYPE SubDeckBlue SYSTEM "blue-deck-schema.dtd">
+<SubDeckGreen>
+    <TerritoryCard name="name" era="1">
+	<InstantEffect>
+		<PropEffect>
+			 <Properties>
+                  		  <Wood value="0"/>
+                  		  <Stones value="2"/>
+                  		  <Servants value="3"/>
+                  		  <Coins value="3"/>
+                  		  <MilitaryPoints value="0"/>
+                  		  <VictoryPoints value="1"/>
+                  		  <FaithPoints value="2"/>
+            		</Properties>
+		</PropEffect>
+	</InstantEffect>
+	<PermanentEffect>
+		<PropEffect>
+		        <Requirement>
+        		    <Properties>
+  		                <Wood value="0"/>
+              		        <Stones value="2"/>
+       		                <Servants value="3"/>
+               			<Coins value="3"/>
+               			<MilitaryPoints value="0"/>
+              			<VictoryPoints value="1"/>
+               			<FaithPoints value="2"/>
+      			</Properties>
+        		</Requirement>
+			<Properties>
+                  		  <Wood value="0"/>
+                 		  <Stones value="2"/>
+                  		  <Servants value="3"/>
+                  		  <Coins value="3"/>
+                  		  <MilitaryPoints value="0"/>
+                  		  <VictoryPoints value="1"/>
+                  		  <FaithPoints value="2"/>
+            		</Properties>
+		</PropEffect>
+	</PermamentEffect>
+    </TerritoryCard>
+</SubDeckGreen>

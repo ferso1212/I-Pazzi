@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>4</zoom_level>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>464</x>
+      <y>0</y>
+      <w>408</w>
+      <h>296</h>
+    </coordinates>
+    <panel_attributes>Controller
+--
+bg=green
+layer=-1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>0</x>
+      <y>12</y>
+      <w>452</w>
+      <h>492</h>
+    </coordinates>
+    <panel_attributes>Model
+--
+bg=red
+layer=-1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>892</x>
+      <y>24</y>
+      <w>408</w>
+      <h>712</h>
+    </coordinates>
+    <panel_attributes>View
+--
+bg=cyan
+layer=-1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>572</x>
+      <y>28</y>
+      <w>260</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>CommandParser</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1008</x>
+      <y>116</y>
+      <w>196</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>UserInterface
+--
+
+--
++ void showStatus()
++ String getCommand():
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>112</x>
+      <y>156</y>
+      <w>228</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>ModelHandler 
+// Serve a gestire la comunicazione con il viewHandler del server tramite
+network
+--
+
+--
+
+- sendInput()
+- getInput()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>48</x>
+      <y>340</y>
+      <w>176</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>SocketHandler</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>256</x>
+      <y>344</y>
+      <w>176</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>RMI Handler</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>160</x>
+      <y>216</y>
+      <w>56</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>120.0;10.0;10.0;310.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>280</x>
+      <y>216</y>
+      <w>32</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;320.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>952</x>
+      <y>312</y>
+      <w>116</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>CLIInterface</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1124</x>
+      <y>340</y>
+      <w>148</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>SwingInterface</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1120</x>
+      <y>220</y>
+      <w>76</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;170.0;300.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1000</x>
+      <y>220</y>
+      <w>48</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>100.0;10.0;10.0;230.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>592</x>
+      <y>380</y>
+      <w>108</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>Potrebbe essere superfluo
+e far comunicare direttamente
+interfaccia e Matchandler</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>596</x>
+      <y>292</y>
+      <w>36</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>70.0;10.0;10.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>336</x>
+      <y>64</y>
+      <w>244</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;240.0;590.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>336</x>
+      <y>204</y>
+      <w>680</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>1680.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>828</x>
+      <y>100</y>
+      <w>188</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>450.0;200.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>828</x>
+      <y>108</y>
+      <w>188</w>
+      <h>92</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;450.0;210.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>920</x>
+      <y>524</y>
+      <w>168</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>CLIView
+--
+# inputStream: InputStream
+# printStream :PrintStream
+--
++ reqStartParam(): void 
+//request name, color, etc
+
++ printPlayerBoard :void
++ reqUserAction(): Action
++ reqUserAction(type: A): A
++ printBoard(): void
++ updateBoard(board : BoardView)
++ updatePlayerBoard(pboard : PlayerBoardView)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1136</x>
+      <y>452</y>
+      <w>132</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>UIView
+--
+
+--
++ reqStartParam(): void
++ printPlayerBoard :void
++ reqUserAction(): void
++ reqUserAction(type: ActionType): void
++ printBoard(): void
++ updateBoard(BoardView: board)
++ updatePlayerBoard(pboard : PlayerBoardView)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1136</x>
+      <y>572</y>
+      <w>132</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>AdvUIView
+--
+--
++ printPlayerBoard :void
++ reqUserAction(): void
++ reqUserAction(type: ActionType): void
++ printBoard(): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>956</x>
+      <y>660</y>
+      <w>132</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>AdvCLIView
+--
+--
++ printPlayerBoard :void
++ reqUserAction(): void
++ reqUserAction(type: ActionType): void
++ printBoard(): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1012</x>
+      <y>620</y>
+      <w>12</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1192</x>
+      <y>536</y>
+      <w>12</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+</diagram>
