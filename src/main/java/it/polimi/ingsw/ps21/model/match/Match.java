@@ -93,6 +93,9 @@ public abstract class Match extends Observable {
 		returnValues[1] = blackDice;
 		returnValues[2] = whiteDice;
 		return returnValues;
+	 }
+	public void update(){
+		
 	}
-	
 }
+	

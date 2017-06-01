@@ -1,0 +1,20 @@
+<!ELEMENT SubDeckPurple (VentureCard*)>
+<!ELEMENT VentureCard (Requirement*, Cost*, InstantEffect, PermanentEffect*)>
+<!ELEMENT Requirement (Properties, CardNumber?)>
+
+<!ELEMENT Properties (Coins, Wood, Stone, Servants, MilitaryPoints, FaithPoints, VictoryPoints)>
+<!ELEMENT Coins EMPTY>
+<!ELEMENT Stone EMPTY>
+<!ELEMENT Wood EMPTY>
+<!ELEMENT Servants EMPTY>
+<!ELEMENT MiltaryPoints EMPTY>
+<!ELEMENT FaithPoints EMPTY>
+<!ELEMENT VictoryPoints EMPTY>
+
+
+<!ATTLIST Coins value CDATA "0">
+<!ATTLIST Stone value CDATA "0">
+<!ATTLIST Wood value CDATA "0">
+<!ATTLIST MiltaryPoints value CDATA "0">
+<!ATTLIST FaithPoints value CDATA "0">
+<!ATTLIST VictoryPoints value CDATA "0">

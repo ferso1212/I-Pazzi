@@ -30,6 +30,7 @@ import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.model.properties.PropertiesSet;
 import it.polimi.ingsw.ps21.model.properties.Property;
 
+// TODO implements signleton and factory for every effect
 public class MatchBuilder {
 	private final static Logger LOGGER = Logger.getLogger(MatchBuilder.class.getName());
 	private static File greenDeckFile;
