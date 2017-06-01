@@ -34,4 +34,16 @@ public class PropEffect extends Effect {
 		player.getProperties().increaseProperties(bonus);
 	}
 
+	@Override
+	public String getType() {
+		return new String(this.getClass().getName());
+	}
+
+	@Override
+	public String getDesc() {
+		String output= new String("You instantly acquire ");
+		output.concat(bonus.toString());
+		return output;
+	}
+
 }

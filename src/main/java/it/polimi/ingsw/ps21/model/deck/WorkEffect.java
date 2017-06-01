@@ -1,10 +1,11 @@
 package it.polimi.ingsw.ps21.model.deck;
 
 import it.polimi.ingsw.ps21.model.player.Player;
+
 /*
- * To be Implemented
+ * To be implemented
  */
-public class PropertiesBonus extends InstantLeaderEffect {
+public class WorkEffect extends PermanentLeaderEffect {
 
 	@Override
 	public void activate(Player player) {

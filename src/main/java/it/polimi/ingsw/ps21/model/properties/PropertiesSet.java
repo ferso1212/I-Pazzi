@@ -120,4 +120,22 @@ public class PropertiesSet implements Cloneable, Serializable{
 		}
 		return output;
 	}
+
+	/** Returns a string in the format: "value1 prop1name, value2 prop2name, value3 prop3name". Only properties with a value != 0 are reported in the string.
+	 * For example: "5 coins, 3 wood pieces, 7 coins"
+	 */
+	@Override
+	public String toString() {
+		String output= new String();
+		Property[] propsToScan= propertiesMap.values().toArray(new Property[0]);
+		for(int i=0; i<propsToScan.length; i++) 
+		{
+			if(propsToScan[i].getValue()!=0){//properties whose value is 0 are not reported in the string
+			output.concat(propsToScan[i].toString());
+			output.concat(", ");}
+		}
+		return output;
+	}
+	
+	
 }

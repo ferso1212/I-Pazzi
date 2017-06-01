@@ -119,4 +119,14 @@ public class Property implements Cloneable{
 			return null;
 		}
 	}
+
+	/**Returns a string in the format: "value prop_name", for example: "5 coins" or "7 wood pieces"
+	 *
+	 */
+	@Override
+	public String toString() {
+		return this.value + " " + this.id.toString();
+	}
+	
+	
 }
