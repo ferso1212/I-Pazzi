@@ -36,7 +36,7 @@ public class CardDiceEffect extends Effect {
 
 	@Override
 	public String getType() {
-		return new String("Modify action value when picking cards");
+		return new String(this.getClass().getName());
 	}
 
 	@Override

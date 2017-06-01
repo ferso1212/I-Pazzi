@@ -67,4 +67,9 @@ public ImmProperties clone()
 		return null;
 	}
 }
+
+public String toString()
+{
+	return properties.toString();
+}
 }

@@ -29,7 +29,7 @@ public class BlockTowerEffect extends Effect {
 
 	@Override
 	public String getDesc() {
-		return new String("You don’t take the bonuses when you take a Development Card from the towers (through a Family Member or as an effect of another card.)");
+		return new String("You don’t get the bonuses when you take a Development Card from the towers (through a Family Member or as an effect of another card.)");
 	}
 
 }

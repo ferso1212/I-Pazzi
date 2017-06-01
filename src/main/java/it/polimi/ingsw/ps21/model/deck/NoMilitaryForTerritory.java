@@ -18,5 +18,15 @@ public class NoMilitaryForTerritory extends PermanentLeaderEffect {
 		// TODO need a specific Modifier in player
 	}
 
+	@Override
+	public String getType() {
+		return new String(this.getClass().getName());
+	}
+
+
+	@Override
+	public String getDesc() {
+		return new String("You don't have to satisfy the Military Points requirement to pick a Territory Card");
+	}
 
 }

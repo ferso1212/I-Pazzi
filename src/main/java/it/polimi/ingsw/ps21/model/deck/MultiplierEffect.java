@@ -73,8 +73,7 @@ public class MultiplierEffect extends Effect {
 	}
 	@Override
 	public String getType() {
-		// TODO Auto-generated method stub
-		return null;
+		return new String(this.getClass().getName());
 	}
 	@Override
 	public String getDesc() {

@@ -10,8 +10,8 @@ public class DevCardData implements Serializable {
 	private String name;
 	private ArrayList<Requirement> requirementsInOr;
 	private int era;
-	private EffectData[] permanentEffects;
-	private EffectData[] instantEffects;
+	private SimultaneousEffectsSetData[] possiblePermanentEffects;
+	private SimultaneousEffectsSetData[] possibleInstantEffects;
 	private ImmProperties[] costsInOr;
 	
 
