@@ -1,22 +1,40 @@
 <!ELEMENT SubDeckGreen (TerritoryCard*)>
-<!ELEMENT TerritoryCard (InstantEffect, PermanentEffect*)>
+<!ELEMENT TerritoryCard (Requirement*, Cost*, InstantEffect, PermanentEffect*)>
+<!ELEMENT Requirement (Properties, CardsNumber)>
+<!ELEMENT Cost (Properties)>
 
-<!ELEMENT Requirement (Properties, CardNumber?)>
+<!ELEMENT InstantEffect (EffectSet)>
 
-<!ELEMENT Properties (Coins, Wood, Stone, Servants, MilitaryPoints, FaithPoints, VictoryPoints)>
+<!ELEMENT EffectSet (NullEffect?, PropEffect?, DiscountEffect?, CardDiceEffect?, BlockTowerEffect?, CouncilEffect?, MultiplierEffect?, PickAnotherCardEffect?, ExtraWorkEffect?)>
+
+<!ELEMENT PropEffect (Requirement, Properties)>
+<!ELEMENT NullEffect EMPTY>
+<!ELEMENT DiscountEffect (Requirement,Properties,Territroy?, Building?, Character?, Venture?) >
+<!ELEMENT BlockTowerEffect EMPTY>
+<!ELEMENT CouncilEffect EMPTY>
+<!ELEMENT MultiplierEffect EMPTY>
+<!ELEMENT ExtraWorkEffect (Building?, Territory?)>
+
+<!ELEMENT CardDiceEffect (Requirement,Territroy?, Building?) >
+
+<!ELEMENT PickAnotherCard (DevelopmentCardType?, DevelopmentCardType?, DevelopmentCardType?, DevelopmentCardType?)>
+
+<!ELEMENT Properties (Wood, Stones, Servants, Coins, MilitaryPoints, VictoryPoints, FaithPoints)>
 <!ELEMENT Coins EMPTY>
-<!ELEMENT Stone EMPTY>
+<!ELEMENT Stones EMPTY>
 <!ELEMENT Wood EMPTY>
 <!ELEMENT Servants EMPTY>
-<!ELEMENT MiltaryPoints EMPTY>
+<!ELEMENT MilitaryPoints EMPTY>
 <!ELEMENT FaithPoints EMPTY>
 <!ELEMENT VictoryPoints EMPTY>
 
-<!ELEMENT InstantEffect (PropEffect)>
+<!ELEMENT CardsNumber (Green, Yellow, Blue, Purple)>
+<!ELEMENT Green EMPTY>
+<!ELEMENT Yellow EMPTY>
+<!ELEMENT Blue EMPTY>
+<!ELEMENT Purple EMPTY>
 
-<!ELEMENT PermanentEffect (PropEffect*)>
-
-<!ELEMENT PropEffect (Requirement*, Properties)> 
+<!ELEMENT InstantEffect EMPTY>
 
 <!ATTLIST Coins value CDATA #REQUIRED>
 <!ATTLIST Stones value CDATA #REQUIRED>
@@ -30,7 +48,14 @@
 <!ATTLIST Yellow value CDATA #REQUIRED>
 <!ATTLIST Blue value CDATA #REQUIRED>
 <!ATTLIST Purple value CDATA #REQUIRED>
-<!ATTLIST TerritoryCard
+<!ATTLIST CharacterCard
 	name CDATA #REQUIRED
-	era CDATA #REQUIRED
-	diceRequirement CDATA #REQUIRED>
+	era CDATA #REQUIRED>
+
+<!ATTLIST PickAnotherCard diceValue CDATA #REQUIRED>
+
+<!ATTLIST CardDiceEffect diceValue CDATA #REQUIRED>
+<!ATTLIST CouncilEffect value CDATA #REQUIRED>
+<!ATTLIST CouncilEffect value CDATA #REQUIRED
+			factorType CDATA #REQUIRED>
+<!ATTLIST ExtraWorkEffect diceValue CDATA #REQUIRED>

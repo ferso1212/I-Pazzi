@@ -25,5 +25,13 @@ public class WorkBonus extends InstantLeaderEffect {
 		else modifier.setProductionModifier(modifier.getHarvMod() + value);
 
 	}
+	@Override
+	public String getType() {
+		return "WorkBonusEffect";
+	}
+	@Override
+	public String getDesc() {
+		return "This effect add a permanent bonus value of " + value + " on dice value for effect of " + type.toString() + " card";
+	}
 
 }
