@@ -3469,6 +3469,7 @@ layer=1</panel_attributes>
 --
 --
 + activate(player: Player): void
++ toString() : String;
 layer=1</panel_attributes>
     <additional_attributes/>
   </element>
@@ -3485,6 +3486,7 @@ layer=1</panel_attributes>
 -additionMalus: ImmProperties
 --
 + activate(player: Player): void
++ toString() : String
 layer=1</panel_attributes>
     <additional_attributes/>
   </element>
@@ -3502,6 +3504,7 @@ layer=1</panel_attributes>
 - malus: int
 --
 + activate(player: Player): void
++ toString() : String
 layer=1</panel_attributes>
     <additional_attributes/>
   </element>
@@ -3520,6 +3523,7 @@ layer=1</panel_attributes>
 - black: int
 --
 + activate(player: Player): void
++ toString() : String
 layer=1</panel_attributes>
     <additional_attributes/>
   </element>
@@ -3570,6 +3574,8 @@ layer=1</panel_attributes>
 - diceMalus: int
 --
 + activate(Player: player): void
++ toString() : String
+
 layer=1</panel_attributes>
     <additional_attributes/>
   </element>
@@ -3598,6 +3604,7 @@ layer=1</panel_attributes>
 - noMarketAction: boolean
 --
 + activate(player: Player): void
++ toString() : String
 layer=1</panel_attributes>
     <additional_attributes/>
   </element>
@@ -3627,6 +3634,7 @@ layer=1</panel_attributes>
 - noYellowPoints: boolean
 --
 + activate(player: Player): void
++ toString() : String
 layer=1</panel_attributes>
     <additional_attributes/>
   </element>
@@ -3647,6 +3655,7 @@ layer=1</panel_attributes>
 - vPointsReductionResDivisor: int
 --
 + activate(player: Player): void
++ toString() : String
 layer=1</panel_attributes>
     <additional_attributes/>
   </element>
@@ -4199,7 +4208,7 @@ layer=1</panel_attributes>
 -servantsForOne: int
 --
 + activate(Player: player): void
-
++ toString() : String
 layer=1</panel_attributes>
     <additional_attributes/>
   </element>
