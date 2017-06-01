@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps21.model.actions;
 
+import it.polimi.ingsw.ps21.controller.UnchosenException;
 import it.polimi.ingsw.ps21.model.board.Board;
 import it.polimi.ingsw.ps21.model.board.NotOccupableException;
 import it.polimi.ingsw.ps21.model.board.SingleTowerSpace;
@@ -8,6 +9,7 @@ import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.Player;
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
 
 /**
@@ -20,11 +22,11 @@ public class DevelopmentAction extends Action {
 	private FamilyMember famMember;
 	private int choosenCost;
 
-	public DevelopmentAction(Match match, Player player, SingleTowerSpace space, FamilyMember famMember,
-			Board board) {
-		super(match, player);
+	public DevelopmentAction(PlayerColor playerId, SingleTowerSpace space, FamilyMember famMember, int choosenCost) {
+		super(playerId);
 		this.space = space;
 		this.famMember = famMember;
+		this.choosenCost = choosenCost;
 	}
 
 	/**
@@ -35,15 +37,14 @@ public class DevelopmentAction extends Action {
 	 * @return boolean indicating whether the action is legal or not.
 	 */
 	@Override
-	public boolean isLegal() {
-		
-		if ((player.checkCardRequirements(space.getCard()))
-				&& (famMember.getValue() >= space.getDiceRequirement()) && space.isOccupable(player, famMember)
-				&& (!famMember.isUsed())) {
+	public boolean isLegal(Player player, Match match) {
+
+		if ((player.checkCardRequirements(space.getCard())) && (famMember.getValue() >= space.getDiceRequirement())
+				&& space.isOccupable(player, famMember) && (!famMember.isUsed())
+				&& (player.checkRequirement(player.getDeck().getAddingCardRequirement(space.getCard())))) {
 			return true;
 		}
-		return false;			
-		
+		return false;
 	}
 
 	/**
@@ -53,12 +54,10 @@ public class DevelopmentAction extends Action {
 	 * @return boolean indicating if the action has taken place correctly.
 	 */
 	@Override
-	public void execute() throws NotExecutableException, NotOccupableException, RequirementNotMetException, InsufficientPropsException{
+	public void execute(Player player, Match match) throws NotExecutableException, NotOccupableException, RequirementNotMetException,
+			InsufficientPropsException {
 
-		player.getDeck().addCard(space.getCard()); // aggiunta della carta al
-													// deck del player, potrebbe
-
-		this.match.getBoard().placeMember(player, famMember, space);
+		match.getBoard().placeMember(player, famMember, space);
 
 		if (!player.getFamily().useMember(famMember)) {
 			throw new NotExecutableException(); //
@@ -69,6 +68,35 @@ public class DevelopmentAction extends Action {
 		}
 
 		player.payCard(space.getCard().getCardType(), space.getCard().getCosts()[choosenCost]); // Player paga il costo della carta
+
+		DevelopmentCard selectedCard = space.getCard();
+
+		space.setCard(null); // rimuove carta dallo spazio-torre
+
+		player.getDeck().addCard(space.getCard()); // aggiunta della carta al
+													// deck del player, potrebbe
+
+		try {
+			selectedCard.getInstantEffect().activate(player);
+		} catch (UnchosenException e) {
+			System.out.println("Unchosen Requirement of Instant Effect");
+		}
+		
+		switch (selectedCard.getCardType()) {
+		case CHARACTER:
+		{
+			try
+			{
+				selectedCard.getPossibleEffects()[choosenCost].activate(player);
+			}catch (UnchosenException e){
+				System.out.println("Unchosen Requirement of Permanent Effect");
+			}
+		}
+			break;
+
+		default:
+			break;
+		}
 
 	}
 

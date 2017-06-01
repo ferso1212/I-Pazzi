@@ -4,6 +4,7 @@ import it.polimi.ingsw.ps21.model.board.NotOccupableException;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.Player;
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
 
 /**
@@ -12,15 +13,14 @@ import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
  * 
  **/
 public abstract class Action {
-	protected Match match;
-	protected Player player;
+	protected PlayerColor playerId;
 	
-	public Action(Match match, Player player){
-		this.match = match;
-		this.player = player;
+	public Action(PlayerColor playerId) {
+		super();
+		this.playerId = playerId;
 	}
+
+	public abstract boolean isLegal(Player player, Match match);
 	
-	public abstract boolean isLegal();
-	
-	public abstract void execute() throws NotExecutableException, NotOccupableException, RequirementNotMetException, InsufficientPropsException ;
+	public abstract void execute(Player player, Match match) throws NotExecutableException, NotOccupableException, RequirementNotMetException, InsufficientPropsException ;
 }
