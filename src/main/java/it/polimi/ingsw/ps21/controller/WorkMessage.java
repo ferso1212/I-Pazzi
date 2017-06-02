@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 
-import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerProperties;
 
 public class WorkMessage extends Message {
@@ -14,6 +13,7 @@ public class WorkMessage extends Message {
 	private PlayerProperties clonedPlayerProperties;
 
 	public WorkMessage(ArrayList<DevelopmentCard> choices, PlayerProperties clonedPlayerProperties) {
+		super();
 		// settare messaggio
 		this.choices = choices;
 		this.clonedPlayerProperties = clonedPlayerProperties;

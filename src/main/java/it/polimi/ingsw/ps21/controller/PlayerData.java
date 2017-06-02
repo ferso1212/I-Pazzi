@@ -27,23 +27,9 @@ public class PlayerData implements Serializable {
 	private ImmProperties tileProdBonus;
 	private int tileProdDiceReq;
 	private PlayerColor color;
-	private EnumMap<DevelopmentCardType, ArrayList<DevCardData>> cards;
+	private EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>> cards;
 	private ArrayList<LeaderCard> leaderCards;
 	
-	public PlayerData(EnumMap<PropertiesId, Integer> properties, ImmProperties tileHarvBonus,
-			int tileHarvDiceReq, ImmProperties tileProdBonus, int tileProdDiceReq, PlayerColor id,
-			EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>> cards, ArrayList<LeaderCard> leaderCards) {
-		super();
-		this.id = id;
-		this.properties = properties;
-		this.tileHarvBonus = tileHarvBonus;
-		this.tileHarvDiceReq = tileHarvDiceReq;
-		this.tileProdBonus = tileProdBonus;
-		this.tileProdDiceReq = tileProdDiceReq;
-		this.color = color;
-		//TODO : convert in DevCardData this.cards = cards;
-		this.leaderCards = leaderCards;
-	}
 	
 	public PlayerData(Player player) {
 		super();
