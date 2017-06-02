@@ -7,7 +7,6 @@ import java.util.EnumMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import it.polimi.ingsw.ps21.model.match.MatchBuilder;
 
 /**Set of properties.
  * 
@@ -17,6 +16,7 @@ import it.polimi.ingsw.ps21.model.match.MatchBuilder;
 public class PropertiesSet implements Cloneable, Serializable{
 
 	private final static Logger LOGGER = Logger.getLogger(PropertiesSet.class.getName());
+	
 	// maps each of the possible id values to the corresponding property
 	private EnumMap<PropertiesId, Property> propertiesMap;
 
