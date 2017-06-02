@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps21.model.effect;
 
 import it.polimi.ingsw.ps21.controller.UnchosenException;
+import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 

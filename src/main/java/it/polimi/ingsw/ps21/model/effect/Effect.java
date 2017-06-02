@@ -20,7 +20,7 @@ public abstract class Effect {
 		// return player.checkRequirement(req.getRequirement());
 	}
 	
-	public abstract void activate(Player player) throws UnchosenException;
+	public abstract ExtraAction activate(Player player) throws UnchosenException;
 	
 	public ImmProperties getCost()
 	{

@@ -9,5 +9,8 @@ public abstract class PermanentLeaderEffect extends LeaderEffect {
 		super(req, cost);
 	}
 
+	@Override
+	public void resetActivation(){		
+	}
 
 }

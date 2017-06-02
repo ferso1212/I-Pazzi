@@ -30,4 +30,6 @@ public class DoubleResources extends PermanentLeaderEffect {
 		return new String("Each time you receive a properties bonus from the instant effect of a development card, you receive the bonus twice.");
 	}
 
+
+
 }

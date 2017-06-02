@@ -1,11 +1,12 @@
-package it.polimi.ingsw.ps21.model.effect;
+package it.polimi.ingsw.ps21.model.deck;
 
-import it.polimi.ingsw.ps21.model.deck.Card;
-import it.polimi.ingsw.ps21.model.deck.Requirement;
+import it.polimi.ingsw.ps21.model.effect.LeaderEffect;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public abstract class LeaderCard extends Card {
+	
+	private boolean activated = false;
 	
 	protected LeaderEffect leaderEffect;
 	
@@ -17,14 +18,11 @@ public abstract class LeaderCard extends Card {
 	public LeaderEffect getEffect(){
 		return leaderEffect;
 	}
-	
-	public abstract void activate(Player player);
-
 	/**
 	 * @return the activated
 	 */
-	public boolean isActivated() {
-		return leaderEffect.isActivated();
+	public boolean isClonable() { // Use
+		return leaderEffect.isClonable();
 	}
 	
 	public abstract void resetActivation();
