@@ -24,7 +24,7 @@ public class PropEffect extends Effect {
 		return check;
 	}
 	@Override
-	public void activate(Player player) {
+	public ExtraAction activate(Player player) {
 		player.getProperties().increaseProperties(bonus);
 	}
 

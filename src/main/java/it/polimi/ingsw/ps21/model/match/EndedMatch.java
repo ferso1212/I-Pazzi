@@ -10,12 +10,21 @@ import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 
+/**
+ * This state calculate match winner and returns to view information on final classification on every player
+ * @author daniele
+ *
+ */
+
 public class EndedMatch extends Match {
 
 	public EndedMatch(Match finishedMatch){
 		super(finishedMatch);
-		
+		Map<Player, Integer> militaryBonus = calculateMilitaryWinner();
+		Map<Player, Integer> playerPositions = calculateWinner(militaryBonus); 
+
 	}
+	
 	@Override
 	public ExtraAction[] doAction(Action nextAction) {
 			return null;
@@ -66,5 +75,27 @@ public class EndedMatch extends Match {
 			}
 		}
 		return result;
+	}
+	
+	private Map<Player, Integer> calculateWinner(Map<Player, Integer> militaryBonus) {
+		Map<Player, Integer> result = new HashMap<>();
+		// Calculate value orders
+		int values[] = new int[players.size()];
+		for (int i=0; i<values.length; i++){
+			values[i]=0;
+		}
+		for (Player p: players.values()){
+			for (int j=0; j<values.length; j++)
+			 if (p.getFinalVictoryPoints(board.getTrackBonuses(), board.getCardBonus(), militaryBonus.get(p)) >= values[j]) 
+				 {
+				 	values[j] = p.getFinalVictoryPoints(board.getTrackBonuses(), board.getCardBonus(), militaryBonus.get(p));
+				  }
+		}
+		for(Player p:players.values()){
+			for (int j=0; j<values.length;j++)
+			if (p.getFinalVictoryPoints(board.getTrackBonuses(), board.getCardBonus(), militaryBonus.get(p)) == values[j]) 
+				result.put(p, j+1);
+		}
+		return null;
 	}
 }

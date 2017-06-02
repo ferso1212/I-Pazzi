@@ -66,8 +66,7 @@ public class FinalRoundMatch extends Match {
 			
 		}
 		for (Player p: players.values()){
-			// vatican Support
-			board.resetFaithPoints(p);			
+		
 		}
 		return new VaticanSupport(this);
 	}

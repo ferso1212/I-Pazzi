@@ -25,19 +25,6 @@ public class InitialRoundMatch extends Match {
 		period = period + 1;
 		round = 1;
 		throwDices();
-		Queue<FamilyMember> temp = board.getCouncilPalace().getOccupants();
-		ArrayList<Player> newOrder = new ArrayList<>();
-		for (FamilyMember f: temp){
-			Player player = players.get(f.getOwnerId());
-			if (newOrder.contains(player));
-			else newOrder.add(player);
-		}
-		order = new ArrayDeque<>();
-		for (int i=0; i<4; i++)
-		for ( int j = newOrder.size() -1 ; j>=0; i--){ // Crea l'ordine del nuovo round
-			order.add(newOrder.get(j));
-		}
-		board.newSetBoard(period);
 		notifyObservers();
 	}
 
