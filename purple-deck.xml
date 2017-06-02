@@ -1,0 +1,60 @@
+<?xml version="1.0" ?>
+<!DOCTYPE SubDeckPurple SYSTEM "purple-deck-schema.dtd">
+<SubDeckPurple>
+    <VentureCard name="Messo Papale" period="1">
+        <Requirement>
+            <Properties>
+                    <Wood value="0"/>
+                    <Stones value="0"/>
+                    <Servants value="0"/>
+                    <Coins value="0"/>
+                    <MilitaryPoints value="0"/>
+                    <VictoryPoints value="0"/>
+                    <FaithPoints value="0"/>
+            </Properties>
+	    <CardsNumber>
+                <Green value="0"/>
+		<Yellow value="0"/>                
+		<Blue value="0"/>           
+                <Purple value="0"/>
+            </CardsNumber>
+        </Requirement>
+ 	<Cost>
+         	<Properties>
+                    <Wood value="0"/>
+                    <Stones value="0"/>
+                    <Servants value="0"/>
+                    <Coins value="5"/>
+                    <MilitaryPoints value="0"/>
+                    <VictoryPoints value="0"/>
+                    <FaithPoints value="0"/>
+		</Properties>
+         </Cost>
+	<InstantEffect>
+		<EffectSet>
+			<PropEffect>
+			 <Cost>
+         			<Properties>
+            			        <Wood value="0"/>
+           			         <Stones value="0"/>
+           			         <Servants value="0"/>
+          			          <Coins value="5"/>
+          			          <MilitaryPoints value="0"/>
+          			          <VictoryPoints value="0"/>
+          			          <FaithPoints value="0"/>
+				</Properties>
+     			    </Cost>
+				<Properties>
+                    			<Wood value="0"/>
+                    			<Stones value="0"/>
+                    			<Servants value="0"/>
+                    			<Coins value="0"/>
+                    			<MilitaryPoints value="0"/>
+                    			<VictoryPoints value="0"/>
+                    			<FaithPoints value="3"/>
+				</Properties>
+			</PropEffect>
+		</EffectSet>	
+	</InstantEffect>
+    </VentureCard>
+</SubDeckPurple>
