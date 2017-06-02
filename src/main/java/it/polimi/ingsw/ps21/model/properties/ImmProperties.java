@@ -55,18 +55,6 @@ public ArrayList<PropertiesId> getPropertiesIds()
 	return output;
 }
 
-/**Performs a deep copy of the object.
- * 
- */
-public ImmProperties clone()
-{
-	try {
-		return (ImmProperties)(super.clone());
-	} catch (CloneNotSupportedException e) {
-		LOGGER.log(Level.SEVERE, "Clone failed", e);
-		return null;
-	}
-}
 
 /**Compares all the properties of this object with the properties' values in the object passed as argument.
  * If all the properties in this object have a value equal or greater than the value of the corresponding property in the object passed as argument, true is returned.
@@ -85,5 +73,21 @@ public boolean greaterOrEqual(ImmProperties propsToCompare)
 public String toString()
 {
 	return properties.toString();
+}
+
+/**Adds the values in this object to the ones in the object passed as argument and returns a new Immproperties object that contains the sum.
+ * @param addend the object that will be added
+ * @return a new ImmProperties object that contains the sum between this object and the object passed as argument
+ */
+public ImmProperties sum(ImmProperties addend)
+{
+	int[] sum= new int[this.getPropertiesIds().size()];
+	
+	int i=0;
+	for(PropertiesId propId: PropertiesId.values())
+	{
+		sum[i]=this.getPropertyValue(propId)+ addend.getPropertyValue(propId);
+	}
+	return new ImmProperties(sum);
 }
 }

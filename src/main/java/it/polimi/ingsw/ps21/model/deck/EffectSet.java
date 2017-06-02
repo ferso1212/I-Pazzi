@@ -34,13 +34,18 @@ public class EffectSet {
 			return (String[]) temp.toArray();
 		}
 		
+		/**Returns the total cost to activate all the effects in the set.
+		 * 
+		 * @return an immutable object that contains the properties costs of all the effects in the set.
+		 */
 		public ImmProperties getTotalCost()
 		{
-			int[] costs= new int[PropertiesId.values().length];
+			ImmProperties totalCost=new ImmProperties();
 			for(Effect e: this.simultaneousEffects)
 			{
-				
+				totalCost=totalCost.sum(e.getCost());
 			}
+			return totalCost;
 		}
 
 	}
