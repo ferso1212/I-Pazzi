@@ -6,7 +6,7 @@
 <!ELEMENT EffectSet (NullEffect?, PropEffect?, DiscountEffect?, CardDiceEffect?, BlockTowerEffect?, CouncilEffect?, MultiplierEffect?, PickAnotherCardEffect?, ExtraWorkEffect?)>
 <!ELEMENT PropEffect (Cost, Properties)>
 <!ELEMENT NullEffect EMPTY>
-<!ELEMENT DiscountEffect (Cost,Properties,Territroy?, Building?, Character?, Venture?) >
+<!ELEMENT DiscountEffect (Cost,Properties,Territory?, Building?, Character?, Venture?) >
 <!ELEMENT BlockTowerEffect EMPTY>
 <!ELEMENT CouncilEffect EMPTY>
 <!ELEMENT MultiplierEffect EMPTY>

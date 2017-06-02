@@ -64,13 +64,7 @@ public class EndedMatch extends Match {
 				else if ( j== 1 && numWinners<2) result.put(p, 2);
 					else result.put(p, j+1);
 			}
-			else if (p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue() == secondValue && numWinners < 2)
-			{
-				
-			}
-			
 		}
 		return result;
 	}
-
 }
