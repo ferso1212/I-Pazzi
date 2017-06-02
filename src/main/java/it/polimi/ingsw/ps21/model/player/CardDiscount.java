@@ -32,6 +32,6 @@ public class CardDiscount {
 	public CardDiscount()
 	{
 		this.diceDiscount=0;
-		this.propDiscounts=new PropertiesSet();
+		this.propDiscounts=new PropertiesSet(0);
 	}
 }
