@@ -26,7 +26,6 @@ public class PlayerData implements Serializable {
 	private int tileHarvDiceReq;
 	private ImmProperties tileProdBonus;
 	private int tileProdDiceReq;
-	private PlayerColor color;
 	private EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>> cards;
 	
 	
@@ -56,5 +55,79 @@ public class PlayerData implements Serializable {
 		}
 		
 	}
+
+
+	/**Returns the player's id, which is also used to identify the player among the others
+	 * @return the player color (used also as id)
+	 */
+	public PlayerColor getId() {
+		return id;
+	}
+
+
+	/**Returns a map containing the values of the properties of the player.
+	 * @return a map containing the values of the properties of the player.
+	 */
+	public EnumMap<PropertiesId, Integer> getProperties() {
+		return properties;
+	}
+	
+	/**Returns the value of the selected property of the player.
+	 * 
+	 * @param propId the chosen property
+	 * @return the value of the chosen property
+	 */
+	public int getPropertyValue(PropertiesId propId)
+	{
+		return this.properties.get(propId);
+	}
+	
+	/**Returns the bonus provided by the personal tile when a harvest action is performed
+	 * 
+	 * @return the bonus
+	 */
+	public ImmProperties getTileHarvBonus() {
+		return tileHarvBonus;
+	}
+
+
+	/**Returns the action value needed to receive the tile bonus when an harvest action is performed.
+	 * 
+	 * @return the dice requirement
+	 */
+	public int getTileHarvDiceReq() {
+		return tileHarvDiceReq;
+	}
+
+
+	/**Returns the bonus provided by the personal tile when a production action is performed
+	 * 
+	 * @return the bonus
+	 */
+	public ImmProperties getTileProdBonus() {
+		return tileProdBonus;
+	}
+
+
+	/**Returns the action value needed to receive the tile bonus when a production action is performed.
+	 * 
+	 * @return the dice requirement
+	 */
+	public int getTileProdDiceReq() {
+		return tileProdDiceReq;
+	}
+
+
+	/**Returns the map containing all the development cards of the player
+	 * 
+	 * @return a map with all the cards belonging to the player
+	 */
+	public EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>> getCards() {
+		return cards;
+	}
+	
+	
+	
+	
 	
 }

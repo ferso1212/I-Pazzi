@@ -3,6 +3,7 @@ package it.polimi.ingsw.ps21.model.player;
 import java.util.*;
 import it.polimi.ingsw.ps21.model.actions.ActionType;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
+import it.polimi.ingsw.ps21.model.board.TrackBonuses;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.IllegalCardTypeException;
@@ -246,6 +247,10 @@ public class Player {
 		return devCards;
 	}
 
-	
+	public int getFinalVictoryPoints(TrackBonuses trackBonuses, Map<DevelopmentCardType, int[]> cardBonuses, int militaryTrackPlacement)
+	{
+		//TODO
+		return 0; //stub
+	}
 	
 }
