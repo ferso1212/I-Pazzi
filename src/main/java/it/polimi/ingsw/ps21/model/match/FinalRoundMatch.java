@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.model.actions.Action;
+import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.NotExecutableException;
 import it.polimi.ingsw.ps21.model.board.NotOccupableException;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
@@ -28,20 +29,20 @@ public class FinalRoundMatch extends Match {
 		throwDices();
 		// TODO Auto-generated constructor stub
 	}
+	
 	@Override
-	public Match makeAction(Action nextAction)  {
-		// if (nextAction.isLegal())
-				try {
-					nextAction.execute();
+	public ExtraAction doAction(Action nextAction)  {
+		ExtraAction extraAction = new NullAction();
+		try {
+					extraAction = nextAction.execute(order.element(),this);
 				} catch (NotExecutableException | NotOccupableException | RequirementNotMetException| InsufficientPropsException e) {
 					LOGGER.log(Level.WARNING, "Not activable action", e);
-					return this;
+					
 				}
-				order.poll();
 				notifyObservers();
-				if (order.isEmpty()) return nextState();
-				else return this;
+				return extraAction;
 	}
+
 
 	private Match nextState() {
 		for (int i=0; i<4; i++){
@@ -59,8 +60,21 @@ public class FinalRoundMatch extends Match {
 	}
 	@Override
 	public Match getCopy() throws CloneNotSupportedException {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
+	}
+	@Override
+	public Match setNextPlayer() {
+		for (int i=0; i<4; i++){
+			for (FamilyMember p: board.getCouncilPalace().getOccupants())
+			{
+				// TODO need a method that return playerOrder in councilPalace
+			}
+			
+		}
+		for (Player p: players.values()){
+			board.resetFaithPoints(p);			
+		}
+		return new InitialRoundMatch(this);
 	}
 
 }

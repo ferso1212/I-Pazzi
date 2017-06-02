@@ -22,7 +22,7 @@ public class CharacterCard extends DevelopmentCard {
 
 	@Override
 	public DevelopmentCard clone() {
-		return new CharacterCard(name, cardEra, (Requirement[])possibleRequirement.toArray(),(ImmProperties []) costs.toArray(), instantEffect,(EffectSet[]) permanentEffects.toArray());
+		return new CharacterCard(name, cardEra, possibleRequirement.toArray(new Requirement[0]), costs.toArray(new ImmProperties [0]), instantEffect, permanentEffects.toArray(new EffectSet[0]));
 	}
 }
  

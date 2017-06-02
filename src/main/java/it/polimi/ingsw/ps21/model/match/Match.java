@@ -13,7 +13,9 @@ import java.util.Random;
 import java.util.Vector;
 
 import it.polimi.ingsw.ps21.model.actions.Action;
+import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.board.Board;
+import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
@@ -28,6 +30,7 @@ public abstract class Match extends Observable {
 	protected ArrayList<Observer> observers;
 	protected EnumMap<PlayerColor, Player> players;
 	protected Queue<Player> order;
+	protected Round currentRound;
 	protected Board board;
 	protected int orangeDice;
 	protected int blackDice;
@@ -58,13 +61,13 @@ public abstract class Match extends Observable {
 		observers.add(o);
 	}
 	
-	
 	public void throwDices(){
 		Random generator = new Random();
 		orangeDice = (int) generator.nextInt(5) + 1;
 		blackDice = (int) generator.nextInt(5) + 1;
 		whiteDice = (int) generator.nextInt(5) + 1;
 	}
+
 	
 	public Board getBoard() {
 		return board;
@@ -76,17 +79,15 @@ public abstract class Match extends Observable {
 	 */
 	
 	public Player getCurrentPlayer(){
-		return order.element();
+		return order.peek();
 	}
 	
-	public abstract Match makeAction(Action nextAction) throws MatchException;
+	public abstract ExtraAction doAction(Action action);
 	
-	public abstract Match getCopy() throws CloneNotSupportedException;
+	public abstract Match setNextPlayer(); 
 
-	/**
-	 * 
-	 * @return first value = orangeDice, second value = blackDice, third value = whiteDice 
-	 */
+	public abstract Match getCopy() throws CloneNotSupportedException;
+	
 	public int[] getDices() {
 		int returnValues[] = new int[3];
 		returnValues[0] = orangeDice;
@@ -94,8 +95,6 @@ public abstract class Match extends Observable {
 		returnValues[2] = whiteDice;
 		return returnValues;
 	 }
-	public void update(){
-		
-	}
+	
 }
 	
