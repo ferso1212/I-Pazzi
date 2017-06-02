@@ -50,7 +50,7 @@ public class CardBuilder {
 			EffectBuilder effectBuilder = EffectBuilder.instance();
 			NamedNodeMap cardAttributes = cardNode.getAttributes();
 			String cardName = cardAttributes.getNamedItem("name").getNodeValue();
-			int cardEra = Integer.parseInt(cardAttributes.getNamedItem("era").getNodeValue());
+			int cardEra = Integer.parseInt(cardAttributes.getNamedItem("period").getNodeValue());
 			int diceReq = 0;
 			if (cardType == DevelopmentCardType.BUILDING || cardType == DevelopmentCardType.TERRITORY) 			
 				 diceReq = Integer.parseInt(cardAttributes.getNamedItem("diceRequirement").getNodeValue());
@@ -88,13 +88,13 @@ public class CardBuilder {
 					return new TerritoryCard(cardName, cardEra, diceReq, instantEffect, new EffectSet((PropEffect []) permanentEffects.toArray(new PropEffect[0])));				
 				else 
 					if (cardType == DevelopmentCardType.CHARACTER)
-						return new CharacterCard(cardName, cardEra, (Requirement []) cardReq.toArray(new Requirement[0]), (ImmProperties []) cardCosts.toArray(new ImmProperties[0]), instantEffect,
-								new EffectSet( (Effect[] )permanentEffects.toArray()));
+						return new CharacterCard(cardName, cardEra, cardReq.toArray(new Requirement[0]), cardCosts.toArray(new ImmProperties[0]), instantEffect,
+								new EffectSet(permanentEffects.toArray(new Effect[0])));
 					else
 						if (cardType == DevelopmentCardType.VENTURE)
-							return new VentureCard(cardName, cardEra, (Requirement []) cardReq.toArray(new Requirement[0]), (ImmProperties []) cardCosts.toArray(new ImmProperties[0]),instantEffect, permanentEffects.get(0));
+							return new VentureCard(cardName, cardEra, cardReq.toArray(new Requirement[0]), cardCosts.toArray(new ImmProperties[0]),instantEffect, permanentEffects.get(0));
 						else
-							return new BuildingCard(cardName, cardEra, (Requirement []) cardReq.toArray(), (ImmProperties []) cardCosts.toArray(), diceReq, instantEffect, (EffectSet []) permanentEffects.toArray());
+							return new BuildingCard(cardName, cardEra, cardReq.toArray(new Requirement [0]), cardCosts.toArray(new ImmProperties [0]), diceReq, instantEffect, permanentEffects.toArray(new EffectSet[0]));
 			}
 				catch (XMLParseException x) {
 					throw new BuildingCardException();
@@ -105,7 +105,7 @@ public class CardBuilder {
 			EffectBuilder effectBuilder = EffectBuilder.instance();
 			NamedNodeMap cardAttributes = cardNode.getAttributes();
 			String cardName = cardAttributes.getNamedItem("name").getNodeValue();
-			int cardEra = Integer.parseInt(cardAttributes.getNamedItem("era").getNodeValue());
+			int cardEra = Integer.parseInt(cardAttributes.getNamedItem("period").getNodeValue());
 			int diceReq = Integer.parseInt(cardAttributes.getNamedItem("diceRequirement").getNodeValue());
 			// To be implemented
 			ArrayList<Effect> instantEffect = new ArrayList<>();
@@ -126,7 +126,7 @@ public class CardBuilder {
 						}
 					}
 				}
-			return new TerritoryCard(cardName, cardEra, diceReq, new EffectSet(instantEffect.get(0)), new EffectSet((PropEffect []) permanentEffects.toArray(new PropEffect[0])));
+			return new TerritoryCard(cardName, cardEra, diceReq, new EffectSet(instantEffect.get(0)), new EffectSet(permanentEffects.toArray(new PropEffect[0])));
 			}
 				/* catch (XMLParseException x) {
 					throw new BuildingCardException();

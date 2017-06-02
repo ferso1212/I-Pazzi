@@ -110,14 +110,14 @@ public class SubDeck<T extends DevelopmentCard> {
 		clonedCards.addAll(firstEra);
 		clonedCards.addAll(secondEra);
 		clonedCards.addAll(thirdEra);
-		for (T c: clonedCards){
+		for (T c: clonedCards)
 			try {
-				clone.addCard((T) c.clone());
+				clone.addCard((T)c);
 			} catch (IllegalCardException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
-		return clone();
+		return clone;
 	}
 	
 }

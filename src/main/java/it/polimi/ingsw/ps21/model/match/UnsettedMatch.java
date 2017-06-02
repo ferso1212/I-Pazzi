@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
-import java.util.Vector;
-
 import javax.xml.parsers.ParserConfigurationException;
 
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
-import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.model.actions.Action;
+import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.player.Player;
 
 public class UnsettedMatch extends Match {
@@ -62,11 +60,15 @@ public class UnsettedMatch extends Match {
 	}
 	
 	
+
 	@Override
-	public Match makeAction(Action nextAction) {
+	public ExtraAction doAction(Action action) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Match setNextPlayer() {
 		return this;
 	}
-	
-	
 
 }

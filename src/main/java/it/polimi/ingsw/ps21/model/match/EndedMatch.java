@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Observer;
 
 import it.polimi.ingsw.ps21.model.actions.Action;
+import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 
 public class EndedMatch extends Match {
 
@@ -11,8 +12,8 @@ public class EndedMatch extends Match {
 		super(finishedMatch);
 	}
 	@Override
-	public Match makeAction(Action nextAction) throws MatchException {
-			throw new MatchException();
+	public ExtraAction doAction(Action nextAction) {
+			return new NullAction();
 	}
 
 	@Override
@@ -26,6 +27,10 @@ public class EndedMatch extends Match {
 		}
 		// TODO clone other variables
 		return clone;
+	}
+	@Override
+	public Match setNextPlayer(){
+		return this;
 	}
 
 }

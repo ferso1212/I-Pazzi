@@ -25,10 +25,10 @@ import it.polimi.ingsw.ps21.model.deck.VentureCard;
 public class MatchFactory {
 	private final static Logger LOGGER = Logger.getLogger(MatchFactory.class.getName());
 	private static MatchFactory instance = null;
-	private final String greenPath = "green-deck.xml";
-	private final String yellowPath = "yellow-deck.xml";
-	private final String bluePath = "blue-deck.xml";
-	private	final String purplePath = "purple-deck.xml";
+	private final String greenPath = (new File("")).getAbsolutePath().concat("/green-deck.xml").toString();
+	private final String yellowPath = (new File("")).getAbsolutePath().concat("/yellow-deck.xml").toString();
+	private final String bluePath = (new File("")).getAbsolutePath().concat("/blue-deck.xml").toString();
+	private	final String purplePath = (new File("")).getAbsolutePath().concat("/purple-deck.xml").toString();
 	private DocumentBuilder builder;
 	private Deck configuratedDeck;
 	/**
@@ -85,7 +85,7 @@ public class MatchFactory {
 		for (int i=0; i< greenCards.getLength(); i++)
 		{
 			Node cardNode = greenCards.item(i);
-				if (cardNode.getNodeType() == cardNode.ELEMENT_NODE)
+				if (cardNode.getNodeType() == Node.ELEMENT_NODE)
 					try {
 						result.addCard((TerritoryCard) cardFactory.makeDevelopmentCard((Element) cardNode, DevelopmentCardType.TERRITORY));
 						} catch (BuildingCardException c) {
@@ -124,7 +124,7 @@ public class MatchFactory {
 		for (int i=0; i< blueCards.getLength(); i++)
 		{
 			Node cardNode = blueCards.item(i);
-				if (cardNode.getNodeType() == cardNode.ELEMENT_NODE)
+				if (cardNode.getNodeType() == Node.ELEMENT_NODE)
 					try {
 					result.addCard((CharacterCard) cardFactory.makeDevelopmentCard((Element) cardNode, DevelopmentCardType.CHARACTER));
 				} catch (BuildingCardException c) {
@@ -163,7 +163,7 @@ public class MatchFactory {
 		for (int i=0; i< blueCards.getLength(); i++)
 		{
 			Node cardNode = blueCards.item(i);
-				if (cardNode.getNodeType() == cardNode.ELEMENT_NODE)
+				if (cardNode.getNodeType() == Node.ELEMENT_NODE)
 					try {
 					result.addCard((BuildingCard) cardFactory.makeDevelopmentCard((Element) cardNode, DevelopmentCardType.BUILDING));
 				} catch (BuildingCardException c) {
@@ -202,7 +202,7 @@ public class MatchFactory {
 		for (int i=0; i< blueCards.getLength(); i++)
 		{
 			Node cardNode = blueCards.item(i);
-				if (cardNode.getNodeType() == cardNode.ELEMENT_NODE)
+				if (cardNode.getNodeType() == Node.ELEMENT_NODE)
 					try {
 					result.addCard((VentureCard) cardFactory.makeDevelopmentCard((Element) cardNode, DevelopmentCardType.VENTURE));
 				} catch (BuildingCardException c) {

@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
-<!DOCTYPE SubDeckGreen SYSTEM "green-deck-schema.dtd">
-<SubDeckGreen>
-    <TerritoryCard name="Messo Papale" period="1" diceRequirement="3">
+<!DOCTYPE SubDeckYellow SYSTEM "yellow-deck-schema.dtd">
+<SubDeckYellow>
+    <BuildingCard name="Messo Papale" period="1" diceRequirement="2">
         <Requirement>
             <Properties>
                     <Wood value="0"/>
@@ -56,5 +56,5 @@
 			</PropEffect>
 		</EffectSet>	
 	</InstantEffect>
-    </TerritoryCard>
-</SubDeckGreen>
+    </BuildingCard>
+</SubDeckYellow>
