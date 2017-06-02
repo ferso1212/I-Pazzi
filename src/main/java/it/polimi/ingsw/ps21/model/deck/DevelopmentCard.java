@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import it.polimi.ingsw.ps21.controller.UnchosenException;
+import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 

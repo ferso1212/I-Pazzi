@@ -1,5 +1,8 @@
 package it.polimi.ingsw.ps21.model.actions;
 
+import it.polimi.ingsw.ps21.controller.CostChoice;
+import it.polimi.ingsw.ps21.controller.Message;
+import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.controller.UnchosenException;
 import it.polimi.ingsw.ps21.model.board.Board;
 import it.polimi.ingsw.ps21.model.board.NotOccupableException;
@@ -20,13 +23,12 @@ public class DevelopmentAction extends Action {
 
 	private SingleTowerSpace space;
 	private FamilyMember famMember;
-	private int choosenCost;
+	private CostChoice choosenCost;
 
-	public DevelopmentAction(PlayerColor playerId, SingleTowerSpace space, FamilyMember famMember, int choosenCost) {
+	public DevelopmentAction(PlayerColor playerId, SingleTowerSpace space, FamilyMember famMember) {
 		super(playerId);
 		this.space = space;
 		this.famMember = famMember;
-		this.choosenCost = choosenCost;
 	}
 
 	/**
@@ -37,14 +39,15 @@ public class DevelopmentAction extends Action {
 	 * @return boolean indicating whether the action is legal or not.
 	 */
 	@Override
-	public boolean isLegal(Player player, Match match) {
+	public Message isLegal(Player player, Match match) {
 
 		if ((player.checkCardRequirements(space.getCard())) && (famMember.getValue() >= space.getDiceRequirement())
 				&& space.isOccupable(player, famMember) && (!famMember.isUsed())
-				&& (player.checkRequirement(player.getDeck().getAddingCardRequirement(space.getCard())))) {
-			return true;
+				&& (player.checkRequirement(player.getDeck().getAddingCardRequirement(space.getCard())))
+				&& (player.getProperties().getPayableCosts(space.getCard().getCosts()).size() > 0)) {
+			return new CostChoice(player.getProperties().getPayableCosts(space.getCard().getCosts()));
 		}
-		return false;
+		return new RefusedAction();		
 	}
 
 	/**
@@ -54,8 +57,8 @@ public class DevelopmentAction extends Action {
 	 * @return boolean indicating if the action has taken place correctly.
 	 */
 	@Override
-	public void execute(Player player, Match match) throws NotExecutableException, NotOccupableException, RequirementNotMetException,
-			InsufficientPropsException {
+	public void execute(Player player, Match match) throws NotExecutableException, NotOccupableException,
+			RequirementNotMetException, InsufficientPropsException {
 
 		match.getBoard().placeMember(player, famMember, space);
 
@@ -64,10 +67,23 @@ public class DevelopmentAction extends Action {
 		}
 
 		if (!player.getModifiers().getActionMods().noPlacementBonus()) {
-			player.getProperties().increaseProperties(space.getInstantBonus()); // Aggiungi le risorse dell'instant-bonus dello space, se è permesso
+			player.getProperties().increaseProperties(space.getInstantBonus()); // Aggiungi
+																				// le
+																				// risorse
+																				// dell'instant-bonus
+																				// dello
+																				// space,
+																				// se
+																				// è
+																				// permesso
 		}
 
-		player.payCard(space.getCard().getCardType(), space.getCard().getCosts()[choosenCost]); // Player paga il costo della carta
+		player.payCard(space.getCard().getCardType(), space.getCard().getCosts()[choosenCost]); // Player
+																								// paga
+																								// il
+																								// costo
+																								// della
+																								// carta
 
 		DevelopmentCard selectedCard = space.getCard();
 
@@ -81,14 +97,12 @@ public class DevelopmentAction extends Action {
 		} catch (UnchosenException e) {
 			System.out.println("Unchosen Requirement of Instant Effect");
 		}
-		
+
 		switch (selectedCard.getCardType()) {
-		case CHARACTER:
-		{
-			try
-			{
+		case CHARACTER: {
+			try {
 				selectedCard.getPossibleEffects()[choosenCost].activate(player);
-			}catch (UnchosenException e){
+			} catch (UnchosenException e) {
 				System.out.println("Unchosen Requirement of Permanent Effect");
 			}
 		}

@@ -1,7 +1,8 @@
 package it.polimi.ingsw.ps21.model.player;
 
 import java.util.ArrayList;
-import it.polimi.ingsw.ps21.model.deck.LeaderCard;
+
+import it.polimi.ingsw.ps21.model.effect.LeaderCard;
 
 
 public class AdvancedPlayer extends Player {

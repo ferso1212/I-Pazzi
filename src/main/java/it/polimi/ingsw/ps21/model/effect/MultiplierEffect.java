@@ -1,6 +1,9 @@
-package it.polimi.ingsw.ps21.model.deck;
+package it.polimi.ingsw.ps21.model.effect;
 
 
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
+import it.polimi.ingsw.ps21.model.deck.MultiplierType;
+import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
@@ -12,8 +15,8 @@ public class MultiplierEffect extends Effect {
 	
 	private int secondFactorValue;
 	
-	public MultiplierEffect(Requirement reqs[], ImmProperties bonus, MultiplierType secondFactorType, int secondFactorValue ){
-		super(reqs);
+	public MultiplierEffect(ImmProperties cost, ImmProperties bonus, MultiplierType secondFactorType, int secondFactorValue ){
+		super(cost);
 		bonusProperties = bonus;
 		this.secondFactorType = secondFactorType;
 		this.secondFactorValue = secondFactorValue;

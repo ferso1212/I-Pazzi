@@ -6,12 +6,12 @@
 <!ELEMENT EffectSet (NullEffect?, PropEffect?, DiscountEffect?, CardDiceEffect?, BlockTowerEffect?, CouncilEffect?, MultiplierEffect?, PickAnotherCardEffect?, ExtraWorkEffect?)>
 <!ELEMENT PropEffect (Cost, Properties)>
 <!ELEMENT NullEffect EMPTY>
-<!ELEMENT DiscountEffect (Requirement,Properties,Territroy?, Building?, Character?, Venture?) >
+<!ELEMENT DiscountEffect (Cost,Properties,Territory?, Building?, Character?, Venture?) >
 <!ELEMENT BlockTowerEffect EMPTY>
 <!ELEMENT CouncilEffect EMPTY>
 <!ELEMENT MultiplierEffect EMPTY>
 <!ELEMENT ExtraWorkEffect (Building?, Territory?)>
-<!ELEMENT CardDiceEffect (Requirement,Territroy?, Building?) >
+<!ELEMENT CardDiceEffect (Cost,Territory?, Building?) >
 <!ELEMENT PickAnotherCard (DevelopmentCardType?, DevelopmentCardType?, DevelopmentCardType?, DevelopmentCardType?)>
 <!ELEMENT Properties (Wood, Stones, Servants, Coins, MilitaryPoints, VictoryPoints, FaithPoints)>
 <!ELEMENT Coins EMPTY>

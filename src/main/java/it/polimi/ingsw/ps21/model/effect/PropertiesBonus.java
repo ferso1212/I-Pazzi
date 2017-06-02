@@ -1,16 +1,15 @@
-package it.polimi.ingsw.ps21.model.deck;
+package it.polimi.ingsw.ps21.model.effect;
 
 import it.polimi.ingsw.ps21.model.player.Player;
-
 /*
- * To be implemented
+ * To be Implemented
  */
-
-public class MemberBonus extends InstantLeaderEffect {
+public class PropertiesBonus extends InstantLeaderEffect {
 
 	@Override
 	public void activate(Player player) {
-		// To be implemented
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override

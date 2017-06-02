@@ -10,10 +10,10 @@ import it.polimi.ingsw.ps21.controller.EffectChoice;
 import it.polimi.ingsw.ps21.controller.UnacceptedChooser;
 import it.polimi.ingsw.ps21.model.deck.CardsNumber;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
-import it.polimi.ingsw.ps21.model.deck.DiscountEffect;
-import it.polimi.ingsw.ps21.model.deck.PropEffect;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.deck.TooManyArgumentException;
+import it.polimi.ingsw.ps21.model.effect.DiscountEffect;
+import it.polimi.ingsw.ps21.model.effect.PropEffect;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.Chooser;
 

@@ -3,6 +3,8 @@ package it.polimi.ingsw.ps21.controller;
 import java.util.ArrayList;
 
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
+
+import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerProperties;
 
 public class WorkMessage extends Message{

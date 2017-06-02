@@ -1,5 +1,6 @@
-package it.polimi.ingsw.ps21.model.deck;
+package it.polimi.ingsw.ps21.model.effect;
 
+import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.player.Player;
 
 public abstract class PermanentLeaderCard extends LeaderCard {
@@ -10,10 +11,9 @@ public abstract class PermanentLeaderCard extends LeaderCard {
 		super(name, reqs, (Effect) perm);
 	}
 
-	@Override
-	public Effect getEffect() {
-		return this.permanentEffect;
+	public abstract void activate(Player player);
+	
+	public void resetActivation(){
 	}
 
-	public abstract void activate(Player player);
 }
