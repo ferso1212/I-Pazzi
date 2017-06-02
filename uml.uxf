@@ -115,13 +115,13 @@
     <id>Relation</id>
     <coordinates>
       <x>1602</x>
-      <y>2520</y>
+      <y>2526</y>
       <w>420</w>
-      <h>42</h>
+      <h>36</h>
     </coordinates>
     <panel_attributes>lt=-
 </panel_attributes>
-    <additional_attributes>10.0;50.0;10.0;30.0;680.0;30.0;680.0;40.0</additional_attributes>
+    <additional_attributes>10.0;40.0;10.0;20.0;680.0;20.0;680.0;30.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -189,25 +189,25 @@
     <id>Relation</id>
     <coordinates>
       <x>1392</x>
-      <y>2670</y>
+      <y>2676</y>
       <w>420</w>
-      <h>60</h>
+      <h>54</h>
     </coordinates>
     <panel_attributes>lt=-
 </panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;30.0;680.0;30.0;680.0;80.0</additional_attributes>
+    <additional_attributes>10.0;60.0;10.0;20.0;680.0;20.0;680.0;70.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>1524</x>
-      <y>2670</y>
+      <y>2676</y>
       <w>162</w>
-      <h>60</h>
+      <h>54</h>
     </coordinates>
     <panel_attributes>lt=-
 </panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;30.0;250.0;30.0;250.0;80.0</additional_attributes>
+    <additional_attributes>10.0;60.0;10.0;20.0;250.0;20.0;250.0;70.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -240,13 +240,13 @@
     <id>Relation</id>
     <coordinates>
       <x>1980</x>
-      <y>2646</y>
+      <y>2652</y>
       <w>240</w>
-      <h>54</h>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=-
 </panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;30.0;380.0;30.0;380.0;70.0</additional_attributes>
+    <additional_attributes>10.0;60.0;10.0;20.0;380.0;20.0;380.0;60.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -266,9 +266,9 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1836</x>
+      <x>1812</x>
       <y>2946</y>
-      <w>174</w>
+      <w>198</w>
       <h>114</h>
     </coordinates>
     <panel_attributes>/Effect/
@@ -278,7 +278,7 @@
 
 --
 + getCost(): ImmProperties
-+ activate(player :Player) :void
++ activate(player :Player) :ExtraAction
 + isActivable(player: Player): boolean
 + getType(): String
 + getDescription(): String
@@ -380,13 +380,13 @@
     <id>Relation</id>
     <coordinates>
       <x>2052</x>
-      <y>3078</y>
+      <y>3084</y>
       <w>186</w>
-      <h>108</h>
+      <h>102</h>
     </coordinates>
     <panel_attributes>lt=-
 </panel_attributes>
-    <additional_attributes>10.0;160.0;10.0;30.0;290.0;30.0;290.0;160.0</additional_attributes>
+    <additional_attributes>10.0;150.0;10.0;20.0;290.0;20.0;290.0;150.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -464,20 +464,20 @@
     <coordinates>
       <x>1392</x>
       <y>2814</y>
-      <w>456</w>
+      <w>432</w>
       <h>246</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m1=1
 m2=0...</panel_attributes>
-    <additional_attributes>740.0;380.0;360.0;380.0;360.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>700.0;380.0;360.0;380.0;360.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>1698</x>
       <y>2598</y>
-      <w>210</w>
+      <w>204</w>
       <h>210</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -490,7 +490,7 @@ m2=1...2</panel_attributes>
     <coordinates>
       <x>1980</x>
       <y>2580</y>
-      <w>702</w>
+      <w>696</w>
       <h>282</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -587,7 +587,7 @@ m2=1
     <coordinates>
       <x>1800</x>
       <y>2382</y>
-      <w>42</w>
+      <w>36</w>
       <h>54</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
@@ -848,7 +848,7 @@ m2=1</panel_attributes>
       <x>168</x>
       <y>882</y>
       <w>174</w>
-      <h>96</h>
+      <h>90</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=1
@@ -879,7 +879,7 @@ m2=1</panel_attributes>
     </coordinates>
     <panel_attributes>/Match/
 --
-
+# poolExtraAction :Queue&lt;ExtraAction&gt;
 # board: Board
 # players :EnumMap&lt;PlayerColor, Player&gt;
 # playersActionOrder: Queue&lt;Player&gt;
@@ -900,14 +900,14 @@ m2=1</panel_attributes>
 + work(player: Player, member: MembersColor, space: Space, servants: int): void
 + activateCards(player: Player, cards: DevelopmentCard[]): void
 //la activateWorkCards riceve le carte territorio/palazzo attivabili dalla getWorkCards() e ne attiva gli effetti permanenti
-+ doAction(action: Action): Match
++ doAction(action: Action):ExtraAction
 //doAction() should check the Player.getActionMod().marketActionForbidden()
 + getCopy() :Match
 //sets both PlayersOrder (if used) and PlayersActionOrder.
 // to set PlayersActionOrder, it should also check Player.getActionMod().firstActionDelayed()
 + getBoard() :Board
 //calcola i punti vittoria finali di un giocatore
-</panel_attributes>
++ getExtraAction() :ExtraAction</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -999,7 +999,7 @@ layer=1</panel_attributes>
     <coordinates>
       <x>2280</x>
       <y>1260</y>
-      <w>324</w>
+      <w>318</w>
       <h>366</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -1524,13 +1524,13 @@ m2=1</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>3288</x>
-      <y>2718</y>
+      <y>2724</y>
       <w>192</w>
-      <h>66</h>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=-
 </panel_attributes>
-    <additional_attributes>10.0;90.0;10.0;30.0;300.0;30.0;300.0;90.0</additional_attributes>
+    <additional_attributes>10.0;80.0;10.0;20.0;300.0;20.0;300.0;80.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -1548,13 +1548,13 @@ m2=1</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>3462</x>
-      <y>2718</y>
+      <y>2724</y>
       <w>234</w>
-      <h>66</h>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=-
 </panel_attributes>
-    <additional_attributes>10.0;90.0;10.0;30.0;370.0;30.0;370.0;90.0</additional_attributes>
+    <additional_attributes>10.0;80.0;10.0;20.0;370.0;20.0;370.0;80.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -1668,13 +1668,13 @@ PLAY_LEADERCARD</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>3078</x>
-      <y>2280</y>
+      <y>2286</y>
       <w>198</w>
-      <h>66</h>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=-
 </panel_attributes>
-    <additional_attributes>10.0;90.0;10.0;30.0;310.0;30.0;310.0;90.0</additional_attributes>
+    <additional_attributes>10.0;80.0;10.0;20.0;310.0;20.0;310.0;80.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -1727,8 +1727,8 @@ PLAY_LEADERCARD</panel_attributes>
     <coordinates>
       <x>4728</x>
       <y>750</y>
-      <w>1092</w>
-      <h>528</h>
+      <w>1086</w>
+      <h>522</h>
     </coordinates>
     <panel_attributes>lt=&lt;-&gt;
 m2=1
@@ -1750,13 +1750,13 @@ m1=2..4</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>3696</x>
-      <y>1200</y>
+      <y>1206</y>
       <w>594</w>
-      <h>30</h>
+      <h>24</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 observes</panel_attributes>
-    <additional_attributes>970.0;30.0;10.0;30.0</additional_attributes>
+    <additional_attributes>970.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -1813,7 +1813,7 @@ layer=-1</panel_attributes>
 # choice :Message
 --
 + isLegal(player :Player, match :Match):boolean
-+ Execute(player: Player, match: Match): void</panel_attributes>
++ Execute(player: Player, match: Match): ExtraAction[]</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -1984,8 +1984,8 @@ layer=-1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2400</x>
-      <y>516</y>
+      <x>2436</x>
+      <y>606</y>
       <w>246</w>
       <h>78</h>
     </coordinates>
@@ -2031,23 +2031,12 @@ layer=-1</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>2316</x>
-      <y>306</y>
-      <w>180</w>
-      <h>84</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;120.0;280.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>2316</x>
       <y>402</y>
-      <w>210</w>
-      <h>126</h>
+      <w>246</w>
+      <h>216</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;330.0;190.0</additional_attributes>
+    <additional_attributes>10.0;10.0;390.0;340.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -2202,20 +2191,20 @@ m2=4
     <id>Relation</id>
     <coordinates>
       <x>2220</x>
-      <y>3078</y>
+      <y>3084</y>
       <w>192</w>
-      <h>108</h>
+      <h>102</h>
     </coordinates>
     <panel_attributes>lt=-
 </panel_attributes>
-    <additional_attributes>10.0;160.0;10.0;30.0;300.0;30.0;300.0;160.0</additional_attributes>
+    <additional_attributes>10.0;150.0;10.0;20.0;300.0;20.0;300.0;150.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>2280</x>
       <y>1290</y>
-      <w>120</w>
+      <w>114</w>
       <h>348</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -2290,7 +2279,7 @@ COUNCIL</panel_attributes>
     <coordinates>
       <x>2004</x>
       <y>1314</y>
-      <w>36</w>
+      <w>30</w>
       <h>324</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -2590,7 +2579,8 @@ m2=1..n</panel_attributes>
 + getProperties(): Collection&lt;Property&gt;
 + PropertiesSet(Int...prop)
 + increaseProperties(props: PropertiesSet): boolean
-+ payProperties(props: PropertiesSet): boolean</panel_attributes>
++ payProperties(props: PropertiesSet): boolean
++ greaterOrEqual(setToCompare: PropertiesSet): boolean</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -2598,7 +2588,7 @@ m2=1..n</panel_attributes>
     <coordinates>
       <x>444</x>
       <y>2112</y>
-      <w>96</w>
+      <w>90</w>
       <h>186</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -2664,8 +2654,7 @@ m2=1</panel_attributes>
 + getProperty(id :String) : Property
 + increaseProperties(props: ImmProperties)
 + payProperties(props: ImmProperties)
-
-</panel_attributes>
++ clone() :PlayerProperties</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -2695,6 +2684,8 @@ m2=1</panel_attributes>
 --
 + ImmProperties(List&lt;Property&gt;)
 + getPropertyValue(id: String): Int
++ greaterOrEqual(propsToCompare: ImmProperties): boolean
++ sum(addend: ImmProperties): ImmProperties
 
 
 
@@ -2784,12 +2775,13 @@ bg=magenta</panel_attributes>
     <coordinates>
       <x>1578</x>
       <y>144</y>
-      <w>2166</w>
+      <w>1650</w>
       <h>654</h>
     </coordinates>
     <panel_attributes>actions
 --
-bg=orange</panel_attributes>
+bg=orange
+layer=-1</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -2808,7 +2800,7 @@ m2=0..1</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>990</x>
+      <x>966</x>
       <y>1926</y>
       <w>2910</w>
       <h>1344</h>
@@ -2885,7 +2877,7 @@ layer=1
       <x>2280</x>
       <y>966</y>
       <w>132</w>
-      <h>60</h>
+      <h>54</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m1=1
@@ -2997,7 +2989,8 @@ layer=1
 --
 - effectsSet :ArrayList&lt;Effect&gt;
 --
-
++ activate(player :Player) :ExtraAction[]
++ getTotalCost(): ImmProperties
 layer=1</panel_attributes>
     <additional_attributes/>
   </element>
@@ -3754,10 +3747,10 @@ layer=1</panel_attributes>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>4422</x>
+      <x>4440</x>
       <y>1392</y>
-      <w>132</w>
-      <h>60</h>
+      <w>96</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>Visitable
 --
@@ -3767,10 +3760,10 @@ layer=1</panel_attributes>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>5778</x>
+      <x>5796</x>
       <y>516</y>
-      <w>168</w>
-      <h>120</h>
+      <w>132</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>Visitor
 --
@@ -3779,7 +3772,8 @@ layer=1</panel_attributes>
 + visit(choice: CouncilChoice)
 + visit(choice: EffectChoice)
 + visit(message: AcceptedAction)
-+ visit(choice: RefuseAction)</panel_attributes>
++ visit(message: RefuseAction)
++ visit(message: WorkMessage)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -3872,135 +3866,6 @@ layer=1</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>2952</x>
-      <y>354</y>
-      <w>306</w>
-      <h>72</h>
-    </coordinates>
-    <panel_attributes>/InstantAction/
---
-# playerId: PlayerColor
---
-+ isLegal(): boolean
-+ execute(player :Player, match:Match, choice :Choice): void
-layer=1</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>2712</x>
-      <y>516</y>
-      <w>300</w>
-      <h>72</h>
-    </coordinates>
-    <panel_attributes>PickAnotherCard
---
-- possibleTypes :DevelopmentCardType[]
---
-+ isLegal(): boolean
-+ execute(player :Player, match:Match, choice :Choice): void
-layer=1</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>2832</x>
-      <y>420</y>
-      <w>162</w>
-      <h>108</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>250.0;10.0;10.0;160.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>3024</x>
-      <y>516</y>
-      <w>306</w>
-      <h>72</h>
-    </coordinates>
-    <panel_attributes>ExtraWorkAction
---
-
---
-+ isLegal(): boolean
-+ execute(player :Player, match:Match, choice :Choice): void
-layer=1</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>3084</x>
-      <y>420</y>
-      <w>24</w>
-      <h>108</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;20.0;160.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>3336</x>
-      <y>438</y>
-      <w>306</w>
-      <h>72</h>
-    </coordinates>
-    <panel_attributes>ExtraEffect
---
-
---
-+ isLegal(): boolean
-+ execute(player :Player, match:Match, choice :Choice): void
-layer=1</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>3252</x>
-      <y>414</y>
-      <w>96</w>
-      <h>66</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;140.0;90.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>3366</x>
-      <y>282</y>
-      <w>306</w>
-      <h>72</h>
-    </coordinates>
-    <panel_attributes>ChoicePrivilege
---
-+ privileges : 
---
-+ isLegal(): boolean
-+ execute(player :Player, match:Match, choice :CouncilChoice): void
-layer=1</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>3252</x>
-      <y>324</y>
-      <w>126</w>
-      <h>72</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;100.0;190.0;10.0</additional_attributes>
-  </element>
-  <element>
     <id>Relation</id>
     <coordinates>
       <x>2118</x>
@@ -4074,7 +3939,7 @@ layer=1</panel_attributes>
     <panel_attributes>Message
 --
 # message :String
-# visitor :UserHandler
+# visitor :Visitor
 --
 + getMessage() :String
 </panel_attributes>
@@ -4222,5 +4087,85 @@ layer=1</panel_attributes>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>90.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2316</x>
+      <y>306</y>
+      <w>180</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;120.0;280.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2544</x>
+      <y>438</y>
+      <w>246</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>NullAction
+--
+
+--
++ isLegal():boolean
++ execute(): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2520</x>
+      <y>354</y>
+      <w>36</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;200.0;40.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4290</x>
+      <y>876</y>
+      <w>456</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>MatchRunner
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4656</x>
+      <y>1428</y>
+      <w>198</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>WorkMessage
+--
+- choices :Map&lt;carta:DevelopmentCard, effetti:Effect[]&gt;
+- clonePlayerProperties :PlayerProperties
+- choosenCard :Int[]
+//se si setta a 0 la cella vuol dire che non si è scelta quella carta, se la si setta a 1 a 2 vuol dire che si è scelta quella carta e si vuole attivare il rispettivo effetto
+--
++ getChosen: boolean[]
++ setChosen(choose :Boolean): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4578</x>
+      <y>1512</y>
+      <w>174</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;270.0;10.0</additional_attributes>
   </element>
 </diagram>
