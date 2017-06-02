@@ -8,13 +8,8 @@ public class PropEffect extends Effect {
 
 	private ImmProperties bonus;
 	
-	public PropEffect(Requirement reqs[], ImmProperties bonus) {
-		super(reqs);
-		this.bonus = bonus;
-	}
-	
-	public PropEffect(Requirement req, ImmProperties bonus) {
-		super(req);
+	public PropEffect(ImmProperties cost, ImmProperties bonus) {
+		super(cost);
 		this.bonus = bonus;
 	}
 	
@@ -25,9 +20,7 @@ public class PropEffect extends Effect {
 	@Override
 	public boolean isActivable(Player player) {
 		boolean check = false;
-		for (Requirement r: req){
-			check = check || player.checkRequirement(r); // Basta che uno dei requisiti sia attivabile
-		}
+		check = player.getProperties().greaterOrEqual(cost); // Basta che uno dei requisiti sia attivabile
 		return check;
 	}
 	@Override
