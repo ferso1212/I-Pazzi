@@ -3037,15 +3037,20 @@ blackDice :int
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>7104</x>
-      <y>912</y>
+      <x>7152</x>
+      <y>904</y>
       <w>304</w>
-      <h>136</h>
+      <h>152</h>
     </coordinates>
     <panel_attributes>PlayerData
 --
-id :PlayerId
-properties :EnumMap&lt;PropertiesId,Integer&gt;
+- id :PlayerColor
+- properties :EnumMap&lt;PropertiesId,Integer&gt;
+- tileHarvBonus: ImmProeprties
+- tileHarvDiceReq: int
+- tileProdBonus: int
+- tileProdDiceReq: int
+- cards: EnumMap&lt;DevelopmentCardType, ArrayList&lt;DevelopmentCard&gt;&gt;
 
 --</panel_attributes>
     <additional_attributes/>
@@ -3091,13 +3096,13 @@ order :int[]
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>7400</x>
-      <y>984</y>
-      <w>216</w>
-      <h>24</h>
+      <x>7448</x>
+      <y>968</y>
+      <w>168</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>250.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>190.0;30.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -3853,7 +3858,7 @@ layer=1</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>7184</x>
-      <y>1128</y>
+      <y>1224</y>
       <w>240</w>
       <h>144</h>
     </coordinates>
@@ -4207,5 +4212,30 @@ bg=cyan</panel_attributes>
 fg=black
 bg=cyan</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>7160</x>
+      <y>1104</y>
+      <w>248</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>AdvPlayerData
+--
+- leaderCards: ArrayList&lt;LeaderCard&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>7296</x>
+      <y>1048</y>
+      <w>24</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
   </element>
 </diagram>
