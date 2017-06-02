@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
-import it.polimi.ingsw.ps21.model.deck.EffectSet;
+import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerProperties;
 
 public class WorkMessage extends Message{

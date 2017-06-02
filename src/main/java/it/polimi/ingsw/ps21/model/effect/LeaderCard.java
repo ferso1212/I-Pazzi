@@ -1,19 +1,20 @@
-package it.polimi.ingsw.ps21.model.deck;
+package it.polimi.ingsw.ps21.model.effect;
 
+import it.polimi.ingsw.ps21.model.deck.Card;
+import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public abstract class LeaderCard extends Card {
 	
-	protected boolean activated = false;
-	protected Effect leaderEffect;
+	protected LeaderEffect leaderEffect;
 	
-	public LeaderCard(String name, Requirement reqs[], Effect effect) {
+	public LeaderCard(String name, Requirement reqs[], LeaderEffect effect) {
 		super(name, reqs);
 		this.leaderEffect = effect;	
 	}
 	
-	public Effect getEffect(){
+	public LeaderEffect getEffect(){
 		return leaderEffect;
 	}
 	
@@ -23,9 +24,10 @@ public abstract class LeaderCard extends Card {
 	 * @return the activated
 	 */
 	public boolean isActivated() {
-		return activated;
+		return leaderEffect.isActivated();
 	}
 	
+	public abstract void resetActivation();
 	 
 	
 }
