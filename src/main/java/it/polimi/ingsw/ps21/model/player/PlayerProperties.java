@@ -78,5 +78,14 @@ public class PlayerProperties {
 		return properties;
 	}
 	
+	/**Compares all the properties of this object with the properties' values in the object passed as argument.
+	 * If all the properties in this object have a value equal or greater than the value of the corresponding property in the object passed as argument, true is returned.
+	 * @param setToCompare ImmProperties containing the values to compare
+	 * @return true if, for each property in the object passed as argument, the value of that property is < than the value of the corresponding property in this object.
+	 */
+	public boolean greaterOrEqual(PlayerProperties propsToCompare)
+	{
+		return this.properties.greaterOrEqual(propsToCompare.getPropertiesSet());
+	}
 	
 }

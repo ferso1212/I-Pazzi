@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  * @author fabri
  *
  */
-public class PropertiesSet implements Cloneable, Serializable{
+public class PropertiesSet implements Serializable{
 
 	private final static Logger LOGGER = Logger.getLogger(PropertiesSet.class.getName());
 	
@@ -48,6 +48,15 @@ public class PropertiesSet implements Cloneable, Serializable{
 			Property newProp = new Property(propId, value);
 			propertiesMap.put(propId, newProp);
 			i++;
+		}
+	}
+	
+	public PropertiesSet(Property...props)
+	{
+		this.propertiesMap = new EnumMap<>(PropertiesId.class);
+		for(Property prop: props)
+		{
+			this.propertiesMap.put(prop.getId(), prop);
 		}
 	}
 
@@ -102,23 +111,17 @@ public class PropertiesSet implements Cloneable, Serializable{
 	/**Performs a deep copy of this object.
 	 * 
 	 */
-	@Override
 	public PropertiesSet clone()
 	{
-		PropertiesSet output;
-		try {
-			output=(PropertiesSet)super.clone();
-		} catch (CloneNotSupportedException e) {
-			// TODO Auto-generated catch block
-			LOGGER.log(Level.SEVERE, "Clone failed", e);
-			return null;
-		}
-	
+		
+		Property[] propsToClone= new Property[this.propertiesMap.size()];
+		
+		int i=0;
 		for(Property prop: this.propertiesMap.values())
 		{
-			//TODO
+			propsToClone[i]=prop.clone();
 		}
-		return output;
+		return new PropertiesSet(propsToClone);
 	}
 
 	/** Returns a string in the format: "value1 prop1name, value2 prop2name, value3 prop3name". Only properties with a value != 0 are reported in the string.
@@ -137,5 +140,15 @@ public class PropertiesSet implements Cloneable, Serializable{
 		return output;
 	}
 	
+	/**Compares this set with the PropertiesSet passed as argument.
+	 * If all the properties in this set have a value equal or greater than the value of the corresponding property in the set passed as argument, true is returned.
+	 * @param setToCompare PropertiesSet containing the values to compare
+	 * @return true if, for each property in the set passed as argument, the value of that property is < than the value of the corresponding property in this set.
+	 */
+	public boolean greaterOrEqual(PropertiesSet setToCompare) {
+		for(Property prop: setToCompare.propertiesMap.values()){
+		if(prop.getValue() > this.getProperty(prop.getId()).getValue())	return false;}
+		return true;
+	}
 	
 }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import it.polimi.ingsw.ps21.controller.UnchosenException;
 import it.polimi.ingsw.ps21.model.player.Player;
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
+import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 
 public class EffectSet {
 	
@@ -30,6 +32,15 @@ public class EffectSet {
 				temp.add(e.getType());
 			}
 			return (String[]) temp.toArray();
+		}
+		
+		public ImmProperties getTotalCost()
+		{
+			int[] costs= new int[PropertiesId.values().length];
+			for(Effect e: this.simultaneousEffects)
+			{
+				
+			}
 		}
 
 	}
