@@ -15,12 +15,10 @@ public class UnsettedMatch extends Match {
 
 	public UnsettedMatch() throws ParserConfigurationException {
 		super();
-		//MatchBuilder.initialize("", "", "", "");
 		players = new EnumMap<>(PlayerColor.class);
 		orangeDice = 0;
 		blackDice = 0;
 		whiteDice = 0;
-		//board.setDeck(MatchBuilder.makeDeck());
 	}
 	@Override
 	public Match getCopy() throws CloneNotSupportedException {
@@ -62,8 +60,7 @@ public class UnsettedMatch extends Match {
 	
 
 	@Override
-	public ExtraAction doAction(Action action) {
-		// TODO Auto-generated method stub
+	public ExtraAction[] doAction(Action action) {
 		return null;
 	}
 	@Override

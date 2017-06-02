@@ -17,8 +17,9 @@ public class BlockTowerEffect extends Effect {
 	}
 	
 	@Override
-	public void activate(Player player) {
+	public ExtraAction activate(Player player) {
 		player.getModifiers().getActionMods().setNoPlacementBonus();
+		return new NullAction();
 	}
 
 	@Override

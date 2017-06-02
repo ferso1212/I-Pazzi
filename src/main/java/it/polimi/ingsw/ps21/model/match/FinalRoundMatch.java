@@ -1,5 +1,8 @@
 package it.polimi.ingsw.ps21.model.match;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,20 +30,43 @@ public class FinalRoundMatch extends Match {
 		super(prevState);
 		round = 2;
 		throwDices();
+		Queue<FamilyMember> temp = board.getCouncilPalace().getOccupants();
+		ArrayList<Player> newOrder = new ArrayList<>();
+		for (FamilyMember f: temp){
+			Player player = players.get(f.getOwnerId());
+			if (newOrder.contains(player));
+			else newOrder.add(player);
+		}
+		order = new ArrayDeque<>();
+		for (int i=0; i<4; i++)
+		for ( int j = newOrder.size() -1 ; j>=0; i--){ // Crea l'ordine del nuovo round
+			order.add(newOrder.get(j));
+		}
+		board.newSetBoard(period);
+		notifyObservers();
 		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
-	public ExtraAction doAction(Action nextAction)  {
-		ExtraAction extraAction = new NullAction();
+	public ExtraAction[] doAction(Action nextAction)  {
+		ExtraAction[] extraActionPool;
 		try {
-					extraAction = nextAction.execute(order.element(),this);
-				} catch (NotExecutableException | NotOccupableException | RequirementNotMetException| InsufficientPropsException e) {
-					LOGGER.log(Level.WARNING, "Not activable action", e);
-					
-				}
-				notifyObservers();
-				return extraAction;
+			extraActionPool = nextAction.execute(order.element(),this);
+		} catch (NotExecutableException e) {
+			// TODO Auto-generated catch block
+			return null;
+		} catch (NotOccupableException e) {
+			// TODO Auto-generated catch block
+			return null;
+		} catch (RequirementNotMetException e) {
+			// TODO Auto-generated catch block
+			return null ;
+		} catch (InsufficientPropsException e) {
+			// TODO Auto-generated catch block
+			return null;
+		}
+		notifyObservers();
+		return extraActionPool;
 	}
 
 

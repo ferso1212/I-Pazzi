@@ -31,11 +31,13 @@ public class CardDiceEffect extends Effect {
 	}
 
 	@Override
-	public void activate(Player player) {
+	public ExtraAction activate(Player player) {
 		for (DevelopmentCardType devType : types) {
 			player.getModifiers().getDiceMods().getDiceMod(devType).setValue(cardDiceValue);
 		}
+		return new NullAction();
 	}
+	
 
 	@Override
 	public String getType() {

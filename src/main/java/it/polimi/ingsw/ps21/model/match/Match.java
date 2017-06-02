@@ -35,7 +35,7 @@ public abstract class Match extends Observable {
 	protected int orangeDice;
 	protected int blackDice;
 	protected int whiteDice;
-	protected int era; 
+	protected int period; 
 	protected int round;
 	
 	public  Match(){
@@ -53,7 +53,7 @@ public abstract class Match extends Observable {
 		this.observers = previousMatch.observers;
 		this.players = previousMatch.players;
 		this.order = previousMatch.order;
-		this.era = previousMatch.era;
+		this.period = previousMatch.period;
 		this.round = previousMatch.round;
 	}
 	
@@ -82,7 +82,7 @@ public abstract class Match extends Observable {
 		return order.peek();
 	}
 	
-	public abstract ExtraAction doAction(Action action);
+	public abstract ExtraAction[] doAction(Action action);
 	
 	public abstract Match setNextPlayer(); 
 
