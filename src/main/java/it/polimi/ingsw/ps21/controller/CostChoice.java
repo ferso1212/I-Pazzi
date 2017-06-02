@@ -1,14 +1,16 @@
 package it.polimi.ingsw.ps21.controller;
 
+import java.util.ArrayList;
+
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class CostChoice extends Message {
 	
-	private ImmProperties[] choices;
+	private ArrayList<ImmProperties> choices;
 	private ImmProperties chosen;
 	
-	public CostChoice(String message, ImmProperties[] choices) {
-		super(message);
+	public CostChoice(ArrayList<ImmProperties> choices) {
+		this.message = "You have to choose a cost to pay.";
 		this.choices = choices;
 	}
 
@@ -17,10 +19,10 @@ public class CostChoice extends Message {
 	}
 
 	public void setChosen(int choice) {
-		this.chosen = this.choices[choice];
+		this.chosen = this.choices.get(choice);
 	}
 
-	public ImmProperties[] getChoices() {
+	public ArrayList<ImmProperties> getChoices() {
 		return choices;
 	}
 	

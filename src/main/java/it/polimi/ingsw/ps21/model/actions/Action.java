@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps21.model.actions;
 
+import it.polimi.ingsw.ps21.controller.Message;
 import it.polimi.ingsw.ps21.model.board.NotOccupableException;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
@@ -20,7 +21,7 @@ public abstract class Action {
 		this.playerId = playerId;
 	}
 
-	public abstract boolean isLegal(Player player, Match match);
+	public abstract Message isLegal(Player player, Match match);
 	
-	public abstract void execute(Player player, Match match) throws NotExecutableException, NotOccupableException, RequirementNotMetException, InsufficientPropsException ;
+	public abstract ExtraAction[] execute(Player player, Match match) throws NotExecutableException, NotOccupableException, RequirementNotMetException, InsufficientPropsException ;
 }

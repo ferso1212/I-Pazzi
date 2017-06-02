@@ -1,10 +1,8 @@
 package it.polimi.ingsw.ps21.controller;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
-import it.polimi.ingsw.ps21.model.deck.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerProperties;
 
 public class WorkMessage extends Message{
@@ -24,24 +22,21 @@ public class WorkMessage extends Message{
 	}
 	
 	public boolean setChosenCardsAndEffects(int[] playerChoices) {
+		PlayerProperties totalCosts = new PlayerProperties();
 		for (int i=0; i<playerChoices.length; i++){
-			PlayerProperties totalCosts = null;
 			if(chosenCardsAndEffects[i] != 0){
-				totalCosts = totalCostes.increaseProperties(choices.get(i).getPossibleEffects()[chosenCardsAndEffects[i]]);
+				totalCosts.increaseProperties(choices.get(i).getPossibleEffects()[playerChoices[i]].getTotalCost());
 			}
 		}
-		if clonedPlayerProperties.greaterOrEqual(totalCosts){
+		if (this.clonedPlayerProperties.greaterOrEqual(totalCosts)){
 			this.chosenCardsAndEffects = playerChoices;
 			return true;
 		}
 		return false;
 	}
 	
-	public Map<DevelopmentCard, Effect[]> getChoices() {
+	public ArrayList<DevelopmentCard> getChoices() {
 		return choices;
 	}
 	
-	
-	
-
 }
