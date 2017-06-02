@@ -16,6 +16,35 @@ public class PlayerProperties {
 	 */
 	private PropertiesSet properties;
 	
+	/**Constructs the object taking a PropertiesSet.
+	 * 
+	 * @param properties the properties set that will be included in the constructed object.
+	 */
+	public PlayerProperties(PropertiesSet properties) {
+		super();
+		this.properties = properties;
+	}
+	
+	/**Constructs the object taking an array of properties.
+	 * 
+	 * @param props An array of property object.
+	 */
+	public PlayerProperties(Property...props)
+	{
+		this.properties=new PropertiesSet(props);
+	}
+	
+	/**
+	 * Constructs the object by initializing the contained properties' values with the properties Ids and the corresponding initial values. 
+	 * The properties' Ids are taken from the PropertiesId enum.
+	 * If the number of parameters is < tha the number of properties that should be set, the last properties (for which has not been provided an initial value) are automatically set to 0.
+	 * @param initValues initValues sorted as in the PropertiesId enum (coins, wood, stones, servants, victory points, military points, faith points)
+	 */
+	public PlayerProperties(int...initValues)
+	{
+		this.properties= new PropertiesSet(initValues);
+	}
+	
 	/**Returns the property with the matching id.
 	 * @param id the id to search for.
 	 * @return the property with the matching id.

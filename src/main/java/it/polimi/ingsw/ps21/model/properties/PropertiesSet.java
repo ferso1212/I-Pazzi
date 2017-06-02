@@ -23,7 +23,8 @@ public class PropertiesSet implements Serializable{
 	/**
 	 * Constructs the PropertiesSet object by initializing the propertiesMap with the properties Ids and the corresponding initial values. 
 	 * The properties' Ids are taken from the PropertiesId enum.
-	 * @param initValues
+	 * If the number of parameters is < than the number of properties that should be set, the last properties (for which has not been provided an initial value) are automatically set to 0.
+	 * @param initValues sorted as in the PropertiesId enum (coins, wood, stones, servants, victory points, military points, faith points)
 	 */
 	public PropertiesSet(int... initValues) {
 		this.propertiesMap = new EnumMap<>(PropertiesId.class);

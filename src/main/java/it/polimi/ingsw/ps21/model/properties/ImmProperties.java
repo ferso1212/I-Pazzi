@@ -75,7 +75,7 @@ public String toString()
 	return properties.toString();
 }
 
-/**Adds the values in this object to the ones in the object passed as argument and returns a new Immproperties object that contains the sum.
+/**Adds the values in this object to the ones in the object passed as argument and returns a new ImmProperties object that contains the sum.
  * @param addend the object that will be added
  * @return a new ImmProperties object that contains the sum between this object and the object passed as argument
  */
