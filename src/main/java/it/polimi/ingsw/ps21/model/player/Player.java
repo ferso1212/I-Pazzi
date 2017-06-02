@@ -189,8 +189,8 @@ public class Player {
 	
 	
 	
-	/**Checks if the player has enough properties (points, resources and number of cards) to meet the requirements passed as argument.
-	 * @param req requirements that are compared to the player's properties
+	/**Checks if the player has enough properties (points, resources and number of cards) to meet the specific requirement passed as argument.
+	 * @param req requirement that is compared to the player's properties
 	 * @return true if the player's properties are greater than the requirements (the requirements are met); otherwise false
 	 */
 	public boolean checkRequirement(Requirement req)
@@ -245,9 +245,6 @@ public class Player {
 	public PlayerDeck getDeck() {
 		return devCards;
 	}
-
-
-
 
 	
 	

@@ -70,6 +70,12 @@ public boolean greaterOrEqual(ImmProperties propsToCompare)
 	return true;
 }
 
+public boolean greaterOrEqual(PropertiesSet propsToCompare)
+{
+	return this.properties.greaterOrEqual(propsToCompare);
+}
+
+
 public String toString()
 {
 	return properties.toString();

@@ -37,7 +37,7 @@ public class PlayerProperties {
 	/**
 	 * Constructs the object by initializing the contained properties' values with the properties Ids and the corresponding initial values. 
 	 * The properties' Ids are taken from the PropertiesId enum.
-	 * If the number of parameters is < tha the number of properties that should be set, the last properties (for which has not been provided an initial value) are automatically set to 0.
+	 * If the number of parameters is < than the number of properties that should be set, the last properties (for which has not been provided an initial value) are automatically set to 0.
 	 * @param initValues initValues sorted as in the PropertiesId enum (coins, wood, stones, servants, victory points, military points, faith points)
 	 */
 	public PlayerProperties(int...initValues)
@@ -117,4 +117,13 @@ public class PlayerProperties {
 		return this.properties.greaterOrEqual(propsToCompare.getPropertiesSet());
 	}
 	
+	/**Compares all the properties of this object with the properties' values in the ImmProperties object passed as argument.
+	 * If all the properties in this object have a value equal or greater than the value of the corresponding property in the object passed as argument, true is returned.
+	 * @param setToCompare ImmProperties containing the values to compare
+	 * @return true if, for each property in the object passed as argument, the value of that property is < than the value of the corresponding property in this object.
+	 */
+	public boolean greaterOrEqual(ImmProperties propsToCompare)
+	{
+		return !(propsToCompare.greaterOrEqual(properties));
+	}
 }

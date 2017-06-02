@@ -13,7 +13,7 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 public class BlockTowerEffect extends Effect {
 
 	public BlockTowerEffect(){
-		super(new Requirement(new CardsNumber(0, 0, 0, 0), new ImmProperties(0,0,0,0,0,0,0)));
+		super(new ImmProperties(0,0,0,0,0,0,0));
 	}
 	
 	@Override

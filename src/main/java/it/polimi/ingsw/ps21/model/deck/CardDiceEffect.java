@@ -4,15 +4,16 @@ import java.util.Set;
 
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.player.Player;
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class CardDiceEffect extends Effect {
 
 	private int cardDiceValue;
 	private Set<DevelopmentCardType> types;
 
-	public CardDiceEffect(Requirement reqs[], int diceValue, DevelopmentCardType... types)
+	public CardDiceEffect(ImmProperties cost, int diceValue, DevelopmentCardType... types)
 			throws TooManyArgumentException {
-		super(reqs);
+		super(cost);
 		if (types.length > 2)
 			throw new TooManyArgumentException();
 		cardDiceValue = diceValue;
