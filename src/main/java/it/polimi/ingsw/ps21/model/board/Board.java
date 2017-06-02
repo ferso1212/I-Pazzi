@@ -144,4 +144,14 @@ public class Board {
 		return this.trackBonuses;
 	}
 
+	public SingleSpace[] getMarketPlaces() {
+		return marketPlaces;
+	}
+
+	public Map<DevelopmentCardType, int[]> getCardBonus() {
+		return cardBonus;
+	}
+
+	
+	
 }
