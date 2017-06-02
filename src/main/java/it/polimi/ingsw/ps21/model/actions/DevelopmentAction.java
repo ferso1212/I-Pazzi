@@ -57,7 +57,7 @@ public class DevelopmentAction extends Action {
 	 * @return boolean indicating if the action has taken place correctly.
 	 */
 	@Override
-	public void execute(Player player, Match match) throws NotExecutableException, NotOccupableException,
+	public ExtraAction[] execute(Player player, Match match) throws NotExecutableException, NotOccupableException,
 			RequirementNotMetException, InsufficientPropsException {
 
 		match.getBoard().placeMember(player, famMember, space);

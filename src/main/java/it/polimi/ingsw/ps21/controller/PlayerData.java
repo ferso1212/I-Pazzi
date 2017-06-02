@@ -28,7 +28,7 @@ public class PlayerData implements Serializable {
 	private int tileProdDiceReq;
 	private PlayerColor color;
 	private EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>> cards;
-	private ArrayList<LeaderCard> leaderCards;
+	
 	
 	
 	public PlayerData(Player player) {
@@ -38,24 +38,23 @@ public class PlayerData implements Serializable {
 			{
 			this.properties.put(prop, player.getProperties().getProperty(prop).getValue());
 			}
-		this.tileHarvBonus = player.getPersonalBonusTile().getTileBonus(WorkType.HARVEST,10).clone();
+		this.tileHarvBonus = player.getPersonalBonusTile().getTileBonus(WorkType.HARVEST,10);
 		this.tileHarvDiceReq = player.getPersonalBonusTile().getDiceReq(WorkType.HARVEST);
-		this.tileProdBonus = player.getPersonalBonusTile().getTileBonus(WorkType.PRODUCTION,10).clone();
+		this.tileProdBonus = player.getPersonalBonusTile().getTileBonus(WorkType.PRODUCTION,10);
 		this.tileProdDiceReq = player.getPersonalBonusTile().getDiceReq(WorkType.PRODUCTION);
-		/*TODO: clone player's deck
-		 * for(DevelopmentCardType cardType: DevelopmentCardType.values())
+		
+		//Clones each player's deck and puts it in the 'cards' map
+		 for(DevelopmentCardType cardType: DevelopmentCardType.values())
 		{
 			try {
 				ArrayList<DevelopmentCard> clonedDeck= new ArrayList<DevelopmentCard>(player.getDeck().getCards(cardType));
 				cards.put(cardType, clonedDeck);
 			} catch (IllegalCardTypeException e) {
 				LOGGER.log(Level.SEVERE, "Illegal card type!", e);
-				// TODO Auto-generated catch block
 			
 			}
-			
-		}*/
-		//this.leaderCards = leaderCards;
+		}
+		
 	}
 	
 }
