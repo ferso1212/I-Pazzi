@@ -21,9 +21,9 @@ public class Tower {
 	{
 		for(int i=1; i<FLOORS_NUM + 1; i++)
 		{
-			if(!(tower[i].isOccupable())) return false;
+			if(!(tower[i].isOccupable())) return true;
 		}
-		return true;
+		return false;
 	}
 
 }

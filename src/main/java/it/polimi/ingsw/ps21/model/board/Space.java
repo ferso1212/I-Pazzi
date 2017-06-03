@@ -16,6 +16,7 @@ public abstract class Space {
 	}
 
 	public abstract boolean isOccupable(Player player, FamilyMember member);
+	
 
 	public ImmProperties getInstantBonus() {
 		return instantBonus;
