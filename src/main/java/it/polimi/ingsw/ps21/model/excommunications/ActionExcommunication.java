@@ -38,10 +38,10 @@ public class ActionExcommunication extends Excommunication{
 	 */
 	@Override
 	public String toString() {
-		String output= new String();
-		if(delayFirstAction) output.concat("Each round, you skip your first action. You'll peform that action at the end of the round");
-		if(noMarketAction) output.concat("You can't place your family members in the market spaces");
-		return output;
+		StringBuilder output= new StringBuilder();
+		if(delayFirstAction) output.append("Each round, you skip your first action. You'll peform that action at the end of the round");
+		if(noMarketAction) output.append("You can't place your family members in the market spaces");
+		return output.toString();
 	}
 	
 	

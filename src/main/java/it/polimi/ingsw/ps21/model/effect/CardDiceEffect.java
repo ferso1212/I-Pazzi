@@ -48,12 +48,12 @@ public class CardDiceEffect extends Effect {
 
 	@Override
 	public String getDesc() {
-		String output= new String("Increase the action value by " + this.cardDiceValue + " units when a ");
+		StringBuilder output= new StringBuilder("Increase the action value by " + this.cardDiceValue + " units when a ");
 		for(DevelopmentCardType type: types)
-		{output.concat(type.toString() + " card ");
-		if(type.ordinal()<type.values().length -1 ) output.concat("or a ");
+		{output.append(type.toString() + " card ");
+		if(type.ordinal()<type.values().length -1 ) output.append("or a ");
 		}
-		output.concat(" is picked from a tower space.");
-		return output;
+		output.append(" is picked from a tower space.");
+		return output.toString();
 	}
 }
