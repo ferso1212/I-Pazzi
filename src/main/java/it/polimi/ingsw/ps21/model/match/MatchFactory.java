@@ -21,6 +21,9 @@ import it.polimi.ingsw.ps21.model.deck.SubDeck;
 import it.polimi.ingsw.ps21.model.deck.TerritoryCard;
 import it.polimi.ingsw.ps21.model.deck.VentureCard;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
+import it.polimi.ingsw.ps21.model.properties.PropertiesBuilder;
+import it.polimi.ingsw.ps21.model.properties.PropertiesId;
+import it.polimi.ingsw.ps21.model.properties.Property;
 
 
 // TODO implements signleton and factory for every effect
@@ -32,6 +35,7 @@ public class MatchFactory {
 	private final String bluePath = (new File("")).getAbsolutePath().concat("/blue-deck.xml").toString();
 	private	final String purplePath = (new File("")).getAbsolutePath().concat("/purple-deck.xml").toString();
 	private	final String privilegesPath = (new File("")).getAbsolutePath().concat("/privileges.xml").toString();
+	private	final String initialPropPath = (new File("")).getAbsolutePath().concat("/initial-properties.xml").toString();
 	private DocumentBuilder builder;
 	private Deck configuratedDeck;
 	/**
@@ -241,21 +245,54 @@ public class MatchFactory {
 	
 	public ImmProperties[] makePrivileges(){
 		Document configuration;
+		ArrayList<ImmProperties> bonuses = new ArrayList<>();
 		try{
 			File privilegesFile = new File(privilegesPath);
 			configuration = builder.parse(privilegesFile);
 			configuration.normalize();
+			Element privileges = configuration.getDocumentElement();
+			NodeList properties = privileges.getElementsByTagName("Properties");
+			for (int i=0; i<properties.getLength(); i++){
+				if (properties.item(i).getNodeType() == Node.ELEMENT_NODE)
+				{
+					bonuses.add(PropertiesBuilder.makeImmProperites((Element) properties.item(i)));
+				}
+			}
 		}
 		catch (SAXException | IOException i){
-			ArrayList<ImmProperties> defaultPrivileges = new ArrayList<>();
-			defaultPrivileges.add(new ImmProperties(0,1,1)); // 1 wood and 1 stone
-			defaultPrivileges.add(new ImmProperties(2,0,0,0)); // 2 coins
-			defaultPrivileges.add(new ImmProperties(0,0,0,2)); // 2 
-			defaultPrivileges.add(new ImmProperties(0,0,0,0,0));
+			bonuses.add(new ImmProperties(new Property(PropertiesId.STONES, 1), new Property(PropertiesId.WOOD, 1))); // 1 wood and 1 stone
+			bonuses.add(new ImmProperties(new Property(PropertiesId.COINS, 2))); // 2 coins
+			bonuses.add(new ImmProperties(new Property(PropertiesId.MILITARYPOINTS, 2))); // 2 
+			bonuses.add(new ImmProperties(new Property(PropertiesId.FAITHPOINTS, 2)));
 		}
-				
-		ArrayList<ImmProperties> bonuses = new ArrayList<>();
 		// TODO 
 		return bonuses.toArray(new ImmProperties[0]);
 	}
+	
+	public ImmProperties[] makeInitialProperties(){
+		Document configuration;
+		ArrayList<ImmProperties> bonuses = new ArrayList<>();
+		try{
+			File initialPropFile = new File(initialPropPath);
+			configuration = builder.parse(initialPropFile);
+			configuration.normalize();
+			Element initialProps = configuration.getDocumentElement();
+			NodeList properties = initialProps.getElementsByTagName("Properties");
+			for (int i=0; i<properties.getLength(); i++){
+				if (properties.item(i).getNodeType() == Node.ELEMENT_NODE)
+				{
+					bonuses.add(PropertiesBuilder.makeImmProperites((Element) properties.item(i)) );
+				}
+			}
+		}
+		catch (SAXException | IOException i){
+			bonuses.add(new ImmProperties(new Property(PropertiesId.STONES, 2), new Property(PropertiesId.WOOD, 2), new Property(PropertiesId.COINS, 5), new Property(PropertiesId.SERVANTS, 3))); // 1 wood and 1 stone
+			bonuses.add(new ImmProperties(new Property(PropertiesId.STONES, 2), new Property(PropertiesId.WOOD, 2), new Property(PropertiesId.COINS, 6), new Property(PropertiesId.SERVANTS, 3))); // 1 wood and 1 stone
+			bonuses.add(new ImmProperties(new Property(PropertiesId.STONES, 2), new Property(PropertiesId.WOOD, 2), new Property(PropertiesId.COINS, 7), new Property(PropertiesId.SERVANTS, 3))); // 1 wood and 1 stone
+			bonuses.add(new ImmProperties(new Property(PropertiesId.STONES, 2), new Property(PropertiesId.WOOD, 2), new Property(PropertiesId.COINS, 8), new Property(PropertiesId.SERVANTS, 3))); // 1 wood and 1 stone
+		}
+		// TODO 
+		return bonuses.toArray(new ImmProperties[0]);
+	}
+	
 }

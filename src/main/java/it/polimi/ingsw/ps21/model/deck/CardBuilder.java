@@ -18,6 +18,7 @@ import it.polimi.ingsw.ps21.model.effect.NullEffect;
 import it.polimi.ingsw.ps21.model.effect.PropEffect;
 import it.polimi.ingsw.ps21.model.match.BuildingCardException;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
+import it.polimi.ingsw.ps21.model.properties.PropertiesBuilder;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 
 /**
@@ -76,7 +77,7 @@ public class CardBuilder {
 						cardReq.add(makeRequirement((Element)prop));
 						break;
 					case "Cost":
-						cardCosts.add(makeCost((Element) prop));
+						cardCosts.add(PropertiesBuilder.makeCost((Element) prop));
 						break;
 					case "InstantEffect":
 						instantEffect = effectBuilder.makeInstanEffect((Element) prop);
@@ -149,7 +150,7 @@ public class CardBuilder {
 				for (int i= 0; i<cardNumNodes.getLength(); i++){
 					Node cardNode = cardNumNodes.item(i);
 					if (cardNode.getNodeType() == cardNode.ELEMENT_NODE){
-						tempCardNum = makeCardNums((Element) cardNode);
+						tempCardNum = PropertiesBuilder.makeCardNums((Element) cardNode);
 					}
 				}
 				
@@ -157,7 +158,7 @@ public class CardBuilder {
 				for (int i= 0; i<propsNodes.getLength(); i++){
 					Node propsNode = propsNodes.item(i);
 					if (propsNode.getNodeType() == propsNode.ELEMENT_NODE){
-						props = makeImmProperites((Element) propsNode);
+						props = PropertiesBuilder.makeImmProperites((Element) propsNode);
 					}
 				}
 				return new Requirement(tempCardNum, props);
@@ -182,64 +183,6 @@ public class CardBuilder {
 		 * @return
 		 * @throws XMLParseException 
 	 */
-		
-		
-		private CardsNumber makeCardNums(Element cardNode) throws XMLParseException {
-			if (cardNode.getTagName() != "CardsNumber") throw new XMLParseException("not a CardsNumber Element");
-			int i= 0;
-			int green = 0;
-			int yellow = 0;
-			int blue = 0;
-			int purple = 0;
-			
-			NodeList colors = cardNode.getElementsByTagName("Green");
-			while(i < colors.getLength()) {
-				if (colors.item(i).getNodeType() == cardNode.ELEMENT_NODE) break;
-				i++;
-			}
-			Element subElement = (Element) colors.item(i); 
-			green = Integer.parseInt(subElement.getAttributeNode("value").getNodeValue());
-			
-			colors = cardNode.getElementsByTagName("Blue");
-			while(i < colors.getLength()) {
-				if (colors.item(i).getNodeType() == cardNode.ELEMENT_NODE) break;
-				i++;
-			}
-			subElement = (Element) colors.item(i); 
-			blue = Integer.parseInt(subElement.getAttributeNode("value").getNodeValue());
-	
-			colors = cardNode.getElementsByTagName("Yellow");
-			while(i < colors.getLength()) {
-				if (colors.item(i).getNodeType() == cardNode.ELEMENT_NODE) break;
-				i++;
-			}
-			subElement = (Element) colors.item(i); 
-			yellow = Integer.parseInt(subElement.getAttributeNode("value").getNodeValue());
-			
-			colors = cardNode.getElementsByTagName("Purple");
-			while(i < colors.getLength()) {
-				if (colors.item(i).getNodeType() == cardNode.ELEMENT_NODE) break;
-				i++;
-			}
-			subElement = (Element) colors.item(i); 
-			purple = Integer.parseInt(subElement.getAttributeNode("value").getNodeValue());
-			return new CardsNumber(green, yellow, blue, purple);
-		}
 
-		private ImmProperties makeCost(Element cost) {
-			NodeList costChilds = cost.getElementsByTagName("Properties"); // Must be only one in xml
-			return makeImmProperites((Element) costChilds.item(0));
-		}
-		
-		private ImmProperties makeImmProperites(Element propsNode) {
-			int tempPropsValue[] = {0,0,0,0,0,0,0};// 
-			NodeList propChilds = propsNode.getChildNodes();
-			for (int i=0; i < propChilds.getLength(); i++){
-				Node valueNode = propChilds.item(i);
-				if(valueNode.getNodeType() == valueNode.ELEMENT_NODE)
-					tempPropsValue[PropertiesId.valueOf(((Element) valueNode).getTagName().toUpperCase()).ordinal()] = Integer.parseInt(valueNode.getAttributes().getNamedItem("value").getNodeValue());
-				}		
-			return new ImmProperties(tempPropsValue);
-		}
 
 }
