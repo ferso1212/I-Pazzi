@@ -1,5 +1,7 @@
 package it.polimi.ingsw.ps21.model.effect;
 
+import it.polimi.ingsw.ps21.model.actions.ExtraAction;
+import it.polimi.ingsw.ps21.model.actions.NullAction;
 import it.polimi.ingsw.ps21.model.player.Player;
 
 /*
@@ -8,8 +10,9 @@ import it.polimi.ingsw.ps21.model.player.Player;
 public class WorkEffect extends PermanentLeaderEffect {
 
 	@Override
-	public void activate(Player player) {
+	public ExtraAction activate(AdvancedPlayer player) {
 		// TODO Auto-generated method stub
+		return null;
 
 	}
 

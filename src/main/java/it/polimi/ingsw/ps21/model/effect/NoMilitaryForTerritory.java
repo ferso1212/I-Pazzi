@@ -1,6 +1,10 @@
 package it.polimi.ingsw.ps21.model.effect;
 
+import it.polimi.ingsw.ps21.model.actions.ExtraAction;
+import it.polimi.ingsw.ps21.model.actions.NullAction;
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
+import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.player.Player;
 
 /*
@@ -9,14 +13,16 @@ import it.polimi.ingsw.ps21.model.player.Player;
 
 public class NoMilitaryForTerritory extends PermanentLeaderEffect {
 
-	public NoMilitaryForTerritory(Requirement requirement) {
-		super();
+	public DevelopmentCardType type;
+	public NoMilitaryForTerritory(Requirement requirement,DevelopmentCardType type) {
+		super(requirement);
 	}
 	
 
 	@Override
-	public void activate(Player player) {
-		// TODO need a specific Modifier in player
+	public ExtraAction activate(AdvancedPlayer player) {
+		player.getDeck().setNoAddingRequirement(type);
+		return new NullAction(player.getId());
 	}
 
 	@Override

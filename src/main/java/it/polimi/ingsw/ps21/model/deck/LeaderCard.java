@@ -10,8 +10,8 @@ public abstract class LeaderCard extends Card {
 	
 	protected LeaderEffect leaderEffect;
 	
-	public LeaderCard(String name, Requirement reqs[], LeaderEffect effect) {
-		super(name, reqs);
+	public LeaderCard(String name, LeaderEffect effect) {
+		super(name, new Requirement(new CardsNumber(0,0,0,0), new ImmProperties(0)));
 		this.leaderEffect = effect;	
 	}
 	

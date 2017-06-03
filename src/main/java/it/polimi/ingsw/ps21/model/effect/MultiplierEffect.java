@@ -1,6 +1,8 @@
 package it.polimi.ingsw.ps21.model.effect;
 
 
+import it.polimi.ingsw.ps21.model.actions.ExtraAction;
+import it.polimi.ingsw.ps21.model.actions.NullAction;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.MultiplierType;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
@@ -70,9 +72,10 @@ public class MultiplierEffect extends Effect {
 	}
 	
 	@Override
-	public void activate(Player player){
+	public ExtraAction activate(Player player){
 		ImmProperties bonus = calculateBonus(player);
 		player.getProperties().increaseProperties(bonus);
+		return new NullAction(player.getId());
 	}
 	@Override
 	public String getType() {

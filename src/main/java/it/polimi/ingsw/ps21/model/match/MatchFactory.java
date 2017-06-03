@@ -45,10 +45,15 @@ public class MatchFactory {
 	 */
 	
 	
-	private MatchFactory() throws ParserConfigurationException{
+	private MatchFactory(){
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setValidating(true);
-		builder = factory.newDocumentBuilder();
+		try {
+			builder = factory.newDocumentBuilder();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * 

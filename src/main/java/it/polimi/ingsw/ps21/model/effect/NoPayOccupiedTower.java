@@ -1,5 +1,9 @@
 package it.polimi.ingsw.ps21.model.effect;
 
+import it.polimi.ingsw.ps21.model.actions.ExtraAction;
+import it.polimi.ingsw.ps21.model.actions.NullAction;
+import it.polimi.ingsw.ps21.model.deck.Requirement;
+import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.player.Player;
 
 /*
@@ -7,13 +11,14 @@ import it.polimi.ingsw.ps21.model.player.Player;
  */
 public class NoPayOccupiedTower extends PermanentLeaderEffect {
 
-	public NoPayOccupiedTower() {
-		super();
+	public NoPayOccupiedTower(Requirement req) {
+		super(req);
 	}
 
 	@Override
-	public void activate(Player player) {
-		// To be implemented
+	public ExtraAction activate(AdvancedPlayer player) {
+		player.getAdvMod().setNoPayOccupiedTower(true);
+		return new NullAction(player.getId());
 
 	}
 

@@ -7,6 +7,10 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 public abstract class InstantLeaderEffect extends LeaderEffect{
 
 
+	public InstantLeaderEffect(Requirement req) {
+		super(req);
+	}
+	
 	@Override
 	public void resetActivation(){
 		activated = false;

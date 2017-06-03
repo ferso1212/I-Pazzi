@@ -1,0 +1,40 @@
+<?xml version=”1.0″ ?>
+<!DOCTYPE InitialProperties SYSTEM “initial-properties-schema.dtd”>
+<InitialProperties>
+	<Properties>
+                    <Wood value="2"/>
+                    <Stones value="2"/>
+                    <Servants value="3"/>
+                    <Coins value="5"/>
+                    <MilitaryPoints value="0"/>
+                    <VictoryPoints value="0"/>
+                    <FaithPoints value ="0"/>
+        </Properties>
+	<Properties>
+                    <Wood value="2"/>
+                    <Stones value="2"/>
+                    <Servants value="3"/>
+                    <Coins value="6"/>
+                    <MilitaryPoints value="0"/>
+                    <VictoryPoints value="0"/>
+                    <FaithPoints value ="0"/>
+        </Properties>
+	<Properties>
+                    <Wood value="2"/>
+                    <Stones value="2"/>
+                    <Servants value="3"/>
+                    <Coins value="7"/>
+                    <MilitaryPoints value="0"/>
+                    <VictoryPoints value="0"/>
+                    <FaithPoints value ="0"/>
+        </Properties>
+	<Properties>
+                    <Wood value="2"/>
+                    <Stones value="2"/>
+                    <Servants value="3"/>
+                    <Coins value="8"/>
+                    <MilitaryPoints value="2"/>
+                    <VictoryPoints value="0"/>
+                    <FaithPoints value ="0"/>
+        </Properties>
+</InitialProperties>
