@@ -13,7 +13,7 @@ public class FamilyMember {
 	protected boolean used;
 	
 	/**
-	 * Returns the value of the family member, which is the number on the corresponding dice + the number of servants used in the action.
+	 * Returns the value of the family member, which is the number on the corresponding dice + the number of servants used in the action + the value of the modifier.
 	 * @return the value of the family member
 	 */
 	public int getValue()
@@ -58,7 +58,7 @@ public class FamilyMember {
 		this.value = value;
 	}
 
-	/**
+	/**Sets the member's modifier value. This value is added to the returned value of the getValue() method.
 	 * @param modifier the modifier to set
 	 */
 	public void setModifier(int modifier) {

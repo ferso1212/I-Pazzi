@@ -14,7 +14,7 @@ import it.polimi.ingsw.ps21.model.deck.IllegalCardTypeException;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.deck.TerritoryCard;
 import it.polimi.ingsw.ps21.model.deck.VentureCard;
-import it.polimi.ingsw.ps21.model.match.MatchBuilder;
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class PlayerDeck implements Cloneable{
 	private final static Logger LOGGER = Logger.getLogger(PlayerDeck.class.getName());
@@ -28,6 +28,21 @@ public class PlayerDeck implements Cloneable{
 	//nella k-esima cella dell'array Requirement[], c'è il requisito che il player deve soddisfare per
 	//poter acquisire la (k+1)esima carta di quel tipo
 	private EnumMap<DevelopmentCardType, Requirement[]> requirementMap;
+	
+	/**Removes all the adding card requirements for a specific card type.
+	 * Once this method has been called with a specific cardType, each time the player wants to acquire a card of that type he doesn't have to meet the requirements
+	 * related to the addition of another card (for example, if activated on Territory cards, you won't need to have enough military points to add another territory card.
+	 * @param cardType
+	 */
+	public void setNoAddingRequirement(DevelopmentCardType cardType)
+	{
+		Requirement[] replacingReqs= new Requirement[this.requirementMap.get(cardType).length];
+		for(int i=0; i<replacingReqs.length; i++)
+		{
+			replacingReqs[i]= new Requirement(new CardsNumber(0,0,0,0), new ImmProperties(0));
+		}
+		requirementMap.replace(cardType, replacingReqs);
+	}
 	
 	public PlayerDeck(){
 		super();
