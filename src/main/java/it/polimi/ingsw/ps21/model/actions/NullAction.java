@@ -8,7 +8,7 @@ import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
 
-public class NullAction extends Action {
+public class NullAction extends ExtraAction {
 
 	public NullAction(PlayerColor playerId) {
 		super(playerId);

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps21.model.actions;
 
 import it.polimi.ingsw.ps21.controller.CostChoice;
+import it.polimi.ingsw.ps21.controller.EffectChoice;
 import it.polimi.ingsw.ps21.controller.Message;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.controller.UnchosenException;
@@ -8,6 +9,7 @@ import it.polimi.ingsw.ps21.model.board.Board;
 import it.polimi.ingsw.ps21.model.board.NotOccupableException;
 import it.polimi.ingsw.ps21.model.board.SingleTowerSpace;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
@@ -24,6 +26,7 @@ public class DevelopmentAction extends Action {
 	private SingleTowerSpace space;
 	private FamilyMember famMember;
 	private CostChoice choosenCost;
+	private EffectChoice effectChoice;
 
 	public DevelopmentAction(PlayerColor playerId, SingleTowerSpace space, FamilyMember famMember) {
 		super(playerId);
@@ -47,7 +50,7 @@ public class DevelopmentAction extends Action {
 				&& (player.getProperties().getPayableCosts(space.getCard().getCosts()).size() > 0)) {
 			return new CostChoice(player.getProperties().getPayableCosts(space.getCard().getCosts()));
 		}
-		return new RefusedAction();		
+		return new RefusedAction();
 	}
 
 	/**
@@ -67,51 +70,29 @@ public class DevelopmentAction extends Action {
 		}
 
 		if (!player.getModifiers().getActionMods().noPlacementBonus()) {
-			player.getProperties().increaseProperties(space.getInstantBonus()); // Aggiungi
-																				// le
-																				// risorse
-																				// dell'instant-bonus
-																				// dello
-																				// space,
-																				// se
-																				// è
-																				// permesso
+			player.getProperties().increaseProperties(space.getInstantBonus()); // Aggiungi le risorse dell'instant-bonus dello space, se è permesso
 		}
 
-		player.payCard(space.getCard().getCardType(), space.getCard().getCosts()[choosenCost]); // Player
-																								// paga
-																								// il
-																								// costo
-																								// della
-																								// carta
+		player.payCard(space.getCard().getCardType(), choosenCost.getChosen()); // Player paga il costo della carta
 
 		DevelopmentCard selectedCard = space.getCard();
 
 		space.setCard(null); // rimuove carta dallo spazio-torre
 
-		player.getDeck().addCard(space.getCard()); // aggiunta della carta al
-													// deck del player, potrebbe
+		player.getDeck().addCard(space.getCard()); // aggiunta della carta al deck del player
 
+		
 		try {
 			selectedCard.getInstantEffect().activate(player);
 		} catch (UnchosenException e) {
-			System.out.println("Unchosen Requirement of Instant Effect");
+			// TODO: handle exception
 		}
+		
 
-		switch (selectedCard.getCardType()) {
-		case CHARACTER: {
-			try {
-				selectedCard.getPossibleEffects()[choosenCost].activate(player);
-			} catch (UnchosenException e) {
-				System.out.println("Unchosen Requirement of Permanent Effect");
+		try {
+			if (selectedCard.getCardType().equals(DevelopmentCardType.CHARACTER)){
+				effectChoice.getChosen().activate(player);
 			}
+		} catch (UnchosenException e) {System.out.println("Unchosen Requirement of Instant Effect");}
 		}
-			break;
-
-		default:
-			break;
-		}
-
 	}
-
-}

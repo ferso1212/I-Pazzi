@@ -11,7 +11,6 @@ import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 
 /**
- * This state calculate match winner and returns to view information on final classification on every player
  * @author daniele
  *
  */

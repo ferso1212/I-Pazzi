@@ -1,18 +1,18 @@
 package it.polimi.ingsw.ps21.controller;
 
-import it.polimi.ingsw.ps21.model.deck.Effect;
+import it.polimi.ingsw.ps21.model.effect.EffectSet;
 
 public class EffectChoice extends Message{
 	
-	private Effect[] choices;
-	private Effect chosen;
+	private EffectSet[] choices;
+	private EffectSet chosen;
 	
-	public EffectChoice(String message, Effect[] choices) {
-		super(message);
-		this.choices = choices;
+	public EffectChoice(EffectSet[] choices) {
+		this.message = "You have to choose an Effect.";
+ 		this.choices = choices;
 	}
 
-	public Effect getChosen() {
+	public EffectSet getChosen() {
 		return chosen;
 	}
 
@@ -20,7 +20,7 @@ public class EffectChoice extends Message{
 		this.chosen = this.choices[choose];
 	}
 
-	public Effect[] getChoices() {
+	public EffectSet[] getChoices() {
 		return choices;
 	}
 	
