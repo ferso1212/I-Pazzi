@@ -3,6 +3,7 @@ package it.polimi.ingsw.ps21.model.effect;
 import java.util.ArrayList;
 
 import it.polimi.ingsw.ps21.controller.UnchosenException;
+import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
@@ -20,10 +21,12 @@ public class EffectSet {
 		
 	}
 		
-		public void activate(Player player) throws UnchosenException {
+		public ArrayList<ExtraAction> activate(Player player) throws UnchosenException {
+			ArrayList<ExtraAction> returnExtraActions = new ArrayList<ExtraAction>();
 			for (Effect e: simultaneousEffects){
-				e.activate(player);
+				returnExtraActions.add(e.activate(player));
 			}
+			return returnExtraActions;
 		}
 		
 		public String[] getTypes(){
@@ -40,7 +43,7 @@ public class EffectSet {
 		 */
 		public ImmProperties getTotalCost()
 		{
-			ImmProperties totalCost=new ImmProperties();
+			ImmProperties totalCost=new ImmProperties(0);
 			for(Effect e: this.simultaneousEffects)
 			{
 				totalCost=totalCost.sum(e.getCost());

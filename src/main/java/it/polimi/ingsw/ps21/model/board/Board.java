@@ -12,7 +12,7 @@ import it.polimi.ingsw.ps21.model.deck.IllegalCardException;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
-import it.polimi.ingsw.ps21.model.properties.Property;
+
 
 public class Board {
 	private final static Logger LOGGER = Logger.getLogger(Board.class.getName());
