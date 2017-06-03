@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.NotExecutableException;
+import it.polimi.ingsw.ps21.model.actions.NullAction;
 import it.polimi.ingsw.ps21.model.board.NotOccupableException;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
@@ -44,7 +45,7 @@ public class InitialRoundMatch extends Match {
 					extraActionPool = action.execute(order.element(),this);
 				} catch (NotExecutableException | NotOccupableException | RequirementNotMetException| InsufficientPropsException e) {
 					LOGGER.log(Level.WARNING, "Not activable action", e);
-					return null;
+					return new NullAction[0];
 				}
 				notifyObservers();
 				return extraActionPool;
@@ -63,7 +64,7 @@ public class InitialRoundMatch extends Match {
 		}
 		order = new ArrayDeque<>();
 		for (int i=0; i<4; i++)
-		for ( int j = newOrder.size() -1 ; j>=0; i--){ // Crea l'ordine del nuovo round
+		for ( int j = newOrder.size() -1 ; j>=0; j--){ // Crea l'ordine del nuovo round
 			order.add(newOrder.get(j));
 		}
 		board.newSetBoard(period);
