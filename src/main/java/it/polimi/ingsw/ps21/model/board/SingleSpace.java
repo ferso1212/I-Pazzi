@@ -9,9 +9,9 @@ public class SingleSpace extends Space {
 	protected FamilyMember occupant;
 	protected SingleSpaceType type;
 
-	public SingleSpace(int diceRequirement, ImmProperties instantBonus, FamilyMember member, SingleSpaceType type) {
+	public SingleSpace(int diceRequirement, ImmProperties instantBonus, SingleSpaceType type) {
 		super(diceRequirement, instantBonus);
-		this.occupant = member;
+		this.occupant = null;
 		this.type = type;
 	}
 

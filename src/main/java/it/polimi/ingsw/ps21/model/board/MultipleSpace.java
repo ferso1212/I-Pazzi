@@ -14,10 +14,9 @@ public class MultipleSpace extends Space{
 	
 	
 
-	public MultipleSpace(int diceRequirement, ImmProperties instantBonus, Queue<FamilyMember> occupants, int diceMalus,
-			MultipleSpaceType type) {
+	public MultipleSpace(int diceRequirement, ImmProperties instantBonus, int diceMalus, MultipleSpaceType type) {
 		super(diceRequirement, instantBonus);
-		this.occupants = occupants;
+		this.occupants = null;
 		this.diceMalus = diceMalus;
 		this.type = type;
 	}

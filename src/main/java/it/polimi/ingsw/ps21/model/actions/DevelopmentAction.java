@@ -23,17 +23,20 @@ import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
  **/
 public class DevelopmentAction extends Action {
 
-	private SingleTowerSpace space;
 	private FamilyMember famMember;
 	private CostChoice choosenCost;
 	private EffectChoice effectChoice;
 	private ArrayList<ExtraAction> extraActionFromInstantEffect = new ArrayList<ExtraAction>();
 	private ArrayList<ExtraAction> extraActionFromPermanentEffect = new ArrayList<ExtraAction>();
+	private DevelopmentCardType tower;
+	private int floor;
 
-	public DevelopmentAction(PlayerColor playerId, SingleTowerSpace space, FamilyMember famMember) {
+	public DevelopmentAction(PlayerColor playerId, DevelopmentCardType tower, int floor, FamilyMember famMember) {
 		super(playerId);
-		this.space = space;
+		this.tower = tower;
+		this.floor = floor;
 		this.famMember = famMember;
+		
 	}
 
 	/**
@@ -45,12 +48,14 @@ public class DevelopmentAction extends Action {
 	 */
 	@Override
 	public Message isLegal(Player player, Match match) {
+		
+		SingleTowerSpace space = match.getBoard().getTower(this.tower).getTowerSpace(floor);
 
 		if ((player.checkCardRequirements(space.getCard())) && (famMember.getValue() >= space.getDiceRequirement())
-				&& space.isOccupable(player, famMember) && (!famMember.isUsed())
+				&& (space.isOccupable(player, famMember)) && (!famMember.isUsed())
 				&& (player.checkRequirement(player.getDeck().getAddingCardRequirement(space.getCard())))
-				&& (player.getProperties().getPayableCosts(space.getCard().getCosts()).size() > 0)) {
-			return new CostChoice(player.getProperties().getPayableCosts(space.getCard().getCosts()));
+				&& (player.getProperties().getPayableCosts(space.getCostsCard(match.getBoard().getTower(this.tower))).size() > 0)) {
+			return new CostChoice(player.getProperties().getPayableCosts(space.getCostsCard(match.getBoard().getTower(this.tower))));
 		}
 		return new RefusedAction();
 	}
@@ -64,6 +69,8 @@ public class DevelopmentAction extends Action {
 	@Override
 	public ExtraAction[] execute(Player player, Match match) throws NotExecutableException,
 			RequirementNotMetException, InsufficientPropsException {
+		
+		SingleTowerSpace space = match.getBoard().getTower(this.tower).getTowerSpace(floor);
 
 		if (!player.getFamily().useMember(famMember)) {
 			throw new NotExecutableException(); //
