@@ -9,14 +9,15 @@ import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.controller.WorkMessage;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
-public abstract class UserHandler implements Visitor, Runnable{
-	protected PlayerColor playerId;
-	
+public class UserHandler implements Visitor, Runnable{
+	private PlayerColor playerId;
+	private Connection connection;
 	
 
-	public UserHandler(PlayerColor playerId) {
+	public UserHandler(PlayerColor playerId, Connection connection) {
 		super();
 		this.playerId = playerId;
+		this.connection=connection;
 	}
 
 	@Override
@@ -56,6 +57,12 @@ public abstract class UserHandler implements Visitor, Runnable{
 
 	@Override
 	public void visit(RefusedAction message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void run() {
 		// TODO Auto-generated method stub
 		
 	}

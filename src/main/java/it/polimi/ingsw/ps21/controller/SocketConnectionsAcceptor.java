@@ -10,15 +10,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
+import it.polimi.ingsw.ps21.view.Connection;
 import it.polimi.ingsw.ps21.view.SocketConnection;
-import it.polimi.ingsw.ps21.view.SocketUserHandler;
 import it.polimi.ingsw.ps21.view.UserHandler;
 
 public class SocketConnectionsAcceptor extends ConnectionsAcceptor implements Runnable {
 	private final static Logger LOGGER = Logger.getLogger(SocketConnectionsAcceptor.class.getName());
 	private static final int PORT = 100; // TODO choose correct port
 	private ServerSocket serverSocket;
-	private ConcurrentLinkedQueue<UserHandler> connections;
+	private ConcurrentLinkedQueue<Connection> connections;
 	private boolean awaitingConnections;
 	public SocketConnectionsAcceptor() {
 
@@ -35,12 +35,11 @@ public class SocketConnectionsAcceptor extends ConnectionsAcceptor implements Ru
 
 		while (awaitingConnections) {
 			try {
-				Socket newConnection = serverSocket.accept();
+				Socket newSocket = serverSocket.accept();
 				synchronized (connections) {
 					
-					SocketUserHandler newUserHandler= new SocketUserHandler(newConnection);
-					connections.add(newUserHandler);
-					newUserHandler.run();
+					SocketConnection newConnection= new SocketConnection(newSocket);
+					connections.add(newConnection);
 				}
 			} catch (IOException e) {
 				LOGGER.log(Level.SEVERE, "IO Exception", e);

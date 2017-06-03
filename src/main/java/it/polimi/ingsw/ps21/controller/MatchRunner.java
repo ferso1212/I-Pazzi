@@ -8,6 +8,10 @@ import it.polimi.ingsw.ps21.view.UserHandler;
 
 public class MatchRunner implements Runnable {
 	
+	public MatchRunner(UserHandler...usersToAdd)
+	{
+		
+	}
 
 	@Override
 	public void run() {
