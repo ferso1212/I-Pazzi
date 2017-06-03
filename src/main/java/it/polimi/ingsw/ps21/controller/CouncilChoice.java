@@ -1,27 +1,39 @@
 package it.polimi.ingsw.ps21.controller;
 
+import it.polimi.ingsw.ps21.model.match.MatchFactory;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class CouncilChoice extends Message {
 	
-	private ImmProperties[] choices;
-	private ImmProperties chosen;
+	private int numberOfChoices;
+	private ImmProperties[] privilegesChosen;
+	private final ImmProperties[] privilegesValues;
 	
-	public CouncilChoice(String message, ImmProperties[] choices) {
-		super(message);
-		this.choices = choices;
+	public CouncilChoice(int numberOfPrivileges) {
+		this.message="You have to choose a Council Privilege";
+		this.numberOfChoices = numberOfPrivileges;
+		this.privilegesChosen = new ImmProperties[numberOfChoices];
+		MatchFactory matchFactory = MatchFactory.instance();
+		this.privilegesValues=matchFactory.makePrivileges();
+		
 	}
 
-	public ImmProperties getChosen() {
-		return chosen;
+	public ImmProperties[] getPrivilegesChosen() {
+		return privilegesChosen;
 	}
 
-	public void setChosen(int choice) {
-		this.chosen = this.choices[choice];
+	public void setPrivilegesChosen(ImmProperties[] privilegesChosen) {
+		this.privilegesChosen = privilegesChosen;
 	}
 
-	public ImmProperties[] getChoices() {
-		return choices;
+	public int getNumberOfChoices() {
+		return numberOfChoices;
 	}
+
+	public ImmProperties[] getPrivilegesValues() {
+		return privilegesValues;
+	}
+
+	
 
 }

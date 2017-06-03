@@ -1,12 +1,12 @@
 package it.polimi.ingsw.ps21.model.actions;
 
+import java.util.ArrayList;
+
 import it.polimi.ingsw.ps21.controller.CostChoice;
 import it.polimi.ingsw.ps21.controller.EffectChoice;
 import it.polimi.ingsw.ps21.controller.Message;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.controller.UnchosenException;
-import it.polimi.ingsw.ps21.model.board.Board;
-import it.polimi.ingsw.ps21.model.board.NotOccupableException;
 import it.polimi.ingsw.ps21.model.board.SingleTowerSpace;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
@@ -27,6 +27,8 @@ public class DevelopmentAction extends Action {
 	private FamilyMember famMember;
 	private CostChoice choosenCost;
 	private EffectChoice effectChoice;
+	private ArrayList<ExtraAction> extraActionFromInstantEffect = new ArrayList<ExtraAction>();
+	private ArrayList<ExtraAction> extraActionFromPermanentEffect = new ArrayList<ExtraAction>();
 
 	public DevelopmentAction(PlayerColor playerId, SingleTowerSpace space, FamilyMember famMember) {
 		super(playerId);
@@ -60,13 +62,15 @@ public class DevelopmentAction extends Action {
 	 * @return boolean indicating if the action has taken place correctly.
 	 */
 	@Override
-	public ExtraAction[] execute(Player player, Match match) throws NotExecutableException, NotOccupableException,
+	public ExtraAction[] execute(Player player, Match match) throws NotExecutableException,
 			RequirementNotMetException, InsufficientPropsException {
-
-		match.getBoard().placeMember(player, famMember, space);
 
 		if (!player.getFamily().useMember(famMember)) {
 			throw new NotExecutableException(); //
+		}
+		
+		if (match.getBoard().placeMember(player, famMember, space)){
+			throw new NotExecutableException();
 		}
 
 		if (!player.getModifiers().getActionMods().noPlacementBonus()) {
@@ -81,9 +85,8 @@ public class DevelopmentAction extends Action {
 
 		player.getDeck().addCard(space.getCard()); // aggiunta della carta al deck del player
 
-		
 		try {
-			selectedCard.getInstantEffect().activate(player);
+			extraActionFromInstantEffect = selectedCard.getInstantEffect().activate(player);
 		} catch (UnchosenException e) {
 			// TODO: handle exception
 		}
@@ -91,8 +94,12 @@ public class DevelopmentAction extends Action {
 
 		try {
 			if (selectedCard.getCardType().equals(DevelopmentCardType.CHARACTER)){
-				effectChoice.getChosen().activate(player);
+				extraActionFromPermanentEffect = effectChoice.getChosen().activate(player);
 			}
 		} catch (UnchosenException e) {System.out.println("Unchosen Requirement of Instant Effect");}
+		
+		extraActionFromInstantEffect.addAll(extraActionFromPermanentEffect);
+		
+		return extraActionFromInstantEffect.toArray(new ExtraAction[0]);
 		}
 	}
