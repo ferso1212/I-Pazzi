@@ -1,0 +1,49 @@
+<!ELEMENT Board (CouncilPrivileges, InitialProperties, CardBonuses, CardRequirement, MilitaryBonuses, FaithBonuses, MarketBonuses, CouncilBonus, CouncilPrivileges)>
+<!ELEMENT CouncilPrivileges (Properties*)>
+<!ELEMENT InitialProperties (Properties*)>
+<!ELEMENT Properties (Wood, Stones, Servants, Coins, MilitaryPoints, VictoryPoints, FaithPoints)>
+<!ELEMENT Coins EMPTY>
+<!ELEMENT Stones EMPTY>
+<!ELEMENT Wood EMPTY>
+<!ELEMENT Servants EMPTY>
+<!ELEMENT MilitaryPoints EMPTY>
+<!ELEMENT FaithPoints EMPTY>
+<!ELEMENT VictoryPoints EMPTY>
+<!ELEMENT CardBonuses (TerritoryBonus, BuildingBonus, CharacterBonus, VentureBonus)>
+<!ELEMENT CharacterBonus (Properties, Properties, Properties, Properties, Properties, Properties)>
+<!ELEMENT BuildingBonus (Properties, Properties, Properties, Properties, Properties, Properties)>
+<!ELEMENT VentureBonus (Properties, Properties, Properties, Properties, Properties, Properties)>
+<!ELEMENT TerritoryBonus (Properties, Properties, Properties, Properties, Properties, Properties)>
+
+<!ELEMENT CardRequirement (TerritoryRequirement, BuildingRequirement, CharacterRequirement, VentureRequirement)>
+<!ELEMENT CharacterRequirement (Requirement, Requirement, Requirement, Requirement, Requirement, Requirement)>
+<!ELEMENT TerritoryRequirement (Requirement, Requirement, Requirement, Requirement, Requirement, Requirement)>
+<!ELEMENT BuildingRequirement (Requirement, Requirement, Requirement, Requirement, Requirement, Requirement)>
+<!ELEMENT VentureRequirement (Requirement, Requirement, Requirement, Requirement, Requirement, Requirement)>
+
+<!ELEMENT FaithBonuses EMPTY>
+<!ELEMENT MilitaryBonuses EMPTY>
+<!ELEMENT MarketBonuses (Properties, Properties, Properties, Properties)>
+<!ELEMENT CouncilBonus (Properties)>
+<!ELEMENT CouncilPrivileges EMPTY>
+
+<!ATTLIST Coins value CDATA #REQUIRED>
+<!ATTLIST Stones value CDATA #REQUIRED>
+<!ATTLIST Wood value CDATA #REQUIRED>
+<!ATTLIST Servants value CDATA #REQUIRED>
+<!ATTLIST MilitaryPoints value CDATA #REQUIRED>
+<!ATTLIST FaithPoints value CDATA #REQUIRED>
+<!ATTLIST VictoryPoints value CDATA #REQUIRED>
+
+<!ATTLIST MilitaryBonuses first CDATA #REQUIRED
+			second CDATA #REQUIRED>
+<!ATTLIST FaithBonuses  first CDATA #REQUIRED second CDATA #REQUIRED third CDATA #REQUIRED
+			fourth CDATA #REQUIRED fifth CDATA #REQUIRED sixth CDATA #REQUIRED
+			seventh CDATA #REQUIRED eighth CDATA #REQUIRED nineth CDATA #REQUIRED
+			tenth CDATA #REQUIRED eleventh CDATA #REQUIRED twelveth CDATA #REQUIRED
+			thirteenth CDATA #REQUIRED fourteenth CDATA #REQUIRED fifteenth CDATA #REQUIRED>
+
+<!ATTLIST CouncilPrivileges value CDATA #REQUIRED>
+
+
+
