@@ -152,4 +152,19 @@ public class PropertiesSet implements Serializable{
 		return true;
 	}
 	
+	/**
+	 * Increases the value of all the properties in this object by a number of units specified in another ImmProperties object.
+	 * 
+	 * @param props
+	 * @return true if the operations succeeds; otherwise, it returns false.
+	 */
+	public boolean increaseProperties(ImmProperties propsToAdd)
+	{
+		for(PropertiesId propId: propsToAdd.getPropertiesIds())
+		{
+			if(this.getProperty(propId).addValue(propsToAdd.getPropertyValue(propId))==false) return false;
+		}
+		return true;
+	}
+	
 }

@@ -55,7 +55,7 @@ public class Property implements Cloneable{
 	}
 	
 	/**Increases the value stored in the object by num units.
-	 * This method can't be used to increase the value of the property.
+	 * This method can't be used to reduce the value of the property.
 	 * @param num
 	 * @return true if the operation succeeded, false if the 'num' parameter is negative
 	 */
