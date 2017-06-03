@@ -111,7 +111,7 @@ public class EffectBuilder {
 			if (node.getElementsByTagName("Building").getLength() != 0) types.add(DevelopmentCardType.BUILDING);
 			if (node.getElementsByTagName("Character").getLength() != 0) types.add(DevelopmentCardType.CHARACTER);
 			if (node.getElementsByTagName("Venture").getLength() != 0) types.add(DevelopmentCardType.VENTURE);
-			return new PickAnotherCard(diceValue, types.toArray(new DevelopmentCardType[0]));
+			return new PickAnotherCardAction(diceValue, types.toArray(new DevelopmentCardType[0]));
 
 		}
 		case "":

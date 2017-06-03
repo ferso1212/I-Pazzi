@@ -5,7 +5,7 @@ public class VaticanChoice extends Message{
 	private boolean chosen;
 
 	public VaticanChoice(String message, boolean chosen) {
-		super(message);
+		this.message = "You have to choose to support or not the church (don't do it, Satan is beatiful)";
 		this.chosen = chosen;
 	}
 
