@@ -170,7 +170,7 @@ public class Player {
 	/**Player constructor. 
 	 * @param name A String containing the name of the player.
 	 * @param startingProperties The resources and points that the player will have at the beginning of the match.
-	 * @param id an integer that identifies the player.
+	 * @param id the color that identifies the player.
 	 */
 	public Player(String name, PlayerProperties startingProperties, PlayerColor id) 
 	{
