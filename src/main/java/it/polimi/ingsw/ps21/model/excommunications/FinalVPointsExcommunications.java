@@ -27,11 +27,11 @@ public class FinalVPointsExcommunications extends Excommunication{
 	 */
 	@Override
 	public String toString() {
-		String output= new String();
-		if(noGreenPoints) output.concat("At the end of the game, you don't get victory points from Territory Cards. \n");
-		if(noYellowPoints) output.concat("At the end of the game, you don't get victory points from Building Cards. \n");
-		if(noBluePoints) output.concat("At the end of the game, you don't get victory points from Character Cards.");
-		return output;
+		StringBuilder output= new StringBuilder();
+		if(noGreenPoints) output.append("At the end of the game, you don't get victory points from Territory Cards. \n");
+		if(noYellowPoints) output.append("At the end of the game, you don't get victory points from Building Cards. \n");
+		if(noBluePoints) output.append("At the end of the game, you don't get victory points from Character Cards.");
+		return output.toString();
 	}
 	
 	/**Constructor
