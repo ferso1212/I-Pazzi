@@ -9,6 +9,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
+import it.polimi.ingsw.ps21.model.deck.TooManyArgumentException;
 import it.polimi.ingsw.ps21.model.match.BuildingCardException;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesBuilder;
@@ -75,7 +76,7 @@ public class EffectBuilder {
 		case "CouncilEffect":
 		{
 			int value = Integer.parseInt(node.getAttributeNode("value").getNodeValue());
-			return new CouncilBonus(value);
+			return new CouncilEffect(new ImmProperties(0), value);
 		}
 		case "BlockTowerEffect":
 			return new BlockTowerEffect();
@@ -99,7 +100,11 @@ public class EffectBuilder {
 			if (node.getElementsByTagName("Building").getLength() != 0) types.add(DevelopmentCardType.BUILDING);
 			if (node.getElementsByTagName("Character").getLength() != 0) types.add(DevelopmentCardType.CHARACTER);
 			if (node.getElementsByTagName("Venture").getLength() != 0) types.add(DevelopmentCardType.VENTURE);
-			return new DiscountEffect(PropertiesBuilder.makeCost(costNode), PropertiesBuilder.makeImmProperites(propNode), types.toArray(new DevelopmentCardType[0]));
+			try {
+				return new DiscountEffect(PropertiesBuilder.makeCost(costNode), PropertiesBuilder.makeImmProperites(propNode), types.toArray(new DevelopmentCardType[0]));
+			} catch (TooManyArgumentException e) {
+				return new NullEffect();
+			}
 		}
 		case "PickAnotherCard":
 		{
@@ -111,7 +116,8 @@ public class EffectBuilder {
 			if (node.getElementsByTagName("Building").getLength() != 0) types.add(DevelopmentCardType.BUILDING);
 			if (node.getElementsByTagName("Character").getLength() != 0) types.add(DevelopmentCardType.CHARACTER);
 			if (node.getElementsByTagName("Venture").getLength() != 0) types.add(DevelopmentCardType.VENTURE);
-			return new PickAnotherCardAction(diceValue, types.toArray(new DevelopmentCardType[0]));
+			return new NullEffect();
+			// TODO return new PickAnotherCardAction(diceValue, types.toArray(new DevelopmentCardType[0]));
 
 		}
 		case "":

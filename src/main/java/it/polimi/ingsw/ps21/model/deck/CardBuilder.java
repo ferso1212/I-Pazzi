@@ -74,7 +74,7 @@ public class CardBuilder {
 				if (prop.getNodeType() == prop.ELEMENT_NODE){ // Evito i nodi che non rappresentano elementi in xml
 					switch (prop.getNodeName()) {
 					case "Requirement":
-						cardReq.add(makeRequirement((Element)prop));
+						cardReq.add(PropertiesBuilder.makeRequirement((Element)prop));
 						break;
 					case "Cost":
 						cardCosts.add(PropertiesBuilder.makeCost((Element) prop));
@@ -138,31 +138,6 @@ public class CardBuilder {
 					throw new BuildingCardException();
 				}*/
 			finally{}
-		}
-		
-	
-		private Requirement makeRequirement(Element req) throws XMLParseException { // Must be a Requirement Element
-			if (req.getTagName() != "Requirement") throw new XMLParseException("Not a Requirement element");
-			else {
-				CardsNumber tempCardNum = new CardsNumber(0, 0, 0, 0); //Temporary values
-				ImmProperties props = new ImmProperties(0,0,0,0,0,0, 0); //Temporary Values
-				NodeList cardNumNodes = req.getElementsByTagName("CardsNumber");
-				for (int i= 0; i<cardNumNodes.getLength(); i++){
-					Node cardNode = cardNumNodes.item(i);
-					if (cardNode.getNodeType() == cardNode.ELEMENT_NODE){
-						tempCardNum = PropertiesBuilder.makeCardNums((Element) cardNode);
-					}
-				}
-				
-				NodeList propsNodes = req.getElementsByTagName("Properties"); // Check on Child element with tag name properties (
-				for (int i= 0; i<propsNodes.getLength(); i++){
-					Node propsNode = propsNodes.item(i);
-					if (propsNode.getNodeType() == propsNode.ELEMENT_NODE){
-						props = PropertiesBuilder.makeImmProperites((Element) propsNode);
-					}
-				}
-				return new Requirement(tempCardNum, props);
-			}
 		}
 		
 		

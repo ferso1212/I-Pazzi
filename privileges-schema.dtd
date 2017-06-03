@@ -15,3 +15,5 @@
 <!ATTLIST MilitaryPoints value CDATA #REQUIRED>
 <!ATTLIST FaithPoints value CDATA #REQUIRED>
 <!ATTLIST VictoryPoints value CDATA #REQUIRED>
+
+

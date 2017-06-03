@@ -7,6 +7,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import it.polimi.ingsw.ps21.model.deck.CardsNumber;
+import it.polimi.ingsw.ps21.model.deck.Requirement;
 
 public class PropertiesBuilder {
 	
@@ -66,6 +67,30 @@ public class PropertiesBuilder {
 		subElement = (Element) colors.item(i); 
 		purple = Integer.parseInt(subElement.getAttributeNode("value").getNodeValue());
 		return new CardsNumber(green, yellow, blue, purple);
+	}
+	
+	public static Requirement makeRequirement(Element req) throws XMLParseException { // Must be a Requirement Element
+		if (req.getTagName() != "Requirement") throw new XMLParseException("Not a Requirement element");
+		else {
+			CardsNumber tempCardNum = new CardsNumber(0, 0, 0, 0); //Temporary values
+			ImmProperties props = new ImmProperties(0,0,0,0,0,0, 0); //Temporary Values
+			NodeList cardNumNodes = req.getElementsByTagName("CardsNumber");
+			for (int i= 0; i<cardNumNodes.getLength(); i++){
+				Node cardNode = cardNumNodes.item(i);
+				if (cardNode.getNodeType() == cardNode.ELEMENT_NODE){
+					tempCardNum = PropertiesBuilder.makeCardNums((Element) cardNode);
+				}
+			}
+			
+			NodeList propsNodes = req.getElementsByTagName("Properties"); // Check on Child element with tag name properties (
+			for (int i= 0; i<propsNodes.getLength(); i++){
+				Node propsNode = propsNodes.item(i);
+				if (propsNode.getNodeType() == propsNode.ELEMENT_NODE){
+					props = PropertiesBuilder.makeImmProperites((Element) propsNode);
+				}
+			}
+			return new Requirement(tempCardNum, props);
+		}
 	}
 
 }
