@@ -9,8 +9,8 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
  */
 public class DoubleResources extends PermanentLeaderEffect {
 
-	public DoubleResources(Requirement req, ImmProperties cost) {
-		super(req, cost);
+	public DoubleResources() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 
