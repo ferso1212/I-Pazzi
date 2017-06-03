@@ -10,9 +10,14 @@ import it.polimi.ingsw.ps21.controller.WorkMessage;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
 public abstract class UserHandler implements Visitor, Runnable{
-	private PlayerColor playerId;
+	protected PlayerColor playerId;
 	
 	
+
+	public UserHandler(PlayerColor playerId) {
+		super();
+		this.playerId = playerId;
+	}
 
 	@Override
 	public void visit(VaticanChoice choice) {
