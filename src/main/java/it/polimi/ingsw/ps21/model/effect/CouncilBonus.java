@@ -3,6 +3,7 @@ package it.polimi.ingsw.ps21.model.effect;
 import java.util.Map;
 
 import it.polimi.ingsw.ps21.controller.UnchosenException;
+import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
@@ -13,18 +14,17 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 public class CouncilBonus extends InstantLeaderEffect {
 	
 	private Map<Integer,ImmProperties> bonusPossibilities;
-	private ImmProperties chosenBonus[];
+	private int bonuses;
 	
 	
 	public CouncilBonus(int councilBonusNumber){
-		chosenBonus = new ImmProperties[councilBonusNumber];
+		super();
+		bonuses = councilBonusNumber;
 	}
 	
 	@Override
-	public void activate(Player player) throws UnchosenException {
-		for (ImmProperties i : chosenBonus){
-			if (i==null) throw new UnchosenException();
- 		}
+	public ExtraAction activate(Player player) {
+		return new TakePrivilegesAction(player.getId(), bonuses);
 	}
 
 	@Override

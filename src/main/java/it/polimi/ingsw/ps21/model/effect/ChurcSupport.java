@@ -1,5 +1,7 @@
 package it.polimi.ingsw.ps21.model.effect;
 
+import it.polimi.ingsw.ps21.model.actions.ExtraAction;
+import it.polimi.ingsw.ps21.model.actions.NullAction;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
@@ -8,20 +10,19 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
  */
 public class ChurcSupport extends PermanentLeaderEffect {
 
-	public ChurcSupport(Requirement req, ImmProperties cost) {
-		super(req, cost);
+	public ChurcSupport(){
+		super();
 	}
 
 	@Override
-	public void activate(Player player) {
+	public ExtraAction activate(Player player) {
 		// TODO Auto-generated method stub
-
+		return new NullAction(player.getId());
 	}
 
 	@Override
 	public String getType() {
-		// TODO Auto-generated method stub
-		return null;
+		return "ChurchSupportLeaderEffect";
 	}
 
 	@Override

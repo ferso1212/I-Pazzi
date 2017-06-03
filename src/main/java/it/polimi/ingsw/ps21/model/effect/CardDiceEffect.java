@@ -2,6 +2,8 @@ package it.polimi.ingsw.ps21.model.effect;
 
 import java.util.Set;
 
+import it.polimi.ingsw.ps21.model.actions.ExtraAction;
+import it.polimi.ingsw.ps21.model.actions.NullAction;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.TooManyArgumentException;
@@ -35,7 +37,7 @@ public class CardDiceEffect extends Effect {
 		for (DevelopmentCardType devType : types) {
 			player.getModifiers().getDiceMods().getDiceMod(devType).setValue(cardDiceValue);
 		}
-		return new NullAction();
+		return new NullAction(player.getId());
 	}
 	
 

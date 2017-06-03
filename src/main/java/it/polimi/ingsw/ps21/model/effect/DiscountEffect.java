@@ -2,6 +2,8 @@ package it.polimi.ingsw.ps21.model.effect;
 
 import java.util.Set;
 
+import it.polimi.ingsw.ps21.model.actions.ExtraAction;
+import it.polimi.ingsw.ps21.model.actions.NullAction;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.deck.TooManyArgumentException;
@@ -40,11 +42,12 @@ public class DiscountEffect extends Effect {
 	
 
 	@Override
-	public void activate(Player player) {
-		//DiscountsSet modifier = player.getModifiers().getDiscountsMods();
-		//TODO for (DevelopmentCardType d: types) {
-		//	modifier.getDiscount(d).getPropertiesDisc().increaseProperties(discount);
-		//}
+	public ExtraAction activate(Player player) {
+	 DiscountsSet modifier = player.getModifiers().getDiscountsMods();
+	 for (DevelopmentCardType d: types) {
+		modifier.getDiscount(d).getPropertiesDisc().increaseProperties(discount);
+	 }
+	return new NullAction(player.getId());
 	}
 
 	@Override

@@ -31,6 +31,10 @@ public ImmProperties(int...initValues)
 	this.properties=new PropertiesSet(initValues);
 }
 
+public ImmProperties(Property...properties)
+{
+	this.properties=new PropertiesSet(properties);
+}
 /**Returns the value of the property with the matching id.
  * @param id the id of the property.
  * @return the value of the property.

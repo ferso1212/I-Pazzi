@@ -2,6 +2,7 @@ package it.polimi.ingsw.ps21.model.match;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,6 +20,7 @@ import it.polimi.ingsw.ps21.model.deck.IllegalCardException;
 import it.polimi.ingsw.ps21.model.deck.SubDeck;
 import it.polimi.ingsw.ps21.model.deck.TerritoryCard;
 import it.polimi.ingsw.ps21.model.deck.VentureCard;
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 
 // TODO implements signleton and factory for every effect
@@ -29,6 +31,7 @@ public class MatchFactory {
 	private final String yellowPath = (new File("")).getAbsolutePath().concat("/yellow-deck.xml").toString();
 	private final String bluePath = (new File("")).getAbsolutePath().concat("/blue-deck.xml").toString();
 	private	final String purplePath = (new File("")).getAbsolutePath().concat("/purple-deck.xml").toString();
+	private	final String privilegesPath = (new File("")).getAbsolutePath().concat("/privileges.xml").toString();
 	private DocumentBuilder builder;
 	private Deck configuratedDeck;
 	/**
@@ -235,4 +238,24 @@ public class MatchFactory {
 	}
 
 
+	
+	public ImmProperties[] makePrivileges(){
+		Document configuration;
+		try{
+			File privilegesFile = new File(privilegesPath);
+			configuration = builder.parse(privilegesFile);
+			configuration.normalize();
+		}
+		catch (SAXException | IOException i){
+			ArrayList<ImmProperties> defaultPrivileges = new ArrayList<>();
+			defaultPrivileges.add(new ImmProperties(0,1,1)); // 1 wood and 1 stone
+			defaultPrivileges.add(new ImmProperties(2,0,0,0)); // 2 coins
+			defaultPrivileges.add(new ImmProperties(0,0,0,2)); // 2 
+			defaultPrivileges.add(new ImmProperties(0,0,0,0,0));
+		}
+				
+		ArrayList<ImmProperties> bonuses = new ArrayList<>();
+		// TODO 
+		return bonuses.toArray(new ImmProperties[0]);
+	}
 }
