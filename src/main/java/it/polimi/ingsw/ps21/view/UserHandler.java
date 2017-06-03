@@ -7,8 +7,12 @@ import it.polimi.ingsw.ps21.controller.EffectChoice;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.controller.WorkMessage;
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
-public class UserHandler implements Visitor{
+public abstract class UserHandler implements Visitor, Runnable{
+	private PlayerColor playerId;
+	
+	
 
 	@Override
 	public void visit(VaticanChoice choice) {

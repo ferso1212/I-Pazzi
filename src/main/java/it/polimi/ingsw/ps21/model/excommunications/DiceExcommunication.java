@@ -41,11 +41,11 @@ public class DiceExcommunication extends Excommunication {
 	@Override
 	public String toString()
 	{
-		String output= new String();
-		output.concat("Each time you use your white family member, his value is reduced by " + this.whiteDiceMalus + " units.\n");
-		output.concat("Each time you use your black family member, his value is reduced by " + this.blackDiceMalus + " units.\n");
-		output.concat("Each time you use your orange family member, his value is reduced by " + this.orangeDiceMalus + " units.\n");
-		return output;
+		StringBuilder output= new StringBuilder();
+		output.append("Each time you use your white family member, his value is reduced by " + this.whiteDiceMalus + " units.\n");
+		output.append("Each time you use your black family member, his value is reduced by " + this.blackDiceMalus + " units.\n");
+		output.append("Each time you use your orange family member, his value is reduced by " + this.orangeDiceMalus + " units.\n");
+		return output.toString();
 	}
 	
 }

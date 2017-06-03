@@ -8,6 +8,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.PlayerProperties;
+import it.polimi.ingsw.ps21.view.UserHandler;
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.player.Player;
@@ -21,6 +22,7 @@ public class UnsettedMatch extends Match {
 		orangeDice = 0;
 		blackDice = 0;
 		whiteDice = 0;
+		
 	}
 	@Override
 	public Match getCopy() throws CloneNotSupportedException {
@@ -69,4 +71,8 @@ public class UnsettedMatch extends Match {
 		return this;
 	}
 
+	public void waitPlayers()
+	{
+		
+	}
 }
