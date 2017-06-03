@@ -17,11 +17,11 @@ public class Tower {
 		} else throw new IllegalArgumentException();
 	}
 	
-	public boolean isOccupied(Player player, FamilyMember member)
+	public boolean isOccupied()
 	{
 		for(int i=1; i<FLOORS_NUM + 1; i++)
 		{
-			if(!(tower[i].isOccupable(player, member))) return false;
+			if(!(tower[i].isOccupable())) return false;
 		}
 		return true;
 	}
