@@ -37,12 +37,12 @@ public class PropAdditionExcommunication extends Excommunication{
 	 */
 	@Override
 	public String toString(){
-		String output= new String();
+		StringBuilder output= new StringBuilder();
 		for(PropertiesId propId: additionMalus.getPropertiesIds())
 		{
-			output.concat("Each time you acquire " + propId.toString() + " you receive " + additionMalus.getPropertyValue(propId) + " less of them. \n");
+			output.append("Each time you acquire " + propId.toString() + " you receive " + additionMalus.getPropertyValue(propId) + " less of them. \n");
 		}
-		return output;
+		return output.toString();
 	}
 	
 	

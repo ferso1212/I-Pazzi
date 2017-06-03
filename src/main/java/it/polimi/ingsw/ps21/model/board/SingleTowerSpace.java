@@ -26,5 +26,13 @@ public class SingleTowerSpace extends SingleSpace {
 		this.occupant=null;
 		this.card=null;
 	}
+	
+	public boolean isOccupable()
+	{
+		if (occupant == null) {
+			return true;
+		}
+		return false;
+	}
 
 }
