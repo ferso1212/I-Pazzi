@@ -87,230 +87,10 @@
         </Properties>
   </InitialProperties>
 	<CardBonuses>
-		<TerritoryBonus>
-			<Properties>
-                		    <Wood value="2"/>
-                		    <Stones value="2"/>
-               			     <Servants value="3"/>
-               			     <Coins value="8"/>
-                		    <MilitaryPoints value="2"/>
-                		    <VictoryPoints value="0"/>
-              			      <FaithPoints value ="0"/>
-        		</Properties>
-			<Properties>
-                		    <Wood value="2"/>
-                		    <Stones value="2"/>
-               			     <Servants value="3"/>
-               			     <Coins value="8"/>
-                		    <MilitaryPoints value="2"/>
-                		    <VictoryPoints value="0"/>
-              			      <FaithPoints value ="0"/>
-        		</Properties>
-			<Properties>
-                		    <Wood value="2"/>
-                		    <Stones value="2"/>
-               			     <Servants value="3"/>
-               			     <Coins value="8"/>
-                		    <MilitaryPoints value="2"/>
-                		    <VictoryPoints value="0"/>
-              			      <FaithPoints value ="0"/>
-        		</Properties>
-			<Properties>
-                		    <Wood value="2"/>
-                		    <Stones value="2"/>
-               			     <Servants value="3"/>
-               			     <Coins value="8"/>
-                		    <MilitaryPoints value="2"/>
-                		    <VictoryPoints value="0"/>
-              			      <FaithPoints value ="0"/>
-        		</Properties>
-			<Properties>
-                		    <Wood value="2"/>
-                		    <Stones value="2"/>
-               			     <Servants value="3"/>
-               			     <Coins value="8"/>
-                		    <MilitaryPoints value="2"/>
-                		    <VictoryPoints value="0"/>
-              			      <FaithPoints value ="0"/>
-        		</Properties>
-			<Properties>
-                		    <Wood value="2"/>
-                		    <Stones value="2"/>
-               			     <Servants value="3"/>
-               			     <Coins value="8"/>
-                		    <MilitaryPoints value="2"/>
-                		    <VictoryPoints value="0"/>
-              			      <FaithPoints value ="0"/>
-        		</Properties>
-		</TerritoryBonus>
-		<BuildingBonus>
-			<Properties>
-                		    <Wood value="2"/>
-                		    <Stones value="2"/>
-               			     <Servants value="3"/>
-               			     <Coins value="8"/>
-                		    <MilitaryPoints value="2"/>
-                		    <VictoryPoints value="0"/>
-              			      <FaithPoints value ="0"/>
-        		</Properties>
-			<Properties>
-                		    <Wood value="2"/>
-                		    <Stones value="2"/>
-               			     <Servants value="3"/>
-               			     <Coins value="8"/>
-                		    <MilitaryPoints value="2"/>
-                		    <VictoryPoints value="0"/>
-              			      <FaithPoints value ="0"/>
-        		</Properties>
-			<Properties>
-                		    <Wood value="2"/>
-                		    <Stones value="2"/>
-               			     <Servants value="3"/>
-               			     <Coins value="8"/>
-                		    <MilitaryPoints value="2"/>
-                		    <VictoryPoints value="0"/>
-              			      <FaithPoints value ="0"/>
-        		</Properties>
-			<Properties>
-                		    <Wood value="2"/>
-                		    <Stones value="2"/>
-               			     <Servants value="3"/>
-               			     <Coins value="8"/>
-                		    <MilitaryPoints value="2"/>
-                		    <VictoryPoints value="0"/>
-              			      <FaithPoints value ="0"/>
-        		</Properties>
-			<Properties>
-                		    <Wood value="2"/>
-                		    <Stones value="2"/>
-               			     <Servants value="3"/>
-               			     <Coins value="8"/>
-                		    <MilitaryPoints value="2"/>
-                		    <VictoryPoints value="0"/>
-              			      <FaithPoints value ="0"/>
-        		</Properties>
-			<Properties>
-                		    <Wood value="2"/>
-                		    <Stones value="2"/>
-               			     <Servants value="3"/>
-               			     <Coins value="8"/>
-                		    <MilitaryPoints value="2"/>
-                		    <VictoryPoints value="0"/>
-              			      <FaithPoints value ="0"/>
-        		</Properties>
-		</BuildingBonus>
-		<CharacterBonus>
-			<Properties>
-                		    <Wood value="2"/>
-                		    <Stones value="2"/>
-               			     <Servants value="3"/>
-               			     <Coins value="8"/>
-                		    <MilitaryPoints value="2"/>
-                		    <VictoryPoints value="0"/>
-              			      <FaithPoints value ="0"/>
-        		</Properties>
-			<Properties>
-                		    <Wood value="2"/>
-                		    <Stones value="2"/>
-               			     <Servants value="3"/>
-               			     <Coins value="8"/>
-                		    <MilitaryPoints value="2"/>
-                		    <VictoryPoints value="0"/>
-              			      <FaithPoints value ="0"/>
-        		</Properties>
-			<Properties>
-                		    <Wood value="2"/>
-                		    <Stones value="2"/>
-               			     <Servants value="3"/>
-               			     <Coins value="8"/>
-                		    <MilitaryPoints value="2"/>
-                		    <VictoryPoints value="0"/>
-              			      <FaithPoints value ="0"/>
-        		</Properties>
-			<Properties>
-                		    <Wood value="2"/>
-                		    <Stones value="2"/>
-               			     <Servants value="3"/>
-               			     <Coins value="8"/>
-                		    <MilitaryPoints value="2"/>
-                		    <VictoryPoints value="0"/>
-              			      <FaithPoints value ="0"/>
-        		</Properties>
-			<Properties>
-                		    <Wood value="2"/>
-                		    <Stones value="2"/>
-               			     <Servants value="3"/>
-               			     <Coins value="8"/>
-                		    <MilitaryPoints value="2"/>
-                		    <VictoryPoints value="0"/>
-              			      <FaithPoints value ="0"/>
-        		</Properties>
-			<Properties>
-                		    <Wood value="2"/>
-                		    <Stones value="2"/>
-               			     <Servants value="3"/>
-               			     <Coins value="8"/>
-                		    <MilitaryPoints value="2"/>
-                		    <VictoryPoints value="0"/>
-              			      <FaithPoints value ="0"/>
-        		</Properties>
-		</CharacterBonus>
-		<VentureBonus>
-			<Properties>
-                		    <Wood value="2"/>
-                		    <Stones value="2"/>
-               			     <Servants value="3"/>
-               			     <Coins value="8"/>
-                		    <MilitaryPoints value="2"/>
-                		    <VictoryPoints value="0"/>
-              			      <FaithPoints value ="0"/>
-        		</Properties>
-			<Properties>
-                		    <Wood value="2"/>
-                		    <Stones value="2"/>
-               			     <Servants value="3"/>
-               			     <Coins value="8"/>
-                		    <MilitaryPoints value="2"/>
-                		    <VictoryPoints value="0"/>
-              			      <FaithPoints value ="0"/>
-        		</Properties>
-			<Properties>
-                		    <Wood value="2"/>
-                		    <Stones value="2"/>
-               			     <Servants value="3"/>
-               			     <Coins value="8"/>
-                		    <MilitaryPoints value="2"/>
-                		    <VictoryPoints value="0"/>
-              			      <FaithPoints value ="0"/>
-        		</Properties>
-			<Properties>
-                		    <Wood value="2"/>
-                		    <Stones value="2"/>
-               			     <Servants value="3"/>
-               			     <Coins value="8"/>
-                		    <MilitaryPoints value="2"/>
-                		    <VictoryPoints value="0"/>
-              			      <FaithPoints value ="0"/>
-        		</Properties>
-			<Properties>
-                		    <Wood value="2"/>
-                		    <Stones value="2"/>
-               			     <Servants value="3"/>
-               			     <Coins value="8"/>
-                		    <MilitaryPoints value="2"/>
-                		    <VictoryPoints value="0"/>
-              			      <FaithPoints value ="0"/>
-        		</Properties>
-			<Properties>
-                		    <Wood value="2"/>
-                		    <Stones value="2"/>
-               			     <Servants value="3"/>
-               			     <Coins value="8"/>
-                		    <MilitaryPoints value="2"/>
-                		    <VictoryPoints value="0"/>
-              			      <FaithPoints value ="0"/>
-        		</Properties>
-		</VentureBonus>
+            <TerritoryBonuses value1="0" value2="1" value3="2" value4="3" value5="5" value6="10"/>
+            <BuildingBonuses value1="0" value2="1" value3="2" value4="3" value5="5" value6="10"/>
+            <CharacterBonuses value1="0" value2="1" value3="2" value4="3" value5="5" value6="10"/>
+            <VentureBonuses value1="0" value2="1" value3="2" value4="3" value5="5" value6="10"/>
 	</CardBonuses>
 	<CardRequirement>
 		<TerritoryRequirement>
@@ -731,7 +511,7 @@
 		</VentureRequirement>
 	</CardRequirement>
 	<MilitaryBonuses first="1" second="2"/>
-	<FaithBonuses first="0" second="0" third="0" fourth="0" fiveth="0" sixth="0" seventh="0" eighth="0"
+	<FaithBonuses first="0" second="0" third="0" fourth="0" fifth="0" sixth="0" seventh="0" eighth="0"
 nineth="0" tenth="0" eleventh="0" twelveth="0" thirteenth="0" fourteenth="0" fifteenth="0"/>
 	<MarketBonuses>
 		      <Properties>
@@ -771,5 +551,171 @@ nineth="0" tenth="0" eleventh="0" twelveth="0" thirteenth="0" fourteenth="0" fif
                 		    <FaithPoints value="0"/>
           		  </Properties>
 	</MarketBonuses>
+	<CouncilBonus>
+		      <Properties>
+                		    <Wood value="0"/>
+                		    <Stones value="0"/>
+                		    <Servants value="0"/>
+                		    <Coins value="0"/>
+                		    <MilitaryPoints value="0"/>
+                		    <VictoryPoints value="0"/>
+                		    <FaithPoints value="0"/>
+          		  </Properties>		 
+	</CouncilBonus>
+	<CouncilPrivileges value="1"/>
+	<TowersBonuses>
+		<TerritoryTower>
+		      <Properties>
+                		    <Wood value="0"/>
+                		    <Stones value="0"/>
+                		    <Servants value="0"/>
+                		    <Coins value="0"/>
+                		    <MilitaryPoints value="0"/>
+                		    <VictoryPoints value="0"/>
+                		    <FaithPoints value="0"/>
+          		  </Properties>
+		      <Properties>
+                		    <Wood value="0"/>
+                		    <Stones value="0"/>
+                		    <Servants value="0"/>
+                		    <Coins value="0"/>
+                		    <MilitaryPoints value="0"/>
+                		    <VictoryPoints value="0"/>
+                		    <FaithPoints value="0"/>
+          		  </Properties>
+		      <Properties>
+                		    <Wood value="0"/>
+                		    <Stones value="0"/>
+                		    <Servants value="0"/>
+                		    <Coins value="0"/>
+                		    <MilitaryPoints value="0"/>
+                		    <VictoryPoints value="0"/>
+                		    <FaithPoints value="0"/>
+          		  </Properties>
+		      <Properties>
+                		    <Wood value="0"/>
+                		    <Stones value="0"/>
+                		    <Servants value="0"/>
+                		    <Coins value="0"/>
+                		    <MilitaryPoints value="0"/>
+                		    <VictoryPoints value="0"/>
+                		    <FaithPoints value="0"/>
+          		  </Properties>
+		</TerritoryTower>
+		<BuildingTower>
+		      <Properties>
+                		    <Wood value="0"/>
+                		    <Stones value="0"/>
+                		    <Servants value="0"/>
+                		    <Coins value="0"/>
+                		    <MilitaryPoints value="0"/>
+                		    <VictoryPoints value="0"/>
+                		    <FaithPoints value="0"/>
+          		  </Properties>
+		      <Properties>
+                		    <Wood value="0"/>
+                		    <Stones value="0"/>
+                		    <Servants value="0"/>
+                		    <Coins value="0"/>
+                		    <MilitaryPoints value="0"/>
+                		    <VictoryPoints value="0"/>
+                		    <FaithPoints value="0"/>
+          		  </Properties>
+		      <Properties>
+                		    <Wood value="0"/>
+                		    <Stones value="0"/>
+                		    <Servants value="0"/>
+                		    <Coins value="0"/>
+                		    <MilitaryPoints value="0"/>
+                		    <VictoryPoints value="0"/>
+                		    <FaithPoints value="0"/>
+          		  </Properties>
+		      <Properties>
+                		    <Wood value="0"/>
+                		    <Stones value="0"/>
+                		    <Servants value="0"/>
+                		    <Coins value="0"/>
+                		    <MilitaryPoints value="0"/>
+                		    <VictoryPoints value="0"/>
+                		    <FaithPoints value="0"/>
+          		  </Properties>
+		</BuildingTower>
+		<CharacterTower>
+		      <Properties>
+                		    <Wood value="0"/>
+                		    <Stones value="0"/>
+                		    <Servants value="0"/>
+                		    <Coins value="0"/>
+                		    <MilitaryPoints value="0"/>
+                		    <VictoryPoints value="0"/>
+                		    <FaithPoints value="0"/>
+          		  </Properties>
+		      <Properties>
+                		    <Wood value="0"/>
+                		    <Stones value="0"/>
+                		    <Servants value="0"/>
+                		    <Coins value="0"/>
+                		    <MilitaryPoints value="0"/>
+                		    <VictoryPoints value="0"/>
+                		    <FaithPoints value="0"/>
+          		  </Properties>
+		      <Properties>
+                		    <Wood value="0"/>
+                		    <Stones value="0"/>
+                		    <Servants value="0"/>
+                		    <Coins value="0"/>
+                		    <MilitaryPoints value="0"/>
+                		    <VictoryPoints value="0"/>
+                		    <FaithPoints value="0"/>
+          		  </Properties>
+		      <Properties>
+                		    <Wood value="0"/>
+                		    <Stones value="0"/>
+                		    <Servants value="0"/>
+                		    <Coins value="0"/>
+                		    <MilitaryPoints value="0"/>
+                		    <VictoryPoints value="0"/>
+                		    <FaithPoints value="0"/>
+          		  </Properties>
+		</CharacterTower>
+		<VentureTower>
+		      <Properties>
+                		    <Wood value="0"/>
+                		    <Stones value="0"/>
+                		    <Servants value="0"/>
+                		    <Coins value="0"/>
+                		    <MilitaryPoints value="0"/>
+                		    <VictoryPoints value="0"/>
+                		    <FaithPoints value="0"/>
+          		  </Properties>
+		      <Properties>
+                		    <Wood value="0"/>
+                		    <Stones value="0"/>
+                		    <Servants value="0"/>
+                		    <Coins value="0"/>
+                		    <MilitaryPoints value="0"/>
+                		    <VictoryPoints value="0"/>
+                		    <FaithPoints value="0"/>
+          		  </Properties>
+		      <Properties>
+                		    <Wood value="0"/>
+                		    <Stones value="0"/>
+                		    <Servants value="0"/>
+                		    <Coins value="0"/>
+                		    <MilitaryPoints value="0"/>
+                		    <VictoryPoints value="0"/>
+                		    <FaithPoints value="0"/>
+          		  </Properties>
+		      <Properties>
+                		    <Wood value="0"/>
+                		    <Stones value="0"/>
+                		    <Servants value="0"/>
+                		    <Coins value="0"/>
+                		    <MilitaryPoints value="0"/>
+                		    <VictoryPoints value="0"/>
+                		    <FaithPoints value="0"/>
+          		  </Properties>
+		</VentureTower>
+	</TowersBonuses>
 </Board>
 
