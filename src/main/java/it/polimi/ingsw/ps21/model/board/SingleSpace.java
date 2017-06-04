@@ -4,25 +4,20 @@ import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
-public class SingleSpace extends Space {
+public abstract class SingleSpace extends Space {
 
 	protected FamilyMember occupant;
-	protected SingleSpaceType type;
 
-	public SingleSpace(int diceRequirement, ImmProperties instantBonus, SingleSpaceType type) {
+	public SingleSpace(int diceRequirement, ImmProperties instantBonus) {
 		super(diceRequirement, instantBonus);
 		this.occupant = null;
-		this.type = type;
 	}
 
 	public FamilyMember getOccupant() {
 		return occupant;
 	}
 
-	public SingleSpaceType getType() {
-		return type;
-	}
-
+	@Override
 	public void occupy(Player player, FamilyMember member) throws NotOccupableException {
 		if (occupant == null) {
 			this.occupant = member;

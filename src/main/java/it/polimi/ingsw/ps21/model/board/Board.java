@@ -28,22 +28,27 @@ public class Board {
 	protected MultipleSpace multipleProdPlace;
 	protected CouncilPalace councilPalace;
 	protected Map<DevelopmentCardType, int[]> cardBonus;
+	protected Deck developmentDeck;
+	protected ImmProperties[] possibleValuesPrivileges;
 	
 	public Board(int playerNumber) {
 		MatchFactory file = MatchFactory.instance();
+		this.trackBonuses = file.makeTrackBonuses();
 		this.marketPlaces = new SingleSpace[playerNumber];
-		this.singleHarvPlace = new SingleSpace( 1, new ImmProperties(0), SingleSpaceType.HARVEST);
-		this.singleProdPlace = new SingleSpace(1, new ImmProperties(0), SingleSpaceType.PRODUCTION);
-		this.councilPalace = new CouncilPalace(1, file.makeCouncilBonuses(), MultipleSpaceType.COUNCIL, file.makeCouncilPrivileges());
-		this.trackBonuses = file.makeTrackBonuses;
-		//this.cardBonus = CREARE COUNCIL PALACE
+		this.singleHarvPlace = new SingleWorkSpace( 1, new ImmProperties(0), WorkType.HARVEST);
+		this.singleProdPlace = new SingleWorkSpace(1, new ImmProperties(0), WorkType.PRODUCTION);
+		this.councilPalace = new CouncilPalace(1, file.makeCouncilBonuses(), 0, file.makeCouncilPrivileges() );
+		this.trackBonuses = file.makeTrackBonuses();
+		this.developmentDeck = file.makeDeck();
+		this.cardBonus = file.makeCardBonus();
+		this.possibleValuesPrivileges = file.makePrivileges();
 		switch (playerNumber) {
 		case 2:{
 			//caricare 2 marketPlace da file
 		}
 		case 3:{
-			this.multipleHarvPlace = new MultipleSpace(1, new ImmProperties(0), 3, MultipleSpaceType.HARVEST);
-			this.multipleProdPlace = new MultipleSpace(1, new ImmProperties(0), 3, MultipleSpaceType.PRODUCTION);
+			this.multipleHarvPlace = new MultipleSpace(1, new ImmProperties(0), 3, WorkType.HARVEST);
+			this.multipleProdPlace = new MultipleSpace(1, new ImmProperties(0), 3, WorkType.PRODUCTION);
 			//caricare 3 marketPlace da file
 					
 		}
@@ -86,9 +91,19 @@ public class Board {
 			}
 		}
 	}
-
-	public void resetFaithPoints(Player player) {
-		player.getProperties().getProperty(PropertiesId.FAITHPOINTS).setValue(0);
+	
+	public void newSetBoard(int era){
+		this.removeCardsAndMembers();
+			for (DevelopmentCardType type : DevelopmentCardType.values()){
+			Tower t = this.towers.get(type);
+			for (SingleTowerSpace floor : t.getTower()){
+				try{
+					floor.setCard(developmentDeck.getCard(era, type));
+				}catch (IllegalCardException e){
+					//era sbagliata
+				}
+			}
+		}
 	}
 
 	public Tower getTower(DevelopmentCardType type) {
