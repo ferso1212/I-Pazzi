@@ -26,7 +26,7 @@ public class TestMatchFactory extends TestCase {
         super( testName );
         try {
 			testedBuilder =  MatchFactory.instance();
-		} catch (ParserConfigurationException | IOException e) {
+		} catch (ParserConfigurationException e) {
 			fail("CreationFiled");
 		}
     }
