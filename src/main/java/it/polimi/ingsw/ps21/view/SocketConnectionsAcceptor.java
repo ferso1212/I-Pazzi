@@ -1,7 +1,9 @@
 package it.polimi.ingsw.ps21.view;
 
 import java.net.Socket;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.UnknownHostException;
@@ -38,11 +40,10 @@ private ServerSocket serverSocket;
 			try {
 				Socket newSocket = serverSocket.accept();
 				System.out.println("\nNew inbound connection detected. Source IP address: " + newSocket.getInetAddress());
-				Scanner in = new Scanner(newSocket.getInputStream());
+				BufferedReader in = new BufferedReader(new InputStreamReader(newSocket.getInputStream()));
 				PrintWriter out = new PrintWriter(newSocket.getOutputStream());
 				out.println("\nPlease insert your name: ");
-				while(!in.hasNextLine()) {}
-				String newName=in.nextLine();
+				String newName=in.readLine();
 				synchronized (connections) {
 					
 					SocketConnection newConnection= new SocketConnection(newName, newSocket);

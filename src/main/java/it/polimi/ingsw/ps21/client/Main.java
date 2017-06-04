@@ -20,7 +20,6 @@ public class Main {
 			PrintWriter socketOut = new PrintWriter(socket.getOutputStream()); 
 			Scanner stdin = new Scanner(System.in);
 			while(true){
-				while(!socketIn.hasNextLine()){}
 			String socketLine= socketIn.nextLine(); 
 			System.out.println(socketLine);
 			String userInputLine = stdin.nextLine(); 
