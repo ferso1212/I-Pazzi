@@ -1,5 +1,8 @@
 package it.polimi.ingsw.ps21.view;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
 import it.polimi.ingsw.ps21.controller.CostChoice;
 import it.polimi.ingsw.ps21.controller.CouncilChoice;
@@ -9,7 +12,7 @@ import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.controller.WorkMessage;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
-public class UserHandler implements Visitor, Runnable{
+public class UserHandler extends Observable implements Visitor, Runnable, Observer {
 	private PlayerColor playerId;
 	private Connection connection;
 	private String name;
@@ -72,6 +75,12 @@ public class UserHandler implements Visitor, Runnable{
 
 	public PlayerColor getPlayerId() {
 		return playerId;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
