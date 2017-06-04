@@ -41,7 +41,8 @@ private ServerSocket serverSocket;
 				Scanner in = new Scanner(newSocket.getInputStream());
 				PrintWriter out = new PrintWriter(newSocket.getOutputStream());
 				out.println("\nPlease insert your name: ");
-				String newName= in.nextLine();
+				while(!in.hasNextLine()) {}
+				String newName=in.nextLine();
 				synchronized (connections) {
 					
 					SocketConnection newConnection= new SocketConnection(newName, newSocket);

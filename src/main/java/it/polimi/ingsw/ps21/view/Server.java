@@ -14,8 +14,8 @@ import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
 public class Server implements Runnable {
 
-	private SocketConnectionsAcceptor socketAcceptor;
-	private RMIConnectionsAcceptor rmiAcceptor;
+	//private SocketConnectionsAcceptor socketAcceptor;
+	//private RMIConnectionsAcceptor rmiAcceptor;
 	private final static long TIMEOUT = 60000; // the milliseconds that the server will
 											// wait once 2 players joined
 	private final static int MAX_PLAYERS_NUM = 4; // The match is created if the
@@ -29,15 +29,15 @@ public class Server implements Runnable {
 
 	public Server() {
 		this.connections= new ConcurrentLinkedQueue<Connection>();
-		this.socketAcceptor = new SocketConnectionsAcceptor(this.connections);
-		this.rmiAcceptor = new RMIConnectionsAcceptor(this.connections);
+		//this.socketAcceptor = new SocketConnectionsAcceptor(this.connections);
+		//this.rmiAcceptor = new RMIConnectionsAcceptor(this.connections);
 		
 	}
 
 	@Override
 	public void run() {
-		this.socketAcceptor.run();
-		this.rmiAcceptor.run();
+		new Thread(new SocketConnectionsAcceptor(this.connections)).start();
+		//new Thread(this.rmiAcceptor).start();
 		this.elapsedTime=new ElapsedTimeCounter();
 		elapsedTime.start();
 		while (true) {
@@ -60,7 +60,7 @@ public class Server implements Runnable {
 			synchronized (connections) {
 				UserHandler[] usersToAdd = new UserHandler[Math.max(connections.size(), MAX_PLAYERS_NUM)];
 				while ((playersAdded < usersToAdd.length) && (connections.size() > 0)) {
-						usersToAdd[playersAdded] = new UserHandler(PlayerColor.values()[playersAdded], connections.remove(), );
+						usersToAdd[playersAdded] = new UserHandler(PlayerColor.values()[playersAdded], connections.remove());
 				}
 				new Thread((new MatchRunner(usersToAdd))).start();
 				System.out.println("\nNew MatchRunner thread created with " + playersAdded + " players.");
