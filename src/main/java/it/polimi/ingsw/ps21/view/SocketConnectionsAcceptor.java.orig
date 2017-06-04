@@ -16,9 +16,12 @@ import it.polimi.ingsw.ps21.model.match.MatchFactory;
 
 public class SocketConnectionsAcceptor extends ConnectionsAcceptor implements Runnable {
 	private final static Logger LOGGER = Logger.getLogger(SocketConnectionsAcceptor.class.getName());
-
+<<<<<<< HEAD
 	private static final int PORT = 7777; // TODO choose correct port
-private ServerSocket serverSocket;
+=======
+	private static final int PORT = 1492; // TODO choose correct port
+>>>>>>> e4053f0f1cb681d32b3a080cb68a2242cf084086
+	private ServerSocket serverSocket;
 	
 	
 	public SocketConnectionsAcceptor(ConcurrentLinkedQueue<Connection> connectionsQueue) {

@@ -47,11 +47,15 @@ public class MatchFactory {
 	private ImmProperties[] initialProperties =null;
 	private Map<DevelopmentCardType, Requirement[]> cardAddingRequirement = null;
 	private Map<DevelopmentCardType, int[]> cardBonuses = null;
+	private Map<DevelopmentCardType, ImmProperties[]> towersBonuses = null;
 	private TrackBonuses trackBonuses = null;
 	private int councilPrivileges = 0;
 	private ImmProperties councilBonuses = null;
+	private ImmProperties[] marketBonuses = null;
 	/**
-	 * Constructor 
+	 * Constructor of different match variables configurable by file (These match settings are the same for all matches
+	 * starting from the same Server Session
+	 * If there are any problems with file, default values;
 	 * @throws ParserConfigurationException
 	 * @throws IOException 
 	 */
@@ -299,7 +303,7 @@ public class MatchFactory {
 			configuration = builder.parse(boardFile);
 			configuration.normalize();			
 			Element board = configuration.getDocumentElement();
-			Element initialProps = (Element) board.getElementsByTagName("InitialProperties");
+			Element initialProps = (Element) board.getElementsByTagName("InitialProperties").item(0);
 			NodeList properties = initialProps.getElementsByTagName("Properties");
 			for (int i=0; i<properties.getLength(); i++){
 				if (properties.item(i).getNodeType() == Node.ELEMENT_NODE)
@@ -319,7 +323,7 @@ public class MatchFactory {
 		return initialProperties;
 	}
 	
-	public Map<DevelopmentCardType, Requirement[] > makeCardAddingRequirements(){
+	public Map<DevelopmentCardType, Requirement[]> makeCardAddingRequirements(){
 	if (cardAddingRequirement == null){
 		Document configuration;
 		EnumMap<DevelopmentCardType, Requirement[]> result = new EnumMap<>(DevelopmentCardType.class);
@@ -385,7 +389,7 @@ public class MatchFactory {
 	}
 	
 	
-		public TrackBonuses makeTrackBonuses(){
+	public TrackBonuses makeTrackBonuses(){
 			if (trackBonuses == null){
 			Document configuration;
 			TrackBonuses result;
@@ -432,7 +436,7 @@ public class MatchFactory {
 			return trackBonuses;
 		}
 		
-		public ImmProperties makeCouncilBonuses(){
+	public ImmProperties makeCouncilBonuses(){
 			if (councilBonuses == null ){
 				Document configuration;
 				ImmProperties result;
@@ -443,7 +447,7 @@ public class MatchFactory {
 					configuration.normalize();	
 					Element board = configuration.getDocumentElement();
 					Element councilBonus = (Element) board.getElementsByTagName("CouncilBonus").item(0); 
-					Element prop;
+					result = PropertiesBuilder.makeImmProperites((Element) councilBonus.getElementsByTagName("Properties").item(0));
 				}
 				catch (IOException | SAXException e){
 					result = new ImmProperties(new Property(PropertiesId.COINS,2));
@@ -453,20 +457,185 @@ public class MatchFactory {
 			return councilBonuses;
 		}
 		
-		public ImmProperties makeCouncilPrivileges(){
+	public int makeCouncilPrivileges(){
 			if (councilPrivileges == 0 ){
-				/* TODO
-				 * *
-				 */
-				
+				Document configuration;
+				EnumMap<DevelopmentCardType, int[]> result = new EnumMap<>(DevelopmentCardType.class);
+				try{
+					File boardFile = new File(boardPath);
+					configuration = builder.parse(boardFile);
+					configuration.normalize();			
+					Element board = configuration.getDocumentElement();
+					Element privileges = (Element) board.getElementsByTagName("CouncilPrivileges").item(0);
+					int number = Integer.parseInt(privileges.getAttribute("value"));
+					councilPrivileges = number;
+				} 
+				catch (IOException | SAXException x){
+					councilPrivileges = 1;
+				}
 			}
-			return councilBonuses;
+			return councilPrivileges;
 		}
 
-		public Map<DevelopmentCardType, Requirement[] > makeCardAddingRequirements(){
-			/* TODO
+	public Map<DevelopmentCardType, int[] > makeCardBonus(){
+			if (cardBonuses == null){
+				Document configuration;
+				EnumMap<DevelopmentCardType, int[]> result = new EnumMap<>(DevelopmentCardType.class);
+				try{
+					File boardFile = new File(boardPath);
+					configuration = builder.parse(boardFile);
+					configuration.normalize();			
+					Element board = configuration.getDocumentElement();
+					Element cardBonuses = (Element) board.getElementsByTagName("CardBonuses").item(0);
+					int[] bonuses = new int[6];
+					
+					Element territory = (Element) cardBonuses.getElementsByTagName("TerritoryBonuses").item(0);			
+					bonuses[0] = Integer.parseInt(territory.getAttribute("value1"));
+					bonuses[1] = Integer.parseInt(territory.getAttribute("value2"));
+					bonuses[2] = Integer.parseInt(territory.getAttribute("value3"));
+					bonuses[3] = Integer.parseInt(territory.getAttribute("value4"));
+					bonuses[4] = Integer.parseInt(territory.getAttribute("value5"));
+					bonuses[5] = Integer.parseInt(territory.getAttribute("value6"));
+					result.put(DevelopmentCardType.TERRITORY, bonuses);
+					
+					bonuses = new int[6];
+					Element building = (Element) cardBonuses.getElementsByTagName("BuildingBonuses").item(0);			
+					bonuses[0] = Integer.parseInt(building.getAttribute("value1"));
+					bonuses[1] = Integer.parseInt(building.getAttribute("value2"));
+					bonuses[2] = Integer.parseInt(building.getAttribute("value3"));
+					bonuses[3] = Integer.parseInt(building.getAttribute("value4"));
+					bonuses[4] = Integer.parseInt(building.getAttribute("value5"));
+					bonuses[5] = Integer.parseInt(building.getAttribute("value6"));
+					result.put(DevelopmentCardType.BUILDING, bonuses);
+					
+					bonuses = new int[6];
+					Element character = (Element) cardBonuses.getElementsByTagName("CharacterBonuses").item(0);			
+					bonuses[0] = Integer.parseInt(character.getAttribute("value1"));
+					bonuses[1] = Integer.parseInt(character.getAttribute("value2"));
+					bonuses[2] = Integer.parseInt(character.getAttribute("value3"));
+					bonuses[3] = Integer.parseInt(character.getAttribute("value4"));
+					bonuses[4] = Integer.parseInt(character.getAttribute("value5"));
+					bonuses[5] = Integer.parseInt(character.getAttribute("value6"));
+					result.put(DevelopmentCardType.BUILDING, bonuses);
+					
+					bonuses = new int[6];
+					Element venture = (Element) cardBonuses.getElementsByTagName("VentureBonuses").item(0);			
+					bonuses[0] = Integer.parseInt(venture.getAttribute("value1"));
+					bonuses[1] = Integer.parseInt(venture.getAttribute("value2"));
+					bonuses[2] = Integer.parseInt(venture.getAttribute("value3"));
+					bonuses[3] = Integer.parseInt(venture.getAttribute("value4"));
+					bonuses[4] = Integer.parseInt(venture.getAttribute("value5"));
+					bonuses[5] = Integer.parseInt(venture.getAttribute("value6"));
+					result.put(DevelopmentCardType.VENTURE, bonuses);
+				}
+				catch (SAXException | IOException i){
+					result = new EnumMap<>(DevelopmentCardType.class);
+					int[] bonuses = new int[6];
+					for(int h=0; h<bonuses.length; h++ ){
+						bonuses[h]=0;
+					}
+					for (DevelopmentCardType t: DevelopmentCardType.values()){
+						result.put(t, bonuses);
+					}
+				}
+				// TODO 
+				cardBonuses = result;
+				}
+				return cardBonuses;
+		}
 		
+	public Map<DevelopmentCardType, ImmProperties[]> makeTowersBonus(){
+			if (towersBonuses == null){
+			Document configuration;
+			EnumMap<DevelopmentCardType, ImmProperties[]> result = new EnumMap<>(DevelopmentCardType.class);
+			try{
+				File boardFile = new File(boardPath);
+				configuration = builder.parse(boardFile);
+				configuration.normalize();			
+				Element board = configuration.getDocumentElement();
+				Element cardReqs = (Element) board.getElementsByTagName("TowersBonuses").item(0);
+				ArrayList<ImmProperties> properties;
+				
+				Element territory = (Element) cardReqs.getElementsByTagName("TerritoryTower").item(0);			
+				properties = new ArrayList<>();
+				NodeList props = territory.getChildNodes();
+				for (int i=0; i< props.getLength(); i++){
+					if (props.item(i).getNodeType() == Node.ELEMENT_NODE)
+						properties.add(PropertiesBuilder.makeImmProperites((Element) props.item(i)));
+				}
+				result.put(DevelopmentCardType.TERRITORY, properties.toArray(new ImmProperties[0]));
+				
+				Element building = (Element) cardReqs.getElementsByTagName("BuildingTower").item(0);			
+				properties = new ArrayList<>();
+				props = building.getChildNodes();
+				for (int i=0; i< props.getLength(); i++){
+					if (props.item(i).getNodeType() == Node.ELEMENT_NODE)
+						properties.add(PropertiesBuilder.makeImmProperites((Element) props.item(i)));
+				}
+				result.put(DevelopmentCardType.TERRITORY, properties.toArray(new ImmProperties[0]));
+				
+				Element character = (Element) cardReqs.getElementsByTagName("CharacterTower").item(0);			
+				properties = new ArrayList<>();
+				props = character.getChildNodes();
+				for (int i=0; i< props.getLength(); i++){
+					if (props.item(i).getNodeType() == Node.ELEMENT_NODE)
+						properties.add(PropertiesBuilder.makeImmProperites((Element) props.item(i)));
+				}
+				result.put(DevelopmentCardType.TERRITORY, properties.toArray(new ImmProperties[0]));
+
+				Element venture = (Element) cardReqs.getElementsByTagName("VentureTower").item(0);			
+				properties = new ArrayList<>();
+				props = venture.getChildNodes();
+				for (int i=0; i< props.getLength(); i++){
+					if (props.item(i).getNodeType() == Node.ELEMENT_NODE)
+						properties.add(PropertiesBuilder.makeImmProperites((Element) props.item(i)));
+				}
+				result.put(DevelopmentCardType.TERRITORY, properties.toArray(new ImmProperties[0]));
+				
+			}
+			catch (SAXException | IOException i){
+				result = new EnumMap<>(DevelopmentCardType.class);
+				ImmProperties[] properties = new ImmProperties[4];
+				for(ImmProperties r: properties){
+					r = new ImmProperties(0);
+				}
+				for (DevelopmentCardType t: DevelopmentCardType.values()){
+					result.put(t, properties);
+				}
+			}
+			// TODO 
+			towersBonuses = result;
+			}
+			return towersBonuses;
 		}
+
+	public ImmProperties[] makeMarketBonuses(){
+		if (marketBonuses == null){
+		Document configuration;
+		ArrayList<ImmProperties> bonuses = new ArrayList<>();
+		try{
+			File boardFile = new File(boardPath);
+			configuration = builder.parse(boardFile);
+			configuration.normalize();
+			Element board = configuration.getDocumentElement();
+			Element market = (Element) board.getElementsByTagName("MarketBonuses").item(0);
+			NodeList properties = market.getElementsByTagName("Properties");
+			for (int i=0; i<properties.getLength(); i++){
+				if (properties.item(i).getNodeType() == Node.ELEMENT_NODE)
+				{
+					bonuses.add(PropertiesBuilder.makeImmProperites((Element) properties.item(i)));
+				}
+			}
 		}
+		catch (SAXException | IOException i){
+			bonuses.add(new ImmProperties(new Property(PropertiesId.STONES, 1), new Property(PropertiesId.WOOD, 1))); // 1 wood and 1 stone
+			bonuses.add(new ImmProperties(new Property(PropertiesId.COINS, 2))); // 2 coins
+			bonuses.add(new ImmProperties(new Property(PropertiesId.MILITARYPOINTS, 2))); // 2 
+			bonuses.add(new ImmProperties(new Property(PropertiesId.FAITHPOINTS, 2)));
+		}
+		marketBonuses = bonuses.toArray(new ImmProperties[0]);
+		return marketBonuses;}
+		else return marketBonuses;
+	}
 
 }

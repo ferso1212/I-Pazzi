@@ -1,14 +1,20 @@
 package it.polimi.ingsw.ps21;
 
 import java.io.IOException;
+import java.util.EnumMap;
+import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.After;
 
+import it.polimi.ingsw.ps21.model.deck.CardsNumber;
 import it.polimi.ingsw.ps21.model.deck.Deck;
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
+import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import junit.framework.*;
 
 public class TestMatchFactory extends TestCase {
@@ -32,6 +38,10 @@ public class TestMatchFactory extends TestCase {
     public void testApp()
     {
         assert(checkDeckMaking());
+        assert(checkPrivileges());
+        assert(checkMarketBonus());
+        assert(checkInitialProperties());
+        assert(checkCardAddingRequirement());
         
     }
 
@@ -51,5 +61,24 @@ public class TestMatchFactory extends TestCase {
 			}
 		
 	}
-
+	
+	private boolean checkPrivileges() {
+		ImmProperties[] test = testedBuilder.makePrivileges() ;
+		return (test != null);
+	}
+	
+	private boolean checkInitialProperties() {
+		ImmProperties[] test = testedBuilder.makeInitialProperties() ;
+		return (test != null);
+	}
+	
+	private boolean checkMarketBonus() {
+		ImmProperties[] test = testedBuilder.makeMarketBonuses() ;
+		return (test != null);
+	}
+	
+	private boolean checkCardAddingRequirement() {
+		Map<DevelopmentCardType, Requirement[]> test = testedBuilder.makeCardAddingRequirements() ;
+		return (test != null);
+	}
 }

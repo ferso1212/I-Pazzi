@@ -30,7 +30,6 @@ public abstract class Match extends Observable {
 	protected ArrayList<Observer> observers;
 	protected EnumMap<PlayerColor, Player> players;
 	protected Queue<Player> order;
-	protected Round currentRound;
 	protected Board board;
 	protected int orangeDice;
 	protected int blackDice;
