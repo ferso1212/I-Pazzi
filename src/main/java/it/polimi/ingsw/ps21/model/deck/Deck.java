@@ -1,5 +1,7 @@
 package it.polimi.ingsw.ps21.model.deck;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,12 +14,14 @@ public class Deck implements Cloneable {
 	protected SubDeck<BuildingCard> yellowCards;
 	protected SubDeck<CharacterCard> blueCards;
 	protected SubDeck<VentureCard> purpleCards;
+	protected Map<Integer, ExcommunicationDeck> excommunications;
 	
 	public Deck(){
 		greenCards = new SubDeck<>();
 		yellowCards = new SubDeck<>();
 		blueCards = new SubDeck<>();
 		purpleCards = new SubDeck<>();
+		excommunications = new HashMap<>();
 	}
 	
 

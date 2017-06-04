@@ -15,6 +15,7 @@
 <!ELEMENT VentureBonuses EMPTY>
 <!ELEMENT TerritoryBonuses EMPTY>
 <!ELEMENT TowersBonuses (TerritoryTower, BuildingTower, CharacterTower, VentureTower)>
+<!ELEMENT ExcommunicationRequirements EMPTY>
 
 <!ELEMENT CardRequirement (TerritoryRequirement, BuildingRequirement, CharacterRequirement, VentureRequirement)>
 <!ELEMENT CharacterRequirement (Requirement, Requirement, Requirement, Requirement, Requirement, Requirement)>
@@ -68,4 +69,4 @@
 			CDATA #REQUIRED value4 CDATA #REQUIRED value5 CDATA #REQUIRED value6 CDATA #REQUIRED>
 <!ATTLIST VentureBonuses value1 CDATA #REQUIRED value2 CDATA #REQUIRED value3 
 			CDATA #REQUIRED value4 CDATA #REQUIRED value5 CDATA #REQUIRED value6 CDATA #REQUIRED>
-
+<!ATTLIST ExcommunicationRequirements firstPeriod CDATA #REQUIREMENT  secondPeriod CDATA #REQUIRED thirdPeriod CDATA #REQUIRED>

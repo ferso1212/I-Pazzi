@@ -60,7 +60,7 @@ public class Server implements Runnable {
 			synchronized (connections) {
 				UserHandler[] usersToAdd = new UserHandler[Math.max(connections.size(), MAX_PLAYERS_NUM)];
 				while ((playersAdded < usersToAdd.length) && (connections.size() > 0)) {
-						usersToAdd[playersAdded] = new UserHandler(PlayerColor.values()[playersAdded], connections.remove(), );
+						usersToAdd[playersAdded] = new UserHandler(PlayerColor.values()[playersAdded], connections.remove());
 				}
 				new Thread((new MatchRunner(usersToAdd))).start();
 				System.out.println("\nNew MatchRunner thread created with " + playersAdded + " players.");
