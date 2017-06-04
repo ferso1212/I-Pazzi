@@ -41,9 +41,10 @@ private ServerSocket serverSocket;
 				Socket newSocket = serverSocket.accept();
 				System.out.println("\nNew inbound connection detected. Source IP address: " + newSocket.getInetAddress());
 				BufferedReader in = new BufferedReader(new InputStreamReader(newSocket.getInputStream()));
-				PrintWriter out = new PrintWriter(newSocket.getOutputStream());
-				out.println("\nPlease insert your name: ");
-				String newName=in.readLine();
+				PrintWriter out = new PrintWriter(newSocket.getOutputStream(), true);
+				out.println("Please insert your name: ");
+				String newName = "";
+				while (newName == ""){newName = in.readLine();}
 				synchronized (connections) {
 					
 					SocketConnection newConnection= new SocketConnection(newName, newSocket);
