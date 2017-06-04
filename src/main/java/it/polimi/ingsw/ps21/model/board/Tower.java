@@ -1,11 +1,10 @@
 package it.polimi.ingsw.ps21.model.board;
 
-import it.polimi.ingsw.ps21.model.player.FamilyMember;
-import it.polimi.ingsw.ps21.model.player.Player;
-
 public class Tower {
+	
 	public final static int FLOORS_NUM=4;
 	private SingleTowerSpace[] tower;
+	
 	public Tower(SingleTowerSpace[] tower) {
 		super();
 		this.tower = tower;

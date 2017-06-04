@@ -57,13 +57,13 @@ public class DiscountEffect extends Effect {
 
 	@Override
 	public String getDesc() {
-		String output= new String("When you pick a " );
+		StringBuilder output= new StringBuilder("When you pick a " );
 		for(DevelopmentCardType type: types)
-		{output.concat(type.toString() + " card ");
-		if(type.ordinal()<type.values().length -1 ) output.concat("or a ");
+		{output.append(type.toString() + " card ");
+		if(type.ordinal()<type.values().length -1 ) output.append("or a ");
 		}
-		output.concat(", you get a discount on its cost of " + discount.toString());
-		return output;
+		output.append(", you get a discount on its cost of " + discount.toString());
+		return output.toString();
 	}
 	
 	

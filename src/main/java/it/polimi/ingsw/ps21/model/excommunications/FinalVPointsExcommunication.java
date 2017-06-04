@@ -51,13 +51,13 @@ public class FinalVPointsExcommunication extends Excommunication{
 	 */
 	@Override
 	public String toString() {
-		String output=new String();
-		if(victoryPointsReductionDivisor!=0) output.concat("At the end of the game, before calculating the final points, you lose 1 victory point for each " + victoryPointsReductionDivisor + " victory points you have. \n");
-		if(militaryDivisorVPointsReduction!=0) output.concat("At the end of the game, before calculating the final points, you lose 1 victory point for each " + militaryDivisorVPointsReduction + " military points you have. \n");
-		if(vPointsReductionBuildingWoodDivisor!=0) output.concat("At the end of the game, before calculating the final points, you lose 1 victory point for each " + vPointsReductionBuildingWoodDivisor + " wood pieces in the costs of your territory cards. \n");
-		if(vPointsReductionBuildingStoneDivisor!=0)	output.concat("At the end of the game, before calculating the final points, you lose 1 victory point for each " + vPointsReductionBuildingStoneDivisor + " stones in the costs of your territory cards. \n");
-		if(vPointsReductionResDivisor!=0) output.concat("At the end of the game, before calculating the final points, you lose 1 victory point for each " + vPointsReductionResDivisor + " resources you have. \n");
-		return output;
+		StringBuilder output=new StringBuilder();
+		if(victoryPointsReductionDivisor!=0) output.append("At the end of the game, before calculating the final points, you lose 1 victory point for each " + victoryPointsReductionDivisor + " victory points you have. \n");
+		if(militaryDivisorVPointsReduction!=0) output.append("At the end of the game, before calculating the final points, you lose 1 victory point for each " + militaryDivisorVPointsReduction + " military points you have. \n");
+		if(vPointsReductionBuildingWoodDivisor!=0) output.append("At the end of the game, before calculating the final points, you lose 1 victory point for each " + vPointsReductionBuildingWoodDivisor + " wood pieces in the costs of your territory cards. \n");
+		if(vPointsReductionBuildingStoneDivisor!=0)	output.append("At the end of the game, before calculating the final points, you lose 1 victory point for each " + vPointsReductionBuildingStoneDivisor + " stones in the costs of your territory cards. \n");
+		if(vPointsReductionResDivisor!=0) output.append("At the end of the game, before calculating the final points, you lose 1 victory point for each " + vPointsReductionResDivisor + " resources you have. \n");
+		return output.toString();
 	}
 
 }

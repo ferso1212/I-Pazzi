@@ -9,9 +9,8 @@ public class CouncilPalace extends MultipleSpace {
 	
 	private int councilPrivileges;
 
-	public CouncilPalace(int diceRequirement, ImmProperties instantBonus, Queue<FamilyMember> occupants, int diceMalus,
-			MultipleSpaceType type, int councilPrivileges) {
-		super(diceRequirement, instantBonus, occupants, diceMalus, type);
+	public CouncilPalace(int diceRequirement, ImmProperties instantBonus, MultipleSpaceType type, int councilPrivileges) {
+		super(diceRequirement, instantBonus, 0, type);
 		this.councilPrivileges = councilPrivileges;
 	}
 

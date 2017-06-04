@@ -9,37 +9,57 @@ import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.deck.Deck;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.IllegalCardException;
+import it.polimi.ingsw.ps21.model.match.MatchFactory;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.Player;
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 
 
 public class Board {
+	
 	private final static Logger LOGGER = Logger.getLogger(Board.class.getName());
 	protected EnumMap<DevelopmentCardType, Tower> towers;
-	protected TrackBonuses trackBonuses;
-	protected SingleSpace[] marketPlaces;
-	protected SingleSpace singleHarvPlace;
-	protected SingleSpace singleProdPlace;
+	//protected TrackBonuses trackBonuses;
+	//protected SingleSpace[] marketPlaces;
+	//protected SingleSpace singleHarvPlace;
+	//protected SingleSpace singleProdPlace;
 	protected MultipleSpace multipleHarvPlace;
 	protected MultipleSpace multipleProdPlace;
-	protected CouncilPalace councilPalace;
+	//protected CouncilPalace councilPalace;
 	protected Map<DevelopmentCardType, int[]> cardBonus;
 	
-	public Board(EnumMap<DevelopmentCardType, Tower> towers, TrackBonuses trackBonuses, SingleSpace[] marketSpace,
-			SingleSpace singleHarvPlace, SingleSpace singleProdPlace, MultipleSpace multipleHarvPlace,
-			MultipleSpace multipleProdPlace, CouncilPalace councilPalace,
-			EnumMap<DevelopmentCardType, int[]> cardBonus) {
-		super();
-		this.towers = towers;
-		this.trackBonuses = trackBonuses;
-		this.marketPlaces = marketSpace;
-		this.singleHarvPlace = singleHarvPlace;
-		this.singleProdPlace = singleProdPlace;
-		this.multipleHarvPlace = multipleHarvPlace;
-		this.multipleProdPlace = multipleProdPlace;
-		this.councilPalace = councilPalace;
-		this.cardBonus = cardBonus;
+	public Board(int playerNumber) {
+		MatchFactory file = MatchFactory.instance();
+		this.marketPlaces = new SingleSpace[playerNumber];
+		this.singleHarvPlace = new SingleSpace( 1, new ImmProperties(0), SingleSpaceType.HARVEST);
+		this.singleProdPlace = new SingleSpace(1, new ImmProperties(0), SingleSpaceType.PRODUCTION);
+		this.councilPalace = new CouncilPalace(1, file.makeCouncilBonuses(), MultipleSpaceType.COUNCIL, file.makeCouncilPrivileges());
+		this.trackBonuses = file.makeTrackBonuses;
+		//this.cardBonus = CREARE COUNCIL PALACE
+		switch (playerNumber) {
+		case 2:{
+		}
+		case 3:{
+			this.multipleHarvPlace = new MultipleSpace(1, new ImmProperties(0), 3, MultipleSpaceType.HARVEST);
+			this.multipleProdPlace = new MultipleSpace(1, new ImmProperties(0), 3, MultipleSpaceType.PRODUCTION);
+			
+					
+		}
+			
+			break;
+		case 4:{
+			
+		}
+			
+			break;
+
+		default:
+			break;
+		}
+		
+		
+		
 	}
 
 	public void addToCouncil(Player player, FamilyMember member) throws NotOccupableException {
