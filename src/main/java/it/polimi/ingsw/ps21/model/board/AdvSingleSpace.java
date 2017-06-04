@@ -5,15 +5,17 @@ import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
-public class AdvSingleSpace extends SingleSpace {
+public abstract class AdvSingleSpace extends SingleSpace {
 
 	private FamilyMember otherOccupant;
 
-	public AdvSingleSpace(int diceRequirement, ImmProperties instantBonus, FamilyMember occupant, SingleSpaceType type,
+	public AdvSingleSpace(int diceRequirement, ImmProperties instantBonus, SingleSpaceType type,
 			FamilyMember otherOccupant) {
-		super(diceRequirement, instantBonus, occupant, type);
+		super(diceRequirement, instantBonus);
 		this.otherOccupant = otherOccupant;
 	}
+
+
 
 	public FamilyMember getOtherOccupant() {
 		return otherOccupant;

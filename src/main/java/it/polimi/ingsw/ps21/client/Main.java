@@ -9,12 +9,17 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
+import it.polimi.ingsw.ps21.controller.MatchData;
+import it.polimi.ingsw.ps21.model.match.Match;
+
 public class Main {
-	private static final String SERVER_IP="127.0.0.1"; 
-	private static final int PORT = 7777;
+
+	private static boolean newMatch = true;
+	private static boolean CLI = true;
 	
 	public static void main(String args[])
 	{
+<<<<<<< HEAD
 		System.out.println("\nClient application started.");
 		try {
 			Socket socket = new Socket(SERVER_IP, PORT);
@@ -29,17 +34,23 @@ public class Main {
 			String userInputLine = stdin.readLine(); 
 			socketOut.println(userInputLine); 
 			socketOut.flush(); }
+=======
+		Scanner in = new Scanner(System.in);
+		while(newMatch == true){
+		SocketClient client = new SocketClient(); 
+		MatchData match = client.start();
+		if (match != null){
+			CLInterface CLImatch = new CLInterface();
+			while (CLImatch.isEnded());
+			System.out.println("Do you want to play another match, fucking looser?\n(Y)es\n(N)o");
+			String response = in.nextLine();
+>>>>>>> 2b8c6b268b0d69c0d30ab4940102b5132adfc151
 			
-			
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		
-		
+		}
+		else {System.out.println("Failed to connect to server");
+			newMatch = false;
+		}
+		}
 	}
 	
 	public Main()

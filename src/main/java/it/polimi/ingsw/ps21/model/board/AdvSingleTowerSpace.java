@@ -1,18 +1,20 @@
 package it.polimi.ingsw.ps21.model.board;
 
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
+import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
-public class SingleTowerSpace extends SingleSpace {
-
+public class AdvSingleTowerSpace extends AdvSingleSpace {
+	
 	private DevelopmentCard card;
 	private static final ImmProperties REOCCUPY_TOWER_COST = new ImmProperties(3);
-
-	public SingleTowerSpace(int diceRequirement, ImmProperties instantBonus, DevelopmentCard card) {
-		super(diceRequirement, instantBonus);
+	
+	public AdvSingleTowerSpace(int diceRequirement, ImmProperties instantBonus, SingleSpaceType type,
+			FamilyMember otherOccupant, DevelopmentCard card) {
+		super(diceRequirement, instantBonus, type, otherOccupant);
 		this.card = card;
 	}
-
+	
 	public DevelopmentCard getCard() {
 		return card;
 	}
@@ -36,6 +38,5 @@ public class SingleTowerSpace extends SingleSpace {
 		}
 		return this.card.getCosts();
 	}
-
 
 }
