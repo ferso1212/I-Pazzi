@@ -6,43 +6,29 @@ import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
-public class MultipleSpace extends Space{
+public abstract class MultipleSpace extends Space{
 	
 	protected Queue<FamilyMember> occupants;
 	protected int diceMalus;
-	protected MultipleSpaceType type;
 	
 	
 
-	public MultipleSpace(int diceRequirement, ImmProperties instantBonus, int diceMalus, MultipleSpaceType type) {
+	public MultipleSpace(int diceRequirement, ImmProperties instantBonus, int diceMalus, Queue<FamilyMember> occupants) {
 		super(diceRequirement, instantBonus);
-		this.occupants = null;
+		this.occupants = occupants;
 		this.diceMalus = diceMalus;
-		this.type = type;
 	}
 
 	public Queue<FamilyMember> getOccupants() {
 		return occupants;
 	}
-
-	@Override
-	public boolean isOccupable(Player player, FamilyMember member) {
-		if ((!this.type.equals(MultipleSpaceType.COUNCIL)) && (occupants.contains(member))){
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public void occupy(Player palyer, FamilyMember famMember) throws NotOccupableException{
-		occupants.add(famMember);
-		if(famMember.isUsed()){
-			throw new NotOccupableException();//cambiare eccezione in AlreadyUsedException
-		}
-		famMember.setUsed(true);
-	}
-
 	
-	
+	public boolean containPlayer(Player player){
+		for (FamilyMember f : this.occupants){
+			if (f.getOwnerId()==player.getId()){
+				return true;
+			}
+		} return false;
+	}
 	 
 }

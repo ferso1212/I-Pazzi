@@ -20,13 +20,13 @@ public class Board {
 	
 	private final static Logger LOGGER = Logger.getLogger(Board.class.getName());
 	protected EnumMap<DevelopmentCardType, Tower> towers;
-	//protected TrackBonuses trackBonuses;
-	//protected SingleSpace[] marketPlaces;
-	//protected SingleSpace singleHarvPlace;
-	//protected SingleSpace singleProdPlace;
+	protected TrackBonuses trackBonuses;
+	protected SingleSpace[] marketPlaces;
+	protected SingleSpace singleHarvPlace;
+	protected SingleSpace singleProdPlace;
 	protected MultipleSpace multipleHarvPlace;
 	protected MultipleSpace multipleProdPlace;
-	//protected CouncilPalace councilPalace;
+	protected CouncilPalace councilPalace;
 	protected Map<DevelopmentCardType, int[]> cardBonus;
 	
 	public Board(int playerNumber) {
@@ -39,17 +39,20 @@ public class Board {
 		//this.cardBonus = CREARE COUNCIL PALACE
 		switch (playerNumber) {
 		case 2:{
+			//caricare 2 marketPlace da file
 		}
 		case 3:{
 			this.multipleHarvPlace = new MultipleSpace(1, new ImmProperties(0), 3, MultipleSpaceType.HARVEST);
 			this.multipleProdPlace = new MultipleSpace(1, new ImmProperties(0), 3, MultipleSpaceType.PRODUCTION);
-			
+			//caricare 3 marketPlace da file
 					
 		}
 			
 			break;
 		case 4:{
-			
+			this.multipleHarvPlace = new MultipleSpace(1, new ImmProperties(0), 3, MultipleSpaceType.HARVEST);
+			this.multipleProdPlace = new MultipleSpace(1, new ImmProperties(0), 3, MultipleSpaceType.PRODUCTION);
+			//caricare 4 marketPlace da file
 		}
 			
 			break;
@@ -130,7 +133,7 @@ public class Board {
 	 * @return a single MarketSpace
 	 */
 	public SingleSpace getMarketSpace(int position) throws IllegalArgumentException {
-		if ((position >= 0) && (position < 5)) {
+		if ((position >= 0) && (position < this.marketPlaces.length)) {
 			return this.marketPlaces[position];
 		} else
 			throw new IllegalArgumentException();
@@ -172,6 +175,5 @@ public class Board {
 		return cardBonus;
 	}
 
-	
 	
 }
