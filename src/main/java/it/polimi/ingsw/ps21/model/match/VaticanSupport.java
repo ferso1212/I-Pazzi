@@ -26,7 +26,9 @@ public class VaticanSupport extends Match {
 		supportedPlayers = new ArrayDeque<>();
 		for(Player p: players.values())
 		{	
-		if (/* Condizione per verificare il requisito di punti fede del giocatore */)	{board.resetFaithPoints(p); /*setta scomunica*/}
+		if (board.getExcommunicationRequirement(period) < p.getProperties().getProperty(PropertiesId.FAITHPOINTS).getValue())	
+			{p.getProperties().getProperty(PropertiesId.FAITHPOINTS).setValue(0);
+			/*setta scomunica*/}
 		else supportedPlayers.add(p);
 		}
 		notifyObservers();
