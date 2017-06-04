@@ -49,17 +49,21 @@ public class Server implements Runnable {
 					{
 					elapsedTime.startCounter();
 					}
+				if(elapsedTime.isEnabled()) System.out.println("Elapsed time since the second player joined the queue: " + elapsedTime.getElapsedTime()/1000 + " seconds.");
 			}
 			elapsedTime.stopCounter();
+			if(elapsedTime.getElapsedTime()>TIMEOUT) System.out.println("\nTimeout expired: initializing new match with " + Math.max(MAX_PLAYERS_NUM, connections.size()) + " players.");
+			else System.out.println("\nThere are enough connections in the queue to fulfill a match: initializing a new match with " + MAX_PLAYERS_NUM + " players.");
 			
 			//Creates UserHandlers for each connection and and a new MatchRunner with those UserHandlers
 			int playersAdded = 0;
 			synchronized (connections) {
 				UserHandler[] usersToAdd = new UserHandler[Math.max(connections.size(), MAX_PLAYERS_NUM)];
 				while ((playersAdded < usersToAdd.length) && (connections.size() > 0)) {
-						usersToAdd[playersAdded] = new UserHandler(PlayerColor.values()[playersAdded], connections.remove());
+						usersToAdd[playersAdded] = new UserHandler(PlayerColor.values()[playersAdded], connections.remove(), );
 				}
-				new Thread((new MatchRunner(usersToAdd))).start();;
+				new Thread((new MatchRunner(usersToAdd))).start();
+				System.out.println("\nNew MatchRunner thread created with " + playersAdded + " players.");
 			}
 			
 		}

@@ -24,6 +24,22 @@ public class UnsettedMatch extends Match {
 		whiteDice = 0;
 		
 	}
+	
+	
+	public UnsettedMatch(PlayerColor...playerIds)
+	{
+		super();
+		players = new EnumMap<>(PlayerColor.class);
+		orangeDice = 0;
+		blackDice = 0;
+		whiteDice = 0;
+		int i=0;
+		for(PlayerColor player: playerIds)
+		{
+			players.put(player, new Player())
+		}
+	}
+	
 	@Override
 	public Match getCopy() throws CloneNotSupportedException {
 		// TODO getCopy

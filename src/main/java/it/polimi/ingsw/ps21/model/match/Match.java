@@ -45,6 +45,8 @@ public abstract class Match extends Observable {
 		players = new EnumMap<>(PlayerColor.class);
 	}
 	
+	
+	
 	public Match(Match previousMatch){
 		this.board = previousMatch.board;
 		this.blackDice = previousMatch.blackDice;

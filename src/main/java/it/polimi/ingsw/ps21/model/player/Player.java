@@ -19,7 +19,6 @@ import it.polimi.ingsw.ps21.model.deck.Card;
 
 /**Used to store the status of each player.
  * It stores the following datas of a player:
- * <li> Name: a string containing the player's name
  * <li> Player's deck, containing the cards he acquired during the game (Territory Cards, Building Cards, Character Cards and Venture Cards)
  * <li> Personal bonus tile
  * <li> Color: one of the possible values of the PlayerColor enum, used also to identify the player
@@ -30,7 +29,6 @@ import it.polimi.ingsw.ps21.model.deck.Card;
  *
  */
 public class Player {
-	protected String name;
 	protected PlayerColor id;
 	//Since there is not a "Personal Board" class, player's cards are stored here
 	protected PlayerProperties properties; 
@@ -48,22 +46,6 @@ public class Player {
 		return this.properties;
 	}
 	
-	
-	/**
-	 * @return the player's name
-	 */
-	public String getName() {
-		return name;
-	}
-
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
 
 	/**
 	 * Used to retrieve the work cards that the player can activate when he performs a harvest/production action.
@@ -172,9 +154,8 @@ public class Player {
 	 * @param startingProperties The resources and points that the player will have at the beginning of the match.
 	 * @param id the color that identifies the player.
 	 */
-	public Player(String name, PlayerProperties startingProperties, PlayerColor id) 
+	public Player(PlayerProperties startingProperties, PlayerColor id) 
 	{
-		this.name = name;
 		this.properties = startingProperties;
 		this.id=id;
 	}

@@ -2,9 +2,11 @@ package it.polimi.ingsw.ps21.view;
 
 import java.net.Socket;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.UnknownHostException;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,7 +16,7 @@ import it.polimi.ingsw.ps21.model.match.MatchFactory;
 
 public class SocketConnectionsAcceptor extends ConnectionsAcceptor implements Runnable {
 	private final static Logger LOGGER = Logger.getLogger(SocketConnectionsAcceptor.class.getName());
-	private static final int PORT = 100; // TODO choose correct port
+	private static final int PORT = 7777; // TODO choose correct port
 	private ServerSocket serverSocket;
 	
 	
@@ -35,12 +37,17 @@ public class SocketConnectionsAcceptor extends ConnectionsAcceptor implements Ru
 			try {
 				Socket newSocket = serverSocket.accept();
 				System.out.println("\nNew inbound connection detected. Source IP address: " + newSocket.getInetAddress());
+				Scanner in = new Scanner(newSocket.getInputStream());
+				PrintWriter out = new PrintWriter(newSocket.getOutputStream());
+				out.println("\nPlease insert your name: ");
+				String newName= in.nextLine();
 				synchronized (connections) {
 					
-					SocketConnection newConnection= new SocketConnection(newSocket);
+					SocketConnection newConnection= new SocketConnection(newName, newSocket);
 					connections.add(newConnection);
+					System.out.println("\n" + newName + "'s inbound connection added to the queue in position " + connections.size());
 				}
-				System.out.println("\nNew inbound connection added to the queue.");
+				
 			} catch (IOException e) {
 				LOGGER.log(Level.SEVERE, "IO Exception", e);
 			}

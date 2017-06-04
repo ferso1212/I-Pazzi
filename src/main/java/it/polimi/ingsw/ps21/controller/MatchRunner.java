@@ -17,7 +17,7 @@ public class MatchRunner implements Runnable {
 
 	@Override
 	public void run() {
-		
+		this.controller=new MatchController
 		
 	}
 	

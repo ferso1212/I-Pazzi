@@ -12,12 +12,14 @@ import it.polimi.ingsw.ps21.model.player.PlayerColor;
 public class UserHandler implements Visitor, Runnable{
 	private PlayerColor playerId;
 	private Connection connection;
+	private String name;
 	
 
 	public UserHandler(PlayerColor playerId, Connection connection) {
 		super();
 		this.playerId = playerId;
 		this.connection=connection;
+		this.name=this.connection.name;
 	}
 
 	@Override
