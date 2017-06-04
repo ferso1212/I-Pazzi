@@ -25,4 +25,10 @@ public class Tower {
 		return false;
 	}
 
+	public SingleTowerSpace[] getTower() {
+		return tower;
+	}
+	
+	
+
 }

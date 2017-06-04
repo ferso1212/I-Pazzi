@@ -9,7 +9,7 @@ public class FamilyMember {
 	protected int value;
 	protected MembersColor color;
 	protected int modifier;
-	protected int ownerId;
+	protected PlayerColor ownerId;
 	protected boolean used;
 	
 	/**
@@ -73,7 +73,7 @@ public class FamilyMember {
 	/**
 	 * @return the playerId
 	 */
-	public int getOwnerId() {
+	public PlayerColor getOwnerId() {
 		return this.ownerId;
 	}
 
