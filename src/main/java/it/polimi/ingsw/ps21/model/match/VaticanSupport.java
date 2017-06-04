@@ -27,8 +27,7 @@ public class VaticanSupport extends Match {
 		for(Player p: players.values())
 		{	
 		if (board.getExcommunicationRequirement(period) < p.getProperties().getProperty(PropertiesId.FAITHPOINTS).getValue())	
-			{p.getProperties().getProperty(PropertiesId.FAITHPOINTS).setValue(0);
-			/*setta scomunica*/}
+			{/*setta scomunica*/}
 		else supportedPlayers.add(p);
 		}
 		notifyObservers();
@@ -48,11 +47,13 @@ public class VaticanSupport extends Match {
 	@Override
 	public Match getCopy() throws CloneNotSupportedException {
 		// TODO Auto-generated method stub
-		return null;
+		return new VaticanSupport(this);
 	}
 
 	@Override
 	public Match setNextPlayer() {
+		supportedPlayers.poll();
+		if (supportedPlayers.isEmpty()){
 		for (Player p: players.values()){
 			if (!(supportChoices.containsKey(p))) throw new UnchosenException();
 		}
@@ -69,10 +70,12 @@ public class VaticanSupport extends Match {
 			for ( int j = newOrder.size() -1 ; j>=0; i--){ // Crea l'ordine del nuovo round
 				order.add(newOrder.get(j));
 			}
-			board.newSetBoard(period);
+			board.newSetBoard(period + 1);
 			return new InitialRoundMatch(this);
 		}	
 		else return new EndedMatch(this);
+		}
+		else return this;
 	}
 	
 	

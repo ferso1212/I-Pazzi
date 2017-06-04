@@ -1,6 +1,9 @@
 package it.polimi.ingsw.ps21.client;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -16,12 +19,11 @@ public class Main {
 		try {
 			Socket socket = new Socket(SERVER_IP, PORT);
 			System.out.println("Connection established");
-			Scanner socketIn = new Scanner(socket.getInputStream()); 
+			BufferedReader socketIn = new BufferedReader(new InputStreamReader(socket.getInputStream())); 
 			PrintWriter socketOut = new PrintWriter(socket.getOutputStream()); 
 			Scanner stdin = new Scanner(System.in);
 			while(true){
-				while(!socketIn.hasNextLine()){}
-			String socketLine= socketIn.nextLine(); 
+			String socketLine= socketIn.readLine(); 
 			System.out.println(socketLine);
 			String userInputLine = stdin.nextLine(); 
 			socketOut.println(userInputLine); 
