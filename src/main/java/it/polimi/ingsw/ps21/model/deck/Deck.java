@@ -14,14 +14,14 @@ public class Deck implements Cloneable {
 	protected SubDeck<BuildingCard> yellowCards;
 	protected SubDeck<CharacterCard> blueCards;
 	protected SubDeck<VentureCard> purpleCards;
-	protected Map<Integer, ExcommunicationDeck> excommunications;
+	protected ExcommunicationDeck excommunications;
 	
 	public Deck(){
 		greenCards = new SubDeck<>();
 		yellowCards = new SubDeck<>();
 		blueCards = new SubDeck<>();
 		purpleCards = new SubDeck<>();
-		excommunications = new HashMap<>();
+		excommunications = new ExcommunicationDeck();
 	}
 	
 
@@ -54,6 +54,9 @@ public class Deck implements Cloneable {
 		yellowCards = yellowDeck;
 	}
 	
+	public void setExcommunication(ExcommunicationDeck excoms){
+		this.excommunications = excoms;
+	}
 	
 	public DevelopmentCard getCard(int era, DevelopmentCardType type) throws IllegalCardException{
 		switch(type){
@@ -79,14 +82,12 @@ public class Deck implements Cloneable {
 	
 	@Override
 	public String toString(){
-		StringBuilder temp = new StringBuilder();
-		
-		
+		StringBuilder temp = new StringBuilder();		
 		return temp.toString();
 	}
 	
 	public boolean isEmpty(){
-		return greenCards.isEmpty() && yellowCards.isEmpty() && blueCards.isEmpty() && purpleCards.isEmpty();
+		return greenCards.isEmpty() && yellowCards.isEmpty() && blueCards.isEmpty() && purpleCards.isEmpty() && excommunications.isEmpty();
 	}
 	
 	//TODO implement deep clone
