@@ -2,13 +2,9 @@ package it.polimi.ingsw.ps21.view;
 
 import java.net.Socket;
 
-public abstract class Connection {
-	protected String name;
+public abstract interface Connection implements Remote {
 
-	public Connection(String name) {
-		super();
-		this.name = name;
-	}
+	
 	
 	public abstract void sendMessage(String mess);
 	

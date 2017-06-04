@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps21.view;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -37,10 +38,14 @@ public class Server implements Runnable {
 	@Override
 	public void run() {
 		new Thread(new SocketConnectionsAcceptor(this.connections)).start();
-		//new Thread(this.rmiAcceptor).start();
+		try {
+			new Thread(new RMIConnectionAcceptor(this.connections)).start();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.elapsedTime=new ElapsedTimeCounter();
 		elapsedTime.start();
-		elapsedTime.resetCounter();
 		while (true) {
 			System.out.println("Server started and ready to receive connections.");
 			while(connections.size()<MAX_PLAYERS_NUM && elapsedTime.getElapsedTime()<TIMEOUT)
