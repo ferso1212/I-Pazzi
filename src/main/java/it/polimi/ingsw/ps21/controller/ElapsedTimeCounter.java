@@ -1,27 +1,30 @@
 package it.polimi.ingsw.ps21.controller;
 
 public class ElapsedTimeCounter extends Thread{
-	private long elapsedTime;
+	private Integer elapsedTime;
 	private long tStart;
 	private boolean enabled;
 
 	@Override
 	public void run() {
-		this.tStart= System.currentTimeMillis();
 		while(true)
 		{
-			 if(enabled) elapsedTime = System.currentTimeMillis() - this.tStart;
+			 if(enabled) 
+			 {elapsedTime = (int) ( System.currentTimeMillis() - this.tStart) / 1000;
+			 
+			 }
 		}
 	}
 	
 	public synchronized void resetCounter()
 	{
-		this.elapsedTime=0L;
+		this.tStart = System.currentTimeMillis();
 	}
 	
 	public ElapsedTimeCounter()
 	{
-		this.elapsedTime=0L;
+		this.tStart = System.currentTimeMillis();
+		this.elapsedTime=0;
 		this.enabled=false;
 		
 	}
@@ -35,12 +38,10 @@ public class ElapsedTimeCounter extends Thread{
 	{
 		
 		this.enabled=true;
-		this.elapsedTime=0L;
-		this.tStart=System.currentTimeMillis();
 
 	}
 	
-	public long getElapsedTime()
+	public int getElapsedTime()
 	{
 		return this.elapsedTime;
 	}

@@ -19,23 +19,8 @@ public class Main {
 	
 	public static void main(String args[])
 	{
-<<<<<<< HEAD
 		System.out.println("\nClient application started.");
-		try {
-			Socket socket = new Socket(SERVER_IP, PORT);
-			System.out.println("Connection established");
-			BufferedReader socketIn = new BufferedReader(new InputStreamReader(socket.getInputStream())); 
-			PrintWriter socketOut = new PrintWriter(socket.getOutputStream()); 
-			BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
-			while(true){
-
-			String socketLine= socketIn.readLine(); 
-			System.out.println(socketLine);
-			String userInputLine = stdin.readLine(); 
-			socketOut.println(userInputLine); 
-			socketOut.flush(); }
-=======
-		Scanner in = new Scanner(System.in);
+    	Scanner in = new Scanner(System.in);
 		while(newMatch == true){
 		SocketClient client = new SocketClient(); 
 		MatchData match = client.start();
@@ -43,9 +28,7 @@ public class Main {
 			CLInterface CLImatch = new CLInterface();
 			while (CLImatch.isEnded());
 			System.out.println("Do you want to play another match, fucking looser?\n(Y)es\n(N)o");
-			String response = in.nextLine();
->>>>>>> 2b8c6b268b0d69c0d30ab4940102b5132adfc151
-			
+			String response = in.nextLine();			
 		}
 		else {System.out.println("Failed to connect to server");
 			newMatch = false;

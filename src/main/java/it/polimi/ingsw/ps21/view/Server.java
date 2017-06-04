@@ -40,16 +40,17 @@ public class Server implements Runnable {
 		//new Thread(this.rmiAcceptor).start();
 		this.elapsedTime=new ElapsedTimeCounter();
 		elapsedTime.start();
+		elapsedTime.resetCounter();
 		while (true) {
-			elapsedTime.resetCounter();
 			System.out.println("Server started and ready to receive connections.");
 			while(connections.size()<MAX_PLAYERS_NUM && elapsedTime.getElapsedTime()<TIMEOUT)
 			{
 				if(connections.size()>=MIN_PLAYERS_NUM && !elapsedTime.isEnabled()) //the counter starts when at least 2 players have joined the lobby
 					{
+					elapsedTime.resetCounter();
 					elapsedTime.startCounter();
 					}
-				if(elapsedTime.isEnabled()) System.out.println("Elapsed time since the second player joined the queue: " + elapsedTime.getElapsedTime()/1000 + " seconds.");
+				if(elapsedTime.isEnabled()) System.out.println("Elapsed time since the second player joined the queue: " + elapsedTime.getElapsedTime() + " seconds.");
 			}
 			elapsedTime.stopCounter();
 			if(elapsedTime.getElapsedTime()>TIMEOUT) System.out.println("\nTimeout expired: initializing new match with " + Math.max(MAX_PLAYERS_NUM, connections.size()) + " players.");
