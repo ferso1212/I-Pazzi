@@ -40,16 +40,8 @@ private ServerSocket serverSocket;
 			try {
 				Socket newSocket = serverSocket.accept();
 				System.out.println("\nNew inbound connection detected. Source IP address: " + newSocket.getInetAddress());
-				BufferedReader in = new BufferedReader(new InputStreamReader(newSocket.getInputStream()));
-				PrintWriter out = new PrintWriter(newSocket.getOutputStream());
-				out.println("\nPlease insert your name: ");
-				String newName=in.readLine();
-				synchronized (connections) {
-					
-					SocketConnection newConnection= new SocketConnection(newName, newSocket);
-					connections.add(newConnection);
-					System.out.println("\n" + newName + "'s inbound connection added to the queue in position " + connections.size());
-				}
+				(new SocketConnectionAdder(newSocket, connections)).start();
+				
 				
 			} catch (IOException e) {
 				LOGGER.log(Level.SEVERE, "IO Exception", e);

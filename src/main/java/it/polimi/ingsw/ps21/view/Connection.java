@@ -10,6 +10,8 @@ public abstract class Connection {
 		this.name = name;
 	}
 	
+	public abstract void sendMessage(String mess);
+	
 	
 	
 	

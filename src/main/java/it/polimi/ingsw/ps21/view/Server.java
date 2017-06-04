@@ -16,7 +16,7 @@ public class Server implements Runnable {
 
 	//private SocketConnectionsAcceptor socketAcceptor;
 	//private RMIConnectionsAcceptor rmiAcceptor;
-	private final static long TIMEOUT = 60000; // the milliseconds that the server will
+	private final static long TIMEOUT = 10000; // the milliseconds that the server will
 											// wait once 2 players joined
 	private final static int MAX_PLAYERS_NUM = 4; // The match is created if the
 													// max number of players is
@@ -45,7 +45,7 @@ public class Server implements Runnable {
 			System.out.println("Server started and ready to receive connections.");
 			while(connections.size()<MAX_PLAYERS_NUM && elapsedTime.getElapsedTime()<TIMEOUT)
 			{
-				if(connections.size()>MIN_PLAYERS_NUM && !elapsedTime.isEnabled()) //the counter starts when at least 2 players have joined the lobby
+				if(connections.size()>=MIN_PLAYERS_NUM && !elapsedTime.isEnabled()) //the counter starts when at least 2 players have joined the lobby
 					{
 					elapsedTime.startCounter();
 					}

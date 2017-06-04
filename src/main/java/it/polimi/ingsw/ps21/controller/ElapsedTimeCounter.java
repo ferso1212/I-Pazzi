@@ -10,15 +10,13 @@ public class ElapsedTimeCounter extends Thread{
 		this.tStart= System.currentTimeMillis();
 		while(true)
 		{
-			if(enabled) elapsedTime += System.currentTimeMillis() - tStart;
+			 if(enabled) elapsedTime = System.currentTimeMillis() - this.tStart;
 		}
 	}
 	
-	public void resetCounter()
+	public synchronized void resetCounter()
 	{
 		this.elapsedTime=0L;
-		this.tStart= System.currentTimeMillis();
-		
 	}
 	
 	public ElapsedTimeCounter()
@@ -28,15 +26,18 @@ public class ElapsedTimeCounter extends Thread{
 		
 	}
 	
-	public void stopCounter()
+	public synchronized void stopCounter()
 	{
 		this.enabled=false;
 	}
 	
-	public void startCounter()
+	public synchronized void startCounter()
 	{
-		this.tStart= System.currentTimeMillis();
+		
 		this.enabled=true;
+		this.elapsedTime=0L;
+		this.tStart=System.currentTimeMillis();
+
 	}
 	
 	public long getElapsedTime()

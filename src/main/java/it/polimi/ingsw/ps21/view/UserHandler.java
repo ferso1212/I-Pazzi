@@ -20,6 +20,7 @@ public class UserHandler implements Visitor, Runnable{
 		this.playerId = playerId;
 		this.connection=connection;
 		this.name=this.connection.name;
+		this.connection.sendMessage("Match started!");
 	}
 
 	@Override

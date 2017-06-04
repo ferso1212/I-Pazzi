@@ -21,12 +21,12 @@ public class Main {
 			System.out.println("Connection established");
 			BufferedReader socketIn = new BufferedReader(new InputStreamReader(socket.getInputStream())); 
 			PrintWriter socketOut = new PrintWriter(socket.getOutputStream()); 
-			Scanner stdin = new Scanner(System.in);
+			BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
 			while(true){
 
 			String socketLine= socketIn.readLine(); 
 			System.out.println(socketLine);
-			String userInputLine = stdin.nextLine(); 
+			String userInputLine = stdin.readLine(); 
 			socketOut.println(userInputLine); 
 			socketOut.flush(); }
 			
