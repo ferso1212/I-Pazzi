@@ -61,15 +61,11 @@ public class MatchFactory {
 	 */
 	
 	
-	private MatchFactory(){
+	private MatchFactory() throws ParserConfigurationException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setValidating(true);
-		try {
 			builder = factory.newDocumentBuilder();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
 	/**
 	 * 
@@ -84,7 +80,7 @@ public class MatchFactory {
 	 * TODO Implement makeEffect
 	 * TODO Implement makePurpleCard and makeYellowCard
 	 */
-	public static MatchFactory instance() throws ParserConfigurationException, IOException{
+	public static MatchFactory instance() throws ParserConfigurationException{
 		if (instance == null) instance = new MatchFactory();
 		return instance;
 	}

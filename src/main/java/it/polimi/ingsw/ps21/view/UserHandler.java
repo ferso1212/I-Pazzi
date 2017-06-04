@@ -68,6 +68,10 @@ public class UserHandler implements Visitor, Runnable{
 		// TODO Auto-generated method stub
 		
 	}
+
+	public PlayerColor getPlayerId() {
+		return playerId;
+	}
 	
 	
 
