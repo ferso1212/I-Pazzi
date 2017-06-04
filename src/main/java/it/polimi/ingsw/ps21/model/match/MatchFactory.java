@@ -464,9 +464,11 @@ public class MatchFactory {
 		}
 
 		public Map<DevelopmentCardType, Requirement[] > makeCardAddingRequirements(){
-			/* TODO
-		
+			/* TODO */
 		}
+		
+		public Map<DevelopmentCardType, int[]> makeTowersBonus(){
+			
 		}
 
 }
