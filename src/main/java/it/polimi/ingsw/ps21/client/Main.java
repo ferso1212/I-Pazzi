@@ -23,9 +23,16 @@ public class Main {
 	{
 		System.out.println("\nClient application started.");
     	Scanner in = new Scanner(System.in);
+    	int chosenConnection=0;
+    	while(chosenConnection!=1 && chosenConnection!=2)
+    	{
+    	System.out.println("\nChoose the conncection method to use: \n1 Socket \n2 RMI");
+    	chosenConnection= in.nextInt();
+    	if((chosenConnection!=1 && chosenConnection!=2)) System.out.println("\nInvalid choice.");
+    	}
 		while(newMatch == true){
 		
-			if (CLI) {
+			if (chosenConnection==1) {
 				SocketClient client = new SocketClient(); 
 					MatchData match = client.start();
 					if (match != null){
