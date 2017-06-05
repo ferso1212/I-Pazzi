@@ -80,7 +80,7 @@ public class MatchFactory {
 	 * TODO Implement makeEffect
 	 * TODO Implement makePurpleCard and makeYellowCard
 	 */
-	public static MatchFactory instance() throws ParserConfigurationException{
+	public synchronized static MatchFactory instance() throws ParserConfigurationException{
 		if (instance == null) instance = new MatchFactory();
 		return instance;
 	}
@@ -247,7 +247,7 @@ public class MatchFactory {
 	 * @return
 	 * @throws BuildingDeckException
 	 */
-	public Deck makeDeck() throws BuildingDeckException{
+	public synchronized Deck makeDeck() throws BuildingDeckException{
 		if (configuratedDeck == null){
 			configuratedDeck = new Deck();
 			configuratedDeck.setGreenDeck(makeGreenDeck());
@@ -260,7 +260,7 @@ public class MatchFactory {
 
 
 	
-	public ImmProperties[] makePrivileges(){
+	public synchronized ImmProperties[] makePrivileges(){
 		if (privileges == null){
 		Document configuration;
 		ArrayList<ImmProperties> bonuses = new ArrayList<>();
@@ -290,7 +290,7 @@ public class MatchFactory {
 		else return privileges;
 	}
 	
-	public ImmProperties[] makeInitialProperties(){
+	public synchronized ImmProperties[] makeInitialProperties(){
 		if (initialProperties == null){
 		Document configuration;
 		ArrayList<ImmProperties> bonuses = new ArrayList<>();
@@ -319,7 +319,7 @@ public class MatchFactory {
 		return initialProperties;
 	}
 	
-	public Map<DevelopmentCardType, Requirement[]> makeCardAddingRequirements(){
+	public synchronized Map<DevelopmentCardType, Requirement[]> makeCardAddingRequirements(){
 	if (cardAddingRequirement == null){
 		Document configuration;
 		EnumMap<DevelopmentCardType, Requirement[]> result = new EnumMap<>(DevelopmentCardType.class);
@@ -385,7 +385,7 @@ public class MatchFactory {
 	}
 	
 	
-	public TrackBonuses makeTrackBonuses(){
+	public synchronized TrackBonuses makeTrackBonuses(){
 			if (trackBonuses == null){
 			Document configuration;
 			TrackBonuses result;
@@ -432,7 +432,7 @@ public class MatchFactory {
 			return trackBonuses;
 		}
 		
-	public ImmProperties makeCouncilBonuses(){
+	public synchronized ImmProperties makeCouncilBonuses(){
 			if (councilBonuses == null ){
 				Document configuration;
 				ImmProperties result;
@@ -453,7 +453,7 @@ public class MatchFactory {
 			return councilBonuses;
 		}
 		
-	public int makeCouncilPrivileges(){
+	public synchronized int makeCouncilPrivileges(){
 			if (councilPrivileges == 0 ){
 				Document configuration;
 				EnumMap<DevelopmentCardType, int[]> result = new EnumMap<>(DevelopmentCardType.class);
@@ -473,7 +473,7 @@ public class MatchFactory {
 			return councilPrivileges;
 		}
 
-	public Map<DevelopmentCardType, int[] > makeCardBonus(){
+	public synchronized Map<DevelopmentCardType, int[] > makeCardBonus(){
 			if (cardBonuses == null){
 				Document configuration;
 				EnumMap<DevelopmentCardType, int[]> result = new EnumMap<>(DevelopmentCardType.class);
@@ -540,7 +540,7 @@ public class MatchFactory {
 				return cardBonuses;
 		}
 		
-	public Map<DevelopmentCardType, ImmProperties[]> makeTowersBonus(){
+	public synchronized Map<DevelopmentCardType, ImmProperties[]> makeTowersBonus(){
 			if (towersBonuses == null){
 			Document configuration;
 			EnumMap<DevelopmentCardType, ImmProperties[]> result = new EnumMap<>(DevelopmentCardType.class);
@@ -605,7 +605,7 @@ public class MatchFactory {
 			return towersBonuses;
 		}
 
-	public ImmProperties[] makeMarketBonuses(){
+	public synchronized ImmProperties[] makeMarketBonuses(){
 		if (marketBonuses == null){
 		Document configuration;
 		ArrayList<ImmProperties> bonuses = new ArrayList<>();

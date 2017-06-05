@@ -56,37 +56,23 @@ public class FinalRoundMatch extends Match {
 		return extraActionPool;
 	}
 
-
-	private Match nextState() {
-		for (int i=0; i<4; i++){
-			for (FamilyMember p: board.getCouncilPalace().getOccupants())
-			{
-				// TODO need a method that return playerOrder in councilPalace
-			}
-			
-		}
-		for (Player p: players.values()){
-		
-		}
-		return new VaticanSupport(this);
-	}
 	@Override
 	public Match getCopy() throws CloneNotSupportedException {
 		return this;
 	}
 	@Override
 	public Match setNextPlayer() {
-		for (int i=0; i<4; i++){
-			for (FamilyMember p: board.getCouncilPalace().getOccupants())
-			{
-				// TODO need a method that return playerOrder in councilPalace
+			for (int i=0; i<4; i++){
+				for (FamilyMember p: board.getCouncilPalace().getOccupants())
+				{
+					// TODO need a method that return playerOrder in councilPalace
+				}
+				
 			}
+			for (Player p: players.values()){
 			
-		}
-		for (Player p: players.values()){
-			board.resetFaithPoints(p);			
-		}
-		return new InitialRoundMatch(this);
+			}
+			return new VaticanSupport(this);
 	}
 
 }
