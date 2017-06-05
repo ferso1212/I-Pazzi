@@ -17,7 +17,7 @@ import it.polimi.ingsw.ps21.model.match.Match;
 public class Main {
 
 	private static boolean newMatch = true;
-	private static boolean CLI = false;
+	private static boolean CLI = true;
 	
 	public static void main(String args[])
 	{

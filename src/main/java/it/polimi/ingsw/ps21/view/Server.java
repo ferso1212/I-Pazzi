@@ -6,10 +6,12 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import it.polimi.ingsw.ps21.controller.ElapsedTimeCounter;
+
 import it.polimi.ingsw.ps21.controller.MatchRunner;
+import it.polimi.ingsw.ps21.controller.TimeoutTask;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
@@ -17,7 +19,8 @@ public class Server implements Runnable {
 
 	//private SocketConnectionsAcceptor socketAcceptor;
 	//private RMIConnectionsAcceptor rmiAcceptor;
-	private final static long TIMEOUT = 10000; // the milliseconds that the server will
+	private final static long TIMEOUT = 5000;
+		 // the milliseconds that the server will
 											// wait once 2 players joined
 	private final static int MAX_PLAYERS_NUM = 4; // The match is created if the
 													// max number of players is
@@ -26,10 +29,13 @@ public class Server implements Runnable {
 	private final static int MIN_PLAYERS_NUM=2;
 
 	private ConcurrentLinkedQueue<Connection> connections;
-	private ElapsedTimeCounter elapsedTime;
-
+	private Boolean timeout;
+	private boolean startedTimer = false;
 	public Server() {
 		this.connections= new ConcurrentLinkedQueue<Connection>();
+		this.timeout=new Boolean(false);
+		
+		
 		//this.socketAcceptor = new SocketConnectionsAcceptor(this.connections);
 		//this.rmiAcceptor = new RMIConnectionsAcceptor(this.connections);
 		
@@ -38,35 +44,37 @@ public class Server implements Runnable {
 	@Override
 	public void run() {
 		new Thread(new SocketConnectionsAcceptor(this.connections)).start();
-		try {
+		/*try {
 			new Thread(new RMIConnectionAcceptor(this.connections)).start();
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		this.elapsedTime=new ElapsedTimeCounter();
-		elapsedTime.start();
+		}*/
 		while (true) {
+			Timer timer = new Timer();
+			TimeoutTask expired = new TimeoutTask();
 			System.out.println("Server started and ready to receive connections.");
-			while(connections.size()<MAX_PLAYERS_NUM && elapsedTime.getElapsedTime()<TIMEOUT)
+			while(connections.size()<MAX_PLAYERS_NUM && !expired.isExpired())
 			{
-				if(connections.size()>=MIN_PLAYERS_NUM && !elapsedTime.isEnabled()) //the counter starts when at least 2 players have joined the lobby
+				if(connections.size()>=MIN_PLAYERS_NUM && !startedTimer ) //the counter starts when at least 2 players have joined the lobby
 					{
-					elapsedTime.resetCounter();
-					elapsedTime.startCounter();
+					
+					timer.schedule(expired, TIMEOUT);
+					startedTimer = true;
+					System.out.println("Timeout started");
 					}
-				if(elapsedTime.isEnabled()) System.out.println("Elapsed time since the second player joined the queue: " + elapsedTime.getElapsedTime() + " seconds.");
+				
 			}
-			elapsedTime.stopCounter();
-			if(elapsedTime.getElapsedTime()>TIMEOUT) System.out.println("\nTimeout expired: initializing new match with " + Math.max(MAX_PLAYERS_NUM, connections.size()) + " players.");
+			if(expired.isExpired()) System.out.println("\nTimeout expired: initializing new match with " + Math.min(MAX_PLAYERS_NUM, connections.size()) + " players.");
 			else System.out.println("\nThere are enough connections in the queue to fulfill a match: initializing a new match with " + MAX_PLAYERS_NUM + " players.");
-			
+			timeout = false;
 			//Creates UserHandlers for each connection and and a new MatchRunner with those UserHandlers
-			int playersAdded = 0;
+			int playersAdded=0;
 			synchronized (connections) {
-				UserHandler[] usersToAdd = new UserHandler[Math.max(connections.size(), MAX_PLAYERS_NUM)];
+				UserHandler[] usersToAdd = new UserHandler[Math.min(connections.size(), MAX_PLAYERS_NUM)];
 				while ((playersAdded < usersToAdd.length) && (connections.size() > 0)) {
 						usersToAdd[playersAdded] = new UserHandler(PlayerColor.values()[playersAdded], connections.remove());
+						playersAdded++;
 				}
 				new Thread((new MatchRunner(usersToAdd))).start();
 				System.out.println("\nNew MatchRunner thread created with " + playersAdded + " players.");
