@@ -42,6 +42,15 @@ public class MatchController implements Observer{
 		
 	}
 	
+	public void gameLoop()
+	{
+		
+	}
+	
+	public void roundLoop()
+	{
+		
+	}
 	
 }
 

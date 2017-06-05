@@ -59,10 +59,11 @@ public class Server implements Runnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
+		Timer timer = new Timer();
+		TimeoutTask expired = new TimeoutTask();
+		System.out.println("Server started and ready to receive connections.");
 		while (true) {
-			Timer timer = new Timer();
-			TimeoutTask expired = new TimeoutTask();
-			System.out.println("Server started and ready to receive connections.");
+			
 			while(connections.size()<MAX_PLAYERS_NUM && !expired.isExpired())
 			{
 				if(connections.size()>=MIN_PLAYERS_NUM && !startedTimer ) //the counter starts when at least 2 players have joined the lobby

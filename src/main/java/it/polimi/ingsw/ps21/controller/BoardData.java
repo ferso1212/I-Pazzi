@@ -83,5 +83,63 @@ public class BoardData implements Serializable{
 		this.blackDice=blackDice;
 		this.whiteDice=whiteDice;
 	}
+
+	public DevelopmentCard[][] getCards() {
+		return cards;
+	}
+
+	public FamilyMemberData[][] getTowerSpaces() {
+		return towerSpaces;
+	}
+
+	public ImmProperties[][] getTowerBonuses() {
+		return towerBonuses;
+	}
+
+	public FamilyMemberData[] getMarket() {
+		return market;
+	}
+
+	public int[] getFaithTrackBonus() {
+		return faithTrackBonus;
+	}
+
+	public int[] getMilitaryBonuses() {
+		return militaryBonuses;
+	}
+
+	public FamilyMemberData getSingleHarvestSpace() {
+		return singleHarvestSpace;
+	}
+
+	public FamilyMemberData getSingleProductionSpace() {
+		return singleProductionSpace;
+	}
+
+	public FamilyMemberData[] getMultipleHarvestSpace() {
+		return multipleHarvestSpace;
+	}
+
+	public FamilyMemberData[] getMultipleProductionSpace() {
+		return multipleProductionSpace;
+	}
+
+	public Map<DevelopmentCardType, int[]> getCardsBonus() {
+		return cardsBonus;
+	}
+
+	public int getOrangeDice() {
+		return orangeDice;
+	}
+
+	public int getWhiteDice() {
+		return whiteDice;
+	}
+
+	public int getBlackDice() {
+		return blackDice;
+	}
+	
+	
 	
 }
