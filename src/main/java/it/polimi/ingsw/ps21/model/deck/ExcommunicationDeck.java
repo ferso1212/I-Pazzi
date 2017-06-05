@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import it.polimi.ingsw.ps21.model.excommunications.Excommunication;
+
 /**
  * Class that implements an aggregator of excommunications based on its period.
  * This class offers different functions like shuffling and picking excoms

@@ -8,6 +8,19 @@ import it.polimi.ingsw.ps21.model.player.Player;
  */
 public abstract class Excommunication {
 	
+	protected int cardId;
+	protected int cardEra;
+	
+	public int getId()
+	{
+		return this.cardId;
+	}
+	
+	public int getEra()
+	{
+		return this.getEra();
+	}
+	
 	/**Activates the excommunication: its effects are stored in the player's modifiers.
 	 */
 	public abstract void activate(Player player);
