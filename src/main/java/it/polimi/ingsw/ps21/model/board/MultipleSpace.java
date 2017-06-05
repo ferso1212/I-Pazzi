@@ -13,9 +13,9 @@ public abstract class MultipleSpace extends Space{
 	
 	
 
-	public MultipleSpace(int diceRequirement, ImmProperties instantBonus, int diceMalus, Queue<FamilyMember> occupants) {
+	public MultipleSpace(int diceRequirement, ImmProperties instantBonus, int diceMalus) {
 		super(diceRequirement, instantBonus);
-		this.occupants = occupants;
+		this.occupants = null;
 		this.diceMalus = diceMalus;
 	}
 

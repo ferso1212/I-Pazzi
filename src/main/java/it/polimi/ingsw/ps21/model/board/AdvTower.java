@@ -1,18 +1,16 @@
 package it.polimi.ingsw.ps21.model.board;
 
-import it.polimi.ingsw.ps21.model.player.FamilyMember;
-import it.polimi.ingsw.ps21.model.player.Player;
-
-public class Tower {
+public class AdvTower {
 	
 	public final static int FLOORS_NUM=4;
-	private SingleTowerSpace[] tower;
+	private AdvSingleTowerSpace[] tower;
 	
-	public Tower(SingleTowerSpace[] tower) {
+	public AdvTower(AdvSingleTowerSpace[] tower) {
+		super();
 		this.tower = tower;
 	}
 	
-	public SingleTowerSpace getTowerSpace(int floor) throws IllegalArgumentException{
+	public AdvSingleTowerSpace getTowerSpace(int floor) throws IllegalArgumentException{
 		if ( (0 < floor) && (floor < FLOORS_NUM + 1) ){
 			return tower[floor - 1];			
 		} else throw new IllegalArgumentException();
@@ -26,11 +24,10 @@ public class Tower {
 		}
 		return false;
 	}
-
-	public SingleTowerSpace[] getTower() {
+	
+	public AdvSingleTowerSpace[] getTower() {
 		return tower;
 	}
-	
 	
 
 }

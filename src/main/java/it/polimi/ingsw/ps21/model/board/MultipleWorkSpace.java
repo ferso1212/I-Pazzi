@@ -11,9 +11,8 @@ public class MultipleWorkSpace extends MultipleSpace implements WorkInterface{
 	
 	private WorkType workType;
 
-	public MultipleWorkSpace(int diceRequirement, ImmProperties instantBonus, int diceMalus,
-			Queue<FamilyMember> occupants, WorkType workType) {
-		super(diceRequirement, instantBonus, diceMalus, occupants);
+	public MultipleWorkSpace(int diceRequirement, ImmProperties instantBonus, int diceMalus, WorkType workType) {
+		super(diceRequirement, instantBonus, diceMalus);
 		this.workType = workType;
 	}
 
