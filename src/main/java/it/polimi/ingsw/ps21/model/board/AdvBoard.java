@@ -57,11 +57,7 @@ public class AdvBoard extends Board{
 			}
 		}
 	}
-	
-	public AdvTower getTower(DevelopmentCardType type) {
-		return towers.get(type);
-	}
-	
+		
 	
 
 }

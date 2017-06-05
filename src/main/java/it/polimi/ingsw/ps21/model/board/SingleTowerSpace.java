@@ -5,8 +5,8 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class SingleTowerSpace extends SingleSpace {
 
-	private DevelopmentCard card;
-	private static final ImmProperties REOCCUPY_TOWER_COST = new ImmProperties(3);
+	protected DevelopmentCard card;
+	protected static final ImmProperties REOCCUPY_TOWER_COST = new ImmProperties(3);
 
 	public SingleTowerSpace(int diceRequirement, ImmProperties instantBonus, DevelopmentCard card) {
 		super(diceRequirement, instantBonus);

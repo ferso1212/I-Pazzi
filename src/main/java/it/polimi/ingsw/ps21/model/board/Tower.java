@@ -5,7 +5,7 @@ import it.polimi.ingsw.ps21.model.player.Player;
 
 public class Tower {
 	
-	public final static int FLOORS_NUM=4;
+	protected final static int FLOORS_NUM=4;
 	private SingleTowerSpace[] tower;
 	
 	public Tower(SingleTowerSpace[] tower) {

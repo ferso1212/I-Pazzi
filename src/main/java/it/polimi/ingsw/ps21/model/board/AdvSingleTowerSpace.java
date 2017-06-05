@@ -1,42 +1,52 @@
 package it.polimi.ingsw.ps21.model.board;
 
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
+import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
+import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
-public class AdvSingleTowerSpace extends AdvSingleSpace {
+public class AdvSingleTowerSpace extends SingleTowerSpace {
 	
-	private DevelopmentCard card;
-	private static final ImmProperties REOCCUPY_TOWER_COST = new ImmProperties(3);
-	
-	public AdvSingleTowerSpace(int diceRequirement, ImmProperties instantBonus, SingleSpaceType type,
-			FamilyMember otherOccupant, DevelopmentCard card) {
-		super(diceRequirement, instantBonus, type, otherOccupant);
-		this.card = card;
-	}
-	
-	public DevelopmentCard getCard() {
-		return card;
+	private FamilyMember otherOccupant;
+
+	public AdvSingleTowerSpace(int diceRequirement, ImmProperties instantBonus, DevelopmentCard card,
+			FamilyMember otherOccupant) {
+		super(diceRequirement, instantBonus, card);
+		this.otherOccupant = otherOccupant;
 	}
 
-	public void setCard(DevelopmentCard card) {
-		this.card = card;
-	}
-	
-	public void reset(){
-		this.occupant=null;
-		this.card=null;
+	public FamilyMember getOtherOccupant() {
+		return otherOccupant;
 	}
 
-	public ImmProperties[] getCostsCard(Tower tower) {
-		if (tower.isOccupied()){
-			ImmProperties[] costsCopy = new ImmProperties[this.card.getCosts().length];
-		for (int i=0; i<this.card.getCosts().length; i++){
-			costsCopy[i] = this.card.getCosts()[i].sum(REOCCUPY_TOWER_COST);
-		}
-		return costsCopy;
-		}
-		return this.card.getCosts();
+	public void setOtherOccupant(FamilyMember otherOccupant) {
+		this.otherOccupant = otherOccupant;
 	}
+	
+	@Override
+	public boolean isOccupable(Player player, FamilyMember member) {
+		if (this.occupant == null) {
+			return true;
+		} else if (((AdvancedPlayer) player).getAdvMod().canReoccupyPlaces()) {
+			if (this.otherOccupant == null) {
+				return true;
+			} else
+				return false;
+		} else
+			return false;
+	}
+	
+	@Override
+	public void occupy(Player player, FamilyMember member) throws NotOccupableException {
+
+		if (this.occupant == null) {
+			this.occupant = member;
+		} else if ((((AdvancedPlayer) player).getAdvMod().canReoccupyPlaces()) && (this.otherOccupant == null)) {
+			this.otherOccupant = member;
+		} else
+			throw new NotOccupableException();
+	}
+
 
 }

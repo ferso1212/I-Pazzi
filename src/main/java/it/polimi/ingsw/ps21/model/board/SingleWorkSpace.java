@@ -5,7 +5,7 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class SingleWorkSpace extends SingleSpace implements WorkInterface{
 	
-	public WorkType workType;
+	protected WorkType workType;
 
 	public SingleWorkSpace(int diceRequirement, ImmProperties instantBonus, WorkType workType) {
 		super(diceRequirement, instantBonus);
