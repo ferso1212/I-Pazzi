@@ -31,8 +31,8 @@ public class MatchRunner implements Runnable {
 			for (UserHandler player : playerHandlers) {
 
 				match.addPlayer(player.getPlayerId());
-				this.controller = new MatchController(match, playerHandlers);
 			}
+			this.controller = new MatchController(match, playerHandlers);
 		} catch (CompleteMatchException | InvalidIDException e) {
 			LOGGER.log(Level.INFO, "Unable to add another player" , e);
 

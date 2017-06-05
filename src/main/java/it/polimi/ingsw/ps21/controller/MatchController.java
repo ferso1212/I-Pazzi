@@ -17,11 +17,11 @@ import it.polimi.ingsw.ps21.view.UserHandler;
 public class MatchController implements Observer{
 	private Map<PlayerColor, UserHandler> handlersMap;
 	private Player currentPlayer;
-	private Match matchState;
+	private Match match;
 	
 	public MatchController(UnsettedMatch match, UserHandler...handlers) {
 		super();
-		this.matchState = match;
+		this.match = match;
 		handlersMap= new HashMap<>();
 		for(UserHandler handler: handlers)
 		{
@@ -49,6 +49,7 @@ public class MatchController implements Observer{
 	
 	public void roundLoop()
 	{
+		match.getBoard().getDeck().shuffle();
 		
 	}
 	

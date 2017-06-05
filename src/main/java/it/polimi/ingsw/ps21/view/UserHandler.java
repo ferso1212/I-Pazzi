@@ -23,7 +23,7 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 		this.playerId = playerId;
 		this.connection=connection;
 		this.name=this.connection.getName();
-		this.connection.sendMessage("Match started!");
+		this.connection.sendMessage(this.name + "'s UserHandler created.");
 	}
 
 	@Override
