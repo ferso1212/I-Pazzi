@@ -8,9 +8,9 @@ public class SingleTowerSpace extends SingleSpace {
 	protected DevelopmentCard card;
 	protected static final ImmProperties REOCCUPY_TOWER_COST = new ImmProperties(3);
 
-	public SingleTowerSpace(int diceRequirement, ImmProperties instantBonus, DevelopmentCard card) {
+	public SingleTowerSpace(int diceRequirement, ImmProperties instantBonus) {
 		super(diceRequirement, instantBonus);
-		this.card = card;
+		this.card = null;
 	}
 
 	public DevelopmentCard getCard() {

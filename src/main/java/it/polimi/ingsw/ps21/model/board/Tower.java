@@ -2,14 +2,29 @@ package it.polimi.ingsw.ps21.model.board;
 
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.Player;
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class Tower {
 	
 	protected final static int FLOORS_NUM=4;
 	private SingleTowerSpace[] tower;
 	
-	public Tower(SingleTowerSpace[] tower) {
-		this.tower = tower;
+	public Tower(boolean isAdvanced, ImmProperties[] spaceBonuses) {
+		int i=0;
+		if (isAdvanced == true){
+			this.tower = new AdvSingleTowerSpace[FLOORS_NUM];
+			for(SingleTowerSpace floor : this.tower){
+				floor = new AdvSingleTowerSpace(1 + 2*i, spaceBonuses[i]);
+				i++;
+			}
+		}else {
+			this.tower = new SingleTowerSpace [FLOORS_NUM];
+			for(SingleTowerSpace floor : this.tower){
+				floor = new SingleTowerSpace(1 + 2*i, spaceBonuses[i]);
+				i++;
+			}
+		}
+		
 	}
 	
 	public SingleTowerSpace getTowerSpace(int floor) throws IllegalArgumentException{

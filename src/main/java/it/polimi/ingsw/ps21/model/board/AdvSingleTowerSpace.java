@@ -10,10 +10,9 @@ public class AdvSingleTowerSpace extends SingleTowerSpace {
 	
 	private FamilyMember otherOccupant;
 
-	public AdvSingleTowerSpace(int diceRequirement, ImmProperties instantBonus, DevelopmentCard card,
-			FamilyMember otherOccupant) {
-		super(diceRequirement, instantBonus, card);
-		this.otherOccupant = otherOccupant;
+	public AdvSingleTowerSpace(int diceRequirement, ImmProperties instantBonus) {
+		super(diceRequirement, instantBonus);
+		this.otherOccupant = null;
 	}
 
 	public FamilyMember getOtherOccupant() {

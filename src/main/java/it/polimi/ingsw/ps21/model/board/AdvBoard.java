@@ -13,7 +13,7 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class AdvBoard extends Board{
 	
-	private EnumMap<DevelopmentCardType, AdvTower> towers;
+	private EnumMap<DevelopmentCardType, Tower> towers;
 	private AdvSingleMarketSpace[] marketPlaces;
 	private AdvSingleWorkSpace singleHarvPlace;
 	private AdvSingleWorkSpace singleProdPlace;

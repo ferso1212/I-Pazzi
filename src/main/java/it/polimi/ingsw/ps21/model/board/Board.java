@@ -37,6 +37,7 @@ public class Board {
 	public Board(int playerNumber) throws ParserConfigurationException, BuildingDeckException {
 		
 		MatchFactory file = MatchFactory.instance();
+		this.towers = new EnumMap<>(DevelopmentCardType.class);
 		this.trackBonuses = file.makeTrackBonuses();
 		this.marketPlaces = new SingleMarketSpace[playerNumber];
 		this.singleHarvPlace = new SingleWorkSpace( 1, new ImmProperties(0), WorkType.HARVEST);
