@@ -21,7 +21,7 @@ public abstract class LeaderCard extends Card {
 	/**
 	 * @return the activated
 	 */
-	public boolean isClonable() { // Use
+	public boolean isClonable() { // Method to implements Lorenzo il Magnifico execution
 		return leaderEffect.isClonable();
 	}
 	

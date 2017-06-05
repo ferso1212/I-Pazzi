@@ -1,6 +1,9 @@
 package it.polimi.ingsw.ps21.model.effect;
 
+import it.polimi.ingsw.ps21.model.actions.ExtraAction;
+import it.polimi.ingsw.ps21.model.actions.NullAction;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
+import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
@@ -9,15 +12,16 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
  */
 public class DoubleResources extends PermanentLeaderEffect {
 
-	public DoubleResources() {
-		super();
+	public DoubleResources(Requirement req) {
+		super(req);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void activate(Player player) {
+	public ExtraAction activate(AdvancedPlayer player) {
 		// To be implemented
-		player.getProperties();
+		player.getAdvMod().setDoubleResources(true);
+		return new NullAction(player.getId());
 	}
 
 	@Override

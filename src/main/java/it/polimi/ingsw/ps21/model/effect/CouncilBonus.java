@@ -5,6 +5,8 @@ import java.util.Map;
 import it.polimi.ingsw.ps21.controller.UnchosenException;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.TakePrivilegesAction;
+import it.polimi.ingsw.ps21.model.deck.Requirement;
+import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
@@ -18,13 +20,13 @@ public class CouncilBonus extends InstantLeaderEffect {
 	private int bonuses;
 	
 	
-	public CouncilBonus(int councilBonusNumber){
-		super();
+	public CouncilBonus(Requirement req,int councilBonusNumber){
+		super(req);
 		bonuses = councilBonusNumber;
 	}
 	
 	@Override
-	public ExtraAction activate(Player player) {
+	public ExtraAction activate(AdvancedPlayer player) {
 		return new TakePrivilegesAction(player.getId(), bonuses);
 	}
 
