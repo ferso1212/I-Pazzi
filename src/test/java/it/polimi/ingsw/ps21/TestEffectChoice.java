@@ -6,19 +6,27 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import it.polimi.ingsw.ps21.controller.AcceptedAction;
+import it.polimi.ingsw.ps21.controller.CostChoice;
+import it.polimi.ingsw.ps21.controller.CouncilChoice;
 import it.polimi.ingsw.ps21.controller.EffectChoice;
+import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.controller.UnacceptedChooser;
+import it.polimi.ingsw.ps21.controller.VaticanChoice;
+import it.polimi.ingsw.ps21.controller.WorkMessage;
 import it.polimi.ingsw.ps21.model.deck.CardsNumber;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.deck.TooManyArgumentException;
+import it.polimi.ingsw.ps21.model.effect.CouncilEffect;
 import it.polimi.ingsw.ps21.model.effect.DiscountEffect;
+import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.effect.PropEffect;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
-import it.polimi.ingsw.ps21.view.Chooser;
+import it.polimi.ingsw.ps21.view.Visitor;
 
 
-public class TestEffectChoice implements Chooser{
+public class TestEffectChoice implements Visitor{
 
 	private EffectChoice testedEffectChoice;
 	private boolean validation;
@@ -30,13 +38,9 @@ public class TestEffectChoice implements Chooser{
 	
 	@Before
 	public void setUp(){
-		try {
-			testedEffectChoice = new EffectChoice(new PropEffect(new Requirement(new CardsNumber(), new ImmProperties()), new ImmProperties(1,1,1,1)),
-													new DiscountEffect(new Requirement(new CardsNumber(), new ImmProperties()), 
-															new ImmProperties(0,0,1,0), DevelopmentCardType.TERRITORY));
-		} catch (TooManyArgumentException e) {
-			testedEffectChoice = null;
-		}
+			EffectSet testset[] = new EffectSet[2];
+			testset[0] = new EffectSet(new PropEffect(new ImmProperties(0), new ImmProperties(3,0,1)), new CouncilEffect(new ImmProperties(0), 2));
+			testedEffectChoice = new EffectChoice(testset);
 		
 	}
 	
@@ -46,31 +50,65 @@ public class TestEffectChoice implements Chooser{
 	}
 
 	private boolean checkValidation() {
-		validation = true;
-		choose(testedEffectChoice);		
-		testedEffectChoice.acceptChooser(this);
+		validation = true;		
+		testedEffectChoice.accept(this);
 		choose(testedEffectChoice);
+		
 		return validation;
 	}
 
 	public void choose(EffectChoice effect) {
-		try {
-			effect.setChoosen(this, effect.getPossibilities()[0]);
-		} catch (UnacceptedChooser e) {
-			if (testcase == 0) validation = validation && true;
-			else validation = validation && false;
-			testcase += 1; 
-			return;
-		}
-		if (testcase == 1) validation = validation && true;
-		else validation = validation && false;
-		testcase = 0; 
+		effect.setChosen(0);
+		if (testedEffectChoice.getChoices()[0] == testedEffectChoice.getChosen()) validation = true;
+		else validation = false;
 		
 	}
 	
 	@After
 	public void clean(){
 		testedEffectChoice = null;
+		
+	}
+
+	@Override
+	public void visit(VaticanChoice choice) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visit(CostChoice choice) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visit(CouncilChoice choice) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visit(EffectChoice choice) {
+		return;
+		
+	}
+
+	@Override
+	public void visit(WorkMessage message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visit(AcceptedAction message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visit(RefusedAction message) {
+		// TODO Auto-generated method stub
 		
 	}
 

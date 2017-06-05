@@ -36,6 +36,11 @@ public class Player {
 	protected PersonalBonusTile personalBonusTile;
 	private Family family;
 	protected PlayerDeck devCards;
+	
+	public Player(PlayerColor id, PlayerProperties properties){
+		this.id = id;
+		this.properties = properties;
+	}
 
 	/**Returns an object that contains the values of the resources (stone, wood, servants and coins) and points (military points, faith points and victory points) of the player. 
 	 * 

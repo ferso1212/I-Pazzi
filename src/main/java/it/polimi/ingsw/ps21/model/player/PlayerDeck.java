@@ -5,6 +5,8 @@ import java.util.EnumMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import it.polimi.ingsw.ps21.model.deck.BuildingCard;
 import it.polimi.ingsw.ps21.model.deck.CardsNumber;
 import it.polimi.ingsw.ps21.model.deck.CharacterCard;
@@ -41,9 +43,9 @@ public class PlayerDeck implements Cloneable{
 		addingCardRequirements.replace(cardType, replacingReqs);
 	}
 	
-	public PlayerDeck(){
+	public PlayerDeck() throws ParserConfigurationException{
 		super();
-		addingCardRequirements = MatchFactory.instance().makeCardAddingRequirements();
+		addingCardRequirements = (EnumMap<DevelopmentCardType, Requirement[]>) MatchFactory.instance().makeCardAddingRequirements();
 		decksMap= new EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>>(DevelopmentCardType.class);
 	}
 	

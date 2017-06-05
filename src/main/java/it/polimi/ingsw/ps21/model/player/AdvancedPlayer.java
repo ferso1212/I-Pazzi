@@ -10,8 +10,8 @@ public class AdvancedPlayer extends Player {
 	private ArrayList<LeaderCard> leaderCards;
 	private AdvancedModifier advModifier;
 	
-	public AdvancedPlayer(String name, PlayerProperties properties, PlayerColor id) {
-		super(name, properties, id);
+	public AdvancedPlayer( PlayerColor id, PlayerProperties properties) {
+		super(id, properties);
 	}
 
 	
@@ -20,7 +20,7 @@ public class AdvancedPlayer extends Player {
 		ArrayList<LeaderCard> output= new ArrayList<LeaderCard>();
 		for(LeaderCard card: leaderCards)
 		{
-			if(card.isActivated()) output.add(card);
+			if(card.isClonable()) output.add(card);
 		}
 		return output;
 	}

@@ -43,7 +43,7 @@ public class FamilyMember {
 	 * Sets the inner value of the new member to 0 and its color to the one passed as parameter.
 	 * @param color the color to set in the new family member
 	 */
-	public FamilyMember(MembersColor color, int id)
+	public FamilyMember(MembersColor color, PlayerColor id)
 	{
 		this.value=0;
 		this.color=color;

@@ -36,7 +36,7 @@ public class BoardData implements Serializable{
 		for(DevelopmentCardType cardType: DevelopmentCardType.values()) //cycles through the towers
 		{
 			Tower tower=board.getTower(cardType);
-			for(int floor=0; floor<tower.FLOORS_NUM; floor++) //cycles through the floors of each tower
+			for(int floor=0; floor<4; floor++) //cycles through the floors of each tower
 			{
 				this.cards[floor][towerIndex]=tower.getTowerSpace(floor + 1).getCard(); //tower.getTowerSpaces() counts the floors starting from 1 instead of 0
 				this.towerSpaces[floor][towerIndex]=new FamilyMemberData(tower.getTowerSpace(floor + 1).getOccupant());
