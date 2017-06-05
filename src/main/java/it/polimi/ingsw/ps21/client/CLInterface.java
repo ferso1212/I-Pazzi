@@ -11,6 +11,7 @@ import it.polimi.ingsw.ps21.controller.EffectChoice;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.controller.VaticanChoice;
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 
 public class CLInterface implements UserInterface {
 	
@@ -26,8 +27,16 @@ public class CLInterface implements UserInterface {
 	public void updateView(MatchData match, BoardData board) {
 		System.out.print("Stato della partita:\n "
 					+ "Era: " + match.getEra() + "\tRound: " + match.getRound());
-		System.out.println("\nTabellone: ")
-		
+		System.out.println("\nTabellone:\nDices: Black = " + board.getBlackDice() + " White = " + board.getWhiteDice() + " Orange = " + board.getOrangeDice());
+		DevelopmentCard[][] cards = board.getCards();
+		for (int i= 0; i<4 ; i++){
+			System.out.println("\nTower " + i+1 + " cards: ");
+			for (int j=0; j<4; j++){
+				System.out.println(cards[i][j].toString());
+				if (j<3) System.out.println(", ");
+			}
+			System.out.println(";");
+		}
 	}
 
 	public boolean isEnded() {
