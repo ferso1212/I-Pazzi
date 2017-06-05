@@ -1,7 +1,5 @@
 package it.polimi.ingsw.ps21.model.board;
 
-import it.polimi.ingsw.ps21.model.player.FamilyMember;
-import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public abstract class Space {
@@ -15,9 +13,6 @@ public abstract class Space {
 		this.instantBonus = instantBonus;
 	}
 
-	public abstract boolean isOccupable(Player player, FamilyMember member);
-	
-
 	public ImmProperties getInstantBonus() {
 		return instantBonus;
 	}
@@ -25,8 +20,5 @@ public abstract class Space {
 	public int getDiceRequirement() {
 		return diceRequirement;
 	}
-	
-	public abstract void occupy(Player player, FamilyMember member) throws NotOccupableException;
-
 
 }

@@ -22,7 +22,7 @@ public class CouncilPalace extends MultipleSpace {
 
 	@Override
 	public boolean isOccupable(Player player, FamilyMember member) {
-		if(member.getColor() != MembersColor.NEUTRAL)
+		if((member.getColor() != MembersColor.NEUTRAL) && (member.getValue() - this.diceMalus >= this.diceRequirement))
 			return true;
 		return false;
 	}

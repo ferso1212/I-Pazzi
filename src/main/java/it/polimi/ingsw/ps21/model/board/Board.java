@@ -11,73 +11,92 @@ import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.deck.Deck;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.IllegalCardException;
+import it.polimi.ingsw.ps21.model.excommunications.Excommunication;
 import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
-import it.polimi.ingsw.ps21.model.properties.PropertiesId;
-
 
 public class Board {
-	
+
 	private final static Logger LOGGER = Logger.getLogger(Board.class.getName());
 	private EnumMap<DevelopmentCardType, Tower> towers;
-	protected TrackBonuses trackBonuses;
+	private TrackBonuses trackBonuses;
 	private SingleMarketSpace[] marketPlaces;
 	private SingleWorkSpace singleHarvPlace;
 	private SingleWorkSpace singleProdPlace;
-	protected MultipleWorkSpace multipleHarvPlace;
-	protected MultipleWorkSpace multipleProdPlace;
-	protected CouncilPalace councilPalace;
-	protected Map<DevelopmentCardType, int[]> cardBonus;
-	protected Deck developmentDeck;
-	protected ImmProperties[] possibleValuesPrivileges;
+	private MultipleWorkSpace multipleHarvPlace;
+	private MultipleWorkSpace multipleProdPlace;
+	private CouncilPalace councilPalace;
+	private Map<DevelopmentCardType, int[]> cardBonus;
+	private Deck developmentDeck;
+	private ImmProperties[] possibleValuesPrivileges;
+	private Excommunication[] excommunications;
+	private int[] excommunicationRequirements;
 	
-	public Board(int playerNumber) throws ParserConfigurationException, BuildingDeckException {
-		
+
+	public Board(int playerNumber, boolean isAdvanced) throws ParserConfigurationException, BuildingDeckException {
+
 		MatchFactory file = MatchFactory.instance();
 		this.towers = new EnumMap<>(DevelopmentCardType.class);
-		this.trackBonuses = file.makeTrackBonuses();
-		this.marketPlaces = new SingleMarketSpace[playerNumber];
-		this.singleHarvPlace = new SingleWorkSpace( 1, new ImmProperties(0), WorkType.HARVEST);
-		this.singleProdPlace = new SingleWorkSpace(1, new ImmProperties(0), WorkType.PRODUCTION);
-		this.councilPalace = new CouncilPalace(1, file.makeCouncilBonuses(), 0, file.makeCouncilPrivileges() );
+		this.councilPalace = new CouncilPalace(1, file.makeCouncilBonuses(), 0, file.makeCouncilPrivileges());
 		this.developmentDeck = file.makeDeck();
 		this.cardBonus = file.makeCardBonus();
 		this.possibleValuesPrivileges = file.makePrivileges();
-		
+		this.trackBonuses = file.makeTrackBonuses();
+		this.excommunicationRequirements = new int[3];
+		this.excommunicationRequirements = file.makeExcommunicationRequirements;
+
+		if (!isAdvanced) {
+			if(playerNumber < 4)
+				this.marketPlaces = new SingleMarketSpace[2];
+			else this.marketPlaces = new SingleMarketSpace[4];
+			for (DevelopmentCardType type : DevelopmentCardType.values()) {
+				this.towers.put(type, new Tower(false, file.makeTowersBonus().get(type)));
+			}
+			this.singleHarvPlace = new SingleWorkSpace(1, new ImmProperties(0), WorkType.HARVEST);
+			this.singleProdPlace = new SingleWorkSpace(1, new ImmProperties(0), WorkType.PRODUCTION);
+		}else{
+			if(playerNumber < 4)
+				this.marketPlaces = new AdvSingleMarketSpace[2];
+			else this.marketPlaces = new AdvSingleMarketSpace[4];
+			for (DevelopmentCardType type : DevelopmentCardType.values()) {
+				this.towers.put(type, new Tower(true, file.makeTowersBonus().get(type)));
+			}
+			this.singleHarvPlace = new AdvSingleWorkSpace(1, new ImmProperties(0), WorkType.HARVEST);
+			this.singleProdPlace = new AdvSingleWorkSpace(1, new ImmProperties(0), WorkType.PRODUCTION);
+		}
+
 		switch (playerNumber) {
-		case 2:{
-			for (int i=0; i < 2; i++){
+		case 2: {
+			for (int i = 0; i < 2; i++) {
 				marketPlaces[i].instantBonus = file.makeMarketBonuses()[i];
-			}					
+			}
 		}
-		case 3:{
-			for (int i=0; i < 2; i++){
+		case 3: {
+			for (int i = 0; i < 2; i++) {
 				marketPlaces[i].instantBonus = file.makeMarketBonuses()[i];
-			}	
-			this.multipleHarvPlace = new MultipleWorkSpace(1, new ImmProperties(0), 3, WorkType.HARVEST);
-			this.multipleProdPlace = new MultipleWorkSpace(1, new ImmProperties(0), 3, WorkType.PRODUCTION);					
-		}
-			break;
-		case 4:{
-			for (int i=0; i < 4; i++){
-				marketPlaces[i].instantBonus = file.makeMarketBonuses()[i];
-			}	
+			}
 			this.multipleHarvPlace = new MultipleWorkSpace(1, new ImmProperties(0), 3, WorkType.HARVEST);
 			this.multipleProdPlace = new MultipleWorkSpace(1, new ImmProperties(0), 3, WorkType.PRODUCTION);
-			
 		}
-			
+			break;
+		case 4: {
+			for (int i = 0; i < 4; i++) {
+				marketPlaces[i].instantBonus = file.makeMarketBonuses()[i];
+			}
+			this.multipleHarvPlace = new MultipleWorkSpace(1, new ImmProperties(0), 3, WorkType.HARVEST);
+			this.multipleProdPlace = new MultipleWorkSpace(1, new ImmProperties(0), 3, WorkType.PRODUCTION);
+
+		}
+
 			break;
 
 		default:
 			break;
 		}
-		
-		
-		
+
 	}
 
 	public void addToCouncil(Player player, FamilyMember member) throws NotOccupableException {
@@ -101,16 +120,16 @@ public class Board {
 			}
 		}
 	}
-	
-	public void newSetBoard(int era){
+
+	public void newSetBoard(int era) {
 		this.removeCardsAndMembers();
-			for (DevelopmentCardType type : DevelopmentCardType.values()){
+		for (DevelopmentCardType type : DevelopmentCardType.values()) {
 			Tower t = this.towers.get(type);
-			for (SingleTowerSpace floor : t.getTower()){
-				try{
+			for (SingleTowerSpace floor : t.getTower()) {
+				try {
 					floor.setCard(developmentDeck.getCard(era, type));
-				}catch (IllegalCardException e){
-					//era sbagliata
+				} catch (IllegalCardException e) {
+					// era sbagliata
 				}
 			}
 		}
@@ -154,7 +173,8 @@ public class Board {
 
 	/**
 	 * 
-	 * @param position from 0 to 3
+	 * @param position
+	 *            from 0 to 3
 	 * @return a single MarketSpace
 	 */
 	public SingleSpace getMarketSpace(int position) throws IllegalArgumentException {
@@ -179,16 +199,16 @@ public class Board {
 		}
 
 	}
-	
-	public int getDevelopmentFinalBonus(DevelopmentCardType type, int numberOfCards){
-		if (numberOfCards > this.cardBonus.get(type).length){
+
+	public int getDevelopmentFinalBonus(DevelopmentCardType type, int numberOfCards) {
+		if (numberOfCards > this.cardBonus.get(type).length) {
 			return this.cardBonus.get(type)[this.cardBonus.get(type).length - 1];
 		} else {
 			return this.cardBonus.get(type)[numberOfCards];
 		}
 	}
-	
-	public TrackBonuses getTrackBonuses(){
+
+	public TrackBonuses getTrackBonuses() {
 		return this.trackBonuses;
 	}
 
@@ -199,6 +219,17 @@ public class Board {
 	public Map<DevelopmentCardType, int[]> getCardBonus() {
 		return cardBonus;
 	}
-
 	
+	public int getExcommunicationRequirement (int period) {
+		return this.excommunicationRequirements[period-1];
+	}
+	
+	public Excommunication[] getExcommunications(){
+		return this.excommunications;
+	}
+
+	public ImmProperties[] getPossibleValuesPrivileges() {
+		return possibleValuesPrivileges;
+	}
+
 }

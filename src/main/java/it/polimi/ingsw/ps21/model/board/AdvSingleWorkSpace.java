@@ -10,18 +10,13 @@ public class AdvSingleWorkSpace extends SingleWorkSpace{
 	
 	private FamilyMember otherOccupant;
 
-	public AdvSingleWorkSpace(int diceRequirement, ImmProperties instantBonus, WorkType workType,
-			FamilyMember otherOccupmat) {
+	public AdvSingleWorkSpace(int diceRequirement, ImmProperties instantBonus, WorkType workType) {
 		super(diceRequirement, instantBonus, workType);
-		this.otherOccupant = otherOccupant;
+		this.otherOccupant = null;
 	}
 
 	public FamilyMember getOtherOccupant() {
 		return otherOccupant;
-	}
-
-	public void setOtherOccupant(FamilyMember otherOccupant) {
-		this.otherOccupant = otherOccupant;
 	}
 
 	@Override
