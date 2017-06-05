@@ -8,10 +8,12 @@ public class AdvSingleWorkSpace extends AdvSingleSpace implements WorkInterface{
 	
 	public WorkType workType;
 
-	public AdvSingleWorkSpace(int diceRequirement, ImmProperties instantBonus, SingleSpaceType type,
-			FamilyMember otherOccupant) {
-		super(diceRequirement, instantBonus, type, otherOccupant);
+	public AdvSingleWorkSpace(int diceRequirement, ImmProperties instantBonus, WorkType workType) {
+		super(diceRequirement, instantBonus);
+		this.workType = workType;
 	}
+
+
 
 	public WorkType getWorkType() {
 		return workType;

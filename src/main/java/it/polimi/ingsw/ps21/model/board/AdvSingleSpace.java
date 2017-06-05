@@ -9,10 +9,9 @@ public abstract class AdvSingleSpace extends SingleSpace {
 
 	private FamilyMember otherOccupant;
 
-	public AdvSingleSpace(int diceRequirement, ImmProperties instantBonus, SingleSpaceType type,
-			FamilyMember otherOccupant) {
+	public AdvSingleSpace(int diceRequirement, ImmProperties instantBonus) {
 		super(diceRequirement, instantBonus);
-		this.otherOccupant = otherOccupant;
+		this.otherOccupant = null;
 	}
 
 

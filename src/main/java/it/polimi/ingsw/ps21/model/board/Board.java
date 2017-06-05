@@ -5,10 +5,13 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.deck.Deck;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.IllegalCardException;
+import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.Player;
@@ -19,45 +22,51 @@ import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 public class Board {
 	
 	private final static Logger LOGGER = Logger.getLogger(Board.class.getName());
-	protected EnumMap<DevelopmentCardType, Tower> towers;
+	private EnumMap<DevelopmentCardType, Tower> towers;
 	protected TrackBonuses trackBonuses;
-	protected SingleSpace[] marketPlaces;
-	protected SingleSpace singleHarvPlace;
-	protected SingleSpace singleProdPlace;
-	protected MultipleSpace multipleHarvPlace;
-	protected MultipleSpace multipleProdPlace;
+	private SingleMarketSpace[] marketPlaces;
+	private SingleWorkSpace singleHarvPlace;
+	private SingleWorkSpace singleProdPlace;
+	protected MultipleWorkSpace multipleHarvPlace;
+	protected MultipleWorkSpace multipleProdPlace;
 	protected CouncilPalace councilPalace;
 	protected Map<DevelopmentCardType, int[]> cardBonus;
 	protected Deck developmentDeck;
 	protected ImmProperties[] possibleValuesPrivileges;
 	
-	public Board(int playerNumber) {
+	public Board(int playerNumber) throws ParserConfigurationException, BuildingDeckException {
+		
 		MatchFactory file = MatchFactory.instance();
 		this.trackBonuses = file.makeTrackBonuses();
-		this.marketPlaces = new SingleSpace[playerNumber];
+		this.marketPlaces = new SingleMarketSpace[playerNumber];
 		this.singleHarvPlace = new SingleWorkSpace( 1, new ImmProperties(0), WorkType.HARVEST);
 		this.singleProdPlace = new SingleWorkSpace(1, new ImmProperties(0), WorkType.PRODUCTION);
 		this.councilPalace = new CouncilPalace(1, file.makeCouncilBonuses(), 0, file.makeCouncilPrivileges() );
-		this.trackBonuses = file.makeTrackBonuses();
 		this.developmentDeck = file.makeDeck();
 		this.cardBonus = file.makeCardBonus();
 		this.possibleValuesPrivileges = file.makePrivileges();
+		
 		switch (playerNumber) {
 		case 2:{
-			//caricare 2 marketPlace da file
+			for (int i=0; i < 2; i++){
+				marketPlaces[i].instantBonus = file.makeMarketBonuses()[i];
+			}					
 		}
 		case 3:{
-			this.multipleHarvPlace = new MultipleSpace(1, new ImmProperties(0), 3, WorkType.HARVEST);
-			this.multipleProdPlace = new MultipleSpace(1, new ImmProperties(0), 3, WorkType.PRODUCTION);
-			//caricare 3 marketPlace da file
-					
+			for (int i=0; i < 2; i++){
+				marketPlaces[i].instantBonus = file.makeMarketBonuses()[i];
+			}	
+			this.multipleHarvPlace = new MultipleWorkSpace(1, new ImmProperties(0), 3, WorkType.HARVEST);
+			this.multipleProdPlace = new MultipleWorkSpace(1, new ImmProperties(0), 3, WorkType.PRODUCTION);					
 		}
-			
 			break;
 		case 4:{
-			this.multipleHarvPlace = new MultipleSpace(1, new ImmProperties(0), 3, MultipleSpaceType.HARVEST);
-			this.multipleProdPlace = new MultipleSpace(1, new ImmProperties(0), 3, MultipleSpaceType.PRODUCTION);
-			//caricare 4 marketPlace da file
+			for (int i=0; i < 4; i++){
+				marketPlaces[i].instantBonus = file.makeMarketBonuses()[i];
+			}	
+			this.multipleHarvPlace = new MultipleWorkSpace(1, new ImmProperties(0), 3, WorkType.HARVEST);
+			this.multipleProdPlace = new MultipleWorkSpace(1, new ImmProperties(0), 3, WorkType.PRODUCTION);
+			
 		}
 			
 			break;
