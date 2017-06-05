@@ -55,7 +55,7 @@ public class VaticanSupport extends Match {
 		supportedPlayers.poll();
 		if (supportedPlayers.isEmpty()){
 		for (Player p: players.values()){
-			if (!(supportChoices.containsKey(p))) throw new UnchosenException();
+			if (!(supportChoices.containsKey(p))) return this;
 		}
 		if (period < 3){
 			Queue<FamilyMember> temp = board.getCouncilPalace().getOccupants();

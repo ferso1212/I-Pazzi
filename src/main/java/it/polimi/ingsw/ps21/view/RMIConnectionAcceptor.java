@@ -8,7 +8,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class RMIConnectionAcceptor {
+public class RMIConnectionAcceptor implements Runnable {
 
 	Registry registry;
 	RMIMessageBuffer output; // It is saved in input for the client
@@ -21,8 +21,6 @@ public class RMIConnectionAcceptor {
 		if (System.getSecurityManager() == null) {
 			System.setSecurityManager(new SecurityManager());
 		}
-		
-		
 		output = (RMIMessageBuffer) UnicastRemoteObject.exportObject(new RMIMessageBuffer(), 0);
 		input = (RMIMessageBuffer) UnicastRemoteObject.exportObject(new RMIMessageBuffer(), 0);
 		registry = LocateRegistry.getRegistry();
@@ -41,10 +39,17 @@ public class RMIConnectionAcceptor {
 		while (!(connectedRMI.containsKey(inputName))){
 			while(inputName.compareTo("")!=0)
 				inputName = input.nextLine();
-		}
-			newConnection = new RMIConnection(inputName);
-			connectedRMI.put(inputName, newConnection);
-			connectionsQueue.add(newConnection);
+			}
+			try {
+				newConnection = (RMIConnection) UnicastRemoteObject.exportObject(new RMIConnection(inputName), 0);
+				registry.rebind(inputName + " connection", newConnection);
+				connectedRMI.put(inputName, newConnection);
+				connectionsQueue.add(newConnection);
+				output.write("Connection success");
+			} catch (RemoteException e) {
+				output.write("Connection failed");
+			}
+			
 		}
 		
 	}
