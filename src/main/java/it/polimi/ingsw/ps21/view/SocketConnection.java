@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
 
-public class SocketConnection extends Connection{
+public class SocketConnection implements Connection{
 	private final static Logger LOGGER = Logger.getLogger(SocketConnection.class.getName());
 	private Socket socket;
 	private PrintWriter out;
@@ -20,9 +20,10 @@ public class SocketConnection extends Connection{
 	private ObjectOutputStream objOut;
 	private ObjectInputStream objIn;
 	private boolean connected;
+	private String name;
 
 	public SocketConnection(String name, Socket socket) {
-		super(name);
+		
 		this.socket = socket;
 		try {
 			out=new PrintWriter(socket.getOutputStream(), true);
@@ -30,7 +31,7 @@ public class SocketConnection extends Connection{
 		} catch (IOException e) {
 			connected=false;
 		}
-		
+		this.name=name;
 	}
 
 
@@ -60,8 +61,14 @@ public class SocketConnection extends Connection{
 			e.printStackTrace();
 		}
 	}
+
+
+	@Override
+	public String getName() {
+		return this.name;
+	}
 	
-	public Action reqUserAction()
+	/*public Action reqUserAction()
 	{
 		//TODO request action
 		try {
@@ -74,7 +81,7 @@ public class SocketConnection extends Connection{
 			e.printStackTrace();
 		}
 	}
-	
+	*/
 	
 
 }

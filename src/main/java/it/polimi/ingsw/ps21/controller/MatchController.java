@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps21.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
@@ -21,6 +22,7 @@ public class MatchController implements Observer{
 	public MatchController(UnsettedMatch match, UserHandler...handlers) {
 		super();
 		this.matchState = match;
+		handlersMap= new HashMap<>();
 		for(UserHandler handler: handlers)
 		{
 			this.handlersMap.put(handler.getPlayerId(), handler);
