@@ -43,10 +43,10 @@ public class UnsettedMatch extends Match {
 			throws InvalidIDException, CompleteMatchException {
 		if (players.containsKey(newPlayer))
 			throw new InvalidIDException();
-		players.put(newPlayer, new Player(new PlayerProperties(0), newPlayer));
 		if (players.containsKey(PlayerColor.BLUE) && players.containsKey(PlayerColor.GREEN)
 				&& players.containsKey(PlayerColor.RED) && players.containsKey(PlayerColor.YELLOW))
 			throw new CompleteMatchException();
+		players.put(newPlayer, new Player(new PlayerProperties(0), newPlayer));
 	}
 
 	/**

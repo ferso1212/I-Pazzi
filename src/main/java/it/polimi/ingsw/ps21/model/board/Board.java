@@ -231,5 +231,10 @@ public class Board {
 	public ImmProperties[] getPossibleValuesPrivileges() {
 		return possibleValuesPrivileges;
 	}
+	
+	public Deck getDeck()
+	{
+		return this.developmentDeck;
+	}
 
 }

@@ -22,7 +22,7 @@ public class Server implements Runnable {
 
 	//private SocketConnectionsAcceptor socketAcceptor;
 	//private RMIConnectionsAcceptor rmiAcceptor;
-	private final static long TIMEOUT = 5000;
+	private final static long TIMEOUT = 60000;
 		 // the milliseconds that the server will
 											// wait once 2 players joined
 	private final static int MAX_PLAYERS_NUM = 4; // The match is created if the
@@ -64,7 +64,7 @@ public class Server implements Runnable {
 		System.out.println("Server started and ready to receive connections.");
 		while (true) {
 			
-			while(connections.size()<MAX_PLAYERS_NUM && !expired.isExpired())
+while(connections.size()<MAX_PLAYERS_NUM && !expired.isExpired())
 			{
 				if(connections.size()>=MIN_PLAYERS_NUM && !startedTimer ) //the counter starts when at least 2 players have joined the lobby
 					{
@@ -75,12 +75,14 @@ public class Server implements Runnable {
 					}
 				
 			}
-			if(expired.isExpired()) System.out.println("\nTimeout expired: initializing new match with " + Math.min(MAX_PLAYERS_NUM, connections.size()) + " players.");
-			else System.out.println("\nThere are enough connections in the queue to fulfill a match: initializing a new match with " + MAX_PLAYERS_NUM + " players.");
+			timer.cancel();
+			if(connections.size()>=MAX_PLAYERS_NUM) System.out.println("\nThere are enough connections in the queue to fulfill a match.");
 			timeout = false;
 			//Creates UserHandlers for each connection and and a new MatchRunner with those UserHandlers
 			int playersAdded=0;
 			synchronized (connections) {
+				
+				System.out.println("\nInitializing a new match with " + Math.min(MAX_PLAYERS_NUM, connections.size()) + " players.");
 				UserHandler[] usersToAdd = new UserHandler[Math.min(connections.size(), MAX_PLAYERS_NUM)];
 				while ((playersAdded < usersToAdd.length) && (connections.size() > 0)) {
 						usersToAdd[playersAdded] = new UserHandler(PlayerColor.values()[playersAdded], connections.remove());
