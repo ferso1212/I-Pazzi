@@ -17,25 +17,30 @@ public class RMIClient implements Remote{
 	RMIMessageBuffer in;
 	RMIMessageBuffer out;
 	RMIConnection connection = null;
-	public RMIClient(String host) throws RemoteException, NotBoundException{
-		serverRegistry = LocateRegistry.getRegistry(host);
+	public RMIClient(String username) throws RemoteException, NotBoundException{
+		serverRegistry = LocateRegistry.getRegistry("localhost");
 		in = (RMIMessageBuffer) serverRegistry.lookup("ServerOutput");
 		out = (RMIMessageBuffer) serverRegistry.lookup("ServerInput");
 		RMIConnectionCreator connectionService = (RMIConnectionCreator) serverRegistry.lookup("RMIConnectionCreator");
+		connection = connectionService.getNewConnection(username);
 	}
 	
-	public void start(){
-		String serveroutput = in.nextLine();
-		Scanner userInput = new Scanner(System.in); 
-		while((serveroutput.compareTo("Match Started") != 0)){
-			if (serveroutput.compareTo("")!=0) System.out.printf(serveroutput);
-			out.write(userInput.nextLine());
-		}
-		try {
-			serverRegistry.lookup(userInput + " connection");
-		} catch (RemoteException | NotBoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public void start(){ 
+		Scanner inputScanner = new Scanner(System.in);
+		while(true){
+			System.out.println("Cosa vuoi fare?\n1-Leggere i messaggi dal server\n2-Mandare un messaggio al server");
+			int inputChoice = inputScanner.nextInt();
+			if (inputChoice == 1) {
+				System.out.println(connection.getMessageFromServer());
+				
+			}
+			else 
+				if (inputChoice == 2){
+					String message = inputScanner.nextLine();
+					connection.sendMessage(message);
+				}
+				else
+					System.out.println("Rincoglionito hai inserito un'opzione sbagliata");
 		}
 		
 	}
