@@ -6,6 +6,8 @@ import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.controller.WorkMessage;
 import it.polimi.ingsw.ps21.model.board.NotOccupableException;
 import it.polimi.ingsw.ps21.model.board.Space;
+import it.polimi.ingsw.ps21.model.board.WorkInterface;
+import it.polimi.ingsw.ps21.model.board.SingleWorkSpace;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
@@ -30,12 +32,14 @@ public class WorkAction extends Action {
 	@Override
 	public Message isLegal(Player player, Match match) {
 
-		if ((famMember.getValue() >= space.getDiceRequirement()) && (space.isOccupable(player, famMember)) && (!famMember.isUsed())){
+		if ((space.isOccupable(player, famMember)) && (!famMember.isUsed())){
 			
 			switch (famMember.getColor()) {
 			case WHITE: ORANGE: BLACK:{
-				if (this.checkOccupant(match, famMember, space) == MembersColor.NEUTRAL){
-					this.workMessage = new WorkMessage(player.getActivableWorks(famMember.getValue(), space.))
+				if ((this.checkOccupant(match, famMember, space) == MembersColor.NEUTRAL) ||(this.checkOccupant(match, famMember, space) == null)){
+					if(space instanceof WorkInterface){
+						this.workMessage = new WorkMessage(player.getActivableWorks(famMember.getValue(), (space.getWorkType()), player. );
+					}
 				}
 			}
 				break;

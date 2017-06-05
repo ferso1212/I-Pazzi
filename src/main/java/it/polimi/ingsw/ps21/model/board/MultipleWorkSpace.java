@@ -18,10 +18,10 @@ public class MultipleWorkSpace extends MultipleSpace implements WorkInterface{
 
 	@Override
 	public boolean isOccupable(Player player, FamilyMember member) {
-		if ((occupants.contains(member)) || (this.containPlayer(player))){
-			return false;
+		if (!(occupants.contains(member)) && !(this.containPlayer(player)) && (member.getValue() - this.diceMalus >= this.diceRequirement)){
+			return true;
 		}
-		return true;
+		return false;
 	}
 	
 	@Override

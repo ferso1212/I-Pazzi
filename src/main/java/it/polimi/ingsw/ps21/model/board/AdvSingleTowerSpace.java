@@ -18,10 +18,6 @@ public class AdvSingleTowerSpace extends SingleTowerSpace {
 	public FamilyMember getOtherOccupant() {
 		return otherOccupant;
 	}
-
-	public void setOtherOccupant(FamilyMember otherOccupant) {
-		this.otherOccupant = otherOccupant;
-	}
 	
 	@Override
 	public boolean isOccupable(Player player, FamilyMember member) {
