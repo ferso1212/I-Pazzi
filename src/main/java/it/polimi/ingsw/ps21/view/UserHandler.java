@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps21.view;
 
+import java.rmi.RemoteException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -22,8 +23,14 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 		super();
 		this.playerId = playerId;
 		this.connection=connection;
-		this.name=this.connection.getName();
-		this.connection.sendMessage(this.name + "'s UserHandler created.");
+		try {
+			this.name=this.connection.getName();
+			this.connection.sendMessage(this.name + "'s UserHandler created.");
+
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override

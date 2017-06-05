@@ -67,6 +67,7 @@ public class ClientMain {
 			else{
 				try {
 					RMIClient rmiclient = new RMIClient(name);
+					rmiclient.start();
 		
 				} catch (RemoteException | NotBoundException e) {
 					System.out.println("Failed to connect to server");

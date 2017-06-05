@@ -7,6 +7,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Scanner;
 
+import it.polimi.ingsw.ps21.view.Connection;
 import it.polimi.ingsw.ps21.view.RMIConnection;
 import it.polimi.ingsw.ps21.view.RMIConnectionCreator;
 import it.polimi.ingsw.ps21.view.RMIMessageBuffer;
@@ -14,9 +15,9 @@ import it.polimi.ingsw.ps21.view.RMIMessageBuffer;
 public class RMIClient implements Remote{
 	
 	Registry serverRegistry;
-	RMIConnection connection = null;
+	Connection connection = null;
 	public RMIClient(String username) throws RemoteException, NotBoundException{
-		serverRegistry = LocateRegistry.getRegistry("localhost");
+		serverRegistry = LocateRegistry.getRegistry("localhost", 5000);
 		RMIConnectionCreator connectionService = (RMIConnectionCreator) serverRegistry.lookup("RMIConnectionCreator");
 		connection = connectionService.getNewConnection(username);
 	}
@@ -27,13 +28,18 @@ public class RMIClient implements Remote{
 			System.out.println("Cosa vuoi fare?\n1-Leggere i messaggi dal server\n2-Mandare un messaggio al server");
 			int inputChoice = inputScanner.nextInt();
 			if (inputChoice == 1) {
-				System.out.println(connection.getMessageFromServer());
+				System.out.println();
 				
 			}
 			else 
 				if (inputChoice == 2){
 					String message = inputScanner.nextLine();
-					connection.sendMessage(message);
+					try {
+						connection.sendMessage(message);
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				else
 					System.out.println("Rincoglionito hai inserito un'opzione sbagliata");
