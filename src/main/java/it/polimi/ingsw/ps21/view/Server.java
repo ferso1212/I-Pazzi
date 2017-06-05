@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps21.view;
 
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -9,6 +10,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
 import it.polimi.ingsw.ps21.controller.MatchRunner;
 import it.polimi.ingsw.ps21.controller.TimeoutTask;
@@ -28,7 +31,8 @@ public class Server implements Runnable {
 													// expires.
 	private final static int MIN_PLAYERS_NUM=2;
 
-	private ConcurrentLinkedQueue<Connection> connections;
+	private ConcurrentLinkedQueue<Connection> connections; //players who want to play a standard game
+	private ConcurrentLinkedQueue<Connection> advConnections; //players who want to play with advanced rules
 	private Boolean timeout;
 	private boolean startedTimer = false;
 	public Server() {
@@ -45,7 +49,12 @@ public class Server implements Runnable {
 	public void run() {
 		new Thread(new SocketConnectionsAcceptor(this.connections)).start();
 		/*try {
-			new Thread(new RMIConnectionAcceptor(this.connections)).start();
+			if(System.getSecurityManager()==null) System.setSecurityManager(new SecurityManager());
+			Registry locRegistry = LocateRegistry.getRegistry();
+			RMIConnectionAcceptor rmiAcceptor= (RMIConnectionAcceptor) UnicastRemoteObject.exportObject(new RMIConnectionAcceptor(this.connections), 0);
+			locRegistry.rebind("RMIConnectionAcceptor", rmiAcceptor);
+			new Thread(rmiAcceptor).start();
+			
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

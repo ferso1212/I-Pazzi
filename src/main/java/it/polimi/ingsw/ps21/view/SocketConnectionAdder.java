@@ -10,6 +10,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class SocketConnectionAdder extends Thread{
 	private Socket socket;
 	private ConcurrentLinkedQueue<Connection> connectionsQueue;
+	private ConcurrentLinkedQueue<Connection> advConnectionsQueue;
 
 	public SocketConnectionAdder(Socket socket, ConcurrentLinkedQueue<Connection> connectionsQueue) {
 		super();
@@ -23,14 +24,15 @@ public class SocketConnectionAdder extends Thread{
 		try {
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-			out.println("Please insert your name: ");
-			out.flush();
-			String newName=in.readLine();
+			String newName=in.readLine(); 
+			int chosenRules=Integer.parseInt(in.readLine()); //1 for standard rules, 2 for advanced rules
 			
 			synchronized (connectionsQueue) {
 				
 				SocketConnection newConnection= new SocketConnection(newName, socket);
-				connectionsQueue.add(newConnection);
+				if(chosenRules==1) connectionsQueue.add(newConnection);
+				else if(chosenRules==2) advConnectionsQueue.add(newConnection);
+				else return; //error
 				System.out.println("\n" + newName + "'s inbound connection added to the queue in position " + connectionsQueue.size());
 			}
 		} catch (IOException e) {

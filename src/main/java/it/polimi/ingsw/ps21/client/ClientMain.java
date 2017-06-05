@@ -10,31 +10,50 @@ import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.model.match.Match;
+import it.polimi.ingsw.ps21.model.match.MatchFactory;
 
-public class Main {
+public class ClientMain {
 
 	private static boolean newMatch = true;
 	private static boolean CLI = true;
+	private final static Logger LOGGER = Logger.getLogger(ClientMain.class.getName());
 	
 	public static void main(String args[])
 	{
 		System.out.println("\nClient application started.");
     	Scanner in = new Scanner(System.in);
+    	
     	int chosenConnection=0;
     	while(chosenConnection!=1 && chosenConnection!=2)
     	{
-    	System.out.println("\nChoose the conncection method to use: \n1 Socket \n2 RMI");
+    	System.out.println("\nChoose the connection method to use: \n1 Socket \n2 RMI");
     	chosenConnection= in.nextInt();
+    	in.nextLine();
     	if((chosenConnection!=1 && chosenConnection!=2)) System.out.println("\nInvalid choice.");
     	}
+    	System.out.println("\nInsert your name: ");
+    	
+    	String name= in.nextLine();
+    	//--    	
+    	int chosenRules=0;
+    	while(chosenRules!=1 && chosenRules!=2)
+    	{
+    	System.out.println("\nChoose the rules that you want to use in the game: \n1 Standard \n 2 Advanced");
+    	chosenRules= in.nextInt();
+    	if(chosenRules!=1 && chosenRules!=2) System.out.println("\nInvalid choice.");
+    	}
+    	
+    	
+    	
 		while(newMatch == true){
 		
 			if (chosenConnection==1) {
 				SocketClient client = new SocketClient(); 
-					MatchData match = client.start();
+					MatchData match = client.start(chosenRules, name);
 					if (match != null){
 								CLInterface CLImatch = new CLInterface();
 									while (CLImatch.isEnded());
@@ -47,7 +66,8 @@ public class Main {
 			}
 			else{
 				try {
-					RMIClient rmiclient = new RMIClient("localhost");
+					RMIClient rmiclient = new RMIClient(name);
+		
 				} catch (RemoteException | NotBoundException e) {
 					System.out.println("Failed to connect to server");
 					newMatch = false;
@@ -57,7 +77,7 @@ public class Main {
 		}
 		}
 	
-	public Main()
+	public ClientMain()
 	{
 		
 	}

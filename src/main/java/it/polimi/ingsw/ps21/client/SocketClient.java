@@ -19,15 +19,17 @@ public class SocketClient {
 	}
 	
 	
-	public MatchData start(){
-	System.out.println("\nClient application started.");
+	public MatchData start(int chosenRules, String name){
+	System.out.println("\nTrying to connect to the server with TCP socket...");
 	try {
 		Socket socket = new Socket(SERVER_IP, PORT);
-		System.out.println("Connection established");
+		System.out.println("\nEstablished TCP connection to the server.");
 		BufferedReader socketIn = new BufferedReader(new InputStreamReader(socket.getInputStream())); 
 		PrintWriter socketOut = new PrintWriter(socket.getOutputStream(), true); 
 		Scanner stdin = new Scanner(System.in);
 		String socketLine=""; 
+		socketOut.println(name);
+		socketOut.println(chosenRules);
 		while(socketLine.compareTo("Match Started") != 0 && socket.isConnected()){
 			socketLine = socketIn.readLine();
 			System.out.println(socketLine);

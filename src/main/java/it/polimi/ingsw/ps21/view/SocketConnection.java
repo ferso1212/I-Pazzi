@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps21.view;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
@@ -16,7 +17,7 @@ public class SocketConnection implements Connection{
 	private final static Logger LOGGER = Logger.getLogger(SocketConnection.class.getName());
 	private Socket socket;
 	private PrintWriter out;
-	private BufferedReader in;
+	private DataInputStream in;
 	private ObjectOutputStream objOut;
 	private ObjectInputStream objIn;
 	private boolean connected;
@@ -27,7 +28,7 @@ public class SocketConnection implements Connection{
 		this.socket = socket;
 		try {
 			out=new PrintWriter(socket.getOutputStream(), true);
-			in=new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+			in=new DataInputStream(this.socket.getInputStream());
 		} catch (IOException e) {
 			connected=false;
 		}

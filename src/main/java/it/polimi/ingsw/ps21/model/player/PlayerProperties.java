@@ -176,4 +176,5 @@ public class PlayerProperties {
 		}
 		return payableCosts;
 	}
+	
 }

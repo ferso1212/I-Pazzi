@@ -19,12 +19,8 @@ public class RMIConnectionAcceptor implements RMIConnectionCreator, Runnable {
 	
 	public RMIConnectionAcceptor(ConcurrentLinkedQueue<Connection> connectionsQueue) throws RemoteException {
 		this.connectionsQueue = connectionsQueue;
-		if (System.getSecurityManager() == null){
-			System.setSecurityManager(new SecurityManager());
+		
 		}
-		registry = LocateRegistry.getRegistry();
-		input = (RMIMessageBuffer) UnicastRemoteObject.exportObject(new RMIMessageBuffer(), 0);
-	}
 
 
 	@Override

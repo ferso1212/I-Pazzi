@@ -6,7 +6,6 @@ import java.rmi.Remote;
 public abstract interface Connection extends Remote {
 
 	
-	
 	public abstract void sendMessage(String mess);
 	
 	public abstract String getName();
