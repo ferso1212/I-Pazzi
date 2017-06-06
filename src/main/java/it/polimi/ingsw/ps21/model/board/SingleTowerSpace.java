@@ -1,11 +1,14 @@
 package it.polimi.ingsw.ps21.model.board;
 
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
+import it.polimi.ingsw.ps21.model.player.FamilyMember;
+import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
-public class SingleTowerSpace extends SingleSpace {
+public class SingleTowerSpace extends Space {
 
 	protected DevelopmentCard card;
+	protected FamilyMember occupant;
 	protected static final ImmProperties REOCCUPY_TOWER_COST = new ImmProperties(3);
 
 	public SingleTowerSpace(int diceRequirement, ImmProperties instantBonus) {
@@ -36,6 +39,24 @@ public class SingleTowerSpace extends SingleSpace {
 		}
 		return this.card.getCosts();
 	}
+
+	public FamilyMember getOccupant() {
+		return occupant;
+	}
+	
+	public boolean isOccupable(Player player, FamilyMember member) {
+		if (occupant == null) {
+			return true;
+		}
+		return false;
+	}
+	
+	public void occupy(Player player, FamilyMember member) throws NotOccupableException{
+		if (this.occupant==null){
+			this.occupant = member;
+		} else throw new NotOccupableException();
+	}
+
 
 
 }

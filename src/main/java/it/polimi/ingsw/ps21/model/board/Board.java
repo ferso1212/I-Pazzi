@@ -139,7 +139,7 @@ public class Board {
 		return towers.get(type);
 	}
 
-	public SingleSpace getSingleWorkSpace(WorkType type) {
+	public SingleWorkSpace getSingleWorkSpace(WorkType type) {
 		switch (type) {
 		case HARVEST: {
 			return this.singleHarvPlace;
@@ -155,7 +155,7 @@ public class Board {
 		}
 	}
 
-	public MultipleSpace getMultipleWorkSpace(WorkType type) {
+	public MultipleWorkSpace getMultipleWorkSpace(WorkType type) {
 		switch (type) {
 		case HARVEST: {
 			return this.multipleHarvPlace;
@@ -177,7 +177,7 @@ public class Board {
 	 *            from 0 to 3
 	 * @return a single MarketSpace
 	 */
-	public SingleSpace getMarketSpace(int position) throws IllegalArgumentException {
+	public SingleMarketSpace getMarketSpace(int position) throws IllegalArgumentException {
 		if ((position >= 0) && (position < this.marketPlaces.length)) {
 			return this.marketPlaces[position];
 		} else
@@ -212,7 +212,7 @@ public class Board {
 		return this.trackBonuses;
 	}
 
-	public SingleSpace[] getMarketPlaces() {
+	public SingleMarketSpace[] getMarketPlaces() {
 		return marketPlaces;
 	}
 
