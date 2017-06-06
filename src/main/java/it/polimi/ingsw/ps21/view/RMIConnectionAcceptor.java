@@ -33,17 +33,14 @@ public class RMIConnectionAcceptor implements RMIConnectionCreator, Runnable {
 
 
 	@Override
-	public RMIConnection getNewConnection(String userName) {
-		try {
+	public Connection getNewConnection(String userName) throws RemoteException {
 			if (connections.size()<128){
-			RMIConnection newConnection = (RMIConnection) UnicastRemoteObject.exportObject(new RMIConnection(userName), 0);
+			RMIConnection newConnection = new RMIConnection(userName);
 			connectionsQueue.add(newConnection);
 			connections.add(newConnection);
-			return newConnection;}
+			Connection connectionStub = (Connection) UnicastRemoteObject.exportObject(newConnection, 5000);
+			return connectionStub;}
 			else return null;
-		} catch (RemoteException e) {
-			return null;
-		}
 	}
 }
 

@@ -73,6 +73,7 @@ public class UnsettedMatch extends Match {
 			}
 
 		throwDices();
+		notifyObservers("Match Started");
 		return new InitialRoundMatch(this);
 
 	}

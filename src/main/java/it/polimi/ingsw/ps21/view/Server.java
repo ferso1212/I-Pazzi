@@ -48,22 +48,21 @@ public class Server implements Runnable {
 	@Override
 	public void run() {
 		new Thread(new SocketConnectionsAcceptor(this.connections)).start();
-		/*try {
-			if(System.getSecurityManager()==null) System.setSecurityManager(new SecurityManager());
-			Registry locRegistry = LocateRegistry.getRegistry();
-			RMIConnectionAcceptor rmiAcceptor= (RMIConnectionAcceptor) UnicastRemoteObject.exportObject(new RMIConnectionAcceptor(this.connections), 0);
-			locRegistry.rebind("RMIConnectionAcceptor", rmiAcceptor);
-			new Thread(rmiAcceptor).start();
-			
+		try {
+			Registry locRegistry = LocateRegistry.createRegistry(5000);
+			RMIConnectionAcceptor rmiAcceptor= new RMIConnectionAcceptor(this.connections);
+			RMIConnectionCreator stubAcceptor= (RMIConnectionCreator) UnicastRemoteObject.exportObject(rmiAcceptor, 0);
+			locRegistry.rebind("RMIConnectionCreator", stubAcceptor);
+			// new Thread(rmiAcceptor).start();
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
-		Timer timer = new Timer();
-		TimeoutTask expired = new TimeoutTask();
+		}
+		
 		System.out.println("Server started and ready to receive connections.");
 		while (true) {
-			
+			Timer timer = new Timer();
+			TimeoutTask expired = new TimeoutTask();
 while(connections.size()<MAX_PLAYERS_NUM && !expired.isExpired())
 			{
 				if(connections.size()>=MIN_PLAYERS_NUM && !startedTimer ) //the counter starts when at least 2 players have joined the lobby
