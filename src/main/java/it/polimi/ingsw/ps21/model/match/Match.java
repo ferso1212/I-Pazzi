@@ -97,6 +97,8 @@ public abstract class Match extends Observable {
 		return returnValues;
 	 }
 	
-	
+	public int getNumberPlayers(){
+		return this.players.size();
+	}
 }
 	

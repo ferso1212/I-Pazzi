@@ -7,13 +7,15 @@ import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
-public class MultipleWorkSpace extends MultipleSpace implements WorkInterface{
+public class MultipleWorkSpace extends WorkSpace{
 	
-	private WorkType workType;
+	private Queue<FamilyMember> occupants;
+	private int diceMalus;
 
 	public MultipleWorkSpace(int diceRequirement, ImmProperties instantBonus, int diceMalus, WorkType workType) {
-		super(diceRequirement, instantBonus, diceMalus);
-		this.workType = workType;
+		super(diceRequirement, instantBonus, workType);
+		this.occupants = null;
+		this.diceMalus = diceMalus;
 	}
 
 	@Override
@@ -32,6 +34,14 @@ public class MultipleWorkSpace extends MultipleSpace implements WorkInterface{
 	
 	public WorkType getWorkType(){
 		return this.workType;
+	}
+	
+	public boolean containPlayer(Player player){
+		for (FamilyMember f : this.occupants){
+			if (f.getOwnerId()==player.getId()){
+				return true;
+			}
+		} return false;
 	}
 
 }

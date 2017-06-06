@@ -177,6 +177,7 @@ public class PlayerProperties implements Cloneable{
 		return payableCosts;
 	}
 	
+
 	/**Performs a deep copy of this object.
 	 * @return a copy of this object.
 	 * @throws CloneNotSupportedException 
@@ -186,4 +187,5 @@ public class PlayerProperties implements Cloneable{
 		return (PlayerProperties) super.clone();
 	}
 	
+
 }
