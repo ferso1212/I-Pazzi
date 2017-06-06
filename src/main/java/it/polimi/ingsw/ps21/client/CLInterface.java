@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps21.client;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
@@ -12,6 +13,7 @@ import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class CLInterface implements UserInterface {
 	
@@ -64,8 +66,19 @@ public class CLInterface implements UserInterface {
 
 	@Override
 	public void reqChoice(CostChoice choice) {
-		// TODO Auto-generated method stub
-		
+		if (choice.getChoices().size()==1)
+			{System.out.println("You have to pay this cost: " + choice.getChoices().get(0).toString());
+			choice.setChosen(0);
+			}
+		else {
+			System.out.println("You have to choose one of these costs: \n");
+			ArrayList<ImmProperties> costs =  choice.getChoices();
+			int i=0;
+			for (ImmProperties c: costs){
+				System.out.println((i+1) + " - " + c.toString() + "\n");
+				
+			}
+		}
 	}
 
 	@Override

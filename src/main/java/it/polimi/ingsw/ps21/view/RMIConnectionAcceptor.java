@@ -38,7 +38,8 @@ public class RMIConnectionAcceptor implements RMIConnectionCreator, Runnable {
 			RMIConnection newConnection = new RMIConnection(userName);
 			connectionsQueue.add(newConnection);
 			connections.add(newConnection);
-			return (Connection) newConnection;}
+			Connection connectionStub = (Connection) UnicastRemoteObject.exportObject(newConnection, 5000);
+			return connectionStub;}
 			else return null;
 	}
 }
