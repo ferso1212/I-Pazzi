@@ -5,6 +5,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
 
 import it.polimi.ingsw.ps21.view.Connection;
@@ -12,43 +13,46 @@ import it.polimi.ingsw.ps21.view.RMIConnection;
 import it.polimi.ingsw.ps21.view.RMIConnectionCreator;
 import it.polimi.ingsw.ps21.view.RMIMessageBuffer;
 
-public class RMIClient implements Remote{
+public class RMIClient implements ClientConnection,Remote{
 	
 	Registry serverRegistry;
 	Connection connection = null;
-	public RMIClient(String username) throws RemoteException, NotBoundException{
+	RMIMessageBuffer input;
+	RMIMessageBuffer output;
+	UserInterface ui;
+	public RMIClient(String username, UserInterface ui, int chosenRules) throws RemoteException, NotBoundException{
 		serverRegistry = LocateRegistry.getRegistry("localhost", 5000);
 		RMIConnectionCreator connectionService = (RMIConnectionCreator) serverRegistry.lookup("RMIConnectionCreator");
-		connection = connectionService.getNewConnection(username);
+		connection = connectionService.getNewConnection(username, chosenRules);
+		connection.setClient((ClientConnection)this);
+		this.ui = ui;
+		ui.showInfo("Estabilished Connection!");
 	}
 	
 	public void start(){ 
-		Scanner inputScanner = new Scanner(System.in);
-		while(true){
-			System.out.println("Cosa vuoi fare?\n1-Leggere i messaggi dal server\n2-Mandare un messaggio al server");
-			int inputChoice = inputScanner.nextInt();
-			if (inputChoice == 1) {
-				System.out.println();
-				
+		try {
+			while(true){
+			this.wait(30);
+			ui.showInfo("Connection OK");
 			}
-			else 
-				if (inputChoice == 2){
-					String message = inputScanner.nextLine();
-					try {
-						connection.sendMessage(message);
-					} catch (RemoteException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				else
-					System.out.println("Rincoglionito hai inserito un'opzione sbagliata");
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			ui.showInfo("Awaked from interrupt");
 		}
-		
 	}
 	
 	public boolean matchEnded(){
 		return true;
+	}
+
+	@Override
+	public void send(String string) throws RemoteException {
+		ui.showInfo(string);
+	}
+
+	@Override
+	public String getString() throws RemoteException {
+		return "Not implemented yet";
 	}
 
 }
