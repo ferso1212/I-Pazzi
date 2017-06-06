@@ -30,7 +30,7 @@ public class Server implements Runnable {
 
 	public Server() {
 		this.stdLobby=new Lobby("standard");
-		this.stdLobby=new Lobby("advanced");
+		this.advLobby=new Lobby("advanced");
 		
 		
 

@@ -8,8 +8,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.rmi.RemoteException;
 import java.util.logging.Logger;
 
+import it.polimi.ingsw.ps21.client.ClientConnection;
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
 
@@ -67,6 +69,13 @@ public class SocketConnection implements Connection{
 	@Override
 	public String getName() {
 		return this.name;
+	}
+
+
+	@Override
+	public void setClient(ClientConnection client) throws RemoteException {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	/*public Action reqUserAction()
