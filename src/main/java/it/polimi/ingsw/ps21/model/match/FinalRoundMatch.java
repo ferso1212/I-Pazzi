@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps21.controller.PlayerData;
+import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.NotExecutableException;
@@ -31,7 +32,6 @@ public class FinalRoundMatch extends Match {
 		round = 2;
 		throwDices();
 		notifyObservers();
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
@@ -40,16 +40,16 @@ public class FinalRoundMatch extends Match {
 		try {
 			extraActionPool = nextAction.execute(order.element(),this);
 		} catch (NotExecutableException e) {
-			// TODO Auto-generated catch block
+			notifyObservers(new RefusedAction("Impossible to execute this action"));
 			return null;
 		} catch (NotOccupableException e) {
-			// TODO Auto-generated catch block
+			notifyObservers(new RefusedAction("You cannot'occupy this place"));
 			return null;
 		} catch (RequirementNotMetException e) {
-			// TODO Auto-generated catch block
-			return null ;
+			notifyObservers(new RefusedAction("You doesn't satisfy requirement to execute this action"));
+			return null;
 		} catch (InsufficientPropsException e) {
-			// TODO Auto-generated catch block
+			notifyObservers(new RefusedAction("You doesn't have enough properties to execute this action"));
 			return null;
 		}
 		notifyObservers();
@@ -62,17 +62,8 @@ public class FinalRoundMatch extends Match {
 	}
 	@Override
 	public Match setNextPlayer() {
-			for (int i=0; i<4; i++){
-				for (FamilyMember p: board.getCouncilPalace().getOccupants())
-				{
-					// TODO need a method that return playerOrder in councilPalace
-				}
-				
-			}
-			for (Player p: players.values()){
-			
-			}
-			return new VaticanSupport(this);
+		if (order.isEmpty()) return new VaticanSupport(this);
+		else return this;
 	}
 
 }

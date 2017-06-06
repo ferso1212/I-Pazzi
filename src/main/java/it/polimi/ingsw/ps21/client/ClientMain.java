@@ -12,6 +12,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps21.controller.MatchData;
@@ -37,6 +38,7 @@ public class ClientMain {
 			chosenConnection= in.nextInt();
 		} catch (InputMismatchException e) {
 			chosenConnection=0;
+			LOGGER.log(Level.INFO, "Invalid input", e);
 		}
     	in.nextLine();
     	if((chosenConnection!=1 && chosenConnection!=2)) System.out.println("\nInvalid choice.");
@@ -53,6 +55,7 @@ public class ClientMain {
 			chosenRules= in.nextInt();
 		} catch (InputMismatchException e) {
 			chosenRules=0;
+			LOGGER.log(Level.INFO, "Invalid input", e);
 		}
     	if(chosenRules!=1 && chosenRules!=2) System.out.println("\nInvalid choice.");
     	}
@@ -80,8 +83,9 @@ public class ClientMain {
 					rmiclient.start();
 		
 				} catch (RemoteException | NotBoundException e) {
-					System.out.println("Failed to connect to server");
 					e.printStackTrace();
+					System.out.println("Failed to connect to server through RMI.");
+					LOGGER.log(Level.WARNING, "RMI Connection failed", e);
 					newMatch = false;
 				}
 			}

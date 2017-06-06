@@ -110,11 +110,11 @@ public class PropertiesSet implements Serializable{
 	}
 	
 	/**Performs a deep copy of this object.
+	 * @throws CloneNotSupportedException 
 	 * 
 	 */
-	public PropertiesSet clone()
+	public PropertiesSet clone() throws CloneNotSupportedException
 	{
-		
 		Property[] propsToClone= new Property[this.propertiesMap.size()];
 		
 		int i=0;
@@ -130,15 +130,15 @@ public class PropertiesSet implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		String output= new String();
+		StringBuilder output= new StringBuilder();
 		Property[] propsToScan= propertiesMap.values().toArray(new Property[0]);
 		for(int i=0; i<propsToScan.length; i++) 
 		{
 			if(propsToScan[i].getValue()!=0){//properties whose value is 0 are not reported in the string
-			output.concat(propsToScan[i].toString());
-			output.concat(", ");}
+			output.append(propsToScan[i].toString());
+			output.append(", ");}
 		}
-		return output;
+		return output.toString();
 	}
 	
 	/**Compares this set with the PropertiesSet passed as argument.
