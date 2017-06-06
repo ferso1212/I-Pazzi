@@ -177,4 +177,7 @@ public class PlayerProperties {
 		return payableCosts;
 	}
 	
+	public PlayerProperties clone(){
+		//TODO
+	}
 }
