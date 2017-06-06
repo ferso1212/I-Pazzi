@@ -12,10 +12,11 @@ public class SocketConnectionAdder extends Thread{
 	private ConcurrentLinkedQueue<Connection> connectionsQueue;
 	private ConcurrentLinkedQueue<Connection> advConnectionsQueue;
 
-	public SocketConnectionAdder(Socket socket, ConcurrentLinkedQueue<Connection> connectionsQueue) {
+	public SocketConnectionAdder(Socket socket, ConcurrentLinkedQueue<Connection> connectionsQueue, ConcurrentLinkedQueue<Connection> advConnectionsQueue) {
 		super();
 		this.socket = socket;
 		this.connectionsQueue=connectionsQueue;
+		this.advConnectionsQueue= advConnectionsQueue;
 	}
 	
 	public void run()
@@ -26,20 +27,31 @@ public class SocketConnectionAdder extends Thread{
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			String newName=in.readLine(); 
 			int chosenRules=Integer.parseInt(in.readLine()); //1 for standard rules, 2 for advanced rules
-			
-			synchronized (connectionsQueue) {
-				
+
 				SocketConnection newConnection= new SocketConnection(newName, socket);
-				if(chosenRules==1) connectionsQueue.add(newConnection);
-				else if(chosenRules==2) advConnectionsQueue.add(newConnection);
-				else return; //error
-				System.out.println("\n" + newName + "'s inbound connection added to the queue in position " + connectionsQueue.size());
-			}
+				addConnectionToQueue(chosenRules, newConnection);
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+	}
+	
+	private void addConnectionToQueue(int chosenRules, SocketConnection newConnection)
+	{
+		if(chosenRules==1)
+		{
+			this.connectionsQueue.add(newConnection);
+			System.out.println("\n" + newConnection.getName() + "'s inbound connection added to the standard lobby in position " + connectionsQueue.size());
+		}
+		
+		else if(chosenRules==2)
+		{
+			this.advConnectionsQueue.add(newConnection);
+			System.out.println("\n" + newConnection.getName() + "'s inbound connection added to the advanced lobby in position " + connectionsQueue.size());
+		}
+		else return;
 	}
 	
 }

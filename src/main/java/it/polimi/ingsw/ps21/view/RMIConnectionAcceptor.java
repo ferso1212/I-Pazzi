@@ -14,12 +14,13 @@ public class RMIConnectionAcceptor implements RMIConnectionCreator, Runnable {
 	Registry registry;
 	RMIMessageBuffer output; // It is saved in input for the client
 	RMIMessageBuffer input;
-	ConcurrentLinkedQueue<Connection> connectionsQueue;
+	private ConcurrentLinkedQueue<Connection> connectionsQueue;
+	private ConcurrentLinkedQueue<Connection> advConnectionsQueue;
 	ArrayList<RMIConnection> connections = new ArrayList<>();
 	
-	public RMIConnectionAcceptor(ConcurrentLinkedQueue<Connection> connectionsQueue) throws RemoteException {
+	public RMIConnectionAcceptor(ConcurrentLinkedQueue<Connection> connectionsQueue, ConcurrentLinkedQueue<Connection> advConnectionsQueue) throws RemoteException {
 		this.connectionsQueue = connectionsQueue;
-		
+		this.advConnectionsQueue=advConnectionsQueue;
 		}
 
 
@@ -33,14 +34,32 @@ public class RMIConnectionAcceptor implements RMIConnectionCreator, Runnable {
 
 
 	@Override
-	public Connection getNewConnection(String userName) throws RemoteException {
+	public Connection getNewConnection(String userName, int chosenRules) throws RemoteException {
 			if (connections.size()<128){
 			RMIConnection newConnection = new RMIConnection(userName);
-			connectionsQueue.add(newConnection);
-			connections.add(newConnection);
+			
+			addConnectionToQueue(chosenRules, newConnection);
 			Connection connectionStub = (Connection) UnicastRemoteObject.exportObject(newConnection, 5000);
 			return connectionStub;}
 			else return null;
+	}
+	
+	private void addConnectionToQueue(int chosenRules, RMIConnection newConnection)
+	{
+		if(chosenRules==1)
+		{
+			this.connectionsQueue.add(newConnection);
+			connections.add(newConnection);
+			System.out.println("\n" + newConnection.getName() + "'s inbound connection added to the standard lobby in position " + connectionsQueue.size());
+		}
+		
+		else if(chosenRules==2)
+		{
+			this.advConnectionsQueue.add(newConnection);
+			connections.add(newConnection);
+			System.out.println("\n" + newConnection.getName() + "'s inbound connection added to the advanced lobby in position " + connectionsQueue.size());
+		}
+		else return;
 	}
 }
 

@@ -14,13 +14,15 @@ public class ConnectionsAcceptor {
 	protected final static int MAX_PLAYERS_NUM=4;
 	//The match is created if the max number of players is reached or if the timeout expires.
 	
-	protected ConcurrentLinkedQueue<Connection> connections;
+	protected ConcurrentLinkedQueue<Connection> stdConnections;
+	protected ConcurrentLinkedQueue<Connection> advConnections;
 	protected boolean acceptingConnections;
 	
-	public ConnectionsAcceptor(ConcurrentLinkedQueue<Connection> connectionsQueue)
+	public ConnectionsAcceptor(ConcurrentLinkedQueue<Connection> stdConnections, ConcurrentLinkedQueue<Connection> advConnections)
 	{
 		this.acceptingConnections=true;
-		this.connections=connectionsQueue;
+		this.stdConnections=stdConnections;
+		this.advConnections=advConnections;
 	}
 	
 }

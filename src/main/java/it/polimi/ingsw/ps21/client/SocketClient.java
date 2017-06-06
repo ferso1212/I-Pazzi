@@ -30,12 +30,15 @@ public class SocketClient {
 		String socketLine=""; 
 		socketOut.println(name);
 		socketOut.println(chosenRules);
-		while(socketLine.compareTo("Match Started") != 0 && socket.isConnected()){
+		socketLine = socketIn.readLine();
+		if(socketLine.compareTo("Match Started") == 0){
+		while(socket.isConnected()){
 			socketLine = socketIn.readLine();
 			System.out.println(socketLine);
 			String userInputLine = stdin.nextLine();
 			socketOut.println(userInputLine); 
 			socketLine = socketIn.readLine();
+		}
 		}
 		if (socket.isClosed()) {System.out.println("Connection closed"); return null;}
 		else

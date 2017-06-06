@@ -32,7 +32,7 @@ public class MatchController implements Observer{
 			
 		}
 		match.addObserver(this);
-		match.startMatch();
+		this.match=match.startMatch();
 		
 	}
 

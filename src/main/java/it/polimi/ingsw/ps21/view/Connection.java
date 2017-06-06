@@ -11,5 +11,7 @@ public abstract interface Connection extends Remote {
 	
 	public abstract String getName() throws RemoteException;
 	
+ 
+	
 	
 }

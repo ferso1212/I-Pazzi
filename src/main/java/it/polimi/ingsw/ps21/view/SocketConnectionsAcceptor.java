@@ -23,8 +23,8 @@ public class SocketConnectionsAcceptor extends ConnectionsAcceptor implements Ru
 private ServerSocket serverSocket;
 	
 	
-	public SocketConnectionsAcceptor(ConcurrentLinkedQueue<Connection> connectionsQueue) {
-		super(connectionsQueue);
+	public SocketConnectionsAcceptor(ConcurrentLinkedQueue<Connection> stdConnections, ConcurrentLinkedQueue<Connection> advConnections) {
+		super(stdConnections, advConnections);
 	}
 
 	@Override
@@ -41,7 +41,7 @@ private ServerSocket serverSocket;
 				Socket newSocket = serverSocket.accept();
 				System.out.println("\nNew inbound connection detected. Source IP address: " + newSocket.getInetAddress());
 
-				(new SocketConnectionAdder(newSocket, connections)).start();
+				(new SocketConnectionAdder(newSocket, stdConnections, advConnections)).start();
 				
 				
 			} catch (IOException e) {

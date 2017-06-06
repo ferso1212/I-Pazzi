@@ -17,7 +17,7 @@ public class SocketConnection implements Connection{
 	private final static Logger LOGGER = Logger.getLogger(SocketConnection.class.getName());
 	private Socket socket;
 	private PrintWriter out;
-	private DataInputStream in;
+	private BufferedReader in;
 	private ObjectOutputStream objOut;
 	private ObjectInputStream objIn;
 	private boolean connected;
@@ -28,7 +28,7 @@ public class SocketConnection implements Connection{
 		this.socket = socket;
 		try {
 			out=new PrintWriter(socket.getOutputStream(), true);
-			in=new DataInputStream(this.socket.getInputStream());
+			in=new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
 		} catch (IOException e) {
 			connected=false;
 		}
