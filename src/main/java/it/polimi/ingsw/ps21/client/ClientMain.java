@@ -46,8 +46,8 @@ public class ClientMain {
     	chosenRules= in.nextInt();
     	if(chosenRules!=1 && chosenRules!=2) System.out.println("\nInvalid choice.");
     	}
-    	
-    	
+		CLInterface CLImatch = new CLInterface();
+
     	
 		while(newMatch == true){
 		
@@ -55,7 +55,6 @@ public class ClientMain {
 				SocketClient client = new SocketClient(); 
 					MatchData match = client.start(chosenRules, name);
 					if (match != null){
-								CLInterface CLImatch = new CLInterface();
 									while (CLImatch.isEnded());
 										System.out.println("Do you want to play another match, fucking looser?\n(Y)es\n(N)o");
 											String response = in.nextLine();			
@@ -66,7 +65,7 @@ public class ClientMain {
 			}
 			else{
 				try {
-					RMIClient rmiclient = new RMIClient(name);
+					RMIClient rmiclient = new RMIClient(name, CLImatch, chosenRules);
 					rmiclient.start();
 		
 				} catch (RemoteException | NotBoundException e) {

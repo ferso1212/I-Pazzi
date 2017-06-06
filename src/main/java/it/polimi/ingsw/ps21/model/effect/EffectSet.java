@@ -13,7 +13,7 @@ public class EffectSet {
 	private Effect[] simultaneousEffects;
 	
 	public EffectSet(Effect ...effects){
-		if (effects.length == 0 || effects == null) {
+		if (effects.length == 0) {
 			simultaneousEffects = new Effect[1];
 			simultaneousEffects[0] = new NullEffect();
 		}
