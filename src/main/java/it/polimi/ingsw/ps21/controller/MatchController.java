@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps21.controller;
 
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
@@ -15,14 +16,14 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.UserHandler;
 
 public class MatchController implements Observer{
-	private Map<PlayerColor, UserHandler> handlersMap;
+	private EnumMap<PlayerColor, UserHandler> handlersMap;
 	private Player currentPlayer;
 	private Match match;
 	
 	public MatchController(UnsettedMatch match, UserHandler...handlers) {
 		super();
 		this.match = match;
-		handlersMap= new HashMap<>();
+		handlersMap= new EnumMap<>(PlayerColor.class);
 		for(UserHandler handler: handlers)
 		{
 			this.handlersMap.put(handler.getPlayerId(), handler);

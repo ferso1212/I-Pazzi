@@ -64,7 +64,6 @@ public class Lobby extends Thread{
 		// MatchRunner with those UserHandlers
 		int playersAdded = 0;
 		synchronized (connectionsQueue) {
-
 			System.out.println("\nInitializing a new " + this.chosenRules + " match with " + Math.min(MAX_PLAYERS_NUM, connectionsQueue.size())
 					+ " players.");
 			UserHandler[] usersToAdd = new UserHandler[Math.min(connectionsQueue.size(), MAX_PLAYERS_NUM)];

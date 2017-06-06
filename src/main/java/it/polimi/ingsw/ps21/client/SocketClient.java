@@ -7,12 +7,15 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps21.controller.MatchData;
 
 public class SocketClient {
 	private static final String SERVER_IP="127.0.0.1"; 
 	private static final int PORT = 7777;
+	private final static Logger LOGGER = Logger.getLogger(SocketClient.class.getName());
 	
 	public SocketClient(){
 		
@@ -27,17 +30,16 @@ public class SocketClient {
 		BufferedReader socketIn = new BufferedReader(new InputStreamReader(socket.getInputStream())); 
 		PrintWriter socketOut = new PrintWriter(socket.getOutputStream(), true); 
 		Scanner stdin = new Scanner(System.in);
-		String socketLine=""; 
 		socketOut.println(name);
 		socketOut.println(chosenRules);
-		socketLine = socketIn.readLine();
+		String socketLine = socketIn.readLine();
 		if(socketLine.compareTo("Match Started") == 0){
 		while(socket.isConnected()){
 			socketLine = socketIn.readLine();
 			System.out.println(socketLine);
 			String userInputLine = stdin.nextLine();
 			socketOut.println(userInputLine); 
-			socketLine = socketIn.readLine();
+			
 		}
 		}
 		if (socket.isClosed()) {System.out.println("Connection closed"); return null;}
@@ -46,12 +48,11 @@ public class SocketClient {
 			return null;
 		}
 	} catch (UnknownHostException e) {
-		// TODO Auto-generated catch block
-		System.out.println("Unable to reach host");
+		LOGGER.log(Level.INFO, "Unable to reach host.", e);
+		System.out.println("\nUnable to reach host.");
 		return null;
 	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+		LOGGER.log(Level.INFO, "Input-Output exception.", e);
 		return null;
 		}
 	}
