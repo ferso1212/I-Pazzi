@@ -15,18 +15,19 @@ import it.polimi.ingsw.ps21.view.RMIMessageBuffer;
 
 public class RMIClient implements ClientConnection,Remote{
 	
-	Registry serverRegistry;
-	Connection connection = null;
-	RMIMessageBuffer input;
-	RMIMessageBuffer output;
-	UserInterface ui;
+	private Registry serverRegistry;
+	private Connection connection = null;
+	private RMIMessageBuffer input;
+	private RMIMessageBuffer output;
+	private UserInterface ui;
+	
 	public RMIClient(String username, UserInterface ui, int chosenRules) throws RemoteException, NotBoundException{
 		serverRegistry = LocateRegistry.getRegistry("localhost", 5000);
 		RMIConnectionCreator connectionService = (RMIConnectionCreator) serverRegistry.lookup("RMIConnectionCreator");
 		connection = connectionService.getNewConnection(username, chosenRules);
-		connection.setClient((ClientConnection)this);
 		this.ui = ui;
 		ui.showInfo("Estabilished Connection!");
+		
 	}
 	
 	public void start(){ 

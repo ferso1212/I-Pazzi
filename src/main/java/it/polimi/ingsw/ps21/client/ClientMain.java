@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -74,11 +75,13 @@ public class ClientMain {
 			}
 			else{
 				try {
+					LocateRegistry.createRegistry(3000);
 					RMIClient rmiclient = new RMIClient(name, CLImatch, chosenRules);
 					rmiclient.start();
 		
 				} catch (RemoteException | NotBoundException e) {
 					System.out.println("Failed to connect to server");
+					e.printStackTrace();
 					newMatch = false;
 				}
 			}

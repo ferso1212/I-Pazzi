@@ -10,6 +10,7 @@ import it.polimi.ingsw.ps21.controller.CostChoice;
 import it.polimi.ingsw.ps21.controller.CouncilChoice;
 import it.polimi.ingsw.ps21.controller.EffectChoice;
 import it.polimi.ingsw.ps21.controller.MatchData;
+import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
@@ -26,16 +27,18 @@ public class CLInterface implements UserInterface {
 	}
 	
 	@Override
-	public void updateView(MatchData match, BoardData board) {
-		System.out.print("Stato della partita:\n "
-					+ "Era: " + match.getEra() + "\tRound: " + match.getRound());
-		System.out.println("\nTabellone:\nDices: Black = " + board.getBlackDice() + " White = " + board.getWhiteDice() + " Orange = " + board.getOrangeDice());
+	public void updateView(MatchData match, BoardData board, PlayerData players[]) {
+		System.out.print("Match State:\n "
+					+ "Period: " + match.getEra() + "\tRound: " + match.getRound());
+		System.out.println("\nBoard:\nDices: Black = " + board.getBlackDice() + " White = " + board.getWhiteDice() + " Orange = " + board.getOrangeDice());
 		DevelopmentCard[][] cards = board.getCards();
 		for (int i= 0; i<4 ; i++){
-			System.out.println("\nTower " + i+1 + " cards: ");
+			System.out.println("\nTower " + i+1 + "");
 			for (int j=0; j<4; j++){
-				System.out.println(cards[i][j].toString());
+				System.out.println("\nFloor " + j + ":");
+				System.out.println(" Card: " + cards[i][j].toString() + "; ");
 				if (j<3) System.out.println(", ");
+				System.out.println("Family Member: " + board.getTowerSpaces()[i][j]);
 			}
 			System.out.println(";");
 		}
@@ -76,7 +79,6 @@ public class CLInterface implements UserInterface {
 			int i=0;
 			for (ImmProperties c: costs){
 				System.out.println((i+1) + " - " + c.toString() + "\n");
-				
 			}
 		}
 	}
@@ -95,14 +97,12 @@ public class CLInterface implements UserInterface {
 
 	@Override
 	public void showMessage(AcceptedAction mess) {
-		// TODO Auto-generated method stub
-		
+		System.out.println(mess.getMessage());
 	}
 
 	@Override
-	public void showMessage(RefusedAction mess) {
-		// TODO Auto-generated method stub
-		
+	public void showMessage(RefusedAction mess) {		
+		System.out.println("Your action has been refused! :(");
 	}
 
 }

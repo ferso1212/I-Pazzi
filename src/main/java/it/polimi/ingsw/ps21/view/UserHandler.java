@@ -5,12 +5,15 @@ import java.util.Observable;
 import java.util.Observer;
 
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
+import it.polimi.ingsw.ps21.controller.BoardData;
 import it.polimi.ingsw.ps21.controller.CostChoice;
 import it.polimi.ingsw.ps21.controller.CouncilChoice;
 import it.polimi.ingsw.ps21.controller.EffectChoice;
+import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.controller.WorkMessage;
+import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
 public class UserHandler extends Observable implements Visitor, Runnable, Observer {
@@ -86,8 +89,11 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
+		if (o instanceof Match && arg == null)	{
+			Match matchState = (Match) o;
+			MatchData newState;
+			BoardData board = new BoardData(matchState.getBoard(), matchState.getDices()[0], matchState.getDices()[1], matchState.getDices()[2]);
+		}	
 	}
 	
 	

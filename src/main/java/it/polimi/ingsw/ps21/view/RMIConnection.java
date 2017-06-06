@@ -9,6 +9,9 @@ import java.util.stream.Stream;
 
 import it.polimi.ingsw.ps21.client.ClientConnection;
 import it.polimi.ingsw.ps21.client.RMIClient;
+import it.polimi.ingsw.ps21.controller.BoardData;
+import it.polimi.ingsw.ps21.controller.MatchData;
+import it.polimi.ingsw.ps21.controller.PlayerData;
 
 public class RMIConnection implements Connection, Runnable {
 
@@ -47,6 +50,12 @@ public class RMIConnection implements Connection, Runnable {
 	@Override
 	public void setClient(ClientConnection client) {
 		this.client = client;
+	}
+
+	@Override
+	public void remoteUpdate(MatchData match, BoardData board, PlayerData[] players) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

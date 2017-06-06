@@ -6,16 +6,21 @@ import java.rmi.RemoteException;
 
 import it.polimi.ingsw.ps21.client.ClientConnection;
 import it.polimi.ingsw.ps21.client.RMIClient;
+import it.polimi.ingsw.ps21.controller.BoardData;
+import it.polimi.ingsw.ps21.controller.MatchData;
+import it.polimi.ingsw.ps21.controller.PlayerData;
 
-public abstract interface Connection extends Remote {
+public abstract interface Connection{
 
 	
-	public abstract void sendMessage(String mess) throws RemoteException;
+	public abstract void sendMessage(String mess);
 	
-	public abstract String getName() throws RemoteException;
+	public abstract String getName();
 	
 
-	public abstract void setClient(ClientConnection client) throws RemoteException;
+	public abstract void setClient(ClientConnection client);
+	
+	public abstract void remoteUpdate(MatchData match, BoardData board, PlayerData players[]);
 
 
 }

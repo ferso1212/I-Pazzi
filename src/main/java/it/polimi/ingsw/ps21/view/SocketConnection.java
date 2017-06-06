@@ -12,6 +12,9 @@ import java.rmi.RemoteException;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps21.client.ClientConnection;
+import it.polimi.ingsw.ps21.controller.BoardData;
+import it.polimi.ingsw.ps21.controller.MatchData;
+import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
 
@@ -74,6 +77,13 @@ public class SocketConnection implements Connection{
 
 	@Override
 	public void setClient(ClientConnection client) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void remoteUpdate(MatchData match, BoardData board, PlayerData[] players) {
 		// TODO Auto-generated method stub
 		
 	}

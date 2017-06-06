@@ -10,13 +10,14 @@ import it.polimi.ingsw.ps21.controller.CouncilChoice;
 import it.polimi.ingsw.ps21.controller.EffectChoice;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.Message;
+import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.controller.VaticanChoice;
 
 public abstract interface UserInterface {
 	
 	
-	public abstract void updateView(MatchData match, BoardData board);
+	public abstract void updateView(MatchData match, BoardData board, PlayerData players[]);
 	
 	// public abstract ActionData reqAction();
 	
