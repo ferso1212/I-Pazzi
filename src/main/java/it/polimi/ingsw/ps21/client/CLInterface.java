@@ -82,15 +82,13 @@ public class CLInterface implements UserInterface {
 	}
 
 	@Override
-	public void reqChoice(CouncilChoice choice) {
-		// TODO Auto-generated method stub
+	public void reqChoice(CouncilChoice choice) {		
 		
 	}
 
 	@Override
 	public void reqChoice(EffectChoice choice) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -101,8 +99,7 @@ public class CLInterface implements UserInterface {
 
 	@Override
 	public void showMessage(RefusedAction mess) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Your action has been refused: " + mess.getMessage());		
 	}
 
 }
