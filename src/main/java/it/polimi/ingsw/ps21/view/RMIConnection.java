@@ -41,11 +41,7 @@ public class RMIConnection implements Connection, Runnable {
 
 	@Override
 	public String getName() {
-		try {
-			return client.getString();
-		} catch (RemoteException e) {
-			return "Error";
-		}
+		return this.name;
 	}
 
 	@Override

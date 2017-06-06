@@ -47,17 +47,21 @@ public class RMIConnectionAcceptor implements RMIConnectionCreator, Runnable {
 	private void addConnectionToQueue(int chosenRules, RMIConnection newConnection)
 	{
 		if(chosenRules==1)
-		{
+		{	synchronized(connectionsQueue)
+			{
 			this.connectionsQueue.add(newConnection);
 			connections.add(newConnection);
 			System.out.println("\n" + newConnection.getName() + "'s inbound connection added to the standard lobby in position " + connectionsQueue.size());
+			}
 		}
 		
 		else if(chosenRules==2)
-		{
+		{	synchronized(advConnectionsQueue)
+			{
 			this.advConnectionsQueue.add(newConnection);
 			connections.add(newConnection);
-			System.out.println("\n" + newConnection.getName() + "'s inbound connection added to the advanced lobby in position " + connectionsQueue.size());
+			System.out.println("\n" + newConnection.getName() + "'s inbound connection added to the advanced lobby in position " + advConnectionsQueue.size());
+			}
 		}
 		else return;
 	}

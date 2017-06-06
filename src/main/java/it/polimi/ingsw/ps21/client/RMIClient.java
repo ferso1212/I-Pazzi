@@ -30,7 +30,10 @@ public class RMIClient implements ClientConnection,Remote{
 	}
 	
 	public void start(){ 
-		try {
+		while(true){
+			ui.showInfo("Connection OK");
+			}
+		/*try {
 			while(true){
 			this.wait(30);
 			ui.showInfo("Connection OK");
@@ -38,7 +41,7 @@ public class RMIClient implements ClientConnection,Remote{
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			ui.showInfo("Awaked from interrupt");
-		}
+		}*/
 	}
 	
 	public boolean matchEnded(){
