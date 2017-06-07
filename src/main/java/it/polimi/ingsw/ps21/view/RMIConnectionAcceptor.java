@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class RMIConnectionAcceptor implements RMIConnectionCreator, Runnable {
+public class RMIConnectionAcceptor extends UnicastRemoteObject implements RMIConnectionCreator, Runnable {
 
 	Registry registry;
 	RMIMessageBuffer output; // It is saved in input for the client

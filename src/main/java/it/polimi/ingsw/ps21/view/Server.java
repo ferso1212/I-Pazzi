@@ -48,7 +48,7 @@ public class Server implements Runnable {
 		try {
 			Registry locRegistry = LocateRegistry.createRegistry(5000);
 			RMIConnectionAcceptor rmiAcceptor = new RMIConnectionAcceptor(this.stdLobby.getConnections(), this.advLobby.getConnections());
-			RMIConnectionCreator stubAcceptor = (RMIConnectionCreator) UnicastRemoteObject.exportObject(rmiAcceptor, 0);
+			RMIConnectionCreator stubAcceptor = rmiAcceptor;
 			locRegistry.rebind("RMIConnectionCreator", stubAcceptor);
 			// new Thread(rmiAcceptor).start();
 		} catch (RemoteException e) {

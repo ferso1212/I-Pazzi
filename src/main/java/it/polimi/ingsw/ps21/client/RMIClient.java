@@ -26,11 +26,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	private UserInterface ui;
 	public boolean connected = false;
 	
-	public RMIClient(String username, UserInterface ui, int chosenRules) throws RemoteException, NotBoundException{
+	public RMIClient(String username, UserInterface ui, int chosenRules, int port) throws RemoteException, NotBoundException{
 		this.ui = ui;
-		serverRegistry = LocateRegistry.getRegistry("localhost", 5000);
+		serverRegistry = LocateRegistry.getRegistry("localhost", port);
 		RMIConnectionCreator connectionService = (RMIConnectionCreator) serverRegistry.lookup("RMIConnectionCreator");
-		connection = connectionService.getNewConnection(username, chosenRules);
+	   	connection = connectionService.getNewConnection(username, chosenRules);
 		connection.setClient((RMIClientInterface) this); 
 		connected = true;
 		
@@ -72,8 +72,14 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	
 
 	@Override
-	public void setCost(ImmProperties[] costschoices) throws RemoteException {
-		return;
+	public ImmProperties setCost(ImmProperties[] costschoices) throws RemoteException {
+		ArrayList<ImmProperties> costs = new ArrayList<>();
+		for (ImmProperties cost: costschoices){
+			costs.add(cost);
+		}
+		CostChoice choice = new CostChoice(costs);
+		ui.reqChoice(choice);
+		return choice.getChosen();
 	}
 
 	/*@Override

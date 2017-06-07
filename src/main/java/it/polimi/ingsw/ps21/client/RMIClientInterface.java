@@ -9,6 +9,6 @@ public interface RMIClientInterface extends Remote {
 
 	public void receiveMessage(String message) throws RemoteException;
 	
-	public void setCost(ImmProperties costschoices[]) throws RemoteException;
+	public ImmProperties setCost(ImmProperties costschoices[]) throws RemoteException;
 	
 }
