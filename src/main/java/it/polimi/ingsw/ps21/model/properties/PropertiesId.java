@@ -12,4 +12,9 @@ public enum PropertiesId implements Serializable{
 		this.propertyName=name;
 	}
 	
+	public String toString()
+	{
+		return this.propertyName;
+	}
+	
 }
