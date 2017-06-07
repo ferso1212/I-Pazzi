@@ -138,8 +138,8 @@ public class PropertiesSet implements Serializable{
 			output.append(propsToScan[i].toString());
 			output.append(", ");}
 		}
-		output.deleteCharAt(output.length()); //removes the last space and the last ',' in the string
-		output.deleteCharAt(output.length());
+		output.deleteCharAt(output.length()-1); //removes the last space and the last ',' in the string
+		output.deleteCharAt(output.length()-1);
 		return output.toString();
 	}
 	
