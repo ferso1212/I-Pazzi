@@ -55,7 +55,8 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	public void sendMessage(String string) throws RemoteException {
 		System.out.println(string);
 		//ui.showInfo(string);
-	}
+	}	
+	
 
 	@Override
 	public void setCost(ImmProperties[] costschoices) throws RemoteException {
