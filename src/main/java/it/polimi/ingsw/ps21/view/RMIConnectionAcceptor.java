@@ -38,7 +38,6 @@ public class RMIConnectionAcceptor implements RMIConnectionCreator, Runnable {
 			if (connections.size()<128){
 			RMIConnection newConnection = new RMIConnection(userName);
 			addConnectionToQueue(chosenRules, newConnection);
-			new Thread(newConnection).start();
 			return (RMIConnectionInterface) newConnection;}
 			else return null;
 	}

@@ -39,6 +39,8 @@ public abstract interface UserInterface {
 	
 	public abstract void showMessage(RefusedAction mess);
 
+	public abstract String nextInput();
+
 
 
 }

@@ -24,6 +24,7 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	private RMIMessageBuffer input;
 	private RMIMessageBuffer output;
 	private UserInterface ui;
+	public boolean connected = false;
 	
 	public RMIClient(String username, UserInterface ui, int chosenRules) throws RemoteException, NotBoundException{
 		this.ui = ui;
@@ -31,10 +32,22 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 		RMIConnectionCreator connectionService = (RMIConnectionCreator) serverRegistry.lookup("RMIConnectionCreator");
 		connection = connectionService.getNewConnection(username, chosenRules);
 		connection.setClient((RMIClientInterface) this); 
+		connected = true;
 		
 	}
 	
 	public void start(){ 
+		System.out.println("Actually RMIConnection is not fully implemented, write the message you want to send to server: (IF you want to end connection write END)");
+		String message = ui.nextInput();
+		while(message.compareTo("END")!=0){
+			try {
+				connection.receiveMessage(message);
+				message = ui.nextInput();
+			} catch (RemoteException e) {
+				ui.showInfo("Network Error");
+				message = "END";
+			}
+		}
 		
 	}
 		/*try {
@@ -52,7 +65,7 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	}
 
 	@Override
-	public void sendMessage(String string) throws RemoteException {
+	public void receiveMessage(String string) throws RemoteException {
 		System.out.println(string);
 		//ui.showInfo(string);
 	}	

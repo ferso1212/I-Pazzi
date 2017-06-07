@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 
 public abstract interface ClientConnection {
 	
-	public abstract void send(String string) ;
+	public abstract void receiveMessage(String string) ;
 	
 	public abstract String getString();
 

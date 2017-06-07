@@ -15,7 +15,7 @@ import it.polimi.ingsw.ps21.controller.BoardData;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.PlayerData;
 
-public class RMIConnection extends UnicastRemoteObject implements RMIConnectionInterface, Connection, Runnable {
+public class RMIConnection extends UnicastRemoteObject implements RMIConnectionInterface, Connection{
 
 	private String name;
 	private Queue<String> input;
@@ -27,15 +27,11 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 		output = new ArrayDeque<>();
 	}
 
-	@Override
-	public void run() {
-
-	}
 
 	@Override
 	public void sendMessage(String mess) {
 			try {
-				client.sendMessage(mess);
+				client.receiveMessage(mess);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -57,6 +53,16 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 	@Override
 	public void remoteUpdate(MatchData match, BoardData board, PlayerData[] players) {
 		
+	}
+
+	@Override
+	public void receiveMessage(String mess) throws RemoteException {
+		System.out.println(mess);
+	}
+
+	@Override
+	public void disconnect() throws RemoteException {
+		client=null;
 	}
 
 }

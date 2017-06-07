@@ -59,7 +59,7 @@ public class CLInterface implements UserInterface {
 		System.out.println("Do you want to receive an excommunication(1) or not(2)? If you reject excommunication you will loose all your faith points");
 		int userChoice = userInput.nextInt();
 		while(userChoice != 1 && userChoice != 2){
-			System.out.println("Invalid choice");
+			System.out.println("Invalid choice, please insert another choice");
 			userChoice = userInput.nextInt();
 		}
 		if (userChoice == 1) choice.setChosen(false);
@@ -74,12 +74,18 @@ public class CLInterface implements UserInterface {
 			choice.setChosen(0);
 			}
 		else {
-			System.out.println("You have to choose one of these costs: \n");
+			System.out.println("You have to choose one of these costs: ");
 			ArrayList<ImmProperties> costs =  choice.getChoices();
 			int i=0;
 			for (ImmProperties c: costs){
-				System.out.println((i+1) + " - " + c.toString() + "\n");
+				System.out.println((i+1) + " - " + c.toString() + ";");
 			}
+			System.out.println("Which one do you want to pay?");
+			int choosen = userInput.nextInt();
+			while(choosen < 1 || choosen > costs.size()){
+				System.out.println("Invalid choice, please insert another choice:");
+			}
+			choice.setChosen(choosen);
 		}
 	}
 
@@ -101,6 +107,11 @@ public class CLInterface implements UserInterface {
 	@Override
 	public void showMessage(RefusedAction mess) {
 		System.out.println("Your action has been refused: " + mess.getMessage());		
+	}
+
+	@Override
+	public String nextInput() {
+		return userInput.nextLine();
 	}
 
 }
