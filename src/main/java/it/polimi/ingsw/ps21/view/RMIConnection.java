@@ -3,23 +3,25 @@ package it.polimi.ingsw.ps21.view;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.stream.Stream;
 
 import it.polimi.ingsw.ps21.client.ClientConnection;
 import it.polimi.ingsw.ps21.client.RMIClient;
+import it.polimi.ingsw.ps21.client.RMIClientInterface;
 import it.polimi.ingsw.ps21.controller.BoardData;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.PlayerData;
 
-public class RMIConnection implements Connection, Runnable {
+public class RMIConnection extends UnicastRemoteObject implements RMIConnectionInterface, Connection, Runnable {
 
 	private String name;
 	private Queue<String> input;
 	private Queue<String> output;
-	private ClientConnection client;
-	public RMIConnection(String inputName) {
+	private RMIClientInterface client;
+	public RMIConnection(String inputName) throws RemoteException{
 		name = inputName;
 		input = new ArrayDeque<>();
 		output = new ArrayDeque<>();
@@ -27,18 +29,17 @@ public class RMIConnection implements Connection, Runnable {
 
 	@Override
 	public void run() {
-		
-		
+
 	}
 
 	@Override
 	public void sendMessage(String mess) {
-		try {
-			client.send(mess);
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			try {
+				client.sendMessage(mess);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 	
 
@@ -48,13 +49,13 @@ public class RMIConnection implements Connection, Runnable {
 	}
 
 	@Override
-	public void setClient(ClientConnection client) {
+	public void setClient(RMIClientInterface client) {
 		this.client = client;
+		sendMessage("Connected");
 	}
 
 	@Override
 	public void remoteUpdate(MatchData match, BoardData board, PlayerData[] players) {
-		// TODO Auto-generated method stub
 		
 	}
 

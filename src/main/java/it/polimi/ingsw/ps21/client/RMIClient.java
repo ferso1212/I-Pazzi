@@ -6,34 +6,37 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import it.polimi.ingsw.ps21.controller.CostChoice;
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.Connection;
 import it.polimi.ingsw.ps21.view.RMIConnection;
 import it.polimi.ingsw.ps21.view.RMIConnectionCreator;
+import it.polimi.ingsw.ps21.view.RMIConnectionInterface;
 import it.polimi.ingsw.ps21.view.RMIMessageBuffer;
 
-public class RMIClient implements ClientConnection,Remote{
+public class RMIClient extends UnicastRemoteObject implements RMIClientInterface{
 	
 	private Registry serverRegistry;
-	private Connection connection = null;
+	private RMIConnectionInterface connection = null;
 	private RMIMessageBuffer input;
 	private RMIMessageBuffer output;
 	private UserInterface ui;
 	
 	public RMIClient(String username, UserInterface ui, int chosenRules) throws RemoteException, NotBoundException{
+		this.ui = ui;
 		serverRegistry = LocateRegistry.getRegistry("localhost", 5000);
 		RMIConnectionCreator connectionService = (RMIConnectionCreator) serverRegistry.lookup("RMIConnectionCreator");
 		connection = connectionService.getNewConnection(username, chosenRules);
-		this.ui = ui;
-		ui.showInfo("Estabilished Connection!");
+		connection.setClient((RMIClientInterface) this); 
 		
 	}
 	
 	public void start(){ 
-		while(true){
-			ui.showInfo("Connection OK");
-			}
+		
+	}
 		/*try {
 			while(true){
 			this.wait(30);
@@ -43,20 +46,25 @@ public class RMIClient implements ClientConnection,Remote{
 			// TODO Auto-generated catch block
 			ui.showInfo("Awaked from interrupt");
 		}*/
-	}
 	
 	public boolean matchEnded(){
 		return true;
 	}
 
 	@Override
-	public void send(String string) throws RemoteException {
-		ui.showInfo(string);
+	public void sendMessage(String string) throws RemoteException {
+		System.out.println(string);
+		//ui.showInfo(string);
 	}
 
 	@Override
+	public void setCost(ImmProperties[] costschoices) throws RemoteException {
+		return;
+	}
+
+	/*@Override
 	public String getString() throws RemoteException {
 		return "Not implemented yet";
-	}
+	}*/
 
 }

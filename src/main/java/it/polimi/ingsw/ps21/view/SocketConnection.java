@@ -75,11 +75,6 @@ public class SocketConnection implements Connection{
 	}
 
 
-	@Override
-	public void setClient(ClientConnection client) throws RemoteException {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 	@Override

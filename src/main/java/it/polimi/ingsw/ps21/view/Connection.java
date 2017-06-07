@@ -17,9 +17,6 @@ public abstract interface Connection{
 	
 	public abstract String getName();
 	
-
-	public abstract void setClient(ClientConnection client);
-	
 	public abstract void remoteUpdate(MatchData match, BoardData board, PlayerData players[]);
 
 

@@ -34,13 +34,12 @@ public class RMIConnectionAcceptor implements RMIConnectionCreator, Runnable {
 
 
 	@Override
-	public Connection getNewConnection(String userName, int chosenRules) throws RemoteException {
+	public RMIConnectionInterface getNewConnection(String userName, int chosenRules) throws RemoteException {
 			if (connections.size()<128){
 			RMIConnection newConnection = new RMIConnection(userName);
-			
 			addConnectionToQueue(chosenRules, newConnection);
-			Connection connectionStub = (Connection) UnicastRemoteObject.exportObject(newConnection, 5000);
-			return connectionStub;}
+			new Thread(newConnection).start();
+			return (RMIConnectionInterface) newConnection;}
 			else return null;
 	}
 	

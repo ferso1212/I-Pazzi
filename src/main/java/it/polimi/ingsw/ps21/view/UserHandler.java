@@ -26,14 +26,8 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 		super();
 		this.playerId = playerId;
 		this.connection=connection;
-		try {
-			this.name=this.connection.getName();
-			this.connection.sendMessage(this.name + "'s UserHandler created.");
-
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		this.name=this.connection.getName();
+		this.connection.sendMessage(this.name + "'s UserHandler created.");
 	}
 
 	@Override

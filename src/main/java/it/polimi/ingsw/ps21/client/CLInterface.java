@@ -22,7 +22,6 @@ public class CLInterface implements UserInterface {
 	public Scanner userInput;
 	
 	public CLInterface() {
-		System.out.println("Match started ...");
 		userInput = new Scanner(System.in);
 	}
 	
@@ -45,7 +44,8 @@ public class CLInterface implements UserInterface {
 	}
 
 	public boolean isEnded() {
-		return match.getEra() == 3;
+		return false;
+		//return match.getEra() == 3;
 	}
 
 	@Override

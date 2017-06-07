@@ -63,7 +63,6 @@ public class ClientMain {
 
     	
 		while(newMatch == true){
-		
 			if (chosenConnection==1) {
 				SocketClient client = new SocketClient(); 
 					MatchData match = client.start(chosenRules, name);
@@ -78,9 +77,9 @@ public class ClientMain {
 			}
 			else{
 				try {
-					LocateRegistry.createRegistry(3000);
 					RMIClient rmiclient = new RMIClient(name, CLImatch, chosenRules);
 					rmiclient.start();
+					while(!CLImatch.isEnded());
 		
 				} catch (RemoteException | NotBoundException e) {
 					e.printStackTrace();
