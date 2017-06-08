@@ -30,6 +30,7 @@ public abstract class Match extends Observable {
 	protected ArrayList<Observer> observers;
 	protected EnumMap<PlayerColor, Player> players;
 	protected Queue<Player> order;
+	protected ArrayList<ExtraAction> extraActions;
 	protected Board board;
 	protected int orangeDice;
 	protected int blackDice;
@@ -42,6 +43,7 @@ public abstract class Match extends Observable {
 		// this.board = new Board(MatchBuilder.);
 		order = new ArrayDeque<>();
 		players = new EnumMap<>(PlayerColor.class);
+		
 	}
 	
 	
@@ -100,5 +102,12 @@ public abstract class Match extends Observable {
 	public int getNumberPlayers(){
 		return this.players.size();
 	}
+
+
+	public ArrayList<ExtraAction> getExtraActions() {
+		return extraActions;
+	}
+	
+	
 }
 	

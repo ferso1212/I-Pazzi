@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
 import it.polimi.ingsw.ps21.model.match.UnsettedMatch;
@@ -15,7 +16,7 @@ import it.polimi.ingsw.ps21.model.player.PlayerProperties;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.UserHandler;
 
-public class MatchController implements Observer{
+public class MatchController extends Observable implements Observer{
 	private EnumMap<PlayerColor, UserHandler> handlersMap;
 	private Player currentPlayer;
 	private Match match;
@@ -27,7 +28,7 @@ public class MatchController implements Observer{
 		for(UserHandler handler: handlers)
 		{
 			this.handlersMap.put(handler.getPlayerId(), handler);
-			match.addObserver(handler);
+			this.addObserver(handler);
 			handler.addObserver(this);
 			
 			
@@ -37,11 +38,6 @@ public class MatchController implements Observer{
 		
 	}
 
-	@Override
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	public void gameLoop()
 	{
@@ -52,6 +48,33 @@ public class MatchController implements Observer{
 	{
 		match.getBoard().getDeck().shuffle();
 		
+	}
+	
+	private void nextAction()
+	{
+		if(match.getExtraActions().isEmpty())
+		{
+			this.match=match.setNextPlayer();
+		}
+		else
+		{
+			notifyObservers(match.getExtraActions()); //requests to choose an extra action to perform
+		}
+	}
+	
+	@Override
+	public void update(Observable source, Object arg)
+	{
+		if(source!=match && !handlersMap.containsValue(source))
+		{
+			throw new IllegalArgumentException();
+		}
+		if(source==handlersMap.get(currentPlayer.getId()) && (arg instanceof ExtraAction))
+		{
+			ExtraAction action=(ExtraAction)arg;
+			Message mess= action.isLegal(currentPlayer, match);
+			notifyObservers(mess);
+		}
 	}
 	
 }
