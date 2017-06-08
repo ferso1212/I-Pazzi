@@ -21,7 +21,7 @@ public class EffectSet {
 		
 	}
 		
-		public ArrayList<ExtraAction> activate(Player player) throws UnchosenException {
+		public ArrayList<ExtraAction> activate(Player player) {
 			ArrayList<ExtraAction> returnExtraActions = new ArrayList<ExtraAction>();
 			for (Effect e: simultaneousEffects){
 				returnExtraActions.add(e.activate(player));

@@ -633,5 +633,21 @@ public class MatchFactory {
 		return marketBonuses;}
 		else return marketBonuses;
 	}
+	public int[] makeExcommunicationRequirements() {
+		int [] result = new int[3];
+		Document configuration;
+		try{
+			File boardFile = new File(boardPath);
+			configuration = builder.parse(boardFile);
+			
+		} catch(SAXException | IOException e){
+			e.printStackTrace();
+			result[0] = 3;
+			result[1] = 4;
+			result[2] = 5;
+			
+		}
+		return result;
+	}
 
 }

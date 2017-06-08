@@ -46,7 +46,7 @@ public class Board {
 		this.possibleValuesPrivileges = file.makePrivileges();
 		this.trackBonuses = file.makeTrackBonuses();
 		this.excommunicationRequirements = new int[3];
-		this.excommunicationRequirements = file.makeExcommunicationRequirements;
+		this.excommunicationRequirements = file.makeExcommunicationRequirements();
 
 		if (!isAdvanced) {
 			if(playerNumber < 4)

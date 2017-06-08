@@ -26,9 +26,9 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	private UserInterface ui;
 	public boolean connected = false;
 	
-	public RMIClient(String username, UserInterface ui, int chosenRules, int port) throws RemoteException, NotBoundException{
+	public RMIClient(String username, UserInterface ui, int chosenRules) throws RemoteException, NotBoundException{
 		this.ui = ui;
-		serverRegistry = LocateRegistry.getRegistry("localhost", port);
+		serverRegistry = LocateRegistry.getRegistry("localhost", 5000);
 		RMIConnectionCreator connectionService = (RMIConnectionCreator) serverRegistry.lookup("RMIConnectionCreator");
 	   	connection = connectionService.getNewConnection(username, chosenRules);
 		connection.setClient((RMIClientInterface) this); 
@@ -60,8 +60,8 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 			ui.showInfo("Awaked from interrupt");
 		}*/
 	
-	public boolean matchEnded(){
-		return true;
+	public boolean isConnected(){
+		return connected;
 	}
 
 	@Override
