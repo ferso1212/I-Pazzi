@@ -53,19 +53,7 @@ public class CLInterface implements UserInterface {
 		System.out.println(info);
 	}
 
-	@Override
-	public void reqChoice(VaticanChoice choice) {
-		System.out.println("You to take a choice, bastard:\n ");
-		System.out.println("Do you want to receive an excommunication(1) or not(2)? If you reject excommunication you will loose all your faith points");
-		int userChoice = userInput.nextInt();
-		while(userChoice != 1 && userChoice != 2){
-			System.out.println("Invalid choice, please insert another choice");
-			userChoice = userInput.nextInt();
-		}
-		if (userChoice == 1) choice.setChosen(false);
-		else choice.setChosen(true);
-		
-	}
+
 
 	@Override
 	public void reqChoice(CostChoice choice) {
@@ -112,6 +100,20 @@ public class CLInterface implements UserInterface {
 	@Override
 	public String nextInput() {
 		return userInput.nextLine();
+	}
+
+	@Override
+	public boolean reqVaticanChoice() {
+		System.out.println("You have to take a choice, bastard:\n ");
+		System.out.println("Do you want to receive an excommunication(1) or not(2)? If you reject excommunication you will loose all your faith points");
+		int userChoice = userInput.nextInt();
+		while(userChoice != 1 && userChoice != 2){
+			System.out.println("Invalid choice, please insert another choice");
+			userChoice = userInput.nextInt();
+		}
+		if (userChoice == 1) return false;
+		else return true ;
+		
 	}
 
 }

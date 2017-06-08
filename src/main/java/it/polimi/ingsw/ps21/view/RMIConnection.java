@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Queue;
 import java.util.stream.Stream;
 
@@ -14,6 +15,7 @@ import it.polimi.ingsw.ps21.client.RMIClientInterface;
 import it.polimi.ingsw.ps21.controller.BoardData;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.PlayerData;
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class RMIConnection extends UnicastRemoteObject implements RMIConnectionInterface, Connection{
 
@@ -63,6 +65,24 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 	@Override
 	public void disconnect() throws RemoteException {
 		client=null;
+	}
+
+
+	@Override
+	public int reqChoice(ArrayList<ImmProperties> costs) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public boolean setVaticanChoice() {
+		try {
+			return client.vaticanChoice();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

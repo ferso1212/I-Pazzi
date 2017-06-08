@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import it.polimi.ingsw.ps21.controller.CostChoice;
+import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.Connection;
 import it.polimi.ingsw.ps21.view.RMIConnection;
@@ -72,14 +73,15 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	
 
 	@Override
-	public ImmProperties setCost(ImmProperties[] costschoices) throws RemoteException {
-		ArrayList<ImmProperties> costs = new ArrayList<>();
-		for (ImmProperties cost: costschoices){
-			costs.add(cost);
-		}
-		CostChoice choice = new CostChoice(costs);
+	public int setCost(ArrayList<ImmProperties> costschoices) throws RemoteException {
+		CostChoice choice = new CostChoice(costschoices);
 		ui.reqChoice(choice);
-		return choice.getChosen();
+		return costschoices.indexOf(choice.getChosen());
+	}
+
+	@Override
+	public boolean vaticanChoice() throws RemoteException {
+		return ui.reqVaticanChoice();
 	}
 
 	/*@Override

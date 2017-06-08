@@ -23,7 +23,7 @@ public abstract interface UserInterface {
 	
 	public abstract void showInfo(String name);
 	
-	public abstract void reqChoice(VaticanChoice choice);
+	public boolean reqVaticanChoice();
 	
 	public abstract void reqChoice(CostChoice choice);
 	

@@ -639,13 +639,14 @@ public class MatchFactory {
 		try{
 			File boardFile = new File(boardPath);
 			configuration = builder.parse(boardFile);
+			Element board = configuration.getDocumentElement();
+			
 			
 		} catch(SAXException | IOException e){
 			e.printStackTrace();
 			result[0] = 3;
 			result[1] = 4;
 			result[2] = 5;
-			
 		}
 		return result;
 	}
