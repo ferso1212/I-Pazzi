@@ -29,6 +29,10 @@ public class SingleWorkSpace extends WorkSpace{
 		} else throw new NotOccupableException();
 	}
 
+	public FamilyMember getOccupant() {
+		return occupant;
+	}
+
 	
 
 }

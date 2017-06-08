@@ -44,4 +44,10 @@ public class MultipleWorkSpace extends WorkSpace{
 		} return false;
 	}
 
+	public Queue<FamilyMember> getOccupants() {
+		return occupants;
+	}
+	
+	
+
 }
