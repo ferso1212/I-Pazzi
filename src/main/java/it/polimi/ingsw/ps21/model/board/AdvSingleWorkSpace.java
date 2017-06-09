@@ -41,6 +41,7 @@ public class AdvSingleWorkSpace extends SingleWorkSpace{
 			this.otherOccupant = member;
 		} else
 			throw new NotOccupableException();
+		member.setUsed(true);
 	}
 
 }

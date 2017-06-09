@@ -26,6 +26,7 @@ public class SingleWorkSpace extends WorkSpace{
 	public void occupy(Player player, FamilyMember member) throws NotOccupableException{
 		if (this.occupant==null){
 			this.occupant = member;
+			member.setUsed(true);
 		} else throw new NotOccupableException();
 	}
 

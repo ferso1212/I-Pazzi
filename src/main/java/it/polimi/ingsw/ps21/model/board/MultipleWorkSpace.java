@@ -47,6 +47,10 @@ public class MultipleWorkSpace extends WorkSpace{
 	public Queue<FamilyMember> getOccupants() {
 		return occupants;
 	}
+
+	public int getDiceMalus() {
+		return diceMalus;
+	}
 	
 	
 

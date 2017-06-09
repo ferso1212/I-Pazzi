@@ -41,6 +41,7 @@ public class AdvSingleTowerSpace extends SingleTowerSpace {
 			this.otherOccupant = member;
 		} else
 			throw new NotOccupableException();
+		member.setUsed(true);
 	}
 
 

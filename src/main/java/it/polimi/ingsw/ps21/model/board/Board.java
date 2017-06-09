@@ -72,6 +72,7 @@ public class Board {
 		case 2: {
 			for (int i = 0; i < 2; i++) {
 				marketPlaces[i].instantBonus = file.makeMarketBonuses()[i];
+				marketPlaces[i].numberOfPrivileges = file.makeMarketPrivileges()[i];
 			}
 		}
 		case 3: {

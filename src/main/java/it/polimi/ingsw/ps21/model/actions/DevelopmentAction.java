@@ -92,18 +92,10 @@ public class DevelopmentAction extends Action {
 
 		player.getDeck().addCard(space.getCard()); // aggiunta della carta al deck del player
 
-		try {
-			extraActionFromInstantEffect = selectedCard.getInstantEffect().activate(player);
-		} catch (UnchosenException e) {
-			// TODO: handle exception
-		}
+		extraActionFromInstantEffect = selectedCard.getInstantEffect().activate(player);
 		
 
-		try {
-			if (selectedCard.getCardType().equals(DevelopmentCardType.CHARACTER)){
-				extraActionFromPermanentEffect = effectChoice.getChosen().activate(player);
-			}
-		} catch (UnchosenException e) {System.out.println("Unchosen Requirement of Instant Effect");}
+		extraActionFromPermanentEffect = effectChoice.getChosen().activate(player);
 		
 		extraActionFromInstantEffect.addAll(extraActionFromPermanentEffect);
 		

@@ -7,17 +7,25 @@ import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
-public class CouncilPalace extends MultipleSpace {
+public class CouncilPalace extends Space {
 	
+	private int diceMalus;
 	private int councilPrivileges;
-
+	private Queue<FamilyMember> occupants;
+	
 	public CouncilPalace(int diceRequirement, ImmProperties instantBonus, int diceMalus, int councilPrivileges) {
-		super(diceRequirement, instantBonus, diceMalus, null);
+		super(diceRequirement, instantBonus);
 		this.councilPrivileges = councilPrivileges;
+		this.occupants = null;
+		this.diceMalus=diceMalus;
 	}
 
 	public int getCouncilPrivileges() {
 		return councilPrivileges;
+	}
+
+	public Queue<FamilyMember> getOccupants() {
+		return occupants;
 	}
 
 	@Override
@@ -30,7 +38,7 @@ public class CouncilPalace extends MultipleSpace {
 	@Override
 	public void occupy(Player player, FamilyMember member) throws NotOccupableException {
 		this.occupants.add(member);
-		
+		member.setUsed(true);
 	}
 	
 	
