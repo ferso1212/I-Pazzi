@@ -1,22 +1,35 @@
 package it.polimi.ingsw.ps21.controller;
 
-import it.polimi.ingsw.ps21.view.Visitor;
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
-public class Message implements Visitable {
+public class Message {
 	
 	protected String message;
-	protected Visitor visitor;
+	protected PlayerColor dest;
+	protected boolean visited = false;
+
+	
+	public Message(PlayerColor dest) {
+		super();
+		this.dest = dest;
+	}
 
 	public String getMessage() {
 		return message;
 	}
 
-	@Override
-	public void accept(Visitor visitor) {
-		this.visitor=visitor;
-		
+	public PlayerColor getDest() {
+		return dest;
+	}
+
+	public void setVisited() {
+		this.visited = true;
+	}
+
+	public boolean isVisited() {
+		return visited;
 	}
 	
-	
+		
 
 }

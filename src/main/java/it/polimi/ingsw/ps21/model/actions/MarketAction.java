@@ -35,7 +35,7 @@ public class MarketAction extends Action{
 		}
 		
 		if ((space.isOccupable(player, famMember)) && (!famMember.isUsed())){
-			if (space.getNumberOfPrivileges() > 0){
+			if ((space.getNumberOfPrivileges() > 0) && (match.getBoard().getCouncilPalace().checkPlayer(player))){
 				this.councilChoice = new CouncilChoice(space.getNumberOfPrivileges());
 				return this.councilChoice;
 			}
