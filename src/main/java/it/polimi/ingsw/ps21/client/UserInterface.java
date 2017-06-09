@@ -24,7 +24,7 @@ public abstract interface UserInterface {
 	
 	public abstract void updateView(MatchData match, BoardData board, PlayerData players[]);
 	
-	// public abstract ActionData reqAction();
+	public String reqAction();
 	
 	public abstract void showInfo(String name);
 	

@@ -56,10 +56,10 @@ public class FinalRoundMatch extends Match {
 		return extraActionPool;
 	}
 
-	@Override
+	/* @Override
 	public Match getCopy() throws CloneNotSupportedException {
 		return this;
-	}
+	} */
 	@Override
 	public Match setNextPlayer() {
 		if (order.isEmpty()) return new VaticanSupport(this);

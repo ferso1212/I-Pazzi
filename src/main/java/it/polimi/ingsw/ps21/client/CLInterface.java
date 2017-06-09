@@ -145,7 +145,7 @@ public class CLInterface implements UserInterface {
 		System.out.println("Do you want to receive an excommunication(1) or not(2)? If you reject excommunication you will loose all your faith points");
 		int userChoice = userInput.nextInt();
 		while(userChoice != 1 && userChoice != 2){
-			System.out.println("Invalid choice, please insert another choice");
+			System.out.println("God is watching you, please insert a valid choice!");
 			userChoice = userInput.nextInt();
 		}
 		if (userChoice == 1) return false;
@@ -230,6 +230,20 @@ public class CLInterface implements UserInterface {
 			choosen = userInput.nextInt();
 		}
 		return choosen -1;
+	}
+
+	@Override
+	public String reqAction() {
+		// TODO define ActionData and how to parse it
+		System.out.println("It's your turn: which action do you want to do?");
+		System.out.println("1)-Place a family member in a Towe Space;\n2)-Place a family member in Council palace\n"
+				+ "3)-Place a family member in a Work Space\n" + "4)-Place a family memeber in a Market Space");
+		if (/*advanced match*/ false) System.out.println("5)-Activate a Leader Card");
+		int actionChoice = userInput.nextInt();
+		while ( actionChoice!=1 || actionChoice!=2 || actionChoice != 3 || actionChoice != 4 || (actionChoice!=5 /* && advancedMatch*/)){
+			System.out.println("Invalid action, please insert a valid choice: ");
+		}
+		return "To be implemented";
 	}
 
 }
