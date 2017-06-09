@@ -16,6 +16,8 @@ import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
+import it.polimi.ingsw.ps21.model.deck.LeaderCard;
+import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
@@ -122,40 +124,6 @@ public class CLInterface implements UserInterface {
 		System.out.println("Message from server: " + info);
 	}
 
-
-
-	@Override
-	public void reqChoice(CostChoice choice) {
-		if (choice.getChoices().size()==1)
-			{System.out.println("You have to pay this cost: " + choice.getChoices().get(0).toString());
-			choice.setChosen(0);
-			}
-		else {
-			System.out.println("You have to choose one of these costs: ");
-			ArrayList<ImmProperties> costs =  choice.getChoices();
-			int i=0;
-			for (ImmProperties c: costs){
-				System.out.println((i+1) + " - " + c.toString() + ";");
-			}
-			System.out.println("Which one do you want to pay?");
-			int choosen = userInput.nextInt();
-			while(choosen < 1 || choosen > costs.size()){
-				System.out.println("Invalid choice, please insert another choice:");
-			}
-			choice.setChosen(choosen);
-		}
-	}
-
-	@Override
-	public void reqChoice(CouncilChoice choice) {		
-		
-	}
-
-	@Override
-	public void reqChoice(EffectChoice choice) {
-
-	}
-
 	@Override
 	public void showMessage(AcceptedAction mess) {
 		System.out.println(mess.getMessage());
@@ -208,6 +176,60 @@ public class CLInterface implements UserInterface {
 	public void matchEnded() {
 		this.matchEnded = true;
 		
+	}
+
+	@Override
+	public int reqCostChoice(ArrayList<ImmProperties> costChoices) {
+		if (costChoices.size()==1)
+		{System.out.println("You have to pay this cost: " + costChoices.get(0).toString());
+		return 0;
+		}
+	else {
+		System.out.println("You have to choose one of these costs: ");
+		for (int i =0; i< costChoices.size(); i++){
+			System.out.println((i+1) + " - " + costChoices.get(i).toString() + ";");
+		}
+		System.out.println("Which one do you want to pay?");
+		int choosen = userInput.nextInt();
+		while(choosen < 1 || choosen > costChoices.size()){
+			System.out.println("Invalid choice, please insert another choice:");
+		}
+		return choosen-1;
+	}
+	}
+
+	@Override
+	public int reqEffectChoice(EffectSet[] effectChoice) {
+		if (effectChoice.length == 1){
+			System.out.println("You're activating this effect: " + effectChoice[0]);
+			return 0;
+		}
+		else {
+			System.out.println("Wich one of these effects do you want to activate?");
+			for (int i = 0; i< effectChoice.length ; i++){
+				System.out.println((i+1) + "): " + effectChoice[i]);
+			}
+			int choosen = userInput.nextInt();
+			while (choosen <1 || choosen > effectChoice.length) {
+				System.out.println("Idiot, this choice is invalid! Please insert another choice: ");
+				choosen = userInput.nextInt();
+			}
+			return choosen -1;
+		}
+	}
+
+	@Override
+	public int chooseLeaderCard(LeaderCard[] possibleChoices) {
+		System.out.println("Please pick one of these Leader Cards: ");
+		for (int i=0; i< possibleChoices.length; i++){
+			System.out.println((i+1) + "): " + possibleChoices[i]);
+		}
+		int choosen = userInput.nextInt();
+		while (choosen <1 || choosen > possibleChoices.length){
+			System.out.println("Ahahah you're a very funny jerk, please insert a valid choice...");
+			choosen = userInput.nextInt();
+		}
+		return choosen -1;
 	}
 
 }

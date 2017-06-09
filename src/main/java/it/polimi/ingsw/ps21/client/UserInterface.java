@@ -34,7 +34,7 @@ public abstract interface UserInterface {
 		
 	public  int reqEffectChoice(EffectSet[] effectChoice);
 	
-	public abstract void chooseLeaderCard(LeaderCard[] possibleChoices);
+	public abstract int chooseLeaderCard(LeaderCard[] possibleChoices);
 	
 	// public abstract void reqChoice(WorkChoice choice);
 	
