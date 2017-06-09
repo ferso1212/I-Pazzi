@@ -13,6 +13,8 @@ import it.polimi.ingsw.ps21.controller.Message;
 import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.controller.VaticanChoice;
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public abstract interface UserInterface {
 	
@@ -38,8 +40,14 @@ public abstract interface UserInterface {
 	public abstract void showMessage(AcceptedAction mess);
 	
 	public abstract void showMessage(RefusedAction mess);
+	
+	public abstract void setID(PlayerColor id);
 
 	public abstract String nextInput();
+
+	public abstract ImmProperties[] reqPrivileges(int number);
+	
+	public abstract void matchEnded();
 
 
 

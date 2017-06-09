@@ -15,6 +15,7 @@ import it.polimi.ingsw.ps21.client.RMIClientInterface;
 import it.polimi.ingsw.ps21.controller.BoardData;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.PlayerData;
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class RMIConnection extends UnicastRemoteObject implements RMIConnectionInterface, Connection{
@@ -82,6 +83,27 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 		} catch (RemoteException e) {
 			e.printStackTrace();
 			return false;
+		}
+	}
+
+
+	@Override
+	public ImmProperties[] reqPrivileges(int number) {
+		try {
+			return client.reqPrivileges(number);
+		} catch (RemoteException e) {
+			// In caso di errore ritorna un valore standard;
+			return new ImmProperties[0];
+		}
+	}
+
+
+	@Override
+	public void setID(PlayerColor player) {
+		try {
+			client.setId(player);
+		} catch (RemoteException e) {
+			System.out.println("Problem setting " + player + "ID");
 		}
 	}
 

@@ -50,8 +50,7 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 
 	@Override
 	public void visit(CouncilChoice choice) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override

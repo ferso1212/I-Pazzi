@@ -10,19 +10,24 @@ import it.polimi.ingsw.ps21.client.RMIClient;
 import it.polimi.ingsw.ps21.controller.BoardData;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.PlayerData;
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public abstract interface Connection{
 
 	
-	public abstract void sendMessage(String mess);
+	public void sendMessage(String mess);
 	
-	public abstract String getName();
+	public String getName();
 	
-	public abstract void remoteUpdate(MatchData match, BoardData board, PlayerData players[]);
+	public void remoteUpdate(MatchData match, BoardData board, PlayerData players[]);
 	
-	public abstract int reqChoice(ArrayList<ImmProperties> costs);
+	public int reqChoice(ArrayList<ImmProperties> costs);
 
-	public abstract boolean setVaticanChoice();
+	public boolean setVaticanChoice();
+	
+	public ImmProperties[] reqPrivileges(int number);
+	
+	public void setID(PlayerColor player);
 
 }

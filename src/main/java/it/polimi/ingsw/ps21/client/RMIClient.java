@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 import it.polimi.ingsw.ps21.controller.CostChoice;
 import it.polimi.ingsw.ps21.controller.VaticanChoice;
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.Connection;
 import it.polimi.ingsw.ps21.view.RMIConnection;
@@ -67,8 +68,7 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 
 	@Override
 	public void receiveMessage(String string) throws RemoteException {
-		System.out.println(string);
-		//ui.showInfo(string);
+		ui.showInfo(string);
 	}	
 	
 
@@ -82,6 +82,17 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	@Override
 	public boolean vaticanChoice() throws RemoteException {
 		return ui.reqVaticanChoice();
+	}
+
+	@Override
+	public ImmProperties[] reqPrivileges(int number) {
+		return ui.reqPrivileges(number);
+	
+	}
+
+	@Override
+	public void setId(PlayerColor id) throws RemoteException {
+		ui.setID(id);
 	}
 
 	/*@Override

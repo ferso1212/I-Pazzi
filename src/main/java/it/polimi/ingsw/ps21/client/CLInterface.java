@@ -2,6 +2,7 @@ package it.polimi.ingsw.ps21.client;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.Scanner;
 
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
@@ -14,12 +15,24 @@ import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
+import it.polimi.ingsw.ps21.model.properties.PropertiesId;
+import it.polimi.ingsw.ps21.model.properties.PropertiesSet;
 
 public class CLInterface implements UserInterface {
 	
 	public MatchData match;
 	public Scanner userInput;
+	private PlayerColor playerID = null;
+	private boolean matchEnded = false;
+	private EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>> playerCards = new EnumMap<>(DevelopmentCardType.class);
+	private EnumMap<PropertiesId, Integer> playerProperties = new EnumMap<>(PropertiesId.class);
+	private int tileProdiceReq;
+	private ImmProperties tileProdBonus;
+	private int tileHarvDiceReq;
+	private ImmProperties tileHarvBonus;
 	
 	public CLInterface() {
 		userInput = new Scanner(System.in);
@@ -41,12 +54,68 @@ public class CLInterface implements UserInterface {
 			}
 			System.out.println(";");
 		}
+		System.out.println("----------\tPlayers' Infos\t----------");
+		for (PlayerData p: players){
+			System.out.println();
+			if (p.getId() == this.playerID){
+				this.playerCards = p.getCards();
+				this.playerProperties = p.getProperties();
+				this.tileHarvBonus = p.getTileHarvBonus();
+				this.tileHarvDiceReq = p.getTileHarvDiceReq();
+				this.tileProdBonus = p.getTileProdBonus();
+				this.tileProdiceReq = p.getTileProdDiceReq();
+				showPlayerInfos();
+			}
+			else{
+				showOtherPlayer(p);
+			}
+			System.out.println();
+		}
+	}
+
+	private void showPlayerInfos() {
+		System.out.println("---------\t YOUR INFO \t-------");
+		System.out.println("COLOR: " + this.playerID);
+		System.out.println("PROPERTIES:");
+		for (PropertiesId id: PropertiesId.values()){
+			if (this.playerProperties.containsKey(id))
+				System.out.print(id + " = " + playerProperties.get(id) + ";\t");
+		}
+		System.out.println("PICKED CARDS:"); 
+		for (DevelopmentCardType t: DevelopmentCardType.values()){
+			System.out.println("-" + t + ":");
+			ArrayList<DevelopmentCard> typeCards = playerCards.get(t);
+			for (DevelopmentCard c: typeCards){
+				System.out.print("c" + ";\t");
+			}
+		}
+		System.out.println("----\t TILE BONUSES \t-----");
+		System.out.println("HARVEST: Dice Requirement = " + this.tileHarvDiceReq + "; " + "Bonus = "+ this.tileHarvBonus + ";");
+		System.out.println("PRODUCTION: Dice Requirement = " + this.tileProdiceReq + "; " + "Bonus = "+ this.tileProdBonus + ";");
+		
+	}
+	
+	public void showOtherPlayer(PlayerData player){
+		System.out.println("COLOR: " + player.getId());
+		System.out.println("COLOR: " + this.playerID);
+		System.out.println("PROPERTIES:");
+		for (PropertiesId id: PropertiesId.values()){
+			if (this.playerProperties.containsKey(id))
+				System.out.print(id + " = " + playerProperties.get(id) + ";\t");
+		}
+		System.out.println("PICKED CARDS:"); 
+		for (DevelopmentCardType t: DevelopmentCardType.values()){
+			System.out.println("-" + t + ":");
+			ArrayList<DevelopmentCard> typeCards = playerCards.get(t);
+			for (DevelopmentCard c: typeCards){
+				System.out.print("c" + ";\t");
+			}
+		}
 	}
 
 	public boolean isEnded() {
-		return false;
-		//return match.getEra() == 3;
-	}
+		return matchEnded;
+		}
 
 	@Override
 	public void showInfo(String info) {
@@ -113,6 +182,31 @@ public class CLInterface implements UserInterface {
 		}
 		if (userChoice == 1) return false;
 		else return true ;
+		
+	}
+
+	@Override
+	public ImmProperties[] reqPrivileges(int number) { // TODO need possible choices of privileges
+		int avaiablePrivileges = number;
+		ArrayList<ImmProperties> choices = new ArrayList<>();
+		System.out.println("You have to choose " + number + " council privileges to take, you can choose between: ");
+		
+		while (avaiablePrivileges != 0){
+		
+			
+		}
+		return choices.toArray(new ImmProperties[0]);
+	}
+
+	@Override
+	public void setID(PlayerColor id) {
+		if (this.playerID == null)  this.playerID = id;
+		
+	}
+
+	@Override
+	public void matchEnded() {
+		this.matchEnded = true;
 		
 	}
 
