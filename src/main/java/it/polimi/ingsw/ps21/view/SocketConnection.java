@@ -31,10 +31,12 @@ public class SocketConnection implements Connection{
 	private ObjectInputStream objIn;
 	private boolean connected;
 	private String name;
+	private int messageCounter;
 
 	public SocketConnection(String name, Socket socket) {
 		
 		this.socket = socket;
+		this.messageCounter=0;
 		try {
 			out=new PrintWriter(socket.getOutputStream(), true);
 			in=new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
@@ -90,7 +92,7 @@ public class SocketConnection implements Connection{
 
 	@Override
 	public int reqChoice(ArrayList<ImmProperties> costs) {
-		out.println("costChoice");
+		out.println(messageCounter + "_costChoice");
 		try {
 			objOut.writeObject(costs);
 			return Integer.parseInt(in.readLine());
@@ -110,8 +112,8 @@ public class SocketConnection implements Connection{
 
 	@Override
 	public ImmProperties[] reqPrivileges(int number) {
-		// TODO Auto-generated method stub
-		return null;
+		out.println("privilegesChoice");
+		out.println(number);
 	}
 
 
