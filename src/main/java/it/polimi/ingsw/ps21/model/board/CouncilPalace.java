@@ -41,6 +41,12 @@ public class CouncilPalace extends Space {
 		member.setUsed(true);
 	}
 	
-	
+	public boolean checkPlayer(Player player){
+		for (FamilyMember f : this.occupants){
+			if (f.getOwnerId() == player.getId())
+				return true;
+		}
+		return false;
+	}
 
 }
