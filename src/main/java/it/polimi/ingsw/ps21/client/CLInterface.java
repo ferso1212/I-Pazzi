@@ -119,7 +119,7 @@ public class CLInterface implements UserInterface {
 
 	@Override
 	public void showInfo(String info) {
-		System.out.println(info);
+		System.out.println("Message from server: " + info);
 	}
 
 

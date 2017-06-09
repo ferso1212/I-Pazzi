@@ -35,7 +35,6 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	   	connection = connectionService.getNewConnection(username, chosenRules);
 		connection.setClient((RMIClientInterface) this); 
 		connected = true;
-		
 	}
 	
 	public void start(){ 

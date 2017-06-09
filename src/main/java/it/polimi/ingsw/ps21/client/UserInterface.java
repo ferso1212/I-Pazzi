@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps21.client;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -13,6 +14,8 @@ import it.polimi.ingsw.ps21.controller.Message;
 import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.controller.VaticanChoice;
+import it.polimi.ingsw.ps21.model.deck.LeaderCard;
+import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
@@ -27,13 +30,11 @@ public abstract interface UserInterface {
 	
 	public boolean reqVaticanChoice();
 	
-	public abstract void reqChoice(CostChoice choice);
+	public  int reqCostChoice(ArrayList<ImmProperties> costChoices);
+		
+	public  int reqEffectChoice(EffectSet[] effectChoice);
 	
-	public abstract void reqChoice(CouncilChoice choice);
-	
-	public abstract void reqChoice(EffectChoice choice);
-	
-	// public abstract void reqChoice(LeaderChoice choice);
+	public abstract void chooseLeaderCard(LeaderCard[] possibleChoices);
 	
 	// public abstract void reqChoice(WorkChoice choice);
 	
