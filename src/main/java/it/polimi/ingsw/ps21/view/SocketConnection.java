@@ -9,6 +9,8 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps21.client.ClientConnection;
@@ -17,6 +19,8 @@ import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class SocketConnection implements Connection{
 	private final static Logger LOGGER = Logger.getLogger(SocketConnection.class.getName());
@@ -58,7 +62,7 @@ public class SocketConnection implements Connection{
 		}
 	}
 	
-	public void sendObject(Object o)
+	public void sendAndWaitResponse(Object o)
 	{
 		try {
 			objOut.writeObject(o);
@@ -79,6 +83,40 @@ public class SocketConnection implements Connection{
 
 	@Override
 	public void remoteUpdate(MatchData match, BoardData board, PlayerData[] players) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public int reqChoice(ArrayList<ImmProperties> costs) {
+		out.println("costChoice");
+		try {
+			objOut.writeObject(costs);
+			return Integer.parseInt(in.readLine());
+		} catch (IOException e) {
+			LOGGER.log(Level.WARNING, "Unable to send choice request to the remote client due to IOException", e);
+			return 1;
+		}
+	}
+
+
+	@Override
+	public boolean setVaticanChoice() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public ImmProperties[] reqPrivileges(int number) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public void setID(PlayerColor player) {
 		// TODO Auto-generated method stub
 		
 	}

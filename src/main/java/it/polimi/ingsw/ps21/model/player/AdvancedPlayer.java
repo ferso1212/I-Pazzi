@@ -20,24 +20,35 @@ public class AdvancedPlayer extends Player {
 		ArrayList<LeaderCard> output= new ArrayList<LeaderCard>();
 		for(LeaderCard card: leaderCards)
 		{
-			if(card.isClonable()) output.add(card);
+			if(card.isActivated()) output.add(card);
 		}
 		return output;
 	}
 	
-	//TODO implement leader choice
-	public LeaderCard chooseLeaderCardToCopy(LeaderCard[] activeLeaders)
+	public ArrayList<LeaderCard> getActiveAndClonableLeaderCards()
 	{
-		LeaderCard chosen;
-		chosen=activeLeaders[0]; //stub
-		return chosen;
+		ArrayList<LeaderCard> output= new ArrayList<LeaderCard>();
+		for(LeaderCard card: leaderCards)
+		{
+			if(card.isActivated()&&card.isClonable()) output.add(card);
+		}
+		return output;
 	}
+	
+	
 	
 	public AdvancedModifier getAdvMod()
 	{
 		return this.advModifier;
 	}
 	
+	public void setPersonalBonusTile(PersonalBonusTile chosenTile)
+	{
+		this.personalBonusTile=chosenTile;
+	}
 	
-	
+	public void addLeaderCard(LeaderCard cardToAdd)
+	{
+		leaderCards.add(cardToAdd);
+	}
 }

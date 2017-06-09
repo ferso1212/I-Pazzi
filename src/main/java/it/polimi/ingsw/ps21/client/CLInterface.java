@@ -16,6 +16,8 @@ import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
+import it.polimi.ingsw.ps21.model.deck.LeaderCard;
+import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
@@ -207,6 +209,24 @@ public class CLInterface implements UserInterface {
 	@Override
 	public void matchEnded() {
 		this.matchEnded = true;
+		
+	}
+
+	@Override
+	public int reqCostChoice(ArrayList<ImmProperties> costChoices) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int reqEffectChoice(EffectSet[] effectChoice) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void chooseLeaderCard(LeaderCard[] possibleChoices) {
+		// TODO Auto-generated method stub
 		
 	}
 

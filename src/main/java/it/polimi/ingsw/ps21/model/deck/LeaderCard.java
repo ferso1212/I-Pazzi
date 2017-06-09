@@ -26,6 +26,11 @@ public abstract class LeaderCard extends Card {
 	}
 	
 	public abstract void resetActivation();
+	
+	public boolean isActivated()
+	{
+		return this.activated;
+	}
 	 
 	
 }
