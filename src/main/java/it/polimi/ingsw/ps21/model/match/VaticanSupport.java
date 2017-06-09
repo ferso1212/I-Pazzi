@@ -44,11 +44,11 @@ public class VaticanSupport extends Match {
 		
 	}
 
-	@Override
+	/* @Override
 	public Match getCopy() throws CloneNotSupportedException {
 		// TODO Auto-generated method stub
 		return new VaticanSupport(this);
-	}
+	} */
 
 	@Override
 	public Match setNextPlayer() {

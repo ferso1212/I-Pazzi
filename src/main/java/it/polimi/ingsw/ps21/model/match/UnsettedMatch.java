@@ -18,7 +18,7 @@ import it.polimi.ingsw.ps21.model.player.Player;
 public class UnsettedMatch extends Match {
 	private MatchFactory matchFactory;
 	private boolean advancedMatch = false;
-	public UnsettedMatch() throws ParserConfigurationException{
+	public UnsettedMatch() {
 		super();
 		players = new EnumMap<>(PlayerColor.class);
 		orangeDice = 0;
@@ -27,10 +27,10 @@ public class UnsettedMatch extends Match {
 		this.matchFactory=MatchFactory.instance();
 	}
 
-	@Override
+	/*@Override
 	public Match getCopy() throws CloneNotSupportedException {
 		return this;
-	}
+	} */
 
 	/**
 	 * 

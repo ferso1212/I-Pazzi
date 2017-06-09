@@ -40,7 +40,8 @@ public class MatchFactory {
 	private final String bluePath = (new File("")).getAbsolutePath().concat("/blue-deck.xml").toString();
 	private final String purplePath = (new File("")).getAbsolutePath().concat("/purple-deck.xml").toString();
 	private final String boardPath = (new File("")).getAbsolutePath().concat("/board.xml").toString();
-	private DocumentBuilder builder;
+	private DocumentBuilderFactory factory;
+	private DocumentBuilder builder = null;
 	private Deck configuratedDeck;
 	private ImmProperties[] privileges = null;
 	private ImmProperties[] initialProperties = null;
@@ -62,11 +63,9 @@ public class MatchFactory {
 	 * @throws IOException
 	 */
 
-	private MatchFactory() throws ParserConfigurationException {
+	private MatchFactory() {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setValidating(true);
-		builder = factory.newDocumentBuilder();
-
 	}
 
 	/**
@@ -86,7 +85,7 @@ public class MatchFactory {
 	 * TODO Implement makeEffect TODO Implement makePurpleCard and
 	 * makeYellowCard
 	 */
-	public synchronized static MatchFactory instance() throws ParserConfigurationException {
+	public synchronized static MatchFactory instance() {
 		if (instance == null)
 			instance = new MatchFactory();
 		return instance;
@@ -98,16 +97,16 @@ public class MatchFactory {
 		CardBuilder cardFactory = CardBuilder.instance();
 		try {
 			File greenDeckFile = new File(greenPath);
+			if (builder == null) builder = factory.newDocumentBuilder();
 			configuration = builder.parse(greenDeckFile);
 			configuration.normalize();
-		} catch (SAXException e) {
+		} catch (SAXException | ParserConfigurationException e) {
 			LOGGER.log(Level.WARNING, "SAXException", e);
 			throw new BuildingDeckException("Error Parsing green Subedeck");
 		} catch (IOException i) {
 			LOGGER.log(Level.WARNING, "IOException", i);
 			throw new BuildingDeckException("Error opening green card file");
-		}
-
+		} 
 		Element greenSubDeck = configuration.getDocumentElement();
 		NodeList greenCards = greenSubDeck.getElementsByTagName("TerritoryCard");
 		result = new SubDeck<>();
@@ -135,15 +134,16 @@ public class MatchFactory {
 		SubDeck<CharacterCard> result;
 		try {
 			File blueDeckFile = new File(bluePath);
+			if (builder == null) builder = factory.newDocumentBuilder();
 			configuration = builder.parse(blueDeckFile);
 			configuration.normalize();
-		} catch (SAXException e) {
+		} catch (SAXException | ParserConfigurationException e) {
 			LOGGER.log(Level.WARNING, "SAXException", e);
 			throw new BuildingDeckException("Error Parsing blue Subedeck");
 		} catch (IOException i) {
 			LOGGER.log(Level.WARNING, "IOException", i);
 			throw new BuildingDeckException("Error opening blue card file");
-		}
+		} 
 
 		Element blueSubDeck = configuration.getDocumentElement();
 		NodeList blueCards = blueSubDeck.getElementsByTagName("CharacterCard");
@@ -171,10 +171,11 @@ public class MatchFactory {
 		Document configuration;
 		SubDeck<BuildingCard> result;
 		try {
-			File yelloFile = new File(yellowPath);
-			configuration = builder.parse(yelloFile);
+			File yellowFile = new File(yellowPath);
+			if (builder == null) builder = factory.newDocumentBuilder();
+			configuration = builder.parse(yellowFile);
 			configuration.normalize();
-		} catch (SAXException e) {
+		} catch (SAXException | ParserConfigurationException e) {
 			LOGGER.log(Level.WARNING, "SAXException", e);
 			throw new BuildingDeckException("Error Parsing blue Subedeck");
 		} catch (IOException i) {
@@ -209,9 +210,10 @@ public class MatchFactory {
 		SubDeck<VentureCard> result;
 		try {
 			File purpleFile = new File(purplePath);
+			if (builder == null) builder = factory.newDocumentBuilder();
 			configuration = builder.parse(purpleFile);
 			configuration.normalize();
-		} catch (SAXException e) {
+		} catch (SAXException | ParserConfigurationException e) {
 			LOGGER.log(Level.WARNING, "SAXException", e);
 			throw new BuildingDeckException("Error Parsing blue Subedeck");
 		} catch (IOException i) {
@@ -263,6 +265,7 @@ public class MatchFactory {
 			ArrayList<ImmProperties> bonuses = new ArrayList<>();
 			try {
 				File boardFile = new File(boardPath);
+				if (builder == null) builder = factory.newDocumentBuilder();
 				configuration = builder.parse(boardFile);
 				configuration.normalize();
 				Element board = configuration.getDocumentElement();
@@ -273,7 +276,7 @@ public class MatchFactory {
 						bonuses.add(PropertiesBuilder.makeImmProperites((Element) properties.item(i)));
 					}
 				}
-			} catch (SAXException | IOException i) {
+			} catch (SAXException | IOException | ParserConfigurationException i) {
 				bonuses.add(
 						new ImmProperties(new Property(PropertiesId.STONES, 1), new Property(PropertiesId.WOOD, 1))); // 1
 																														// wood
@@ -298,6 +301,7 @@ public class MatchFactory {
 			ArrayList<ImmProperties> bonuses = new ArrayList<>();
 			try {
 				File boardFile = new File(boardPath);
+				if (builder == null) builder = factory.newDocumentBuilder();
 				configuration = builder.parse(boardFile);
 				configuration.normalize();
 				Element board = configuration.getDocumentElement();
@@ -308,7 +312,7 @@ public class MatchFactory {
 						bonuses.add(PropertiesBuilder.makeImmProperites((Element) properties.item(i)));
 					}
 				}
-			} catch (SAXException | IOException i) {
+			} catch (SAXException | IOException | ParserConfigurationException i) {
 				bonuses.add(new ImmProperties(new Property(PropertiesId.STONES, 2), new Property(PropertiesId.WOOD, 2),
 						new Property(PropertiesId.COINS, 5), new Property(PropertiesId.SERVANTS, 3))); // 1
 																										// wood
@@ -346,6 +350,7 @@ public class MatchFactory {
 			EnumMap<DevelopmentCardType, Requirement[]> result = new EnumMap<>(DevelopmentCardType.class);
 			try {
 				File boardFile = new File(boardPath);
+				if (builder == null) builder = factory.newDocumentBuilder();
 				configuration = builder.parse(boardFile);
 				configuration.normalize();
 				Element board = configuration.getDocumentElement();
@@ -388,7 +393,7 @@ public class MatchFactory {
 				}
 				result.put(DevelopmentCardType.VENTURE, requirements.toArray(new Requirement[0]));
 
-			} catch (SAXException | IOException | XMLParseException i) {
+			} catch (SAXException | IOException | ParserConfigurationException | XMLParseException i) {
 				result = new EnumMap<>(DevelopmentCardType.class);
 				Requirement[] reqs = new Requirement[6];
 				for (Requirement r : reqs) {
@@ -412,6 +417,7 @@ public class MatchFactory {
 			int[] faith = new int[15];
 			try {
 				File boardFile = new File(boardPath);
+				if (builder == null) builder = factory.newDocumentBuilder();
 				configuration = builder.parse(boardFile);
 				configuration.normalize();
 				Element board = configuration.getDocumentElement();
@@ -438,7 +444,7 @@ public class MatchFactory {
 
 			}
 
-			catch (SAXException | IOException i) {
+			catch (SAXException | IOException |  ParserConfigurationException i) {
 				military[0] = 0;
 				military[1] = 0;
 				for (int k = 0; k < 15; k++) {
@@ -459,13 +465,14 @@ public class MatchFactory {
 
 			try {
 				File boardFile = new File(boardPath);
+				if (builder == null) builder = factory.newDocumentBuilder();
 				configuration = builder.parse(boardFile);
 				configuration.normalize();
 				Element board = configuration.getDocumentElement();
 				Element councilBonus = (Element) board.getElementsByTagName("CouncilBonus").item(0);
 				result = PropertiesBuilder
 						.makeImmProperites((Element) councilBonus.getElementsByTagName("Properties").item(0));
-			} catch (IOException | SAXException e) {
+			} catch (IOException | SAXException | ParserConfigurationException e) {
 				result = new ImmProperties(new Property(PropertiesId.COINS, 2));
 			}
 
@@ -479,13 +486,14 @@ public class MatchFactory {
 			EnumMap<DevelopmentCardType, int[]> result = new EnumMap<>(DevelopmentCardType.class);
 			try {
 				File boardFile = new File(boardPath);
+				if (builder == null) builder = factory.newDocumentBuilder();
 				configuration = builder.parse(boardFile);
 				configuration.normalize();
 				Element board = configuration.getDocumentElement();
 				Element privileges = (Element) board.getElementsByTagName("CouncilPrivileges").item(0);
 				int number = Integer.parseInt(privileges.getAttribute("value"));
 				councilPrivileges = number;
-			} catch (IOException | SAXException x) {
+			} catch (IOException | SAXException | ParserConfigurationException x) {
 				councilPrivileges = 1;
 			}
 		}
@@ -498,6 +506,7 @@ public class MatchFactory {
 			EnumMap<DevelopmentCardType, int[]> result = new EnumMap<>(DevelopmentCardType.class);
 			try {
 				File boardFile = new File(boardPath);
+				if (builder == null) builder = factory.newDocumentBuilder();
 				configuration = builder.parse(boardFile);
 				configuration.normalize();
 				Element board = configuration.getDocumentElement();
@@ -542,7 +551,7 @@ public class MatchFactory {
 				bonuses[4] = Integer.parseInt(venture.getAttribute("value5"));
 				bonuses[5] = Integer.parseInt(venture.getAttribute("value6"));
 				result.put(DevelopmentCardType.VENTURE, bonuses);
-			} catch (SAXException | IOException i) {
+			} catch (SAXException | IOException | ParserConfigurationException i) {
 				result = new EnumMap<>(DevelopmentCardType.class);
 				int[] bonuses = new int[6];
 				for (int h = 0; h < bonuses.length; h++) {
@@ -564,6 +573,7 @@ public class MatchFactory {
 			EnumMap<DevelopmentCardType, ImmProperties[]> result = new EnumMap<>(DevelopmentCardType.class);
 			try {
 				File boardFile = new File(boardPath);
+				if (builder == null) builder = factory.newDocumentBuilder();
 				configuration = builder.parse(boardFile);
 				configuration.normalize();
 				Element board = configuration.getDocumentElement();
@@ -606,7 +616,7 @@ public class MatchFactory {
 				}
 				result.put(DevelopmentCardType.TERRITORY, properties.toArray(new ImmProperties[0]));
 
-			} catch (SAXException | IOException i) {
+			} catch (SAXException | IOException | ParserConfigurationException i) {
 				result = new EnumMap<>(DevelopmentCardType.class);
 				ImmProperties[] properties = new ImmProperties[4];
 				for (ImmProperties r : properties) {
@@ -628,6 +638,7 @@ public class MatchFactory {
 			ArrayList<ImmProperties> bonuses = new ArrayList<>();
 			try {
 				File boardFile = new File(boardPath);
+				if (builder == null) builder = factory.newDocumentBuilder();
 				configuration = builder.parse(boardFile);
 				configuration.normalize();
 				Element board = configuration.getDocumentElement();
@@ -638,7 +649,7 @@ public class MatchFactory {
 						bonuses.add(PropertiesBuilder.makeImmProperites((Element) properties.item(i)));
 					}
 				}
-			} catch (SAXException | IOException i) {
+			} catch (SAXException | IOException | ParserConfigurationException i) {
 				bonuses.add(
 						new ImmProperties(new Property(PropertiesId.STONES, 1), new Property(PropertiesId.WOOD, 1))); // 1
 																														// wood
@@ -661,10 +672,11 @@ public class MatchFactory {
 		Document configuration;
 		try {
 			File boardFile = new File(boardPath);
+			if (builder == null) builder = factory.newDocumentBuilder();
 			configuration = builder.parse(boardFile);
 			Element board = configuration.getDocumentElement();
 
-		} catch (SAXException | IOException e) {
+		} catch (SAXException | IOException | ParserConfigurationException e) {
 			e.printStackTrace();
 			result[0] = 3;
 			result[1] = 4;

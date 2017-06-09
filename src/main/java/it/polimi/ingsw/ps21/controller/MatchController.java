@@ -35,7 +35,6 @@ public class MatchController extends Observable implements Observer{
 		}
 		match.addObserver(this);
 		this.match=match.startMatch();
-		
 	}
 
 	

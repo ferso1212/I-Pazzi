@@ -66,15 +66,16 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 
 	@Override
 	public void visit(AcceptedAction message) {
-		// TODO Auto-generated method stub
-
+		connection.sendMessage(mess);
 	}
 
 	@Override
 	public void visit(RefusedAction message) {
-		// TODO Auto-generated method stub
-
+		connection.sendMessage(message.getMessage());
+		message.setVisited();
 	}
+	
+	
 
 	@Override
 	public void run() {
