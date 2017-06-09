@@ -1,5 +1,7 @@
 package it.polimi.ingsw.ps21.model.match;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 
@@ -9,6 +11,11 @@ import it.polimi.ingsw.ps21.model.actions.ExtraAction;
  */
 
 public class AdvancedMatch extends Match {
+
+	public AdvancedMatch() throws ParserConfigurationException, BuildingDeckException {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public ExtraAction[] doAction(Action action) {
@@ -20,9 +27,10 @@ public class AdvancedMatch extends Match {
 		return null;
 	}
 
-	@Override
+ /* TODO	@Override
 	public Match getCopy() throws CloneNotSupportedException {
 		return null;
 	}
+	*/
 
 }

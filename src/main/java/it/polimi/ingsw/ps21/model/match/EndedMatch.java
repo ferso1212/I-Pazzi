@@ -29,7 +29,7 @@ public class EndedMatch extends Match {
 			return null;
 	}
 
-	@Override
+	/* TODO Choose if it has to be implemented @Override
 	public Match getCopy() throws CloneNotSupportedException {
 		Match clone = new EndedMatch(this);
 		
@@ -40,7 +40,7 @@ public class EndedMatch extends Match {
 		}
 		// TODO clone other variables
 		return clone;
-	}
+	} */
 	@Override
 	public Match setNextPlayer(){
 		return this;

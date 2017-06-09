@@ -12,6 +12,8 @@ import java.util.Queue;
 import java.util.Random;
 import java.util.Vector;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.board.Board;
@@ -38,12 +40,11 @@ public abstract class Match extends Observable {
 	protected int period; 
 	protected int round;
 	
-	public  Match(){
+	public  Match() throws ParserConfigurationException, BuildingDeckException{
 		this.observers = new ArrayList<>();
-		// this.board = new Board(MatchBuilder.);
+		this.board = new Board(blackDice, true);
 		order = new ArrayDeque<>();
 		players = new EnumMap<>(PlayerColor.class);
-		
 	}
 	
 	
@@ -89,7 +90,7 @@ public abstract class Match extends Observable {
 	
 	public abstract Match setNextPlayer(); 
 
-	public abstract Match getCopy() throws CloneNotSupportedException;
+	// public abstract Match getCopy() throws CloneNotSupportedException;
 	
 	public int[] getDices() {
 		int returnValues[] = new int[3];

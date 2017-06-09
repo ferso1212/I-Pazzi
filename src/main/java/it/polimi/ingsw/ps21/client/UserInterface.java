@@ -24,7 +24,7 @@ public abstract interface UserInterface {
 	
 	public abstract void updateView(MatchData match, BoardData board, PlayerData players[]);
 	
-	// public abstract ActionData reqAction();
+	public String reqAction();
 	
 	public abstract void showInfo(String name);
 	
@@ -34,7 +34,7 @@ public abstract interface UserInterface {
 		
 	public  int reqEffectChoice(EffectSet[] effectChoice);
 	
-	public abstract void chooseLeaderCard(LeaderCard[] possibleChoices);
+	public abstract int chooseLeaderCard(LeaderCard[] possibleChoices);
 	
 	// public abstract void reqChoice(WorkChoice choice);
 	

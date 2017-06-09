@@ -124,40 +124,6 @@ public class CLInterface implements UserInterface {
 		System.out.println("Message from server: " + info);
 	}
 
-
-
-	@Override
-	public void reqChoice(CostChoice choice) {
-		if (choice.getChoices().size()==1)
-			{System.out.println("You have to pay this cost: " + choice.getChoices().get(0).toString());
-			choice.setChosen(0);
-			}
-		else {
-			System.out.println("You have to choose one of these costs: ");
-			ArrayList<ImmProperties> costs =  choice.getChoices();
-			int i=0;
-			for (ImmProperties c: costs){
-				System.out.println((i+1) + " - " + c.toString() + ";");
-			}
-			System.out.println("Which one do you want to pay?");
-			int choosen = userInput.nextInt();
-			while(choosen < 1 || choosen > costs.size()){
-				System.out.println("Invalid choice, please insert another choice:");
-			}
-			choice.setChosen(choosen);
-		}
-	}
-
-	@Override
-	public void reqChoice(CouncilChoice choice) {		
-		
-	}
-
-	@Override
-	public void reqChoice(EffectChoice choice) {
-
-	}
-
 	@Override
 	public void showMessage(AcceptedAction mess) {
 		System.out.println(mess.getMessage());
@@ -179,7 +145,7 @@ public class CLInterface implements UserInterface {
 		System.out.println("Do you want to receive an excommunication(1) or not(2)? If you reject excommunication you will loose all your faith points");
 		int userChoice = userInput.nextInt();
 		while(userChoice != 1 && userChoice != 2){
-			System.out.println("Invalid choice, please insert another choice");
+			System.out.println("God is watching you, please insert a valid choice!");
 			userChoice = userInput.nextInt();
 		}
 		if (userChoice == 1) return false;
@@ -214,20 +180,75 @@ public class CLInterface implements UserInterface {
 
 	@Override
 	public int reqCostChoice(ArrayList<ImmProperties> costChoices) {
-		// TODO Auto-generated method stub
+
+		if (costChoices.size()==1)
+		{System.out.println("You have to pay this cost: " + costChoices.get(0).toString());
 		return 0;
+		}
+	else {
+		System.out.println("You have to choose one of these costs: ");
+		for (int i =0; i< costChoices.size(); i++){
+			System.out.println((i+1) + " - " + costChoices.get(i).toString() + ";");
+		}
+		System.out.println("Which one do you want to pay?");
+		int choosen = userInput.nextInt();
+		while(choosen < 1 || choosen > costChoices.size()){
+			System.out.println("Invalid choice, please insert another choice:");
+		}
+		return choosen-1;
+	}
+
 	}
 
 	@Override
 	public int reqEffectChoice(EffectSet[] effectChoice) {
-		// TODO Auto-generated method stub
-		return 0;
+
+		
+		if (effectChoice.length == 1){
+			System.out.println("You're activating this effect: " + effectChoice[0]);
+			return 0;
+		}
+		else {
+			System.out.println("Wich one of these effects do you want to activate?");
+			for (int i = 0; i< effectChoice.length ; i++){
+				System.out.println((i+1) + "): " + effectChoice[i]);
+			}
+			int choosen = userInput.nextInt();
+			while (choosen <1 || choosen > effectChoice.length) {
+				System.out.println("Idiot, this choice is invalid! Please insert another choice: ");
+				choosen = userInput.nextInt();
+			}
+			return choosen -1;
+		}
 	}
 
 	@Override
-	public void chooseLeaderCard(LeaderCard[] possibleChoices) {
-		// TODO Auto-generated method stub
-		
+	public int chooseLeaderCard(LeaderCard[] possibleChoices) {
+		System.out.println("Please pick one of these Leader Cards: ");
+		for (int i=0; i< possibleChoices.length; i++){
+			System.out.println((i+1) + "): " + possibleChoices[i]);
+		}
+		int choosen = userInput.nextInt();
+		while (choosen <1 || choosen > possibleChoices.length){
+			System.out.println("Ahahah you're a very funny jerk, please insert a valid choice...");
+			choosen = userInput.nextInt();
+		}
+		return choosen -1;
+	}
+
+	@Override
+	public String reqAction() {
+		// TODO define ActionData and how to parse it
+		System.out.println("It's your turn: which action do you want to do?");
+		System.out.println("1)-Place a family member in a Towe Space;\n2)-Place a family member in Council palace\n"
+				+ "3)-Place a family member in a Work Space\n" + "4)-Place a family memeber in a Market Space");
+		if (/*advanced match*/ false) System.out.println("5)-Activate a Leader Card");
+		int actionChoice = userInput.nextInt();
+		while ( actionChoice!=1 || actionChoice!=2 || actionChoice != 3 || actionChoice != 4 || (actionChoice!=5 /* && advancedMatch*/)){
+			System.out.println("Invalid action, please insert a valid choice: ");
+		}
+		return "To be implemented";
+
 	}
 
 }

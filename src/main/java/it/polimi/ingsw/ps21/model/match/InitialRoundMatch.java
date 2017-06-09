@@ -29,6 +29,7 @@ public class InitialRoundMatch extends Match {
 		notifyObservers();
 	}
 
+	/*
 	@Override
 	public Match getCopy() throws CloneNotSupportedException {
 		InitialRoundMatch clone = new InitialRoundMatch(this);
@@ -36,7 +37,7 @@ public class InitialRoundMatch extends Match {
 		// clone.players = players.clone();
 		// clone.board = board.clone()
 		return clone;
-	}
+	}*/
 
 	@Override
 	public ExtraAction[] doAction(Action action) {

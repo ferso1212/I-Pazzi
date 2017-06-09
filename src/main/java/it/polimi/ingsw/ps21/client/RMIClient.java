@@ -72,10 +72,8 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	
 
 	@Override
-	public int setCost(ArrayList<ImmProperties> costschoices) throws RemoteException {
-		CostChoice choice = new CostChoice(costschoices);
-		ui.reqChoice(choice);
-		return costschoices.indexOf(choice.getChosen());
+	public int setCost(ArrayList<ImmProperties> costsChoices) throws RemoteException {
+		return ui.reqCostChoice(costsChoices);
 	}
 
 	@Override
