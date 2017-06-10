@@ -11,7 +11,8 @@
 <!ELEMENT DiscountEffect (Cost,Properties,Territory?, Building?, Character?, Venture?) >
 <!ELEMENT BlockTowerEffect EMPTY>
 <!ELEMENT CouncilEffect EMPTY>
-<!ELEMENT MultiplierEffect EMPTY>
+<!ELEMENT MultiplierEffect (Cost, Properties, MultiplierType)>
+<!ELEMENT MultiplierType (Wood|Stone|Coins|Servant|VictoryPoints|MilitaryPoints|FaithPoints|Blue|Green|Purple|Yellow)
 <!ELEMENT ExtraWorkEffect (Building?, Territory?)>
 <!ELEMENT CardDiceEffect (Cost,Territory?, Building?) >
 <!ELEMENT PickAnotherCard (DevelopmentCardType?, DevelopmentCardType?, DevelopmentCardType?, DevelopmentCardType?)>
