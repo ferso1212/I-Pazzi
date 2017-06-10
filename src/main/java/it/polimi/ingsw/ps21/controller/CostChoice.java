@@ -2,6 +2,7 @@ package it.polimi.ingsw.ps21.controller;
 
 import java.util.ArrayList;
 
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class CostChoice extends Message {
@@ -9,7 +10,8 @@ public class CostChoice extends Message {
 	private ArrayList<ImmProperties> choices;
 	private ImmProperties chosen;
 	
-	public CostChoice(ArrayList<ImmProperties> choices) {
+	public CostChoice(PlayerColor destination, ArrayList<ImmProperties> choices) {
+		super(destination);
 		this.message = "You have to choose a cost to pay.";
 		this.choices = choices;
 	}

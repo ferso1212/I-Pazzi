@@ -1,16 +1,19 @@
 package it.polimi.ingsw.ps21.controller;
 
-public class RefusedAction extends Message{
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
-	private String problem;
+public class RefusedAction extends Message{
 	
-	public RefusedAction() {
+	public RefusedAction(PlayerColor destination) {
+		super(destination);
 		this.message = "You can't do this action!";
 	}
-	
-	public RefusedAction(String problem){
-		this.message = "You can't do this action!";
-		this.problem = problem;
+
+	public RefusedAction(PlayerColor destination, String message) {
+		super(destination);
+		this.message = message;
 	}
+	
+	
 	
 }

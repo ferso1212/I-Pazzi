@@ -24,11 +24,7 @@ public class TestMatchFactory extends TestCase {
 	public TestMatchFactory( String testName ) 
     {
         super( testName );
-        try {
-			testedBuilder =  MatchFactory.instance();
-		} catch (ParserConfigurationException e) {
-			fail("CreationFiled");
-		}
+        testedBuilder =  MatchFactory.instance();
     }
 	
 	public static Test suite(){

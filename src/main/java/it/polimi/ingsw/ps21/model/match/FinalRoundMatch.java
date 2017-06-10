@@ -33,28 +33,6 @@ public class FinalRoundMatch extends Match {
 		throwDices();
 		notifyObservers();
 	}
-	
-	@Override
-	public ExtraAction[] doAction(Action nextAction)  {
-		ExtraAction[] extraActionPool;
-		try {
-			extraActionPool = nextAction.execute(order.element(),this);
-		} catch (NotExecutableException e) {
-			notifyObservers(new RefusedAction("Impossible to execute this action"));
-			return null;
-		} catch (NotOccupableException e) {
-			notifyObservers(new RefusedAction("You cannot'occupy this place"));
-			return null;
-		} catch (RequirementNotMetException e) {
-			notifyObservers(new RefusedAction("You doesn't satisfy requirement to execute this action"));
-			return null;
-		} catch (InsufficientPropsException e) {
-			notifyObservers(new RefusedAction("You doesn't have enough properties to execute this action"));
-			return null;
-		}
-		notifyObservers();
-		return extraActionPool;
-	}
 
 	/* @Override
 	public Match getCopy() throws CloneNotSupportedException {

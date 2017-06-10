@@ -24,6 +24,7 @@ public class ClientMain {
 	private static boolean newMatch = true;
 	private static boolean CLI = true;
 	private final static Logger LOGGER = Logger.getLogger(ClientMain.class.getName());
+	private final static int RMI_PORT = 5000;
 	
 	public static void main(String args[])
 	{

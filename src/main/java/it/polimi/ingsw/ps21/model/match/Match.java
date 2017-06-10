@@ -14,12 +14,17 @@ import java.util.Vector;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
+import it.polimi.ingsw.ps21.model.actions.NotExecutableException;
 import it.polimi.ingsw.ps21.model.board.Board;
+import it.polimi.ingsw.ps21.model.board.NotOccupableException;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
+import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
+import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
 
 
 /**
@@ -40,14 +45,9 @@ public abstract class Match extends Observable {
 	protected int period; 
 	protected int round;
 	
-	public  Match() throws ParserConfigurationException, BuildingDeckException{
-		this.observers = new ArrayList<>();
-		this.board = new Board(blackDice, true);
-		order = new ArrayDeque<>();
-		players = new EnumMap<>(PlayerColor.class);
+	public Match(){
+		
 	}
-	
-	
 	
 	public Match(Match previousMatch){
 		this.board = previousMatch.board;
@@ -86,7 +86,26 @@ public abstract class Match extends Observable {
 		return order.peek();
 	}
 	
-	public abstract ExtraAction[] doAction(Action action);
+	public ExtraAction[] doAction(Action action){
+		ExtraAction[] extraActionPool;
+		try {
+			extraActionPool = action.execute(order.element(),this);
+		} catch (NotExecutableException e) {
+			notifyObservers(new RefusedAction(getCurrentPlayer().getId(), "Impossible to execute this action"));
+			return null;
+		} catch (NotOccupableException e) {
+			notifyObservers(new RefusedAction(getCurrentPlayer().getId(), "You cannot'occupy this place"));
+			return null;
+		} catch (RequirementNotMetException e) {
+			notifyObservers(new RefusedAction(getCurrentPlayer().getId(), "You doesn't satisfy requirement to execute this action"));
+			return null;
+		} catch (InsufficientPropsException e) {
+			notifyObservers(new RefusedAction(getCurrentPlayer().getId(), "You doesn't have enough properties to execute this action"));
+			return null;
+		}
+		notifyObservers();
+		return extraActionPool;
+	}
 	
 	public abstract Match setNextPlayer(); 
 
