@@ -44,7 +44,7 @@ public class SocketClient {
 			NetPacket initialInfos = new NetPacket(PacketType.START_INFO, chosenRules, 0, name);
 			out.writeObject(initialInfos);
 			NetPacket receivedPacket = (NetPacket)in.readObject();
-			while(receivedPacket.getType()!=PacketType.GENERIC_STRING)
+			while(receivedPacket.getType()!=PacketType.MATCH_STARTED_NOTIFICATION)
 				{
 				receivedPacket = (NetPacket)in.readObject();
 				};
@@ -124,10 +124,13 @@ public class SocketClient {
 				ui.updateView(match, board, players);
 				break;
 			}
-			case GENERIC_STRING:
+			case GENERIC_STRING:{
 				//TODO method needed in UI to show a generic message 
 				System.out.println((String)receivedPacket.getObject());
-				break;
+				break;}
+			case MATCH_STARTED_NOTIFICATION: {
+				ui.playMatch();
+			}
 			default:
 				break;
 			}

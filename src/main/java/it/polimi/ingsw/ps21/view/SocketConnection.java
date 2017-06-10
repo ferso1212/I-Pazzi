@@ -144,6 +144,17 @@ public class SocketConnection implements Connection{
 	public boolean isAdvanced() {
 		return this.isAdvanced;
 	}
+
+
+	@Override
+	public void matchStarted() {
+		try {
+			out.writeObject(new NetPacket(PacketType.MATCH_STARTED_NOTIFICATION, null, this.messageCounter));
+		} catch (IOException e) {
+			LOGGER.log(Level.WARNING, "Unable to send message to the remote client due to IOException", e);
+		}
+		
+	}
 		
 
 }
