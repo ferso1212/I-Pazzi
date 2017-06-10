@@ -33,7 +33,7 @@ public class SingleTowerSpace extends Space {
 		if (tower.isOccupied()){
 			ImmProperties[] costsCopy = new ImmProperties[this.card.getCosts().length];
 		for (int i=0; i<this.card.getCosts().length; i++){
-			costsCopy[i] = this.card.getCosts()[i].sum(REOCCUPY_TOWER_COST);
+			costsCopy[i] = this.card.getCosts()[i].getCosts().sum(REOCCUPY_TOWER_COST);
 		}
 		return costsCopy;
 		}

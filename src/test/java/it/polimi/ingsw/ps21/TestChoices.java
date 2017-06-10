@@ -22,45 +22,54 @@ import it.polimi.ingsw.ps21.model.effect.CouncilEffect;
 import it.polimi.ingsw.ps21.model.effect.DiscountEffect;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.effect.PropEffect;
+import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.Visitor;
 
 
-public class TestEffectChoice implements Visitor{
+public class TestChoices{
 
 	private EffectChoice testedEffectChoice;
+	private VaticanChoice testedVaticanChoice;
 	private boolean validation;
 	private int testcase =0; 
-	
-	public TestEffectChoice(){
-		System.out.print("Testing EffectChoice class");
-	}
 	
 	@Before
 	public void setUp(){
 			EffectSet testset[] = new EffectSet[2];
 			testset[0] = new EffectSet(new PropEffect(new ImmProperties(0), new ImmProperties(3,0,1)), new CouncilEffect(new ImmProperties(0), 2));
 			testedEffectChoice = new EffectChoice(PlayerColor.BLUE, testset);
-		
+			testedVaticanChoice = new VaticanChoice(PlayerColor.BLUE);
+			// TODO add other choices
 	}
 	
 	@Test
 	public void testValidation() {
-		assert(checkValidation());
+		assert(checkEffectChoice());
+		assert(checkVaticanChoice());
 	}
 
-	private boolean checkValidation() {
+	private boolean checkEffectChoice() {
 		validation = true;		
-		choose(testedEffectChoice);
+		testedEffectChoice.setEffectChosen(testedEffectChoice.getPossibleEffects()[0]);
+		if (testedEffectChoice.getPossibleEffects()[0] == testedEffectChoice.getEffectChosen()) validation = validation && true;
+		else validation = validation && false;
+		testedEffectChoice.setVisited();
+		if (testedEffectChoice.isVisited()==true) validation = validation && true;
+		else validation = validation && false;
 		return validation;
 	}
 
-	public void choose(EffectChoice effect) {
-		effect.setEffectChosen(effect.getPossibleEffects()[0]);
-		if (effect.getPossibleEffects()[0] == effect.getEffectChosen()) validation = true;
-		else validation = false;
-		
+	public boolean checkVaticanChoice(){
+		boolean validation = true;
+		testedVaticanChoice.setChosen(true);
+		if (testedVaticanChoice.getChosen() ==  true) validation = validation && true;
+		else validation = validation && false;
+		testedVaticanChoice.setVisited();
+		if (testedVaticanChoice.isVisited() == true ) validation = validation && true;
+		else validation = validation && false;
+		return validation;
 	}
 	
 	@After
@@ -68,47 +77,4 @@ public class TestEffectChoice implements Visitor{
 		testedEffectChoice = null;
 		
 	}
-
-	@Override
-	public void visit(VaticanChoice choice) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void visit(CostChoice choice) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void visit(CouncilChoice choice) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void visit(EffectChoice choice) {
-		return;
-		
-	}
-
-	@Override
-	public void visit(WorkMessage message) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void visit(AcceptedAction message) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void visit(RefusedAction message) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

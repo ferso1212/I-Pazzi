@@ -36,13 +36,12 @@ import it.polimi.ingsw.ps21.model.properties.Property;
 public class MatchFactory {
 	private final static Logger LOGGER = Logger.getLogger(MatchFactory.class.getName());
 	private static MatchFactory instance = null;
-	private final String greenPath = (new File("")).getAbsolutePath().concat("/green-deck.xml").toString();
-	private final String yellowPath = (new File("")).getAbsolutePath().concat("/yellow-deck.xml").toString();
-	private final String bluePath = (new File("")).getAbsolutePath().concat("/blue-deck.xml").toString();
-	private final String purplePath = (new File("")).getAbsolutePath().concat("/purple-deck.xml").toString();
-	private final String boardPath = (new File("")).getAbsolutePath().concat("/board.xml").toString();
-	private final String serverPath = (new File("")).getAbsolutePath().concat("/server-config.xml").toString();
-	private DocumentBuilderFactory factory;
+	private final String greenPath = (new File("")).getAbsolutePath().concat("/green-deck.xml");
+	private final String yellowPath = (new File("")).getAbsolutePath().concat("/yellow-deck.xml");
+	private final String bluePath = (new File("")).getAbsolutePath().concat("/blue-deck.xml");
+	private final String purplePath = (new File("")).getAbsolutePath().concat("/purple-deck.xml");
+	private final String boardPath = (new File("")).getAbsolutePath().concat("/board.xml");
+	private final String serverPath = (new File("")).getAbsolutePath().concat("/server-config.xml");
 	private DocumentBuilder builder = null;
 	private Deck configuratedDeck;
 	private ImmProperties[] privileges = null;
@@ -73,6 +72,7 @@ public class MatchFactory {
 		factory.setValidating(true);
 		builder = factory.newDocumentBuilder();
 		} catch(ParserConfigurationException e) {
+			LOGGER.log(Level.SEVERE, "Error creating file parser", e);
 			builder = null;
 		}
 	}
@@ -160,7 +160,7 @@ public class MatchFactory {
 
 		Element blueSubDeck = configuration.getDocumentElement();
 		NodeList blueCards = blueSubDeck.getElementsByTagName("CharacterCard");
-		result = new SubDeck<CharacterCard>();
+		result = new SubDeck<>();
 		for (int i = 0; i < blueCards.getLength(); i++) {
 			Node cardNode = blueCards.item(i);
 			if (cardNode.getNodeType() == Node.ELEMENT_NODE)
@@ -287,11 +287,8 @@ public class MatchFactory {
 				Element board = configuration.getDocumentElement();
 				Element privileges = (Element) board.getElementsByTagName("Privileges").item(0);
 				NodeList properties = privileges.getElementsByTagName("Properties");
-				for (int i = 0; i < properties.getLength(); i++) {
-					if (properties.item(i).getNodeType() == Node.ELEMENT_NODE) {
-						bonuses.add(PropertiesBuilder.makeImmProperites((Element) properties.item(i)));
-					}
-				}
+				for (int i = 0; i < properties.getLength(); i++)
+					if (properties.item(i).getNodeType() == Node.ELEMENT_NODE) bonuses.add(PropertiesBuilder.makeImmProperites((Element) properties.item(i)));
 			} catch (SAXException | IOException | NullPointerException i) {
 				LOGGER.log(Level.WARNING, "Error creating priviliges from file, returning default values", i);
 				bonuses.add(
@@ -323,11 +320,8 @@ public class MatchFactory {
 				Element board = configuration.getDocumentElement();
 				Element initialProps = (Element) board.getElementsByTagName("InitialProperties").item(0);
 				NodeList properties = initialProps.getElementsByTagName("Properties");
-				for (int i = 0; i < properties.getLength(); i++) {
-					if (properties.item(i).getNodeType() == Node.ELEMENT_NODE) {
-						bonuses.add(PropertiesBuilder.makeImmProperites((Element) properties.item(i)));
-					}
-				}
+				for (int i = 0; i < properties.getLength(); i++)
+					if (properties.item(i).getNodeType() == Node.ELEMENT_NODE) bonuses.add(PropertiesBuilder.makeImmProperites((Element) properties.item(i)));
 			} catch (SAXException | IOException | NullPointerException i) {
 				LOGGER.log(Level.WARNING, "Error creating InitialProperties, returning default value", i);
 				bonuses.add(new ImmProperties(new Property(PropertiesId.STONES, 2), new Property(PropertiesId.WOOD, 2),
@@ -376,45 +370,40 @@ public class MatchFactory {
 				Element territory = (Element) cardReqs.getElementsByTagName("TerritoryRequirement").item(0);
 				requirements = new ArrayList<>();
 				NodeList reqs = territory.getChildNodes();
-				for (int i = 0; i < reqs.getLength(); i++) {
-					if (reqs.item(i).getNodeType() == Node.ELEMENT_NODE)
-						requirements.add(PropertiesBuilder.makeRequirement((Element) reqs.item(i)));
-				}
+				for (int i = 0; i < reqs.getLength(); i++) 
+					if (reqs.item(i).getNodeType() == Node.ELEMENT_NODE) requirements.add(PropertiesBuilder.makeRequirement((Element) reqs.item(i)));
+				
 				result.put(DevelopmentCardType.TERRITORY, requirements.toArray(new Requirement[0]));
 
 				Element building = (Element) cardReqs.getElementsByTagName("BuildingRequirement").item(0);
 				requirements = new ArrayList<>();
 				reqs = building.getChildNodes();
-				for (int i = 0; i < reqs.getLength(); i++) {
-					if (reqs.item(i).getNodeType() == Node.ELEMENT_NODE)
-						requirements.add(PropertiesBuilder.makeRequirement((Element) reqs.item(i)));
-				}
+				for (int i = 0; i < reqs.getLength(); i++)
+					if (reqs.item(i).getNodeType() == Node.ELEMENT_NODE) requirements.add(PropertiesBuilder.makeRequirement((Element) reqs.item(i)));
 				result.put(DevelopmentCardType.BUILDING, requirements.toArray(new Requirement[0]));
 
 				Element character = (Element) cardReqs.getElementsByTagName("CharacterRequirement").item(0);
 				requirements = new ArrayList<>();
 				reqs = character.getChildNodes();
-				for (int i = 0; i < reqs.getLength(); i++) {
-					if (reqs.item(i).getNodeType() == Node.ELEMENT_NODE)
-						requirements.add(PropertiesBuilder.makeRequirement((Element) reqs.item(i)));
-				}
+				for (int i = 0; i < reqs.getLength(); i++) 
+					if (reqs.item(i).getNodeType() == Node.ELEMENT_NODE) requirements.add(PropertiesBuilder.makeRequirement((Element) reqs.item(i)));
+				
 				result.put(DevelopmentCardType.CHARACTER, requirements.toArray(new Requirement[0]));
 
 				Element venture = (Element) cardReqs.getElementsByTagName("VentureRequirement").item(0);
 				requirements = new ArrayList<>();
-				reqs = building.getChildNodes();
-				for (int i = 0; i < reqs.getLength(); i++) {
-					if (reqs.item(i).getNodeType() == Node.ELEMENT_NODE)
-						requirements.add(PropertiesBuilder.makeRequirement((Element) reqs.item(i)));
-				}
+				reqs = venture.getChildNodes();
+				for (int i = 0; i < reqs.getLength(); i++) 
+					if (reqs.item(i).getNodeType() == Node.ELEMENT_NODE) requirements.add(PropertiesBuilder.makeRequirement((Element) reqs.item(i)));
+				
 				result.put(DevelopmentCardType.VENTURE, requirements.toArray(new Requirement[0]));
 
 			} catch (SAXException | IOException | NullPointerException | XMLParseException i) {
 				LOGGER.log(Level.WARNING, "Error creating Adding Card Requirement, returning default value", i);
 				result = new EnumMap<>(DevelopmentCardType.class);
 				Requirement[] reqs = new Requirement[6];
-				for (Requirement r : reqs) {
-					r = new Requirement(new CardsNumber(0), new ImmProperties(0));
+				for (int j=0; j<reqs.length; j++)  {
+					reqs[j] = new Requirement(new CardsNumber(0), new ImmProperties(0));
 				}
 				for (DevelopmentCardType t : DevelopmentCardType.values()) {
 					result.put(t, reqs);
