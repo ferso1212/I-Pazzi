@@ -26,7 +26,7 @@ public class PickAnotherCard extends Effect {
 	}
 	@Override
 	public ExtraAction activate(Player player) {
-		return new PickAnotherCardAction(diceReq, types);
+		return new PickAnotherCardAction(player, diceReq, types);
 	}
 
 	@Override

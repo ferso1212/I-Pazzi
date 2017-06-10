@@ -108,19 +108,17 @@ public class EffectBuilder {
 		}
 		case "PickAnotherCard":
 		{
-			int diceValue = Integer.parseInt(node.getAttributeNode("diceValue").getNodeValue());
 			ArrayList<DevelopmentCardType> types = new ArrayList<>();
-			Element costNode = (Element) node.getElementsByTagName("Cost").item(0);
-			Element propNode = (Element) node.getElementsByTagName("Properties").item(0);
+			int diceReq = Integer.parseInt(node.getAttribute("diceValue"));
 			if (node.getElementsByTagName("Territory").getLength() != 0) types.add(DevelopmentCardType.TERRITORY);
 			if (node.getElementsByTagName("Building").getLength() != 0) types.add(DevelopmentCardType.BUILDING);
 			if (node.getElementsByTagName("Character").getLength() != 0) types.add(DevelopmentCardType.CHARACTER);
 			if (node.getElementsByTagName("Venture").getLength() != 0) types.add(DevelopmentCardType.VENTURE);
-			return new NullEffect();
-			// TODO return new PickAnotherCardAction(diceValue, types.toArray(new DevelopmentCardType[0]));
-
+			return new PickAnotherCard(diceReq, types.toArray(new DevelopmentCardType[0]));
 		}
 		case "PrivilegeEffect":
+			int number = Integer.parseInt(node.getAttribute("number"));
+			return new PrivilegeEffect(number);
 		}
 		return new NullEffect();
 	}
