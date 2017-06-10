@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps21.client;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,20 +14,21 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import it.polimi.ingsw.ps21.controller.BoardData;
 import it.polimi.ingsw.ps21.controller.CostChoice;
 import it.polimi.ingsw.ps21.controller.MatchData;
+import it.polimi.ingsw.ps21.controller.PlayerData;
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
-public class SocketClient{
+public class SocketClient {
 	private static final String SERVER_IP = "127.0.0.1";
 	private static final int PORT = 7777;
 	private final static Logger LOGGER = Logger.getLogger(SocketClient.class.getName());
-	private BufferedReader socketIn;
-	private PrintWriter socketOut;
-	private ObjectInputStream objIn;
-	private ObjectOutputStream objOut;
+	private ObjectInputStream in;
+	private ObjectOutputStream out;
 	private UserInterface ui;
-	
+
 	public SocketClient() {
 
 	}
@@ -36,23 +38,24 @@ public class SocketClient{
 		try {
 			Socket socket = new Socket(SERVER_IP, PORT);
 			System.out.println("\nEstablished TCP connection to the server.");
-			this.socketIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			this.socketOut = new PrintWriter(socket.getOutputStream(), true);
-			Scanner stdin = new Scanner(System.in);
-			socketOut.println(name);
-			socketOut.println(chosenRules);
-			String socketLine = socketIn.readLine();
+			in = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+			out = new ObjectOutputStream(socket.getOutputStream());
+			out.flush();
+
+			out.writeObject(name);
+			out.writeObject(chosenRules);
+			String socketLine = (String) in.readObject();
 			if (socketLine.compareTo("Match Started") == 0) {
 
 				while (socket.isConnected()) {
-					socketLine = socketIn.readLine();
+					socketLine = (String) in.readObject();
 					while (socketLine != null) {
 						System.out.println(socketLine);
-						socketLine = socketIn.readLine();
+						socketLine = (String) in.readObject();
 					}
 
-					String userInputLine = stdin.nextLine();
-					socketOut.println(userInputLine);
+					// String userInputLine = stdin.nextLine();
+					// socketOut.println(userInputLine);
 
 				}
 			}
@@ -69,56 +72,67 @@ public class SocketClient{
 		} catch (IOException e) {
 			LOGGER.log(Level.INFO, "Input-Output exception.", e);
 			return null;
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		return null;
 	}
 
-	private void parseAndPrintSocketInput(String input){
-		String[] structuredInput=input.split("_");
-		int messageNum=Integer.parseInt(structuredInput[0]);
-		String command=structuredInput[1];
-		switch (command) {
-		case "printString": 
-		{
-			try {
-				ui.showInfo(socketIn.readLine());
-			} catch (IOException e) {
-				LOGGER.log(Level.INFO, "Input-Output exception on reading a string from the socket.", e);
+	private void parseSocketInput(NetPacket receivedPacket) {
+		try {
+			switch (receivedPacket.getType()) {
+			case CHAT_MESSAGE: {
+				// TODO use correct ui method
+				// ui.printChatMess((String)input.getObject);
+				break;
 			}
-			finally{return;}
-		}
 
-		case "costChoice": {
-			try {
-				int chosen = ui.reqCostChoice((ArrayList<ImmProperties>)objIn.readObject());
-				socketOut.println(messageNum + "_" + chosen);
-			} catch (ClassNotFoundException e) {
-				LOGGER.log(Level.INFO, "CostChoice class not found, unable to read message from socket", e);
-			} catch (IOException e) {
-				LOGGER.log(Level.INFO, "Input-Output exception on reading an object from the socket.", e);
+			case COST_CHOICE: {
+				int chosen = ui.reqCostChoice((ArrayList<ImmProperties>) receivedPacket.getObject());
+				out.writeObject(new NetPacket(receivedPacket.getType(), chosen, receivedPacket.getNum()));
+				break;
+
 			}
-			finally{return;}
-		}
-		
-		case "privilegesChoice" :
-		{
-			int number=0;
-			try {
-				number=Integer.parseInt(socketIn.readLine());
-			} catch (NumberFormatException n) {
-				LOGGER.log(Level.WARNING, "Unable to parse the received string to integer.", n);
-				
-			} catch (IOException e) {
-				LOGGER.log(Level.WARNING, "Input-Output exception on reading a line from the socket.", e);
-				number=0;
+			case PRIVILEGES_CHOICE: {
+				ImmProperties[] chosen = ui.reqPrivileges((int) receivedPacket.getObject());
+				out.writeObject(new NetPacket(receivedPacket.getType(), chosen, receivedPacket.getNum()));
+				break;
 			}
-			ImmProperties[] chosenPrivileges= ui.reqPrivileges(number);
-			try {
-				objOut.writeObject(chosenPrivileges);
-			} catch (IOException e) {
-				LOGGER.log(Level.INFO, "Input-Output exception on sending the chosen privileges on the socket.", e);
+			case ID: {
+				ui.setID((PlayerColor)receivedPacket.getObject());
+				break;
 			}
-		}
-		
+			case VATICAN_CHOICE:{
+				boolean chosen=ui.reqVaticanChoice();
+				out.writeObject(new NetPacket(receivedPacket.getType(), chosen, receivedPacket.getNum()));
+				break;
+			}
+			case VIEW_UPDATE_REQUEST: {
+				MatchData match=(MatchData)receivedPacket.getObject();
+				BoardData board=null;
+				PlayerData[] players= new PlayerData[receivedPacket.getAdditionalObjects().length-1];
+				int i=0;
+				for(Object o: receivedPacket.getAdditionalObjects())
+				{
+					if(i==0) board=(BoardData)o;
+					else {
+						players[i]=(PlayerData)o;
+					}
+					i++;
+				}
+				ui.updateView(match, board, players);
+				break;
+			}
+			case GENERIC_STRING:
+				//TODO method needed in UI to show a generic message ui.showMessage((String)receivedPacket.getObject());
+				break;
+			default:
+				break;
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

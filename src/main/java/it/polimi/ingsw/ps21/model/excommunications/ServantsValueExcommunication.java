@@ -22,8 +22,8 @@ public class ServantsValueExcommunication extends Excommunication{
 	 * 
 	 * @param servantsForOne number of servants required to increase the action value by one.
 	 */
-	public ServantsValueExcommunication(int servantsForOne) {
-		super();
+	public ServantsValueExcommunication(int id, int period, int servantsForOne) {
+		super(id, period);
 		this.servantsForOne = servantsForOne;
 	}
 	

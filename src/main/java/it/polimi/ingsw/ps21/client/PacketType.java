@@ -1,0 +1,5 @@
+package it.polimi.ingsw.ps21.client;
+
+public enum PacketType {CHAT_MESSAGE, COST_CHOICE, PRIVILEGES_CHOICE, ID, VATICAN_CHOICE, GENERIC_STRING, VIEW_UPDATE_REQUEST,
+
+}

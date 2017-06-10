@@ -22,11 +22,11 @@ public abstract interface Connection{
 	
 	public void remoteUpdate(MatchData match, BoardData board, PlayerData players[]);
 	
-	public int reqChoice(ArrayList<ImmProperties> costs);
+	public int reqCostChoice(ArrayList<ImmProperties> costs);
 
-	public boolean setVaticanChoice();
+	public boolean reqVaticanChoice();
 	
-	public ImmProperties[] reqPrivileges(int number);
+	public ImmProperties[] reqPrivilegesChoice(int number);
 	
 	public void setID(PlayerColor player);
 

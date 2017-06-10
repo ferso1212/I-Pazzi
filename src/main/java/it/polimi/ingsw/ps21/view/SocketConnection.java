@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps21.view;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -14,6 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps21.client.ClientConnection;
+import it.polimi.ingsw.ps21.client.NetPacket;
+import it.polimi.ingsw.ps21.client.PacketType;
 import it.polimi.ingsw.ps21.controller.BoardData;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.PlayerData;
@@ -25,10 +28,9 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 public class SocketConnection implements Connection{
 	private final static Logger LOGGER = Logger.getLogger(SocketConnection.class.getName());
 	private Socket socket;
-	private PrintWriter out;
-	private BufferedReader in;
-	private ObjectOutputStream objOut;
-	private ObjectInputStream objIn;
+	
+	private ObjectOutputStream out;
+	private ObjectInputStream in;
 	private boolean connected;
 	private String name;
 	private int messageCounter;
@@ -38,8 +40,8 @@ public class SocketConnection implements Connection{
 		this.socket = socket;
 		this.messageCounter=0;
 		try {
-			out=new PrintWriter(socket.getOutputStream(), true);
-			in=new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+			out=new ObjectOutputStream(socket.getOutputStream());
+			in= new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
 		} catch (IOException e) {
 			connected=false;
 		}
@@ -47,33 +49,7 @@ public class SocketConnection implements Connection{
 	}
 
 
-	@Override
-	public void sendMessage(String mess) {
-		out.println(mess);
-		
-	}
 	
-	public String getMessage()
-	{
-		try {
-			return in.readLine();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return "Error";
-		}
-	}
-	
-	public void sendAndWaitResponse(Object o)
-	{
-		try {
-			objOut.writeObject(o);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 
 	@Override
 	public String getName() {
@@ -85,58 +61,78 @@ public class SocketConnection implements Connection{
 
 	@Override
 	public void remoteUpdate(MatchData match, BoardData board, PlayerData[] players) {
-		// TODO Auto-generated method stub
+		try{
+		out.writeObject(new NetPacket(PacketType.GENERIC_STRING, match, this.messageCounter, board, players));
+		messageCounter++;
+	} catch (IOException e) {
+		LOGGER.log(Level.WARNING, "Unable to send choice request to the remote client due to IOException", e);
+	}
+		
+	}
+
+	private Object requestAndAwaitResponse(PacketType requestType, Object o)
+	{
+		NetPacket output=new NetPacket(requestType, o, this.messageCounter);
+		try {
+			out.writeObject(output);
+			messageCounter++;
+			NetPacket receivedPacket= (NetPacket) in.readObject();
+			while(receivedPacket.getType()!=requestType)
+			{
+				if(receivedPacket.getType()==PacketType.CHAT_MESSAGE);//TODO: chat protocol
+			}
+			return receivedPacket.getObject();
+			
+		} catch (IOException e) {
+			LOGGER.log(Level.WARNING, "Unable to send choice request to the remote client due to IOException", e);
+			return 0;
+		} catch (ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to parse received object due to ClassNotFound Exception", e);
+			return 0;
+		}
+	}
+	
+	@Override
+	public int reqCostChoice(ArrayList<ImmProperties> costs) {
+		return (int)requestAndAwaitResponse(PacketType.COST_CHOICE, costs);
 		
 	}
 
 
 	@Override
-	public int reqChoice(ArrayList<ImmProperties> costs) {
-		out.println(messageCounter + "_costChoice");
+	public boolean reqVaticanChoice() {
+		return (boolean)requestAndAwaitResponse(PacketType.VATICAN_CHOICE, null);
+	}
+
+
+	@Override
+	public ImmProperties[] reqPrivilegesChoice(int number) {
+		return (ImmProperties[])requestAndAwaitResponse(PacketType.PRIVILEGES_CHOICE, number);
+	}
+
+
+
+	@Override
+	public void sendMessage(String mess) {
 		try {
-			objOut.writeObject(costs);
-			return Integer.parseInt(in.readLine());
+			out.writeObject(new NetPacket(PacketType.GENERIC_STRING, mess, this.messageCounter));
+			messageCounter++;
 		} catch (IOException e) {
 			LOGGER.log(Level.WARNING, "Unable to send choice request to the remote client due to IOException", e);
-			return 1;
 		}
+		
+		
 	}
 
 
-	@Override
-	public boolean setVaticanChoice() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public ImmProperties[] reqPrivileges(int number) {
-		out.println("privilegesChoice");
-		out.println(number);
-	}
 
 
 	@Override
 	public void setID(PlayerColor player) {
-		// TODO Auto-generated method stub
+		requestAndAwaitResponse(PacketType.ID, player);
 		
 	}
 	
-	/*public Action reqUserAction()
-	{
-		//TODO request action
-		try {
-			return (Action)objIn.readObject();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	*/
-	
+		
 
 }
