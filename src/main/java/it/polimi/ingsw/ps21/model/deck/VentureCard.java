@@ -10,12 +10,12 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
  */
 public class VentureCard extends DevelopmentCard {
 
-	public VentureCard(String name, int era, Requirement reqs[], ImmProperties costs[], EffectSet ins, EffectSet perm) {
-		super(name, era, reqs, costs, ins, perm);
+	public VentureCard(String name, int era, RequirementAndCost reqs[], EffectSet ins, EffectSet perm) {
+		super(name, era, reqs, ins, perm);
 	}
 	
-	public VentureCard(String name, int era, Requirement req, ImmProperties cost, EffectSet ins, EffectSet perm) {
-		super(name, era, req, cost, ins, perm);
+	public VentureCard(String name, int era, RequirementAndCost req, EffectSet ins, EffectSet perm) {
+		super(name, era, req, ins, perm);
 	}
 	
 	public DevelopmentCardType getCardType()
@@ -25,7 +25,7 @@ public class VentureCard extends DevelopmentCard {
 	
 	@Override
 	public DevelopmentCard clone() {
-		return new VentureCard(name, cardEra, (Requirement[])possibleRequirement.toArray(),(ImmProperties []) costs.toArray(), instantEffect,permanentEffects.get(0));
+		return new VentureCard(name, cardEra, possibleRequirement.toArray(new RequirementAndCost[0]), instantEffect,permanentEffects.get(0));
 	}
 
 }

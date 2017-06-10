@@ -12,7 +12,7 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
  */
 public abstract class Card {
 	protected String name;
-	protected ArrayList<Requirement> possibleRequirement;
+	protected ArrayList<RequirementAndCost> possibleRequirement;
 	
 	/**
 	 * This constructor is required by development card serialization
@@ -27,12 +27,21 @@ public abstract class Card {
 	 * @param req
 	 * @param cost
 	 */
-	public Card(String name, Requirement reqs[]){
+	public Card(String name, RequirementAndCost reqs[]){
 		this.name = name;
 		possibleRequirement = new ArrayList<>();
-		for (Requirement r: reqs){
-			possibleRequirement.add(r);
-		}
+		if (reqs.length==0) possibleRequirement.add(new RequirementAndCost(new Requirement(new CardsNumber(0), new ImmProperties(0)), 
+																		new ImmProperties(0)));
+		else
+			for (RequirementAndCost r: reqs) possibleRequirement.add(r);
+			
+
+	}
+	
+	public Card(String name, RequirementAndCost req){
+		this.name = name;
+		possibleRequirement = new ArrayList<>();
+		possibleRequirement.add(req);
 	}
 	
 	public Card(String name) {

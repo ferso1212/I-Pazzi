@@ -13,7 +13,7 @@ public class TerritoryCard extends DevelopmentCard {
 	private int diceReq;
 	
 	public TerritoryCard(String name, int era,int dicereq, EffectSet instantEffect, EffectSet... perms ){
-		super(name, era, new Requirement(new CardsNumber(0, 0, 0, 0), new ImmProperties(0,0,0,0,0,0,0)), new ImmProperties(0,0,0,0,0,0), instantEffect,   (EffectSet[]) perms);
+		super(name, era, new RequirementAndCost(new Requirement(new CardsNumber(0, 0, 0, 0), new ImmProperties(0,0,0,0,0,0,0)), new ImmProperties(0,0,0,0,0,0)), instantEffect,   (EffectSet[]) perms);
 		diceReq = dicereq;
 	}
 	
@@ -29,6 +29,6 @@ public class TerritoryCard extends DevelopmentCard {
 	
 	@Override
 	public DevelopmentCard clone() {
-		return new TerritoryCard(name, cardEra, diceReq, instantEffect,(EffectSet[]) permanentEffects.toArray());
+		return new TerritoryCard(name, cardEra, diceReq, instantEffect, permanentEffects.toArray(new EffectSet[0]));
 	}
 }

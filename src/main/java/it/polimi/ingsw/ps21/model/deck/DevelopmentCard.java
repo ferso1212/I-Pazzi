@@ -18,18 +18,13 @@ public abstract class DevelopmentCard extends Card implements Serializable{
 	protected int cardEra;
 	protected EffectSet instantEffect;
 	protected ArrayList<EffectSet> permanentEffects;
-	protected ArrayList<RequirementAndCost> costs;
-	protected transient Optional<ImmProperties> chosenCost;
+	protected transient Optional<RequirementAndCost> chosenCost;
 	protected transient Optional<EffectSet> chosenEffect;
 	
 	
-	public DevelopmentCard(String name, int era, Requirement reqs[], ImmProperties costs[], EffectSet instant, EffectSet... permanent){
+	public DevelopmentCard(String name, int era, RequirementAndCost reqs[], EffectSet instant, EffectSet... permanent){
 		super(name, reqs);
-		this.costs = new ArrayList<>();
-		for (ImmProperties c: costs){
-			this.costs.add(c);
-		}
-		if (this.costs.size() == 1) chosenCost =  Optional.of(this.costs.get(0));
+		if (possibleRequirement.size()==1) chosenCost = Optional.of(possibleRequirement.get(0));
 		else chosenCost = Optional.empty();
 		cardEra = era;
 		instantEffect = instant;
@@ -41,11 +36,9 @@ public abstract class DevelopmentCard extends Card implements Serializable{
 		else chosenEffect = Optional.empty();
 	}
 	
-	public DevelopmentCard(String name, int era, Requirement req, ImmProperties cost, EffectSet instant, EffectSet... permanent){
+	public DevelopmentCard(String name, int era,RequirementAndCost req, EffectSet instant, EffectSet... permanent){
 		super(name, req);
-		this.costs = new ArrayList<>();
-		this.costs.add(cost);
-		chosenCost = Optional.of(cost);
+		chosenCost = Optional.of(req);
 		cardEra = era;
 		instantEffect = instant;
 		permanentEffects = new ArrayList<>();
@@ -84,9 +77,6 @@ public abstract class DevelopmentCard extends Card implements Serializable{
 		return (EffectSet []) permanentEffects.toArray();
 	}
 	
-	public ImmProperties[] getPossibleCosts(){
-		return (ImmProperties []) costs.toArray(new ImmProperties[0]);
-	}
 	public EffectSet getChosenPemanentEffect()throws UnchosenException{
 		if (chosenEffect.isPresent()) throw new UnchosenException();
 		return null; //TODO Metodo di ripiego, si deve implementare la scelta di effetti permanenti
@@ -95,8 +85,8 @@ public abstract class DevelopmentCard extends Card implements Serializable{
 	
 	public abstract DevelopmentCard clone();
 	
-	public ImmProperties[] getCosts(){
-		return (ImmProperties []) costs.toArray(new ImmProperties[0]);
+	public RequirementAndCost[] getCosts(){
+		return  possibleRequirement.toArray(new RequirementAndCost[0]);
 	}
 	
 }

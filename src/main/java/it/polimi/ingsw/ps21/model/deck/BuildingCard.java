@@ -12,8 +12,8 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 public class BuildingCard extends DevelopmentCard{
 	private int diceRequirement; 
 	
-	public BuildingCard(String name, int era, Requirement reqs [], ImmProperties costs[], int diceReq, EffectSet instant, EffectSet... permanent){
-		super(name, era, reqs, costs, instant, permanent);
+	public BuildingCard(String name, int era, RequirementAndCost[] reqs, int diceReq, EffectSet instant, EffectSet... permanent){
+		super(name, era, reqs, instant, permanent);
 		this.diceRequirement = diceReq;
 	}
 	
@@ -29,6 +29,6 @@ public class BuildingCard extends DevelopmentCard{
 	
 	@Override
 	public DevelopmentCard clone() {
-		return new BuildingCard(name, cardEra, (Requirement[])possibleRequirement.toArray(),(ImmProperties []) costs.toArray(), diceRequirement, instantEffect,(EffectSet[]) permanentEffects.toArray());
+		return new BuildingCard(name, cardEra, possibleRequirement.toArray(new RequirementAndCost[0]), diceRequirement, instantEffect, permanentEffects.toArray(new EffectSet[0]));
 	}
 }
