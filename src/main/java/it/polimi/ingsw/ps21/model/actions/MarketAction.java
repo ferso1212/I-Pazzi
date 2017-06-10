@@ -31,16 +31,16 @@ public class MarketAction extends Action{
 	public Message isLegal(Player player, Match match) {
 		
 		if (player.getModifiers().getActionMods().marketActionForbidden()){
-			return new RefusedAction("You can't place a family member in a market space because you have an excommunication!");
+			return new RefusedAction(player.getId(), "You can't place a family member in a market space because you have an excommunication!");
 		}
 		
 		if ((space.isOccupable(player, famMember)) && (!famMember.isUsed())){
 			if ((space.getNumberOfPrivileges() > 0) && (match.getBoard().getCouncilPalace().checkPlayer(player))){
-				this.councilChoice = new CouncilChoice(space.getNumberOfPrivileges());
+				this.councilChoice = new CouncilChoice(player.getId(), space.getNumberOfPrivileges());
 				return this.councilChoice;
 			}
-			return new AcceptedAction();
-		} else return new RefusedAction();
+			return new AcceptedAction(player.getId());
+		} else return new RefusedAction(player.getId());
 	}
 
 	@Override
