@@ -1,60 +1,250 @@
 <?xml version="1.0" ?>
 <!DOCTYPE SubDeckGreen SYSTEM "green-deck-schema.dtd">
 <SubDeckGreen>
-    <TerritoryCard name="Messo Papale" period="1" diceRequirement="3">
+    <TerritoryCard name="Ducato" period="2" diceRequirement="6">
         <Requirement>
             <Properties>
-                    <Wood value="0"/>
-                    <Stones value="0"/>
-                    <Servants value="0"/>
-                    <Coins value="0"/>
-                    <MilitaryPoints value="0"/>
-                    <VictoryPoints value="0"/>
-                    <FaithPoints value="0"/>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="0" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
             </Properties>
-	    <CardsNumber>
-                <Green value="0"/>
-		<Yellow value="0"/>                
-		<Blue value="0"/>           
-                <Purple value="0"/>
+            <CardsNumber>
+                <Green value="0" />
+                <Yellow value="0" />
+                <Blue value="0" />
+                <Purple value="0" />
             </CardsNumber>
         </Requirement>
- 	<Cost>
-         	<Properties>
-                    <Wood value="0"/>
-                    <Stones value="0"/>
-                    <Servants value="0"/>
-                    <Coins value="5"/>
-                    <MilitaryPoints value="0"/>
-                    <VictoryPoints value="0"/>
-                    <FaithPoints value="0"/>
-		</Properties>
-         </Cost>
-	<InstantEffect>
-		<EffectSet>
-			<PropEffect>
-			 <Cost>
-         			<Properties>
-            			        <Wood value="0"/>
-           			         <Stones value="0"/>
-           			         <Servants value="0"/>
-          			          <Coins value="5"/>
-          			          <MilitaryPoints value="0"/>
-          			          <VictoryPoints value="0"/>
-          			          <FaithPoints value="0"/>
-				</Properties>
-     			    </Cost>
-				<Properties>
-                    			<Wood value="0"/>
-                    			<Stones value="0"/>
-                    			<Servants value="0"/>
-                    			<Coins value="0"/>
-                    			<MilitaryPoints value="0"/>
-                    			<VictoryPoints value="0"/>
-                    			<FaithPoints value="3"/>
-				</Properties>
-			</PropEffect>
-		</EffectSet>	
-	</InstantEffect>
+        <Cost>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="0" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+        </Cost>
+        <InstantEffect>
+            <EffectSet>
+                <PropEffect>
+                    <Cost>
+                        <Properties>
+                            <Wood value="0" />
+                            <Stones value="0" />
+                            <Servants value="0" />
+                            <Coins value="0" />
+                            <MilitaryPoints value="0" />
+                            <VictoryPoints value="0" />
+                            <FaithPoints value="0" />
+                        </Properties>
+                    </Cost>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="4" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="3" />
+                    </Properties>
+                </PropEffect>
+            </EffectSet>
+        </InstantEffect>
+        <PermanentEffect>
+            <EffectSet>
+                <PropEffect>
+                    <Cost>
+                        <Properties>
+                            <Wood value="0" />
+                            <Stones value="0" />
+                            <Servants value="0" />
+                            <Coins value="0" />
+                            <MilitaryPoints value="0" />
+                            <VictoryPoints value="0" />
+                            <FaithPoints value="0" />
+                        </Properties>
+                    </Cost>
+                    <Properties>
+                        <Wood value="2" />
+                        <Stones value="1" />
+                        <Servants value="0" />
+                        <Coins value="1" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                </PropEffect>
+            </EffectSet>
+        </PermanentEffect>
+    </TerritoryCard>
+    <TerritoryCard name="Città Mercantile" period="3" diceRequirement="1">
+        <Requirement>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="0" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+            <CardsNumber>
+                <Green value="0" />
+                <Yellow value="0" />
+                <Blue value="0" />
+                <Purple value="0" />
+            </CardsNumber>
+        </Requirement>
+        <Cost>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="0" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+        </Cost>
+        <InstantEffect>
+            <EffectSet>
+                <PropEffect>
+                    <Cost>
+                        <Properties>
+                            <Wood value="0" />
+                            <Stones value="0" />
+                            <Servants value="0" />
+                            <Coins value="0" />
+                            <MilitaryPoints value="0" />
+                            <VictoryPoints value="0" />
+                            <FaithPoints value="0" />
+                        </Properties>
+                    </Cost>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="1" />
+                        <Coins value="1" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                </PropEffect>
+            </EffectSet>
+        </InstantEffect>
+        <PermanentEffect>
+            <EffectSet>
+                <PropEffect>
+                    <Cost>
+                        <Properties>
+                            <Wood value="0" />
+                            <Stones value="0" />
+                            <Servants value="0" />
+                            <Coins value="0" />
+                            <MilitaryPoints value="0" />
+                            <VictoryPoints value="0" />
+                            <FaithPoints value="0" />
+                        </Properties>
+                    </Cost>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="3" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                </PropEffect>
+            </EffectSet>
+        </PermanentEffect>
+    </TerritoryCard>
+        <TerritoryCard name="Provincia" period="3" diceRequirement="6">
+        <Requirement>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="0" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+            <CardsNumber>
+                <Green value="0" />
+                <Yellow value="0" />
+                <Blue value="0" />
+                <Purple value="0" />
+            </CardsNumber>
+        </Requirement>
+        <Cost>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="0" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+        </Cost>
+        <InstantEffect>
+            <EffectSet>
+                <PropEffect>
+                    <Cost>
+                        <Properties>
+                            <Wood value="0" />
+                            <Stones value="0" />
+                            <Servants value="0" />
+                            <Coins value="0" />
+                            <MilitaryPoints value="0" />
+                            <VictoryPoints value="0" />
+                            <FaithPoints value="0" />
+                        </Properties>
+                    </Cost>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                </PropEffect>
+            </EffectSet>
+        </InstantEffect>
+        <PermanentEffect>
+            <EffectSet>
+                <PropEffect>
+                    <Cost>
+                        <Properties>
+                            <Wood value="0" />
+                            <Stones value="0" />
+                            <Servants value="0" />
+                            <Coins value="0" />
+                            <MilitaryPoints value="0" />
+                            <VictoryPoints value="0" />
+                            <FaithPoints value="0" />
+                        </Properties>
+                    </Cost>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                </PropEffect>
+            </EffectSet>
+        </PermanentEffect>
     </TerritoryCard>
 </SubDeckGreen>
