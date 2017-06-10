@@ -15,6 +15,13 @@ public abstract class Card {
 	protected ArrayList<Requirement> possibleRequirement;
 	
 	/**
+	 * This constructor is required by development card serialization
+	 */
+	public Card(){
+		name = "";
+		possibleRequirement = new ArrayList<>();
+	}
+	/**
 	 * Constructor for a card that provide only one cost and only one requirement
 	 * @param name
 	 * @param req

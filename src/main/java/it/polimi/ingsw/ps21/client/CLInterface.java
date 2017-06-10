@@ -25,8 +25,8 @@ import it.polimi.ingsw.ps21.model.properties.PropertiesSet;
 
 public class CLInterface implements UserInterface {
 	
-	public MatchData match;
-	public Scanner userInput;
+	private MatchData match;
+	private Scanner userInput;
 	private PlayerColor playerID = null;
 	private boolean matchEnded = false;
 	private EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>> playerCards = new EnumMap<>(DevelopmentCardType.class);
@@ -91,7 +91,7 @@ public class CLInterface implements UserInterface {
 			System.out.println("-" + t + ":");
 			ArrayList<DevelopmentCard> typeCards = playerCards.get(t);
 			for (DevelopmentCard c: typeCards){
-				System.out.print("c" + ";\t");
+				System.out.print(c + ";\t");
 			}
 		}
 		System.out.println("----\t TILE BONUSES \t-----");

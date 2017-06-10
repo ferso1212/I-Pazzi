@@ -84,7 +84,7 @@ public class SocketClient{
 			} catch (IOException e) {
 				LOGGER.log(Level.INFO, "Input-Output exception on reading a string from the socket.", e);
 			}
-			finally{return;}
+			finally{};
 		}
 
 		case "costChoice": {
@@ -96,7 +96,7 @@ public class SocketClient{
 			} catch (IOException e) {
 				LOGGER.log(Level.INFO, "Input-Output exception on reading an object from the socket.", e);
 			}
-			finally{return;}
+			finally{};
 		}
 		
 		case "privilegesChoice" :

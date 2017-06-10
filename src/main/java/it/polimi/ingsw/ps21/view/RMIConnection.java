@@ -85,7 +85,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 		try {
 			return client.vaticanChoice();
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			LOGGER.log(Level.WARNING, "Error calling remote method vaticanChoice", e);
 			return false;
 		}
 	}

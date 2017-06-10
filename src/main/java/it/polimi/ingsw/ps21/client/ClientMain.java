@@ -83,7 +83,6 @@ public class ClientMain {
 					while(!CLImatch.isEnded());
 		
 				} catch (RemoteException | NotBoundException e) {
-					e.printStackTrace();
 					System.out.println("Failed to connect to server through RMI.");
 					LOGGER.log(Level.WARNING, "RMI Connection failed", e);
 					newMatch = false;
@@ -93,7 +92,10 @@ public class ClientMain {
 		}
 		}
 	
-	public ClientMain()
+	/**
+	 * Nobody else must create this class
+	 */
+	private ClientMain()
 	{
 		
 	}
