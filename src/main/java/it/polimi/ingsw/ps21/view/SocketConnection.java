@@ -28,35 +28,34 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 public class SocketConnection implements Connection{
 	private final static Logger LOGGER = Logger.getLogger(SocketConnection.class.getName());
 	private Socket socket;
-	
+	private String name;
+	private boolean isAdvanced;
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
 	private boolean connected;
-	private String name;
+	
 	private int messageCounter;
 
-	public SocketConnection(String name, Socket socket) {
+	public SocketConnection(Socket socket) {
 		
 		this.socket = socket;
-		this.messageCounter=0;
+		this.messageCounter=1;
 		try {
 			out=new ObjectOutputStream(socket.getOutputStream());
 			in= new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+			out.reset();
+			//in.reset();
+			NetPacket initialInfos= (NetPacket)in.readObject();
+			if((int)initialInfos.getObject()==1) this.isAdvanced=false;
+			else this.isAdvanced=true;
+			this.name=(String)initialInfos.getAdditionalObject(0);
 		} catch (IOException e) {
 			connected=false;
+		} catch (ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to read initial infos from the socket due to ClassNotFoundException", e);
 		}
-		this.name=name;
+		
 	}
-
-
-	
-
-	@Override
-	public String getName() {
-		return this.name;
-	}
-
-
 
 
 	@Override
@@ -117,10 +116,11 @@ public class SocketConnection implements Connection{
 	@Override
 	public void sendMessage(String mess) {
 		try {
+
 			out.writeObject(new NetPacket(PacketType.GENERIC_STRING, mess, this.messageCounter));
 			messageCounter++;
 		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unable to send choice request to the remote client due to IOException", e);
+			LOGGER.log(Level.WARNING, "Unable to send message to the remote client due to IOException", e);
 		}
 		
 		
@@ -134,7 +134,16 @@ public class SocketConnection implements Connection{
 		requestAndAwaitResponse(PacketType.ID, player);
 		
 	}
+
+
+	@Override
+	public String getName() {
+		return this.name;
+	}
 	
+	public boolean isAdvanced() {
+		return this.isAdvanced;
+	}
 		
 
 }

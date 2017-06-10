@@ -30,50 +30,50 @@ public class SocketClient {
 	private UserInterface ui;
 
 	public SocketClient() {
-
+		
 	}
 
-	public MatchData start(int chosenRules, String name) {
+	public boolean start(int chosenRules, String name) {
 		System.out.println("\nTrying to connect to the server with TCP socket...");
 		try {
 			Socket socket = new Socket(SERVER_IP, PORT);
 			System.out.println("\nEstablished TCP connection to the server.");
 			in = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
 			out = new ObjectOutputStream(socket.getOutputStream());
-			out.flush();
-
-			out.writeObject(name);
-			out.writeObject(chosenRules);
-			String receivedString = (String)in.readObject();
-			while(receivedString.compareTo("Match Started") != 0);
+			out.reset();
+			NetPacket initialInfos = new NetPacket(PacketType.START_INFO, chosenRules, 0, name);
+			out.writeObject(initialInfos);
 			NetPacket receivedPacket = (NetPacket)in.readObject();
+			while(receivedPacket.getType()!=PacketType.GENERIC_STRING)
+				{
+				receivedPacket = (NetPacket)in.readObject();
+				};
+			
+				parseSocketInput(receivedPacket);
 				while (socket.isConnected()) {
 					
-					parseSocketInput(receivedPacket);
 					receivedPacket = (NetPacket)in.readObject();
-
-					
-
+					parseSocketInput(receivedPacket);
 				}
 			
 			if (socket.isClosed()) {
 				System.out.println("Connection closed");
-				return null;
+				
 			} else {
-				return null;
+				
 			}
 		} catch (UnknownHostException e) {
 			LOGGER.log(Level.INFO, "Unable to reach host.", e);
 			System.out.println("\nUnable to reach host.");
-			return null;
+			
 		} catch (IOException e) {
 			LOGGER.log(Level.INFO, "Input-Output exception.", e);
-			return null;
+			
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.INFO, "Class not found exception.", e);
 		}
-		return null;
+			return false;
+		
 	}
 
 	private void parseSocketInput(NetPacket receivedPacket) {
@@ -125,7 +125,8 @@ public class SocketClient {
 				break;
 			}
 			case GENERIC_STRING:
-				//TODO method needed in UI to show a generic message ui.showMessage((String)receivedPacket.getObject());
+				//TODO method needed in UI to show a generic message 
+				System.out.println((String)receivedPacket.getObject());
 				break;
 			default:
 				break;

@@ -1,6 +1,12 @@
 package it.polimi.ingsw.ps21.client;
 
-public class NetPacket {
+import java.io.Serializable;
+
+public class NetPacket implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 73696031937536316L;
 	private PacketType type;
 	private Object o;
 	private Object[] additionalObjects;
@@ -26,6 +32,7 @@ public class NetPacket {
 		this.o = o;
 		this.num = messNum;
 		int i=0;
+		this.additionalObjects=new Object[additionalObjs.length];
 		for(Object additionalObj: additionalObjs)
 		{
 			this.additionalObjects[i]=additionalObj;

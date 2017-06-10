@@ -23,7 +23,7 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
  * 
  */
 
-public class UnsettedAdvancedMatch extends Match {
+public class UnsettedAdvancedMatch extends UnsettedMatch {
 
 	private MatchFactory matchFactory;
 	
@@ -80,6 +80,12 @@ public class UnsettedAdvancedMatch extends Match {
 	@Override
 	public Match setNextPlayer() {
 		return this;
+	}
+	
+	@Override
+	public boolean isAdvanced()
+	{
+		return true;
 	}
 
  /* TODO	@Override

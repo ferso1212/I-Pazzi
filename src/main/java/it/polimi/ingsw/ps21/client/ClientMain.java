@@ -66,9 +66,9 @@ public class ClientMain {
 		while(newMatch == true){
 			if (chosenConnection==1) {
 				SocketClient client = new SocketClient(); 
-					MatchData match = client.start(chosenRules, name);
-					if (match != null){
-									while (CLImatch.isEnded());
+					boolean matchStarted=client.start(chosenRules, name);
+					if (matchStarted){
+								
 										System.out.println("Do you want to play another match, fucking looser?\n(Y)es\n(N)o");
 											String response = in.nextLine();			
 							}

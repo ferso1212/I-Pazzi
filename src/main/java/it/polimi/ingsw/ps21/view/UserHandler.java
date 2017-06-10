@@ -39,18 +39,18 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 
 	@Override
 	public void visit(VaticanChoice choice) {
-		choice.setChosen(connection.setVaticanChoice());
+		choice.setChosen(connection.reqVaticanChoice());
 	}
 
 	@Override
 	public void visit(CostChoice choice) {
-		choice.setChosen(connection.reqChoice(choice.getChoices()));
+		choice.setChosen(connection.reqCostChoice(choice.getChoices()));
 	}
 
 	@Override
 	public void visit(CouncilChoice choice) {
 		// TODO need to pass possible privileges
-		choice.setPrivilegesChosen(connection.reqPrivileges(choice.getNumberOfChoices()));
+		choice.setPrivilegesChosen(connection.reqPrivilegesChoice(choice.getNumberOfChoices()));
 		choice.setVisited();
 	}
 
@@ -110,7 +110,12 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 			else if (arg instanceof MatchData){
 				// TODO
 			}
+			else if(arg instanceof String)
+			{
+				connection.sendMessage((String)arg);
+			}
 		}
+		
 	}
 
 }

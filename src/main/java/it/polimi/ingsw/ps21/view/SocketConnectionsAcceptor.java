@@ -41,7 +41,7 @@ private ServerSocket serverSocket;
 				Socket newSocket = serverSocket.accept();
 				System.out.println("\nNew inbound connection detected. Source IP address: " + newSocket.getInetAddress());
 
-				(new SocketConnectionAdder(newSocket, stdConnections, advConnections)).start();
+			(new SocketConnectionAdder(newSocket, stdConnections, advConnections)).start();
 				
 				
 			} catch (IOException e) {

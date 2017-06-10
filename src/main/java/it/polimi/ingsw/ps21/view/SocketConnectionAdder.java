@@ -24,34 +24,13 @@ public class SocketConnectionAdder extends Thread {
 	}
 
 	public void run() {
-		try {
-		ObjectOutputStream out=new ObjectOutputStream(socket.getOutputStream());
-		out.flush();
-		ObjectInputStream in=new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-		
-		
-			String newName = (String)in.readObject();
-			
-			int chosenRules = (int)in.readObject(); // 1 for standard
-																// rules, 2 for
-																// advanced
-																// rules
-
-			SocketConnection newConnection = new SocketConnection(newName, socket);
-			addConnectionToQueue(chosenRules, newConnection);
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		SocketConnection newInboundConnection= new SocketConnection(socket);
+		addConnectionToQueue(newInboundConnection);
 
 	}
 
-	private void addConnectionToQueue(int chosenRules, SocketConnection newConnection) {
-		if (chosenRules == 1) {
+	private void addConnectionToQueue(SocketConnection newConnection) {
+		if (!newConnection.isAdvanced()) {
 			synchronized (connectionsQueue) {
 				this.connectionsQueue.add(newConnection);
 			
@@ -60,15 +39,14 @@ public class SocketConnectionAdder extends Thread {
 			}
 		}
 
-		else if (chosenRules == 2) {
+		else {
 			synchronized (advConnectionsQueue) {
 				this.advConnectionsQueue.add(newConnection);
 			
 			System.out.println("\n" + newConnection.getName()
 					+ "'s inbound connection added to the advanced lobby in position " + advConnectionsQueue.size());
 			}
-		} else
-			return;
+		}
 	}
 
 }

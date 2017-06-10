@@ -5,12 +5,13 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import it.polimi.ingsw.ps21.controller.MatchRunner;
 import it.polimi.ingsw.ps21.controller.TimeoutTask;
+import it.polimi.ingsw.ps21.model.match.MatchFactory;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
 public class Lobby extends Thread{
 	private ConcurrentLinkedQueue<Connection> connectionsQueue;
 	
-	private final static long TIMEOUT = 60000;
+	private final long TIMEOUT=3000; //TODO change
 	// the milliseconds that the server will
 	// wait once 2 players joined
 	private final static int MAX_PLAYERS_NUM = 4; // The match is created if the
@@ -21,16 +22,20 @@ public class Lobby extends Thread{
 	
 	private boolean timeoutExpired;
 	private boolean startedTimer = false;
-	private String chosenRules;
+	private boolean isAdvanced;
 
-	public Lobby(String type)
+	public Lobby(boolean type)
 	{
+		//this.TIMEOUT= MatchFactory.instance().makeTimeoutServer();
 		this.timeoutExpired=false;
 		this.connectionsQueue= new ConcurrentLinkedQueue<>();
-		this.chosenRules=type;
+		this.isAdvanced=type;
 	}
 	
 	public void run(){
+	String chosenRules;
+	if(isAdvanced) chosenRules=new String("advanced");
+	else chosenRules=new String("standard");
 	
 	while (true) {
 		Timer timer = new Timer();
@@ -64,15 +69,15 @@ public class Lobby extends Thread{
 		// MatchRunner with those UserHandlers
 		int playersAdded = 0;
 		synchronized (connectionsQueue) {
-			System.out.println("\nInitializing a new " + this.chosenRules + " match with " + Math.min(MAX_PLAYERS_NUM, connectionsQueue.size())
+			System.out.println("\nInitializing a new " + chosenRules + " match with " + Math.min(MAX_PLAYERS_NUM, connectionsQueue.size())
 					+ " players.");
 			UserHandler[] usersToAdd = new UserHandler[Math.min(connectionsQueue.size(), MAX_PLAYERS_NUM)];
 			while ((playersAdded < usersToAdd.length) && (connectionsQueue.size() > 0)) {
 				usersToAdd[playersAdded] = new UserHandler(PlayerColor.values()[playersAdded],
-						connectionsQueue.remove());
+						connectionsQueue.poll());
 				playersAdded++;
 			}
-			new Thread((new MatchRunner(usersToAdd))).start();
+			new Thread((new MatchRunner(isAdvanced, usersToAdd))).start();
 			System.out.println("\nNew MatchRunner thread created with " + playersAdded + " players.");
 		}
 

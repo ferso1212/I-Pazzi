@@ -92,4 +92,10 @@ public class UnsettedMatch extends Match {
 	public Match setNextPlayer() {
 		return this;
 	}
+	
+	public boolean isAdvanced()
+	{
+		return false;
+	}
 }
+

@@ -110,5 +110,10 @@ public class MatchController extends Observable implements Observer {
 			}
 		}
 	}
+	
+	private void setupLeaderCards()
+	{
+		
+	}
 
 }

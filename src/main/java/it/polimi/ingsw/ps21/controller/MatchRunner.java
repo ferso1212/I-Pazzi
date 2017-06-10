@@ -12,6 +12,7 @@ import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
 import it.polimi.ingsw.ps21.model.match.CompleteMatchException;
 import it.polimi.ingsw.ps21.model.match.InvalidIDException;
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
+import it.polimi.ingsw.ps21.model.match.UnsettedAdvancedMatch;
 import it.polimi.ingsw.ps21.model.match.UnsettedMatch;
 import it.polimi.ingsw.ps21.view.UserHandler;
 
@@ -19,15 +20,19 @@ public class MatchRunner implements Runnable {
 	private final static Logger LOGGER = Logger.getLogger(MatchRunner.class.getName());
 	private UserHandler[] playerHandlers;
 	private MatchController controller;
+	private boolean isAdvanced;
 
-	public MatchRunner(UserHandler... usersToAdd) {
+	public MatchRunner(boolean isAdvanced, UserHandler... usersToAdd) {
 		this.playerHandlers = usersToAdd.clone();
+		this.isAdvanced=isAdvanced;
 	}
 
 	@Override
 	public void run() {
 		try {
-			UnsettedMatch match = new UnsettedMatch();
+			UnsettedMatch match;
+			if(isAdvanced) match= new UnsettedAdvancedMatch();
+			else  match = new UnsettedMatch();
 
 			for (UserHandler player : playerHandlers) {
 
