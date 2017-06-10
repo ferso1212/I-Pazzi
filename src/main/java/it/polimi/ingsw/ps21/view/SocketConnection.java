@@ -114,6 +114,7 @@ public class SocketConnection implements Connection{
 	public ImmProperties[] reqPrivileges(int number) {
 		out.println("privilegesChoice");
 		out.println(number);
+		return null;
 	}
 
 
