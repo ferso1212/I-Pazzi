@@ -9,8 +9,12 @@ import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 
-public abstract class DevelopmentCard extends Card{
+public abstract class DevelopmentCard extends Card implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -86001113989795205L;
 	protected int cardEra;
 	protected EffectSet instantEffect;
 	protected ArrayList<EffectSet> permanentEffects;
