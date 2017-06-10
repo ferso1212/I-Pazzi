@@ -1,60 +1,313 @@
 <?xml version="1.0" ?>
 <!DOCTYPE SubDeckPurple SYSTEM "purple-deck-schema.dtd">
 <SubDeckPurple>
-    <VentureCard name="Messo Papale" period="1">
+    <VentureCard name="Combattere le Eresie" period="1">
         <Requirement>
             <Properties>
-                    <Wood value="0"/>
-                    <Stones value="0"/>
-                    <Servants value="0"/>
-                    <Coins value="0"/>
-                    <MilitaryPoints value="0"/>
-                    <VictoryPoints value="0"/>
-                    <FaithPoints value="0"/>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="5" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
             </Properties>
-	    <CardsNumber>
-                <Green value="0"/>
-		<Yellow value="0"/>                
-		<Blue value="0"/>           
-                <Purple value="0"/>
+            <CardsNumber>
+                <Green value="0" />
+                <Yellow value="0" />
+                <Blue value="0" />
+                <Purple value="0" />
             </CardsNumber>
         </Requirement>
- 	<Cost>
-         	<Properties>
-                    <Wood value="0"/>
-                    <Stones value="0"/>
-                    <Servants value="0"/>
-                    <Coins value="5"/>
-                    <MilitaryPoints value="0"/>
-                    <VictoryPoints value="0"/>
-                    <FaithPoints value="0"/>
-		</Properties>
-         </Cost>
-	<InstantEffect>
-		<EffectSet>
-			<PropEffect>
-			 <Cost>
-         			<Properties>
-            			        <Wood value="0"/>
-           			         <Stones value="0"/>
-           			         <Servants value="0"/>
-          			          <Coins value="5"/>
-          			          <MilitaryPoints value="0"/>
-          			          <VictoryPoints value="0"/>
-          			          <FaithPoints value="0"/>
-				</Properties>
-     			    </Cost>
-				<Properties>
-                    			<Wood value="0"/>
-                    			<Stones value="0"/>
-                    			<Servants value="0"/>
-                    			<Coins value="0"/>
-                    			<MilitaryPoints value="0"/>
-                    			<VictoryPoints value="0"/>
-                    			<FaithPoints value="3"/>
-				</Properties>
-			</PropEffect>
-		</EffectSet>	
-	</InstantEffect>
+        <Cost>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="3" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+        </Cost>
+        <InstantEffect>
+            <EffectSet>
+                <PropEffect>
+                    <Cost>
+                        <Properties>
+                            <Wood value="0" />
+                            <Stones value="0" />
+                            <Servants value="0" />
+                            <Coins value="0" />
+                            <MilitaryPoints value="0" />
+                            <VictoryPoints value="0" />
+                            <FaithPoints value="0" />
+                        </Properties>
+                    </Cost>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="2" />
+                    </Properties>
+                </PropEffect>
+            </EffectSet>
+        </InstantEffect>
+        <PermanentEffect>
+            <EffectSet>
+                <PropEffect>
+                    <Cost>
+                        <Properties>
+                            <Wood value="0" />
+                            <Stones value="0" />
+                            <Servants value="0" />
+                            <Coins value="0" />
+                            <MilitaryPoints value="0" />
+                            <VictoryPoints value="0" />
+                            <FaithPoints value="0" />
+                        </Properties>
+                    </Cost>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="5" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                </PropEffect>
+            </EffectSet>
+        </PermanentEffect>
+    </VentureCard>
+    <VentureCard name="Scavare Canalizzazioni" period="2">
+        <Requirement>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="0" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+            <CardsNumber>
+                <Green value="0" />
+                <Yellow value="0" />
+                <Blue value="0" />
+                <Purple value="0" />
+            </CardsNumber>
+        </Requirement>
+        <Cost>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="2" />
+                <Coins value="3" />
+                <MilitaryPoints value="0" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+        </Cost>
+        <InstantEffect>
+            <EffectSet>
+                <ExtraWorkAction diceValue="4">
+                    <Harvest />
+                </ExtraWorkAction>
+            </EffectSet>
+        </InstantEffect>
+        <PermanentEffect>
+            <EffectSet>
+                <PropEffect>
+                    <Cost>
+                        <Properties>
+                            <Wood value="0" />
+                            <Stones value="0" />
+                            <Servants value="0" />
+                            <Coins value="0" />
+                            <MilitaryPoints value="0" />
+                            <VictoryPoints value="0" />
+                            <FaithPoints value="0" />
+                        </Properties>
+                    </Cost>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="5" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                </PropEffect>
+            </EffectSet>
+        </PermanentEffect>
+    </VentureCard>
+    <VentureCard name="Conquista Militare" period="3">
+        <Requirement>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="12" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+            <CardsNumber>
+                <Green value="0" />
+                <Yellow value="0" />
+                <Blue value="0" />
+                <Purple value="0" />
+            </CardsNumber>
+        </Requirement>
+        <Cost>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="6" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+        </Cost>
+        <InstantEffect>
+            <EffectSet>
+                <PropEffect>
+                    <Cost>
+                        <Properties>
+                            <Wood value="0" />
+                            <Stones value="0" />
+                            <Servants value="0" />
+                            <Coins value="0" />
+                            <MilitaryPoints value="0" />
+                            <VictoryPoints value="0" />
+                            <FaithPoints value="0" />
+                        </Properties>
+                    </Cost>
+                    <Properties>
+                        <Wood value="3" />
+                        <Stones value="3" />
+                        <Servants value="0" />
+                        <Coins value="3" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                </PropEffect>
+            </EffectSet>
+        </InstantEffect>
+        <PermanentEffect>
+            <EffectSet>
+                <PropEffect>
+                    <Cost>
+                        <Properties>
+                            <Wood value="0" />
+                            <Stones value="0" />
+                            <Servants value="0" />
+                            <Coins value="0" />
+                            <MilitaryPoints value="0" />
+                            <VictoryPoints value="0" />
+                            <FaithPoints value="0" />
+                        </Properties>
+                    </Cost>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="7" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                </PropEffect>
+            </EffectSet>
+        </PermanentEffect>
+    </VentureCard>
+    <VentureCard name="Sostegno al Cardinale" period="2">
+        <Requirement>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="7" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+            <CardsNumber>
+                <Green value="0" />
+                <Yellow value="0" />
+                <Blue value="0" />
+                <Purple value="0" />
+            </CardsNumber>
+        </Requirement>
+        <Cost>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="4" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+        </Cost>
+        <InstantEffect>
+            <EffectSet>
+                <PropEffect>
+                    <Cost>
+                        <Properties>
+                            <Wood value="0" />
+                            <Stones value="0" />
+                            <Servants value="0" />
+                            <Coins value="0" />
+                            <MilitaryPoints value="0" />
+                            <VictoryPoints value="0" />
+                            <FaithPoints value="0" />
+                        </Properties>
+                    </Cost>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="2" />
+                    </Properties>
+                </PropEffect>
+            </EffectSet>
+        </InstantEffect>
+        <PermanentEffect>
+            <EffectSet>
+                <PropEffect>
+                    <Cost>
+                        <Properties>
+                            <Wood value="0" />
+                            <Stones value="0" />
+                            <Servants value="0" />
+                            <Coins value="0" />
+                            <MilitaryPoints value="0" />
+                            <VictoryPoints value="0" />
+                            <FaithPoints value="0" />
+                        </Properties>
+                    </Cost>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="5" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                </PropEffect>
+            </EffectSet>
+        </PermanentEffect>
     </VentureCard>
 </SubDeckPurple>
