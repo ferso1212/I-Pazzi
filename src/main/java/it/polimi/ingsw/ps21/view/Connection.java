@@ -15,6 +15,7 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public abstract interface Connection{
 
+	public void matchStarted();
 	
 	public void sendMessage(String mess);
 	

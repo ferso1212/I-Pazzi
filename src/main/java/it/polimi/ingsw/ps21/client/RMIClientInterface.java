@@ -19,4 +19,8 @@ public interface RMIClientInterface extends Remote {
 	
 	public void setId(PlayerColor id) throws RemoteException;
 	
+	public void notifyMatchStarted() throws RemoteException;
+	
+	public String sendName() throws RemoteException;
+	
 }

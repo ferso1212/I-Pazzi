@@ -97,9 +97,13 @@ public class DevelopmentAction extends Action {
 
 		player.getDeck().addCard(space.getCard()); // aggiunta della carta al deck del player
 
-		ArrayList<ExtraAction> extraActionFromInstantEffect = selectedCard.getInstantEffect().activate(player);
+		ArrayList<ExtraAction> extraActionFromInstantEffect = new ArrayList<ExtraAction>();
+		extraActionFromInstantEffect = selectedCard.getInstantEffect().activate(player);
 		
-		ArrayList<ExtraAction> extraActionFromPermanentEffect = effectChoice.getEffectChosen().activate(player);
+		ArrayList<ExtraAction> extraActionFromPermanentEffect = new ArrayList<ExtraAction>();
+		if (selectedCard.getCardType().equals(DevelopmentCardType.CHARACTER)){
+			extraActionFromPermanentEffect = effectChoice.getEffectChosen().activate(player);
+		}
 		
 		extraActionFromInstantEffect.addAll(extraActionFromPermanentEffect);
 		

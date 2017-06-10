@@ -25,8 +25,10 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	private transient RMIConnectionInterface connection = null;
 	private transient UserInterface ui;
 	public boolean connected = false;
+	private String username;
 	
 	public RMIClient(String username, UserInterface ui, int chosenRules) throws RemoteException, NotBoundException{
+		this.username = username;
 		this.ui = ui;
 		serverRegistry = LocateRegistry.getRegistry("localhost", 5000);
 		RMIConnectionCreator connectionService = (RMIConnectionCreator) serverRegistry.lookup("RMIConnectionCreator");
@@ -36,17 +38,8 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	}
 	
 	public void start(){ 
-		System.out.println("Actually RMIConnection is not fully implemented, write the message you want to send to server: (IF you want to end connection write END)");
-		String message = ui.nextInput();
-		while(message.compareTo("END")!=0){
-			try {
-				connection.receiveMessage(message);
-				message = ui.nextInput();
-			} catch (RemoteException e) {
-				ui.showInfo("Network Error");
-				message = "END";
-			}
-		}
+		 if (connected) ui.showInfo("Connected to RMI Server");
+		
 		
 	}
 		/*try {
@@ -88,6 +81,16 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	@Override
 	public void setId(PlayerColor id) throws RemoteException {
 		ui.setID(id);
+	}
+
+	@Override
+	public void notifyMatchStarted() throws RemoteException {
+		ui.playMatch();
+	}
+
+	@Override
+	public String sendName() throws RemoteException {
+		return this.username;
 	}
 
 	/*@Override

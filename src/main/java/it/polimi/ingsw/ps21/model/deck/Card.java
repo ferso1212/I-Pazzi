@@ -35,10 +35,8 @@ public abstract class Card {
 		}
 	}
 	
-	public Card(String name, Requirement req) {
+	public Card(String name) {
 		this.name = name;
-		possibleRequirement = new ArrayList<>();
-		possibleRequirement.add(req);
 	}
 	
 	public abstract Card clone();

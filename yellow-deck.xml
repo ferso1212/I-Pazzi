@@ -871,7 +871,7 @@
         <Cost>
             <Properties>
                 <Wood value="2" />
-                <Stones value="" />
+                <Stones value="0" />
                 <Servants value="0" />
                 <Coins value="1" />
                 <MilitaryPoints value="0" />
