@@ -22,7 +22,8 @@ public class TestMatches {
 	
 	@Test
 	public void test() {
-		assert(checkMatchCreation());
+		//assert(true);
+	 assert(checkMatchCreation());
 	}
 	private boolean checkMatchCreation() {
 		try {
