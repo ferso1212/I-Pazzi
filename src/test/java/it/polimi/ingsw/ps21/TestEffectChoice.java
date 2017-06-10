@@ -22,6 +22,7 @@ import it.polimi.ingsw.ps21.model.effect.CouncilEffect;
 import it.polimi.ingsw.ps21.model.effect.DiscountEffect;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.effect.PropEffect;
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.Visitor;
 
@@ -40,7 +41,7 @@ public class TestEffectChoice implements Visitor{
 	public void setUp(){
 			EffectSet testset[] = new EffectSet[2];
 			testset[0] = new EffectSet(new PropEffect(new ImmProperties(0), new ImmProperties(3,0,1)), new CouncilEffect(new ImmProperties(0), 2));
-			testedEffectChoice = new EffectChoice(testset);
+			testedEffectChoice = new EffectChoice(PlayerColor.BLUE, testset);
 		
 	}
 	
@@ -51,15 +52,13 @@ public class TestEffectChoice implements Visitor{
 
 	private boolean checkValidation() {
 		validation = true;		
-		testedEffectChoice.accept(this);
 		choose(testedEffectChoice);
-		
 		return validation;
 	}
 
 	public void choose(EffectChoice effect) {
-		effect.setChosen(0);
-		if (testedEffectChoice.getChoices()[0] == testedEffectChoice.getChosen()) validation = true;
+		effect.setEffectChosen(effect.getPossibleEffects()[0]);
+		if (effect.getPossibleEffects()[0] == effect.getEffectChosen()) validation = true;
 		else validation = false;
 		
 	}

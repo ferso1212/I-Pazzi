@@ -9,8 +9,8 @@ public class AdvSingleMarketSpace extends SingleMarketSpace{
 
 	private FamilyMember otherOccupant;
 
-	public AdvSingleMarketSpace(int diceRequirement, ImmProperties instantBonus, FamilyMember otherOccupant) {
-		super(diceRequirement, instantBonus);
+	public AdvSingleMarketSpace(int diceRequirement, ImmProperties instantBonus, int numberOfPrivileges, FamilyMember otherOccupant) {
+		super(diceRequirement, instantBonus, numberOfPrivileges);
 		this.otherOccupant = otherOccupant;
 	}
 

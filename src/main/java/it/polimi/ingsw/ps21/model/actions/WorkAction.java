@@ -37,17 +37,17 @@ public class WorkAction extends Action {
 				if (((match.getNumberPlayers() == 3) || (match.getNumberPlayers() == 4)) && 
 						((famMember.getColor() == MembersColor.WHITE) || (famMember.getColor() == MembersColor.BLACK) || (famMember.getColor() == MembersColor.ORANGE)) && 
 						!((this.checkOccupant(match, famMember, space) == MembersColor.NEUTRAL) ||(this.checkOccupant(match, famMember, space) == null))){
-						return new RefusedAction();
+						return new RefusedAction(player.getId());
 				}
 					try {
-						this.workMessage = new WorkMessage(player.getActivableWorks(this.famMember.getValue(), this.space.getWorkType()), player.getProperties().clone());
+						this.workMessage = new WorkMessage(player.getId(), player.getActivableWorks(this.famMember.getValue(), this.space.getWorkType()), player.getProperties().clone());
 					} catch (IllegalCardTypeException e) {
-						return new RefusedAction();
+						return new RefusedAction(player.getId());
 					} catch (CloneNotSupportedException e) {
-						return new RefusedAction();
+						return new RefusedAction(player.getId());
 					}
 					return this.workMessage;
-		} else return new RefusedAction();
+		} else return new RefusedAction(player.getId());
 	}
 
 	private MembersColor checkOccupant(Match match, FamilyMember famMember, Space space)

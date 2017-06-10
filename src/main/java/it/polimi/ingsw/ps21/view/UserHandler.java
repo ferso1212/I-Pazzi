@@ -34,7 +34,6 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 	}
 
 	private Action reqUserAction() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

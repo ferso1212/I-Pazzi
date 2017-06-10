@@ -1,8 +1,6 @@
-package it.polimi.ingsw.ps21.model.effect;
+package it.polimi.ingsw.ps21.model.actions;
 
 import it.polimi.ingsw.ps21.controller.Message;
-import it.polimi.ingsw.ps21.model.actions.ExtraAction;
-import it.polimi.ingsw.ps21.model.actions.NotExecutableException;
 import it.polimi.ingsw.ps21.model.board.NotOccupableException;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.match.Match;
