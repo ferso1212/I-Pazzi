@@ -1,26 +1,33 @@
 package it.polimi.ingsw.ps21.model.match;
 
-import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
+
 import javax.xml.parsers.ParserConfigurationException;
 
-import it.polimi.ingsw.ps21.model.player.PlayerColor;
-import it.polimi.ingsw.ps21.model.player.PlayerProperties;
-import it.polimi.ingsw.ps21.model.properties.ImmProperties;
-import it.polimi.ingsw.ps21.view.UserHandler;
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.board.Board;
+import it.polimi.ingsw.ps21.model.player.AdvancedModifier;
+import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.player.Player;
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
+import it.polimi.ingsw.ps21.model.player.PlayerProperties;
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
-public class UnsettedMatch extends Match {
+/*
+ * This implementation of match must contains only advanced Player
+ * 
+ */
+
+public class UnsettedAdvancedMatch extends Match {
+
 	private MatchFactory matchFactory;
-	private boolean advancedMatch = false;
-	public UnsettedMatch() throws ParserConfigurationException, BuildingDeckException {
+	
+	public UnsettedAdvancedMatch() throws ParserConfigurationException, BuildingDeckException  {
 		this.observers = new ArrayList<>();
 		this.board = new Board(blackDice, true);
 		order = new ArrayDeque<>();
@@ -28,21 +35,13 @@ public class UnsettedMatch extends Match {
 		orangeDice = 0;
 		blackDice = 0;
 		whiteDice = 0;
-		this.matchFactory=MatchFactory.instance();
+		this.matchFactory = MatchFactory.instance();	}
+
+	@Override
+	public ExtraAction[] doAction(Action action) {
+		return null;
 	}
 
-	/*@Override
-	public Match getCopy() throws CloneNotSupportedException {
-		return this;
-	} */
-
-	/**
-	 * 
-	 * @param newPlayer
-	 * @throws InvalidIDException
-	 *             It means that this ID is already taken
-	 * @throws CompleteMatchException
-	 */
 	public synchronized void addPlayer(PlayerColor newPlayer)
 			throws InvalidIDException, CompleteMatchException {
 		if (players.containsKey(newPlayer))
@@ -50,13 +49,9 @@ public class UnsettedMatch extends Match {
 		if (players.containsKey(PlayerColor.BLUE) && players.containsKey(PlayerColor.GREEN)
 				&& players.containsKey(PlayerColor.RED) && players.containsKey(PlayerColor.YELLOW))
 			throw new CompleteMatchException();
-		players.put(newPlayer, new Player(new PlayerProperties(0), newPlayer));
+		players.put(newPlayer, new AdvancedPlayer(newPlayer, new PlayerProperties(0)));
 	}
 
-	/**
-	 * 
-	 * @return Will created a new InitialRound match with era = 1
-	 */
 	public Match startMatch() {
 		List<Player> shuffledPlayers = new ArrayList<Player>(players.values());
 		Collections.shuffle(shuffledPlayers);
@@ -81,14 +76,16 @@ public class UnsettedMatch extends Match {
 		return new InitialRoundMatch(this);
 
 	}
-
-	@Override
-	public ExtraAction[] doAction(Action action) {
-		return null;
-	}
-
+	
 	@Override
 	public Match setNextPlayer() {
 		return this;
 	}
+
+ /* TODO	@Override
+	public Match getCopy() throws CloneNotSupportedException {
+		return null;
+	}
+	*/
+
 }

@@ -6,8 +6,9 @@ public class VaticanChoice extends Message{
 	
 	private boolean chosen;
 
-	public VaticanChoice(PlayerColor dest, String message, boolean chosen) {
-		super(dest);
+
+	public VaticanChoice(String message, boolean chosen, PlayerColor destination) {
+		super(destination);
 		this.message = "You have to choose to support or not the church (don't do it, Satan is beatiful)";
 		this.chosen = chosen;
 	}

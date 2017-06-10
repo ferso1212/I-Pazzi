@@ -12,9 +12,10 @@ public class WorkMessage extends Message {
 	private int[] chosenCardsAndEffects;
 	private PlayerProperties clonedPlayerProperties;
 
-	public WorkMessage(PlayerColor dest, ArrayList<DevelopmentCard> choices, PlayerProperties clonedPlayerProperties) {
-		super(dest);
-		// settare messaggio
+
+	public WorkMessage(PlayerColor destination, ArrayList<DevelopmentCard> choices, PlayerProperties clonedPlayerProperties) {
+		super(destination);
+		// TODO settare messaggio
 		this.choices = choices;
 		this.clonedPlayerProperties = clonedPlayerProperties;
 	}

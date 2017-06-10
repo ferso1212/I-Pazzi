@@ -50,12 +50,15 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 
 	@Override
 	public void visit(CouncilChoice choice) {
-		
+		// TODO need to pass possible privileges
+		choice.setPrivilegesChosen(connection.reqPrivileges(choice.getNumberOfChoices()));
+		choice.setVisited();
 	}
 
 	@Override
 	public void visit(EffectChoice choice) {
 		// TODO Auto-generated method stub
+		choice.setVisited;
 
 	}
 
@@ -66,15 +69,17 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 
 	@Override
 	public void visit(AcceptedAction message) {
-		// TODO Auto-generated method stub
-
+		connection.sendMessage(message.getMessage());
+		message.setVisited();
 	}
 
 	@Override
 	public void visit(RefusedAction message) {
-		// TODO Auto-generated method stub
-
+		connection.sendMessage(message.getMessage());
+		message.setVisited();
 	}
+	
+	
 
 	@Override
 	public void run() {

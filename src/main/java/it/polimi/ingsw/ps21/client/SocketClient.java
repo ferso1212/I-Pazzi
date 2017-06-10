@@ -24,7 +24,7 @@ public class SocketClient{
 	private BufferedReader socketIn;
 	private PrintWriter socketOut;
 	private ObjectInputStream objIn;
-	private ObjectOutputStream objOutput;
+	private ObjectOutputStream objOut;
 	private UserInterface ui;
 	
 	public SocketClient() {
@@ -73,7 +73,10 @@ public class SocketClient{
 	}
 
 	private void parseAndPrintSocketInput(String input){
-		switch (input) {
+		String[] structuredInput=input.split("_");
+		int messageNum=Integer.parseInt(structuredInput[0]);
+		String command=structuredInput[1];
+		switch (command) {
 		case "printString": 
 		{
 			try {
@@ -87,7 +90,7 @@ public class SocketClient{
 		case "costChoice": {
 			try {
 				int chosen = ui.reqCostChoice((ArrayList<ImmProperties>)objIn.readObject());
-				socketOut.println(chosen);
+				socketOut.println(messageNum + "_" + chosen);
 			} catch (ClassNotFoundException e) {
 				LOGGER.log(Level.INFO, "CostChoice class not found, unable to read message from socket", e);
 			} catch (IOException e) {
@@ -98,9 +101,24 @@ public class SocketClient{
 		
 		case "privilegesChoice" :
 		{
-			
+			int number=0;
+			try {
+				number=Integer.parseInt(socketIn.readLine());
+			} catch (NumberFormatException n) {
+				LOGGER.log(Level.WARNING, "Unable to parse the received string to integer.", n);
+				
+			} catch (IOException e) {
+				LOGGER.log(Level.WARNING, "Input-Output exception on reading a line from the socket.", e);
+				number=0;
+			}
+			ImmProperties[] chosenPrivileges= ui.reqPrivileges(number);
+			try {
+				objOut.writeObject(chosenPrivileges);
+			} catch (IOException e) {
+				LOGGER.log(Level.INFO, "Input-Output exception on sending the chosen privileges on the socket.", e);
+			}
 		}
-		//TODO other messages
+		
 		}
 	}
 }

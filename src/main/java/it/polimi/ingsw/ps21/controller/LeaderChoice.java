@@ -9,8 +9,9 @@ public class LeaderChoice extends Message{
 	private LeaderCard[] choices;
 	private LeaderCard choosenCard;
 	
-	public LeaderChoice(PlayerColor dest, LeaderCard[] choices) {
-		super(dest);
+
+	public LeaderChoice(LeaderCard[] choices, PlayerColor destination) {
+		super(destination);
 		this.choices = choices;
 	}
 
