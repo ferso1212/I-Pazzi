@@ -44,7 +44,20 @@ public class TestMatchFactory extends TestCase {
         assert(checkCardAddingRequirement());
         assert(checkExcomReq());
         assert(checkTimeouts());
+        assert(checkTowerBonuses());
     }
+
+	private boolean checkTowerBonuses() {
+		boolean ok = true;
+		Map<DevelopmentCardType, ImmProperties[]> bonuses =  testedBuilder.makeTowersBonus();
+		for (ImmProperties[] i: bonuses.values()){
+			for (ImmProperties b: i){
+				if (b.greaterOrEqual( new ImmProperties(0,0,0,0))) ok = ok && true;
+				else ok = ok && false;
+			}
+		}
+		return ok;
+	}
 
 	private boolean checkTimeouts() {
 		int round = testedBuilder.makeTimeoutRound();

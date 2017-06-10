@@ -268,9 +268,10 @@ public class MatchFactory {
 		if (configuratedDeck == null) {
 			configuratedDeck = new Deck();
 			configuratedDeck.setGreenDeck(makeGreenDeck());
-			configuratedDeck.setBlueDeck(makeBlueDeck());
-			configuratedDeck.setYellowDeck(makeYellowDeck());
-			configuratedDeck.setPurpleDeck(makePurpleDeck());
+			// TODO Fix files of decks
+			//configuratedDeck.setBlueDeck(makeBlueDeck());
+			//configuratedDeck.setYellowDeck(makeYellowDeck());
+			//configuratedDeck.setPurpleDeck(makePurpleDeck());
 		}
 		return (Deck) configuratedDeck.clone();
 	}
@@ -447,7 +448,7 @@ public class MatchFactory {
 				faith[4] = Integer.parseInt(faithBonuses.getAttribute("fifth"));
 				faith[5] = Integer.parseInt(faithBonuses.getAttribute("sixth"));
 				faith[6] = Integer.parseInt(faithBonuses.getAttribute("seventh"));
-				faith[7] = Integer.parseInt(faithBonuses.getAttribute("eghth"));
+				faith[7] = Integer.parseInt(faithBonuses.getAttribute("eighth"));
 				faith[8] = Integer.parseInt(faithBonuses.getAttribute("nineth"));
 				faith[9] = Integer.parseInt(faithBonuses.getAttribute("tenth"));
 				faith[10] = Integer.parseInt(faithBonuses.getAttribute("eleventh"));
