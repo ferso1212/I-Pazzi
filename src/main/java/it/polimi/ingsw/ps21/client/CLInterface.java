@@ -36,11 +36,13 @@ public class CLInterface implements UserInterface {
 	private int tileHarvDiceReq;
 	private ImmProperties tileHarvBonus;
 	private boolean advancedMatch;
+	private boolean matchStarted = false;
 	
 	public CLInterface(int chosenRules) {
 		userInput = new Scanner(System.in);
 		if (chosenRules == 1) advancedMatch = true;
 		else advancedMatch = false;
+		System.out.println("Waiting for match starting...");
 	}
 	
 	@Override
@@ -252,6 +254,12 @@ public class CLInterface implements UserInterface {
 		}
 		return "To be implemented";
 
+	}
+
+	@Override
+	public void playMatch() {
+		this.matchStarted = true;
+		System.out.println("Match started!");
 	}
 
 }

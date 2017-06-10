@@ -56,12 +56,7 @@ public class TestMatchFactory extends TestCase {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
-			} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-				e.printStackTrace();
-			 return false;
-			}
-		
+			}		
 	}
 	
 	private boolean checkPrivileges() {

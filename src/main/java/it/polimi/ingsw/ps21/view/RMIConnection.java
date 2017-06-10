@@ -19,16 +19,21 @@ import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
-
+/**
+ * Implementation of a connection between server and client using RMI protocol
+ */
 public class RMIConnection extends UnicastRemoteObject implements RMIConnectionInterface, Connection{
+	
+	private static final long serialVersionUID = 8434915145131336717L;
+
 	private final static Logger LOGGER = Logger.getLogger(RMIConnection.class.getName());
 
 	private String name;
 	// Unused private Queue<String> input;
 	// Unused private Queue<String> output;
 	private transient RMIClientInterface client;
-	public RMIConnection(String inputName) throws RemoteException{
-		name = inputName;
+	public RMIConnection(String userName) throws RemoteException{
+		name = userName;
 	}
 
 
@@ -70,7 +75,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 
 
 	@Override
-	public int reqChoice(ArrayList<ImmProperties> costs) {
+	public int reqCostChoice(ArrayList<ImmProperties> costs) {
 		try {
 			return client.setCost(costs);
 		} catch (RemoteException e) {
@@ -81,7 +86,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 
 
 	@Override
-	public boolean setVaticanChoice() {
+	public boolean reqVaticanChoice() {
 		try {
 			return client.vaticanChoice();
 		} catch (RemoteException e) {
@@ -92,7 +97,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 
 
 	@Override
-	public ImmProperties[] reqPrivileges(int number) {
+	public ImmProperties[] reqPrivilegesChoice(int number) {
 		try {
 			return client.reqPrivileges(number);
 		} catch (RemoteException e) {
@@ -115,7 +120,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 	@Override
 	public void matchStarted() {
 		try {
-			client.notifyMatchStarte();
+			client.notifyMatchStarted();
 		} catch (RemoteException e) {
 			LOGGER.log(Level.WARNING, "Error notifing match started on remote client", e);
 		}
