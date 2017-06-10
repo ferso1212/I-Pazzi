@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
 import it.polimi.ingsw.ps21.model.match.CompleteMatchException;
 import it.polimi.ingsw.ps21.model.match.InvalidIDException;
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
@@ -36,6 +37,8 @@ public class MatchRunner implements Runnable {
 		} catch (CompleteMatchException | InvalidIDException e) {
 			LOGGER.log(Level.INFO, "Unable to add another player" , e);
 
+		} catch (ParserConfigurationException | BuildingDeckException e) {
+			LOGGER.log(Level.SEVERE, "Unable to create Match" , e);
 		}
 
 	}

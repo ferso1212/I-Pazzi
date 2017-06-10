@@ -58,7 +58,7 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 	@Override
 	public void visit(EffectChoice choice) {
 		// TODO Auto-generated method stub
-		choice.setVisited;
+		choice.isVisited();
 
 	}
 

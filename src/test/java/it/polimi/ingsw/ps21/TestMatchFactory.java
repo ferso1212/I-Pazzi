@@ -45,6 +45,7 @@ public class TestMatchFactory extends TestCase {
 		boolean ok =true;
 		Deck testDeck;
 		try {
+			if (testedBuilder == null) return false;
 			testDeck = testedBuilder.makeDeck();
 			if (testDeck.isEmpty()) return false;
 			else
@@ -53,7 +54,12 @@ public class TestMatchFactory extends TestCase {
 			}
 		} catch (BuildingDeckException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
 			return false;
+			} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+				e.printStackTrace();
+			 return false;
 			}
 		
 	}
