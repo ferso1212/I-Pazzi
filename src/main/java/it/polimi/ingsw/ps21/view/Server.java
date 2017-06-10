@@ -36,11 +36,6 @@ public class Server implements Runnable {
 		this.stdLobby=new Lobby("standard");
 		this.advLobby=new Lobby("advanced");
 		
-		
-
-		// this.socketAcceptor = new
-		// SocketConnectionsAcceptor(this.connections);
-		// this.rmiAcceptor = new RMIConnectionsAcceptor(this.connections);
 
 	}
 

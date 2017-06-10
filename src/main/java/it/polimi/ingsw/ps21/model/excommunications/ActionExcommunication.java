@@ -27,8 +27,8 @@ public class ActionExcommunication extends Excommunication{
 	 * @param delayFirstAction set true if this excommunication should delay the first action of the player to the end of the round, each round.
 	 * @param noMarketAction set true if this excommunication should forbid the player to perform a market action.
 	 */
-	public ActionExcommunication(boolean delayFirstAction, boolean noMarketAction) {
-		super();
+	public ActionExcommunication(int id, int period, boolean delayFirstAction, boolean noMarketAction) {
+		super(id, period);
 		this.delayFirstAction = delayFirstAction;
 		this.noMarketAction = noMarketAction;
 		

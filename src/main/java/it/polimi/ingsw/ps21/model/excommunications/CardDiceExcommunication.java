@@ -20,14 +20,17 @@ public class CardDiceExcommunication extends Excommunication{
 	
 	/**
 	 * Constructs the object.
+	 * @param id the card id
+	 * @param period the card period
 	 * @param cardType the card type on which the malus should be applied.
 	 * @param malus the value that will be added to the action value. If you want this to be a malus, this value must be positive.
 	 */
-	public CardDiceExcommunication(DevelopmentCardType cardType, int malus) {
-		super();
-		this.diceMalus= malus;
-		this.cardType=cardType;
+	public CardDiceExcommunication(int id, int period, DevelopmentCardType cardType, int diceMalus) {
+		super(id, period);
+		this.cardType = cardType;
+		this.diceMalus = diceMalus;
 	}
+	
 	
 	/**Returns a string that describes the excommunication
 	 */
@@ -37,4 +40,9 @@ public class CardDiceExcommunication extends Excommunication{
 		return "Each time you pick a " + this.cardType.toString() + " the action value gets reduced by " +this.diceMalus + " units.";
 	}
 
+	
+	
+
+		
+	
 }

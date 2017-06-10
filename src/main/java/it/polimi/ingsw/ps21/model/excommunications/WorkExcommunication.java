@@ -25,13 +25,14 @@ public class WorkExcommunication extends Excommunication{
 	public String toString() {
 		return "Each time you perform a "+ workType.toString() + " action, the value of that action is reduced by " + this.malus + " units.";
 	}
-	/**Constructs the excommunication taht reduces a work action value.
-	 * 
+	/**Constructs the excommunication that reduces a work action value.
+	 * @param d
+	 * @param period
 	 * @param workType the type of work that should be penalized. Can be HARVEST or PRODUCTION
 	 * @param malus the value that will be subtracted from the original action value, each time the penalized work action is performed.
 	 */
-	public WorkExcommunication(WorkType workType, int malus) {
-		super();
+	public WorkExcommunication(int id, int period, WorkType workType, int malus) {
+		super(id, period);
 		this.workType = workType;
 		this.malus = malus;
 	}

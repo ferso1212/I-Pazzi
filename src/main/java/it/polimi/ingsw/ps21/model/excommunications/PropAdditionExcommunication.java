@@ -28,8 +28,8 @@ public class PropAdditionExcommunication extends Excommunication{
 	 * 
 	 * @param additionMalus these values will be subtracted each time the corresponding property is being acquired by the player.
 	 */
-	public PropAdditionExcommunication(ImmProperties additionMalus) {
-		super();
+	public PropAdditionExcommunication(int id, int period, ImmProperties additionMalus) {
+		super(id, period);
 		this.additionMalus = additionMalus;
 	}
 

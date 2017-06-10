@@ -10,7 +10,7 @@ public class AdvancedPlayer extends Player {
 	private ArrayList<LeaderCard> leaderCards;
 	private AdvancedModifier advModifier;
 	
-	public AdvancedPlayer( PlayerColor id, PlayerProperties properties) {
+	public AdvancedPlayer(PlayerColor id, PlayerProperties properties) {
 		super(id, properties);
 	}
 

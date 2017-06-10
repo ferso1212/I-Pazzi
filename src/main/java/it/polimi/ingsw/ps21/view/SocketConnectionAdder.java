@@ -1,8 +1,11 @@
 package it.polimi.ingsw.ps21.view;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -21,12 +24,15 @@ public class SocketConnectionAdder extends Thread {
 	}
 
 	public void run() {
-		BufferedReader in;
 		try {
-			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-			String newName = in.readLine();
-			int chosenRules = Integer.parseInt(in.readLine()); // 1 for standard
+		ObjectOutputStream out=new ObjectOutputStream(socket.getOutputStream());
+		out.flush();
+		ObjectInputStream in=new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+		
+		
+			String newName = (String)in.readObject();
+			
+			int chosenRules = (int)in.readObject(); // 1 for standard
 																// rules, 2 for
 																// advanced
 																// rules
@@ -35,6 +41,9 @@ public class SocketConnectionAdder extends Thread {
 			addConnectionToQueue(chosenRules, newConnection);
 
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

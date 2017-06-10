@@ -40,8 +40,8 @@ public class FinalVPointsExcommunications extends Excommunication{
 	 * @param noYellowPoints if true, at the end of the game you don't get victory points from Building Cards.
 	 * @param noBluePoints if true, at the end of the game you don't get victory points from Character Cards.
 	 */
-	public FinalVPointsExcommunications(boolean noGreenPoints, boolean noYellowPoints, boolean noBluePoints) {
-		super();
+	public FinalVPointsExcommunications(int id, int period, boolean noGreenPoints, boolean noYellowPoints, boolean noBluePoints) {
+		super(id, period);
 		this.noGreenPoints = noGreenPoints;
 		this.noYellowPoints = noYellowPoints;
 		this.noBluePoints = noBluePoints;
