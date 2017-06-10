@@ -120,7 +120,7 @@ public class EffectBuilder {
 			// TODO return new PickAnotherCardAction(diceValue, types.toArray(new DevelopmentCardType[0]));
 
 		}
-		case "":
+		case "PrivilegeEffect":
 		}
 		return new NullEffect();
 	}

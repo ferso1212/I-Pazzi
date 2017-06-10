@@ -4,9 +4,10 @@
 <!ELEMENT Cost (Properties)>
 <!ELEMENT InstantEffect (EffectSet)>
 <!ELEMENT PermanentEffect (EffectSet*)>
-<!ELEMENT EffectSet (NullEffect?, PropEffect?, DiscountEffect?, CardDiceEffect?, BlockTowerEffect?, CouncilEffect?, MultiplierEffect?, PickAnotherCardEffect?, ExtraWorkEffect?)>
+<!ELEMENT EffectSet (NullEffect?, PropEffect?, DiscountEffect?, CardDiceEffect?, BlockTowerEffect?, CouncilEffect?, MultiplierEffect?, PickAnotherCardEffect?, ExtraWorkEffect?, PrivilegeEffect?)>
 <!ELEMENT PropEffect (Cost, Properties)>
 <!ELEMENT NullEffect EMPTY>
+<!ELEMENT PrivilegeEffect EMPTY>
 <!ELEMENT DiscountEffect (Cost,Properties,Territory?, Building?, Character?, Venture?) >
 <!ELEMENT BlockTowerEffect EMPTY>
 <!ELEMENT CouncilEffect EMPTY>
@@ -50,3 +51,4 @@
 <!ATTLIST CouncilEffect value CDATA #REQUIRED
 			factorType CDATA #REQUIRED>
 <!ATTLIST ExtraWorkEffect diceValue CDATA #REQUIRED>
+<!ATTLIST PrivilegeEffect number CDATA #REQUIRED>

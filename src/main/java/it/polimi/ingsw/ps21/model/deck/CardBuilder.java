@@ -50,8 +50,6 @@ public class CardBuilder {
 		 * @param cardNode
 		 * @return
 		 */
-
-
 		public DevelopmentCard makeDevelopmentCard(Element cardNode, DevelopmentCardType cardType) throws BuildingCardException {
 			EffectBuilder effectBuilder = EffectBuilder.instance();
 			NamedNodeMap cardAttributes = cardNode.getAttributes();
@@ -91,11 +89,10 @@ public class CardBuilder {
 					}
 				}
 				if (cardType == DevelopmentCardType.TERRITORY)
-					return new TerritoryCard(cardName, cardEra, diceReq, instantEffect, new EffectSet((PropEffect []) permanentEffects.toArray(new PropEffect[0])));				
+					return new TerritoryCard(cardName, cardEra, diceReq, instantEffect, permanentEffects.toArray(new EffectSet[0]));				
 				else 
 					if (cardType == DevelopmentCardType.CHARACTER)
-						return new CharacterCard(cardName, cardEra, cardReq.toArray(new Requirement[0]), cardCosts.toArray(new ImmProperties[0]), instantEffect,
-								new EffectSet(permanentEffects.toArray(new Effect[0])));
+						return new CharacterCard(cardName, cardEra, cardReq.toArray(new Requirement[0]), cardCosts.toArray(new ImmProperties[0]), instantEffect, permanentEffects.toArray(new EffectSet[0]));
 					else
 						if (cardType == DevelopmentCardType.VENTURE)
 							return new VentureCard(cardName, cardEra, cardReq.toArray(new Requirement[0]), cardCosts.toArray(new ImmProperties[0]),instantEffect, permanentEffects.get(0));
@@ -106,40 +103,6 @@ public class CardBuilder {
 					throw new BuildingCardException();
 				}
 		}
-		
-		public TerritoryCard makeTerritoryCard(Element cardNode) throws BuildingCardException{
-			EffectBuilder effectBuilder = EffectBuilder.instance();
-			NamedNodeMap cardAttributes = cardNode.getAttributes();
-			String cardName = cardAttributes.getNamedItem("name").getNodeValue();
-			int cardEra = Integer.parseInt(cardAttributes.getNamedItem("period").getNodeValue());
-			int diceReq = Integer.parseInt(cardAttributes.getNamedItem("diceRequirement").getNodeValue());
-			// To be implemented
-			ArrayList<Effect> instantEffect = new ArrayList<>();
-			// To be implemented
-			ArrayList<PropEffect> permanentEffects = new ArrayList<>();
-			NodeList cardProps = cardNode.getChildNodes();
-			try {
-				for (int i=0; i < cardProps.getLength(); i++){
-				Node prop = cardProps.item(i);
-				if (prop.getNodeType() == prop.ELEMENT_NODE){ // Evito i nodi che non rappresentano elementi in xml
-					switch (prop.getNodeName()) {
-					case "InstantEffect":
-						
-						// TODO implement makeEffect instantEffect.add(makeEffect((Element) prop));
-						break;
-					default:
-						throw new BuildingCardException();
-						}
-					}
-				}
-			return new TerritoryCard(cardName, cardEra, diceReq, new EffectSet(instantEffect.get(0)), new EffectSet(permanentEffects.toArray(new PropEffect[0])));
-			}
-				/* catch (XMLParseException x) {
-					throw new BuildingCardException();
-				}*/
-			finally{}
-		}
-		
 		
 
 
