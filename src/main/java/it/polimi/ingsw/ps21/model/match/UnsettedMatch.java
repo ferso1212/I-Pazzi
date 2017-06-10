@@ -21,7 +21,7 @@ public class UnsettedMatch extends Match {
 	private MatchFactory matchFactory;
 	private boolean advancedMatch = false;
 
-	public UnsettedMatch() throws ParserConfigurationException, BuildingDeckException {
+	public UnsettedMatch() throws BuildingDeckException {
 		this.observers = new ArrayList<>();
 		this.board = new Board(blackDice, true);
 		order = new ArrayDeque<>();

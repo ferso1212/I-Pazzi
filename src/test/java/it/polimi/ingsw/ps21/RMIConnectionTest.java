@@ -53,7 +53,6 @@ public class RMIConnectionTest {
 		CLInterface testui = new CLInterface(1);
 		try {
 			RMIClient testclient = new RMIClient("testcase", testui, 1);
-			testclient.start();
 		} catch (RemoteException | NotBoundException e) {
 			e.printStackTrace();
 			return false;

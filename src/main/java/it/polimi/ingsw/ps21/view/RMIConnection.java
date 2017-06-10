@@ -111,4 +111,15 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 		}
 	}
 
+
+	@Override
+	public void matchStarted() {
+		try {
+			client.notifyMatchStarte();
+		} catch (RemoteException e) {
+			LOGGER.log(Level.WARNING, "Error notifing match started on remote client", e);
+		}
+		
+	}
+
 }

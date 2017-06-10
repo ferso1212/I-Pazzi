@@ -36,7 +36,7 @@ public class Board {
 	private int[] excommunicationRequirements;
 	
 
-	public Board(int playerNumber, boolean isAdvanced) throws ParserConfigurationException, BuildingDeckException {
+	public Board(int playerNumber, boolean isAdvanced)throws BuildingDeckException {
 
 		MatchFactory file = MatchFactory.instance();
 		this.towers = new EnumMap<>(DevelopmentCardType.class);
