@@ -10,6 +10,7 @@ import it.polimi.ingsw.ps21.controller.UnchosenException;
 import it.polimi.ingsw.ps21.model.board.SingleTowerSpace;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
+import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
@@ -55,9 +56,13 @@ public class DevelopmentAction extends Action {
 				&& (space.isOccupable(player, famMember)) && (!famMember.isUsed())
 				&& (player.checkRequirement(player.getDeck().getAddingCardRequirement(space.getCard())))
 				&& (player.getProperties().getPayableCosts(space.getCostsCard(match.getBoard().getTower(this.tower))).size() > 0)) {
-			return new CostChoice(player.getProperties().getPayableCosts(space.getCostsCard(match.getBoard().getTower(this.tower))));
+			try {
+				return new CostChoice(player.getId(), player.getProperties().getPayableCosts(space.getCostsCard(match.getBoard().getTower(this.tower))), player.getProperties().clone());
+			} catch (CloneNotSupportedException e) {
+				return new RefusedAction(player.getId());
+			}
 		}
-		return new RefusedAction();
+		return new RefusedAction(player.getId());
 	}
 
 	/**
@@ -92,10 +97,9 @@ public class DevelopmentAction extends Action {
 
 		player.getDeck().addCard(space.getCard()); // aggiunta della carta al deck del player
 
-		extraActionFromInstantEffect = selectedCard.getInstantEffect().activate(player);
+		ArrayList<ExtraAction> extraActionFromInstantEffect = selectedCard.getInstantEffect().activate(player);
 		
-
-		extraActionFromPermanentEffect = effectChoice.getChosen().activate(player);
+		ArrayList<ExtraAction> extraActionFromPermanentEffect = effectChoice.getEffectChosen().activate(player);
 		
 		extraActionFromInstantEffect.addAll(extraActionFromPermanentEffect);
 		

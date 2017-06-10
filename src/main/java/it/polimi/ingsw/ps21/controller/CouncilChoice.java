@@ -1,10 +1,10 @@
 package it.polimi.ingsw.ps21.controller;
 
-import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.model.properties.Property;
@@ -15,7 +15,8 @@ public class CouncilChoice extends Message {
 	private ImmProperties[] privilegesChosen;
 	private ImmProperties[] privilegesValues;
 	
-	public CouncilChoice(int numberOfPrivileges) {
+	public CouncilChoice(PlayerColor dest, int numberOfPrivileges) {
+		super(dest);
 		this.message="You have to choose a Council Privilege";
 		this.numberOfChoices = numberOfPrivileges;
 		this.privilegesChosen = new ImmProperties[numberOfChoices];

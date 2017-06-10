@@ -3,7 +3,7 @@ package it.polimi.ingsw.ps21.controller;
 import java.util.ArrayList;
 
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
-
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.PlayerProperties;
 
 public class WorkMessage extends Message {
@@ -12,8 +12,8 @@ public class WorkMessage extends Message {
 	private int[] chosenCardsAndEffects;
 	private PlayerProperties clonedPlayerProperties;
 
-	public WorkMessage(ArrayList<DevelopmentCard> choices, PlayerProperties clonedPlayerProperties) {
-		super();
+	public WorkMessage(PlayerColor dest, ArrayList<DevelopmentCard> choices, PlayerProperties clonedPlayerProperties) {
+		super(dest);
 		// settare messaggio
 		this.choices = choices;
 		this.clonedPlayerProperties = clonedPlayerProperties;

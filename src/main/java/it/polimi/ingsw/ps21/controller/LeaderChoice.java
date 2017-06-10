@@ -2,14 +2,15 @@ package it.polimi.ingsw.ps21.controller;
 
 
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
 public class LeaderChoice extends Message{
 	
 	private LeaderCard[] choices;
 	private LeaderCard choosenCard;
 	
-	public LeaderChoice(LeaderCard[] choices) {
-		super();
+	public LeaderChoice(PlayerColor dest, LeaderCard[] choices) {
+		super(dest);
 		this.choices = choices;
 	}
 

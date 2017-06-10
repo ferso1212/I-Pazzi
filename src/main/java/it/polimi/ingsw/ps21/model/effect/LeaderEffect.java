@@ -22,7 +22,8 @@ public abstract class LeaderEffect {
 	}
 	
 	public ExtraAction activate(AdvancedPlayer player){
-		clonable = true;
+		this.clonable = true;
+		this.activated = true;
 		return new NullAction(player.getId());
 	}
 	
