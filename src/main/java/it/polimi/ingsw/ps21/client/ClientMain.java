@@ -51,6 +51,7 @@ public class ClientMain {
     	int chosenRules=0;
     	while(chosenRules!=1 && chosenRules!=2)
     	{
+    		
     	System.out.println("\nChoose the rules that you want to use in the game: \n1 Standard \n 2 Advanced");
     	try {
 			chosenRules= in.nextInt();
