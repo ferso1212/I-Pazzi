@@ -68,9 +68,7 @@ public class VaticanSupport extends Match {
 			}
 			order = new ArrayDeque<>();
 			for (int i=0; i<4; i++)
-			for ( int j = newOrder.size() -1 ; j>=0; i--){ // Crea l'ordine del nuovo round
-				order.add(newOrder.get(j));
-			}
+				for ( int j = newOrder.size() -1 ; j>=0; i--) order.add(newOrder.get(j));
 			board.newSetBoard(period + 1);
 			return new InitialRoundMatch(this);
 		}	

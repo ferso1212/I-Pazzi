@@ -7,6 +7,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Queue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import it.polimi.ingsw.ps21.client.ClientConnection;
@@ -19,15 +21,14 @@ import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class RMIConnection extends UnicastRemoteObject implements RMIConnectionInterface, Connection{
+	private final static Logger LOGGER = Logger.getLogger(RMIConnection.class.getName());
 
 	private String name;
-	private Queue<String> input;
-	private Queue<String> output;
-	private RMIClientInterface client;
+	// Unused private Queue<String> input;
+	// Unused private Queue<String> output;
+	private transient RMIClientInterface client;
 	public RMIConnection(String inputName) throws RemoteException{
 		name = inputName;
-		input = new ArrayDeque<>();
-		output = new ArrayDeque<>();
 	}
 
 
@@ -35,9 +36,8 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 	public void sendMessage(String mess) {
 			try {
 				client.receiveMessage(mess);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (RemoteException e) {
+				LOGGER.log(Level.WARNING, "Error calling remote Method receiveMessage", e);			
 			}
 	}
 	
@@ -71,8 +71,12 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 
 	@Override
 	public int reqChoice(ArrayList<ImmProperties> costs) {
-		// TODO Auto-generated method stub
-		return 0;
+		try {
+			return client.setCost(costs);
+		} catch (RemoteException e) {
+			LOGGER.log(Level.WARNING, "Error calling remote method setCosts()", e);
+			return 0;
+		}
 	}
 
 
@@ -92,7 +96,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 		try {
 			return client.reqPrivileges(number);
 		} catch (RemoteException e) {
-			// In caso di errore ritorna un valore standard;
+			LOGGER.log(Level.WARNING, "Error calling remote method reqPrivileges", e);
 			return new ImmProperties[0];
 		}
 	}
@@ -103,7 +107,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 		try {
 			client.setId(player);
 		} catch (RemoteException e) {
-			System.out.println("Problem setting " + player + "ID");
+			LOGGER.log(Level.SEVERE, "Error setting id on remote conneciton", e);
 		}
 	}
 

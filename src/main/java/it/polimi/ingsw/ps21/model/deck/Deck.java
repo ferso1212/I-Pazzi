@@ -9,7 +9,7 @@ import it.polimi.ingsw.ps21.controller.PlayerData;
 
 
 public class Deck implements Cloneable {
-	private final static Logger LOGGER = Logger.getLogger(PlayerData.class.getName());
+	private final static Logger LOGGER = Logger.getLogger(Deck.class.getName());
 	protected SubDeck<TerritoryCard> greenCards;
 	protected SubDeck<BuildingCard> yellowCards;
 	protected SubDeck<CharacterCard> blueCards;

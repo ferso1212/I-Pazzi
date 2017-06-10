@@ -12,7 +12,7 @@ import it.polimi.ingsw.ps21.controller.PlayerData;
 
 *@author fabri
  */
-public class ImmProperties implements Serializable, Cloneable{
+public class ImmProperties implements Serializable{
 	private final static Logger LOGGER = Logger.getLogger(ImmProperties.class.getName());
 /**
 	 * 

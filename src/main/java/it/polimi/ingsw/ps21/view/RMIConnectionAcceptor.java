@@ -11,9 +11,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class RMIConnectionAcceptor extends UnicastRemoteObject implements RMIConnectionCreator, Runnable {
 
-	Registry registry;
-	RMIMessageBuffer output; // It is saved in input for the client
-	RMIMessageBuffer input;
+	transient Registry registry;
 	private ConcurrentLinkedQueue<Connection> connectionsQueue;
 	private ConcurrentLinkedQueue<Connection> advConnectionsQueue;
 	ArrayList<RMIConnection> connections = new ArrayList<>();

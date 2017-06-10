@@ -14,6 +14,7 @@ import javax.xml.parsers.*;
 import org.w3c.dom.*;
 import org.xml.sax.*;
 
+import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.model.board.TrackBonuses;
 import it.polimi.ingsw.ps21.model.deck.BuildingCard;
 import it.polimi.ingsw.ps21.model.deck.CardBuilder;
@@ -326,6 +327,7 @@ public class MatchFactory {
 					}
 				}
 			} catch (SAXException | IOException | NullPointerException i) {
+				LOGGER.log(Level.WARNING, "Error creating InitialProperties, returning default value", i);
 				bonuses.add(new ImmProperties(new Property(PropertiesId.STONES, 2), new Property(PropertiesId.WOOD, 2),
 						new Property(PropertiesId.COINS, 5), new Property(PropertiesId.SERVANTS, 3))); // 1
 																										// wood
@@ -406,6 +408,7 @@ public class MatchFactory {
 				result.put(DevelopmentCardType.VENTURE, requirements.toArray(new Requirement[0]));
 
 			} catch (SAXException | IOException | NullPointerException | XMLParseException i) {
+				LOGGER.log(Level.WARNING, "Error creating Adding Card Requirement, returning default value", i);
 				result = new EnumMap<>(DevelopmentCardType.class);
 				Requirement[] reqs = new Requirement[6];
 				for (Requirement r : reqs) {
@@ -456,6 +459,7 @@ public class MatchFactory {
 			}
 
 			catch (SAXException | IOException |  NullPointerException i) {
+				LOGGER.log(Level.WARNING, "Error creating TrackBonuses, returning default value", i);
 				military[0] = 0;
 				military[1] = 0;
 				for (int k = 0; k < 15; k++) {
@@ -483,6 +487,7 @@ public class MatchFactory {
 				result = PropertiesBuilder
 						.makeImmProperites((Element) councilBonus.getElementsByTagName("Properties").item(0));
 			} catch (IOException | SAXException | NullPointerException e) {
+				LOGGER.log(Level.WARNING, "Error creating Counicil Bonus, returning default value", e);
 				result = new ImmProperties(new Property(PropertiesId.COINS, 2));
 			}
 
@@ -493,7 +498,6 @@ public class MatchFactory {
 	public synchronized int makeCouncilPrivileges() {
 		if (councilPrivileges == 0) {
 			Document configuration;
-			EnumMap<DevelopmentCardType, int[]> result = new EnumMap<>(DevelopmentCardType.class);
 			try {
 				File boardFile = new File(boardPath);
 				configuration = builder.parse(boardFile);
@@ -503,6 +507,7 @@ public class MatchFactory {
 				int number = Integer.parseInt(privileges.getAttribute("value"));
 				councilPrivileges = number;
 			} catch (IOException | SAXException | NullPointerException x) {
+				LOGGER.log(Level.WARNING, "Error creating Number of Council Privileges, returning default value", x);
 				councilPrivileges = 1;
 			}
 		}
@@ -560,6 +565,7 @@ public class MatchFactory {
 				bonuses[5] = Integer.parseInt(venture.getAttribute("value6"));
 				result.put(DevelopmentCardType.VENTURE, bonuses);
 			} catch (SAXException | IOException | NullPointerException i) {
+			LOGGER.log(Level.WARNING, "Error creating Card Final Bonuses, returning default values", i);
 				result = new EnumMap<>(DevelopmentCardType.class);
 				int[] bonuses = new int[6];
 				for (int h = 0; h < bonuses.length; h++) {
@@ -624,6 +630,7 @@ public class MatchFactory {
 				result.put(DevelopmentCardType.TERRITORY, properties.toArray(new ImmProperties[0]));
 
 			} catch (SAXException | IOException | NullPointerException i) {
+				LOGGER.log(Level.WARNING, "Error creating tower bonuses, returning default values", i);
 				result = new EnumMap<>(DevelopmentCardType.class);
 				ImmProperties[] properties = new ImmProperties[4];
 				for (ImmProperties r : properties) {
@@ -656,6 +663,8 @@ public class MatchFactory {
 					}
 				}
 			} catch (SAXException | IOException | NullPointerException i) {
+				LOGGER.log(Level.WARNING, "Error creating market bonuses, returning default values");
+				bonuses = new ArrayList<>();
 				bonuses.add(
 						new ImmProperties(new Property(PropertiesId.STONES, 1), new Property(PropertiesId.WOOD, 1))); // 1
 																														// wood
@@ -682,7 +691,7 @@ public class MatchFactory {
 			Element board = configuration.getDocumentElement();
 
 		} catch (SAXException | IOException | NullPointerException e) {
-			e.printStackTrace();
+			LOGGER.log(Level.WARNING, "Error making excommunication requiremnt", e);
 			result[0] = 3;
 			result[1] = 4;
 			result[2] = 5;
@@ -723,6 +732,7 @@ public class MatchFactory {
 				configuration = builder.parse(boardFile);
 				Element board = configuration.getDocumentElement();
 			} catch (SAXException | IOException | NullPointerException e) {
+				LOGGER.log(Level.WARNING, "Error creating market privileges, returning default value", e);
 				result[0] = 0;
 				result[1] = 0;
 				result[2] = 0;

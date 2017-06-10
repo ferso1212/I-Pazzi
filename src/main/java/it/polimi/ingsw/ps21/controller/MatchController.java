@@ -54,9 +54,6 @@ public class MatchController extends Observable implements Observer {
 	}
 
 	private void actionLoop() {
-		while (currentAction != null) {
-
-		}
 		Message returnMessage = currentAction.isLegal(this.currentPlayer, this.match);
 		notifyObservers(returnMessage);
 		while (!returnMessage.isVisited()) {
@@ -91,7 +88,6 @@ public class MatchController extends Observable implements Observer {
 		ActionRequest message = new ActionRequest(currentPlayer.getId());
 		notifyObservers(message);
 		while (!message.isVisited()){
-			
 		}this.currentAction = message.getChoosenAction();
 		actionLoop();
 	}

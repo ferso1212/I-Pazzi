@@ -35,9 +35,12 @@ public class CLInterface implements UserInterface {
 	private ImmProperties tileProdBonus;
 	private int tileHarvDiceReq;
 	private ImmProperties tileHarvBonus;
+	private boolean advancedMatch;
 	
-	public CLInterface() {
+	public CLInterface(int chosenRules) {
 		userInput = new Scanner(System.in);
+		if (chosenRules == 1) advancedMatch = true;
+		else advancedMatch = false;
 	}
 	
 	@Override
@@ -242,9 +245,9 @@ public class CLInterface implements UserInterface {
 		System.out.println("It's your turn: which action do you want to do?");
 		System.out.println("1)-Place a family member in a Towe Space;\n2)-Place a family member in Council palace\n"
 				+ "3)-Place a family member in a Work Space\n" + "4)-Place a family memeber in a Market Space");
-		if (/*advanced match*/ false) System.out.println("5)-Activate a Leader Card");
+		if (advancedMatch) System.out.println("5)-Activate a Leader Card");
 		int actionChoice = userInput.nextInt();
-		while ( actionChoice!=1 || actionChoice!=2 || actionChoice != 3 || actionChoice != 4 || (actionChoice!=5 /* && advancedMatch*/)){
+		while ( actionChoice!=1 || actionChoice!=2 || actionChoice != 3 || actionChoice != 4 || (actionChoice!=5 && advancedMatch)){
 			System.out.println("Invalid action, please insert a valid choice: ");
 		}
 		return "To be implemented";

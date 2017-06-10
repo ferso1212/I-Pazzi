@@ -23,7 +23,7 @@ public class CLInterfaceTest {
 	
 	@Before 
 	public void setUp(){
-		testCli = new CLInterface();
+		testCli = new CLInterface(1);
 		testCli.setID(PlayerColor.BLUE);
 	}
 	
