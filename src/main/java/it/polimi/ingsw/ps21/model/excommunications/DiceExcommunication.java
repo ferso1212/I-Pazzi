@@ -24,13 +24,14 @@ public class DiceExcommunication extends Excommunication {
 	}
 
 	/**Constructs the excommunication that decreases the values of the dices.
-	 * 
+	 * @param id
+	 * @param period
 	 * @param whiteDiceMalus value that will be decreased from the white family member when the excommunication is active.
 	 * @param orangeDiceMalus value that will be decreased from the orange family member when the excommunication is active.
 	 * @param blackDiceMalus value that will be decreased from the black family member when the excommunication is active.
 	 */
-	public DiceExcommunication(int whiteDiceMalus, int orangeDiceMalus, int blackDiceMalus) {
-		super();
+	public DiceExcommunication(int id, int period, int whiteDiceMalus, int orangeDiceMalus, int blackDiceMalus) {
+		super(id, period);
 		this.whiteDiceMalus = whiteDiceMalus;
 		this.orangeDiceMalus = orangeDiceMalus;
 		this.blackDiceMalus = blackDiceMalus;

@@ -34,10 +34,10 @@ public class FinalVPointsExcommunication extends Excommunication{
 	 * @param vPointsReductionBuildingStoneDivisor if this value is !=0, at the end of the game you lose  1 victory point for each VALUE stones in the costs of your territory cards.
 	 * @param vPointsReductionResDivisor if this value is !=0, at the end of the game you lose  1 victory point for each VALUE resources you have
 	 */
-	public FinalVPointsExcommunication(int victoryPointsReductionDivisor, int militaryDivisorVPointsReduction,
+	public FinalVPointsExcommunication(int id, int period, int victoryPointsReductionDivisor, int militaryDivisorVPointsReduction,
 			int vPointsReductionBuildingWoodDivisor, int vPointsReductionBuildingStoneDivisor,
 			int vPointsReductionResDivisor) {
-		super();
+		super(id, period);
 		this.victoryPointsReductionDivisor = victoryPointsReductionDivisor;
 		this.militaryDivisorVPointsReduction = militaryDivisorVPointsReduction;
 		this.vPointsReductionBuildingWoodDivisor = vPointsReductionBuildingWoodDivisor;

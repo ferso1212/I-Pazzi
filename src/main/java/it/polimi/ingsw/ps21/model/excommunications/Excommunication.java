@@ -8,17 +8,17 @@ import it.polimi.ingsw.ps21.model.player.Player;
  */
 public abstract class Excommunication {
 	
-	protected int cardId;
-	protected int cardEra;
+	protected int id;
+	protected int period;
 	
 	public int getId()
 	{
-		return this.cardId;
+		return this.id;
 	}
 	
-	public int getEra()
+	public int getPeriod()
 	{
-		return this.getEra();
+		return this.period;
 	}
 	
 	/**Activates the excommunication: its effects are stored in the player's modifiers.
@@ -29,5 +29,13 @@ public abstract class Excommunication {
 	/**Returns a string that describes the excommunication
 	 */
 	public abstract String toString();
+
+	public Excommunication(int id, int period) {
+		super();
+		this.id = id;
+		this.period = period;
+	}
+	
+	
 
 }

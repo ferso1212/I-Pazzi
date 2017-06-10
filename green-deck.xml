@@ -1203,7 +1203,6 @@
                         <FaithPoints value="0" />
                     </Properties>
                 </PropEffect>
-                <PrivilegeEffect number="0" />
             </EffectSet>
         </InstantEffect>
         <PermanentEffect>
@@ -1230,7 +1229,6 @@
                         <FaithPoints value="0" />
                     </Properties>
                 </PropEffect>
-                <PrivilegeEffect number="0" />
             </EffectSet>
         </PermanentEffect>
     </TerritoryCard>
@@ -1287,7 +1285,6 @@
                         <FaithPoints value="0" />
                     </Properties>
                 </PropEffect>
-                <PrivilegeEffect number="0" />
             </EffectSet>
         </InstantEffect>
         <PermanentEffect>
@@ -1371,7 +1368,6 @@
                         <FaithPoints value="0" />
                     </Properties>
                 </PropEffect>
-                <PrivilegeEffect number="0" />
             </EffectSet>
         </InstantEffect>
         <PermanentEffect>
@@ -1398,7 +1394,6 @@
                         <FaithPoints value="0" />
                     </Properties>
                 </PropEffect>
-                <PrivilegeEffect number="0" />
             </EffectSet>
         </PermanentEffect>
     </TerritoryCard>
@@ -1455,7 +1450,6 @@
                         <FaithPoints value="0" />
                     </Properties>
                 </PropEffect>
-                <PrivilegeEffect number="0" />
             </EffectSet>
         </InstantEffect>
         <PermanentEffect>
@@ -1482,7 +1476,6 @@
                         <FaithPoints value="0" />
                     </Properties>
                 </PropEffect>
-                <PrivilegeEffect number="0" />
             </EffectSet>
         </PermanentEffect>
     </TerritoryCard>
@@ -1539,7 +1532,6 @@
                         <FaithPoints value="0" />
                     </Properties>
                 </PropEffect>
-                <PrivilegeEffect number="0" />
             </EffectSet>
         </InstantEffect>
         <PermanentEffect>
@@ -1566,7 +1558,6 @@
                         <FaithPoints value="0" />
                     </Properties>
                 </PropEffect>
-                <PrivilegeEffect number="0" />
             </EffectSet>
         </PermanentEffect>
     </TerritoryCard>
@@ -1623,7 +1614,6 @@
                         <FaithPoints value="1" />
                     </Properties>
                 </PropEffect>
-                <PrivilegeEffect number="0" />
             </EffectSet>
         </InstantEffect>
         <PermanentEffect>
@@ -1650,7 +1640,6 @@
                         <FaithPoints value="1" />
                     </Properties>
                 </PropEffect>
-                <PrivilegeEffect number="0" />
             </EffectSet>
         </PermanentEffect>
     </TerritoryCard>
@@ -1707,7 +1696,6 @@
                         <FaithPoints value="0" />
                     </Properties>
                 </PropEffect>
-                <PrivilegeEffect number="0" />
             </EffectSet>
         </InstantEffect>
         <PermanentEffect>
@@ -1734,7 +1722,6 @@
                         <FaithPoints value="0" />
                     </Properties>
                 </PropEffect>
-                <PrivilegeEffect number="0" />
             </EffectSet>
         </PermanentEffect>
     </TerritoryCard>
@@ -1791,7 +1778,6 @@
                         <FaithPoints value="0" />
                     </Properties>
                 </PropEffect>
-                <PrivilegeEffect number="0" />
             </EffectSet>
         </InstantEffect>
         <PermanentEffect>
@@ -1818,7 +1804,6 @@
                         <FaithPoints value="0" />
                     </Properties>
                 </PropEffect>
-                <PrivilegeEffect number="0" />
             </EffectSet>
         </PermanentEffect>
     </TerritoryCard>
@@ -1875,7 +1860,6 @@
                         <FaithPoints value="0" />
                     </Properties>
                 </PropEffect>
-                <PrivilegeEffect number="0" />
             </EffectSet>
         </InstantEffect>
         <PermanentEffect>
@@ -1902,7 +1886,6 @@
                         <FaithPoints value="0" />
                     </Properties>
                 </PropEffect>
-                <PrivilegeEffect number="0" />
             </EffectSet>
         </PermanentEffect>
     </TerritoryCard>
@@ -1959,7 +1942,6 @@
                         <FaithPoints value="0" />
                     </Properties>
                 </PropEffect>
-                <PrivilegeEffect number="0" />
             </EffectSet>
         </InstantEffect>
         <PermanentEffect>
@@ -1986,7 +1968,6 @@
                         <FaithPoints value="0" />
                     </Properties>
                 </PropEffect>
-                <PrivilegeEffect number="0" />
             </EffectSet>
         </PermanentEffect>
     </TerritoryCard>
