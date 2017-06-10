@@ -264,7 +264,7 @@ public class MatchFactory {
 	 * @throws BuildingDeckException
 	 * @throws ParserConfigurationException 
 	 */
-	public synchronized Deck makeDeck() throws BuildingDeckException, ParserConfigurationException {
+	public synchronized Deck makeDeck() throws BuildingDeckException {
 		if (configuratedDeck == null) {
 			configuratedDeck = new Deck();
 			configuratedDeck.setGreenDeck(makeGreenDeck());

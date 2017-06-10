@@ -21,6 +21,7 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public abstract interface UserInterface {
 	
+	public void playMatch();
 	
 	public abstract void updateView(MatchData match, BoardData board, PlayerData players[]);
 	

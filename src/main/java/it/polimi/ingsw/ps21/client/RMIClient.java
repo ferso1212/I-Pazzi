@@ -36,17 +36,8 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	}
 	
 	public void start(){ 
-		System.out.println("Actually RMIConnection is not fully implemented, write the message you want to send to server: (IF you want to end connection write END)");
-		String message = ui.nextInput();
-		while(message.compareTo("END")!=0){
-			try {
-				connection.receiveMessage(message);
-				message = ui.nextInput();
-			} catch (RemoteException e) {
-				ui.showInfo("Network Error");
-				message = "END";
-			}
-		}
+		 if (connected) ui.showInfo("Connected to RMI Server");
+		
 		
 	}
 		/*try {
