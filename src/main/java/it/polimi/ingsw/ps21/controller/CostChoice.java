@@ -12,7 +12,7 @@ public class CostChoice extends Message {
 	private ImmProperties chosen;
 	private PlayerProperties clonedPlayerProperties;
 	
-	public CostChoice(PlayerColor destination, ArrayList<ImmProperties> choices) {
+	public CostChoice(PlayerColor destination, ArrayList<ImmProperties> choices, PlayerProperties clonedPlayerProperties) {
 		super(destination);
 		this.message = "You have to choose a cost to pay.";
 		this.choices = choices;

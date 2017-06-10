@@ -1,7 +1,8 @@
 package it.polimi.ingsw.ps21.model.actions;
 
+import java.util.ArrayList;
+
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
-import it.polimi.ingsw.ps21.controller.CostChoice;
 import it.polimi.ingsw.ps21.controller.Message;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.model.board.NotOccupableException;
@@ -33,8 +34,9 @@ public class PlayLeaderCard extends Action{
 	public ExtraAction[] execute(Player player, Match match) throws NotExecutableException, NotOccupableException,
 			RequirementNotMetException, InsufficientPropsException {
 		
-		ExtraAction returnAction = this.cardToPlay.getEffect().activate((AdvancedPlayer)player);
-		return 
+		ArrayList<ExtraAction> returnAction = new ArrayList<ExtraAction>();
+		returnAction.add(this.cardToPlay.getEffect().activate((AdvancedPlayer)player));
+		return returnAction.toArray(new ExtraAction[0]);
 	}
 	
 	

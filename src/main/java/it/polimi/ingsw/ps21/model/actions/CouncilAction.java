@@ -31,13 +31,13 @@ public class CouncilAction extends Action{
 	public Message isLegal(Player player, Match match) {
 		
 		if(this.famMember.getColor() == MembersColor.NEUTRAL){
-			return new RefusedAction("You can't place the Neutral member in the council palace!");
+			return new RefusedAction(player.getId(), "You can't place the Neutral member in the council palace!");
 		}
 		
 		if ((this.council.isOccupable(player, famMember)) && (!famMember.isUsed())){
-			this.councilChoice = new CouncilChoice(council.getCouncilPrivileges());
+			this.councilChoice = new CouncilChoice(player.getId(), council.getCouncilPrivileges());
 			return this.councilChoice;
-		} else return new RefusedAction();
+		} else return new RefusedAction(player.getId());
 	}
 	
 	

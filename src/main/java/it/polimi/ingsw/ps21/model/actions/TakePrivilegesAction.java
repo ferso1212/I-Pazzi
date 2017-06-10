@@ -23,7 +23,7 @@ public class TakePrivilegesAction extends ExtraAction {
 
 	@Override
 	public Message isLegal(Player player, Match match) {
-		this.councilChoice = new CouncilChoice(numberOfPrivileges);
+		this.councilChoice = new CouncilChoice(player.getId(), numberOfPrivileges);
 		return councilChoice;
 	}
 
