@@ -13,6 +13,7 @@ import it.polimi.ingsw.ps21.model.board.NotOccupableException;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.Player;
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 
@@ -26,7 +27,7 @@ public class VaticanSupport extends Match {
 		supportedPlayers = new ArrayDeque<>();
 		for(Player p: players.values())
 		{	
-		if (board.getExcommunicationRequirement(period) < p.getProperties().getProperty(PropertiesId.FAITHPOINTS).getValue())	
+		if (board.getExcommunicationRequirement(period) > p.getProperties().getProperty(PropertiesId.FAITHPOINTS).getValue())	
 			{/*setta scomunica*/}
 		else supportedPlayers.add(p);
 		}
@@ -35,13 +36,13 @@ public class VaticanSupport extends Match {
 	
 	@Override
 	public ExtraAction[] doAction(Action nextAction) {
-		try {
-			return nextAction.execute(order.element(), this);
-		} catch (NotExecutableException | NotOccupableException | RequirementNotMetException
-				| InsufficientPropsException e) {
-			return null;
+		return null;
+	}
+	
+	public void setSupport(Player player, boolean choice){
+		if (supportedPlayers.peek() == player){ // Set choice only for 
+			supportChoices.put(player,  choice);
 		}
-		
 	}
 
 	/* @Override

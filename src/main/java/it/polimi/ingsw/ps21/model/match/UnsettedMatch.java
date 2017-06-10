@@ -18,8 +18,8 @@ import it.polimi.ingsw.ps21.model.player.Player;
 public class UnsettedMatch extends Match {
 	private MatchFactory matchFactory;
 	private boolean advancedMatch = false;
-	public UnsettedMatch() {
-		super();
+
+	public UnsettedMatch() throws BuildingDeckException, ParserConfigurationException  {
 		players = new EnumMap<>(PlayerColor.class);
 		orangeDice = 0;
 		blackDice = 0;

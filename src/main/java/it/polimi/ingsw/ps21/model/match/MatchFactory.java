@@ -40,6 +40,7 @@ public class MatchFactory {
 	private final String bluePath = (new File("")).getAbsolutePath().concat("/blue-deck.xml").toString();
 	private final String purplePath = (new File("")).getAbsolutePath().concat("/purple-deck.xml").toString();
 	private final String boardPath = (new File("")).getAbsolutePath().concat("/board.xml").toString();
+	private final String serverPath = (new File("")).getAbsolutePath().concat("/server.xml").toString();
 	private DocumentBuilderFactory factory;
 	private DocumentBuilder builder = null;
 	private Deck configuratedDeck;
@@ -53,6 +54,8 @@ public class MatchFactory {
 	private ImmProperties councilBonuses = null;
 	private ImmProperties[] marketBonuses = null;
 	private int[] marketPrivileges = null;
+	private int timeoutServer = 0;
+	private int timeoutRound = 0;
 
 	/**
 	 * Constructor of different match variables configurable by file (These
@@ -683,6 +686,30 @@ public class MatchFactory {
 			result[2] = 5;
 		}
 		return result;
+	}
+	
+	/**
+	 * This method read server configuration file
+	 * @return timeout expressed in milliseconds
+	 */
+	public int makeTimeoutRound(){
+		if (timeoutRound == 0){
+			int result = 120000;
+			
+			timeoutRound = result;
+		}
+		return timeoutRound;
+		
+	}
+	
+	public int makeTimeoutServer(){
+		if (timeoutServer == 0){
+			int result = 60000;
+			
+			timeoutServer = result;
+		}
+		return timeoutServer;
+		
 	}
 
 	public int[] makeMarketPrivileges() {
