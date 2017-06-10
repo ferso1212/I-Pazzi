@@ -453,7 +453,7 @@ public class MatchFactory {
 				faith[9] = Integer.parseInt(faithBonuses.getAttribute("tenth"));
 				faith[10] = Integer.parseInt(faithBonuses.getAttribute("eleventh"));
 				faith[11] = Integer.parseInt(faithBonuses.getAttribute("twelveth"));
-				faith[12] = Integer.parseInt(faithBonuses.getAttribute("thirtheenth"));
+				faith[12] = Integer.parseInt(faithBonuses.getAttribute("thirteenth"));
 				faith[13] = Integer.parseInt(faithBonuses.getAttribute("fourteenth"));
 				faith[14] = Integer.parseInt(faithBonuses.getAttribute("fifteenth"));
 				result = new TrackBonuses(faith, military);
@@ -611,7 +611,7 @@ public class MatchFactory {
 					if (props.item(i).getNodeType() == Node.ELEMENT_NODE)
 						properties.add(PropertiesBuilder.makeImmProperites((Element) props.item(i)));
 				}
-				result.put(DevelopmentCardType.TERRITORY, properties.toArray(new ImmProperties[0]));
+				result.put(DevelopmentCardType.BUILDING, properties.toArray(new ImmProperties[0]));
 
 				Element character = (Element) cardReqs.getElementsByTagName("CharacterTower").item(0);
 				properties = new ArrayList<>();
@@ -620,7 +620,7 @@ public class MatchFactory {
 					if (props.item(i).getNodeType() == Node.ELEMENT_NODE)
 						properties.add(PropertiesBuilder.makeImmProperites((Element) props.item(i)));
 				}
-				result.put(DevelopmentCardType.TERRITORY, properties.toArray(new ImmProperties[0]));
+				result.put(DevelopmentCardType.CHARACTER, properties.toArray(new ImmProperties[0]));
 
 				Element venture = (Element) cardReqs.getElementsByTagName("VentureTower").item(0);
 				properties = new ArrayList<>();
@@ -629,7 +629,7 @@ public class MatchFactory {
 					if (props.item(i).getNodeType() == Node.ELEMENT_NODE)
 						properties.add(PropertiesBuilder.makeImmProperites((Element) props.item(i)));
 				}
-				result.put(DevelopmentCardType.TERRITORY, properties.toArray(new ImmProperties[0]));
+				result.put(DevelopmentCardType.VENTURE, properties.toArray(new ImmProperties[0]));
 
 			} catch (SAXException | IOException | NullPointerException i) {
 				LOGGER.log(Level.WARNING, "Error creating tower bonuses, returning default values", i);
