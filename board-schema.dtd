@@ -1,4 +1,4 @@
-<!ELEMENT Board (Privileges, InitialProperties, CardBonuses, CardRequirement, MilitaryBonuses, FaithBonuses, MarketBonuses, CouncilBonus, CouncilPrivileges, TowersBonuses)>
+<!ELEMENT Board (Privileges, InitialProperties, CardBonuses, CardRequirement, MilitaryBonuses, FaithBonuses, MarketBonuses, CouncilBonus, CouncilPrivileges, TowersBonuses, ExcommunicationRequirements)>
 <!ELEMENT Privileges (Properties*)>
 <!ELEMENT InitialProperties (Properties*)>
 <!ELEMENT Properties (Wood, Stones, Servants, Coins, MilitaryPoints, VictoryPoints, FaithPoints)>
@@ -69,4 +69,4 @@
 			CDATA #REQUIRED value4 CDATA #REQUIRED value5 CDATA #REQUIRED value6 CDATA #REQUIRED>
 <!ATTLIST VentureBonuses value1 CDATA #REQUIRED value2 CDATA #REQUIRED value3 
 			CDATA #REQUIRED value4 CDATA #REQUIRED value5 CDATA #REQUIRED value6 CDATA #REQUIRED>
-<!ATTLIST ExcommunicationRequirements firstPeriod CDATA #REQUIREMENT  secondPeriod CDATA #REQUIRED thirdPeriod CDATA #REQUIRED>
+<!ATTLIST ExcommunicationRequirements firstPeriod CDATA #REQUIRED  secondPeriod CDATA #REQUIRED thirdPeriod CDATA #REQUIRED>

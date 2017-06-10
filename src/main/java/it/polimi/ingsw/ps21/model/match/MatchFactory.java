@@ -41,7 +41,7 @@ public class MatchFactory {
 	private final String bluePath = (new File("")).getAbsolutePath().concat("/blue-deck.xml").toString();
 	private final String purplePath = (new File("")).getAbsolutePath().concat("/purple-deck.xml").toString();
 	private final String boardPath = (new File("")).getAbsolutePath().concat("/board.xml").toString();
-	private final String serverPath = (new File("")).getAbsolutePath().concat("/server.xml").toString();
+	private final String serverPath = (new File("")).getAbsolutePath().concat("/server-config.xml").toString();
 	private DocumentBuilderFactory factory;
 	private DocumentBuilder builder = null;
 	private Deck configuratedDeck;
@@ -292,6 +292,7 @@ public class MatchFactory {
 					}
 				}
 			} catch (SAXException | IOException | NullPointerException i) {
+				LOGGER.log(Level.WARNING, "Error creating priviliges from file, returning default values", i);
 				bonuses.add(
 						new ImmProperties(new Property(PropertiesId.STONES, 1), new Property(PropertiesId.WOOD, 1))); // 1
 																														// wood
@@ -689,7 +690,10 @@ public class MatchFactory {
 			File boardFile = new File(boardPath);
 			configuration = builder.parse(boardFile);
 			Element board = configuration.getDocumentElement();
-
+			Element excomReqs = (Element) board.getElementsByTagName("ExcommunicationRequirements").item(0);
+			result[0] = Integer.parseInt(excomReqs.getAttribute("firstPeriod"));
+			result[1] = Integer.parseInt(excomReqs.getAttribute("secondPeriod"));
+			result[2] = Integer.parseInt(excomReqs.getAttribute("thirdPeriod"));
 		} catch (SAXException | IOException | NullPointerException e) {
 			LOGGER.log(Level.WARNING, "Error making excommunication requiremnt", e);
 			result[0] = 3;
@@ -705,8 +709,17 @@ public class MatchFactory {
 	 */
 	public int makeTimeoutRound(){
 		if (timeoutRound == 0){
-			int result = 120000;
-			
+			int result;
+			try {
+			File serverFile = new File(serverPath);
+				Document configuration = builder.parse(serverFile);
+				Element server = configuration.getDocumentElement();
+				Element timerServer = (Element) server.getElementsByTagName("TimeoutRound").item(0);
+				result = Integer.parseInt(timerServer.getAttribute("value"));
+			} catch (SAXException | IOException e) {
+				LOGGER.log(Level.WARNING, "Error configuring server timeout from file, returning default values", e);
+				result = 120000;
+			}
 			timeoutRound = result;
 		}
 		return timeoutRound;
@@ -715,8 +728,17 @@ public class MatchFactory {
 	
 	public int makeTimeoutServer(){
 		if (timeoutServer == 0){
-			int result = 60000;
-			
+			int result;
+			try {
+			File serverFile = new File(serverPath);
+				Document configuration = builder.parse(serverFile);
+				Element server = configuration.getDocumentElement();
+				Element timerServer = (Element) server.getElementsByTagName("TimeoutLobby").item(0);
+				result = Integer.parseInt(timerServer.getAttribute("value"));
+			} catch (SAXException | IOException e) {
+				LOGGER.log(Level.WARNING, "Error configuring server timeout from file, returning default values", e);
+				result = 60000;
+			}
 			timeoutServer = result;
 		}
 		return timeoutServer;

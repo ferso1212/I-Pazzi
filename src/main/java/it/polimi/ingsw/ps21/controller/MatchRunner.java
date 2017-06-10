@@ -42,7 +42,7 @@ public class MatchRunner implements Runnable {
 		} catch (CompleteMatchException | InvalidIDException e) {
 			LOGGER.log(Level.INFO, "Unable to add another player" , e);
 
-		} catch (ParserConfigurationException | BuildingDeckException e) {
+		} catch (BuildingDeckException e) {
 			LOGGER.log(Level.SEVERE, "Unable to create Match" , e);
 		}
 

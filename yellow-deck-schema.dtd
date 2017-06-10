@@ -1,5 +1,6 @@
 <!ELEMENT SubDeckYellow (BuildingCard*)>
-<!ELEMENT BuildingCard (Requirement*, Cost*, InstantEffect, PermanentEffect*)>
+<!ELEMENT BuildingCard (RequirementAndCost*, InstantEffect, PermanentEffect*)>
+<!ELEMENT RequirementAndCost (Requirement, Cost)>
 <!ELEMENT Requirement (Properties, CardsNumber)>
 <!ELEMENT Cost (Properties)>
 <!ELEMENT InstantEffect (EffectSet)>

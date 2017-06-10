@@ -3,6 +3,7 @@ package it.polimi.ingsw.ps21.model.deck;
 import java.util.ArrayList;
 import java.util.jar.Attributes.Name;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.management.modelmbean.XMLParseException;
 
@@ -27,6 +28,7 @@ import it.polimi.ingsw.ps21.model.properties.PropertiesId;
  *
  */
 public class CardBuilder {
+		private static final Logger LOGGER = Logger.getLogger(CardBuilder.class.getName());
 		private static CardBuilder instance = null;
 		
 		
@@ -59,49 +61,55 @@ public class CardBuilder {
 			if (cardType == DevelopmentCardType.BUILDING || cardType == DevelopmentCardType.TERRITORY) 			
 				 diceReq = Integer.parseInt(cardAttributes.getNamedItem("diceRequirement").getNodeValue());
 
-			ArrayList<Requirement> cardReq = new ArrayList<>();
-			ArrayList<ImmProperties> cardCosts = new ArrayList<>();
+			ArrayList<RequirementAndCost> cardReqandCost = new ArrayList<>();
 			// To be implemented
 			EffectSet instantEffect = new EffectSet(new NullEffect());
 			ArrayList<EffectSet> permanentEffects = new ArrayList<>();
 			NodeList cardProps = cardNode.getChildNodes();
-			// TODO implement makeEffectSet and EffectSet variable
-			try {
-				for (int i=0; i < cardProps.getLength(); i++){
-				Node prop = cardProps.item(i);
-				if (prop.getNodeType() == prop.ELEMENT_NODE){ // Evito i nodi che non rappresentano elementi in xml
-					switch (prop.getNodeName()) {
-					case "Requirement":
-						cardReq.add(PropertiesBuilder.makeRequirement((Element)prop));
-						break;
-					case "Cost":
-						cardCosts.add(PropertiesBuilder.makeCost((Element) prop));
-						break;
-					case "InstantEffect":
-						instantEffect = effectBuilder.makeInstanEffect((Element) prop);
-						break;
-					case "PermanentEffect":
-						permanentEffects.add(effectBuilder.makePermanentEffect((Element) prop));
-						break;
-					default:
-						throw new BuildingCardException();
-						}
+			for (int i=0; i < cardProps.getLength(); i++){
+			Node prop = cardProps.item(i);
+			if (prop.getNodeType() == prop.ELEMENT_NODE){ // Evito i nodi che non rappresentano elementi in xml
+				switch (prop.getNodeName()) {
+				case "RequirementAndCost":
+					cardReqandCost.add(makeRequirementAndCost((Element)prop));
+					break;
+				case "InstantEffect":
+					instantEffect = effectBuilder.makeInstanEffect((Element) prop);
+					break;
+				case "PermanentEffect":
+					permanentEffects.add(effectBuilder.makePermanentEffect((Element) prop));
+					break;
+				default:
+					throw new BuildingCardException();
 					}
 				}
-				if (cardType == DevelopmentCardType.TERRITORY)
-					return new TerritoryCard(cardName, cardEra, diceReq, instantEffect, permanentEffects.toArray(new EffectSet[0]));				
-				else 
-					if (cardType == DevelopmentCardType.CHARACTER)
-						return new CharacterCard(cardName, cardEra, cardReq.toArray(new Requirement[0]), cardCosts.toArray(new ImmProperties[0]), instantEffect, permanentEffects.toArray(new EffectSet[0]));
-					else
-						if (cardType == DevelopmentCardType.VENTURE)
-							return new VentureCard(cardName, cardEra, cardReq.toArray(new Requirement[0]), cardCosts.toArray(new ImmProperties[0]),instantEffect, permanentEffects.get(0));
-						else
-							return new BuildingCard(cardName, cardEra, cardReq.toArray(new Requirement [0]), cardCosts.toArray(new ImmProperties [0]), diceReq, instantEffect, permanentEffects.toArray(new EffectSet[0]));
 			}
-				catch (XMLParseException x) {
-					throw new BuildingCardException();
-				}
+			if (cardType == DevelopmentCardType.TERRITORY)
+				return new TerritoryCard(cardName, cardEra, diceReq, instantEffect, permanentEffects.toArray(new EffectSet[0]));				
+			else 
+				if (cardType == DevelopmentCardType.CHARACTER)
+					return new CharacterCard(cardName, cardEra, cardReqandCost.toArray(new RequirementAndCost[0]), instantEffect, permanentEffects.toArray(new EffectSet[0]));
+				else
+					if (cardType == DevelopmentCardType.VENTURE)
+						return new VentureCard(cardName, cardEra, cardReqandCost.toArray(new RequirementAndCost[0]),instantEffect, permanentEffects.get(0));
+					else
+						return new BuildingCard(cardName, cardEra, cardReqandCost.toArray(new RequirementAndCost[0]), diceReq, instantEffect, permanentEffects.toArray(new EffectSet[0]));
+		}
+
+		private RequirementAndCost makeRequirementAndCost(Element prop) {
+			Requirement req;
+			ImmProperties cost;
+			Element reqElement =  (Element) prop.getElementsByTagName("Requirement").item(0);
+			Element costElement = (Element) prop.getElementsByTagName("Cost").item(0);
+			try {
+				req = PropertiesBuilder.makeRequirement(reqElement);
+				cost = PropertiesBuilder.makeCost(costElement);
+			} catch (XMLParseException e) {
+				LOGGER.log(Level.WARNING, "Error parsing RequirementAndCost", e);
+				req = new Requirement(new CardsNumber(0), new ImmProperties(0));
+				cost = new ImmProperties(0);
+			}
+			return null;
 		}
 		
 

@@ -35,6 +35,7 @@ public abstract class Excommunication {
 		this.id = id;
 		this.period = period;
 	}
+
 	
 	
 

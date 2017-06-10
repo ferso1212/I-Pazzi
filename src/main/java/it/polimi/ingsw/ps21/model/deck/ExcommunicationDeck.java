@@ -26,11 +26,11 @@ public class ExcommunicationDeck {
 	}
 	
 	public void addCard(Excommunication excom){
-		if (excom.getEra() == 1) firstExcommunications.add(excom);
+		if (excom.getPeriod() == 1) firstExcommunications.add(excom);
 		else
-			if (excom.getEra() == 2) secondExcommunications.add(excom);
+			if (excom.getPeriod() == 2) secondExcommunications.add(excom);
 			else
-				if (excom.getEra() == 3) thirdExcommunications.add(excom);
+				if (excom.getPeriod() == 3) thirdExcommunications.add(excom);
 	}
 	
 	public Excommunication getExcommunication(int period){

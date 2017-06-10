@@ -21,6 +21,10 @@ public class TestMatchFactory extends TestCase {
 	
 	private MatchFactory testedBuilder;
 	
+	private final int timeoutLobbyValue = 50000;
+	private final int timeoutRoundValue = 40000;
+	private final int excomReqValues[] = {3, 4,5};
+	
 	public TestMatchFactory( String testName ) 
     {
         super( testName );
@@ -33,14 +37,27 @@ public class TestMatchFactory extends TestCase {
 	
     public void testApp()
     {
-		assert(true);
-       /* assert(checkDeckMaking());
+		// TODO reconfigure deck file assert(checkDeckMaking());
         assert(checkPrivileges());
         assert(checkMarketBonus());
         assert(checkInitialProperties());
-        assert(checkCardAddingRequirement());*/
-        
+        assert(checkCardAddingRequirement());
+        assert(checkExcomReq());
+        assert(checkTimeouts());
     }
+
+	private boolean checkTimeouts() {
+		int round = testedBuilder.makeTimeoutRound();
+		int lobby = testedBuilder.makeTimeoutServer();
+		if (round == timeoutRoundValue && lobby == timeoutLobbyValue ) return true;
+		else return false;
+	}
+
+	private boolean checkExcomReq() {
+		int result[] = testedBuilder.makeExcommunicationRequirements();
+		if (result[0] == excomReqValues[0] && result[1] == excomReqValues[1] && result[2] == excomReqValues[2]) return true;
+		else return false;
+	}
 
 	private boolean checkDeckMaking() {
 		boolean ok =true;

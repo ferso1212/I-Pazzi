@@ -717,6 +717,6 @@ nineth="0" tenth="0" eleventh="0" twelveth="0" thirteenth="0" fourteenth="0" fif
           		  </Properties>
 		</VentureTower>
 	</TowersBonuses>
-	<ExcommunicationRequirement firstPeriod="3" secondPeriod="4" thirdPeriod="5"/>
+	<ExcommunicationRequirements firstPeriod="3" secondPeriod="4" thirdPeriod="5"/>
 </Board>
 
