@@ -13,8 +13,11 @@
 <!ELEMENT CouncilEffect EMPTY>
 <!ELEMENT MultiplierEffect (Cost, Properties, MultiplierType)>
 <!ELEMENT MultiplierType (Wood|Stone|Coins|Servant|VictoryPoints|MilitaryPoints|FaithPoints|Blue|Green|Purple|Yellow)>
-<!ELEMENT ExtraWorkEffect (Building?, Territory?)>
-<!ELEMENT CardDiceEffect (Cost,Territory?, Building?) >
+<!ELEMENT ExtraWorkEffect (Harvest?, Production?)>
+<!ELEMENT Harvest EMPTY>
+<!ELEMENT Production EMPTY>
+<!ATTLIST ExtraWorkEffect diceValue CDATA #REQUIRED>
+<!ELEMENT CardDiceEffect (Cost, Blue?, Yellow?, Green?, Purple?) >
 <!ELEMENT PickAnotherCard (DevelopmentCardType?, DevelopmentCardType?, DevelopmentCardType?, DevelopmentCardType?)>
 <!ELEMENT Properties (Wood, Stones, Servants, Coins, MilitaryPoints, VictoryPoints, FaithPoints)>
 <!ELEMENT Coins EMPTY>

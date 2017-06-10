@@ -18,7 +18,7 @@ public abstract class DevelopmentCard extends Card implements Serializable{
 	protected int cardEra;
 	protected EffectSet instantEffect;
 	protected ArrayList<EffectSet> permanentEffects;
-	protected ArrayList<ImmProperties> costs;
+	protected ArrayList<RequirementAndCost> costs;
 	protected transient Optional<ImmProperties> chosenCost;
 	protected transient Optional<EffectSet> chosenEffect;
 	
