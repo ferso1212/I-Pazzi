@@ -8,8 +8,14 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import it.polimi.ingsw.ps21.controller.PlayerData;
 
 public class SubDeck<T extends DevelopmentCard> {
+	private final static Logger LOGGER = Logger.getLogger(SubDeck.class.getName());
+
 	private Queue<T> firstEra;
 	private Queue<T> secondEra;
 	private Queue<T> thirdEra;
@@ -114,8 +120,7 @@ public class SubDeck<T extends DevelopmentCard> {
 			try {
 				clone.addCard((T)c);
 			} catch (IllegalCardException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOGGER.log(Level.WARNING, "Error cloning subdeck", e);
 			}
 		return clone;
 	}

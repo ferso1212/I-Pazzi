@@ -9,16 +9,20 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentLinkedQueue;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 import it.polimi.ingsw.ps21.controller.MatchRunner;
+import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.controller.TimeoutTask;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
 public class Server implements Runnable {
+
+	private final static Logger LOGGER = Logger.getLogger(Server.class.getName());
 
 	// private SocketConnectionsAcceptor socketAcceptor;
 	// private RMIConnectionsAcceptor rmiAcceptor;
@@ -52,8 +56,7 @@ public class Server implements Runnable {
 			locRegistry.rebind("RMIConnectionCreator", stubAcceptor);
 			// new Thread(rmiAcceptor).start();
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.WARNING, "Error calling remote method", e);
 		}
 
 		System.out.println("Server started and ready to receive connections.");
