@@ -44,21 +44,18 @@ public class SocketClient {
 
 			out.writeObject(name);
 			out.writeObject(chosenRules);
-			String socketLine = (String) in.readObject();
-			if (socketLine.compareTo("Match Started") == 0) {
-
+			String receivedString = (String)in.readObject();
+			while(receivedString.compareTo("Match Started") != 0);
+			NetPacket receivedPacket = (NetPacket)in.readObject();
 				while (socket.isConnected()) {
-					socketLine = (String) in.readObject();
-					while (socketLine != null) {
-						System.out.println(socketLine);
-						socketLine = (String) in.readObject();
-					}
+					
+					parseSocketInput(receivedPacket);
+					receivedPacket = (NetPacket)in.readObject();
 
-					// String userInputLine = stdin.nextLine();
-					// socketOut.println(userInputLine);
+					
 
 				}
-			}
+			
 			if (socket.isClosed()) {
 				System.out.println("Connection closed");
 				return null;
@@ -117,7 +114,7 @@ public class SocketClient {
 				{
 					if(i==0) board=(BoardData)o;
 					else {
-						players[i]=(PlayerData)o;
+						players[i-1]=(PlayerData)o;
 					}
 					i++;
 				}
@@ -131,8 +128,7 @@ public class SocketClient {
 				break;
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.WARNING, "IOException in parsing socket input", e);
 		}
 	}
 }
