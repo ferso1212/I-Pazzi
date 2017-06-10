@@ -50,7 +50,7 @@ public class RMIConnectionTest {
 	}
 
 	private boolean checkConnection() {
-		CLInterface testui = new CLInterface();
+		CLInterface testui = new CLInterface(1);
 		try {
 			RMIClient testclient = new RMIClient("testcase", testui, 1);
 			testclient.start();

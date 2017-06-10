@@ -21,13 +21,11 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 public class RMIConnection extends UnicastRemoteObject implements RMIConnectionInterface, Connection{
 
 	private String name;
-	private Queue<String> input;
-	private Queue<String> output;
-	private RMIClientInterface client;
+	// Unused private Queue<String> input;
+	// Unused private Queue<String> output;
+	private transient RMIClientInterface client;
 	public RMIConnection(String inputName) throws RemoteException{
 		name = inputName;
-		input = new ArrayDeque<>();
-		output = new ArrayDeque<>();
 	}
 
 

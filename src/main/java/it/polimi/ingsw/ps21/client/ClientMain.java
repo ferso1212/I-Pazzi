@@ -60,7 +60,7 @@ public class ClientMain {
 		}
     	if(chosenRules!=1 && chosenRules!=2) System.out.println("\nInvalid choice.");
     	}
-		CLInterface CLImatch = new CLInterface();
+		CLInterface CLImatch = new CLInterface(chosenRules);
 
     	
 		while(newMatch == true){

@@ -21,11 +21,9 @@ import it.polimi.ingsw.ps21.view.RMIMessageBuffer;
 
 public class RMIClient extends UnicastRemoteObject implements RMIClientInterface{
 	
-	private Registry serverRegistry;
-	private RMIConnectionInterface connection = null;
-	private RMIMessageBuffer input;
-	private RMIMessageBuffer output;
-	private UserInterface ui;
+	private transient Registry serverRegistry;
+	private transient RMIConnectionInterface connection = null;
+	private transient UserInterface ui;
 	public boolean connected = false;
 	
 	public RMIClient(String username, UserInterface ui, int chosenRules) throws RemoteException, NotBoundException{
