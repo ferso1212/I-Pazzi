@@ -32,14 +32,16 @@ public class MatchController extends Observable implements Observer {
 		super();
 		this.match = match;
 		handlersMap = new EnumMap<>(PlayerColor.class);
+		match.addObserver(this);
 		for (UserHandler handler : handlers) {
 			this.handlersMap.put(handler.getPlayerId(), handler);
 			this.addObserver(handler);
 			handler.addObserver(this);
-
 		}
-		match.addObserver(this);
+		
 		this.match = match.startMatch();
+		notifyObservers(new String("match started"));
+		gameLoop();
 	}
 
 	public void gameLoop() {

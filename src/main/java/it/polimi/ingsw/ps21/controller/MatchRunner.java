@@ -45,6 +45,7 @@ public class MatchRunner implements Runnable {
 		} catch (BuildingDeckException e) {
 			LOGGER.log(Level.SEVERE, "Unable to create Match" , e);
 		}
+		
 
 	}
 

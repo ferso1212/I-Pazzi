@@ -112,7 +112,8 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 			}
 			else if(arg instanceof String)
 			{
-				connection.sendMessage((String)arg);
+				if(((String)arg).compareTo("match started")==0) connection.matchStarted();
+				else connection.sendMessage((String)arg);
 			}
 		}
 		
