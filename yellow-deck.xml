@@ -2,34 +2,36 @@
 <!DOCTYPE SubDeckYellow SYSTEM "yellow-deck-schema.dtd">
 <SubDeckYellow>
     <BuildingCard name="Residenza" period="1" diceRequirement="1">
-        <Requirement>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-            <CardsNumber>
-                <Green value="0" />
-                <Yellow value="0" />
-                <Blue value="0" />
-                <Purple value="0" />
-            </CardsNumber>
-        </Requirement>
-        <Cost>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="2" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-        </Cost>
+        <RequirementAndCost>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Cost>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="2" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </Cost>
+        </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
                 <PropEffect>
@@ -85,34 +87,36 @@
         </PermanentEffect>
     </BuildingCard>
     <BuildingCard name="Castelletto" period="3" diceRequirement="5">
-        <Requirement>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-            <CardsNumber>
-                <Green value="0" />
-                <Yellow value="0" />
-                <Blue value="0" />
-                <Purple value="0" />
-            </CardsNumber>
-        </Requirement>
-        <Cost>
-            <Properties>
-                <Wood value="2" />
-                <Stones value="4" />
-                <Servants value="0" />
-                <Coins value="2" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-        </Cost>
+        <RequirementAndCost>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Cost>
+                <Properties>
+                    <Wood value="2" />
+                    <Stones value="4" />
+                    <Servants value="0" />
+                    <Coins value="2" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </Cost>
+        </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
                 <PropEffect>
@@ -168,34 +172,36 @@
         </PermanentEffect>
     </BuildingCard>
     <BuildingCard name="Fiera" period="3" diceRequirement="4">
-        <Requirement>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-            <CardsNumber>
-                <Green value="0" />
-                <Yellow value="0" />
-                <Blue value="0" />
-                <Purple value="0" />
-            </CardsNumber>
-        </Requirement>
-        <Cost>
-            <Properties>
-                <Wood value="3" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="4" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-        </Cost>
+        <RequirementAndCost>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Cost>
+                <Properties>
+                    <Wood value="3" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="4" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </Cost>
+        </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
                 <PropEffect>
@@ -250,34 +256,36 @@
         </PermanentEffect>
     </BuildingCard>
     <BuildingCard name="Cappella" period="1" diceRequirement="2">
-        <Requirement>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-            <CardsNumber>
-                <Green value="0" />
-                <Yellow value="0" />
-                <Blue value="0" />
-                <Purple value="0" />
-            </CardsNumber>
-        </Requirement>
-        <Cost>
-            <Properties>
-                <Wood value="2" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-        </Cost>
+        <RequirementAndCost>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Cost>
+                <Properties>
+                    <Wood value="2" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </Cost>
+        </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
                 <PropEffect>
@@ -332,34 +340,36 @@
         </PermanentEffect>
     </BuildingCard>
     <BuildingCard name="Fortezza" period="2" diceRequirement="6">
-        <Requirement>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-            <CardsNumber>
-                <Green value="0" />
-                <Yellow value="0" />
-                <Blue value="0" />
-                <Purple value="0" />
-            </CardsNumber>
-        </Requirement>
-        <Cost>
-            <Properties>
-                <Wood value="2" />
-                <Stones value="2" />
-                <Servants value="0" />
-                <Coins value="2" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-        </Cost>
+        <RequirementAndCost>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Cost>
+                <Properties>
+                    <Wood value="2" />
+                    <Stones value="2" />
+                    <Servants value="0" />
+                    <Coins value="2" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </Cost>
+        </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
                 <PropEffect>
@@ -414,34 +424,36 @@
         </PermanentEffect>
     </BuildingCard>
     <BuildingCard name="Cattedrale" period="3" diceRequirement="2">
-        <Requirement>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-            <CardsNumber>
-                <Green value="0" />
-                <Yellow value="0" />
-                <Blue value="0" />
-                <Purple value="0" />
-            </CardsNumber>
-        </Requirement>
-        <Cost>
-            <Properties>
-                <Wood value="4" />
-                <Stones value="4" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-        </Cost>
+        <RequirementAndCost>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Cost>
+                <Properties>
+                    <Wood value="4" />
+                    <Stones value="4" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </Cost>
+        </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
                 <PropEffect>
@@ -496,34 +508,36 @@
         </PermanentEffect>
     </BuildingCard>
     <BuildingCard name="Teatro" period="1" diceRequirement="6">
-        <Requirement>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-            <CardsNumber>
-                <Green value="0" />
-                <Yellow value="0" />
-                <Blue value="0" />
-                <Purple value="0" />
-            </CardsNumber>
-        </Requirement>
-        <Cost>
-            <Properties>
-                <Wood value="2" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="2" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-        </Cost>
+        <RequirementAndCost>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Cost>
+                <Properties>
+                    <Wood value="2" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="2" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </Cost>
+        </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
                 <PropEffect>
@@ -565,13 +579,13 @@
                         </Properties>
                     </Cost>
                     <Properties>
-                            <Wood value="0" />
-                            <Stones value="0" />
-                            <Servants value="0" />
-                            <Coins value="0" />
-                            <MilitaryPoints value="0" />
-                            <VictoryPoints value="1" />
-                            <FaithPoints value="0" />
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="1" />
+                        <FaithPoints value="0" />
                     </Properties>
                     <MultiplierType>
                         <Blue value="1" />
@@ -581,34 +595,36 @@
         </PermanentEffect>
     </BuildingCard>
     <BuildingCard name="Giardino" period="3" diceRequirement="1">
-        <Requirement>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-            <CardsNumber>
-                <Green value="0" />
-                <Yellow value="0" />
-                <Blue value="0" />
-                <Purple value="0" />
-            </CardsNumber>
-        </Requirement>
-        <Cost>
-            <Properties>
-                <Wood value="2" />
-                <Stones value="2" />
-                <Servants value="2" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-        </Cost>
+        <RequirementAndCost>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Cost>
+                <Properties>
+                    <Wood value="2" />
+                    <Stones value="2" />
+                    <Servants value="2" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </Cost>
+        </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
                 <PropEffect>
@@ -663,34 +679,36 @@
         </PermanentEffect>
     </BuildingCard>
     <BuildingCard name="Tesoreria" period="2" diceRequirement="3">
-        <Requirement>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-            <CardsNumber>
-                <Green value="0" />
-                <Yellow value="0" />
-                <Blue value="0" />
-                <Purple value="0" />
-            </CardsNumber>
-        </Requirement>
-        <Cost>
-            <Properties>
-                <Wood value="3" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-        </Cost>
+        <RequirementAndCost>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Cost>
+                <Properties>
+                    <Wood value="3" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </Cost>
+        </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
                 <PropEffect>
@@ -769,34 +787,36 @@
         </PermanentEffect>
     </BuildingCard>
     <BuildingCard name="Mercato" period="2" diceRequirement="3">
-        <Requirement>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-            <CardsNumber>
-                <Green value="0" />
-                <Yellow value="0" />
-                <Blue value="0" />
-                <Purple value="0" />
-            </CardsNumber>
-        </Requirement>
-        <Cost>
-            <Properties>
-                <Wood value="2" />
-                <Stones value="1" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-        </Cost>
+        <RequirementAndCost>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Cost>
+                <Properties>
+                    <Wood value="2" />
+                    <Stones value="1" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </Cost>
+        </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
                 <PropEffect>
@@ -851,34 +871,36 @@
         </PermanentEffect>
     </BuildingCard>
     <BuildingCard name="Falegnameria" period="1" diceRequirement="4">
-        <Requirement>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-            <CardsNumber>
-                <Green value="0" />
-                <Yellow value="0" />
-                <Blue value="0" />
-                <Purple value="0" />
-            </CardsNumber>
-        </Requirement>
-        <Cost>
-            <Properties>
-                <Wood value="2" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="1" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-        </Cost>
+        <RequirementAndCost>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Cost>
+                <Properties>
+                    <Wood value="2" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="1" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </Cost>
+        </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
                 <PropEffect>
@@ -957,34 +979,36 @@
         </PermanentEffect>
     </BuildingCard>
     <BuildingCard name="Banca" period="3" diceRequirement="2">
-        <Requirement>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-            <CardsNumber>
-                <Green value="0" />
-                <Yellow value="0" />
-                <Blue value="0" />
-                <Purple value="0" />
-            </CardsNumber>
-        </Requirement>
-        <Cost>
-            <Properties>
-                <Wood value="1" />
-                <Stones value="3" />
-                <Servants value="0" />
-                <Coins value="3" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-        </Cost>
+        <RequirementAndCost>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Cost>
+                <Properties>
+                    <Wood value="1" />
+                    <Stones value="3" />
+                    <Servants value="0" />
+                    <Coins value="3" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </Cost>
+        </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
                 <PropEffect>
@@ -1039,34 +1063,36 @@
         </PermanentEffect>
     </BuildingCard>
     <BuildingCard name="Caserma" period="2" diceRequirement="1">
-        <Requirement>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-            <CardsNumber>
-                <Green value="0" />
-                <Yellow value="0" />
-                <Blue value="0" />
-                <Purple value="0" />
-            </CardsNumber>
-        </Requirement>
-        <Cost>
-            <Properties>
-                <Wood value="1" />
-                <Stones value="1" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-        </Cost>
+        <RequirementAndCost>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Cost>
+                <Properties>
+                    <Wood value="1" />
+                    <Stones value="1" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </Cost>
+        </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
                 <PropEffect>
@@ -1121,34 +1147,36 @@
         </PermanentEffect>
     </BuildingCard>
     <BuildingCard name="Accademia Militare" period="3" diceRequirement="3">
-        <Requirement>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-            <CardsNumber>
-                <Green value="0" />
-                <Yellow value="0" />
-                <Blue value="0" />
-                <Purple value="0" />
-            </CardsNumber>
-        </Requirement>
-        <Cost>
-            <Properties>
-                <Wood value="2" />
-                <Stones value="2" />
-                <Servants value="1" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-        </Cost>
+        <RequirementAndCost>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Cost>
+                <Properties>
+                    <Wood value="2" />
+                    <Stones value="2" />
+                    <Servants value="1" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </Cost>
+        </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
                 <PropEffect>
@@ -1203,34 +1231,36 @@
         </PermanentEffect>
     </BuildingCard>
     <BuildingCard name="Arco di Trionfo" period="1" diceRequirement="6">
-        <Requirement>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-            <CardsNumber>
-                <Green value="0" />
-                <Yellow value="0" />
-                <Blue value="0" />
-                <Purple value="0" />
-            </CardsNumber>
-        </Requirement>
-        <Cost>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="2" />
-                <Servants value="0" />
-                <Coins value="2" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-        </Cost>
+        <RequirementAndCost>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Cost>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="2" />
+                    <Servants value="0" />
+                    <Coins value="2" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </Cost>
+        </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
                 <PropEffect>
@@ -1272,13 +1302,13 @@
                         </Properties>
                     </Cost>
                     <Properties>
-                            <Wood value="0" />
-                            <Stones value="0" />
-                            <Servants value="0" />
-                            <Coins value="0" />
-                            <MilitaryPoints value="0" />
-                            <VictoryPoints value="1" />
-                            <FaithPoints value="0" />
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="1" />
+                        <FaithPoints value="0" />
                     </Properties>
                     <MultiplierType>
                         <Purple value="1" />
@@ -1288,34 +1318,36 @@
         </PermanentEffect>
     </BuildingCard>
     <BuildingCard name="Esattoria" period="1" diceRequirement="5">
-        <Requirement>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-            <CardsNumber>
-                <Green value="0" />
-                <Yellow value="0" />
-                <Blue value="0" />
-                <Purple value="0" />
-            </CardsNumber>
-        </Requirement>
-        <Cost>
-            <Properties>
-                <Wood value="3" />
-                <Stones value="1" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-        </Cost>
+        <RequirementAndCost>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Cost>
+                <Properties>
+                    <Wood value="3" />
+                    <Stones value="1" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </Cost>
+        </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
                 <PropEffect>
@@ -1357,13 +1389,13 @@
                         </Properties>
                     </Cost>
                     <Properties>
-                            <Wood value="0" />
-                            <Stones value="0" />
-                            <Servants value="0" />
-                            <Coins value="1" />
-                            <MilitaryPoints value="0" />
-                            <VictoryPoints value="0" />
-                            <FaithPoints value="0" />
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="1" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
                     </Properties>
                     <MultiplierType>
                         <Green value="1" />
@@ -1373,34 +1405,36 @@
         </PermanentEffect>
     </BuildingCard>
     <BuildingCard name="Battistero" period="2" diceRequirement="2">
-        <Requirement>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-            <CardsNumber>
-                <Green value="0" />
-                <Yellow value="0" />
-                <Blue value="0" />
-                <Purple value="0" />
-            </CardsNumber>
-        </Requirement>
-        <Cost>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="3" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-        </Cost>
+        <RequirementAndCost>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Cost>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="3" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </Cost>
+        </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
                 <PropEffect>
@@ -1455,34 +1489,36 @@
         </PermanentEffect>
     </BuildingCard>
     <BuildingCard name="Tagliapietre" period="1" diceRequirement="3">
-        <Requirement>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-            <CardsNumber>
-                <Green value="0" />
-                <Yellow value="0" />
-                <Blue value="0" />
-                <Purple value="0" />
-            </CardsNumber>
-        </Requirement>
-        <Cost>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="2" />
-                <Servants value="0" />
-                <Coins value="1" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-        </Cost>
+        <RequirementAndCost>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Cost>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="2" />
+                    <Servants value="0" />
+                    <Coins value="1" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </Cost>
+        </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
                 <PropEffect>
@@ -1561,34 +1597,36 @@
         </PermanentEffect>
     </BuildingCard>
     <BuildingCard name="Zecca" period="1" diceRequirement="5">
-        <Requirement>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-            <CardsNumber>
-                <Green value="0" />
-                <Yellow value="0" />
-                <Blue value="0" />
-                <Purple value="0" />
-            </CardsNumber>
-        </Requirement>
-        <Cost>
-            <Properties>
-                <Wood value="1" />
-                <Stones value="3" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-        </Cost>
+        <RequirementAndCost>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Cost>
+                <Properties>
+                    <Wood value="1" />
+                    <Stones value="3" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </Cost>
+        </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
                 <PropEffect>
@@ -1630,13 +1668,13 @@
                         </Properties>
                     </Cost>
                     <Properties>
-                            <Wood value="0" />
-                            <Stones value="0" />
-                            <Servants value="0" />
-                            <Coins value="1" />
-                            <MilitaryPoints value="0" />
-                            <VictoryPoints value="0" />
-                            <FaithPoints value="0" />
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="1" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
                     </Properties>
                     <MultiplierType>
                         <Yellow value="1" />
@@ -1646,34 +1684,36 @@
         </PermanentEffect>
     </BuildingCard>
     <BuildingCard name="Gilda degli Scultori" period="2" diceRequirement="5">
-        <Requirement>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-            <CardsNumber>
-                <Green value="0" />
-                <Yellow value="0" />
-                <Blue value="0" />
-                <Purple value="0" />
-            </CardsNumber>
-        </Requirement>
-        <Cost>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="4" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-        </Cost>
+        <RequirementAndCost>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Cost>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="4" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </Cost>
+        </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
                 <PropEffect>
@@ -1752,34 +1792,36 @@
         </PermanentEffect>
     </BuildingCard>
     <BuildingCard name="Gilda dei Costruttori" period="2" diceRequirement="4">
-        <Requirement>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-            <CardsNumber>
-                <Green value="0" />
-                <Yellow value="0" />
-                <Blue value="0" />
-                <Purple value="0" />
-            </CardsNumber>
-        </Requirement>
-        <Cost>
-            <Properties>
-                <Wood value="1" />
-                <Stones value="2" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-        </Cost>
+        <RequirementAndCost>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Cost>
+                <Properties>
+                    <Wood value="1" />
+                    <Stones value="2" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </Cost>
+        </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
                 <PropEffect>
@@ -1834,34 +1876,36 @@
         </PermanentEffect>
     </BuildingCard>
     <BuildingCard name="Palazzo" period="3" diceRequirement="6">
-        <Requirement>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-            <CardsNumber>
-                <Green value="0" />
-                <Yellow value="0" />
-                <Blue value="0" />
-                <Purple value="0" />
-            </CardsNumber>
-        </Requirement>
-        <Cost>
-            <Properties>
-                <Wood value="3" />
-                <Stones value="1" />
-                <Servants value="0" />
-                <Coins value="3" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-        </Cost>
+        <RequirementAndCost>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Cost>
+                <Properties>
+                    <Wood value="3" />
+                    <Stones value="1" />
+                    <Servants value="0" />
+                    <Coins value="3" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </Cost>
+        </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
                 <PropEffect>
@@ -1916,34 +1960,36 @@
         </PermanentEffect>
     </BuildingCard>
     <BuildingCard name="Basilica" period="3" diceRequirement="1">
-        <Requirement>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-            <CardsNumber>
-                <Green value="0" />
-                <Yellow value="0" />
-                <Blue value="0" />
-                <Purple value="0" />
-            </CardsNumber>
-        </Requirement>
-        <Cost>
-            <Properties>
-                <Wood value="1" />
-                <Stones value="4" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-        </Cost>
+        <RequirementAndCost>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Cost>
+                <Properties>
+                    <Wood value="1" />
+                    <Stones value="4" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </Cost>
+        </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
                 <PropEffect>
@@ -2022,34 +2068,36 @@
         </PermanentEffect>
     </BuildingCard>
     <BuildingCard name="Gilda dei Pittori" period="2" diceRequirement="4">
-        <Requirement>
-            <Properties>
-                <Wood value="0" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-            <CardsNumber>
-                <Green value="0" />
-                <Yellow value="0" />
-                <Blue value="0" />
-                <Purple value="0" />
-            </CardsNumber>
-        </Requirement>
-        <Cost>
-            <Properties>
-                <Wood value="4" />
-                <Stones value="0" />
-                <Servants value="0" />
-                <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
-                <FaithPoints value="0" />
-            </Properties>
-        </Cost>
+        <RequirementAndCost>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Cost>
+                <Properties>
+                    <Wood value="4" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </Cost>
+        </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
                 <PropEffect>

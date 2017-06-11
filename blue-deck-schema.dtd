@@ -8,7 +8,9 @@
 <!ELEMENT EffectSet (NullEffect?, PropEffect?, DiscountEffect?, CardDiceEffect?, BlockTowerEffect?, CouncilEffect?, MultiplierEffect?, PickAnotherCardEffect?, ExtraWorkEffect?, PrivilegeEffect?)>
 <!ELEMENT PropEffect (Cost, Properties)>
 <!ELEMENT NullEffect EMPTY>
-<!ELEMENT DiscountEffect (Cost,Properties,Territory?, Building?, Character?, Venture?) >
+<!ELEMENT DiscountEffect (Properties,Green?, Yellow?, Blue?, Purple?) >
+<!ELEMENT WorkDiceEffect (Harvest?, Production?)>
+<!ATTLIST WorkDiceEffect diceIncrement CDATA #REQUIRED>
 <!ELEMENT BlockTowerEffect EMPTY>
 <!ELEMENT CouncilEffect EMPTY>
 <!ELEMENT PrivilegeEffect EMPTY>
@@ -19,7 +21,7 @@
 <!ELEMENT Production EMPTY>
 <!ATTLIST ExtraWorkEffect diceValue CDATA #REQUIRED>
 <!ELEMENT CardDiceEffect (Cost, Blue?, Yellow?, Green?, Purple?) >
-<!ELEMENT PickAnotherCard (DevelopmentCardType?, DevelopmentCardType?, DevelopmentCardType?, DevelopmentCardType?)>
+<!ELEMENT PickAnotherCard (Green?, Blue?, Yellow?, Purple?)>
 
 <!ELEMENT Properties (Wood, Stones, Servants, Coins, MilitaryPoints, VictoryPoints, FaithPoints)>
 <!ELEMENT Coins EMPTY>
