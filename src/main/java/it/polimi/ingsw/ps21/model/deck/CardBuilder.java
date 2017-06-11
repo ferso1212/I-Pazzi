@@ -109,7 +109,7 @@ public class CardBuilder {
 				req = new Requirement(new CardsNumber(0), new ImmProperties(0));
 				cost = new ImmProperties(0);
 			}
-			return null;
+			return new RequirementAndCost(req, cost);
 		}
 		
 

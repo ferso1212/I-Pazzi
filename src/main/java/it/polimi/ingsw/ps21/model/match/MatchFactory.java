@@ -265,7 +265,7 @@ public class MatchFactory {
 			configuratedDeck = new Deck();
 			configuratedDeck.setGreenDeck(makeGreenDeck());
 			// TODO Fix files of decks
-			//configuratedDeck.setBlueDeck(makeBlueDeck());
+			configuratedDeck.setBlueDeck(makeBlueDeck());
 			configuratedDeck.setYellowDeck(makeYellowDeck());
 			configuratedDeck.setPurpleDeck(makePurpleDeck());
 		}
