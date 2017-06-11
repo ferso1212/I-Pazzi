@@ -2,7 +2,7 @@ package it.polimi.ingsw.ps21.model.excommunications;
 import it.polimi.ingsw.ps21.model.player.Player;
 
 /**General abstract class for excommunications.
- * All the excommunications implement the 'activate' method.
+ * All the excommunications implement the 'activate' method and store the period in which they should be evaluated/activated.
  * @author fabri
  *
  */
