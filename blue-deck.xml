@@ -200,11 +200,13 @@
                 </Properties>
             </Cost>
         </RequirementAndCost>
+        <InstantEffect>
+            <EffectSet>
+                <NullEffect />
+            </EffectSet>
+        </InstantEffect>
         <PermanentEffect>
             <EffectSet>
-                <CardDiceEffect diceValue="2">
-                    <Blue value="0" />
-                </CardDiceEffect>
                 <DiscountEffect>
                     <Properties>
                         <Wood value="0" />
@@ -217,6 +219,9 @@
                     </Properties>
                     <Blue value="0" />
                 </DiscountEffect>
+                <CardDiceEffect diceValue="2">
+                    <Blue value="0" />
+                </CardDiceEffect>
             </EffectSet>
         </PermanentEffect>
     </CharacterCard>
@@ -251,11 +256,13 @@
                 </Properties>
             </Cost>
         </RequirementAndCost>
+        <InstantEffect>
+            <EffectSet>
+                <NullEffect />
+            </EffectSet>
+        </InstantEffect>
         <PermanentEffect>
             <EffectSet>
-                <CardDiceEffect diceValue="2">
-                    <Yellow value="0" />
-                </CardDiceEffect>
                 <DiscountEffect>
                     <Properties>
                         <Wood value="1" />
@@ -268,11 +275,11 @@
                     </Properties>
                     <Yellow value="0" />
                 </DiscountEffect>
-            </EffectSet>
-            <EffectSet>
                 <CardDiceEffect diceValue="2">
                     <Yellow value="0" />
                 </CardDiceEffect>
+            </EffectSet>
+            <EffectSet>
                 <DiscountEffect>
                     <Properties>
                         <Wood value="0" />
@@ -285,6 +292,9 @@
                     </Properties>
                     <Yellow value="0" />
                 </DiscountEffect>
+                <CardDiceEffect diceValue="2">
+                    <Yellow value="0" />
+                </CardDiceEffect>
             </EffectSet>
         </PermanentEffect>
     </CharacterCard>
@@ -321,9 +331,6 @@
         </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
-                <PickAnotherCardEffect diceValue="6">
-                    <Green value="0" />
-                </PickAnotherCardEffect>
                 <PropEffect>
                     <Cost>
                         <Properties>
@@ -346,6 +353,9 @@
                         <FaithPoints value="0" />
                     </Properties>
                 </PropEffect>
+                <PickAnotherCardEffect diceValue="6">
+                    <Green value="0" />
+                </PickAnotherCardEffect>
             </EffectSet>
         </InstantEffect>
     </CharacterCard>
@@ -457,6 +467,11 @@
                 </Properties>
             </Cost>
         </RequirementAndCost>
+        <InstantEffect>
+            <EffectSet>
+                <NullEffect />
+            </EffectSet>
+        </InstantEffect>
         <PermanentEffect>
             <EffectSet>
                 <WorkDiceEffect diceIncrement="3">
@@ -496,6 +511,11 @@
                 </Properties>
             </Cost>
         </RequirementAndCost>
+        <InstantEffect>
+            <EffectSet>
+                <NullEffect />
+            </EffectSet>
+        </InstantEffect>
         <PermanentEffect>
             <EffectSet>
                 <WorkDiceEffect diceIncrement="3">
@@ -595,13 +615,13 @@
         </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
-                <PrivilegeEffect number="1" />
                 <PickAnotherCardEffect diceValue="4">
                     <Green value="0" />
                     <Yellow value="0" />
                     <Blue value="0" />
                     <Purple value="0" />
                 </PickAnotherCardEffect>
+                <PrivilegeEffect number="1" />
             </EffectSet>
         </InstantEffect>
         <PermanentEffect>
@@ -638,6 +658,11 @@
                 </Properties>
             </Cost>
         </RequirementAndCost>
+        <InstantEffect>
+            <EffectSet>
+                <NullEffect />
+            </EffectSet>
+        </InstantEffect>
         <PermanentEffect>
             <EffectSet>
                 <WorkDiceEffect diceIncrement="2">
@@ -677,6 +702,11 @@
                 </Properties>
             </Cost>
         </RequirementAndCost>
+        <InstantEffect>
+            <EffectSet>
+                <NullEffect />
+            </EffectSet>
+        </InstantEffect>
         <PermanentEffect>
             <EffectSet>
                 <WorkDiceEffect diceIncrement="2">
@@ -739,7 +769,9 @@
                         <VictoryPoints value="2" />
                         <FaithPoints value="0" />
                     </Properties>
-                    <Green value="1"/>
+                    <MultiplierType>
+                        <Green value="1" />
+                    </MultiplierType>
                 </MultiplierEffect>
             </EffectSet>
         </InstantEffect>
@@ -800,7 +832,9 @@
                         <VictoryPoints value="2" />
                         <FaithPoints value="0" />
                     </Properties>
-                    <Yellow value="1"/>
+                    <MultiplierType>
+                        <Yellow value="1" />
+                    </MultiplierType>
                 </MultiplierEffect>
             </EffectSet>
         </InstantEffect>
@@ -861,12 +895,12 @@
                         <VictoryPoints value="2" />
                         <FaithPoints value="0" />
                     </Properties>
-                    <Blue value="1"/>
+                    <MultiplierType>
+                        <Blue value="1" />
+                    </MultiplierType>
                 </MultiplierEffect>
             </EffectSet>
         </InstantEffect>
-        <PermanentEffect>
-        </PermanentEffect>
     </CharacterCard>
     <CharacterCard name="Araldo" period="3">
         <RequirementAndCost>
@@ -922,7 +956,9 @@
                         <VictoryPoints value="2" />
                         <FaithPoints value="0" />
                     </Properties>
-                    <Purple value="1"/>
+                    <MultiplierType>
+                        <Purple value="1" />
+                    </MultiplierType>
                 </MultiplierEffect>
             </EffectSet>
         </InstantEffect>
@@ -1103,7 +1139,9 @@
                         <VictoryPoints value="1" />
                         <FaithPoints value="0" />
                     </Properties>
-                    <MilitaryPoints value="2"/>
+                    <MultiplierType>
+                        <MilitaryPoints value="2" />
+                    </MultiplierType>
                 </MultiplierEffect>
             </EffectSet>
         </InstantEffect>
@@ -1166,20 +1204,11 @@
             </EffectSet>
         </InstantEffect>
         <PermanentEffect>
-            <CardDiceEffect diceValue="2">
-                <Cost>
-                        <Properties>
-                            <Wood value="0" />
-                            <Stones value="0" />
-                            <Servants value="0" />
-                            <Coins value="0" />
-                            <MilitaryPoints value="0" />
-                            <VictoryPoints value="0" />
-                            <FaithPoints value="0" />
-                        </Properties>
-                    </Cost>
-                <Green value="0" />
-            </CardDiceEffect>
+            <EffectSet>
+                <CardDiceEffect diceValue="2">
+                    <Green value="0" />
+                </CardDiceEffect>
+            </EffectSet>
         </PermanentEffect>
     </CharacterCard>
     <CharacterCard name="Cavaliere" period="1">
@@ -1219,20 +1248,11 @@
             </EffectSet>
         </InstantEffect>
         <PermanentEffect>
-            <CardDiceEffect diceValue="2">
-                <Cost>
-                        <Properties>
-                            <Wood value="0" />
-                            <Stones value="0" />
-                            <Servants value="0" />
-                            <Coins value="0" />
-                            <MilitaryPoints value="0" />
-                            <VictoryPoints value="0" />
-                            <FaithPoints value="0" />
-                        </Properties>
-                    </Cost>
-                <Purple value="0" />
-            </CardDiceEffect>
+            <EffectSet>
+                <CardDiceEffect diceValue="2">
+                    <Purple value="0" />
+                </CardDiceEffect>
+            </EffectSet>
         </PermanentEffect>
     </CharacterCard>
     <CharacterCard name="Predicatore" period="1">
@@ -1293,7 +1313,9 @@
             </EffectSet>
         </InstantEffect>
         <PermanentEffect>
-            <BlockTowerEffect />
+            <EffectSet>
+                <BlockTowerEffect />
+            </EffectSet>
         </PermanentEffect>
     </CharacterCard>
 
