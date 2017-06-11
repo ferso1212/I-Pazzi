@@ -29,10 +29,18 @@ public class CLInterfaceTest {
 	
 	@Test
 	public void test() {
-		assert(true);
+		assert(checkShowInfo());
 		assert(checkChoice());
+		
 	}
 	
+	private boolean checkShowInfo() {
+		testCli.showInfo("Testing interface");
+		testCli.showMessage(new AcceptedAction(PlayerColor.BLUE));
+		testCli.showMessage(new RefusedAction(PlayerColor.BLUE));
+		return true;
+	}
+
 	private boolean checkChoice() {
 		// Testa un'unica scelta
 		ArrayList<ImmProperties> testCosts = new ArrayList<>();
@@ -41,12 +49,6 @@ public class CLInterfaceTest {
 		testChoice.setChosen(testCli.reqCostChoice(testChoice.getChoices()));
 		if (testChoice.getChosen() == testChoice.getChoices().get(0)) return true;
 		else return false;
-	}
-
-	@After
-	public void show(){
-		testCli.showMessage(new AcceptedAction(PlayerColor.BLUE));
-		testCli.showMessage(new RefusedAction(PlayerColor.BLUE));
 	}
 
 }
