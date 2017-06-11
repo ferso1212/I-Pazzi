@@ -24,4 +24,9 @@ public abstract class Action {
 	public abstract Message isLegal(Player player, Match match);
 	
 	public abstract ExtraAction[] execute(Player player, Match match) throws NotExecutableException, NotOccupableException, RequirementNotMetException, InsufficientPropsException ;
+
+	public PlayerColor getId()
+	{
+		return this.playerId;
+	}
 }

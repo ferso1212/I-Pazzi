@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps21.view;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -106,6 +107,15 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 
 			} else if (arg instanceof ExtraAction[]) {
 				// TODO
+				ExtraAction[] actions=(ExtraAction[])arg;
+				ArrayList<ExtraAction> actionsForMe = new ArrayList<>();
+				for(ExtraAction action: actions)
+				{
+					if(action.getId()==this.playerId)
+					{
+						actionsForMe.add(action);
+					}
+				}
 			}
 			else if (arg instanceof MatchData){
 				// TODO
@@ -116,6 +126,11 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 				else connection.sendMessage((String)arg);
 			}
 		}
+		
+	}
+	
+	private void parseExtraAction(ExtraAction action)
+	{
 		
 	}
 

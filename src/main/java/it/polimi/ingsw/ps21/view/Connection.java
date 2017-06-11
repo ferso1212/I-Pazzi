@@ -30,5 +30,7 @@ public abstract interface Connection{
 	public ImmProperties[] reqPrivilegesChoice(int number);
 	
 	public void setID(PlayerColor player);
+	
+	public int reqExtraActionChoice(ActionData[] actions);
 
 }
