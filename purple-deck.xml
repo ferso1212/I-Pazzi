@@ -118,9 +118,9 @@
         </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
-                <ExtraWorkAction diceValue="4">
+                <ExtraWorkEffect diceValue="4">
                     <Harvest />
-                </ExtraWorkAction>
+                </ExtraWorkEffect>
             </EffectSet>
         </InstantEffect>
         <PermanentEffect>
@@ -1029,9 +1029,9 @@
         </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
-                <ExtraWorkAction diceValue="3">
+                <ExtraWorkEffect diceValue="3">
                     <Production />
-                </ExtraWorkAction>
+                </ExtraWorkEffect>
             </EffectSet>
         </InstantEffect>
         <PermanentEffect>
@@ -2023,12 +2023,12 @@
                         <FaithPoints value="1" />
                     </Properties>
                 </PropEffect>
-                <PickAnotherCard diceValue="7">
+                <PickAnotherCardEffect diceValue="7">
                     <Green value="0" />
                     <Yellow value="0" />
                     <Blue value="0" />
                     <Purple value="0" />
-                </PickAnotherCard>
+                </PickAnotherCardEffect>
             </EffectSet>
         </InstantEffect>
         <PermanentEffect>

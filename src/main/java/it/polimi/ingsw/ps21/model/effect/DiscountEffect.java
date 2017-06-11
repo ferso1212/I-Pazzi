@@ -22,6 +22,7 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
  */
 public class DiscountEffect extends Effect {
 
+	private static final long serialVersionUID = 207667018131928919L;
 	private ImmProperties discount;
 	private Set<DevelopmentCardType> types;
 	
@@ -30,7 +31,6 @@ public class DiscountEffect extends Effect {
 		if (cardType.length > 4) throw new TooManyArgumentException();
 		types = new HashSet<>();
 		this.discount = discount;
-		
 		//If no cardType parameters passed, by default discount go on every card
 		if (cardType.length == 0) {
 			types.add(DevelopmentCardType.BUILDING);

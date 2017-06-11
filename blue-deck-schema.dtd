@@ -9,16 +9,16 @@
 <!ELEMENT PropEffect (Cost, Properties)>
 <!ELEMENT NullEffect EMPTY>
 <!ELEMENT DiscountEffect (Properties,Green?, Yellow?, Blue?, Purple?) >
-<!ELEMENT WorkDiceEffect (Harvest?, Production?)>
-<!ATTLIST WorkDiceEffect diceIncrement CDATA #REQUIRED>
 <!ELEMENT BlockTowerEffect EMPTY>
 <!ELEMENT CouncilEffect EMPTY>
 <!ELEMENT PrivilegeEffect EMPTY>
 <!ELEMENT MultiplierEffect (Cost, Properties, MultiplierType)>
 <!ELEMENT MultiplierType (Wood|Stone|Coins|Servant|VictoryPoints|MilitaryPoints|FaithPoints|Blue|Green|Purple|Yellow)>
-<!ELEMENT ExtraWorkEffect (Harvest?, Production?)>
+<!ELEMENT ExtraWorkEffect (Harvest|Production)>
 <!ELEMENT Harvest EMPTY>
 <!ELEMENT Production EMPTY>
+<!ELEMENT WorkDiceEffect (Harvest|Production)>
+<!ATTLIST WorkDiceEffect diceValue CDATA #REQUIRED>
 <!ATTLIST ExtraWorkEffect diceValue CDATA #REQUIRED>
 <!ELEMENT CardDiceEffect (Green?, Yellow?, Blue?, Purple?) >
 <!ELEMENT PickAnotherCardEffect (Green?, Yellow?, Blue? ,Purple?)>

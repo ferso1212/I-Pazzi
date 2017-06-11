@@ -2,12 +2,14 @@ package it.polimi.ingsw.ps21.model.effect;
 
 import java.awt.image.SinglePixelPackedSampleModel;
 import java.util.ArrayList;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.TooManyArgumentException;
 import it.polimi.ingsw.ps21.model.match.BuildingCardException;
@@ -16,6 +18,7 @@ import it.polimi.ingsw.ps21.model.properties.PropertiesBuilder;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 
 public class EffectBuilder {
+	private static final Logger LOGGER = Logger.getLogger(EffectBuilder.class.getName());
 	
 	
 	
@@ -95,30 +98,70 @@ public class EffectBuilder {
 		{
 			ArrayList<DevelopmentCardType> types = new ArrayList<>();
 			Element propNode = (Element) node.getElementsByTagName("Properties").item(0);
-			if (node.getElementsByTagName("Territory").getLength() != 0) types.add(DevelopmentCardType.TERRITORY);
-			if (node.getElementsByTagName("Building").getLength() != 0) types.add(DevelopmentCardType.BUILDING);
-			if (node.getElementsByTagName("Character").getLength() != 0) types.add(DevelopmentCardType.CHARACTER);
-			if (node.getElementsByTagName("Venture").getLength() != 0) types.add(DevelopmentCardType.VENTURE);
+			if (node.getElementsByTagName("Blue").getLength() != 0) types.add(DevelopmentCardType.TERRITORY);
+			if (node.getElementsByTagName("Yellow").getLength() != 0) types.add(DevelopmentCardType.BUILDING);
+			if (node.getElementsByTagName("Green").getLength() != 0) types.add(DevelopmentCardType.CHARACTER);
+			if (node.getElementsByTagName("Purple").getLength() != 0) types.add(DevelopmentCardType.VENTURE);
 			try {
 				return new DiscountEffect(PropertiesBuilder.makeImmProperites(propNode), types.toArray(new DevelopmentCardType[0]));
 			} catch (TooManyArgumentException e) {
 				return new NullEffect();
 			}
 		}
-		case "PickAnotherCard":
+		case "PickAnotherCardEffect":
 		{
 			ArrayList<DevelopmentCardType> types = new ArrayList<>();
 			int diceReq = Integer.parseInt(node.getAttribute("diceValue"));
-			if (node.getElementsByTagName("Territory").getLength() != 0) types.add(DevelopmentCardType.TERRITORY);
-			if (node.getElementsByTagName("Building").getLength() != 0) types.add(DevelopmentCardType.BUILDING);
-			if (node.getElementsByTagName("Character").getLength() != 0) types.add(DevelopmentCardType.CHARACTER);
-			if (node.getElementsByTagName("Venture").getLength() != 0) types.add(DevelopmentCardType.VENTURE);
+			if (node.getElementsByTagName("Green").getLength() != 0) types.add(DevelopmentCardType.TERRITORY);
+			if (node.getElementsByTagName("Blue").getLength() != 0) types.add(DevelopmentCardType.BUILDING);
+			if (node.getElementsByTagName("Yellow").getLength() != 0) types.add(DevelopmentCardType.CHARACTER);
+			if (node.getElementsByTagName("Purple").getLength() != 0) types.add(DevelopmentCardType.VENTURE);
 			return new PickAnotherCard(diceReq, types.toArray(new DevelopmentCardType[0]));
 		}
 		case "PrivilegeEffect":
 			int number = Integer.parseInt(node.getAttribute("number"));
 			return new PrivilegeEffect(number);
+		// TODO implement these parsing
+		case "CardDiceEffect":
+		{
+			ArrayList<DevelopmentCardType> types = new ArrayList<>();
+			int diceValue = Integer.parseInt(node.getAttribute("diceValue"));
+			if (node.getElementsByTagName("Green").getLength() != 0) types.add(DevelopmentCardType.TERRITORY);
+			if (node.getElementsByTagName("Blue").getLength() != 0) types.add(DevelopmentCardType.BUILDING);
+			if (node.getElementsByTagName("Yellow").getLength() != 0) types.add(DevelopmentCardType.CHARACTER);
+			if (node.getElementsByTagName("Purple").getLength() != 0) types.add(DevelopmentCardType.VENTURE);
+			try {
+				return new CardDiceEffect(diceValue, types.toArray(new DevelopmentCardType[0]));
+			} catch (TooManyArgumentException e) {
+				LOGGER.log(Level.WARNING, "Too many arguments in CardDiceEffect tag", e);
+				return new NullEffect();
+			}			
 		}
+		case "WorkDiceEffect":
+		{
+			WorkType type;
+			int diceValue = Integer.parseInt(node.getAttribute("diceValue"));
+			if (node.getElementsByTagName("Production").getLength() != 0) type = WorkType.PRODUCTION;
+			else type = WorkType.HARVEST;
+			return new WorkDiceEffect(diceValue, type);
+			
+		}
+		case "MultipierEffect":
+		{
+			ImmProperties bonus = PropertiesBuilder.makeImmProperites((Element) node.getElementsByTagName("Properties").item(0));
+		}
+		case "ExtraWorkEffect":
+		{
+			WorkType type;
+			int diceValue = Integer.parseInt(node.getAttribute("diceValue"));
+			if (node.getElementsByTagName("Production").getLength() != 0) type = WorkType.PRODUCTION ;
+			else type = WorkType.HARVEST;
+			// TODO implement ExtraWorkEffect
+			return new NullEffect();
+		}
+			
+		default :
 		return new NullEffect();
+		}
 	}
 }

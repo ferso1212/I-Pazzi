@@ -14,7 +14,9 @@
 <!ELEMENT CouncilEffect EMPTY>
 <!ELEMENT MultiplierEffect (Cost, Properties, MultiplierType)>
 <!ELEMENT MultiplierType (Wood|Stone|Coins|Servant|VictoryPoints|MilitaryPoints|FaithPoints|Blue|Green|Purple|Yellow)>
-<!ELEMENT ExtraWorkEffect (Harvest?, Production?)>
+<!ELEMENT ExtraWorkEffect (Harvest|Production)>
+<!ELEMENT WorkDiceEffect (Harvest|Production)>
+<!ATTLIST WorkDiceEffect diceValue CDATA #REQUIRED>
 <!ELEMENT Harvest EMPTY>
 <!ELEMENT Production EMPTY>
 <!ATTLIST ExtraWorkEffect diceValue CDATA #REQUIRED>
