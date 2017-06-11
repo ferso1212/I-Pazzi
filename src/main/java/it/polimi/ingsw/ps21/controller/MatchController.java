@@ -33,7 +33,8 @@ public class MatchController extends Observable implements Observer {
 	}
 
 	public void gameLoop() {
-		
+		setChanged();
+		notifyObservers("Match Started");
 		while (!this.matchEnded) {
 			
 				roundLoop();
@@ -94,11 +95,11 @@ public class MatchController extends Observable implements Observer {
 		}
 		if (source instanceof Match && (arg instanceof String)) {
 			String message = (String) arg;
-			if (message.compareTo("Match Started") == 0) {
+		// 	if (message.compareTo("Match Started") == 0) {
 				setChanged();
 				notifyObservers(message);
-				gameLoop();
-			}
+			 //	gameLoop();
+			//}
 		}
 		if (source == handlersMap.get(currentPlayer.getId()) && (arg instanceof ExtraAction)) {
 			ExtraAction action = (ExtraAction) arg;

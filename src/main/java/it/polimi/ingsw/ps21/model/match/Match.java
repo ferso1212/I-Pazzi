@@ -6,6 +6,7 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
+import java.util.Observer;
 import java.util.Queue;
 import java.util.Random;
 
@@ -64,6 +65,7 @@ public class Match extends Observable {
 		period = 1;
 		round = 1;
 		throwDices();
+		setChanged();
 	}
 	
 	public Match(Match previousMatch){
@@ -78,7 +80,7 @@ public class Match extends Observable {
 	}
 	
 	
-	
+
 	public void throwDices(){
 		Random generator = new Random();
 		orangeDice = (int) generator.nextInt(5) + 1;
