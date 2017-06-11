@@ -20,11 +20,22 @@ import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
  */
 public class FinalExcomModifier{
 	private EnumMap<DevelopmentCardType, Boolean> cardsNumBonus;
+	private boolean noVentureCardsFinalVictoryPointsBonus;
 	private int victoryPointsReductionDivisor;
 	private int militaryDivisorVPointsReduction;
 	private int vPointsReductionBuildingWoodDivisor;
 	private int vPointsReductionBuildingStoneDivisor;
 	private int vPointsReductionResDivisor;
+	
+	public void setNoVentureCardsFinalVictoryPointsBonus(boolean value)
+	{
+		this.noVentureCardsFinalVictoryPointsBonus=value;
+	}
+	
+	public boolean getNoVentureCardsFinalVictoryPointsBonus()
+	{
+		return this.noVentureCardsFinalVictoryPointsBonus;
+	}
 	
 	public boolean getsCardsNumBonus(DevelopmentCardType cardType)
 	{
@@ -106,6 +117,7 @@ public class FinalExcomModifier{
 		{
 			this.cardsNumBonus.put(cardType, true);
 		}
+		this.noVentureCardsFinalVictoryPointsBonus=false;
 	}
 	
 	
