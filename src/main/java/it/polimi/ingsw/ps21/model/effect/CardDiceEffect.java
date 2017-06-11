@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps21.model.effect;
+		package it.polimi.ingsw.ps21.model.effect;
 
 import java.util.Set;
 

@@ -22,8 +22,8 @@ public class DiscountEffect extends Effect {
 	private ImmProperties discount;
 	private Set<DevelopmentCardType> types;
 	
-	public DiscountEffect(ImmProperties cost, ImmProperties discount, DevelopmentCardType... cardType) throws TooManyArgumentException {
-		super(cost);
+	public DiscountEffect(ImmProperties discount, DevelopmentCardType... cardType) throws TooManyArgumentException {
+		super(new ImmProperties(0));
 		if (cardType.length > 4) throw new TooManyArgumentException();
 		this.discount = discount;
 		

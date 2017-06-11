@@ -37,7 +37,7 @@ public class TestMatchFactory extends TestCase {
 	
     public void testApp()
     {
-		// TODO reconfigure deck file assert(checkDeckMaking());
+		assert(checkDeckMaking());
         assert(checkPrivileges());
         assert(checkMarketBonus());
         assert(checkInitialProperties());
