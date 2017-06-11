@@ -1,7 +1,5 @@
 package it.polimi.ingsw.ps21.model.match;
 
-import java.io.File;
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -190,8 +188,7 @@ public class Match extends Observable {
 		else supportedPlayers.add(p);
 		}
 		notifyObservers();
-		// Set nextPlayer
-		
+		// TODO Set nextPlayer
 		supportedPlayers.poll();
 		if (supportedPlayers.isEmpty()){
 		for (Player p: players.values()){
@@ -212,17 +209,19 @@ public class Match extends Observable {
 			period ++;
 			round = 1;
 		}	
-		else ended = true;
-		}
 		else endMatch();
+		}
 	}
 	
+	public boolean isEnded(){
+		return ended;
+	}
 
 	private void endMatch() {
 		// TODO Check implementation
 		Map<Player, Integer> militaryBonus = calculateMilitaryWinner();
 		Map<Player, Integer> playerPositions = calculateWinner(militaryBonus); 	
-		
+		ended = true;
 	}
 
 	private Map<Player, Integer> calculateMilitaryWinner(){

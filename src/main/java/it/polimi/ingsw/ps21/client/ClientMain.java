@@ -53,13 +53,11 @@ public class ClientMain {
     	{
     		
     	System.out.println("\nChoose the rules that you want to use in the game: \n1 Standard \n 2 Advanced");
-    	try {
+        try {
 			chosenRules= in.nextInt();
-		} catch (InputMismatchException e) {
-			chosenRules=0;
-			LOGGER.log(Level.INFO, "Invalid input", e);
-		}
-    	if(chosenRules!=1 && chosenRules!=2) System.out.println("\nInvalid choice.");
+    	} catch (InputMismatchException e) {
+			 LOGGER.log(Level.INFO, "Invalid input", e);
+			}
     	}
 		CLInterface CLImatch = new CLInterface(chosenRules);
 
@@ -91,6 +89,7 @@ public class ClientMain {
 			}
 						
 		}
+		in.close();
 		}
 	
 	/**
