@@ -1,7 +1,10 @@
 package it.polimi.ingsw.ps21.model.actions;
 
+import it.polimi.ingsw.ps21.controller.CostChoice;
 import it.polimi.ingsw.ps21.controller.Message;
+import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.model.board.NotOccupableException;
+import it.polimi.ingsw.ps21.model.board.SingleTowerSpace;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
@@ -21,7 +24,20 @@ public class PickAnotherCardAction extends ExtraAction {
 
 	@Override
 	public Message isLegal(Player player, Match match) {
-		return null;
+		
+		SingleTowerSpace space = match.getBoard().getTower(this.tower).getTowerSpace(floor);
+
+		if ((player.checkCardRequirements(space.getCard())) && (famMember.getValue() >= space.getDiceRequirement())
+				&& (space.isOccupable(player, famMember)) && (!famMember.isUsed())
+				&& (player.checkRequirement(player.getDeck().getAddingCardRequirement(space.getCard())))
+				&& (player.getProperties().getPayableCosts(space.getCostsCard(match.getBoard().getTower(this.tower))).size() > 0)) {
+			try {
+				return new CostChoice(player.getId(), player.getProperties().getPayableCosts(space.getCostsCard(match.getBoard().getTower(this.tower))), player.getProperties().clone());
+			} catch (CloneNotSupportedException e) {
+				return new RefusedAction(player.getId());
+			}
+		}
+		return new RefusedAction(player.getId());
 	}
 
 	@Override
