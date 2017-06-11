@@ -1,6 +1,9 @@
 package it.polimi.ingsw.ps21.model.effect;
 
+import java.util.HashSet;
 import java.util.Set;
+
+import javax.print.attribute.HashAttributeSet;
 
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
@@ -25,6 +28,7 @@ public class DiscountEffect extends Effect {
 	public DiscountEffect(ImmProperties discount, DevelopmentCardType... cardType) throws TooManyArgumentException {
 		super(new ImmProperties(0));
 		if (cardType.length > 4) throw new TooManyArgumentException();
+		types = new HashSet<>();
 		this.discount = discount;
 		
 		//If no cardType parameters passed, by default discount go on every card

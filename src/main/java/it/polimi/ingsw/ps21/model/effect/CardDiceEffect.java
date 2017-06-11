@@ -15,9 +15,9 @@ public class CardDiceEffect extends Effect {
 	private int cardDiceValue;
 	private Set<DevelopmentCardType> types;
 
-	public CardDiceEffect(ImmProperties cost, int diceValue, DevelopmentCardType... types)
+	public CardDiceEffect(int diceValue, DevelopmentCardType... types)
 			throws TooManyArgumentException {
-		super(cost);
+		super(new ImmProperties(0));
 		if (types.length > 2)
 			throw new TooManyArgumentException();
 		cardDiceValue = diceValue;
