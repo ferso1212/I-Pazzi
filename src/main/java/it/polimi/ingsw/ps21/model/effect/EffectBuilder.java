@@ -11,6 +11,7 @@ import org.w3c.dom.NodeList;
 
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
+import it.polimi.ingsw.ps21.model.deck.MultiplierType;
 import it.polimi.ingsw.ps21.model.deck.TooManyArgumentException;
 import it.polimi.ingsw.ps21.model.match.BuildingCardException;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
@@ -121,7 +122,6 @@ public class EffectBuilder {
 		case "PrivilegeEffect":
 			int number = Integer.parseInt(node.getAttribute("number"));
 			return new PrivilegeEffect(number);
-		// TODO implement these parsing
 		case "CardDiceEffect":
 		{
 			ArrayList<DevelopmentCardType> types = new ArrayList<>();
@@ -148,7 +148,70 @@ public class EffectBuilder {
 		}
 		case "MultipierEffect":
 		{
+			ImmProperties cost = PropertiesBuilder.makeCost((Element) node.getElementsByTagName("Cost"));
 			ImmProperties bonus = PropertiesBuilder.makeImmProperites((Element) node.getElementsByTagName("Properties").item(0));
+			MultiplierType type;
+			int value;
+			Element multipierType = (Element) node.getElementsByTagName("MultiplierType");
+			NodeList childs = node.getChildNodes();
+			int i=0;
+			Node child = childs.item(0);
+			i++;
+			while( child.getNodeType()!=child.ELEMENT_NODE && i<childs.getLength()) {
+				child = childs.item(i);
+				i++;
+			}
+			Element secondFactor = (Element) child;
+			switch (secondFactor.getNodeName()){
+			case "Wood":
+				type = MultiplierType.WOOD;
+				value = Integer.parseInt(secondFactor.getAttribute("value"));
+				break;
+			case "Stone":
+				type = MultiplierType.STONE;
+				value = Integer.parseInt(secondFactor.getAttribute("value"));
+				break;
+			case "Coins":
+				type = MultiplierType.COINS;
+				value = Integer.parseInt(secondFactor.getAttribute("value"));
+				break;
+			case "Servant":
+				type = MultiplierType.SERVANT;
+				value = Integer.parseInt(secondFactor.getAttribute("value"));
+				break;
+			case "VictoryPoints":
+				type = MultiplierType.VICTORY_POINTS;
+				value = Integer.parseInt(secondFactor.getAttribute("value"));
+				break;
+			case "MilitaryPoints":
+				type = MultiplierType.MILITARY_POINTS;
+				value = Integer.parseInt(secondFactor.getAttribute("value"));
+				break;
+			case "FaithPoints":
+				type = MultiplierType.FAITH_POINTS;
+				value = Integer.parseInt(secondFactor.getAttribute("value"));
+				break;
+			case "Blue":
+				type = MultiplierType.BLUE_CARD;
+				value = Integer.parseInt(secondFactor.getAttribute("value"));
+				break;
+			case "Green":
+				type = MultiplierType.GREEN_CARD;
+				value = Integer.parseInt(secondFactor.getAttribute("value"));
+				break;
+			case "Yellow":
+				type = MultiplierType.YELLOW_CARD;
+				value = Integer.parseInt(secondFactor.getAttribute("value"));
+				break;
+			case "Purple":
+				type = MultiplierType.PURPLE_CARD;
+				value = Integer.parseInt(secondFactor.getAttribute("value"));
+				break;
+			default :
+					return new NullEffect();
+			}
+				
+			return new MultiplierEffect(cost, bonus, type, value);
 		}
 		case "ExtraWorkEffect":
 		{
@@ -159,7 +222,6 @@ public class EffectBuilder {
 			// TODO implement ExtraWorkEffect
 			return new NullEffect();
 		}
-			
 		default :
 		return new NullEffect();
 		}
