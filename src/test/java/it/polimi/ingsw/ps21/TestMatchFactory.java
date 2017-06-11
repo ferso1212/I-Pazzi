@@ -3,6 +3,7 @@ package it.polimi.ingsw.ps21;
 import java.io.IOException;
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -89,25 +90,33 @@ public class TestMatchFactory extends TestCase {
 				return true;
 			}
 		} catch (BuildingDeckException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
+				return false;
 			}		
 	}
 	
 	private boolean checkPrivileges() {
 		ImmProperties[] test = testedBuilder.makePrivileges() ;
-		return (test != null);
+		for (ImmProperties p: test){
+			if (p == null) return false;
+		}
+		return true;
 	}
 	
 	private boolean checkInitialProperties() {
 		ImmProperties[] test = testedBuilder.makeInitialProperties() ;
-		return (test != null);
+		for (ImmProperties p: test){
+			if (p == null) return false;
+		}
+		return true;
 	}
 	
 	private boolean checkMarketBonus() {
 		ImmProperties[] test = testedBuilder.makeMarketBonuses() ;
-		return (test != null);
+		for (ImmProperties p: test){
+			if (p == null) return false;
+		}
+		if (test.length!= 4) return false;
+		return true;
 	}
 	
 	private boolean checkCardAddingRequirement() {

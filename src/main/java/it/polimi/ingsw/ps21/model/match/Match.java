@@ -216,7 +216,8 @@ public class Match extends Observable {
 	private void endMatch() {
 		// TODO Check implementation
 		Map<Player, Integer> militaryBonus = calculateMilitaryWinner();
-		Map<Player, Integer> playerPositions = calculateWinner(militaryBonus); 		
+		Map<Player, Integer> playerPositions = calculateWinner(militaryBonus); 	
+		
 	}
 
 	private Map<Player, Integer> calculateMilitaryWinner(){

@@ -94,14 +94,13 @@ public class EffectBuilder {
 		case "DiscountEffect":
 		{
 			ArrayList<DevelopmentCardType> types = new ArrayList<>();
-			Element costNode = (Element) node.getElementsByTagName("Cost").item(0);
 			Element propNode = (Element) node.getElementsByTagName("Properties").item(0);
 			if (node.getElementsByTagName("Territory").getLength() != 0) types.add(DevelopmentCardType.TERRITORY);
 			if (node.getElementsByTagName("Building").getLength() != 0) types.add(DevelopmentCardType.BUILDING);
 			if (node.getElementsByTagName("Character").getLength() != 0) types.add(DevelopmentCardType.CHARACTER);
 			if (node.getElementsByTagName("Venture").getLength() != 0) types.add(DevelopmentCardType.VENTURE);
 			try {
-				return new DiscountEffect(PropertiesBuilder.makeCost(costNode), PropertiesBuilder.makeImmProperites(propNode), types.toArray(new DevelopmentCardType[0]));
+				return new DiscountEffect(PropertiesBuilder.makeImmProperites(propNode), types.toArray(new DevelopmentCardType[0]));
 			} catch (TooManyArgumentException e) {
 				return new NullEffect();
 			}
