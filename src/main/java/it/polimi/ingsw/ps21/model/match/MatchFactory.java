@@ -32,7 +32,6 @@ import it.polimi.ingsw.ps21.model.properties.PropertiesBuilder;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.model.properties.Property;
 
-// TODO implements signleton and factory for every effect
 public class MatchFactory {
 	private final static Logger LOGGER = Logger.getLogger(MatchFactory.class.getName());
 	private static MatchFactory instance = null;
@@ -90,10 +89,7 @@ public class MatchFactory {
 	 * @throws ParserConfigurationException
 	 * @throws IOException
 	 */
-	/*
-	 * TODO Implement makeEffect TODO Implement makePurpleCard and
-	 * makeYellowCard
-	 */
+
 	public synchronized static MatchFactory instance() {
 		if (instance == null)
 			instance = new MatchFactory();
@@ -269,9 +265,9 @@ public class MatchFactory {
 			configuratedDeck = new Deck();
 			configuratedDeck.setGreenDeck(makeGreenDeck());
 			// TODO Fix files of decks
-			// configuratedDeck.setBlueDeck(makeBlueDeck());
-			// configuratedDeck.setYellowDeck(makeYellowDeck());
-			// configuratedDeck.setPurpleDeck(makePurpleDeck());
+			configuratedDeck.setBlueDeck(makeBlueDeck());
+			configuratedDeck.setYellowDeck(makeYellowDeck());
+			configuratedDeck.setPurpleDeck(makePurpleDeck());
 		}
 		return (Deck) configuratedDeck.clone();
 	}

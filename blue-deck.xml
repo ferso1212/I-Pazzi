@@ -56,12 +56,12 @@
                         <FaithPoints value="1" />
                     </Properties>
                 </PropEffect>
-                <PickAnotherCard diceValue="4">
+                <PickAnotherCardEffect diceValue="4">
                     <Green value="0" />
                     <Yellow value="0" />
                     <Blue value="0" />
                     <Purple value="0" />
-                </PickAnotherCard>
+                </PickAnotherCardEffect>
             </EffectSet>
         </InstantEffect>
         <PermanentEffect>
@@ -100,9 +100,6 @@
         </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
-                <PickAnotherCard diceValue="6">
-                    <Blue value="0" />
-                </PickAnotherCard>
                 <DiscountEffect>
                     <Properties>
                         <Wood value="0" />
@@ -115,6 +112,9 @@
                     </Properties>
                     <Blue value="0" />
                 </DiscountEffect>
+                <PickAnotherCardEffect diceValue="6">
+                    <Blue value="0" />
+                </PickAnotherCardEffect>
             </EffectSet>
         </InstantEffect>
     </CharacterCard>
@@ -151,9 +151,6 @@
         </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
-                <PickAnotherCard diceValue="6">
-                    <Yellow value="0" />
-                </PickAnotherCard>
                 <DiscountEffect>
                     <Properties>
                         <Wood value="1" />
@@ -166,6 +163,9 @@
                     </Properties>
                     <Yellow value="0" />
                 </DiscountEffect>
+                <PickAnotherCardEffect diceValue="6">
+                    <Yellow value="0" />
+                </PickAnotherCardEffect>
             </EffectSet>
         </InstantEffect>
     </CharacterCard>
@@ -321,9 +321,9 @@
         </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
-                <PickAnotherCard diceValue="6">
+                <PickAnotherCardEffect diceValue="6">
                     <Green value="0" />
-                </PickAnotherCard>
+                </PickAnotherCardEffect>
                 <PropEffect>
                     <Cost>
                         <Properties>
@@ -382,9 +382,9 @@
         </RequirementAndCost>
         <InstantEffect>
             <EffectSet>
-                <PickAnotherCard diceValue="6">
+                <PickAnotherCardEffect diceValue="6">
                     <Purple value="0" />
-                </PickAnotherCard>
+                </PickAnotherCardEffect>
                 <PrivilegeEffect number="1" />
             </EffectSet>
         </InstantEffect>
@@ -596,12 +596,12 @@
         <InstantEffect>
             <EffectSet>
                 <PrivilegeEffect number="1" />
-                <PickAnotherCard diceValue="4">
+                <PickAnotherCardEffect diceValue="4">
                     <Green value="0" />
                     <Yellow value="0" />
                     <Blue value="0" />
                     <Purple value="0" />
-                </PickAnotherCard>
+                </PickAnotherCardEffect>
             </EffectSet>
         </InstantEffect>
         <PermanentEffect>
