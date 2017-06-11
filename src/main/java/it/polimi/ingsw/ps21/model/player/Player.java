@@ -235,8 +235,15 @@ public class Player {
 
 	public int getFinalVictoryPoints(TrackBonuses trackBonuses, Map<DevelopmentCardType, int[]> cardBonuses, int militaryTrackPlacement)
 	{
-		//TODO
-		return 0; //stub
+		int points=this.getProperties().getProperty(PropertiesId.VICTORYPOINTS).getValue();
+		points+=trackBonuses.getFaithBonus(this.getProperties().getProperty(PropertiesId.FAITHPOINTS).getValue());
+		points+=trackBonuses.getMilitaryBonuses()[militaryTrackPlacement-1];
+		for(DevelopmentCardType cardType: DevelopmentCardType.values())
+		{
+			if(this.getModifiers().getFinalMods().getsCardsNumBonus(cardType)) points+=cardBonuses.get(cardType)[this.devCards.countCards(cardType)];
+		}
+		int victoryPointsReductionDivisor=this.getModifiers().getFinalMods().getVictoryPointsReductionDivisor();
+		if(victoryPointsReductionDivisor!=0) points-=this.getProperties().getProperty(PropertiesId.VICTORYPOINTS).getValue()/victoryPointsReductionDivisor;
 	}
 	
 }

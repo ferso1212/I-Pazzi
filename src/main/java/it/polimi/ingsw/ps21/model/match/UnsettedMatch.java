@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
+
+import javax.swing.plaf.basic.BasicTreeUI.SelectionModelPropertyChangeHandler;
 import javax.xml.parsers.ParserConfigurationException;
 
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
@@ -22,7 +24,6 @@ public class UnsettedMatch extends Match {
 	private boolean advancedMatch = false;
 
 	public UnsettedMatch() throws BuildingDeckException {
-		this.observers = new ArrayList<>();
 		this.board = new Board(blackDice, true);
 		order = new ArrayDeque<>();
 		players = new EnumMap<>(PlayerColor.class);
@@ -78,6 +79,7 @@ public class UnsettedMatch extends Match {
 			}
 
 		throwDices();
+		setChanged();
 		notifyObservers("Match Started");
 		return new InitialRoundMatch(this);
 

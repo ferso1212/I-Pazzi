@@ -34,7 +34,7 @@ import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
  *
  */
 public abstract class Match extends Observable {
-	protected ArrayList<Observer> observers;
+	
 	protected EnumMap<PlayerColor, Player> players;
 	protected Queue<Player> order;
 	protected ArrayList<ExtraAction> extraActions;
@@ -54,16 +54,13 @@ public abstract class Match extends Observable {
 		this.blackDice = previousMatch.blackDice;
 		this.orangeDice = previousMatch.orangeDice;
 		this.whiteDice = previousMatch.whiteDice;
-		this.observers = previousMatch.observers;
 		this.players = previousMatch.players;
 		this.order = previousMatch.order;
 		this.period = previousMatch.period;
 		this.round = previousMatch.round;
 	}
 	
-	public void registerObserver(Observer o){
-		observers.add(o);
-	}
+	
 	
 	public void throwDices(){
 		Random generator = new Random();

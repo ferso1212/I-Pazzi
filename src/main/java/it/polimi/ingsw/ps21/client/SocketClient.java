@@ -29,7 +29,8 @@ public class SocketClient {
 	private ObjectOutputStream out;
 	private UserInterface ui;
 
-	public SocketClient() {
+	public SocketClient(UserInterface ui) {
+		this.ui=ui;
 		
 	}
 
@@ -44,11 +45,12 @@ public class SocketClient {
 			NetPacket initialInfos = new NetPacket(PacketType.START_INFO, chosenRules, 0, name);
 			out.writeObject(initialInfos);
 			NetPacket receivedPacket = (NetPacket)in.readObject();
-			while(receivedPacket.getType()!=PacketType.MATCH_STARTED_NOTIFICATION)
+			/*while(receivedPacket.getType()!=PacketType.MATCH_STARTED_NOTIFICATION)
 				{
+				
 				receivedPacket = (NetPacket)in.readObject();
 				};
-			
+			*/
 				parseSocketInput(receivedPacket);
 				while (socket.isConnected()) {
 					
@@ -125,8 +127,8 @@ public class SocketClient {
 				break;
 			}
 			case GENERIC_STRING:{
-				//TODO method needed in UI to show a generic message 
-				System.out.println((String)receivedPacket.getObject());
+				
+				ui.showInfo((String)receivedPacket.getObject());
 				break;}
 			case MATCH_STARTED_NOTIFICATION: {
 				ui.playMatch();

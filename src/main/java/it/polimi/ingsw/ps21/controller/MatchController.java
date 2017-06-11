@@ -40,8 +40,10 @@ public class MatchController extends Observable implements Observer {
 		}
 		
 		this.match = match.startMatch();
-		notifyObservers(new String("match started"));
-		gameLoop();
+		
+		
+
+		//gameLoop();
 	}
 
 	public void gameLoop() {
@@ -88,6 +90,7 @@ public class MatchController extends Observable implements Observer {
 	public void roundLoop() {
 		currentPlayer = match.getCurrentPlayer();
 		ActionRequest message = new ActionRequest(currentPlayer.getId());
+		setChanged();
 		notifyObservers(message);
 		while (!message.isVisited()){
 		}this.currentAction = message.getChoosenAction();
@@ -99,18 +102,20 @@ public class MatchController extends Observable implements Observer {
 		if (source != match && !handlersMap.containsValue(source)) {
 			throw new IllegalArgumentException();
 		}
+		if (source instanceof Match && (arg instanceof String)) {
+			String message = (String) arg;
+			if (message.compareTo("Match Started") == 0) {
+				setChanged();
+				notifyObservers(message);
+				gameLoop();
+			}
+		}
 		if (source == handlersMap.get(currentPlayer.getId()) && (arg instanceof ExtraAction)) {
 			ExtraAction action = (ExtraAction) arg;
 			Message mess = action.isLegal(currentPlayer, match);
 			notifyObservers(mess);
 		}
-		if (source == match && (arg instanceof String)) {
-			String message = (String) arg;
-			if (message.compareTo("Match Started") == 0) {
-				notifyObservers(message);
-				gameLoop();
-			}
-		}
+		
 	}
 	
 	private void setupLeaderCards()

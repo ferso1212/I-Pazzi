@@ -1,5 +1,10 @@
 package it.polimi.ingsw.ps21.model.player;
 
+import java.util.EnumMap;
+import java.util.Map;
+
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
+
 /**This class is used to store excommunication modifiers that change how the final score is calculated. 
  * There are 8 different final modifiers resulting from excommunications:
  * <li>noGreenPoints: the player does not acquire the victory points that he should have had due to the number of territory cards he owns
@@ -14,53 +19,23 @@ package it.polimi.ingsw.ps21.model.player;
  *
  */
 public class FinalExcomModifier{
-	private boolean noGreenPoints;
-	private boolean noBluePoints;
-	private boolean noYellowPoints;
+	private EnumMap<DevelopmentCardType, Boolean> cardsNumBonus;
 	private int victoryPointsReductionDivisor;
 	private int militaryDivisorVPointsReduction;
 	private int vPointsReductionBuildingWoodDivisor;
 	private int vPointsReductionBuildingStoneDivisor;
 	private int vPointsReductionResDivisor;
-	/**
-	 * @return the noGreenPoints
-	 */
-	public boolean isNoGreenPoints() {
-		return noGreenPoints;
+	
+	public boolean getsCardsNumBonus(DevelopmentCardType cardType)
+	{
+		return this.cardsNumBonus.get(cardType);
 	}
-	/**
-	 * @param noGreenPoints the noGreenPoints to set
-	 */
-	public void setNoGreenPoints(boolean noGreenPoints) {
-		this.noGreenPoints = noGreenPoints;
+	
+	public void setCardsNumBonus(DevelopmentCardType cardType, boolean value)
+	{
+		this.cardsNumBonus.put(cardType, value);
 	}
-	/**
-	 * @return the noBluePoints
-	 */
-	public boolean isNoBluePoints() {
-		return noBluePoints;
-	}
-	/**
-	 * @param noBluePoints the noBluePoints to set
-	 */
-	public void setNoBluePoints(boolean noBluePoints) {
-		this.noBluePoints = noBluePoints;
-	}
-	/**
-	 * @return the noYellowPoints
-	 */
-	public boolean isNoYellowPoints() {
-		return noYellowPoints;
-	}
-	/**
-	 * @param noYellowPoints the noYellowPoints to set
-	 */
-	public void setNoYellowPoints(boolean noYellowPoints) {
-		this.noYellowPoints = noYellowPoints;
-	}
-	/**
-	 * @return the victoryPointsReductionDivisor
-	 */
+	
 	public int getVictoryPointsReductionDivisor() {
 		return victoryPointsReductionDivisor;
 	}
@@ -126,9 +101,11 @@ public class FinalExcomModifier{
 		this.vPointsReductionBuildingStoneDivisor=0;
 		this.vPointsReductionBuildingWoodDivisor=0;
 		this.vPointsReductionResDivisor=0;
-		this.noBluePoints=false;
-		this.noGreenPoints=false;
-		this.noYellowPoints=false;
+		this.cardsNumBonus=new EnumMap<>(DevelopmentCardType.class);
+		for(DevelopmentCardType cardType: DevelopmentCardType.values())
+		{
+			this.cardsNumBonus.put(cardType, true);
+		}
 	}
 	
 	

@@ -66,7 +66,7 @@ public class ClientMain {
     	
 		while(newMatch == true){
 			if (chosenConnection==1) {
-				SocketClient client = new SocketClient(); 
+				SocketClient client = new SocketClient(CLImatch); 
 					boolean matchStarted=client.start(chosenRules, name);
 					if (matchStarted){
 								
