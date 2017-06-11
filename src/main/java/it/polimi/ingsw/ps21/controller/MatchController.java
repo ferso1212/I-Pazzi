@@ -2,23 +2,15 @@ package it.polimi.ingsw.ps21.controller;
 
 import java.util.ArrayDeque;
 import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Queue;
-
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
 import it.polimi.ingsw.ps21.model.match.Match;
-import it.polimi.ingsw.ps21.model.match.MatchFactory;
-import it.polimi.ingsw.ps21.model.match.UnsettedMatch;
-import it.polimi.ingsw.ps21.model.match.VaticanSupport;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
-import it.polimi.ingsw.ps21.model.player.PlayerProperties;
-import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.UserHandler;
 
 public class MatchController extends Observable implements Observer {
@@ -28,7 +20,7 @@ public class MatchController extends Observable implements Observer {
 	private boolean matchEnded = false;
 	private Action currentAction;
 
-	public MatchController(UnsettedMatch match, UserHandler... handlers) {
+	public MatchController(Match match, UserHandler... handlers) {
 		super();
 		this.match = match;
 		handlersMap = new EnumMap<>(PlayerColor.class);
@@ -38,24 +30,17 @@ public class MatchController extends Observable implements Observer {
 			this.addObserver(handler);
 			handler.addObserver(this);
 		}
-		
-		this.match = match.startMatch();
-		
-		
-
-		//gameLoop();
 	}
 
 	public void gameLoop() {
+		
 		while (!this.matchEnded) {
-			if (match instanceof VaticanSupport) {
-				// TODO VaticanSupport
-			} else{
+			
 				roundLoop();
-				this.match=match.setNextPlayer();
+				
 			}
 		}
-	}
+	
 
 	private void actionLoop() {
 		Message returnMessage = currentAction.isLegal(this.currentPlayer, this.match);
@@ -88,13 +73,18 @@ public class MatchController extends Observable implements Observer {
 	}
 
 	public void roundLoop() {
+		boolean isNewRound=false;
+		while(!isNewRound)
+		{isNewRound=false;
 		currentPlayer = match.getCurrentPlayer();
 		ActionRequest message = new ActionRequest(currentPlayer.getId());
 		setChanged();
-		notifyObservers(message);
-		while (!message.isVisited()){
-		}this.currentAction = message.getChoosenAction();
+		notifyObservers(message); //asks userHandlers to visit the message
+		while (!message.isVisited()){/*wait for the message to be visited*/}
+		this.currentAction = message.getChoosenAction();
 		actionLoop();
+		isNewRound=match.setNextPlayer();
+		}
 	}
 
 	@Override
