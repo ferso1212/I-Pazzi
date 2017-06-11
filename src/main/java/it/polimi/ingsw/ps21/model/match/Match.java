@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps21.model.match;
 
 import java.io.File;
+
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -134,9 +135,12 @@ public class Match extends Observable {
 		return extraActionPool;
 	}
 	
-	public void setNextPlayer(){
+	/**
+	 * @return TRUE if no actions are left in the queue (all players have performed all their placement action in the round)
+	 */
+	public boolean setNextPlayer(){
 		order.poll();
-		if (!(order.isEmpty())) return;
+		if (!(order.isEmpty())) return false;
 		Queue<FamilyMember> temp = board.getCouncilPalace().getOccupants();
 		ArrayList<Player> newOrder = new ArrayList<>();
 		for (FamilyMember f: temp){
@@ -150,6 +154,7 @@ public class Match extends Observable {
 		board.newSetBoard(period);
 		round++;
 		if (round == 3) vaticanLoop();
+		return true;
 	}
 
 	public Match getCopy() throws CloneNotSupportedException{
@@ -271,5 +276,7 @@ public class Match extends Observable {
 		}
 		return null;
 	}
+	
+	
 }
 	

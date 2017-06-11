@@ -5,7 +5,7 @@
 <!ELEMENT Cost (Properties)>
 <!ELEMENT InstantEffect (EffectSet)>
 <!ELEMENT PermanentEffect (EffectSet*)>
-<!ELEMENT EffectSet (NullEffect?, PropEffect?, DiscountEffect?, CardDiceEffect?, BlockTowerEffect?, CouncilEffect?, MultiplierEffect?, PickAnotherCardEffect?, ExtraWorkEffect?, PrivilegeEffect?)>
+<!ELEMENT EffectSet (NullEffect?, PropEffect?, DiscountEffect?, CardDiceEffect?, BlockTowerEffect?, CouncilEffect?, MultiplierEffect?, PickAnotherCardEffect?, ExtraWorkEffect?, PrivilegeEffect?, WorkDiceEffect?)>
 <!ELEMENT PropEffect (Cost, Properties)>
 <!ELEMENT NullEffect EMPTY>
 <!ELEMENT PrivilegeEffect EMPTY>
