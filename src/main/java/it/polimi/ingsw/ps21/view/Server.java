@@ -2,23 +2,9 @@ package it.polimi.ingsw.ps21.view;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
-
-import it.polimi.ingsw.ps21.controller.MatchRunner;
-import it.polimi.ingsw.ps21.controller.PlayerData;
-import it.polimi.ingsw.ps21.controller.TimeoutTask;
-import it.polimi.ingsw.ps21.model.match.Match;
-import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
 public class Server implements Runnable {
 

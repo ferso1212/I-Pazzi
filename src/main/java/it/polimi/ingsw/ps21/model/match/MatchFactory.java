@@ -14,7 +14,6 @@ import javax.xml.parsers.*;
 import org.w3c.dom.*;
 import org.xml.sax.*;
 
-import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.model.board.TrackBonuses;
 import it.polimi.ingsw.ps21.model.deck.BuildingCard;
 import it.polimi.ingsw.ps21.model.deck.CardBuilder;
@@ -477,6 +476,7 @@ public class MatchFactory {
 				LOGGER.log(Level.WARNING, "Error creating Counicil Bonus, returning default value", e);
 				result = new ImmProperties(new Property(PropertiesId.COINS, 2));
 			}
+			councilBonuses = result;
 
 		}
 		return councilBonuses;
@@ -620,12 +620,11 @@ public class MatchFactory {
 				LOGGER.log(Level.WARNING, "Error creating tower bonuses, returning default values", i);
 				result = new EnumMap<>(DevelopmentCardType.class);
 				ImmProperties[] properties = new ImmProperties[4];
-				for (ImmProperties r : properties) {
+				for (ImmProperties r : properties) 
 					r = new ImmProperties(0);
-				}
-				for (DevelopmentCardType t : DevelopmentCardType.values()) {
+				
+				for (DevelopmentCardType t : DevelopmentCardType.values()) 
 					result.put(t, properties);
-				}
 			}
 			// TODO
 			towersBonuses = result;
@@ -739,6 +738,11 @@ public class MatchFactory {
 				File boardFile = new File(boardPath);
 				configuration = builder.parse(boardFile);
 				Element board = configuration.getDocumentElement();
+				Element markPrivileges = (Element) board.getElementsByTagName("MarketPrivileges").item(0);
+				result[0] = Integer.parseInt(markPrivileges.getAttribute("first"));
+				result[1] = Integer.parseInt(markPrivileges.getAttribute("second"));
+				result[2] = Integer.parseInt(markPrivileges.getAttribute("third"));
+				result[3] = Integer.parseInt(markPrivileges.getAttribute("fourth"));
 			} catch (SAXException | IOException | NullPointerException e) {
 				LOGGER.log(Level.WARNING, "Error creating market privileges, returning default value", e);
 				result[0] = 0;

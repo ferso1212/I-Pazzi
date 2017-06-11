@@ -1,16 +1,17 @@
 package it.polimi.ingsw.ps21.view;
 
-import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class RMIConnectionAcceptor extends UnicastRemoteObject implements RMIConnectionCreator, Runnable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3367187689111437262L;
 	transient Registry registry;
 	private ConcurrentLinkedQueue<Connection> connectionsQueue;
 	private ConcurrentLinkedQueue<Connection> advConnectionsQueue;

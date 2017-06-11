@@ -1,18 +1,11 @@
 package it.polimi.ingsw.ps21.view;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Stream;
 
-import it.polimi.ingsw.ps21.client.ClientConnection;
-import it.polimi.ingsw.ps21.client.RMIClient;
 import it.polimi.ingsw.ps21.client.RMIClientInterface;
 import it.polimi.ingsw.ps21.controller.BoardData;
 import it.polimi.ingsw.ps21.controller.MatchData;
@@ -125,6 +118,17 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 			LOGGER.log(Level.WARNING, "Error notifing match started on remote client", e);
 		}
 		
+	}
+
+
+	@Override
+	public int reqExtraActionChoice(ActionData[] actions) {
+		try {
+			return client.reqExtraActionChoice(actions);
+		} catch (RemoteException e) {
+			LOGGER.log(Level.WARNING, "Error calling remote method for ExtraActionchoice, return default value");
+			return 0;
+		}
 	}
 
 }

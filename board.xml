@@ -551,6 +551,7 @@ nineth="0" tenth="0" eleventh="0" twelveth="0" thirteenth="0" fourteenth="0" fif
                 		    <FaithPoints value="0"/>
           		  </Properties>
 	</MarketBonuses>
+	<MarketPrivileges first="0" second="0" third="0" fourth="0" />
 	<CouncilBonus>
 		      <Properties>
                 		    <Wood value="0"/>

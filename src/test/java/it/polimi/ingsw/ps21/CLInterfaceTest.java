@@ -1,10 +1,7 @@
 package it.polimi.ingsw.ps21;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,7 +27,7 @@ public class CLInterfaceTest {
 	@Test
 	public void test() {
 		assert(checkShowInfo());
-		assert(checkChoice());
+		assert(checkSingleChoice());
 		
 	}
 	
@@ -41,14 +38,14 @@ public class CLInterfaceTest {
 		return true;
 	}
 
-	private boolean checkChoice() {
+	private boolean checkSingleChoice() {
 		// Testa un'unica scelta
 		ArrayList<ImmProperties> testCosts = new ArrayList<>();
 		testCosts.add(new ImmProperties(0,1));
 		CostChoice testChoice = new CostChoice(PlayerColor.BLUE, testCosts, new PlayerProperties(2,2,2,2,2,2));
 		testChoice.setChosen(testCli.reqCostChoice(testChoice.getChoices()));
-		if (testChoice.getChosen() == testChoice.getChoices().get(0)) return true;
-		else return false;
+		if (testChoice.getChosen() != testChoice.getChoices().get(0)) return false;
+		return true;
 	}
 
 }

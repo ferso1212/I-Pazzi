@@ -1,12 +1,10 @@
 package it.polimi.ingsw.ps21.view;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
-import it.polimi.ingsw.ps21.controller.BoardData;
 import it.polimi.ingsw.ps21.controller.CostChoice;
 import it.polimi.ingsw.ps21.controller.CouncilChoice;
 import it.polimi.ingsw.ps21.controller.EffectChoice;
@@ -18,7 +16,6 @@ import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.controller.WorkMessage;
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
-import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
 public class UserHandler extends Observable implements Visitor, Runnable, Observer {
@@ -131,7 +128,7 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 	
 	private void parseExtraAction(ExtraAction action)
 	{
-		
+		// TODO
 	}
 
 }

@@ -1,31 +1,16 @@
 package it.polimi.ingsw.ps21;
 
-import static org.junit.Assert.*;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import it.polimi.ingsw.ps21.controller.AcceptedAction;
-import it.polimi.ingsw.ps21.controller.CostChoice;
-import it.polimi.ingsw.ps21.controller.CouncilChoice;
 import it.polimi.ingsw.ps21.controller.EffectChoice;
-import it.polimi.ingsw.ps21.controller.RefusedAction;
-import it.polimi.ingsw.ps21.controller.UnacceptedChooser;
 import it.polimi.ingsw.ps21.controller.VaticanChoice;
-import it.polimi.ingsw.ps21.controller.WorkMessage;
-import it.polimi.ingsw.ps21.model.deck.CardsNumber;
-import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
-import it.polimi.ingsw.ps21.model.deck.Requirement;
-import it.polimi.ingsw.ps21.model.deck.TooManyArgumentException;
 import it.polimi.ingsw.ps21.model.effect.CouncilEffect;
-import it.polimi.ingsw.ps21.model.effect.DiscountEffect;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.effect.PropEffect;
-import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
-import it.polimi.ingsw.ps21.view.Visitor;
 
 
 public class TestChoices{
