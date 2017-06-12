@@ -6,6 +6,7 @@ import java.util.Map;
 
 import it.polimi.ingsw.ps21.model.deck.Deck;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
+import it.polimi.ingsw.ps21.model.deck.ExcommunicationDeck;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
@@ -33,6 +34,7 @@ public class TestMatchFactory extends TestCase {
     public void testApp()
     {
 		assert(checkDeckMaking());
+		assert(checkExcommunications());
         assert(checkPrivileges());
         assert(checkMarketBonus());
         assert(checkInitialProperties());
@@ -43,6 +45,16 @@ public class TestMatchFactory extends TestCase {
         assert(checkTrackBonuses());
         assert(checkMarketPrivileges());
     }
+
+	private boolean checkExcommunications() {
+		try {
+			ExcommunicationDeck deck = testedBuilder.makeExcommunicationDeck();
+			return true;
+		} catch (BuildingDeckException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 	private boolean checkMarketPrivileges() {
 		int result[] = testedBuilder.makeMarketPrivileges();
