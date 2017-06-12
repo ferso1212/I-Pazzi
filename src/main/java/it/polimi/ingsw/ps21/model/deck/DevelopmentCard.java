@@ -74,7 +74,7 @@ public abstract class DevelopmentCard extends Card implements Serializable{
 	}
 	
 	public EffectSet[] getPossibleEffects(){
-		return (EffectSet []) permanentEffects.toArray();
+		return  permanentEffects.toArray(new EffectSet[0]);
 	}
 	
 	public EffectSet getChosenPemanentEffect()throws UnchosenException{

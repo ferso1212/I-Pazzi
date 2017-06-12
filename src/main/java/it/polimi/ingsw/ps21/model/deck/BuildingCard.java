@@ -17,6 +17,11 @@ public class BuildingCard extends DevelopmentCard{
 		this.diceRequirement = diceReq;
 	}
 	
+	public BuildingCard(String name, int era, RequirementAndCost req, int diceReq, EffectSet instant, EffectSet... permanent){
+		super(name, era, req, instant, permanent);
+		this.diceRequirement = diceReq;
+	}
+	
 	public int getDiceRequirement(){
 		return diceRequirement;
 	}

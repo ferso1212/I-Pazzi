@@ -10,7 +10,7 @@ public class CharacterCard extends DevelopmentCard {
 		super(name, era, reqs, ins, perms);
 	}
 	
-	public CharacterCard(String name, int era, RequirementAndCost req,ImmProperties cost, EffectSet ins,
+	public CharacterCard(String name, int era, RequirementAndCost req, EffectSet ins,
 			EffectSet...perms) {
 		super(name, era, req, ins, perms);
 	}
