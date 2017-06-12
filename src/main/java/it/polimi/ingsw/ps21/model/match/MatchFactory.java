@@ -41,14 +41,14 @@ import it.polimi.ingsw.ps21.model.properties.Property;
 
 public class MatchFactory {
 	private final static Logger LOGGER = Logger.getLogger(MatchFactory.class.getName());
-	private final String excommunicationsPath = (new File("")).getAbsolutePath().concat("/excommunications.xml");;
+	private final String excommunicationsPath = (new File("")).getAbsolutePath().concat("/configuration/excommunications.xml");;
 	private static MatchFactory instance = null;
-	private final String greenPath = (new File("")).getAbsolutePath().concat("/green-deck.xml");
-	private final String yellowPath = (new File("")).getAbsolutePath().concat("/yellow-deck.xml");
-	private final String bluePath = (new File("")).getAbsolutePath().concat("/blue-deck.xml");
-	private final String purplePath = (new File("")).getAbsolutePath().concat("/purple-deck.xml");
-	private final String boardPath = (new File("")).getAbsolutePath().concat("/board.xml");
-	private final String serverPath = (new File("")).getAbsolutePath().concat("/server-config.xml");
+	private final String greenPath = (new File("")).getAbsolutePath().concat("/configuration/green-deck.xml");
+	private final String yellowPath = (new File("")).getAbsolutePath().concat("/configuration/yellow-deck.xml");
+	private final String bluePath = (new File("")).getAbsolutePath().concat("/configuration/blue-deck.xml");
+	private final String purplePath = (new File("")).getAbsolutePath().concat("/configuration/purple-deck.xml");
+	private final String boardPath = (new File("")).getAbsolutePath().concat("/configuration/board.xml");
+	private final String serverPath = (new File("")).getAbsolutePath().concat("/configuration/server-config.xml");
 	private DocumentBuilder builder = null;
 	private Deck configuratedDeck;
 	private ExcommunicationDeck excommunications;
