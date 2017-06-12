@@ -474,7 +474,7 @@
         </InstantEffect>
         <PermanentEffect>
             <EffectSet>
-                <WorkDiceEffect diceIncrement="3">
+                <WorkDiceEffect diceValue="3">
                     <Harvest />
                 </WorkDiceEffect>
             </EffectSet>
@@ -518,7 +518,7 @@
         </InstantEffect>
         <PermanentEffect>
             <EffectSet>
-                <WorkDiceEffect diceIncrement="3">
+                <WorkDiceEffect diceValue="3">
                     <Production />
                 </WorkDiceEffect>
             </EffectSet>
@@ -665,7 +665,7 @@
         </InstantEffect>
         <PermanentEffect>
             <EffectSet>
-                <WorkDiceEffect diceIncrement="2">
+                <WorkDiceEffect diceValue="2">
                     <Harvest />
                 </WorkDiceEffect>
             </EffectSet>
@@ -709,7 +709,7 @@
         </InstantEffect>
         <PermanentEffect>
             <EffectSet>
-                <WorkDiceEffect diceIncrement="2">
+                <WorkDiceEffect diceValue="2">
                     <Production />
                 </WorkDiceEffect>
             </EffectSet>

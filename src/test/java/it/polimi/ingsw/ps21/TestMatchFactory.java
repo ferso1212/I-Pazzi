@@ -1,17 +1,12 @@
 package it.polimi.ingsw.ps21;
 
-import java.io.IOException;
-import java.util.EnumMap;
+
 import java.util.Map;
-import java.util.logging.Logger;
 
-import javax.xml.parsers.ParserConfigurationException;
 
-import org.junit.After;
-
-import it.polimi.ingsw.ps21.model.deck.CardsNumber;
 import it.polimi.ingsw.ps21.model.deck.Deck;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
+import it.polimi.ingsw.ps21.model.deck.ExcommunicationDeck;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
@@ -39,6 +34,7 @@ public class TestMatchFactory extends TestCase {
     public void testApp()
     {
 		assert(checkDeckMaking());
+		assert(checkExcommunications());
         assert(checkPrivileges());
         assert(checkMarketBonus());
         assert(checkInitialProperties());
@@ -47,7 +43,24 @@ public class TestMatchFactory extends TestCase {
         assert(checkTimeouts());
         assert(checkTowerBonuses());
         assert(checkTrackBonuses());
+        assert(checkMarketPrivileges());
     }
+
+	private boolean checkExcommunications() {
+		try {
+			ExcommunicationDeck deck = testedBuilder.makeExcommunicationDeck();
+			return true;
+		} catch (BuildingDeckException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	private boolean checkMarketPrivileges() {
+		int result[] = testedBuilder.makeMarketPrivileges();
+		if (result.length!=4 || result == null)  return false;
+		return true;
+	}
 
 	private boolean checkTrackBonuses() {
 		testedBuilder.makeTrackBonuses();
@@ -79,7 +92,6 @@ public class TestMatchFactory extends TestCase {
 	}
 
 	private boolean checkDeckMaking() {
-		boolean ok =true;
 		Deck testDeck;
 		try {
 			if (testedBuilder == null) return false;

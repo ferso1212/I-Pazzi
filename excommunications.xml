@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<!DOCTYPE ExcommunicationDeck SYSTEM "excommunications-schema.dtd">
+<ExcommunicationDeck>
+	<Excommunication id="0" period="1">
+		<ActionExcommunication delayFirstAction="0" noMarketAction="1"/>
+	</Excommunication >
+	<Excommunication id="0" period="1">
+		<PropAdditionExcommunication>
+			<Properties>
+		                    <Wood value="0"/>
+		                    <Stones value="0"/>
+		                    <Servants value="2"/>
+		                    <Coins value="0"/>
+		                    <MilitaryPoints value="0"/>
+		                    <VictoryPoints value="0"/>
+		                    <FaithPoints value ="0"/>
+			</Properties>			
+		</PropAdditionExcommunication>
+		
+		
+	</Excommunication >
+	
+	
+</ExcommunicationDeck>
+
+

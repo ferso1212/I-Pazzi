@@ -1,22 +1,17 @@
 package it.polimi.ingsw.ps21;
 
-import static org.junit.Assert.*;
-
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import it.polimi.ingsw.ps21.client.CLInterface;
 import it.polimi.ingsw.ps21.client.RMIClient;
 import it.polimi.ingsw.ps21.view.Connection;
-import it.polimi.ingsw.ps21.view.RMIConnection;
 import it.polimi.ingsw.ps21.view.RMIConnectionAcceptor;
 import it.polimi.ingsw.ps21.view.RMIConnectionCreator;
 
@@ -46,19 +41,20 @@ public class RMIConnectionTest {
 	
 	@Test
 	public void test() {
-		assert(true);
+		assert(checkConnection());
 	}
 
 	private boolean checkConnection() {
 		CLInterface testui = new CLInterface(1);
 		try {
 			RMIClient testclient = new RMIClient("testcase", testui, 1);
+			if (connectionsQueue.size()!=1)return false;
+			if (testclient.isConnected()==true) return true;
+			else return false;
 		} catch (RemoteException | NotBoundException e) {
 			e.printStackTrace();
 			return false;
 		}
-		if (connectionsQueue.size()==1)return true;
-		else return false;
 	}
 	
 }

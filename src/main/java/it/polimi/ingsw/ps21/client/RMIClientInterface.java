@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
+import it.polimi.ingsw.ps21.view.ActionData;
 
 public interface RMIClientInterface extends Remote {
 
@@ -22,5 +23,7 @@ public interface RMIClientInterface extends Remote {
 	public void notifyMatchStarted() throws RemoteException;
 	
 	public String sendName() throws RemoteException;
+
+	public int reqExtraActionChoice(ActionData[] object) throws RemoteException;
 	
 }

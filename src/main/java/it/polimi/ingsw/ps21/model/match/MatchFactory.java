@@ -14,7 +14,7 @@ import javax.xml.parsers.*;
 import org.w3c.dom.*;
 import org.xml.sax.*;
 
-import it.polimi.ingsw.ps21.controller.PlayerData;
+import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.board.TrackBonuses;
 import it.polimi.ingsw.ps21.model.deck.BuildingCard;
 import it.polimi.ingsw.ps21.model.deck.CardBuilder;
@@ -22,11 +22,18 @@ import it.polimi.ingsw.ps21.model.deck.CardsNumber;
 import it.polimi.ingsw.ps21.model.deck.CharacterCard;
 import it.polimi.ingsw.ps21.model.deck.Deck;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
+import it.polimi.ingsw.ps21.model.deck.ExcommunicationDeck;
 import it.polimi.ingsw.ps21.model.deck.IllegalCardException;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.deck.SubDeck;
 import it.polimi.ingsw.ps21.model.deck.TerritoryCard;
 import it.polimi.ingsw.ps21.model.deck.VentureCard;
+import it.polimi.ingsw.ps21.model.excommunications.ActionExcommunication;
+import it.polimi.ingsw.ps21.model.excommunications.CardDiceExcommunication;
+import it.polimi.ingsw.ps21.model.excommunications.DiceExcommunication;
+import it.polimi.ingsw.ps21.model.excommunications.PropAdditionExcommunication;
+import it.polimi.ingsw.ps21.model.excommunications.ServantsValueExcommunication;
+import it.polimi.ingsw.ps21.model.excommunications.WorkExcommunication;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesBuilder;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
@@ -34,6 +41,7 @@ import it.polimi.ingsw.ps21.model.properties.Property;
 
 public class MatchFactory {
 	private final static Logger LOGGER = Logger.getLogger(MatchFactory.class.getName());
+	private final String excommunicationsPath = (new File("")).getAbsolutePath().concat("/excommunications.xml");;
 	private static MatchFactory instance = null;
 	private final String greenPath = (new File("")).getAbsolutePath().concat("/green-deck.xml");
 	private final String yellowPath = (new File("")).getAbsolutePath().concat("/yellow-deck.xml");
@@ -43,6 +51,7 @@ public class MatchFactory {
 	private final String serverPath = (new File("")).getAbsolutePath().concat("/server-config.xml");
 	private DocumentBuilder builder = null;
 	private Deck configuratedDeck;
+	private ExcommunicationDeck excommunications;
 	private ImmProperties[] privileges = null;
 	private ImmProperties[] initialProperties = null;
 	private Map<DevelopmentCardType, Requirement[]> cardAddingRequirement = null;
@@ -268,8 +277,101 @@ public class MatchFactory {
 			configuratedDeck.setBlueDeck(makeBlueDeck());
 			configuratedDeck.setYellowDeck(makeYellowDeck());
 			configuratedDeck.setPurpleDeck(makePurpleDeck());
+			
 		}
 		return (Deck) configuratedDeck.clone();
+	}
+	
+	public synchronized ExcommunicationDeck makeExcommunicationDeck() throws BuildingDeckException {
+		if (excommunications == null){
+			excommunications = new ExcommunicationDeck();
+			File excommunicationsFile = new File(excommunicationsPath);
+			try {
+				Document configuration = builder.parse(excommunicationsFile);
+				Element deck= configuration.getDocumentElement();
+				NodeList excommunicationsNodes = deck.getElementsByTagName("Excommunication");
+				for (int i=0; i<excommunicationsNodes.getLength(); i++){
+					Element excommunication =  (Element) excommunicationsNodes.item(i);
+					int id = Integer.parseInt(excommunication.getAttribute("id"));
+					int period = Integer.parseInt(excommunication.getAttribute("period"));
+					NodeList childs = excommunication.getChildNodes();
+					for (int j=0; j<childs.getLength(); j++){
+						if(childs.item(j).getNodeType() == childs.item(j).ELEMENT_NODE){
+							Element excommunicationType = (Element) childs.item(j);
+						switch (excommunicationType.getNodeName()){
+						case "ActionExcommunication":
+						{
+							boolean noMarketAction;
+							boolean delayFirstAction;
+							if (Integer.parseInt(excommunicationType.getAttribute("delayFirstAction")) == 0) delayFirstAction = false;
+							else delayFirstAction = true;
+							if (Integer.parseInt(excommunicationType.getAttribute("noMarketAction")) == 0) noMarketAction = false;
+							else noMarketAction = true;
+							excommunications.addCard(new ActionExcommunication(id, period, delayFirstAction, noMarketAction));
+						}
+							break;
+						case "PropAdditionExcommunication":
+						{
+							Element properties = (Element) excommunicationType.getElementsByTagName("Properties").item(0);
+							excommunications.addCard(new PropAdditionExcommunication(id, period, PropertiesBuilder.makeImmProperites(properties)));
+						}
+							break;
+						case "CardDiceExcommunication":
+						{
+							int diceValue = Integer.parseInt(excommunicationType.getAttribute("diceValue"));
+							DevelopmentCardType card;
+							if (excommunicationType.getElementsByTagName("Green").getLength()!=0) card =DevelopmentCardType.TERRITORY;
+							else
+								if (excommunicationType.getElementsByTagName("Yellow").getLength()!=0) card =DevelopmentCardType.BUILDING;
+								else
+									if (excommunicationType.getElementsByTagName("Blue").getLength()!= 0) card =DevelopmentCardType.VENTURE;
+									else card = DevelopmentCardType.VENTURE;
+							excommunications.addCard(new CardDiceExcommunication(id, period, card, diceValue));
+						}
+							break;
+						case "DiceExcommunication":
+						{
+							int white = Integer.parseInt(excommunicationType.getAttribute("whiteValue"));
+							int black = Integer.parseInt(excommunicationType.getAttribute("blackValue"));
+							int orange = Integer.parseInt(excommunicationType.getAttribute("orangeValue"));
+							excommunications.addCard(new DiceExcommunication(id, period, white, orange, black));
+						}
+							break;
+						case "ServantsValueExcommunication":
+						{
+							int value = Integer.parseInt(excommunicationType.getAttribute("servantsValue"));
+							excommunications.addCard(new ServantsValueExcommunication(id, period, value));
+						}
+							break;
+						case "WorkExcommunication":
+						{
+							int value = Integer.parseInt(excommunicationType.getAttribute("value"));
+							WorkType type;
+							if (excommunicationType.getElementsByTagName("Harvest").getLength() !=0) type = WorkType.HARVEST;
+							else type = WorkType.PRODUCTION;
+							excommunications.addCard(new WorkExcommunication(id, period, type, value));
+						}
+							break;
+							default:
+								throw new BuildingCardException();
+						}
+						}
+					}
+				}
+ 				
+				
+			} catch (SAXException e) {
+				LOGGER.log(Level.WARNING, "Error parsing excommunications file", e);
+				throw new BuildingDeckException("Error creating Excommunication deck");
+			} catch (IOException e) {
+				LOGGER.log(Level.WARNING, "Error opening excommunication file", e);
+				throw new BuildingDeckException("Error creating Excommunication deck");
+			} catch (BuildingCardException e) {
+				LOGGER.log(Level.WARNING, "Invalid Excommunication Tag name", e);
+				throw new BuildingDeckException("Error creating Excommunication deck");
+			}
+		}
+		return excommunications;
 	}
 
 	public synchronized ImmProperties[] makePrivileges() {
@@ -477,6 +579,7 @@ public class MatchFactory {
 				LOGGER.log(Level.WARNING, "Error creating Counicil Bonus, returning default value", e);
 				result = new ImmProperties(new Property(PropertiesId.COINS, 2));
 			}
+			councilBonuses = result;
 
 		}
 		return councilBonuses;
@@ -620,12 +723,11 @@ public class MatchFactory {
 				LOGGER.log(Level.WARNING, "Error creating tower bonuses, returning default values", i);
 				result = new EnumMap<>(DevelopmentCardType.class);
 				ImmProperties[] properties = new ImmProperties[4];
-				for (ImmProperties r : properties) {
+				for (ImmProperties r : properties) 
 					r = new ImmProperties(0);
-				}
-				for (DevelopmentCardType t : DevelopmentCardType.values()) {
+				
+				for (DevelopmentCardType t : DevelopmentCardType.values()) 
 					result.put(t, properties);
-				}
 			}
 			// TODO
 			towersBonuses = result;
@@ -739,6 +841,11 @@ public class MatchFactory {
 				File boardFile = new File(boardPath);
 				configuration = builder.parse(boardFile);
 				Element board = configuration.getDocumentElement();
+				Element markPrivileges = (Element) board.getElementsByTagName("MarketPrivileges").item(0);
+				result[0] = Integer.parseInt(markPrivileges.getAttribute("first"));
+				result[1] = Integer.parseInt(markPrivileges.getAttribute("second"));
+				result[2] = Integer.parseInt(markPrivileges.getAttribute("third"));
+				result[3] = Integer.parseInt(markPrivileges.getAttribute("fourth"));
 			} catch (SAXException | IOException | NullPointerException e) {
 				LOGGER.log(Level.WARNING, "Error creating market privileges, returning default value", e);
 				result[0] = 0;

@@ -1,13 +1,12 @@
 package it.polimi.ingsw.ps21.model.match;
 
-import java.io.File;
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
+import java.util.Observer;
 import java.util.Queue;
 import java.util.Random;
 
@@ -66,6 +65,7 @@ public class Match extends Observable {
 		period = 1;
 		round = 1;
 		throwDices();
+		setChanged();
 	}
 	
 	public Match(Match previousMatch){
@@ -80,7 +80,7 @@ public class Match extends Observable {
 	}
 	
 	
-	
+
 	public void throwDices(){
 		Random generator = new Random();
 		orangeDice = (int) generator.nextInt(5) + 1;
@@ -190,8 +190,7 @@ public class Match extends Observable {
 		else supportedPlayers.add(p);
 		}
 		notifyObservers();
-		// Set nextPlayer
-		
+		// TODO Set nextPlayer
 		supportedPlayers.poll();
 		if (supportedPlayers.isEmpty()){
 		for (Player p: players.values()){
@@ -212,17 +211,19 @@ public class Match extends Observable {
 			period ++;
 			round = 1;
 		}	
-		else ended = true;
-		}
 		else endMatch();
+		}
 	}
 	
+	public boolean isEnded(){
+		return ended;
+	}
 
 	private void endMatch() {
 		// TODO Check implementation
 		Map<Player, Integer> militaryBonus = calculateMilitaryWinner();
 		Map<Player, Integer> playerPositions = calculateWinner(militaryBonus); 	
-		
+		ended = true;
 	}
 
 	private Map<Player, Integer> calculateMilitaryWinner(){

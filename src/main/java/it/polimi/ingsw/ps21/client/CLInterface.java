@@ -1,19 +1,14 @@
 package it.polimi.ingsw.ps21.client;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Scanner;
 
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
 import it.polimi.ingsw.ps21.controller.BoardData;
-import it.polimi.ingsw.ps21.controller.CostChoice;
-import it.polimi.ingsw.ps21.controller.CouncilChoice;
-import it.polimi.ingsw.ps21.controller.EffectChoice;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
-import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
@@ -21,11 +16,10 @@ import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
-import it.polimi.ingsw.ps21.model.properties.PropertiesSet;
+import it.polimi.ingsw.ps21.view.ActionData;
 
 public class CLInterface implements UserInterface {
 	
-	private MatchData match;
 	private Scanner userInput;
 	private PlayerColor playerID = null;
 	private boolean matchEnded = false;
@@ -115,7 +109,7 @@ public class CLInterface implements UserInterface {
 			System.out.println("-" + t + ":");
 			ArrayList<DevelopmentCard> typeCards = playerCards.get(t);
 			for (DevelopmentCard c: typeCards){
-				System.out.print("c" + ";\t");
+				System.out.print(c.toString() + ";\t");
 			}
 		}
 	}
@@ -260,6 +254,26 @@ public class CLInterface implements UserInterface {
 	public void playMatch() {
 		this.matchStarted = true;
 		System.out.println("Match started!");
+	}
+
+	@Override
+	public int reqExtraActionChoice(ActionData[] actions) {
+		if (actions.length == 1) {
+			System.out.println("You can execute this ExtraAction: " + actions[0].toString());
+			return 0;
+		}
+		else {
+			System.out.println("You can execute other extra actions. Choose between:");
+			for (int i=0; i<actions.length; i++)
+				System.out.println((i+1) + actions[i].toString() + ";");
+			System.out.println("Please, insert your choice: ");
+			int userChoice = userInput.nextInt();
+			while (userChoice <1 || userChoice > actions.length){
+				System.out.println("Your choice is invalid, please insert another one...");
+				userChoice= userInput.nextInt();
+			}
+			return userChoice;
+		}
 	}
 
 }

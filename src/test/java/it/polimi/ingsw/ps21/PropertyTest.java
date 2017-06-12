@@ -71,6 +71,7 @@ public class PropertyTest {
 	public void cloneTest()
 	{
 		Property clone= prop.clone();
+		assert(clone!=prop);
 	}
 	
 	@Test

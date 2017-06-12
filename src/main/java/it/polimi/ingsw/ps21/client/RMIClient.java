@@ -1,26 +1,24 @@
 package it.polimi.ingsw.ps21.client;
 
 import java.rmi.NotBoundException;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-import it.polimi.ingsw.ps21.controller.CostChoice;
-import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
-import it.polimi.ingsw.ps21.view.Connection;
-import it.polimi.ingsw.ps21.view.RMIConnection;
+import it.polimi.ingsw.ps21.view.ActionData;
 import it.polimi.ingsw.ps21.view.RMIConnectionCreator;
 import it.polimi.ingsw.ps21.view.RMIConnectionInterface;
-import it.polimi.ingsw.ps21.view.RMIMessageBuffer;
 
 public class RMIClient extends UnicastRemoteObject implements RMIClientInterface{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8508268160293342621L;
 	private transient Registry serverRegistry;
 	private transient RMIConnectionInterface connection = null;
 	private transient UserInterface ui;
@@ -91,6 +89,12 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	@Override
 	public String sendName() throws RemoteException {
 		return this.username;
+	}
+
+	@Override
+	public int reqExtraActionChoice(ActionData[] actions) throws RemoteException {
+		return ui.reqExtraActionChoice(actions);
+		
 	}
 
 	/*@Override

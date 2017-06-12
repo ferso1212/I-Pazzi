@@ -1,23 +1,17 @@
 package it.polimi.ingsw.ps21.client;
 
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
 import it.polimi.ingsw.ps21.controller.BoardData;
-import it.polimi.ingsw.ps21.controller.CostChoice;
-import it.polimi.ingsw.ps21.controller.CouncilChoice;
-import it.polimi.ingsw.ps21.controller.EffectChoice;
 import it.polimi.ingsw.ps21.controller.MatchData;
-import it.polimi.ingsw.ps21.controller.Message;
 import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
-import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
+import it.polimi.ingsw.ps21.view.ActionData;
 
 public abstract interface UserInterface {
 	
@@ -50,6 +44,8 @@ public abstract interface UserInterface {
 	public abstract ImmProperties[] reqPrivileges(int number);
 	
 	public abstract void matchEnded();
+
+	public abstract int reqExtraActionChoice(ActionData[] actions);
 
 
 

@@ -1,7 +1,5 @@
 package it.polimi.ingsw.ps21;
 
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,8 +27,6 @@ public class BoardTest {
 	private boolean checkBoardCreation() {
 		try {
 			Board testBoard = new Board(this.numberOfPlayer, this.isAdvanced);
-			if (testBoard == null)
-				return false;
 			return true;
 		} catch (BuildingDeckException e) {
 			return false;
