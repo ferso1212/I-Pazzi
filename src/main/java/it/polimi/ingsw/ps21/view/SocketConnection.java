@@ -155,6 +155,13 @@ public class SocketConnection implements Connection{
 		}
 		
 	}
+
+
+	@Override
+	public int reqExtraActionChoice(ActionData[] actions) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 		
 
 }
