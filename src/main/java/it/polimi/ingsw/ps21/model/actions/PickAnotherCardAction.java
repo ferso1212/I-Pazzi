@@ -48,10 +48,18 @@ public class PickAnotherCardAction extends ExtraAction {
 	public ExtraAction[] execute(Player player, Match match) throws NotExecutableException, NotOccupableException,
 			RequirementNotMetException, InsufficientPropsException {
 		
+		ArrayList<ExtraAction> extraActionFromInstantEffect = new ArrayList<ExtraAction>();
+		ArrayList<ExtraAction> extraActionFromPermanentEffect = new ArrayList<ExtraAction>();
 		for (DevelopmentCardType t : DevelopmentCardType.values()){
 			for (SingleTowerSpace s : match.getBoard().getTower(t).getTower()){
 				if (this.message.getCardChosen() == s.getCard()){
-					
+					DevelopmentCard card = s.getCard();
+					player.getDeck().addCard(s.getCard());
+					s.setCard(null);
+					extraActionFromInstantEffect = card.getInstantEffect().activate(player);
+					if (card.getCardType().equals(DevelopmentCardType.CHARACTER)){
+						this.extraActionFromPermanentEffect = effectChoice.getEffectChosen().activate(player);
+					}
 				}
 			}
 		}
