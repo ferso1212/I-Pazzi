@@ -73,12 +73,14 @@ public class Board {
 		switch (playerNumber) {
 		case 2: {
 			for (int i = 0; i < 2; i++) {
-				this.marketPlaces[i] = new SingleMarketSpace(1, file.makeMarketBonuses()[i], file.makeMarketPrivileges()[i]);
+				if (!isAdvanced) this.marketPlaces[i] = new SingleMarketSpace(1, file.makeMarketBonuses()[i], file.makeMarketPrivileges()[i]);
+				else this.marketPlaces[i] = new AdvSingleMarketSpace(1, file.makeMarketBonuses()[i], file.makeMarketPrivileges()[i]);
 			}
 		}
 		case 3: {
 			for (int i = 0; i < 2; i++) {
-				this.marketPlaces[i] = new SingleMarketSpace(1, file.makeMarketBonuses()[i], file.makeMarketPrivileges()[i]);
+				if (!isAdvanced) this.marketPlaces[i] = new SingleMarketSpace(1, file.makeMarketBonuses()[i], file.makeMarketPrivileges()[i]);
+				else this.marketPlaces[i] = new AdvSingleMarketSpace(1, file.makeMarketBonuses()[i], file.makeMarketPrivileges()[i]);
 			}
 			this.multipleHarvPlace = new MultipleWorkSpace(1, new ImmProperties(0), 3, WorkType.HARVEST);
 			this.multipleProdPlace = new MultipleWorkSpace(1, new ImmProperties(0), 3, WorkType.PRODUCTION);
@@ -86,7 +88,8 @@ public class Board {
 			break;
 		case 4: {
 			for (int i = 0; i < 4; i++) {
-				this.marketPlaces[i] = new SingleMarketSpace(1, file.makeMarketBonuses()[i], file.makeMarketPrivileges()[i]);
+				if (!isAdvanced) this.marketPlaces[i] = new SingleMarketSpace(1, file.makeMarketBonuses()[i], file.makeMarketPrivileges()[i]);
+				else this.marketPlaces[i] = new AdvSingleMarketSpace(1, file.makeMarketBonuses()[i], file.makeMarketPrivileges()[i]);
 			}
 			this.multipleHarvPlace = new MultipleWorkSpace(1, new ImmProperties(0), 3, WorkType.HARVEST);
 			this.multipleProdPlace = new MultipleWorkSpace(1, new ImmProperties(0), 3, WorkType.PRODUCTION);
@@ -238,5 +241,11 @@ public class Board {
 	{
 		return this.developmentDeck;
 	}
+
+	public EnumMap<DevelopmentCardType, Tower> getTowers() {
+		return towers;
+	}
+	
+	
 
 }

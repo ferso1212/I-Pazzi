@@ -2,6 +2,7 @@ package it.polimi.ingsw.ps21.model.player;
 
 import java.util.ArrayList;
 
+import it.polimi.ingsw.ps21.model.deck.RequirementAndCost;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.model.properties.PropertiesSet;
@@ -167,11 +168,11 @@ public class PlayerProperties implements Cloneable{
 	 * @param costsToCheck the array of costs that will be checked
 	 * @return the costs that the player can pay
 	 */
-	public ArrayList<ImmProperties> getPayableCosts(ImmProperties[] costsToCheck) {
+	public ArrayList<ImmProperties> getPayableCosts(RequirementAndCost[] costsToCheck) {
 		ArrayList<ImmProperties> payableCosts = new ArrayList<ImmProperties>();
-		for (ImmProperties cost : costsToCheck) {
-			if (this.greaterOrEqual(cost)) {
-				payableCosts.add(cost);
+		for (RequirementAndCost cost : costsToCheck) {
+			if ((this.greaterOrEqual(cost.getCosts()))) {
+				payableCosts.add(cost.getCosts());
 			}
 		}
 		return payableCosts;

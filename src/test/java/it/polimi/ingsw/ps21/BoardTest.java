@@ -13,8 +13,8 @@ public class BoardTest {
 	
 	@Before
 	public void setUp(){
-		this.numberOfPlayer = 2;
-		this.isAdvanced=false;
+		this.numberOfPlayer = 3;
+		this.isAdvanced=true;
 	}
 	
 
