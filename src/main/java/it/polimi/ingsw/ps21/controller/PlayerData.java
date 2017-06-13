@@ -132,7 +132,10 @@ public class PlayerData implements Serializable {
 		return cards;
 	}
 	
-	
+	public FamilyMemberData getFamilyMember(MembersColor color)
+	{
+		return family.get(color);
+	}
 	
 	
 	
