@@ -162,6 +162,17 @@ public class SocketConnection implements Connection{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
+	@Override
+	public ActionData reqAction() throws InvalidActionException {
+		Object action= requestAndAwaitResponse(PacketType.ACTION_REQUEST, null);
+		if(action instanceof CouncilActionData) return (CouncilActionData)action;
+		else if (action instanceof MarketActionData) return (MarketActionData)action;
+		else if (action instanceof WorkActionData) return (WorkActionData)action;
+		else if (action instanceof DevelopmentActionData) return (DevelopmentActionData)action;
+		else throw new InvalidActionException();
+	}
 		
 
 }

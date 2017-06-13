@@ -11,6 +11,7 @@ import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.IllegalCardTypeException;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
+import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.PlayerProperties;
@@ -27,7 +28,7 @@ public class PlayerData implements Serializable {
 	private ImmProperties tileProdBonus;
 	private int tileProdDiceReq;
 	private EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>> cards;
-	
+	private EnumMap<MembersColor, FamilyMemberData> family;
 	
 	
 	public PlayerData(Player player) {
@@ -52,6 +53,11 @@ public class PlayerData implements Serializable {
 				LOGGER.log(Level.SEVERE, "Illegal card type!", e);
 			
 			}
+		}
+		 this.family=new EnumMap<>(MembersColor.class);
+		for(MembersColor color: MembersColor.values())
+		{
+			family.put(color, new FamilyMemberData(player.getFamily().getMember(color)));
 		}
 		
 	}
