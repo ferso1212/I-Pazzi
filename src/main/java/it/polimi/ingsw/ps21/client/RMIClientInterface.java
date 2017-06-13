@@ -23,6 +23,8 @@ public interface RMIClientInterface extends Remote {
 	public void notifyMatchStarted() throws RemoteException;
 	
 	public String sendName() throws RemoteException;
+	
+	public ActionData[] actionRequest()throws RemoteException;
 
 	public int reqExtraActionChoice(ActionData[] object) throws RemoteException;
 	
