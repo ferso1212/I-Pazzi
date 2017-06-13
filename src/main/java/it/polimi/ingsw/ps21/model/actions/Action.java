@@ -21,4 +21,9 @@ public abstract class Action {
 	
 	public abstract ExtraAction[] activate(Player player, Match match) throws NotExecutableException, RequirementNotMetException, InsufficientPropsException;
 
+	public PlayerColor getPlayerId() {
+		return playerId;
+	}
+	
+	
 }

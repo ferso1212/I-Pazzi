@@ -133,10 +133,17 @@ public class SocketClient {
 				break;}
 			case MATCH_STARTED_NOTIFICATION: {
 				ui.playMatch();
+				break;
 			}
 			case ACTION_REQUEST: {
 				ActionData chosenAction= ui.makeAction();
 				out.writeObject(new NetPacket(receivedPacket.getType(), chosenAction, receivedPacket.getNum()));
+				break;
+			}
+			case EXTRA_ACTION_CHOICE: {
+				int chosen=ui.reqExtraActionChoice((ActionData[])receivedPacket.getObject());
+				out.writeObject(new NetPacket(receivedPacket.getType(), chosen, receivedPacket.getNum()));
+				break;
 			}
 			default:
 				break;

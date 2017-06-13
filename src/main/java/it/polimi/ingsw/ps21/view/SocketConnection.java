@@ -158,19 +158,14 @@ public class SocketConnection implements Connection{
 
 	@Override
 	public int reqExtraActionChoice(ActionData[] actions) {
-		// TODO Auto-generated method stub
-		return 0;
+		return (int)requestAndAwaitResponse(PacketType.EXTRA_ACTION_CHOICE, actions);
 	}
 
 
 	@Override
-	public ActionData reqAction() throws InvalidActionException {
-		Object action= requestAndAwaitResponse(PacketType.ACTION_REQUEST, null);
-		if(action instanceof CouncilActionData) return (CouncilActionData)action;
-		else if (action instanceof MarketActionData) return (MarketActionData)action;
-		else if (action instanceof WorkActionData) return (WorkActionData)action;
-		else if (action instanceof DevelopmentActionData) return (DevelopmentActionData)action;
-		else throw new InvalidActionException();
+	public ActionData reqAction(){
+		return (ActionData)requestAndAwaitResponse(PacketType.ACTION_REQUEST, null);
+		
 	}
 		
 

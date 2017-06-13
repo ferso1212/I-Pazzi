@@ -28,6 +28,6 @@ public abstract interface Connection{
 	
 	public int reqExtraActionChoice(ActionData[] actions);
 	
-	public ActionData reqAction() throws InvalidActionException;
+	public ActionData reqAction();
 
 }
