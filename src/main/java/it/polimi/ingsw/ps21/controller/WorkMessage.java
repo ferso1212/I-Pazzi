@@ -8,16 +8,15 @@ import it.polimi.ingsw.ps21.model.player.PlayerProperties;
 
 public class WorkMessage extends Message {
 
-	private ArrayList<DevelopmentCard> choices;
+	private DevelopmentCard[] choices;
 	private int[] chosenCardsAndEffects;
 	private PlayerProperties clonedPlayerProperties;
 
 
-	public WorkMessage(PlayerColor destination, ArrayList<DevelopmentCard> choices, PlayerProperties clonedPlayerProperties) {
+	public WorkMessage(PlayerColor destination, DevelopmentCard[] choices) {
 		super(destination);
 		// TODO settare messaggio
 		this.choices = choices;
-		this.clonedPlayerProperties = clonedPlayerProperties;
 	}
 
 	public int[] getChosenCardsAndEffects() {
