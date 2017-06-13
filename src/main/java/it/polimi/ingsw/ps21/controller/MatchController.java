@@ -11,10 +11,13 @@ import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.NotExecutableException;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
 import it.polimi.ingsw.ps21.model.match.Match;
+import it.polimi.ingsw.ps21.model.match.MatchFactory;
+import it.polimi.ingsw.ps21.model.match.RoundType;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
+import it.polimi.ingsw.ps21.view.RoundTimer;
 import it.polimi.ingsw.ps21.view.UserHandler;
 
 public class MatchController extends Observable implements Observer {
@@ -26,6 +29,8 @@ public class MatchController extends Observable implements Observer {
 	private static enum ActionState {ACCEPTED, REFUSED, AWAITING_CHOICES,}
 	private ActionState state;
 	private RoundType roundType;
+	private RoundTimer timer;
+	private Thread timerThread;
 
 	public MatchController(Match match, UserHandler... handlers) {
 		super();
@@ -37,12 +42,14 @@ public class MatchController extends Observable implements Observer {
 			this.addObserver(handler);
 			handler.addObserver(this);
 		}
+		this.timer=new RoundTimer(MatchFactory.instance().makeTimeoutRound());
+		this.timer.addObserver(this);
 	}
 
 	public void startMatch() {
 		setChanged();
 		notifyObservers("Match Started");
-		currentPlayer = match.getCurrentPlayer();
+		newRound();
 		}
 	
 	
@@ -58,7 +65,7 @@ public class MatchController extends Observable implements Observer {
 			
 			}
 		else if(state==ActionState.ACCEPTED)
-		{
+		{	timerThread.destroy();
 			ExtraAction poolExtraAction[] =	match.doAction(currentAction);
 			// creare un nuovo array di extra action senza NullAction da notificare all'utente
 			// se l'array depurato è vuoto chiama la setNextPlayer, la setNextPlayer ritorna un enum che dice il tipo di round: se è cambiato, significa che è un nuovo round;
@@ -103,7 +110,37 @@ public class MatchController extends Observable implements Observer {
 		} */
 	}
 
-	public void roundLoop() {
+	private void newRound()
+	{
+		
+		reqPlayerAction();
+	}
+	
+	private void reqPlayerAction()
+	{
+		timerThread=new Thread(this.timer);
+		timerThread.start();
+		setChanged();
+		notifyObservers(new ActionRequest(currentPlayer.getId()));
+	}
+	
+	private void nextPlayer()
+	{
+		RoundType oldRoundType= this.roundType;
+		this.roundType=match.setNextPlayer();
+		currentPlayer=match.getCurrentPlayer();
+		if(oldRoundType!=this.roundType)
+		{
+			//new round
+			newRound();
+		}
+		else
+		{
+			reqPlayerAction();
+		}
+	}
+	
+	/*public void roundLoop() {
 		boolean isNewRound=false;
 		while(!isNewRound)
 		{isNewRound=false;
@@ -111,16 +148,16 @@ public class MatchController extends Observable implements Observer {
 		ActionRequest message = new ActionRequest(currentPlayer.getId());
 		setChanged();
 		notifyObservers(message); //asks userHandlers to visit the message
-		while (!message.isVisited()){/*wait for the message to be visited*/}
+		while (!message.isVisited()){wait for the message to be visited}
 		this.currentAction = message.getChoosenAction();
 		actionLoop();
 		isNewRound=match.setNextPlayer();
 		}
-	}
+	} */
 
 	@Override
 	public void update(Observable source, Object arg) {
-		if (source != match && !handlersMap.containsValue(source)) {
+		if (source != match && source!=timer && !handlersMap.containsValue(source)) {
 			throw new IllegalArgumentException();
 		}
 		if (source instanceof Match && (arg instanceof String)) {
@@ -142,6 +179,11 @@ public class MatchController extends Observable implements Observer {
 			{
 				performAction();
 			}
+		}
+		if (source == timer)
+		{
+			match.setNextPlayer();
+			reqPlayerAction();
 		}
 		
 	}
