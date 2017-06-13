@@ -17,4 +17,17 @@ public class FamilyMemberData implements Serializable {
 		this.used= member.isUsed();
 	}
 
+	public MembersColor getColor() {
+		return color;
+	}
+
+	public int getValue() {
+		return value;
+	}
+
+	public boolean isUsed() {
+		return used;
+	}
+
+	
 }

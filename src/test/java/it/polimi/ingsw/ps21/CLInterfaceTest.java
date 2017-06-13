@@ -42,7 +42,7 @@ public class CLInterfaceTest {
 		// Testa un'unica scelta
 		ArrayList<ImmProperties> testCosts = new ArrayList<>();
 		testCosts.add(new ImmProperties(0,1));
-		CostChoice testChoice = new CostChoice(PlayerColor.BLUE, testCosts, new PlayerProperties(2,2,2,2,2,2));
+		CostChoice testChoice = new CostChoice(PlayerColor.BLUE, testCosts);
 		testChoice.setChosen(testCli.reqCostChoice(testChoice.getChoices()));
 		if (testChoice.getChosen() != testChoice.getChoices().get(0)) return false;
 		return true;

@@ -19,7 +19,7 @@ public abstract interface UserInterface {
 	
 	public abstract void updateView(MatchData match, BoardData board, PlayerData players[]);
 	
-	public String reqAction();
+	public ActionData makeAction();
 	
 	public abstract void showInfo(String name);
 	

@@ -20,7 +20,6 @@ import it.polimi.ingsw.ps21.client.PacketType;
 import it.polimi.ingsw.ps21.controller.BoardData;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.PlayerData;
-import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
@@ -161,6 +160,17 @@ public class SocketConnection implements Connection{
 	public int reqExtraActionChoice(ActionData[] actions) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+
+	@Override
+	public ActionData reqAction() throws InvalidActionException {
+		Object action= requestAndAwaitResponse(PacketType.ACTION_REQUEST, null);
+		if(action instanceof CouncilActionData) return (CouncilActionData)action;
+		else if (action instanceof MarketActionData) return (MarketActionData)action;
+		else if (action instanceof WorkActionData) return (WorkActionData)action;
+		else if (action instanceof DevelopmentActionData) return (DevelopmentActionData)action;
+		else throw new InvalidActionException();
 	}
 		
 

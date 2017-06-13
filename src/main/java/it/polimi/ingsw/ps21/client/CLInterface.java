@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
 import it.polimi.ingsw.ps21.controller.BoardData;
+import it.polimi.ingsw.ps21.controller.FamilyMemberData;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
@@ -13,22 +14,23 @@ import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
+import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.view.ActionData;
+import it.polimi.ingsw.ps21.view.CouncilActionData;
+import it.polimi.ingsw.ps21.view.MarketActionData;
+import it.polimi.ingsw.ps21.view.WorkActionData;
 
 public class CLInterface implements UserInterface {
 	
 	private Scanner userInput;
 	private PlayerColor playerID = null;
+	private PlayerData playerInfo;
+	private BoardData boardInfo;
+	private MatchData matchInfo;
 	private boolean matchEnded = false;
-	private EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>> playerCards = new EnumMap<>(DevelopmentCardType.class);
-	private EnumMap<PropertiesId, Integer> playerProperties = new EnumMap<>(PropertiesId.class);
-	private int tileProdiceReq;
-	private ImmProperties tileProdBonus;
-	private int tileHarvDiceReq;
-	private ImmProperties tileHarvBonus;
 	private boolean advancedMatch;
 	private boolean matchStarted = false;
 	
@@ -41,30 +43,14 @@ public class CLInterface implements UserInterface {
 	
 	@Override
 	public void updateView(MatchData match, BoardData board, PlayerData players[]) {
-		System.out.print("Match State:\n "
-					+ "Period: " + match.getEra() + "\tRound: " + match.getRound());
-		System.out.println("\nBoard:\nDices: Black = " + board.getBlackDice() + " White = " + board.getWhiteDice() + " Orange = " + board.getOrangeDice());
-		DevelopmentCard[][] cards = board.getCards();
-		for (int i= 0; i<4 ; i++){
-			System.out.println("\nTower " + i+1 + "");
-			for (int j=0; j<4; j++){
-				System.out.println("\nFloor " + j + ":");
-				System.out.println(" Card: " + cards[i][j].toString() + "; ");
-				if (j<3) System.out.println(", ");
-				System.out.println("Family Member: " + board.getTowerSpaces()[i][j]);
-			}
-			System.out.println(";");
-		}
+		this.matchInfo = match;
+		this.boardInfo = board;
+		showMatchInfos();
 		System.out.println("----------\tPlayers' Infos\t----------");
 		for (PlayerData p: players){
 			System.out.println();
 			if (p.getId() == this.playerID){
-				this.playerCards = p.getCards();
-				this.playerProperties = p.getProperties();
-				this.tileHarvBonus = p.getTileHarvBonus();
-				this.tileHarvDiceReq = p.getTileHarvDiceReq();
-				this.tileProdBonus = p.getTileProdBonus();
-				this.tileProdiceReq = p.getTileProdDiceReq();
+				this.playerInfo = p;
 				showPlayerInfos();
 			}
 			else{
@@ -74,25 +60,42 @@ public class CLInterface implements UserInterface {
 		}
 	}
 
+	private void showMatchInfos() {
+		System.out.println("------------\tMatch Status\t------------");
+		System.out.print("Period: " + matchInfo.getEra() + "\tRound: " + matchInfo.getRound());
+		System.out.println("\nBoard:\nDices: Black = " + boardInfo.getBlackDice() + " White = " + boardInfo.getWhiteDice() + " Orange = " + boardInfo.getOrangeDice());
+	DevelopmentCard[][] cards = boardInfo.getCards();
+	for (int i= 0; i<4 ; i++){
+		System.out.println("\nTower " + i+1 + "");
+		for (int j=0; j<4; j++){
+			System.out.println("\nFloor " + j + ":");
+			System.out.println(" Card: " + cards[i][j].toString() + "; ");
+			if (j<3) System.out.println(", ");
+			System.out.println("Family Member: " + boardInfo.getTowerSpaces()[i][j]);
+		}
+		System.out.println(";");
+	}
+	}
+
 	private void showPlayerInfos() {
 		System.out.println("---------\t YOUR INFO \t-------");
 		System.out.println("COLOR: " + this.playerID);
 		System.out.println("PROPERTIES:");
 		for (PropertiesId id: PropertiesId.values()){
-			if (this.playerProperties.containsKey(id))
-				System.out.print(id + " = " + playerProperties.get(id) + ";\t");
+			if (this.playerInfo.getCards().containsKey(id))
+				System.out.print(id + " = " + this.playerInfo.getProperties().get(id) + ";\t");
 		}
 		System.out.println("PICKED CARDS:"); 
 		for (DevelopmentCardType t: DevelopmentCardType.values()){
 			System.out.println("-" + t + ":");
-			ArrayList<DevelopmentCard> typeCards = playerCards.get(t);
+			ArrayList<DevelopmentCard> typeCards = this.playerInfo.getCards().get(t);
 			for (DevelopmentCard c: typeCards){
 				System.out.print(c + ";\t");
 			}
 		}
 		System.out.println("----\t TILE BONUSES \t-----");
-		System.out.println("HARVEST: Dice Requirement = " + this.tileHarvDiceReq + "; " + "Bonus = "+ this.tileHarvBonus + ";");
-		System.out.println("PRODUCTION: Dice Requirement = " + this.tileProdiceReq + "; " + "Bonus = "+ this.tileProdBonus + ";");
+		System.out.println("HARVEST: Dice Requirement = " + this.playerInfo.getTileHarvDiceReq() + "; " + "Bonus = "+ this.playerInfo.getTileHarvBonus() + ";");
+		System.out.println("PRODUCTION: Dice Requirement = " + this.playerInfo.getTileProdDiceReq() + "; " + "Bonus = "+ this.playerInfo.getTileProdBonus() + ";");
 		
 	}
 	
@@ -101,13 +104,13 @@ public class CLInterface implements UserInterface {
 		System.out.println("COLOR: " + this.playerID);
 		System.out.println("PROPERTIES:");
 		for (PropertiesId id: PropertiesId.values()){
-			if (this.playerProperties.containsKey(id))
-				System.out.print(id + " = " + playerProperties.get(id) + ";\t");
+			if (player.getCards().containsKey(id))
+				System.out.print(id + " = " + player.getProperties().get(id) + ";\t");
 		}
 		System.out.println("PICKED CARDS:"); 
 		for (DevelopmentCardType t: DevelopmentCardType.values()){
 			System.out.println("-" + t + ":");
-			ArrayList<DevelopmentCard> typeCards = playerCards.get(t);
+			ArrayList<DevelopmentCard> typeCards = player.getCards().get(t);
 			for (DevelopmentCard c: typeCards){
 				System.out.print(c.toString() + ";\t");
 			}
@@ -236,17 +239,50 @@ public class CLInterface implements UserInterface {
 	}
 
 	@Override
-	public String reqAction() {
+	public ActionData makeAction() {
 		// TODO define ActionData and how to parse it
 		System.out.println("It's your turn: which action do you want to do?");
 		System.out.println("1)-Place a family member in a Towe Space;\n2)-Place a family member in Council palace\n"
 				+ "3)-Place a family member in a Work Space\n" + "4)-Place a family memeber in a Market Space");
 		if (advancedMatch) System.out.println("5)-Activate a Leader Card");
 		int actionChoice = userInput.nextInt();
-		while ( actionChoice!=1 || actionChoice!=2 || actionChoice != 3 || actionChoice != 4 || (actionChoice!=5 && advancedMatch)){
+		while ( actionChoice!=1 && actionChoice!=2 && actionChoice != 3 && actionChoice != 4 && (!(advancedMatch) || actionChoice!=5 )){
 			System.out.println("Invalid action, please insert a valid choice: ");
 		}
-		return "To be implemented";
+		switch (actionChoice){
+		case 1: // TODO Development Action setting
+			System.out.println("Which family member do you want to use?");
+			System.out.println("Available Family Member:");
+			FamilyMemberData members[] = playerInfo.getFamilyMembers();
+			int i=0;
+			for (FamilyMemberData f: members){
+				if (!f.isUsed()) {
+					System.out.println((i + 1) +  ") " + f.getColor() + ";");
+					i++;
+				}
+				
+			}
+			int choice = userInput.nextInt();
+			while (choice < 1 || choice >i +1){
+				
+			}
+			
+			
+			
+			
+			// TODO return new DevelopmentAction(playerID, tower, floor, famMember)
+		case 2: // TODO Council Action setting
+			return new CouncilActionData(null, null);
+		case 3: // TODO Work Action setting
+			return new WorkActionData(null, false);
+		case 4: // TODO Market Action setting
+			return new MarketActionData(0, null);
+		case 5: // TODO Leader Action setting
+			return null;
+		default: 
+			//return NullActionData();
+			return null;
+		}
 
 	}
 

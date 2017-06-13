@@ -27,5 +27,7 @@ public abstract interface Connection{
 	public void setID(PlayerColor player);
 	
 	public int reqExtraActionChoice(ActionData[] actions);
+	
+	public ActionData reqAction() throws InvalidActionException;
 
 }
