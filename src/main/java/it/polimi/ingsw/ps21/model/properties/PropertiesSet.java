@@ -169,4 +169,10 @@ public class PropertiesSet implements Serializable{
 		return true;
 	}
 	
+	public boolean isNull() {
+		for(Property prop: this.getProperties()){
+		if(prop.getValue() != 0)	return false;}
+		return true;
+	}
+	
 }
