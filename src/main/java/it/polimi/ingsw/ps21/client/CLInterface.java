@@ -23,9 +23,6 @@ import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.view.ActionData;
-import it.polimi.ingsw.ps21.view.CouncilActionData;
-import it.polimi.ingsw.ps21.view.MarketActionData;
-import it.polimi.ingsw.ps21.view.WorkActionData;
 
 public class CLInterface implements UserInterface {
 	
@@ -264,8 +261,36 @@ public class CLInterface implements UserInterface {
 			type = ActionType.TAKE_CARD;
 			familyMember = chooseColor();
 			servants = chooseServants();
-			// TODO
-			servants = 0;
+			System.out.println("Which type of card do you want to pick?");
+			int cardType = 1;
+			System.out.println("1) Territory Card;");
+			System.out.println("2} Building Card;");
+			System.out.println("3) Character Card;");
+			System.out.println("4) Venture Card;");
+			cardType = userInput.nextInt();
+			while (cardType < 1 || cardType > 4){
+				System.out.println("Invalid choice, please insert another choice:");
+				cardType = userInput.nextInt();
+			}
+			switch (cardType){
+			case 1:
+				tower = DevelopmentCardType.TERRITORY;
+				break;
+			case 2:
+				tower = DevelopmentCardType.BUILDING;
+				break;
+			case 3: 
+				tower = DevelopmentCardType.CHARACTER;
+				break;
+			case 4:
+				tower = DevelopmentCardType.VENTURE;
+				break;
+			default: // This part of code should never be reached
+				tower = DevelopmentCardType.VENTURE;
+			}	
+			// TODO choose floor;
+			int possiblePlaces = 0;
+			// todo for (DevelopmentCard column[]: boardInfo.getCards())
 			tower = null;
 			space = 0;
 			

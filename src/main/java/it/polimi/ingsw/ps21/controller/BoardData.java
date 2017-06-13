@@ -56,7 +56,7 @@ public class BoardData implements Serializable{
 		{
 			market[i]=new FamilyMemberData(board.getMarketSpace(i).getOccupant());
 			marketBonuses[i] = board.getMarketPlaces()[i].getInstantBonus();
-			marketPrivileges[] = board.getMarketPlaces()[i].getNumberOfPrivileges();
+			marketPrivileges[i] = board.getMarketPlaces()[i].getNumberOfPrivileges();
 		}
 		
 		//copies faith track bonuses

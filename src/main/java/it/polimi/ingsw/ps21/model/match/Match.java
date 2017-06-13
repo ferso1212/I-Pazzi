@@ -11,6 +11,7 @@ import java.util.Queue;
 import java.util.Random;
 
 import it.polimi.ingsw.ps21.controller.RefusedAction;
+import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.NotExecutableException;
@@ -42,7 +43,7 @@ public class Match extends Observable {
 	protected int blackDice;
 	protected int whiteDice;
 	protected int period; 
-	protected int round;
+	protected RoundType round;
 	private boolean ended = false;
 	
 	public Match(PlayerColor...colors )throws InvalidIDException, BuildingDeckException{
@@ -63,7 +64,7 @@ public class Match extends Observable {
 			for (int i=0; i<tempPlayer.size(); i++)
 				order.add(tempPlayer.get(i));
 		period = 1;
-		round = 1;
+		round = RoundType.INITIAL_ROUND;
 		throwDices();
 		setChanged();
 	}
@@ -101,7 +102,7 @@ public class Match extends Observable {
 		return period;
 	}
 	
-	public int getRound(){
+	public RoundType getRound(){
 		return round;
 	}
 	
@@ -109,40 +110,25 @@ public class Match extends Observable {
 		return order.peek();
 	}
 	
-	public ExtraAction[] doAction(Action action){
-		ExtraAction[] extraActionPool;
-		try {
-			extraActionPool = action.activate(order.element(),this);
-		} catch (NotExecutableException e) {
-			setChanged();
-			notifyObservers(new RefusedAction(getCurrentPlayer().getId(), "Unable to execute this action"));
-			return null;
-
-		} catch (NotOccupableException e) {
-			setChanged();
-			notifyObservers(new RefusedAction(getCurrentPlayer().getId(), "You can't occupy this place"));
-			return null;
-
-		} catch (RequirementNotMetException e) {
-			setChanged();
-			notifyObservers(new RefusedAction(getCurrentPlayer().getId(), "You don't satisfy the requirements to execute this action"));
-			return null;
-		} catch (InsufficientPropsException e) {
-			setChanged();
-			notifyObservers(new RefusedAction(getCurrentPlayer().getId(), "You don't have enough properties to execute this action"));
-			return null;
-		}
+	public ExtraAction[] doAction(Action action) throws NotExecutableException, RequirementNotMetException, InsufficientPropsException, VaticanRoundException{
+		if (!(round == RoundType.VATICAN_ROUND)) {
+			ExtraAction[] extraActionPool;
+		extraActionPool = action.activate(order.element(),this);
 		setChanged();
 		notifyObservers();
 		return extraActionPool;
+		} else throw new VaticanRoundException();
 	}
 	
 	/**
 	 * @return TRUE if no actions are left in the queue (all players have performed all their placement action in the round)
 	 */
-	public boolean setNextPlayer(){
+	public RoundType setNextPlayer(){
 		order.poll();
-		if (!(order.isEmpty())) return false;
+		if (!(order.isEmpty())) return round;
+		if (round == RoundType.INITIAL_ROUND) round = RoundType.FINAL_ROUND;
+		else if (round == RoundType.FINAL_ROUND) round = RoundType.VATICAN_ROUND;
+		else round = RoundType.INITIAL_ROUND;
 		Queue<FamilyMember> temp = board.getCouncilPalace().getOccupants();
 		ArrayList<Player> newOrder = new ArrayList<>();
 		for (FamilyMember f: temp){
@@ -151,12 +137,13 @@ public class Match extends Observable {
 			else newOrder.add(player);
 		}
 		order = new ArrayDeque<>();
-		for (int i=0; i<4; i++)
+		for ( int j = newOrder.size() -1 ; j>=0; j--) order.add(newOrder.get(j));
+		if (round != RoundType.VATICAN_ROUND)	{
+			for (int i=0; i<3; i++)
 			for ( int j = newOrder.size() -1 ; j>=0; j--) order.add(newOrder.get(j));
-		board.newSetBoard(period);
-		round++;
-		if (round == 3) vaticanLoop();
-		return true;
+			board.newSetBoard(period);
+		}
+		return round;
 	}
 
 	public Match getCopy() throws CloneNotSupportedException{
@@ -211,7 +198,7 @@ public class Match extends Observable {
 				for ( int j = newOrder.size() -1 ; j>=0; i--) order.add(newOrder.get(j));
 			board.newSetBoard(period + 1);
 			period ++;
-			round = 1;
+			round = RoundType.INITIAL_ROUND;
 		}	
 		else endMatch();
 		}

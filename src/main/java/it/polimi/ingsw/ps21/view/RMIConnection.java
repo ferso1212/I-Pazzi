@@ -131,4 +131,15 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 		}
 	}
 
+
+	@Override
+	public ActionData reqAction() {
+		try {
+			return client.actionRequest();
+		} catch (RemoteException e) {
+			LOGGER.log(Level.WARNING, "Error calling remote method actionRequest");
+			return null;
+		}
+	}
+
 }
