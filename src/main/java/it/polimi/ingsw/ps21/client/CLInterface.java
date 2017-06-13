@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps21.client;
 
+import java.awt.SystemColor;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Scanner;
@@ -10,11 +11,14 @@ import it.polimi.ingsw.ps21.controller.FamilyMemberData;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
+import it.polimi.ingsw.ps21.model.actions.Action;
+import it.polimi.ingsw.ps21.model.actions.ActionType;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
+import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
@@ -249,41 +253,122 @@ public class CLInterface implements UserInterface {
 		while ( actionChoice!=1 && actionChoice!=2 && actionChoice != 3 && actionChoice != 4 && (!(advancedMatch) || actionChoice!=5 )){
 			System.out.println("Invalid action, please insert a valid choice: ");
 		}
+		ActionType type;
+		MembersColor familyMember;
+		int servants;
+		DevelopmentCardType tower;
+		int space;
 		switch (actionChoice){
 		case 1: // TODO Development Action setting
-			System.out.println("Which family member do you want to use?");
-			System.out.println("Available Family Member:");
-			FamilyMemberData members[] = playerInfo.getFamilyMembers();
-			int i=0;
-			for (FamilyMemberData f: members){
-				if (!f.isUsed()) {
-					System.out.println((i + 1) +  ") " + f.getColor() + ";");
-					i++;
-				}
-				
-			}
-			int choice = userInput.nextInt();
-			while (choice < 1 || choice >i +1){
-				
-			}
+		{
+			type = ActionType.TAKE_CARD;
+			familyMember = chooseColor();
+			servants = chooseServants();
+			// TODO
+			servants = 0;
+			tower = null;
+			space = 0;
 			
-			
-			
-			
-			// TODO return new DevelopmentAction(playerID, tower, floor, famMember)
-		case 2: // TODO Council Action setting
-			return new CouncilActionData(null, null);
-		case 3: // TODO Work Action setting
-			return new WorkActionData(null, false);
-		case 4: // TODO Market Action setting
-			return new MarketActionData(0, null);
-		case 5: // TODO Leader Action setting
-			return null;
-		default: 
-			//return NullActionData();
-			return null;
 		}
+			break;
+		case 2: 
+		{
+			type = ActionType.COUNCIL;
+			familyMember = chooseColor();
+			servants =0;
+			tower = null;
+			space = 0;
+			
+		}
+			break;
+		case 3:
+		{
+			System.out.println("Do you want to use Harvest (1) area or Produciton (2) area?");
+			int workChoice = userInput.nextInt();
+			while (workChoice != 1 && workChoice !=2){
+				System.out.println("Invalid choice, please insert another choice");
+				workChoice= userInput.nextInt();
+			}
+			if (workChoice == 1)
+				{
+					type = ActionType.HARVEST;
+					tower = DevelopmentCardType.BUILDING;
+				}
+			else
+				{
+					type = ActionType.PRODUCTION;
+					tower = DevelopmentCardType.TERRITORY;
+				}
+			familyMember = chooseColor();
+			servants = chooseServants();
+			System.out.println("Do you want to use Single space(1)  or Multiple space (2)?");
+			int spaceChoice = userInput.nextInt();
+			while (spaceChoice != 1 && spaceChoice !=2){
+				System.out.println("Invalid choice, please insert another choice");
+				spaceChoice= userInput.nextInt();
+			}
+			space = spaceChoice;
+		}
+			break;
+		case 4: 
+		{
+			type = ActionType.MARKET;
+			familyMember = chooseColor();
+			System.out.println("Which market space do you want to use?");
+			for (int i=0; i < boardInfo.getMarket().length; i++){
+				if (boardInfo.getMarket()[i] == null) {
+					System.out.println((i+1) +") Bonus: " + boardInfo.getMarketBonuses()[i] + " - Privleges: " +  boardInfo.getMarketPrivileges()[i]);
+				}
+			}
+			int marketChoice = userInput.nextInt();
+			while(marketChoice <1 || marketChoice > boardInfo.getMarket().length){
+				System.out.println("Invalid market choice, please insert another choice");
+				marketChoice = userInput.nextInt();
+			}
+			
+			
+		}
+			break;
+		// case 5: // TODO Leader Action setting
+		//	break;
+		default: 
+			type = ActionType.NULL;
+			familyMember = MembersColor.NEUTRAL;
+			servants = 0;
+			tower = null;
+			space = 0;
+		}
+		return new ActionData(type, familyMember, servants, tower, space);
+	}
 
+	// TODO make this private after test
+	public int chooseServants() {
+		int choice = 0;
+		System.out.println("How many servants do you want to use to increment dice value?");
+		choice = userInput.nextInt();
+		while (choice < 0 || choice > playerInfo.getPropertyValue(PropertiesId.SERVANTS)){
+			System.out.println("You can't add this number of servants");
+			choice = userInput.nextInt();
+		}
+		return choice;
+	}
+	// TODO make this private after testing
+	public MembersColor chooseColor() {
+		System.out.println("Which family member do you want to use?");
+		System.out.println("Available Family Member:");
+		ArrayList<MembersColor> availableColors = new ArrayList<>();	
+		for (MembersColor c: MembersColor.values()){
+			if(!(playerInfo.getFamilyMember(c).isUsed())) availableColors.add(c);
+		}
+		for (int i=0; i<availableColors.size(); i++){
+			System.out.println((i+1) + ") " + availableColors.get(i));
+		}
+		int choice = userInput.nextInt();
+		while (choice < 1 || choice > availableColors.size()){
+			System.out.println("Invalid choice, please insert another choice:");
+			choice = userInput.nextInt();
+		}
+		return availableColors.get(choice);
 	}
 
 	@Override

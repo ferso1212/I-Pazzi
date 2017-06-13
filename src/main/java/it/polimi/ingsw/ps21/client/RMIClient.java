@@ -97,6 +97,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 		
 	}
 
+	@Override
+	public ActionData actionRequest() throws RemoteException {
+		return ui.makeAction();
+	}
+
 	/*@Override
 	public String getString() throws RemoteException {
 		return "Not implemented yet";
