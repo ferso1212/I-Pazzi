@@ -5,12 +5,12 @@ import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
-public abstract class ActionProva {
+public abstract class Action {
 	
 	protected PlayerColor playerId;
 	protected int updateCounter;
 	
-	public ActionProva(PlayerColor playerId) {
+	public Action(PlayerColor playerId) {
 		super();
 		this.playerId = playerId;
 	}

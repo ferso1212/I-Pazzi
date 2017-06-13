@@ -10,7 +10,6 @@ import it.polimi.ingsw.ps21.controller.FamilyMemberData;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
-import it.polimi.ingsw.ps21.model.actions.DevelopmentAction;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
@@ -29,6 +28,8 @@ public class CLInterface implements UserInterface {
 	private Scanner userInput;
 	private PlayerColor playerID = null;
 	private PlayerData playerInfo;
+	private BoardData boardInfo;
+	private MatchData matchInfo;
 	private boolean matchEnded = false;
 	private boolean advancedMatch;
 	private boolean matchStarted = false;
@@ -42,20 +43,9 @@ public class CLInterface implements UserInterface {
 	
 	@Override
 	public void updateView(MatchData match, BoardData board, PlayerData players[]) {
-		System.out.print("Match State:\n "
-					+ "Period: " + match.getEra() + "\tRound: " + match.getRound());
-		System.out.println("\nBoard:\nDices: Black = " + board.getBlackDice() + " White = " + board.getWhiteDice() + " Orange = " + board.getOrangeDice());
-		DevelopmentCard[][] cards = board.getCards();
-		for (int i= 0; i<4 ; i++){
-			System.out.println("\nTower " + i+1 + "");
-			for (int j=0; j<4; j++){
-				System.out.println("\nFloor " + j + ":");
-				System.out.println(" Card: " + cards[i][j].toString() + "; ");
-				if (j<3) System.out.println(", ");
-				System.out.println("Family Member: " + board.getTowerSpaces()[i][j]);
-			}
-			System.out.println(";");
-		}
+		this.matchInfo = match;
+		this.boardInfo = board;
+		showMatchInfos();
 		System.out.println("----------\tPlayers' Infos\t----------");
 		for (PlayerData p: players){
 			System.out.println();
@@ -68,6 +58,23 @@ public class CLInterface implements UserInterface {
 			}
 			System.out.println();
 		}
+	}
+
+	private void showMatchInfos() {
+		System.out.println("------------\tMatch Status\t------------");
+		System.out.print("Period: " + matchInfo.getEra() + "\tRound: " + matchInfo.getRound());
+		System.out.println("\nBoard:\nDices: Black = " + boardInfo.getBlackDice() + " White = " + boardInfo.getWhiteDice() + " Orange = " + boardInfo.getOrangeDice());
+	DevelopmentCard[][] cards = boardInfo.getCards();
+	for (int i= 0; i<4 ; i++){
+		System.out.println("\nTower " + i+1 + "");
+		for (int j=0; j<4; j++){
+			System.out.println("\nFloor " + j + ":");
+			System.out.println(" Card: " + cards[i][j].toString() + "; ");
+			if (j<3) System.out.println(", ");
+			System.out.println("Family Member: " + boardInfo.getTowerSpaces()[i][j]);
+		}
+		System.out.println(";");
+	}
 	}
 
 	private void showPlayerInfos() {
@@ -247,6 +254,18 @@ public class CLInterface implements UserInterface {
 			System.out.println("Which family member do you want to use?");
 			System.out.println("Available Family Member:");
 			FamilyMemberData members[] = playerInfo.getFamilyMembers();
+			int i=0;
+			for (FamilyMemberData f: members){
+				if (!f.isUsed()) {
+					System.out.println((i + 1) +  ") " + f.getColor() + ";");
+					i++;
+				}
+				
+			}
+			int choice = userInput.nextInt();
+			while (choice < 1 || choice >i +1){
+				
+			}
 			
 			
 			

@@ -18,7 +18,7 @@ import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
-public class DevelopmentActionProva extends ActionProva {
+public class DevelopmentAction extends ActionProva {
 
 	private FamilyMember famMember;
 	private CostChoice costMessage;
@@ -26,7 +26,7 @@ public class DevelopmentActionProva extends ActionProva {
 	private DevelopmentCardType tower;
 	private int floor;
 
-	public DevelopmentActionProva(PlayerColor playerId, FamilyMember famMember, DevelopmentCardType tower, int floor) {
+	public DevelopmentAction(PlayerColor playerId, FamilyMember famMember, DevelopmentCardType tower, int floor) {
 		super(playerId);
 		this.famMember = famMember;
 		this.tower = tower;
