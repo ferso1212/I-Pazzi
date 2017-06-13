@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps21.controller;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Observable;
 import java.util.Observer;
@@ -23,7 +24,8 @@ public class MatchController extends Observable implements Observer {
 	private boolean matchEnded = false;
 	private Action currentAction;
 	private static enum ActionState {ACCEPTED, REFUSED, AWAITING_CHOICES,}
-	ActionState state;
+	private ActionState state;
+	private RoundType roundType;
 
 	public MatchController(Match match, UserHandler... handlers) {
 		super();
@@ -57,17 +59,18 @@ public class MatchController extends Observable implements Observer {
 			}
 		else if(state==ActionState.ACCEPTED)
 		{
-			try {
-				currentAction.activate(currentPlayer, match);
-			} catch (NotExecutableException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (RequirementNotMetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InsufficientPropsException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			ExtraAction poolExtraAction[] =	match.doAction(currentAction);
+			// creare un nuovo array di extra action senza NullAction da notificare all'utente
+			// se l'array depurato è vuoto chiama la setNextPlayer, la setNextPlayer ritorna un enum che dice il tipo di round: se è cambiato, significa che è un nuovo round;
+			
+			ArrayList<ExtraAction> extraActions=new ArrayList<>();
+			for(ExtraAction a: poolExtraAction)
+			{
+				if(!(a instanceof NullAction)) extraActions.add(a);
+			}
+			if(extraActions.size()==0)
+			{
+				
 			}
 		}
 		

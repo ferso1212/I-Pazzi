@@ -19,6 +19,8 @@ public class BoardData implements Serializable{
 	private FamilyMemberData[][] towerSpaces;
 	private ImmProperties[][] towerBonuses;
 	private FamilyMemberData[] market;
+	private ImmProperties[] marketBonuses;
+	private int[] marketPrivileges;
 	private int[] faithTrackBonus;
 	private int[] militaryBonuses;
 	private FamilyMemberData singleHarvestSpace;
@@ -47,9 +49,14 @@ public class BoardData implements Serializable{
 		//---
 		
 		//copies market places
+		market= new FamilyMemberData[board.getMarketPlaces().length];
+		marketBonuses = new ImmProperties[board.getMarketPlaces().length];
+		marketPrivileges = new int[board.getMarketPlaces().length];
 		for(int i=0; i<board.getMarketPlaces().length; i++)
 		{
 			market[i]=new FamilyMemberData(board.getMarketSpace(i).getOccupant());
+			marketBonuses[i] = board.getMarketPlaces()[i].getInstantBonus();
+			marketPrivileges[] = board.getMarketPlaces()[i].getNumberOfPrivileges();
 		}
 		
 		//copies faith track bonuses
@@ -138,6 +145,14 @@ public class BoardData implements Serializable{
 
 	public int getBlackDice() {
 		return blackDice;
+	}
+
+	public ImmProperties[] getMarketBonuses() {
+		return marketBonuses;
+	}
+
+	public int[] getMarketPrivileges() {
+		return marketPrivileges;
 	}
 	
 	

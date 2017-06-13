@@ -24,7 +24,7 @@ public interface RMIClientInterface extends Remote {
 	
 	public String sendName() throws RemoteException;
 	
-	public ActionData[] actionRequest()throws RemoteException;
+	public ActionData actionRequest()throws RemoteException;
 
 	public int reqExtraActionChoice(ActionData[] object) throws RemoteException;
 	

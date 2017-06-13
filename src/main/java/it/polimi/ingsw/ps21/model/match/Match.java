@@ -112,15 +112,17 @@ public class Match extends Observable {
 	public ExtraAction[] doAction(Action action){
 		ExtraAction[] extraActionPool;
 		try {
-			extraActionPool = action.execute(order.element(),this);
+			extraActionPool = action.activate(order.element(),this);
 		} catch (NotExecutableException e) {
 			setChanged();
 			notifyObservers(new RefusedAction(getCurrentPlayer().getId(), "Unable to execute this action"));
 			return null;
+
 		} catch (NotOccupableException e) {
 			setChanged();
 			notifyObservers(new RefusedAction(getCurrentPlayer().getId(), "You can't occupy this place"));
 			return null;
+
 		} catch (RequirementNotMetException e) {
 			setChanged();
 			notifyObservers(new RefusedAction(getCurrentPlayer().getId(), "You don't satisfy the requirements to execute this action"));

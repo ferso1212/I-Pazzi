@@ -102,4 +102,9 @@ public ImmProperties sum(ImmProperties addend)
 	}
 	return new ImmProperties(sum);
 }
+
+public boolean isNull()
+{
+	return this.properties.isNull();
+}
 }
