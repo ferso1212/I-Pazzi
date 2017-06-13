@@ -108,7 +108,7 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 				ArrayList<ExtraAction> actionsForMe = new ArrayList<>();
 				for(ExtraAction action: actions)
 				{
-					if(action.getId()==this.playerId)
+					if(action.getPlayerId()==this.playerId)
 					{
 						actionsForMe.add(action);
 					}

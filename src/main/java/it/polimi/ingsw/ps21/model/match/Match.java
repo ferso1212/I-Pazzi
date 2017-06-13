@@ -112,22 +112,24 @@ public class Match extends Observable {
 	public ExtraAction[] doAction(Action action){
 		ExtraAction[] extraActionPool;
 		try {
-			extraActionPool = action.execute(order.element(),this);
+			extraActionPool = action.activate(order.element(),this);
 		} catch (NotExecutableException e) {
 			setChanged();
-			notifyObservers(new RefusedAction(getCurrentPlayer().getId(), "Impossible to execute this action"));
+			notifyObservers(new RefusedAction(getCurrentPlayer().getId(), "Unable to execute this action"));
 			return null;
+
 		} catch (NotOccupableException e) {
 			setChanged();
-			notifyObservers(new RefusedAction(getCurrentPlayer().getId(), "You cannot'occupy this place"));
+			notifyObservers(new RefusedAction(getCurrentPlayer().getId(), "You can't occupy this place"));
 			return null;
+
 		} catch (RequirementNotMetException e) {
 			setChanged();
-			notifyObservers(new RefusedAction(getCurrentPlayer().getId(), "You doesn't satisfy requirement to execute this action"));
+			notifyObservers(new RefusedAction(getCurrentPlayer().getId(), "You don't satisfy the requirements to execute this action"));
 			return null;
 		} catch (InsufficientPropsException e) {
 			setChanged();
-			notifyObservers(new RefusedAction(getCurrentPlayer().getId(), "You doesn't have enough properties to execute this action"));
+			notifyObservers(new RefusedAction(getCurrentPlayer().getId(), "You don't have enough properties to execute this action"));
 			return null;
 		}
 		setChanged();

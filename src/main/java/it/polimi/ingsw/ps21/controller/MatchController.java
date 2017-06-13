@@ -1,16 +1,20 @@
 package it.polimi.ingsw.ps21.controller;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Queue;
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
+import it.polimi.ingsw.ps21.model.actions.NotExecutableException;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
 import it.polimi.ingsw.ps21.model.match.Match;
+import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
+import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
 import it.polimi.ingsw.ps21.view.UserHandler;
 
 public class MatchController extends Observable implements Observer {
@@ -19,6 +23,9 @@ public class MatchController extends Observable implements Observer {
 	private Match match;
 	private boolean matchEnded = false;
 	private Action currentAction;
+	private static enum ActionState {ACCEPTED, REFUSED, AWAITING_CHOICES,}
+	private ActionState state;
+	private RoundType roundType;
 
 	public MatchController(Match match, UserHandler... handlers) {
 		super();
@@ -32,21 +39,44 @@ public class MatchController extends Observable implements Observer {
 		}
 	}
 
-	public void gameLoop() {
+	public void startMatch() {
 		setChanged();
 		notifyObservers("Match Started");
-		while (!this.matchEnded) {
+		currentPlayer = match.getCurrentPlayer();
+		}
+	
+	
+	private void performAction() {
+		
+		if(state==ActionState.AWAITING_CHOICES)
+		{
+			Message returnMessage = currentAction.update(this.currentPlayer, this.match);
+			if(returnMessage instanceof RefusedAction) state= ActionState.REFUSED;
+			else if(returnMessage instanceof AcceptedAction) state= ActionState.ACCEPTED;
+			setChanged();
+			notifyObservers(returnMessage); //request choice to the user or notify that the action has been accepted or refused
 			
-				roundLoop();
+			}
+		else if(state==ActionState.ACCEPTED)
+		{
+			ExtraAction poolExtraAction[] =	match.doAction(currentAction);
+			// creare un nuovo array di extra action senza NullAction da notificare all'utente
+			// se l'array depurato è vuoto chiama la setNextPlayer, la setNextPlayer ritorna un enum che dice il tipo di round: se è cambiato, significa che è un nuovo round;
+			
+			ArrayList<ExtraAction> extraActions=new ArrayList<>();
+			for(ExtraAction a: poolExtraAction)
+			{
+				if(!(a instanceof NullAction)) extraActions.add(a);
+			}
+			if(extraActions.size()==0)
+			{
 				
 			}
 		}
-	
-
-	private void actionLoop() {
-		Message returnMessage = currentAction.isLegal(this.currentPlayer, this.match);
-		notifyObservers(returnMessage);
-		while (!returnMessage.isVisited()) {
+		
+			
+		
+	/*	while (!returnMessage.isVisited()) {
 
 		}
 		ExtraAction[] extraActions = this.match.doAction(this.currentAction);
@@ -70,7 +100,7 @@ public class MatchController extends Observable implements Observer {
 					poolExtraActions.add(e);
 			}
 
-		}
+		} */
 	}
 
 	public void roundLoop() {
@@ -101,10 +131,17 @@ public class MatchController extends Observable implements Observer {
 			 //	gameLoop();
 			//}
 		}
-		if (source == handlersMap.get(currentPlayer.getId()) && (arg instanceof ExtraAction)) {
+		if (source == handlersMap.get(currentPlayer.getId())) {
+			if(arg instanceof ExtraAction)
+			{
 			ExtraAction action = (ExtraAction) arg;
 			Message mess = action.isLegal(currentPlayer, match);
 			notifyObservers(mess);
+			}
+			else if(arg instanceof Action)
+			{
+				performAction();
+			}
 		}
 		
 	}
