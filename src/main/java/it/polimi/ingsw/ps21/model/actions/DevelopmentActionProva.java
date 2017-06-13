@@ -10,11 +10,13 @@ import it.polimi.ingsw.ps21.controller.NoActivablePermanentEffectMessage;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.model.board.SingleTowerSpace;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
+import it.polimi.ingsw.ps21.model.deck.RequirementAndCost;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class DevelopmentActionProva extends ActionProva {
 
@@ -23,13 +25,13 @@ public class DevelopmentActionProva extends ActionProva {
 	private EffectChoice effectMessage;
 	private DevelopmentCardType tower;
 	private int floor;
-	public int counter = 2;
 
 	public DevelopmentActionProva(PlayerColor playerId, FamilyMember famMember, DevelopmentCardType tower, int floor) {
 		super(playerId);
 		this.famMember = famMember;
 		this.tower = tower;
 		this.floor = floor;
+		this.updateCounter=2;
 	}
 
 	@Override
@@ -37,15 +39,14 @@ public class DevelopmentActionProva extends ActionProva {
 
 		SingleTowerSpace space = match.getBoard().getTower(this.tower).getTowerSpace(floor);
 
-		switch (this.counter) {
+		switch (this.updateCounter) {
 		case 2: {
 			if ((player.checkCardRequirements(space.getCard())) && (famMember.getValue() >= space.getDiceRequirement())
 					&& (space.isOccupable(player, famMember)) && (!famMember.isUsed())
 					&& (player.checkRequirement(player.getDeck().getAddingCardRequirement(space.getCard())))
-					&& (player.getProperties().getPayableCosts(space.getCard().getCosts()).size() > 0)) {
-				this.costMessage = new CostChoice(player.getId(),
-						player.getProperties().getPayableCosts(space.getCard().getCosts()));
-				this.counter--;
+					&& (player.getProperties().getPayableRequirementsAndCosts(space.getCard().getCosts()).size() > 0)) {
+				this.costMessage = new CostChoice(player.getId(), player.getProperties().getPayableRequirementsAndCosts(space.getCard().getCosts()));
+				this.updateCounter--;
 				return this.costMessage;
 			} else
 				return new RefusedAction(player.getId());
@@ -62,15 +63,18 @@ public class DevelopmentActionProva extends ActionProva {
 					}
 					if (activableEffects.size() != 0) {
 						this.effectMessage = new EffectChoice(player.getId(), activableEffects.toArray(new EffectSet[0]));
-						this.counter--;
+						this.updateCounter--;
 						return this.effectMessage;
 					} else{
-						this.counter--;
+						this.updateCounter--;
 						return new NoActivablePermanentEffectMessage(player.getId());
 					}
 				} else {
-					this.counter--;
-					return new AcceptedAction(player.getId());
+					if (this.costMessage.getChosen() != null){
+						this.updateCounter--;
+						return new AcceptedAction(player.getId());
+					} else return new RefusedAction(player.getId());
+					
 				}
 			}
 		
@@ -82,7 +86,7 @@ public class DevelopmentActionProva extends ActionProva {
 		}
 
 		default:
-			break;
+			return new RefusedAction(player.getId());
 		}
 	}
 
