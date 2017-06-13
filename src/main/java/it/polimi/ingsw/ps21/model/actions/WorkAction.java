@@ -2,15 +2,15 @@ package it.polimi.ingsw.ps21.model.actions;
 
 import java.util.ArrayList;
 
-import it.polimi.ingsw.ps21.controller.EffectChoice;
+import it.polimi.ingsw.ps21.controller.AcceptedAction;
 import it.polimi.ingsw.ps21.controller.Message;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.controller.WorkMessage;
-import it.polimi.ingsw.ps21.model.board.NotOccupableException;
 import it.polimi.ingsw.ps21.model.board.Space;
 import it.polimi.ingsw.ps21.model.board.WorkSpace;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.IllegalCardTypeException;
+import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
@@ -18,6 +18,7 @@ import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class WorkAction extends Action {
 
@@ -33,7 +34,7 @@ public class WorkAction extends Action {
 	}
 
 	@Override
-	public Message upload(Player player, Match match) {
+	public Message update(Player player, Match match) {
 		
 		switch (this.updateCounter) {
 		
@@ -49,20 +50,19 @@ public class WorkAction extends Action {
 				}
 				try {
 					ArrayList<DevelopmentCard> cardWithCost = new ArrayList<DevelopmentCard>();
+					ArrayList<DevelopmentCard> cardWithoutCost = new ArrayList<DevelopmentCard>();
 
 					for (DevelopmentCard c : player.getActivableWorks(this.famMember.getValue(), this.space.getWorkType())) {
-						
-						if (c.getPossibleEffects().length > 1)
-							multipleEffectCard.add(c);
-						else if (c.getPossibleEffects().length == 1)
-							singleEffectCard.add(c);
+						for (EffectSet e : c.getPossibleEffects()){
+							if (e.getTotalCost().isNull())
+								cardWithoutCost.add(c);
+							cardWithCost.add(c);
+						}
 					}
 
 					this.workMessage = new WorkMessage(player.getId(),
-							multipleEffectCard.toArray(new DevelopmentCard[0]));
+							cardWithCost.toArray(new DevelopmentCard[0]));
 				} catch (IllegalCardTypeException e) {
-					return new RefusedAction(player.getId());
-				} catch (CloneNotSupportedException e) {
 					return new RefusedAction(player.getId());
 				}
 				this.updateCounter--;
@@ -71,37 +71,23 @@ public class WorkAction extends Action {
 				return new RefusedAction(player.getId());
 		}
 
-			break;
-
-		default:
-			break;
+		case 0:
+		{
+			ImmProperties totalCost = new ImmProperties(0);
+			for (int i=0 ; i < this.workMessage.getChosenCardsAndEffects().length; i++){
+				if (this.workMessage.getChosenCardsAndEffects()[i] != 0){
+					totalCost = totalCost.sum(this.workMessage.getChoices().get(i).getPossibleEffects()[this.workMessage.getChosenCardsAndEffects()[i]-1].getTotalCost());
+				}
+			}
+			if (player.checkProperties(totalCost))
+				return new AcceptedAction(player.getId());
+			else return new RefusedAction(player.getId());
 		}
-	}
 
-	@Override
-	public Message isLegal(Player player, Match match) {
-
-		if ((space.isOccupable(player, famMember)) && (!famMember.isUsed())) {
-
-			if (((match.getNumberPlayers() == 3) || (match.getNumberPlayers() == 4))
-					&& ((famMember.getColor() == MembersColor.WHITE) || (famMember.getColor() == MembersColor.BLACK)
-							|| (famMember.getColor() == MembersColor.ORANGE))
-					&& !((this.checkOccupant(match, famMember, space) == MembersColor.NEUTRAL)
-							|| (this.checkOccupant(match, famMember, space) == null))) {
-				return new RefusedAction(player.getId());
-			}
-			try {
-				this.workMessage = new WorkMessage(player.getId(),
-						player.getActivableWorks(this.famMember.getValue(), this.space.getWorkType()),
-						player.getProperties().clone());
-			} catch (IllegalCardTypeException e) {
-				return new RefusedAction(player.getId());
-			} catch (CloneNotSupportedException e) {
-				return new RefusedAction(player.getId());
-			}
-			return this.workMessage;
-		} else
+		default:{
 			return new RefusedAction(player.getId());
+		}
+		}
 	}
 
 	private MembersColor checkOccupant(Match match, FamilyMember famMember, Space space)
@@ -133,8 +119,7 @@ public class WorkAction extends Action {
 	}
 
 	@Override
-	public ExtraAction[] execute(Player player, Match match) throws NotExecutableException, NotOccupableException,
-			RequirementNotMetException, InsufficientPropsException {
+	public ExtraAction[] activate(Player player, Match match) throws NotExecutableException, RequirementNotMetException, InsufficientPropsException {
 
 		if (this.space == match.getBoard().getMultipleWorkSpace(this.space.getWorkType())) {
 			this.famMember
