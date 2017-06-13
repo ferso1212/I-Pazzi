@@ -9,24 +9,29 @@ import it.polimi.ingsw.ps21.controller.Message;
 import it.polimi.ingsw.ps21.controller.NoActivablePermanentEffectMessage;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.model.board.SingleTowerSpace;
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.RequirementAndCost;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
+import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
+import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
-public class DevelopmentActionProva extends ActionProva {
+public class DevelopmentAction extends Action {
 
 	private FamilyMember famMember;
 	private CostChoice costMessage;
 	private EffectChoice effectMessage;
 	private DevelopmentCardType tower;
 	private int floor;
+	private ArrayList<ExtraAction> extraActionFromInstantEffect = new ArrayList<ExtraAction>();
+	private ArrayList<ExtraAction> extraActionFromPermanentEffect = new ArrayList<ExtraAction>();
 
-	public DevelopmentActionProva(PlayerColor playerId, FamilyMember famMember, DevelopmentCardType tower, int floor) {
+	public DevelopmentAction(PlayerColor playerId, FamilyMember famMember, DevelopmentCardType tower, int floor) {
 		super(playerId);
 		this.famMember = famMember;
 		this.tower = tower;
@@ -91,9 +96,39 @@ public class DevelopmentActionProva extends ActionProva {
 	}
 
 	@Override
-	public ExtraAction[] activate(Player player, Match match) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public ExtraAction[] activate(Player player, Match match) throws NotExecutableException, RequirementNotMetException, InsufficientPropsException{
+		
+		SingleTowerSpace space = match.getBoard().getTower(this.tower).getTowerSpace(floor);
+
+		if (!player.getFamily().useMember(famMember)) {
+			throw new NotExecutableException(); //
+		}
+		
+		if (!match.getBoard().placeMember(player, famMember, space)){
+			throw new NotExecutableException();
+		}
+
+		if (!player.getModifiers().getActionMods().noPlacementBonus()) {
+			player.getProperties().increaseProperties(space.getInstantBonus()); // Aggiungi le risorse dell'instant-bonus dello space, se è permesso
+		}
+
+		player.payCard(space.getCard().getCardType(), this.costMessage.getChosen()); // Player paga il costo della carta
+
+		DevelopmentCard selectedCard = space.getCard();
+
+		space.setCard(null); // rimuove carta dallo spazio-torre
+
+		player.getDeck().addCard(space.getCard()); // aggiunta della carta al deck del player
+
+		this.extraActionFromInstantEffect = selectedCard.getInstantEffect().activate(player);
+		
+		if (selectedCard.getCardType().equals(DevelopmentCardType.CHARACTER)){
+			this.extraActionFromPermanentEffect = this.effectMessage.getEffectChosen().activate(player);
+		}
+		
+		this.extraActionFromInstantEffect.addAll(extraActionFromPermanentEffect);
+		
+		return this.extraActionFromInstantEffect.toArray(new ExtraAction[0]);
+		}
 
 }
