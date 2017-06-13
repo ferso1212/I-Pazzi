@@ -20,6 +20,7 @@ import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
+import it.polimi.ingsw.ps21.view.ActionData;
 
 public class SocketClient {
 	private static final String SERVER_IP = "127.0.0.1";
@@ -132,6 +133,10 @@ public class SocketClient {
 				break;}
 			case MATCH_STARTED_NOTIFICATION: {
 				ui.playMatch();
+			}
+			case ACTION_REQUEST: {
+				ActionData chosenAction= ui.makeAction();
+				out.writeObject(new NetPacket(receivedPacket.getType(), chosenAction, receivedPacket.getNum()));
 			}
 			default:
 				break;
