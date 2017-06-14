@@ -6,6 +6,7 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class Tower {
 	
+
 	public final static int FLOORS_NUM=4;
 	private SingleTowerSpace[] tower;
 	
@@ -15,12 +16,13 @@ public class Tower {
 			this.tower = new AdvSingleTowerSpace[FLOORS_NUM];
 			for(int i=0; i<FLOORS_NUM; i++){
 				tower[i] = new AdvSingleTowerSpace(1 + 2*i, spaceBonuses[i]);
+
 			}
 		}else {
 			this.tower = new SingleTowerSpace [FLOORS_NUM];
 			for(int i=0; i<FLOORS_NUM; i++){
 				tower[i] = new SingleTowerSpace(1 + 2*i, spaceBonuses[i]);
-				
+
 			}
 		}
 		
