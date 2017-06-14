@@ -34,6 +34,8 @@ public class BoardData implements Serializable{
 	{	//---COPIES THE CARDS IN THE TOWER SPACES
 		this.cards = new DevelopmentCard[4][4];
 		int towerIndex=0;
+		this.towerSpaces=new FamilyMemberData[board.getTower(DevelopmentCardType.BUILDING).FLOORS_NUM][DevelopmentCardType.values().length];
+		this.towerBonuses=new ImmProperties[board.getTower(DevelopmentCardType.BUILDING).FLOORS_NUM][DevelopmentCardType.values().length];
 		for(DevelopmentCardType cardType: DevelopmentCardType.values()) //cycles through the towers
 		{
 			Tower tower=board.getTower(cardType);
