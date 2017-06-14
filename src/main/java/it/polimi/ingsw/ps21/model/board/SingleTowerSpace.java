@@ -15,7 +15,7 @@ public class SingleTowerSpace extends Space {
 	public SingleTowerSpace() {
 		super(0, new ImmProperties(0));
 		this.card = null;
-		this.occupant=null;
+		this.occupant = null;
 	}
 	
 	public SingleTowerSpace(int diceRequirement, ImmProperties instantBonus) {
@@ -33,8 +33,8 @@ public class SingleTowerSpace extends Space {
 	}
 	
 	public void reset(){
-		this.occupant=null;
-		this.card=null;
+		if(this.occupant != null) this.occupant=null;
+		if(this.card != null) this.card=null;
 	}
 
 	public FamilyMember getOccupant() {
