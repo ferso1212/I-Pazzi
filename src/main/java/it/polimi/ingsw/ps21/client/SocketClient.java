@@ -113,18 +113,7 @@ public class SocketClient {
 			}
 			case VIEW_UPDATE_REQUEST: {
 				MatchData match=(MatchData)receivedPacket.getObject();
-				BoardData board=null;
-				PlayerData[] players= new PlayerData[receivedPacket.getAdditionalObjects().length-1];
-				int i=0;
-				for(Object o: receivedPacket.getAdditionalObjects())
-				{
-					if(i==0) board=(BoardData)o;
-					else {
-						players[i-1]=(PlayerData)o;
-					}
-					i++;
-				}
-				ui.updateView(match, board, players);
+				ui.updateView(match);
 				break;
 			}
 			case GENERIC_STRING:{

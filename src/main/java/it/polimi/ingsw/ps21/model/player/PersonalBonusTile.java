@@ -34,4 +34,14 @@ public class PersonalBonusTile {
 		if(type==WorkType.HARVEST) return this.harvDiceReq;
 		else return this.prodDiceReq;
 	}
+
+	public PersonalBonusTile(ImmProperties harvBonus, int harvDiceReq, ImmProperties prodBonus, int prodDiceReq) {
+		super();
+		this.harvBonus = harvBonus;
+		this.harvDiceReq = harvDiceReq;
+		this.prodBonus = prodBonus;
+		this.prodDiceReq = prodDiceReq;
+	}
+	
+	
 }

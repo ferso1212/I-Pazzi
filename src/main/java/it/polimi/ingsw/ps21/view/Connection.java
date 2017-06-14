@@ -16,7 +16,7 @@ public abstract interface Connection{
 	
 	public String getName();
 	
-	public void remoteUpdate(MatchData match, BoardData board, PlayerData players[]);
+	public void remoteUpdate(MatchData match);
 	
 	public int reqCostChoice(ArrayList<ImmProperties> costs);
 

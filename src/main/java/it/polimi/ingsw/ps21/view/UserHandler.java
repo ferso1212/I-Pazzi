@@ -115,7 +115,7 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 				}
 			}
 			else if (arg instanceof MatchData){
-				connection.remoteUpdate();
+				connection.remoteUpdate((MatchData)arg);
 			}
 			else if(arg instanceof String)
 			{

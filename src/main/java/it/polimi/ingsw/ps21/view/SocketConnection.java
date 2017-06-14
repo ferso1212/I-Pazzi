@@ -58,9 +58,9 @@ public class SocketConnection implements Connection{
 
 
 	@Override
-	public void remoteUpdate(MatchData match, BoardData board, PlayerData[] players) {
+	public void remoteUpdate(MatchData match) {
 		try{
-		out.writeObject(new NetPacket(PacketType.GENERIC_STRING, match, this.messageCounter, board, players));
+		out.writeObject(new NetPacket(PacketType.VIEW_UPDATE_REQUEST, match, this.messageCounter));
 		messageCounter++;
 	} catch (IOException e) {
 		LOGGER.log(Level.WARNING, "Unable to send choice request to the remote client due to IOException", e);

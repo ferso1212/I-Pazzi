@@ -43,12 +43,12 @@ public class CLInterface implements UserInterface {
 	}
 	
 	@Override
-	public void updateView(MatchData match, BoardData board, PlayerData players[]) {
+	public void updateView(MatchData match) {
 		this.matchInfo = match;
-		this.boardInfo = board;
+		this.boardInfo = match.getBoard();
 		showMatchInfos();
 		System.out.println("----------\tPlayers' Infos\t----------");
-		for (PlayerData p: players){
+		for (PlayerData p: match.getPlayers()){
 			System.out.println();
 			if (p.getId() == this.playerID){
 				this.playerInfo = p;
@@ -63,8 +63,8 @@ public class CLInterface implements UserInterface {
 
 	private void showMatchInfos() {
 		System.out.println("------------\tMatch Status\t------------");
-		System.out.print("Period: " + matchInfo.getEra() + "\tRound: " + matchInfo.getRound());
-		System.out.println("\nBoard:\nDices: Black = " + boardInfo.getBlackDice() + " White = " + boardInfo.getWhiteDice() + " Orange = " + boardInfo.getOrangeDice());
+		System.out.print("Period: " + matchInfo.getPeriod() + "\tRound: " + matchInfo.getRound());
+		System.out.println("\nBoard:\nDices: Black = " + matchInfo.getBlackDice() + " White = " + matchInfo.getWhiteDice() + " Orange = " + matchInfo.getOrangeDice());
 	DevelopmentCard[][] cards = boardInfo.getCards();
 	for (int i= 0; i<4 ; i++){
 		System.out.println("\nTower " + i+1 + "");

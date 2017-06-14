@@ -2,6 +2,8 @@ package it.polimi.ingsw.ps21.model.player;
 
 import java.util.*;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import it.polimi.ingsw.ps21.controller.UnchosenException;
 import it.polimi.ingsw.ps21.model.actions.ActionType;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
@@ -11,6 +13,7 @@ import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.IllegalCardTypeException;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.deck.TerritoryCard;
+import it.polimi.ingsw.ps21.model.match.MatchFactory;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.model.properties.PropertiesSet;
@@ -44,11 +47,6 @@ public class Player {
 	protected PersonalBonusTile personalBonusTile;
 	private Family family;
 	protected PlayerDeck devCards;
-
-	public Player(PlayerColor id, PlayerProperties properties) {
-		this.id = id;
-		this.properties = properties;
-	}
 
 	/**
 	 * Returns an object that contains the values of the resources (stone, wood,
@@ -178,18 +176,24 @@ public class Player {
 
 	/**
 	 * Player constructor.
-	 * 
-	 * @param name
-	 *            A String containing the name of the player.
 	 * @param startingProperties
 	 *            The resources and points that the player will have at the
 	 *            beginning of the match.
 	 * @param id
 	 *            the color that identifies the player.
 	 */
-	public Player(PlayerProperties startingProperties, PlayerColor id) {
+	public Player(PlayerColor id, PlayerProperties startingProperties) {
 		this.properties = startingProperties;
 		this.id = id;
+		this.personalBonusTile=new PersonalBonusTile(new ImmProperties(0, 1, 1, 1, 0, 0, 0), 1, new ImmProperties(2,0,0,0,0,2,0), 1); //TODO: load from file
+		try {
+			this.devCards=new PlayerDeck();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.modifiers=new ModifiersSet();
+		this.family=new Family(id);
 	}
 
 	/**

@@ -33,6 +33,7 @@ public class PlayerData implements Serializable {
 	
 	public PlayerData(Player player) {
 		super();
+		this.properties=new EnumMap<>(PropertiesId.class);
 		this.id = player.getId();
 		for(PropertiesId prop: PropertiesId.values())
 			{

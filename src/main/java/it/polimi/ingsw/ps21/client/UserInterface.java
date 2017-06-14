@@ -17,7 +17,7 @@ public abstract interface UserInterface {
 	
 	public void playMatch();
 	
-	public abstract void updateView(MatchData match, BoardData board, PlayerData players[]);
+	public abstract void updateView(MatchData match);
 	
 	public ActionData makeAction();
 	

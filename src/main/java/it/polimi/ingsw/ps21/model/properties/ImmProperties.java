@@ -22,7 +22,7 @@ private PropertiesSet properties;
 
 /**
  * Constructs the ImmProperties objects. Accepts an arbitrary number of integer parameters that are the initial values of the stored properties.
- * The number and the sorting of the parameters should be the same as in the PropertiesId enum.
+ * The number and the sorting of the parameters should be the same as in the PropertiesId enum: CONIS, WOOD, STONES, SERVANTS, VICOTRYPOINTS, MILITARYPOINTS, FAITHPOINTS.
  * @param initValues the first value is the initial value of the first property in the PropertiesId enum, 
  * the second value is the initial value of the second property in the PropertiesId enum, and so on.
  */
