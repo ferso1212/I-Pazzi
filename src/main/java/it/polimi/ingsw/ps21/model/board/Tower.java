@@ -7,21 +7,21 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 public class Tower {
 	
 	protected final static int FLOORS_NUM=4;
-	private SingleTowerSpace[] tower;
+	private SingleTowerSpace[] tower = new SingleTowerSpace[4];
 	
 	public Tower(boolean isAdvanced, ImmProperties[] spaceBonuses) {
-		int i=0;
+		int j=0;
 		if (isAdvanced == true){
 			this.tower = new AdvSingleTowerSpace[FLOORS_NUM];
-			for(SingleTowerSpace floor : this.tower){
-				floor = new AdvSingleTowerSpace(1 + 2*i, spaceBonuses[i]);
-				i++;
+			for(int i=0; i<FLOORS_NUM; i++){
+				tower[i] = new AdvSingleTowerSpace(1 + 2*j, spaceBonuses[j]);
+				j++;
 			}
 		}else {
 			this.tower = new SingleTowerSpace [FLOORS_NUM];
-			for(SingleTowerSpace floor : this.tower){
-				floor = new SingleTowerSpace(1 + 2*i, spaceBonuses[i]);
-				i++;
+			for(int i=0; i<FLOORS_NUM; i++){
+				tower[i] = new SingleTowerSpace(1 + 2*j, spaceBonuses[j]);
+				j++;
 			}
 		}
 		

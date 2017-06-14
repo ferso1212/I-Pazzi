@@ -27,6 +27,7 @@ public class BoardTest {
 	private boolean checkBoardCreation() {
 		try {
 			Board testBoard = new Board(this.numberOfPlayer, this.isAdvanced);
+			testBoard.newSetBoard(1);
 			return true;
 		} catch (BuildingDeckException e) {
 			return false;
