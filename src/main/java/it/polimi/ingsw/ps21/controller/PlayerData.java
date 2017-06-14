@@ -52,7 +52,9 @@ public class PlayerData implements Serializable {
 				cards.put(cardType, clonedDeck);
 			} catch (IllegalCardTypeException e) {
 				LOGGER.log(Level.SEVERE, "Illegal card type!", e);
-			
+			} catch(NullPointerException e)
+			{
+				ArrayList<DevelopmentCard> clonedDeck= new ArrayList<DevelopmentCard>();
 			}
 		}
 		 this.family=new EnumMap<>(MembersColor.class);
