@@ -67,6 +67,7 @@ public class Match extends Observable {
 		period = 1;
 		round = RoundType.INITIAL_ROUND;
 		throwDices();
+		board.newSetBoard(period);
 		setChanged();
 	}
 	

@@ -32,6 +32,7 @@ public class BoardData implements Serializable{
 	
 	public BoardData(Board board)
 	{	//---COPIES THE CARDS IN THE TOWER SPACES
+		this.cards = new DevelopmentCard[4][4];
 		int towerIndex=0;
 		for(DevelopmentCardType cardType: DevelopmentCardType.values()) //cycles through the towers
 		{

@@ -33,6 +33,7 @@ public class PlayerData implements Serializable {
 	
 	public PlayerData(Player player) {
 		super();
+		this.cards = new EnumMap<>(DevelopmentCardType.class);
 		this.properties=new EnumMap<>(PropertiesId.class);
 		this.id = player.getId();
 		for(PropertiesId prop: PropertiesId.values())
@@ -48,14 +49,14 @@ public class PlayerData implements Serializable {
 		 for(DevelopmentCardType cardType: DevelopmentCardType.values())
 		{
 			try {
-				ArrayList<DevelopmentCard> clonedDeck= new ArrayList<DevelopmentCard>(player.getDeck().getCards(cardType));
+				ArrayList<DevelopmentCard> clonedDeck= new ArrayList<>();
+				if (player.getDeck().getCards(cardType)!= null) clonedDeck.addAll(player.getDeck().getCards(cardType));
 				cards.put(cardType, clonedDeck);
 			} catch (IllegalCardTypeException e) {
-				LOGGER.log(Level.SEVERE, "Illegal card type!", e);
-			
+				LOGGER.log(Level.INFO, "Illegal Card Type");
 			}
 		}
-		 this.family=new EnumMap<>(MembersColor.class);
+		this.family=new EnumMap<>(MembersColor.class);
 		for(MembersColor color: MembersColor.values())
 		{
 			family.put(color, new FamilyMemberData(player.getFamily().getMember(color)));
