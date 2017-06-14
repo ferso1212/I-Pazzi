@@ -4,7 +4,6 @@ import it.polimi.ingsw.ps21.controller.CouncilChoice;
 import it.polimi.ingsw.ps21.controller.Message;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.model.board.CouncilPalace;
-import it.polimi.ingsw.ps21.model.board.NotOccupableException;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
@@ -28,7 +27,7 @@ public class CouncilAction extends Action{
 	
 	
 	@Override
-	public Message isLegal(Player player, Match match) {
+	public Message update(Player player, Match match) {
 		
 		if(this.famMember.getColor() == MembersColor.NEUTRAL){
 			return new RefusedAction(player.getId(), "You can't place the Neutral member in the council palace!");
@@ -42,8 +41,7 @@ public class CouncilAction extends Action{
 	
 	
 	@Override
-	public ExtraAction[] execute(Player player, Match match) throws NotExecutableException, NotOccupableException,
-			RequirementNotMetException, InsufficientPropsException {
+	public ExtraAction[] activate(Player player, Match match) throws NotExecutableException, RequirementNotMetException, InsufficientPropsException {
 		
 		match.getBoard().placeMember(player, this.famMember, this.council);
 		

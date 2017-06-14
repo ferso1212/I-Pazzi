@@ -119,9 +119,8 @@ public class Board {
 
 	public void removeCardsAndMembers() {
 		for (DevelopmentCardType type : DevelopmentCardType.values()) {
-			Tower myTower = towers.get(type);
-			for (int i = 1; i < 5; i++) {
-				myTower.getTowerSpace(i).reset();
+			for (SingleTowerSpace s : this.towers.get(type).getTower()) {
+				s.reset();
 			}
 		}
 	}
