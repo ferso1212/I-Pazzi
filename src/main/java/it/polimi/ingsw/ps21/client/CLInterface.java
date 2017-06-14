@@ -363,7 +363,7 @@ public class CLInterface implements UserInterface {
 			tower = null;
 			space = 0;
 		}
-		return new ActionData(type, familyMember, servants, tower, space);
+		return new ActionData(type, familyMember, 0, DevelopmentCardType.TERRITORY, 0);
 	}
 
 	// TODO make this private after test

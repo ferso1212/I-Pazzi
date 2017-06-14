@@ -2,6 +2,7 @@ package it.polimi.ingsw.ps21.model.match;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
@@ -267,6 +268,34 @@ public class Match extends Observable {
 		return null;
 	}
 	
+	public PlayerColor[] getOrderQueue()
+	{
+		Player[] players= order.toArray(new Player[0]);
+		PlayerColor[] output= new PlayerColor[players.length];
+		for (int i=0; i<players.length; i++)
+		{
+			output[i]= players[i].getId();
+		}
+		return output;
+	}
+	
+	public Collection<Player> getPlayers()
+	{
+		return players.values();
+	}
+	
+	public int getOrangeDice() {
+		return orangeDice;
+	}
+
+	public int getWhiteDice() {
+		return whiteDice;
+	}
+
+	public int getBlackDice() {
+		return blackDice;
+	}
+
 	
 }
 	

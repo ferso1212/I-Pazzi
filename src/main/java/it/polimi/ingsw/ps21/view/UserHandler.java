@@ -5,6 +5,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
+import it.polimi.ingsw.ps21.controller.ActionRequest;
 import it.polimi.ingsw.ps21.controller.CostChoice;
 import it.polimi.ingsw.ps21.controller.CouncilChoice;
 import it.polimi.ingsw.ps21.controller.EffectChoice;
@@ -16,6 +17,7 @@ import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.controller.WorkMessage;
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
+import it.polimi.ingsw.ps21.model.actions.NullAction;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
 public class UserHandler extends Observable implements Visitor, Runnable, Observer {
@@ -91,18 +93,7 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 	@Override
 	public void update(Observable o, Object arg) {
 		if (o instanceof MatchController) {
-			if (arg instanceof Message) {
-				// TODO
-			}
-
-			else if (arg instanceof PlayerColor) {
-				PlayerColor currentPlayer = (PlayerColor) arg;
-				if (currentPlayer.compareTo(playerId) == 0) {
-					Action userAction = reqUserAction();
-					notifyObservers(userAction);
-				}
-
-			} else if (arg instanceof ExtraAction[]) {
+			if (arg instanceof ExtraAction[]) {
 				// TODO
 				ExtraAction[] actions=(ExtraAction[])arg;
 				ArrayList<ExtraAction> actionsForMe = new ArrayList<>();
@@ -114,13 +105,27 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 					}
 				}
 			}
+			else if (arg instanceof ActionRequest)
+			{
+				ActionRequest req= (ActionRequest)arg;
+				if(req.getDest()!=this.playerId) return;
+				else {
+					ActionData newAction=connection.reqAction();
+					parseAction(newAction);
+				}
+			}
 			else if (arg instanceof MatchData){
-				// TODO
+				connection.remoteUpdate();
 			}
 			else if(arg instanceof String)
 			{
-				if(((String)arg).compareTo("Match Started")==0) connection.matchStarted();
+				if(((String)arg).compareTo("Match Started")==0) {
+					connection.matchStarted();
+					setChanged();
+
+				}
 				else connection.sendMessage((String)arg);
+				
 			}
 		}
 		
@@ -129,6 +134,12 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 	private void parseExtraAction(ExtraAction action)
 	{
 		// TODO
+	}
+	
+	//TODO
+	private void parseAction(ActionData action)
+	{	setChanged();
+		// notifyObservers(new NullAction(this.playerId));
 	}
 
 }

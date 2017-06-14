@@ -28,11 +28,9 @@ public class BoardData implements Serializable{
 	private FamilyMemberData[] multipleHarvestSpace;
 	private FamilyMemberData[] multipleProductionSpace;
 	private Map<DevelopmentCardType, int[]> cardsBonus;
-	private int orangeDice;
-	private int whiteDice;
-	private int blackDice;
+
 	
-	public BoardData(Board board, int orangeDice, int blackDice, int whiteDice)
+	public BoardData(Board board)
 	{	//---COPIES THE CARDS IN THE TOWER SPACES
 		int towerIndex=0;
 		for(DevelopmentCardType cardType: DevelopmentCardType.values()) //cycles through the towers
@@ -86,9 +84,6 @@ public class BoardData implements Serializable{
 		}
 		
 		this.cardsBonus=board.getCardBonus();
-		this.orangeDice=orangeDice;
-		this.blackDice=blackDice;
-		this.whiteDice=whiteDice;
 	}
 
 	public DevelopmentCard[][] getCards() {
@@ -135,18 +130,7 @@ public class BoardData implements Serializable{
 		return cardsBonus;
 	}
 
-	public int getOrangeDice() {
-		return orangeDice;
-	}
-
-	public int getWhiteDice() {
-		return whiteDice;
-	}
-
-	public int getBlackDice() {
-		return blackDice;
-	}
-
+	
 	public ImmProperties[] getMarketBonuses() {
 		return marketBonuses;
 	}

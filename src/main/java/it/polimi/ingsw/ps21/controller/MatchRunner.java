@@ -38,7 +38,6 @@ public class MatchRunner implements Runnable {
 			else  match = new Match(playersIds);
 			
 			this.controller = new MatchController(match, playerHandlers);
-			controller.gameLoop();
 			
 		} catch (InvalidIDException e) {
 			LOGGER.log(Level.INFO, "Unable to add another player" , e);
