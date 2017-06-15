@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps21.model.board;
 
+import java.util.LinkedList;
 import java.util.Queue;
 
 import it.polimi.ingsw.ps21.model.actions.WorkType;
@@ -14,7 +15,7 @@ public class MultipleWorkSpace extends WorkSpace{
 
 	public MultipleWorkSpace(int diceRequirement, ImmProperties instantBonus, int diceMalus, WorkType workType) {
 		super(diceRequirement, instantBonus, workType);
-		this.occupants = null;
+		this.occupants = new LinkedList<>();
 		this.diceMalus = diceMalus;
 	}
 

@@ -61,6 +61,7 @@ public class BoardData implements Serializable{
 		}
 		
 		//copies faith track bonuses
+		this.faithTrackBonus= new int[board.getTrackBonuses().getFaithTrackSize()];
 		for(int i=0; i<board.getTrackBonuses().getFaithTrackSize(); i++)
 		{
 			faithTrackBonus[i]=board.getTrackBonuses().getFaithBonus(i);
@@ -73,6 +74,7 @@ public class BoardData implements Serializable{
 		this.singleHarvestSpace=new FamilyMemberData(board.getSingleWorkSpace(WorkType.HARVEST).getOccupant());
 		this.singleProductionSpace=new FamilyMemberData(board.getSingleWorkSpace(WorkType.PRODUCTION).getOccupant());
 		int i=0;
+		this.multipleHarvestSpace= new FamilyMemberData[board.getMultipleWorkSpace(WorkType.HARVEST).getOccupants().size()];
 		for(FamilyMember occupant: board.getMultipleWorkSpace(WorkType.HARVEST).getOccupants())
 		{
 			multipleHarvestSpace[i]=new FamilyMemberData(occupant);

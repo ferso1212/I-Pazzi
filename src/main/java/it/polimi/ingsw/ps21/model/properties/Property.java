@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps21.model.properties;
 
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,7 +14,11 @@ import it.polimi.ingsw.ps21.controller.PlayerData;
  * @author fabri
  *
  */
-public class Property implements Cloneable{
+public class Property implements Cloneable, Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7201850553473648610L;
 	private final static Logger LOGGER = Logger.getLogger(Property.class.getName());
 	private PropertiesId id;
 	private int value;

@@ -518,7 +518,7 @@ public class MatchFactory {
 			Document configuration;
 			TrackBonuses result;
 			int[] military = new int[2];
-			int[] faith = new int[15];
+			int[] faith = new int[16];
 			try {
 				File boardFile = new File(boardPath);
 				configuration = builder.parse(boardFile);
@@ -528,21 +528,22 @@ public class MatchFactory {
 				military[0] = Integer.parseInt(militaryBonuses.getAttribute("first"));
 				military[1] = Integer.parseInt(militaryBonuses.getAttribute("second"));
 				Element faithBonuses = (Element) board.getElementsByTagName("FaithBonuses").item(0);
-				faith[0] = Integer.parseInt(faithBonuses.getAttribute("first"));
-				faith[1] = Integer.parseInt(faithBonuses.getAttribute("second"));
-				faith[2] = Integer.parseInt(faithBonuses.getAttribute("third"));
-				faith[3] = Integer.parseInt(faithBonuses.getAttribute("fourth"));
-				faith[4] = Integer.parseInt(faithBonuses.getAttribute("fifth"));
-				faith[5] = Integer.parseInt(faithBonuses.getAttribute("sixth"));
-				faith[6] = Integer.parseInt(faithBonuses.getAttribute("seventh"));
-				faith[7] = Integer.parseInt(faithBonuses.getAttribute("eighth"));
-				faith[8] = Integer.parseInt(faithBonuses.getAttribute("nineth"));
-				faith[9] = Integer.parseInt(faithBonuses.getAttribute("tenth"));
-				faith[10] = Integer.parseInt(faithBonuses.getAttribute("eleventh"));
-				faith[11] = Integer.parseInt(faithBonuses.getAttribute("twelveth"));
-				faith[12] = Integer.parseInt(faithBonuses.getAttribute("thirteenth"));
-				faith[13] = Integer.parseInt(faithBonuses.getAttribute("fourteenth"));
-				faith[14] = Integer.parseInt(faithBonuses.getAttribute("fifteenth"));
+				faith[0] = Integer.parseInt(faithBonuses.getAttribute("zero"));
+				faith[1] = Integer.parseInt(faithBonuses.getAttribute("first"));
+				faith[2] = Integer.parseInt(faithBonuses.getAttribute("second"));
+				faith[3] = Integer.parseInt(faithBonuses.getAttribute("third"));
+				faith[4] = Integer.parseInt(faithBonuses.getAttribute("fourth"));
+				faith[5] = Integer.parseInt(faithBonuses.getAttribute("fifth"));
+				faith[6] = Integer.parseInt(faithBonuses.getAttribute("sixth"));
+				faith[7] = Integer.parseInt(faithBonuses.getAttribute("seventh"));
+				faith[8] = Integer.parseInt(faithBonuses.getAttribute("eighth"));
+				faith[9] = Integer.parseInt(faithBonuses.getAttribute("nineth"));
+				faith[10] = Integer.parseInt(faithBonuses.getAttribute("tenth"));
+				faith[11] = Integer.parseInt(faithBonuses.getAttribute("eleventh"));
+				faith[12] = Integer.parseInt(faithBonuses.getAttribute("twelveth"));
+				faith[13] = Integer.parseInt(faithBonuses.getAttribute("thirteenth"));
+				faith[14] = Integer.parseInt(faithBonuses.getAttribute("fourteenth"));
+				faith[15] = Integer.parseInt(faithBonuses.getAttribute("fifteenth"));
 				result = new TrackBonuses(faith, military);
 
 			}
