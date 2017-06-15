@@ -72,7 +72,7 @@ public class CLInterface implements UserInterface {
 			System.out.println("\nFloor " + j + ":");
 			System.out.println(" Card: " + cards[i][j].toString() + "; ");
 			if (j<3) System.out.println(", ");
-			System.out.println("Family Member: " + boardInfo.getTowerSpaces()[i][j]);
+			System.out.println("Family Member: " + (boardInfo.getTowerSpaces()[i][j]).toString());
 		}
 		System.out.println(";");
 	}
