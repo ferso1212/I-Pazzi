@@ -29,14 +29,14 @@ public class Tower {
 	}
 	
 	public SingleTowerSpace getTowerSpace(int floor) throws IllegalArgumentException{
-		if ( (0 < floor) && (floor < FLOORS_NUM + 1) ){
-			return tower[floor - 1];			
+		if ( (0 <= floor) && (floor < FLOORS_NUM) ){
+			return tower[floor];			
 		} else throw new IllegalArgumentException();
 	}
 	
 	public boolean isOccupied()
 	{
-		for(int i=1; i<FLOORS_NUM + 1; i++)
+		for(int i=0; i<FLOORS_NUM; i++)
 		{
 			if(tower[i].getOccupant() != null) return true;
 		}

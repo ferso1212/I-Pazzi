@@ -111,7 +111,7 @@ public class Board {
 	public void placeCards(int era, Deck deck) throws IllegalCardException {
 		for (DevelopmentCardType type : DevelopmentCardType.values()) {
 			Tower myTower = towers.get(type);
-			for (int i = 1; i < 5; i++) {
+			for (int i = 0; i < 4; i++) {
 				myTower.getTowerSpace(i).setCard(deck.getCard(era, type));
 			}
 		}
@@ -127,15 +127,11 @@ public class Board {
 
 	public void newSetBoard(int era) {
 		this.removeCardsAndMembers();
-		for (DevelopmentCardType type : DevelopmentCardType.values()) {
-			Tower t = this.towers.get(type);
-			for (SingleTowerSpace floor : t.getTower()) {
-				try {
-					floor.setCard(developmentDeck.getCard(era, type));
-				} catch (IllegalCardException e) {
-					// era sbagliata
-				}
-			}
+		try {
+			placeCards(era, this.developmentDeck);
+		} catch (IllegalCardException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
