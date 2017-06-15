@@ -4,6 +4,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.ActionData;
@@ -27,5 +28,7 @@ public interface RMIClientInterface extends Remote {
 	public ActionData actionRequest()throws RemoteException;
 
 	public int reqExtraActionChoice(ActionData[] object) throws RemoteException;
+
+	public void updateMatch(MatchData match) throws RemoteException;
 	
 }

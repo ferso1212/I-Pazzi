@@ -10,6 +10,7 @@ import it.polimi.ingsw.ps21.client.RMIClientInterface;
 import it.polimi.ingsw.ps21.controller.BoardData;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.PlayerData;
+import it.polimi.ingsw.ps21.model.actions.ActionType;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 /**
@@ -49,11 +50,6 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 	public void setClient(RMIClientInterface client) {
 		this.client = client;
 		sendMessage("Connected");
-	}
-
-	@Override
-	public void remoteUpdate(MatchData match, BoardData board, PlayerData[] players) {
-		
 	}
 
 	@Override
@@ -138,8 +134,21 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 			return client.actionRequest();
 		} catch (RemoteException e) {
 			LOGGER.log(Level.WARNING, "Error calling remote method actionRequest");
-			return null;
+			return new ActionData(ActionType.NULL, null,0 , null, 0);
 		}
+	}
+
+
+	@Override
+	public void remoteUpdate(MatchData match) {
+		try 
+		{ 
+			client.updateMatch(match);
+		
+		} catch (RemoteException e){
+			LOGGER.log(Level.SEVERE, "Error updating remote client infos", e );
+		}
+		
 	}
 
 }

@@ -7,6 +7,7 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
+import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.ActionData;
@@ -100,6 +101,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	@Override
 	public ActionData actionRequest() throws RemoteException {
 		return ui.makeAction();
+	}
+
+	@Override
+	public void updateMatch(MatchData match) throws RemoteException {
+		ui.updateView(match);		
 	}
 
 	/*@Override

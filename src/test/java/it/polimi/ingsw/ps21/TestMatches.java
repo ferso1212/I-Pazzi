@@ -11,6 +11,7 @@ import org.junit.Test;
 import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
 import it.polimi.ingsw.ps21.model.match.InvalidIDException;
 import it.polimi.ingsw.ps21.model.match.Match;
+import it.polimi.ingsw.ps21.model.match.RoundType;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
@@ -69,7 +70,7 @@ public class TestMatches {
 			new Match(invalidPlayers);
 			return false;
 		} catch (InvalidIDException | BuildingDeckException e) {
-			LOGGER.log(Level.SEVERE, "Error creating a valid match", e);
+			LOGGER.log(Level.INFO, "Exception catched as expected, invalid match not created", e);
 			return true;
 		}
 		
@@ -79,7 +80,7 @@ public class TestMatches {
 		try {
 			Match match = new Match(validPlayers);
 			if (match.getPeriod()!=1) return false;
-			if (match.getRound()!=1) return false;
+			if (match.getRound()!=RoundType.INITIAL_ROUND) return false;
 			return true;
 		} catch (InvalidIDException | BuildingDeckException e) {
 			LOGGER.log(Level.SEVERE, "Error creating a valid match", e);
