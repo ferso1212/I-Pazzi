@@ -52,6 +52,7 @@ public class SocketClient {
 					receivedPacket = (NetPacket)in.readObject();
 					parseSocketInput(receivedPacket);
 				}
+				socket.close();
 			
 			if (socket.isClosed()) {
 				System.out.println("Connection closed");
