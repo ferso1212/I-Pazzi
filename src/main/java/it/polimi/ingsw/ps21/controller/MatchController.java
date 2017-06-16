@@ -47,7 +47,8 @@ public class MatchController extends Observable implements Observer {
 			this.addObserver(handler);
 			handler.addObserver(this);
 		}
-		this.timer = new RoundTimer(MatchFactory.instance().makeTimeoutRound()* 1000);
+		// this.timer = new RoundTimer(MatchFactory.instance().makeTimeoutRound()* 1000);
+		this.timer = new RoundTimer(5000);
 		this.timer.addObserver(this);
 		timerThread = new Thread(this.timer);
 		startMatch();
@@ -68,7 +69,6 @@ public class MatchController extends Observable implements Observer {
 				state = ActionState.REFUSED;
 			else if (returnMessage instanceof AcceptedAction) {
 				state = ActionState.ACCEPTED;
-				timerThread.notify();
 			}
 			setChanged();
 			notifyObservers(returnMessage); // request choice to the user or
@@ -76,6 +76,7 @@ public class MatchController extends Observable implements Observer {
 											// accepted or refused
 			performAction();
 		} else if (state == ActionState.ACCEPTED) {
+			performAction();
 		}
 
 		/*
@@ -110,7 +111,7 @@ public class MatchController extends Observable implements Observer {
 			}
 			if (extraActions.size() == 0) {
 				setChanged();
-				notifyObservers("You have completed your action.");
+				notifyObservers(new CompletedActionMessage(currentPlayer.getId()));
 				nextPlayer();
 			}
 		} catch (NotExecutableException e) {
@@ -142,7 +143,7 @@ public class MatchController extends Observable implements Observer {
 	}
 
 	private void reqPlayerAction() {
-		//timerThread = new Thread(this.timer);
+		timerThread = new Thread(this.timer);
 		timerThread.start();
 		ActionRequest req = new ActionRequest(currentPlayer.getId());
 		setChanged();
@@ -191,7 +192,9 @@ public class MatchController extends Observable implements Observer {
 				notifyObservers(new MatchData(match));
 			}
 		}
-		if (source == handlersMap.get(currentPlayer.getId())) {
+		if (source instanceof UserHandler) {
+			if(((UserHandler) source).getPlayerId()==this.currentPlayer.getId()){
+				this.state=ActionState.AWAITING_CHOICES;
 			if (arg instanceof ExtraAction) {
 				ExtraAction action = (ExtraAction) arg;
 				this.currentAction=action;
@@ -199,6 +202,7 @@ public class MatchController extends Observable implements Observer {
 			} else if (arg instanceof Action) {
 				this.currentAction=(Action)arg;
 				getActionChoices();
+			}
 			}
 		}
 		if (source == timer) {

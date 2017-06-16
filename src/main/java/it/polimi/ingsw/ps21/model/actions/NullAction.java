@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps21.model.actions;
 
+import it.polimi.ingsw.ps21.controller.AcceptedAction;
 import it.polimi.ingsw.ps21.controller.Message;
 import it.polimi.ingsw.ps21.model.board.NotOccupableException;
 import it.polimi.ingsw.ps21.model.match.Match;
@@ -17,13 +18,13 @@ public class NullAction extends ExtraAction {
 	@Override
 	public Message update(Player player, Match match) {
 		
-		return null;
+		return new AcceptedAction(player.getId());
 	}
 
 	@Override
 	public ExtraAction[] activate(Player player, Match match) throws NotExecutableException, RequirementNotMetException, InsufficientPropsException {
 		
-		return null;
+		return new ExtraAction[0];
 	}
 	
 	
