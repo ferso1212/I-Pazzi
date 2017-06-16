@@ -1,7 +1,5 @@
 package it.polimi.ingsw.ps21.controller;
 
-import java.util.ArrayList;
-
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.PlayerProperties;
@@ -15,7 +13,7 @@ public class WorkMessage extends Message {
 
 	public WorkMessage(PlayerColor destination, DevelopmentCard[] choices) {
 		super(destination);
-		// TODO settare messaggio
+		this.message="You have to choose cards to activate. You have to put 0 if you don't want to activate the card and 1 or 2 or ... to select a specific effect to activate.";
 		this.choices = choices;
 	}
 
@@ -27,7 +25,7 @@ public class WorkMessage extends Message {
 		PlayerProperties totalCosts = new PlayerProperties(0);
 		for (int i = 0; i < playerChoices.length; i++) {
 			if (chosenCardsAndEffects[i] != 0) {
-				totalCosts.increaseProperties(choices.get(i).getPossibleEffects()[playerChoices[i]].getTotalCost());
+				totalCosts.increaseProperties(choices[i].getPossibleEffects()[playerChoices[i]].getTotalCost());
 			}
 		}
 		if (this.clonedPlayerProperties.greaterOrEqual(totalCosts)) {
@@ -37,7 +35,7 @@ public class WorkMessage extends Message {
 		return false;
 	}
 
-	public ArrayList<DevelopmentCard> getChoices() {
+	public DevelopmentCard[] getChoices() {
 		return choices;
 	}
 

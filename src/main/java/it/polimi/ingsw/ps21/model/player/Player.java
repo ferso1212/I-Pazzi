@@ -4,8 +4,6 @@ import java.util.*;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import it.polimi.ingsw.ps21.controller.UnchosenException;
-import it.polimi.ingsw.ps21.model.actions.ActionType;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.board.TrackBonuses;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
@@ -13,7 +11,6 @@ import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.IllegalCardTypeException;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.deck.TerritoryCard;
-import it.polimi.ingsw.ps21.model.match.MatchFactory;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.model.properties.PropertiesSet;
@@ -310,13 +307,11 @@ public class Player {
 		if (!this.getModifiers().getFinalMods().getNoVentureCardsFinalVictoryPointsBonus()) {
 			
 				for (DevelopmentCard ventureCard : this.getDeck().getCards(DevelopmentCardType.VENTURE)) {
-					ventureCard.getChosenPemanentEffect().activate(this);
+					ventureCard.getPossibleEffects()[0].activate(this);
 				}}
 		} catch (IllegalCardTypeException e) {
 				// Effects of venture cards are not activated
-		} catch (UnchosenException e) {
-				// Effects of venture cards are not activated
-			}
+		} 
 		
 		//player's victory points are stored in a temporary variable
 		int points = this.getProperties().getProperty(PropertiesId.VICTORYPOINTS).getValue();

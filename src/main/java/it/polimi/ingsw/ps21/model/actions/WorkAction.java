@@ -76,7 +76,7 @@ public class WorkAction extends Action {
 			ImmProperties totalCost = new ImmProperties(0);
 			for (int i=0 ; i < this.workMessage.getChosenCardsAndEffects().length; i++){
 				if (this.workMessage.getChosenCardsAndEffects()[i] != 0){
-					totalCost = totalCost.sum(this.workMessage.getChoices().get(i).getPossibleEffects()[this.workMessage.getChosenCardsAndEffects()[i]-1].getTotalCost());
+					totalCost = totalCost.sum(this.workMessage.getChoices()[i].getPossibleEffects()[this.workMessage.getChosenCardsAndEffects()[i]-1].getTotalCost());
 				}
 			}
 			if (player.checkProperties(totalCost))
@@ -132,8 +132,7 @@ public class WorkAction extends Action {
 
 		for (int i = 0; i < workMessage.getChosenCardsAndEffects().length; i++) {
 			if (workMessage.getChosenCardsAndEffects()[i] != 0) {
-				activatedEffects.addAll(workMessage.getChoices().get(i)
-						.getPossibleEffects()[workMessage.getChosenCardsAndEffects()[i] - 1].activate(player));
+				activatedEffects.addAll(workMessage.getChoices()[i].getPossibleEffects()[workMessage.getChosenCardsAndEffects()[i] - 1].activate(player));
 			}
 		}
 

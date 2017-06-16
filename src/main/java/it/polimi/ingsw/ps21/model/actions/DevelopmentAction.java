@@ -127,6 +127,10 @@ public class DevelopmentAction extends Action {
 			this.extraActionFromPermanentEffect = this.effectMessage.getEffectChosen().activate(player);
 		}
 		
+		if (selectedCard.getCardType().equals(DevelopmentCardType.VENTURE)){
+			this.extraActionFromPermanentEffect = this.effectMessage.getEffectChosen().activate(player);
+		}
+		
 		this.extraActionFromInstantEffect.addAll(extraActionFromPermanentEffect);
 		
 		return this.extraActionFromInstantEffect.toArray(new ExtraAction[0]);
