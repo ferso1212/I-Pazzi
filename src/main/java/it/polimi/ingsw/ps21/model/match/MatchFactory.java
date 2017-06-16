@@ -296,7 +296,7 @@ public class MatchFactory {
 					int period = Integer.parseInt(excommunication.getAttribute("period"));
 					NodeList childs = excommunication.getChildNodes();
 					for (int j=0; j<childs.getLength(); j++){
-						if(childs.item(j).getNodeType() == childs.item(j).ELEMENT_NODE){
+						if(childs.item(j).getNodeType() == Node.ELEMENT_NODE){
 							Element excommunicationType = (Element) childs.item(j);
 						switch (excommunicationType.getNodeName()){
 						case "ActionExcommunication":
@@ -724,8 +724,8 @@ public class MatchFactory {
 				LOGGER.log(Level.WARNING, "Error creating tower bonuses, returning default values", i);
 				result = new EnumMap<>(DevelopmentCardType.class);
 				ImmProperties[] properties = new ImmProperties[4];
-				for (ImmProperties r : properties) 
-					r = new ImmProperties(0);
+				for (int j=0; j<4; j++) 
+					properties[j] = new ImmProperties(0);
 				
 				for (DevelopmentCardType t : DevelopmentCardType.values()) 
 					result.put(t, properties);

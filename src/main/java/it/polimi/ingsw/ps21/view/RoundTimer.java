@@ -1,30 +1,24 @@
 package it.polimi.ingsw.ps21.view;
 
 import java.util.Observable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Timer;
+
+import it.polimi.ingsw.ps21.controller.TimeoutTask;
 
 public class RoundTimer extends Observable implements Runnable {
-	private final int timeout;
-	private static final Logger LOGGER = Logger.getLogger(RoundTimer.class.getName());
+	private TimeoutTask timeout;
 
 	public RoundTimer(int timeout) {
 		super();
-		this.timeout = timeout;
+		this.timeout = new TimeoutTask();
+		new Timer().schedule(new TimeoutTask(), timeout);
 	}
 
 	@Override
 	public void run() {
-		try {
-			synchronized (this) {
-				this.wait((long) timeout);
+		while(!timeout.isExpired());
 				setChanged();
 				notifyObservers();
-			}
-
-		} catch (InterruptedException e) {
-			LOGGER.log(Level.INFO, "Interrupted exception", e);
-		}
 	}
 
 }
