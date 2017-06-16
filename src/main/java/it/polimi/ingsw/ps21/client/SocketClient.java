@@ -43,15 +43,9 @@ public class SocketClient {
 			in = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
 			out = new ObjectOutputStream(socket.getOutputStream());
 			out.reset();
-			NetPacket initialInfos = new NetPacket(PacketType.START_INFO, chosenRules, 0, name);
+			StartInfoNetPacket initialInfos = new StartInfoNetPacket(0, chosenRules, name);
 			out.writeObject(initialInfos);
 			NetPacket receivedPacket = (NetPacket)in.readObject();
-			/*while(receivedPacket.getType()!=PacketType.MATCH_STARTED_NOTIFICATION)
-				{
-				
-				receivedPacket = (NetPacket)in.readObject();
-				};
-			*/
 				parseSocketInput(receivedPacket);
 				while (socket.isConnected()) {
 					
@@ -89,36 +83,33 @@ public class SocketClient {
 			}
 
 
-			case COST_CHOICE: {
-				int chosen = ui.reqCostChoice((ArrayList<ImmProperties>) receivedPacket.getObject());
-				out.writeObject(new NetPacket(receivedPacket.getType(), chosen, receivedPacket.getNum()));
+			case COST_CHOICE_REQUEST: {
+				
+				int chosen = ui.reqCostChoice(((CostChoiceRequestNetPacket)receivedPacket).getCostChoices());
+				out.writeObject(new CostChoiceResponseNetPacket(receivedPacket.getNum(), chosen));
 				break;
 
 			}
 
-			case PRIVILEGES_CHOICE: {
-				ImmProperties[] chosen = ui.reqPrivileges((int) receivedPacket.getObject());
-				out.writeObject(new NetPacket(receivedPacket.getType(), chosen, receivedPacket.getNum()));
+			case PRIVILEGES_CHOICE_REQUEST: {
+				ImmProperties[] chosen = ui.reqPrivileges(((PrivilegesChoiceRequestNetPacket)receivedPacket).getNum());
+				out.writeObject(new PrivilegesChoiceResponseNetPacket(receivedPacket.getNum(), chosen));
 				break;
 
 			}
-			case ID: {
-				ui.setID((PlayerColor)receivedPacket.getObject());
-				break;
-			}
-			case VATICAN_CHOICE:{
+			case VATICAN_CHOICE_REQUEST:{
 				boolean chosen=ui.reqVaticanChoice();
-				out.writeObject(new NetPacket(receivedPacket.getType(), chosen, receivedPacket.getNum()));
+				out.writeObject(new VaticanChoiceResponseNetPacket(receivedPacket.getNum(), chosen));
 				break;
 			}
 			case VIEW_UPDATE_REQUEST: {
-				MatchData match=(MatchData)receivedPacket.getObject();
+				MatchData match=((ViewUpdateRequestNetPacket)receivedPacket).getMatch();
 				ui.updateView(match);
 				break;
 			}
 			case GENERIC_STRING:{
 				
-				ui.showInfo((String)receivedPacket.getObject());
+				ui.showInfo(((GenericStringNetPacket)receivedPacket).getStr());
 				break;}
 			case MATCH_STARTED_NOTIFICATION: {
 				ui.playMatch();
@@ -126,16 +117,16 @@ public class SocketClient {
 			}
 			case ACTION_REQUEST: {
 				ActionData chosenAction= ui.makeAction();
-				out.writeObject(new NetPacket(receivedPacket.getType(), chosenAction, receivedPacket.getNum()));
+				out.writeObject(new ActionResponseNetPacket(receivedPacket.getNum(), chosenAction));
 				break;
 			}
-			case EXTRA_ACTION_CHOICE: {
-				int chosen=ui.reqExtraActionChoice((ActionData[])receivedPacket.getObject());
-				out.writeObject(new NetPacket(receivedPacket.getType(), chosen, receivedPacket.getNum()));
+			case EXTRA_ACTION_CHOICE_REQUEST: {
+				int chosen=ui.reqExtraActionChoice(((ExtraActionChoiceRequestNetPacket)receivedPacket).getActions());
+				out.writeObject(new ExtraActionChoiceResponseNetPacket(receivedPacket.getNum(), chosen));
 				break;
 			}
 			case PLAYER_ID: {
-				ui.setID((PlayerColor)receivedPacket.getObject());
+				ui.setID(((PlayerIdNetPacket)receivedPacket).getId());
 				break;
 			}
 			default:

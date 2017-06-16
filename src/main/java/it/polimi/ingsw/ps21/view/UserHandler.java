@@ -24,16 +24,17 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 	private PlayerColor playerId;
 	private Connection connection;
 	private String name;
+	private boolean timeoutExpired;
 
 	public UserHandler(PlayerColor playerId, Connection connection) {
 		super();
 		this.playerId = playerId;
 		this.connection = connection;
 		this.name = this.connection.getName();
-		//this.connection.sendMessage(this.name + "'s UserHandler created.");
+		// this.connection.sendMessage(this.name + "'s UserHandler created.");
 		this.connection.setID(this.playerId);
+		this.timeoutExpired = false;
 	}
-
 
 	@Override
 	public void visit(VaticanChoice choice) {
@@ -75,8 +76,6 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 		connection.sendMessage(message.getMessage());
 		message.setVisited();
 	}
-	
-	
 
 	@Override
 	public void run() {
@@ -93,51 +92,59 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 		if (o instanceof MatchController) {
 			if (arg instanceof ExtraAction[]) {
 				// TODO
-				ExtraAction[] actions=(ExtraAction[])arg;
+				ExtraAction[] actions = (ExtraAction[]) arg;
 				ArrayList<ExtraAction> actionsForMe = new ArrayList<>();
-				for(ExtraAction action: actions)
-				{
-					if(action.getPlayerId()==this.playerId)
-					{
+				for (ExtraAction action : actions) {
+					if (action.getPlayerId() == this.playerId) {
 						actionsForMe.add(action);
 					}
 				}
-			}
-			else if (arg instanceof ActionRequest)
-			{
-				ActionRequest req= (ActionRequest)arg;
-				if(req.getDest()!=this.playerId) return;
+			} else if (arg instanceof ActionRequest) {
+				ActionRequest req = (ActionRequest) arg;
+				if (req.getDest() != this.playerId)
+					return;
 				else {
-					ActionData newAction=connection.reqAction();
-					
-					parseAction(newAction);
+					this.timeoutExpired = false;
+					ActionData newAction = connection.reqAction();
+					if (timeoutExpired)
+						connection.sendMessage("Timeout expired");
+					else {
+						parseAction(newAction);
+					}
 				}
-			}
-			else if (arg instanceof MatchData){
-				connection.remoteUpdate((MatchData)arg);
-			}
-			else if(arg instanceof String)
-			{
-				if(((String)arg).compareTo("Match Started")==0) {
+			} else if (arg instanceof MatchData) {
+				connection.remoteUpdate((MatchData) arg);
+			} else if (arg instanceof String) {
+				if (((String) arg).compareTo("Match Started") == 0) {
 					connection.matchStarted();
 					setChanged();
 
+				} else
+					connection.sendMessage((String) arg);
+
+			} else if (arg instanceof Message) {
+				if (((Message) arg).getDest() == this.playerId) {
+					if (arg instanceof TimeoutExpiredMessage) {
+						this.timeoutExpired = true;
+						connection.sendMessage(((TimeoutExpiredMessage)arg).getMessage());
+					}
+					else if(arg instanceof AcceptedAction)
+					{
+						connection.sendMessage(((AcceptedAction)arg).getMessage());
+					}
 				}
-				else connection.sendMessage((String)arg);
-				
 			}
 		}
-		
+
 	}
-	
-	private void parseExtraAction(ExtraAction action)
-	{
+
+	private void parseExtraAction(ExtraAction action) {
 		// TODO
 	}
-	
-	//TODO
-	private void parseAction(ActionData action)
-	{	setChanged();
+
+	// TODO
+	private void parseAction(ActionData action) {
+		setChanged();
 		Action userAction = new NullAction(this.playerId);
 		notifyObservers(userAction);
 	}

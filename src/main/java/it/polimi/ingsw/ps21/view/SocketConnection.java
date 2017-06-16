@@ -14,9 +14,24 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import it.polimi.ingsw.ps21.client.ActionRequestNetPacket;
+import it.polimi.ingsw.ps21.client.ActionResponseNetPacket;
 import it.polimi.ingsw.ps21.client.ClientConnection;
+import it.polimi.ingsw.ps21.client.CostChoiceRequestNetPacket;
+import it.polimi.ingsw.ps21.client.CostChoiceResponseNetPacket;
+import it.polimi.ingsw.ps21.client.ExtraActionChoiceRequestNetPacket;
+import it.polimi.ingsw.ps21.client.ExtraActionChoiceResponseNetPacket;
+import it.polimi.ingsw.ps21.client.GenericStringNetPacket;
+import it.polimi.ingsw.ps21.client.MatchStartedNetPacket;
 import it.polimi.ingsw.ps21.client.NetPacket;
 import it.polimi.ingsw.ps21.client.PacketType;
+import it.polimi.ingsw.ps21.client.PlayerIdNetPacket;
+import it.polimi.ingsw.ps21.client.PrivilegesChoiceRequestNetPacket;
+import it.polimi.ingsw.ps21.client.PrivilegesChoiceResponseNetPacket;
+import it.polimi.ingsw.ps21.client.StartInfoNetPacket;
+import it.polimi.ingsw.ps21.client.VaticanChoiceRequestNetPacket;
+import it.polimi.ingsw.ps21.client.VaticanChoiceResponseNetPacket;
+import it.polimi.ingsw.ps21.client.ViewUpdateRequestNetPacket;
 import it.polimi.ingsw.ps21.controller.BoardData;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.PlayerData;
@@ -44,10 +59,10 @@ public class SocketConnection implements Connection{
 			in= new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
 			out.reset();
 			//in.reset();
-			NetPacket initialInfos= (NetPacket)in.readObject();
-			if((int)initialInfos.getObject()==1) this.isAdvanced=false;
+			StartInfoNetPacket initialInfos= (StartInfoNetPacket)in.readObject();
+			if(initialInfos.getChosenRules()==1) this.isAdvanced=false;
 			else this.isAdvanced=true;
-			this.name=(String)initialInfos.getAdditionalObject(0);
+			this.name=initialInfos.getName();
 		} catch (IOException e) {
 			connected=false;
 		} catch (ClassNotFoundException e) {
@@ -60,7 +75,7 @@ public class SocketConnection implements Connection{
 	@Override
 	public void remoteUpdate(MatchData match) {
 		try{
-		out.writeObject(new NetPacket(PacketType.VIEW_UPDATE_REQUEST, match, this.messageCounter));
+		out.writeObject(new ViewUpdateRequestNetPacket(this.messageCounter, match));
 		messageCounter++;
 	} catch (IOException e) {
 		LOGGER.log(Level.WARNING, "Unable to send choice request to the remote client due to IOException", e);
@@ -68,45 +83,44 @@ public class SocketConnection implements Connection{
 		
 	}
 
-	private Object requestAndAwaitResponse(PacketType requestType, Object o)
+	private NetPacket requestAndAwaitResponse(NetPacket packetToSend)
 	{
-		NetPacket output=new NetPacket(requestType, o, this.messageCounter);
 		try {
-			out.writeObject(output);
+			out.writeObject(packetToSend);
 			messageCounter++;
 			NetPacket receivedPacket= (NetPacket) in.readObject();
-			while(receivedPacket.getType()!=requestType)
+			while(receivedPacket.getType()!=packetToSend.getType())
 			{
 				if(receivedPacket.getType()==PacketType.CHAT_MESSAGE);//TODO: chat protocol
 			}
-			return receivedPacket.getObject();
+			return receivedPacket;
 			
 		} catch (IOException e) {
 			LOGGER.log(Level.WARNING, "Unable to send choice request to the remote client due to IOException", e);
-			return 0;
+			return null;
 		} catch (ClassNotFoundException e) {
 			LOGGER.log(Level.WARNING, "Unable to parse received object due to ClassNotFound Exception", e);
-			return 0;
+			return null;
 		}
 	}
 	
 	@Override
 	public int reqCostChoice(ArrayList<ImmProperties> costs) {
-		return (int)requestAndAwaitResponse(PacketType.COST_CHOICE, costs);
+		return ((CostChoiceResponseNetPacket)requestAndAwaitResponse(new CostChoiceRequestNetPacket(messageCounter, costs))).getChosen();
 		
 	}
 
 
 	@Override
 	public boolean reqVaticanChoice() {
-		return (boolean)requestAndAwaitResponse(PacketType.VATICAN_CHOICE, null);
+		return ((VaticanChoiceResponseNetPacket)requestAndAwaitResponse(new VaticanChoiceRequestNetPacket(messageCounter))).supportsVatican();
 	}
 
 
 	@Override
 
 	public ImmProperties[] reqPrivilegesChoice(int number) {
-		return (ImmProperties[])requestAndAwaitResponse(PacketType.PRIVILEGES_CHOICE, number);
+		return ((PrivilegesChoiceResponseNetPacket)requestAndAwaitResponse(new PrivilegesChoiceRequestNetPacket(this.messageCounter, number))).getChosenPrivileges();
 
 	}
 
@@ -116,7 +130,7 @@ public class SocketConnection implements Connection{
 	public void sendMessage(String mess) {
 		try {
 
-			out.writeObject(new NetPacket(PacketType.GENERIC_STRING, mess, this.messageCounter));
+			out.writeObject(new GenericStringNetPacket(this.messageCounter, mess));
 			messageCounter++;
 		} catch (IOException e) {
 			LOGGER.log(Level.WARNING, "Unable to send message to the remote client due to IOException", e);
@@ -139,7 +153,7 @@ public class SocketConnection implements Connection{
 	@Override
 	public void matchStarted() {
 		try {
-			out.writeObject(new NetPacket(PacketType.MATCH_STARTED_NOTIFICATION, null, this.messageCounter));
+			out.writeObject(new MatchStartedNetPacket(this.messageCounter));
 		} catch (IOException e) {
 			LOGGER.log(Level.WARNING, "Unable to send message to the remote client due to IOException", e);
 		}
@@ -149,13 +163,13 @@ public class SocketConnection implements Connection{
 
 	@Override
 	public int reqExtraActionChoice(ActionData[] actions) {
-		return (int)requestAndAwaitResponse(PacketType.EXTRA_ACTION_CHOICE, actions);
+		return ((ExtraActionChoiceResponseNetPacket)requestAndAwaitResponse(new ExtraActionChoiceRequestNetPacket(messageCounter, actions))).getChosen();
 	}
 
 
 	@Override
 	public ActionData reqAction(){
-		return (ActionData)requestAndAwaitResponse(PacketType.ACTION_REQUEST, null);
+		return ((ActionResponseNetPacket)requestAndAwaitResponse(new ActionRequestNetPacket(messageCounter))).getAction();
 		
 	}
 	
@@ -163,7 +177,7 @@ public class SocketConnection implements Connection{
 	public void setID(PlayerColor player)
 	{
 		try {
-			out.writeObject(new NetPacket(PacketType.PLAYER_ID, player, this.messageCounter));
+			out.writeObject(new PlayerIdNetPacket(this.messageCounter, player));
 		} catch (IOException e) {
 			LOGGER.log(Level.WARNING, "Unable to send ID to the remote client due to IOException", e);
 		}

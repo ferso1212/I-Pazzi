@@ -245,7 +245,7 @@ public class CLInterface implements UserInterface {
 		System.out.println("1)-Place a family member in a Tower Space;\n2)-Place a family member in Council palace\n"
 				+ "3)-Place a family member in a Work Space\n" + "4)-Place a family memeber in a Market Space");
 		if (advancedMatch) System.out.println("5)-Activate a Leader Card");
-		int actionChoice = Integer.parseInt(userInput.nextLine());
+		int actionChoice = userInput.nextInt();
 		while ( actionChoice!=1 && actionChoice!=2 && actionChoice != 3 && actionChoice != 4 && (!(advancedMatch) || actionChoice!=5 )){
 			System.out.println("Invalid action, please insert a valid choice: ");
 		}
