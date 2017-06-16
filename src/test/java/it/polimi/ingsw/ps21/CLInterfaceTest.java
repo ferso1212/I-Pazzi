@@ -12,12 +12,14 @@ import it.polimi.ingsw.ps21.controller.AcceptedAction;
 import it.polimi.ingsw.ps21.controller.CostChoice;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
+import it.polimi.ingsw.ps21.model.actions.ActionType;
 import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
 import it.polimi.ingsw.ps21.model.match.InvalidIDException;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.PlayerProperties;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
+import it.polimi.ingsw.ps21.view.ActionData;
 
 public class CLInterfaceTest {
 
@@ -39,9 +41,17 @@ public class CLInterfaceTest {
 	public void test() {
 		assert(checkShowInfo());
 		assert(checkSingleChoice());
+		assert(checkActionReq());
 		
 	}
 	
+	private boolean checkActionReq() {
+		testCli.updateView(new MatchData(testMatch));
+		ActionData result = testCli.makeAction();
+		if (result.getType() == ActionType.NULL) return false;
+		else return true;
+	}
+
 	private boolean checkShowInfo() {
 		testCli.showInfo("Testing interface");
 		testCli.showMessage(new AcceptedAction(PlayerColor.BLUE));

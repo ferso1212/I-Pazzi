@@ -1,23 +1,11 @@
 package it.polimi.ingsw.ps21.client;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.Socket;
-import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import it.polimi.ingsw.ps21.controller.MatchData;
-import it.polimi.ingsw.ps21.model.match.Match;
-import it.polimi.ingsw.ps21.model.match.MatchFactory;
 
 public class ClientMain {
 
@@ -77,7 +65,7 @@ public class ClientMain {
 			}
 			else{
 				try {
-					RMIClient rmiclient = new RMIClient(name, CLImatch, chosenRules);
+					RMIClient rmiclient = new RMIClient(name, CLImatch, chosenRules, RMI_PORT);
 					rmiclient.start();
 					while(!CLImatch.isEnded());
 		

@@ -38,9 +38,9 @@ public class CLInterface implements UserInterface {
 	public CLInterface(int chosenRules) {
 		userInput = new Scanner(System.in);
 		if (chosenRules == 1)
-			advancedMatch = true;
-		else
 			advancedMatch = false;
+		else
+			advancedMatch = true;
 		System.out.println("Waiting for match starting...");
 	}
 
@@ -300,10 +300,21 @@ public class CLInterface implements UserInterface {
 				tower = DevelopmentCardType.VENTURE;
 			}
 			// TODO choose floor;
-			int possiblePlaces = 0;
-			// todo for (DevelopmentCard column[]: boardInfo.getCards())
-			tower = null;
-			space = 0;
+			ArrayList<Integer> possibleSpaces = new ArrayList<>();
+			for (int k=0; k < matchInfo.getBoard().getTowerSpaces()[cardType].length; k++){
+				if (!matchInfo.getBoard().getTowerSpaces()[cardType][k].exists()){
+					System.out.println( (k+1) + 
+								"Card: " + matchInfo.getBoard().getCards()[cardType][k] +
+								"Instant bonus: " + matchInfo.getBoard().getTowerBonuses()[cardType][k]);
+					possibleSpaces.add(k+1);
+				}
+			}
+			space = userInput.nextInt();
+			while (!possibleSpaces.contains(space)){
+				System.out.println("Invalid choice, please choose another space:");
+				space = userInput.nextInt();
+			}
+			space--;
 
 		}
 			break;
@@ -344,9 +355,10 @@ public class CLInterface implements UserInterface {
 		case 4: {
 			type = ActionType.MARKET;
 			familyMember = chooseColor();
+			servants = chooseServants();
 			System.out.println("Which market space do you want to use?");
 			for (int i = 0; i < boardInfo.getMarket().length; i++) {
-				if (boardInfo.getMarket()[i] == null) {
+				if (boardInfo.getMarket()[i] != null) {
 					System.out.println((i + 1) + ") Bonus: " + boardInfo.getMarketBonuses()[i] + " - Privleges: "
 							+ boardInfo.getMarketPrivileges()[i]);
 				}
@@ -356,6 +368,8 @@ public class CLInterface implements UserInterface {
 				System.out.println("Invalid market choice, please insert another choice");
 				marketChoice = userInput.nextInt();
 			}
+			space = marketChoice-1;
+			tower = DevelopmentCardType.BUILDING;
 
 		}
 			break;
@@ -369,7 +383,7 @@ public class CLInterface implements UserInterface {
 			space = 0;
 			break;
 		}
-		return new ActionData(type, familyMember, 0, DevelopmentCardType.TERRITORY, 0);
+		return new ActionData(type, familyMember, servants, tower, space);
 	}
 
 	// TODO make this private after test
