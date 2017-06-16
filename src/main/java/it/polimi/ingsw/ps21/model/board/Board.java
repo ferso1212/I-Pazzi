@@ -5,8 +5,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.deck.Deck;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
@@ -130,8 +128,7 @@ public class Board {
 		try {
 			placeCards(era, this.developmentDeck);
 		} catch (IllegalCardException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.FINEST, "There is an IllegalCardException", e);
 		}
 	}
 
