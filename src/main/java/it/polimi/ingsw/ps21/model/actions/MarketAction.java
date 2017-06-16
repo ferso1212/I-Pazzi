@@ -19,6 +19,7 @@ public class MarketAction extends Action{
 	private SingleMarketSpace space;
 	private FamilyMember famMember;
 	private CouncilChoice councilChoice;
+	private int updateCounter = 1;
 	
 	public MarketAction(PlayerColor playerId, SingleMarketSpace space, FamilyMember famMember,
 			CouncilChoice councilChoice) {
@@ -28,24 +29,39 @@ public class MarketAction extends Action{
 	}
 
 	@Override
-	public Message isLegal(Player player, Match match) {
+	public Message update(Player player, Match match) {
 		
-		if (player.getModifiers().getActionMods().marketActionForbidden()){
-			return new RefusedAction(player.getId(), "You can't place a family member in a market space because you have an excommunication!");
+		switch (this.updateCounter) {
+		case 1:
+		{
+			if (player.getModifiers().getActionMods().marketActionForbidden()){
+				return new RefusedAction(player.getId(), "You can't place a family member in a market space because you have an excommunication!");
+			}
+			
+			if ((space.isOccupable(player, famMember)) && (!famMember.isUsed())){
+				if ((space.getNumberOfPrivileges() > 0) && (match.getBoard().getCouncilPalace().checkPlayer(player))){
+					this.councilChoice = new CouncilChoice(player.getId(), space.getNumberOfPrivileges());
+					this.updateCounter--;
+					return this.councilChoice;
+				}
+				return new AcceptedAction(player.getId());
+			} else return new RefusedAction(player.getId());
 		}
 		
-		if ((space.isOccupable(player, famMember)) && (!famMember.isUsed())){
-			if ((space.getNumberOfPrivileges() > 0) && (match.getBoard().getCouncilPalace().checkPlayer(player))){
-				this.councilChoice = new CouncilChoice(player.getId(), space.getNumberOfPrivileges());
-				return this.councilChoice;
-			}
-			return new AcceptedAction(player.getId());
-		} else return new RefusedAction(player.getId());
+		case 0:
+		{
+			if (this.councilChoice.getPrivilegesChosen().length == space.getNumberOfPrivileges())
+				return new AcceptedAction(player.getId());
+			return new RefusedAction(player.getId());
+		}
+
+		default:
+			return new RefusedAction(player.getId());
+		}
 	}
 
 	@Override
-	public ExtraAction[] execute(Player player, Match match) throws NotExecutableException, NotOccupableException,
-			RequirementNotMetException, InsufficientPropsException {
+	public ExtraAction[] activate(Player player, Match match) throws NotExecutableException, RequirementNotMetException, InsufficientPropsException {
 		
 		match.getBoard().placeMember(player, this.famMember, this.space);
 		

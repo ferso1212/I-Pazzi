@@ -266,7 +266,7 @@ public class CLInterface implements UserInterface {
 			System.out.println("2} Building Card;");
 			System.out.println("3) Character Card;");
 			System.out.println("4) Venture Card;");
-			cardType = Integer.parseInt(userInput.nextLine());
+			cardType = userInput.nextInt();
 			while (cardType < 1 || cardType > 4){
 				System.out.println("Invalid choice, please insert another choice:");
 				cardType = userInput.nextInt();
@@ -361,6 +361,7 @@ public class CLInterface implements UserInterface {
 			servants = 0;
 			tower = null;
 			space = 0;
+			break;
 		}
 		return new ActionData(type, familyMember, 0, DevelopmentCardType.TERRITORY, 0);
 	}

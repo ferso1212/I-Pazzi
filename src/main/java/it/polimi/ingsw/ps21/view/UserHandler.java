@@ -31,11 +31,9 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 		this.connection = connection;
 		this.name = this.connection.getName();
 		this.connection.sendMessage(this.name + "'s UserHandler created.");
+		this.connection.setID(this.playerId);
 	}
 
-	private Action reqUserAction() {
-		return null;
-	}
 
 	@Override
 	public void visit(VaticanChoice choice) {
