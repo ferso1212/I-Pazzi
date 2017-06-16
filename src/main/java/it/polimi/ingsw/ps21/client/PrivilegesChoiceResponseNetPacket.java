@@ -16,7 +16,7 @@ public class PrivilegesChoiceResponseNetPacket extends NetPacket implements Seri
 
 	public PrivilegesChoiceResponseNetPacket(int messNum, ImmProperties[] chosenPrivileges) {
 		super(messNum);
-		this.type=PacketType.PRIVILEGES_CHOICE_RESPONSE;
+		this.type=PacketType.PRIVILEGES_CHOICE;
 		this.chosenPrivileges = chosenPrivileges;
 	}
 

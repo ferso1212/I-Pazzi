@@ -13,7 +13,7 @@ public class PrivilegeChoiceResponseNetPacket extends NetPacket implements Seria
 	
 	public PrivilegeChoiceResponseNetPacket(int messNum) {
 		super(messNum);
-		this.type=PacketType.PRIVILEGES_CHOICE_REQUEST;
+		this.type=PacketType.PRIVILEGES_CHOICE;
 	}
 
 	public ImmProperties[] getChosen() {

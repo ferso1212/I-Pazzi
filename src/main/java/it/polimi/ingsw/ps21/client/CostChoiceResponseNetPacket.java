@@ -12,7 +12,7 @@ int chosen;
 public CostChoiceResponseNetPacket(int messNum, int chosen) {
 	super(messNum);
 	this.chosen = chosen;
-	this.type=PacketType.COST_CHOICE_RESPONSE;
+	this.type=PacketType.COST_CHOICE;
 }
 
 public int getChosen() {

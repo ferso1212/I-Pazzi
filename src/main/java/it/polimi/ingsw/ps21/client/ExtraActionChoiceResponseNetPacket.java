@@ -12,7 +12,7 @@ public class ExtraActionChoiceResponseNetPacket extends NetPacket implements Ser
 	public ExtraActionChoiceResponseNetPacket(int messNum, int chosen) {
 		super(messNum);
 		this.chosen = chosen;
-		this.type=PacketType.EXTRA_ACTION_CHOICE_RESPONSE;
+		this.type=PacketType.EXTRA_ACTION_CHOICE;
 	}
 
 	public int getChosen() {

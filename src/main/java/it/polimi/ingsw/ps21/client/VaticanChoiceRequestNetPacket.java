@@ -9,7 +9,7 @@ public class VaticanChoiceRequestNetPacket extends NetPacket{
 
 	public VaticanChoiceRequestNetPacket(int messNum) {
 		super(messNum);
-		this.type=PacketType.VATICAN_CHOICE_REQUEST;
+		this.type=PacketType.VATICAN_CHOICE;
 	}
 	
 }

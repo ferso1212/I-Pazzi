@@ -75,7 +75,7 @@ public class SocketClient {
 			}
 
 
-			case COST_CHOICE_REQUEST: {
+			case COST_CHOICE: {
 				
 				int chosen = ui.reqCostChoice(((CostChoiceRequestNetPacket)receivedPacket).getCostChoices());
 				out.writeObject(new CostChoiceResponseNetPacket(receivedPacket.getNum(), chosen));
@@ -83,13 +83,13 @@ public class SocketClient {
 
 			}
 
-			case PRIVILEGES_CHOICE_REQUEST: {
+			case PRIVILEGES_CHOICE: {
 				ImmProperties[] chosen = ui.reqPrivileges(((PrivilegesChoiceRequestNetPacket)receivedPacket).getNum());
 				out.writeObject(new PrivilegesChoiceResponseNetPacket(receivedPacket.getNum(), chosen));
 				break;
 
 			}
-			case VATICAN_CHOICE_REQUEST:{
+			case VATICAN_CHOICE:{
 				boolean chosen=ui.reqVaticanChoice();
 				out.writeObject(new VaticanChoiceResponseNetPacket(receivedPacket.getNum(), chosen));
 				break;
@@ -107,12 +107,12 @@ public class SocketClient {
 				ui.playMatch();
 				break;
 			}
-			case ACTION_REQUEST: {
+			case ACTION: {
 				ActionData chosenAction= ui.makeAction();
 				out.writeObject(new ActionResponseNetPacket(receivedPacket.getNum(), chosenAction));
 				break;
 			}
-			case EXTRA_ACTION_CHOICE_REQUEST: {
+			case EXTRA_ACTION_CHOICE: {
 				int chosen=ui.reqExtraActionChoice(((ExtraActionChoiceRequestNetPacket)receivedPacket).getActions());
 				out.writeObject(new ExtraActionChoiceResponseNetPacket(receivedPacket.getNum(), chosen));
 				break;

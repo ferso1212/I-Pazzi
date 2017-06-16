@@ -14,7 +14,7 @@ public class ExtraActionChoiceRequestNetPacket extends NetPacket implements Seri
 	public ExtraActionChoiceRequestNetPacket(int messNum, ActionData[] actions) {
 		super(messNum);
 		this.actions = actions;
-		this.type= PacketType.EXTRA_ACTION_CHOICE_REQUEST;
+		this.type= PacketType.EXTRA_ACTION_CHOICE;
 	}
 
 	public ActionData[] getActions() {
