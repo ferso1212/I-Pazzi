@@ -5,19 +5,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
-import java.util.Observer;
 import java.util.Queue;
 import java.util.Random;
 
-import it.polimi.ingsw.ps21.controller.RefusedAction;
-import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.NotExecutableException;
 import it.polimi.ingsw.ps21.model.board.Board;
-import it.polimi.ingsw.ps21.model.board.NotOccupableException;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.Player;
@@ -51,7 +48,7 @@ public class Match extends Observable {
 		if (colors.length>4) throw new InvalidIDException();
 		MatchFactory builder = MatchFactory.instance();
 		ImmProperties[] initialProperties = builder.makeInitialProperties();
-		players = new EnumMap<PlayerColor, Player>(PlayerColor.class);
+		players = new EnumMap<>(PlayerColor.class);
 		order = new ArrayDeque<>();
 		ArrayList<Player> tempPlayer = new ArrayList<>();
 		board = new Board(colors.length, false);
@@ -80,6 +77,7 @@ public class Match extends Observable {
 		this.order = previousMatch.order;
 		this.period = previousMatch.period;
 		this.round = previousMatch.round;
+		this.ended = previousMatch.ended;
 	}
 	
 	
@@ -139,12 +137,11 @@ public class Match extends Observable {
 			else newOrder.add(player);
 		}
 		order = new ArrayDeque<>();
-		for ( int j = newOrder.size() -1 ; j>=0; j--) order.add(newOrder.get(j));
-		if (round != RoundType.VATICAN_ROUND)	{
+		for ( int j = 0 ; j < newOrder.size(); j++) order.add(newOrder.get(j));
+		if (round != RoundType.VATICAN_ROUND)
 			for (int i=0; i<3; i++)
-			for ( int j = newOrder.size() -1 ; j>=0; j--) order.add(newOrder.get(j));
-			board.newSetBoard(period);
-		}
+				for ( int j =0 ; j< newOrder.size(); j++) order.add(newOrder.get(j));
+		board.newSetBoard(period);
 		return round;
 	}
 
@@ -166,7 +163,7 @@ public class Match extends Observable {
 	}
 
 
-	public ArrayList<ExtraAction> getExtraActions() {
+	public List<ExtraAction> getExtraActions() {
 		return extraActions;
 	}
 	
@@ -197,7 +194,7 @@ public class Match extends Observable {
 			}
 			order = new ArrayDeque<>();
 			for (int i=0; i<4; i++)
-				for ( int j = newOrder.size() -1 ; j>=0; i--) order.add(newOrder.get(j));
+				for ( int j = newOrder.size() -1 ; j>=0; j--) order.add(newOrder.get(j));
 			board.newSetBoard(period + 1);
 			period ++;
 			round = RoundType.INITIAL_ROUND;

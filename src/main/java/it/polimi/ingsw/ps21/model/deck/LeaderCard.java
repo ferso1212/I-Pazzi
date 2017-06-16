@@ -1,13 +1,19 @@
 package it.polimi.ingsw.ps21.model.deck;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import it.polimi.ingsw.ps21.model.effect.LeaderEffect;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
-public abstract class LeaderCard extends Card {
+public abstract class LeaderCard extends Card implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1178768088913198746L;
+
 	private boolean activated = false;
 	
 	protected LeaderEffect leaderEffect;

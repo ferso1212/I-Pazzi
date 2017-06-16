@@ -1,6 +1,8 @@
 package it.polimi.ingsw.ps21.model.player;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -44,6 +46,7 @@ public class Player {
 	protected PersonalBonusTile personalBonusTile;
 	private Family family;
 	protected PlayerDeck devCards;
+	private static final Logger LOGGER = Logger.getLogger(Player.class.getName());
 
 	/**
 	 * Returns an object that contains the values of the resources (stone, wood,
@@ -186,8 +189,7 @@ public class Player {
 		try {
 			this.devCards=new PlayerDeck();
 		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.WARNING, "There is a ParserConfigurationException", e);
 		}
 		this.modifiers=new ModifiersSet();
 		this.family=new Family(id);
