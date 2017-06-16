@@ -61,7 +61,7 @@ public class MatchController extends Observable implements Observer {
 			handler.addObserver(this);
 		}
 		// this.timer = new RoundTimer(MatchFactory.instance().makeTimeoutRound());
-		this.timer = new RoundTimer(60000);
+		this.timer = new RoundTimer(600000);
 		this.timer.addObserver(this);
 		timerThread = new Thread(this.timer);
 		startMatch();
