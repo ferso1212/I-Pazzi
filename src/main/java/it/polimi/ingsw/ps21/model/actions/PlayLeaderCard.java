@@ -24,21 +24,17 @@ public class PlayLeaderCard extends Action{
 	}
 
 	@Override
-	public Message isLegal(Player player, Match match) {
+	public Message update(Player player, Match match) {
 		if ((player.checkCardRequirements(this.cardToPlay)) && (!this.cardToPlay.getEffect().isActivated())){
 			return new AcceptedAction(player.getId());
 		}return new RefusedAction(player.getId());
 	}
 
 	@Override
-	public ExtraAction[] execute(Player player, Match match) throws NotExecutableException, NotOccupableException,
-			RequirementNotMetException, InsufficientPropsException {
+	public ExtraAction[] activate(Player player, Match match) throws NotExecutableException, RequirementNotMetException, InsufficientPropsException {
 		
 		ArrayList<ExtraAction> returnAction = new ArrayList<ExtraAction>();
 		returnAction.add(this.cardToPlay.getEffect().activate((AdvancedPlayer)player));
 		return returnAction.toArray(new ExtraAction[0]);
 	}
-	
-	
-
 }

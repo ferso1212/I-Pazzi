@@ -15,14 +15,13 @@ public class NullAction extends ExtraAction {
 	}
 
 	@Override
-	public Message isLegal(Player player, Match match) {
+	public Message update(Player player, Match match) {
 		
 		return null;
 	}
 
 	@Override
-	public ExtraAction[] execute(Player player, Match match) throws NotExecutableException, NotOccupableException,
-			RequirementNotMetException, InsufficientPropsException {
+	public ExtraAction[] activate(Player player, Match match) throws NotExecutableException, RequirementNotMetException, InsufficientPropsException {
 		
 		return null;
 	}
