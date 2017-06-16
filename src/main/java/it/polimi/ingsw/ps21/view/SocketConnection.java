@@ -126,15 +126,6 @@ public class SocketConnection implements Connection{
 	}
 
 
-
-
-	@Override
-	public void setID(PlayerColor player) {
-		requestAndAwaitResponse(PacketType.ID, player);
-		
-	}
-
-
 	@Override
 	public String getName() {
 		return this.name;
@@ -166,6 +157,16 @@ public class SocketConnection implements Connection{
 	public ActionData reqAction(){
 		return (ActionData)requestAndAwaitResponse(PacketType.ACTION_REQUEST, null);
 		
+	}
+	
+	@Override
+	public void setID(PlayerColor player)
+	{
+		try {
+			out.writeObject(new NetPacket(PacketType.PLAYER_ID, player, this.messageCounter));
+		} catch (IOException e) {
+			LOGGER.log(Level.WARNING, "Unable to send ID to the remote client due to IOException", e);
+		}
 	}
 		
 

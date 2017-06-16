@@ -30,7 +30,7 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 		this.playerId = playerId;
 		this.connection = connection;
 		this.name = this.connection.getName();
-		this.connection.sendMessage(this.name + "'s UserHandler created.");
+		//this.connection.sendMessage(this.name + "'s UserHandler created.");
 		this.connection.setID(this.playerId);
 	}
 
@@ -109,6 +109,7 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 				if(req.getDest()!=this.playerId) return;
 				else {
 					ActionData newAction=connection.reqAction();
+					
 					parseAction(newAction);
 				}
 			}
@@ -137,7 +138,8 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 	//TODO
 	private void parseAction(ActionData action)
 	{	setChanged();
-		// notifyObservers(new NullAction(this.playerId));
+		Action userAction = new NullAction(this.playerId);
+		notifyObservers(userAction);
 	}
 
 }

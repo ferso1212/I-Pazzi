@@ -134,6 +134,10 @@ public class SocketClient {
 				out.writeObject(new NetPacket(receivedPacket.getType(), chosen, receivedPacket.getNum()));
 				break;
 			}
+			case PLAYER_ID: {
+				ui.setID((PlayerColor)receivedPacket.getObject());
+				break;
+			}
 			default:
 				break;
 			}

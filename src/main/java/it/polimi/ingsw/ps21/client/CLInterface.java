@@ -263,7 +263,7 @@ public class CLInterface implements UserInterface {
 			System.out.println("Which type of card do you want to pick?");
 			int cardType = 1;
 			System.out.println("1) Territory Card;");
-			System.out.println("2} Building Card;");
+			System.out.println("2) Building Card;");
 			System.out.println("3) Character Card;");
 			System.out.println("4) Venture Card;");
 			cardType = userInput.nextInt();
