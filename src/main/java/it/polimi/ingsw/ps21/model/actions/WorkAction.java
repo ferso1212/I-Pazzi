@@ -2,121 +2,141 @@ package it.polimi.ingsw.ps21.model.actions;
 
 import java.util.ArrayList;
 
-import it.polimi.ingsw.ps21.model.board.MultipleSpace;
-import it.polimi.ingsw.ps21.model.board.SingleSpace;
+import it.polimi.ingsw.ps21.controller.AcceptedAction;
+import it.polimi.ingsw.ps21.controller.Message;
+import it.polimi.ingsw.ps21.controller.RefusedAction;
+import it.polimi.ingsw.ps21.controller.WorkMessage;
 import it.polimi.ingsw.ps21.model.board.Space;
+import it.polimi.ingsw.ps21.model.board.WorkSpace;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
-import it.polimi.ingsw.ps21.model.deck.Effect;
+import it.polimi.ingsw.ps21.model.deck.IllegalCardTypeException;
+import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
+import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
+import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.Player;
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
+import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class WorkAction extends Action {
-	
-	public WorkAction(Match match, Player player) {
-		super(match, player);
-		// TODO Auto-generated constructor stub
-	}
 
-	/*private Space space;
+	private WorkSpace space;
 	private FamilyMember famMember;
-	
-	public WorkAction(Match m, Player p, Space space, FamilyMember famMember) {
-		super(m, p);
+	private WorkMessage workMessage;
+
+	public WorkAction(PlayerColor playerId, WorkSpace space, FamilyMember famMember) {
+		super(playerId);
 		this.space = space;
 		this.famMember = famMember;
+		this.updateCounter = 1;
 	}
 
 	@Override
-	public boolean isLegal() {
-		if(space instanceof SingleSpace){
-			if ((famMember.getValue() >= space.getDiceRequirement()) && (space.isOccupable(famMember)) && (!famMember.isUsed())){
-				return true;
-			}
-		}
-		else if(space instanceof MultipleSpace){
-			if ((famMember.getValue() - 3 >= space.getDiceRequirement()) && (space.isOccupable(famMember)) && ((!famMember.isUsed()))){
+	public Message update(Player player, Match match) {
+		
+		switch (this.updateCounter) {
+		
+		case 1: {
+			if ((space.isOccupable(player, famMember)) && (!famMember.isUsed())) {
 
-				
-			}
-		}
-		return false;
-	}
-	
-	*/
-	
-	@Override
-	public void execute() {
-		/* TODO fix work action
-		boolean controlOccupation = space.occupy(this.player);
-		boolean controlEffect = false;
-		ArrayList<DevelopmentCard> cardToActivate = null;
-		switch (space.getType()) {
-		case HARVEST:
-		{
-			if(space instanceof SingleHarvestSpace){
-				cardToActivate = player.getWorkCards(famMember.getValue(), WorkType.HARVEST);
-			}
-			else if (space instanceof MultipleHarvestSpace){
-				cardToActivate = player.getWorkCards(famMember.getValue() - 3, WorkType.HARVEST);
-			}
-			break;}
-		case PRODUCTION:
-		{
-			if(space instanceof SingleProductionSpace){
-				cardToActivate = player.getWorkCards(famMember.getValue(), WorkType.PRODUCTION);
-			}
-			else if (space instanceof MultipleProductionSpace){
-				cardToActivate = player.getWorkCards(famMember.getValue() - 3, WorkType.PRODUCTION);
-			}
-			break;
-		}
-		case TOWER:
-		{
-			return false;
-		}
-		case COUNCIL:
-		{
-			return false;
-		}
-		default: cardToActivate = null;
-		}
-		int i;
-		if (cardToActivate.size()==0){
-			for(i=0; i<cardToActivate.size(); i++){
-				Effect[] effetti = cardToActivate.get(i).getEffect();
-				if ((effetti[0]==null) && (effetti[1]==null)){ //caso in cui non ci sono effetti permanenti
-					controlEffect=true;
+				if (((match.getNumberPlayers() == 3) || (match.getNumberPlayers() == 4))
+						&& ((famMember.getColor() == MembersColor.WHITE) || (famMember.getColor() == MembersColor.BLACK)
+								|| (famMember.getColor() == MembersColor.ORANGE))
+						&& !((this.checkOccupant(match, famMember, space) == MembersColor.NEUTRAL)
+								|| (this.checkOccupant(match, famMember, space) == null))) {
+					return new RefusedAction(player.getId());
 				}
-				else if ((effetti[0]==null)){
-					controlEffect=effetti[1].activate(player);
+				try {
+					ArrayList<DevelopmentCard> cardWithCost = new ArrayList<DevelopmentCard>();
+					ArrayList<DevelopmentCard> cardWithoutCost = new ArrayList<DevelopmentCard>();
+
+					for (DevelopmentCard c : player.getActivableWorks(this.famMember.getValue(), this.space.getWorkType())) {
+						for (EffectSet e : c.getPossibleEffects()){
+							if (e.getTotalCost().isNull())
+								cardWithoutCost.add(c);
+							cardWithCost.add(c);
+						}
+					}
+
+					this.workMessage = new WorkMessage(player.getId(),
+							cardWithCost.toArray(new DevelopmentCard[0]));
+				} catch (IllegalCardTypeException e) {
+					return new RefusedAction(player.getId());
 				}
-				else if ((effetti[1]==null)){
-					controlEffect=effetti[0].activate(player);
-				}
-				else if ((effetti[0]!=null) && (effetti[1]!=null)){
-					controlEffect=true;//implementazione della scelta dell'effetto
+				this.updateCounter--;
+				return this.workMessage;
+			} else
+				return new RefusedAction(player.getId());
+		}
+
+		case 0:
+		{
+			ImmProperties totalCost = new ImmProperties(0);
+			for (int i=0 ; i < this.workMessage.getChosenCardsAndEffects().length; i++){
+				if (this.workMessage.getChosenCardsAndEffects()[i] != 0){
+					totalCost = totalCost.sum(this.workMessage.getChoices()[i].getPossibleEffects()[this.workMessage.getChosenCardsAndEffects()[i]-1].getTotalCost());
 				}
 			}
+			if (player.checkProperties(totalCost))
+				return new AcceptedAction(player.getId());
+			else return new RefusedAction(player.getId());
 		}
-		else controlEffect=true;
-		if(controlOccupation && controlEffect){
-			return true;
+
+		default:{
+			return new RefusedAction(player.getId());
 		}
-		return false;
-		
-		*/
-		
-		
+		}
 	}
 
-	@Override
-	public boolean isLegal() {
-		// TODO Auto-generated method stub
-		return false;
+	private MembersColor checkOccupant(Match match, FamilyMember famMember, Space space)
+			throws IllegalArgumentException {
+		if (space == match.getBoard().getSingleWorkSpace(WorkType.HARVEST)) {
+			for (FamilyMember f : match.getBoard().getMultipleWorkSpace(WorkType.HARVEST).getOccupants()) {
+				if (famMember.getOwnerId() == f.getOwnerId())
+					return f.getColor();
+				return null;
+			}
+		} else if (space == match.getBoard().getSingleWorkSpace(WorkType.PRODUCTION)) {
+			for (FamilyMember f : match.getBoard().getMultipleWorkSpace(WorkType.PRODUCTION).getOccupants()) {
+				if (famMember.getOwnerId() == f.getOwnerId())
+					return f.getColor();
+				return null;
+			}
+		} else if (space == match.getBoard().getMultipleWorkSpace(WorkType.HARVEST)) {
+			if (famMember.getOwnerId() == match.getBoard().getSingleWorkSpace(WorkType.HARVEST).getOccupant()
+					.getOwnerId())
+				return match.getBoard().getSingleWorkSpace(WorkType.HARVEST).getOccupant().getColor();
+			return null;
+		} else if (space == match.getBoard().getMultipleWorkSpace(WorkType.PRODUCTION)) {
+			if (famMember.getOwnerId() == match.getBoard().getSingleWorkSpace(WorkType.PRODUCTION).getOccupant()
+					.getOwnerId())
+				return match.getBoard().getSingleWorkSpace(WorkType.PRODUCTION).getOccupant().getColor();
+			return null;
+		}
+		return null;
 	}
-	
-	
-			
+
+	@Override
+	public ExtraAction[] activate(Player player, Match match) throws NotExecutableException, RequirementNotMetException, InsufficientPropsException {
+
+		if (this.space == match.getBoard().getMultipleWorkSpace(this.space.getWorkType())) {
+			this.famMember
+					.increaseValue(-match.getBoard().getMultipleWorkSpace(this.space.getWorkType()).getDiceMalus());
+		}
+
+		ArrayList<ExtraAction> activatedEffects = new ArrayList<ExtraAction>();
+
+		match.getBoard().placeMember(player, this.famMember, this.space);
+
+		for (int i = 0; i < workMessage.getChosenCardsAndEffects().length; i++) {
+			if (workMessage.getChosenCardsAndEffects()[i] != 0) {
+				activatedEffects.addAll(workMessage.getChoices()[i].getPossibleEffects()[workMessage.getChosenCardsAndEffects()[i] - 1].activate(player));
+			}
+		}
+
+		return activatedEffects.toArray(new ExtraAction[0]);
+	}
 
 }

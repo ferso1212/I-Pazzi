@@ -9,7 +9,7 @@ public class DiceModsSet{
 	
 	public DiceModsSet()
 	{
-		this.diceMods=new EnumMap<DevelopmentCardType, DiceMod>(DevelopmentCardType.class);
+		this.diceMods=new EnumMap<>(DevelopmentCardType.class);
 		for(DevelopmentCardType cardType: DevelopmentCardType.values())
 		{
 			diceMods.put(cardType, new DiceMod(cardType));

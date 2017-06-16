@@ -11,6 +11,7 @@ import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.IllegalCardTypeException;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
+import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.PlayerProperties;
@@ -26,50 +27,119 @@ public class PlayerData implements Serializable {
 	private int tileHarvDiceReq;
 	private ImmProperties tileProdBonus;
 	private int tileProdDiceReq;
-	private PlayerColor color;
-	private EnumMap<DevelopmentCardType, ArrayList<DevCardData>> cards;
-	private ArrayList<LeaderCard> leaderCards;
+	private EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>> cards;
+	private EnumMap<MembersColor, FamilyMemberData> family;
 	
-	public PlayerData(EnumMap<PropertiesId, Integer> properties, ImmProperties tileHarvBonus,
-			int tileHarvDiceReq, ImmProperties tileProdBonus, int tileProdDiceReq, PlayerColor id,
-			EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>> cards, ArrayList<LeaderCard> leaderCards) {
-		super();
-		this.id = id;
-		this.properties = properties;
-		this.tileHarvBonus = tileHarvBonus;
-		this.tileHarvDiceReq = tileHarvDiceReq;
-		this.tileProdBonus = tileProdBonus;
-		this.tileProdDiceReq = tileProdDiceReq;
-		this.color = color;
-		//TODO : convert in DevCardData this.cards = cards;
-		this.leaderCards = leaderCards;
-	}
 	
 	public PlayerData(Player player) {
 		super();
+		this.cards = new EnumMap<>(DevelopmentCardType.class);
+		this.properties=new EnumMap<>(PropertiesId.class);
 		this.id = player.getId();
 		for(PropertiesId prop: PropertiesId.values())
 			{
 			this.properties.put(prop, player.getProperties().getProperty(prop).getValue());
 			}
-		this.tileHarvBonus = player.getPersonalBonusTile().getTileBonus(WorkType.HARVEST,10).clone();
+		this.tileHarvBonus = player.getPersonalBonusTile().getTileBonus(WorkType.HARVEST,10);
 		this.tileHarvDiceReq = player.getPersonalBonusTile().getDiceReq(WorkType.HARVEST);
-		this.tileProdBonus = player.getPersonalBonusTile().getTileBonus(WorkType.PRODUCTION,10).clone();
+		this.tileProdBonus = player.getPersonalBonusTile().getTileBonus(WorkType.PRODUCTION,10);
 		this.tileProdDiceReq = player.getPersonalBonusTile().getDiceReq(WorkType.PRODUCTION);
-		/*TODO: clone player's deck
-		 * for(DevelopmentCardType cardType: DevelopmentCardType.values())
+		
+		//Clones each player's deck and puts it in the 'cards' map
+		 for(DevelopmentCardType cardType: DevelopmentCardType.values())
 		{
 			try {
-				ArrayList<DevelopmentCard> clonedDeck= new ArrayList<DevelopmentCard>(player.getDeck().getCards(cardType));
+				ArrayList<DevelopmentCard> clonedDeck= new ArrayList<>();
+				if (player.getDeck().getCards(cardType)!= null) clonedDeck.addAll(player.getDeck().getCards(cardType));
 				cards.put(cardType, clonedDeck);
 			} catch (IllegalCardTypeException e) {
+
 				LOGGER.log(Level.SEVERE, "Illegal card type!", e);
-				// TODO Auto-generated catch block
-			
 			}
-			
-		}*/
-		//this.leaderCards = leaderCards;
+		}
+		this.family=new EnumMap<>(MembersColor.class);
+		for(MembersColor color: MembersColor.values())
+		{
+			family.put(color, new FamilyMemberData(player.getFamily().getMember(color)));
+		}
+		
 	}
+
+
+	/**Returns the player's id, which is also used to identify the player among the others
+	 * @return the player color (used also as id)
+	 */
+	public PlayerColor getId() {
+		return id;
+	}
+
+
+	/**Returns a map containing the values of the properties of the player.
+	 * @return a map containing the values of the properties of the player.
+	 */
+	public EnumMap<PropertiesId, Integer> getProperties() {
+		return properties;
+	}
+	
+	/**Returns the value of the selected property of the player.
+	 * 
+	 * @param propId the chosen property
+	 * @return the value of the chosen property
+	 */
+	public int getPropertyValue(PropertiesId propId)
+	{
+		return this.properties.get(propId);
+	}
+	
+	/**Returns the bonus provided by the personal tile when a harvest action is performed
+	 * 
+	 * @return the bonus
+	 */
+	public ImmProperties getTileHarvBonus() {
+		return tileHarvBonus;
+	}
+
+
+	/**Returns the action value needed to receive the tile bonus when an harvest action is performed.
+	 * 
+	 * @return the dice requirement
+	 */
+	public int getTileHarvDiceReq() {
+		return tileHarvDiceReq;
+	}
+
+
+	/**Returns the bonus provided by the personal tile when a production action is performed
+	 * 
+	 * @return the bonus
+	 */
+	public ImmProperties getTileProdBonus() {
+		return tileProdBonus;
+	}
+
+
+	/**Returns the action value needed to receive the tile bonus when a production action is performed.
+	 * 
+	 * @return the dice requirement
+	 */
+	public int getTileProdDiceReq() {
+		return tileProdDiceReq;
+	}
+
+
+	/**Returns the map containing all the development cards of the player
+	 * 
+	 * @return a map with all the cards belonging to the player
+	 */
+	public EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>> getCards() {
+		return cards;
+	}
+	
+	public FamilyMemberData getFamilyMember(MembersColor color)
+	{
+		return family.get(color);
+	}
+	
+	
 	
 }

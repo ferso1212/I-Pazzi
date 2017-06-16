@@ -5,6 +5,8 @@ import java.util.EnumMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import it.polimi.ingsw.ps21.model.deck.BuildingCard;
 import it.polimi.ingsw.ps21.model.deck.CardsNumber;
 import it.polimi.ingsw.ps21.model.deck.CharacterCard;
@@ -14,25 +16,37 @@ import it.polimi.ingsw.ps21.model.deck.IllegalCardTypeException;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.deck.TerritoryCard;
 import it.polimi.ingsw.ps21.model.deck.VentureCard;
-import it.polimi.ingsw.ps21.model.match.MatchBuilder;
+import it.polimi.ingsw.ps21.model.match.MatchFactory;
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class PlayerDeck implements Cloneable{
 	private final static Logger LOGGER = Logger.getLogger(PlayerDeck.class.getName());
 	
-	/*private ArrayList<TerritoryCard> greenCards;
-	private ArrayList<BuildingCard> yellowCards;
-	private ArrayList<CharacterCard> blueCards;
-	private ArrayList<VentureCard> purpleCards;*/
 	private EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>> decksMap;
 	
 	//nella k-esima cella dell'array Requirement[], c'è il requisito che il player deve soddisfare per
 	//poter acquisire la (k+1)esima carta di quel tipo
-	private EnumMap<DevelopmentCardType, Requirement[]> requirementMap;
+	private EnumMap<DevelopmentCardType, Requirement[]> addingCardRequirements;
 	
-	public PlayerDeck(){
+	/**Removes all the adding card requirements for a specific card type.
+	 * Once this method has been called with a specific cardType, each time the player wants to acquire a card of that type he doesn't have to meet the requirements
+	 * related to the addition of another card (for example, if activated on Territory cards, you won't need to have enough military points to add another territory card.
+	 * @param cardType
+	 */
+	public void setNoAddingRequirement(DevelopmentCardType cardType)
+	{
+		Requirement[] replacingReqs= new Requirement[this.addingCardRequirements.get(cardType).length];
+		for(int i=0; i<replacingReqs.length; i++)
+		{
+			replacingReqs[i]= new Requirement(new CardsNumber(0,0,0,0), new ImmProperties(0));
+		}
+		addingCardRequirements.replace(cardType, replacingReqs);
+	}
+	
+	public PlayerDeck() throws ParserConfigurationException{
 		super();
-		requirementMap = new EnumMap<DevelopmentCardType, Requirement[]>(DevelopmentCardType.class);
-		decksMap= new EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>>(DevelopmentCardType.class);
+		addingCardRequirements = (EnumMap<DevelopmentCardType, Requirement[]>) MatchFactory.instance().makeCardAddingRequirements();
+		decksMap= new EnumMap<>(DevelopmentCardType.class);
 	}
 	
 	public int countCards(DevelopmentCardType type){
@@ -45,7 +59,7 @@ public class PlayerDeck implements Cloneable{
 	
 	public Requirement getAddingCardRequirement(DevelopmentCard card) {
 		
-		return requirementMap.get(card.getCardType())[countCards(card.getCardType())];
+		return addingCardRequirements.get(card.getCardType())[countCards(card.getCardType())];
 	}
 	
 	public ArrayList<DevelopmentCard> getCards(DevelopmentCardType type) throws IllegalCardTypeException{
@@ -91,6 +105,6 @@ public class PlayerDeck implements Cloneable{
 			EnumMap<DevelopmentCardType, Requirement[]> requirementMap) {
 		super();
 		this.decksMap = decksMap;
-		this.requirementMap = requirementMap;
+		this.addingCardRequirements = requirementMap;
 	}
 }

@@ -2,53 +2,41 @@ package it.polimi.ingsw.ps21.model.deck;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Optional;
 
-import it.polimi.ingsw.ps21.controller.UnchosenException;
-import it.polimi.ingsw.ps21.model.properties.ImmProperties;
+import it.polimi.ingsw.ps21.model.effect.EffectSet;
 
 
-public abstract class DevelopmentCard extends Card{
+public abstract class DevelopmentCard extends Card implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -86001113989795205L;
 	protected int cardEra;
-	protected Effect instantEffect;
-	protected ArrayList<Effect> permanentEffects;
-	protected ArrayList<ImmProperties> costs;
-	protected Optional<ImmProperties> chosenCost;
-	protected Optional<Effect> chosenEffect;
+	protected EffectSet instantEffect;
+	protected ArrayList<EffectSet> permanentEffects;
+
 	
 	
-	public DevelopmentCard(String name, int era, Requirement reqs[], ImmProperties costs[], Effect instant, Effect... permanent){
+	public DevelopmentCard(String name, int era, RequirementAndCost reqs[], EffectSet instant, EffectSet... permanent){
 		super(name, reqs);
-		this.costs = new ArrayList<>();
-		for (ImmProperties c: costs){
-			this.costs.add(c);
-		}
-		if (this.costs.size() == 1) chosenCost =  Optional.of(this.costs.get(0));
-		else chosenCost = Optional.empty();
 		cardEra = era;
 		instantEffect = instant;
 		permanentEffects = new ArrayList<>();
-		for (Effect e: permanent){
+		for (EffectSet e: permanent){
 		permanentEffects.add(e);
 		}
-		if (permanentEffects.size() == 1) chosenEffect = Optional.of(permanentEffects.get(0));
-		else chosenEffect = Optional.empty();
 	}
 	
-	public DevelopmentCard(String name, int era, Requirement req, ImmProperties cost, Effect instant, Effect... permanent){
+	public DevelopmentCard(String name, int era,RequirementAndCost req, EffectSet instant, EffectSet... permanent){
 		super(name, req);
-		this.costs = new ArrayList<>();
-		this.costs.add(cost);
-		chosenCost = Optional.of(cost);
 		cardEra = era;
 		instantEffect = instant;
 		permanentEffects = new ArrayList<>();
-		for (Effect e: permanent){
+		for (EffectSet e: permanent){
 		permanentEffects.add(e);
 		}
-		if (permanentEffects.size() == 1) chosenEffect = Optional.of(permanentEffects.get(0));
-		else chosenEffect = Optional.empty();
+	
 	}
 
 	public int getEra(){
@@ -58,38 +46,33 @@ public abstract class DevelopmentCard extends Card{
 	@Override
 	public String toString(){ 
 		StringBuilder temp = new StringBuilder();
-		temp.append("\nPossible Requirements: ");
+		temp.append("\nPossible Requirements and costs: ");
 		for (int i=0; i< possibleRequirement.size(); i++){
-			if (i!=0) temp.append(", ");
-			temp.append(possibleRequirement.get(i));
+			if (i!=0) temp.append("\n------------------\n ");
+			temp.append(possibleRequirement.get(i).toString());
 		}
 		temp.append("\nInstant Effect: " + instantEffect.toString() + "\nEffetti Permanenti: ");
-		for (Effect e: permanentEffects){
+		for (EffectSet e: permanentEffects){
 			temp.append(e.toString() + ", ");
 		}
 		temp.append("\n");
 		return temp.toString();
 	}
 	
-	public Effect getInstantEffect(){
+	public EffectSet getInstantEffect(){
 		return instantEffect;
 	}
 	
-	public Effect[] getPossibleEffects(){
-		return (Effect []) permanentEffects.toArray(new Effect[0]);
+	public EffectSet[] getPossibleEffects(){
+		return  permanentEffects.toArray(new EffectSet[0]);
 	}
 	
-	public ImmProperties[] getPossibleCosts(){
-		return (ImmProperties []) costs.toArray(new ImmProperties[0]);
-	}
-	public Effect getChosenPemanentEffect()throws UnchosenException{
-		if (chosenEffect.isPresent()) throw new UnchosenException();
-		return null; //TODO Metodo di ripiego, si deve implementare la scelta di effetti permanenti
-	}
 	public abstract DevelopmentCardType getCardType();
 	
-	public ImmProperties[] getCosts(){
-		return (ImmProperties []) costs.toArray(new ImmProperties[0]);
+	public abstract DevelopmentCard clone();
+	
+	public RequirementAndCost[] getCosts(){
+		return  possibleRequirement.toArray(new RequirementAndCost[0]);
 	}
 	
 }

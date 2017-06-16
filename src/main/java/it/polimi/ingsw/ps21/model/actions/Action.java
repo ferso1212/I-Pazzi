@@ -1,26 +1,29 @@
 package it.polimi.ingsw.ps21.model.actions;
 
-import it.polimi.ingsw.ps21.model.board.NotOccupableException;
+import it.polimi.ingsw.ps21.controller.Message;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.Player;
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
 
-/**
- * This class is created in the view and is checked in the controller
- * The execution is done by Model, in action class 
- * 
- **/
 public abstract class Action {
-	protected Match match;
-	protected Player player;
 	
-	public Action(Match match, Player player){
-		this.match = match;
-		this.player = player;
+	protected PlayerColor playerId;
+	protected int updateCounter;
+	
+	public Action(PlayerColor playerId) {
+		super();
+		this.playerId = playerId;
+	}
+
+	public abstract Message update(Player player, Match match);
+	
+	public abstract ExtraAction[] activate(Player player, Match match) throws NotExecutableException, RequirementNotMetException, InsufficientPropsException;
+
+	public PlayerColor getPlayerId() {
+		return playerId;
 	}
 	
-	public abstract boolean isLegal();
 	
-	public abstract void execute() throws NotExecutableException, NotOccupableException, RequirementNotMetException, InsufficientPropsException ;
 }

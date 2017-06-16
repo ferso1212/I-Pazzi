@@ -7,23 +7,24 @@ import java.util.EnumMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import it.polimi.ingsw.ps21.model.match.MatchBuilder;
 
 /**Set of properties.
  * 
  * @author fabri
  *
  */
-public class PropertiesSet implements Cloneable, Serializable{
+public class PropertiesSet implements Serializable{
 
 	private final static Logger LOGGER = Logger.getLogger(PropertiesSet.class.getName());
+	
 	// maps each of the possible id values to the corresponding property
 	private EnumMap<PropertiesId, Property> propertiesMap;
 
 	/**
 	 * Constructs the PropertiesSet object by initializing the propertiesMap with the properties Ids and the corresponding initial values. 
 	 * The properties' Ids are taken from the PropertiesId enum.
-	 * @param initValues
+	 * If the number of parameters is < than the number of properties that should be set, the last properties (for which has not been provided an initial value) are automatically set to 0.
+	 * @param initValues sorted as in the PropertiesId enum (coins, wood, stones, servants, victory points, military points, faith points)
 	 */
 	public PropertiesSet(int... initValues) {
 		this.propertiesMap = new EnumMap<>(PropertiesId.class);
@@ -48,6 +49,15 @@ public class PropertiesSet implements Cloneable, Serializable{
 			Property newProp = new Property(propId, value);
 			propertiesMap.put(propId, newProp);
 			i++;
+		}
+	}
+	
+	public PropertiesSet(Property...props)
+	{
+		this.propertiesMap = new EnumMap<>(PropertiesId.class);
+		for(Property prop: props)
+		{
+			this.propertiesMap.put(prop.getId(), prop);
 		}
 	}
 
@@ -100,24 +110,70 @@ public class PropertiesSet implements Cloneable, Serializable{
 	}
 	
 	/**Performs a deep copy of this object.
+	 * @throws CloneNotSupportedException 
 	 * 
 	 */
-	@Override
-	public PropertiesSet clone()
+	public PropertiesSet clone() throws CloneNotSupportedException
 	{
-		PropertiesSet output;
-		try {
-			output=(PropertiesSet)super.clone();
-		} catch (CloneNotSupportedException e) {
-			// TODO Auto-generated catch block
-			LOGGER.log(Level.SEVERE, "Clone failed", e);
-			return null;
-		}
-	
+		Property[] propsToClone= new Property[this.propertiesMap.size()];
+		
+		int i=0;
 		for(Property prop: this.propertiesMap.values())
 		{
-			//TODO
+			propsToClone[i]=prop.clone();
 		}
-		return output;
+		return new PropertiesSet(propsToClone);
 	}
+
+	/** Returns a string in the format: "value1 prop1name, value2 prop2name, value3 prop3name". Only properties with a value != 0 are reported in the string.
+	 * For example: "5 coins, 3 wood pieces, 7 coins"
+	 */
+	@Override
+	public String toString() {
+		StringBuilder output= new StringBuilder();
+		Property[] propsToScan= propertiesMap.values().toArray(new Property[0]);
+		for(int i=0; i<propsToScan.length; i++) 
+		{
+			if(propsToScan[i].getValue()!=0){//properties whose value is 0 are not reported in the string
+			output.append(propsToScan[i].toString());
+			output.append(", ");}
+		}
+		return output.toString();
+	}
+	
+	/**Compares this set with the PropertiesSet passed as argument.
+	 * If all the properties in this set have a value equal or greater than the value of the corresponding property in the set passed as argument, true is returned.
+	 * @param setToCompare PropertiesSet containing the values to compare
+	 * @return true if, for each property in the set passed as argument, the value of that property is < than the value of the corresponding property in this set.
+	 */
+	public boolean greaterOrEqual(PropertiesSet setToCompare) {
+		for(Property prop: setToCompare.propertiesMap.values()){
+		if(prop.getValue() > this.getProperty(prop.getId()).getValue())	return false;}
+		return true;
+	}
+	
+	/**
+	 * Increases the value of all the properties in this object by a number of units specified in another ImmProperties object.
+	 * 
+	 * @param props
+	 * @return true if the operations succeeds; otherwise, it returns false.
+	 */
+	public boolean increaseProperties(ImmProperties propsToAdd)
+	{
+		for(PropertiesId propId: propsToAdd.getPropertiesIds())
+		{
+			if(this.getProperty(propId).addValue(propsToAdd.getPropertyValue(propId))==false) return false;
+		}
+		return true;
+	}
+	
+	/** Checks if all the properties have value=0.
+	 * @return true if all the properties in this set have value equal to 0.
+	 */
+	public boolean isNull() {
+		for(Property prop: this.getProperties()){
+		if(prop.getValue() != 0)	return false;}
+		return true;
+	}
+	
 }

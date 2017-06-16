@@ -1,0 +1,19 @@
+<!ELEMENT CouncilPrivileges (Properties*)>
+<!ELEMENT Properties (Wood, Stones, Servants, Coins, MilitaryPoints, VictoryPoints, FaithPoints)>
+<!ELEMENT Coins EMPTY>
+<!ELEMENT Stones EMPTY>
+<!ELEMENT Wood EMPTY>
+<!ELEMENT Servants EMPTY>
+<!ELEMENT MilitaryPoints EMPTY>
+<!ELEMENT FaithPoints EMPTY>
+<!ELEMENT VictoryPoints EMPTY>
+
+<!ATTLIST Coins value CDATA #REQUIRED>
+<!ATTLIST Stones value CDATA #REQUIRED>
+<!ATTLIST Wood value CDATA #REQUIRED>
+<!ATTLIST Servants value CDATA #REQUIRED>
+<!ATTLIST MilitaryPoints value CDATA #REQUIRED>
+<!ATTLIST FaithPoints value CDATA #REQUIRED>
+<!ATTLIST VictoryPoints value CDATA #REQUIRED>
+
+

@@ -1,5 +1,7 @@
 package it.polimi.ingsw.ps21.model.deck;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -7,17 +9,19 @@ import it.polimi.ingsw.ps21.controller.PlayerData;
 
 
 public class Deck implements Cloneable {
-	private final static Logger LOGGER = Logger.getLogger(PlayerData.class.getName());
+	private final static Logger LOGGER = Logger.getLogger(Deck.class.getName());
 	protected SubDeck<TerritoryCard> greenCards;
 	protected SubDeck<BuildingCard> yellowCards;
 	protected SubDeck<CharacterCard> blueCards;
 	protected SubDeck<VentureCard> purpleCards;
+	protected ExcommunicationDeck excommunications;
 	
 	public Deck(){
 		greenCards = new SubDeck<>();
 		yellowCards = new SubDeck<>();
 		blueCards = new SubDeck<>();
 		purpleCards = new SubDeck<>();
+		excommunications = new ExcommunicationDeck();
 	}
 	
 
@@ -50,6 +54,9 @@ public class Deck implements Cloneable {
 		yellowCards = yellowDeck;
 	}
 	
+	public void setExcommunication(ExcommunicationDeck excoms){
+		this.excommunications = excoms;
+	}
 	
 	public DevelopmentCard getCard(int era, DevelopmentCardType type) throws IllegalCardException{
 		switch(type){
@@ -75,25 +82,22 @@ public class Deck implements Cloneable {
 	
 	@Override
 	public String toString(){
-		StringBuilder temp = new StringBuilder();
-		
-		
+		StringBuilder temp = new StringBuilder();		
 		return temp.toString();
 	}
 	
 	public boolean isEmpty(){
-		return greenCards.isEmpty() && yellowCards.isEmpty() && blueCards.isEmpty() && purpleCards.isEmpty();
+		return greenCards.isEmpty() && yellowCards.isEmpty() && blueCards.isEmpty() && purpleCards.isEmpty() && excommunications.isEmpty();
 	}
 	
 	//TODO implement deep clone
 	public Deck clone()
 	{
-		try {
-			return (Deck)super.clone();
-		} catch (CloneNotSupportedException e) {
-			// TODO Auto-generated catch block
-			LOGGER.log(Level.SEVERE, "Unclonable", e);
-			return null;
-		}
+		Deck clone = new Deck();
+		clone.setBlueDeck(blueCards.clone());
+		clone.setYellowDeck(yellowCards.clone());
+		clone.setPurpleDeck(purpleCards.clone());
+		clone.setGreenDeck(greenCards.clone());
+		return clone;
 	}
 }

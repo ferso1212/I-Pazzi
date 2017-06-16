@@ -1,31 +1,46 @@
 package it.polimi.ingsw.ps21.model.deck;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
+import it.polimi.ingsw.ps21.model.effect.LeaderEffect;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
-public abstract class LeaderCard extends Card {
+public abstract class LeaderCard extends Card implements Serializable{
 	
-	protected boolean activated = false;
-	protected Effect leaderEffect;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1178768088913198746L;
+
+	private boolean activated = false;
 	
-	public LeaderCard(String name, Requirement reqs[], Effect effect) {
-		super(name, reqs);
+	protected LeaderEffect leaderEffect;
+	protected Requirement requirement;
+	
+	public LeaderCard(String name, LeaderEffect effect) {
+		super(name);
 		this.leaderEffect = effect;	
+		this.requirement = new Requirement(new CardsNumber(0,0,0,0), new ImmProperties(0));
 	}
 	
-	public Effect getEffect(){
+	public LeaderEffect getEffect(){
 		return leaderEffect;
 	}
-	
-	public abstract void activate(Player player);
-
 	/**
 	 * @return the activated
 	 */
-	public boolean isActivated() {
-		return activated;
+	public boolean isClonable() { // Method to implements Lorenzo il Magnifico execution
+		return leaderEffect.isClonable();
 	}
 	
+	public abstract void resetActivation();
+	
+	public boolean isActivated()
+	{
+		return this.activated;
+	}
 	 
 	
 }

@@ -1,0 +1,50 @@
+<?xml version=”1.0″ ?>
+<!DOCTYPE Privileges SYSTEM “privileges-schema.dtd”>
+<Privileges>
+	<Properties>
+                    <Wood value="1"/>
+                    <Stones value="1"/>
+                    <Servants value="0"/>
+                    <Coins value="0"/>
+                    <MilitaryPoints value="0"/>
+                    <VictoryPoints value="0"/>
+                    <FaithPoints value="0"/>
+        </Properties>
+	<Properties>
+                    <Wood value="0"/>
+                    <Stones value="0"/>
+                    <Servants value="2"/>
+                    <Coins value="0"/>
+                    <MilitaryPoints value="0"/>
+                    <VictoryPoints value="0"/>
+                    <FaithPoints value ="0"/>
+        </Properties>
+	<Properties>
+                    <Wood value="0"/>
+                    <Stones value="0"/>
+                    <Servants value="0"/>
+                    <Coins value="2"/>
+                    <MilitaryPoints value="0"/>
+                    <VictoryPoints value="0"/>
+                    <FaithPoints value ="0"/>
+        </Properties>
+	<Properties>
+                    <Wood value="0"/>
+                    <Stones value="0"/>
+                    <Servants value="0"/>
+                    <Coins value="0"/>
+                    <MilitaryPoints value="2"/>
+                    <VictoryPoints value="0"/>
+                    <FaithPoints value ="0"/>
+        </Properties>
+	<Properties>
+                    <Wood value="0"/>
+                    <Stones value="0"/>
+                    <Servants value="0"/>
+                    <Coins value="0"/>
+                    <MilitaryPoints value="0"/>
+                    <VictoryPoints value="0"/>
+                    <FaithPoints value="1"/>
+        </Properties>
+
+</Privileges>

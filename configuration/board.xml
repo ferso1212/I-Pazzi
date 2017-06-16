@@ -1,0 +1,721 @@
+<?xml version="1.0" ?>
+<!DOCTYPE Board SYSTEM "board-schema.dtd">
+<Board>
+    <Privileges>
+        <Properties>
+            <Wood value="1" />
+            <Stones value="1" />
+            <Servants value="0" />
+            <Coins value="0" />
+            <MilitaryPoints value="0" />
+            <VictoryPoints value="0" />
+            <FaithPoints value="0" />
+        </Properties>
+        <Properties>
+            <Wood value="0" />
+            <Stones value="0" />
+            <Servants value="2" />
+            <Coins value="0" />
+            <MilitaryPoints value="0" />
+            <VictoryPoints value="0" />
+            <FaithPoints value="0" />
+        </Properties>
+        <Properties>
+            <Wood value="0" />
+            <Stones value="0" />
+            <Servants value="0" />
+            <Coins value="2" />
+            <MilitaryPoints value="0" />
+            <VictoryPoints value="0" />
+            <FaithPoints value="0" />
+        </Properties>
+        <Properties>
+            <Wood value="0" />
+            <Stones value="0" />
+            <Servants value="0" />
+            <Coins value="0" />
+            <MilitaryPoints value="2" />
+            <VictoryPoints value="0" />
+            <FaithPoints value="0" />
+        </Properties>
+        <Properties>
+            <Wood value="0" />
+            <Stones value="0" />
+            <Servants value="0" />
+            <Coins value="0" />
+            <MilitaryPoints value="0" />
+            <VictoryPoints value="0" />
+            <FaithPoints value="1" />
+        </Properties>
+    </Privileges>
+    <InitialProperties>
+        <Properties>
+            <Wood value="2" />
+            <Stones value="2" />
+            <Servants value="3" />
+            <Coins value="5" />
+            <MilitaryPoints value="0" />
+            <VictoryPoints value="0" />
+            <FaithPoints value="0" />
+        </Properties>
+        <Properties>
+            <Wood value="2" />
+            <Stones value="2" />
+            <Servants value="3" />
+            <Coins value="6" />
+            <MilitaryPoints value="0" />
+            <VictoryPoints value="0" />
+            <FaithPoints value="0" />
+        </Properties>
+        <Properties>
+            <Wood value="2" />
+            <Stones value="2" />
+            <Servants value="3" />
+            <Coins value="7" />
+            <MilitaryPoints value="0" />
+            <VictoryPoints value="0" />
+            <FaithPoints value="0" />
+        </Properties>
+        <Properties>
+            <Wood value="2" />
+            <Stones value="2" />
+            <Servants value="3" />
+            <Coins value="8" />
+            <MilitaryPoints value="2" />
+            <VictoryPoints value="0" />
+            <FaithPoints value="0" />
+        </Properties>
+    </InitialProperties>
+    <CardBonuses>
+        <TerritoryBonuses value1="0" value2="1" value3="2" value4="3" value5="5" value6="10" />
+        <BuildingBonuses value1="0" value2="1" value3="2" value4="3" value5="5" value6="10" />
+        <CharacterBonuses value1="0" value2="1" value3="2" value4="3" value5="5" value6="10" />
+        <VentureBonuses value1="0" value2="1" value3="2" value4="3" value5="5" value6="10" />
+    </CardBonuses>
+    <CardRequirement>
+        <TerritoryRequirement>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+        </TerritoryRequirement>
+        <BuildingRequirement>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+        </BuildingRequirement>
+        <CharacterRequirement>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+        </CharacterRequirement>
+        <VentureRequirement>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+            <Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+                <CardsNumber>
+                    <Green value="0" />
+                    <Yellow value="0" />
+                    <Blue value="0" />
+                    <Purple value="0" />
+                </CardsNumber>
+            </Requirement>
+        </VentureRequirement>
+    </CardRequirement>
+    <MilitaryBonuses first="1" second="2" />
+    <FaithBonuses zero="0" first="1" second="2" third="3" fourth="4" fifth="5" sixth="7" seventh="9" eighth="11" nineth="13" tenth="15" eleventh="17" twelveth="19" thirteenth="22" fourteenth="25" fifteenth="30" />
+    <MarketBonuses>
+        <Properties>
+            <Wood value="0" />
+            <Stones value="0" />
+            <Servants value="0" />
+            <Coins value="0" />
+            <MilitaryPoints value="0" />
+            <VictoryPoints value="0" />
+            <FaithPoints value="0" />
+        </Properties>
+        <Properties>
+            <Wood value="0" />
+            <Stones value="0" />
+            <Servants value="0" />
+            <Coins value="0" />
+            <MilitaryPoints value="0" />
+            <VictoryPoints value="0" />
+            <FaithPoints value="0" />
+        </Properties>
+        <Properties>
+            <Wood value="0" />
+            <Stones value="0" />
+            <Servants value="0" />
+            <Coins value="0" />
+            <MilitaryPoints value="0" />
+            <VictoryPoints value="0" />
+            <FaithPoints value="0" />
+        </Properties>
+        <Properties>
+            <Wood value="0" />
+            <Stones value="0" />
+            <Servants value="0" />
+            <Coins value="0" />
+            <MilitaryPoints value="0" />
+            <VictoryPoints value="0" />
+            <FaithPoints value="0" />
+        </Properties>
+    </MarketBonuses>
+    <MarketPrivileges first="0" second="0" third="0" fourth="0" />
+    <CouncilBonus>
+        <Properties>
+            <Wood value="0" />
+            <Stones value="0" />
+            <Servants value="0" />
+            <Coins value="0" />
+            <MilitaryPoints value="0" />
+            <VictoryPoints value="0" />
+            <FaithPoints value="0" />
+        </Properties>
+    </CouncilBonus>
+    <CouncilPrivileges value="1" />
+    <TowersBonuses>
+        <TerritoryTower>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="0" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="0" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="0" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="0" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+        </TerritoryTower>
+        <BuildingTower>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="0" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="0" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="0" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="0" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+        </BuildingTower>
+        <CharacterTower>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="0" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="0" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="0" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="0" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+        </CharacterTower>
+        <VentureTower>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="0" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="0" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="0" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+            <Properties>
+                <Wood value="0" />
+                <Stones value="0" />
+                <Servants value="0" />
+                <Coins value="0" />
+                <MilitaryPoints value="0" />
+                <VictoryPoints value="0" />
+                <FaithPoints value="0" />
+            </Properties>
+        </VentureTower>
+    </TowersBonuses>
+    <ExcommunicationRequirements firstPeriod="3" secondPeriod="4" thirdPeriod="5" />
+</Board>

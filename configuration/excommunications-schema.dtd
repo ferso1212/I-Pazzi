@@ -1,0 +1,42 @@
+<!ELEMENT ExcommunicationDeck (Excommunication*)>
+<!ELEMENT Excommunication (ActionExcommunication | CardDiceExcommunication | DiceExcommunication | FinalVPointExcommunication | PropAdditionExcommunication | ServantsValueExcommunication | WorkExcommunication )>
+<!ELEMENT  ActionExcommunication EMPTY>
+<!ELEMENT  CardDiceExcommunication (Green | Blue | Yellow | Purple)>
+<!ELEMENT  DiceExcommunication EMPTY>
+<!ELEMENT  FinalVPointExcommunication EMPTY>
+<!ELEMENT  PropAdditionExcommunication (Properties) >
+<!ELEMENT  ServantsValueExcommunication EMPTY >
+<!ELEMENT  WorkExcommunication (Harvest | Production)>
+<!ELEMENT Harvest EMPTY>
+<!ELEMENT Production EMPTY>
+<!ELEMENT Green EMPTY>
+<!ELEMENT Yellow EMPTY>
+<!ELEMENT Blue EMPTY>
+<!ELEMENT Purple EMPTY>
+<!ELEMENT Properties (Wood, Stones, Servants, Coins, MilitaryPoints, VictoryPoints, FaithPoints)>
+<!ELEMENT Coins EMPTY>
+<!ELEMENT Stones EMPTY>
+<!ELEMENT Wood EMPTY>
+<!ELEMENT Servants EMPTY>
+<!ELEMENT MilitaryPoints EMPTY>
+<!ELEMENT FaithPoints EMPTY>
+<!ELEMENT VictoryPoints EMPTY>
+
+
+<!ATTLIST Excommunication id CDATA #REQUIRED period CDATA #REQUIRED >
+<!ATTLIST ActionExcommunication delayFirstAction CDATA #REQUIRED noMarketAction CDATA #REQUIRED>
+<!ATTLIST CardDiceExcommunication diceValue CDATA #REQUIRED>
+<!ATTLIST DiceExcommunication whiteValue CDATA #REQUIRED blackValue CDATA #REQUIRED orangeValue CDATA #REQUIRED>
+<!ATTLIST ServantsValueExcommunication servantsValue CDATA #REQUIRED>
+<!ATTLIST WorkExcommunication value CDATA #REQUIRED>
+<!ATTLIST Green value CDATA #REQUIRED>
+<!ATTLIST Yellow value CDATA #REQUIRED>
+<!ATTLIST Blue value CDATA #REQUIRED>
+<!ATTLIST Purple value CDATA #REQUIRED>
+<!ATTLIST Coins value CDATA #REQUIRED>
+<!ATTLIST Stones value CDATA #REQUIRED>
+<!ATTLIST Wood value CDATA #REQUIRED>
+<!ATTLIST Servants value CDATA #REQUIRED>
+<!ATTLIST MilitaryPoints value CDATA #REQUIRED>
+<!ATTLIST FaithPoints value CDATA #REQUIRED>
+<!ATTLIST VictoryPoints value CDATA #REQUIRED>

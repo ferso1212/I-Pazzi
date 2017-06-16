@@ -1,0 +1,6 @@
+<!ELEMENT ServerConfiguration (TimeoutLobby, TimeoutRound)>
+<!ELEMENT TimeoutLobby EMPTY>
+<!ELEMENT TimeoutRound EMPTY>
+
+<!ATTLIST TimeoutRound value CDATA #REQUIRED>
+<!ATTLIST TimeoutLobby value CDATA #REQUIRED>

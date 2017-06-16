@@ -2,6 +2,7 @@ package it.polimi.ingsw.ps21.model.player;
 
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 
+
 public class WorkModifier {
 	private int harvestModifier;
 	private int productionModifier;
@@ -47,7 +48,7 @@ public class WorkModifier {
 		else throw new IllegalArgumentException();
 	}
 	
-	public void getWorkMod(WorkType type, int value) throws IllegalArgumentException
+	public void setWorkMod(WorkType type, int value) throws IllegalArgumentException
 	{
 		if(type==WorkType.HARVEST) this.harvestModifier=value;
 		if(type==WorkType.PRODUCTION) this.productionModifier=value;
