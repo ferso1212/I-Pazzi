@@ -1,17 +1,17 @@
 package it.polimi.ingsw.ps21.controller;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Queue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.NotExecutableException;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
 import it.polimi.ingsw.ps21.model.match.Match;
-import it.polimi.ingsw.ps21.model.match.MatchFactory;
 import it.polimi.ingsw.ps21.model.match.RoundType;
 import it.polimi.ingsw.ps21.model.match.VaticanRoundException;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
@@ -22,6 +22,7 @@ import it.polimi.ingsw.ps21.view.RoundTimer;
 import it.polimi.ingsw.ps21.view.UserHandler;
 
 public class MatchController extends Observable implements Observer {
+	private static final Logger LOGGER = Logger.getLogger(MatchController.class.getName());
 	private EnumMap<PlayerColor, UserHandler> handlersMap;
 	private Player currentPlayer;
 	private Match match;
@@ -109,23 +110,19 @@ public class MatchController extends Observable implements Observer {
 				if (!(a instanceof NullAction))
 					extraActions.add(a);
 			}
-			if (extraActions.size() == 0) {
+			if (extraActions.isEmpty()) {
 				setChanged();
 				notifyObservers(new CompletedActionMessage(currentPlayer.getId()));
 				nextPlayer();
 			}
 		} catch (NotExecutableException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.INFO , "Action not executable", e);
 		} catch (RequirementNotMetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.WARNING , "Player doesn't met the requirements for this action", e);
 		} catch (InsufficientPropsException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.INFO , "Player doesn't have enough properties to execute this action", e);
 		} catch (VaticanRoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Match is in Vatican State, so cannot execute this type of action", e);
 		}
 		// creare un nuovo array di extra action senza NullAction da notificare
 		// all'utente
@@ -205,14 +202,12 @@ public class MatchController extends Observable implements Observer {
 			}
 			}
 		}
-		if (source == timer) {
-			if (state != ActionState.ACCEPTED) {
+		if (source == timer && state != ActionState.ACCEPTED) {
 				setChanged();
 				notifyObservers(new RefusedAction(currentPlayer.getId(), "Timeout expired!"));
 				nextPlayer();
 				reqPlayerAction();
 			}
-		}
 
 	}
 
