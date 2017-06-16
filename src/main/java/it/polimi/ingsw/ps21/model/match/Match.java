@@ -77,6 +77,7 @@ public class Match extends Observable {
 		this.order = previousMatch.order;
 		this.period = previousMatch.period;
 		this.round = previousMatch.round;
+		this.ended = previousMatch.ended;
 	}
 	
 	
@@ -136,11 +137,11 @@ public class Match extends Observable {
 			else newOrder.add(player);
 		}
 		order = new ArrayDeque<>();
-		for ( int j = newOrder.size() -1 ; j>=0; j--) order.add(newOrder.get(j));
+		for ( int j = 0 ; j < newOrder.size(); j++) order.add(newOrder.get(j));
 		if (round != RoundType.VATICAN_ROUND)
 			for (int i=0; i<3; i++)
-				for ( int j = newOrder.size() -1 ; j>=0; j--) order.add(newOrder.get(j));
-				board.newSetBoard(period);
+				for ( int j =0 ; j< newOrder.size(); j++) order.add(newOrder.get(j));
+		board.newSetBoard(period);
 		return round;
 	}
 

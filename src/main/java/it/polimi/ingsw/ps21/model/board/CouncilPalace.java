@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps21.model.board;
 
+import java.util.ArrayDeque;
 import java.util.Queue;
 
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
@@ -16,7 +17,7 @@ public class CouncilPalace extends Space {
 	public CouncilPalace(int diceRequirement, ImmProperties instantBonus, int diceMalus, int councilPrivileges) {
 		super(diceRequirement, instantBonus);
 		this.councilPrivileges = councilPrivileges;
-		this.occupants = null;
+		this.occupants = new ArrayDeque<>();
 		this.diceMalus=diceMalus;
 	}
 

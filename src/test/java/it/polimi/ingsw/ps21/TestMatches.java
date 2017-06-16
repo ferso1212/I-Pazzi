@@ -8,10 +8,13 @@ import java.util.logging.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
+import it.polimi.ingsw.ps21.model.board.NotOccupableException;
+import it.polimi.ingsw.ps21.model.deck.TerritoryCard;
 import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
 import it.polimi.ingsw.ps21.model.match.InvalidIDException;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.match.RoundType;
+import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
@@ -37,31 +40,80 @@ public class TestMatches {
 	 assert(checkInvalidMatchCreation());
 	 assert(checkThrowDices());
 	 assert(checkPlayerLoop());
+	 assert(checkCopingMatch());
 	}
 	
+	private boolean checkCopingMatch() {
+		Match previousMatch = new Match(testedMatch);
+		if (!compareMatch(previousMatch, testedMatch)) return false;
+		try {
+			Match copiedMatch = testedMatch.getCopy();
+			if (copiedMatch != testedMatch) return true;
+			else return false;
+		} catch (CloneNotSupportedException e) {
+			return false;
+		}
+	}
+
+	private boolean compareMatch(Match match1, Match match2) {
+		if (match1.getBlackDice() != match2.getBlackDice()) return false;
+		if (match1.getOrangeDice() != match2.getOrangeDice()) return false;
+		if (match1.getWhiteDice() != match2.getWhiteDice()) return false;
+		if (match1.getRound() != match2.getRound()) return false;
+		if (match1.isEnded() != match2.isEnded()) return false;
+		return true;
+		
+	}
+
 	private boolean checkPlayerLoop() {
+		try {
+			testedMatch.getBoard().getCouncilPalace().occupy(testedMatch.getCurrentPlayer(), testedMatch.getCurrentPlayer().getFamily().getMember(MembersColor.BLACK));
+		} catch (NotOccupableException e) {
+			e.printStackTrace();
+		}
 		Player currentPlayer = testedMatch.getCurrentPlayer();
 		testedMatch.setNextPlayer();
 		if (currentPlayer == testedMatch.getCurrentPlayer()) return false;
 		currentPlayer = testedMatch.getCurrentPlayer();
 		testedMatch.setNextPlayer();
+		try {
+			testedMatch.getBoard().getCouncilPalace().occupy(testedMatch.getCurrentPlayer(), testedMatch.getCurrentPlayer().getFamily().getMember(MembersColor.BLACK));
+		} catch (NotOccupableException e) {
+			e.printStackTrace();
+		}
 		if (currentPlayer == testedMatch.getCurrentPlayer()) return false;
 		currentPlayer = testedMatch.getCurrentPlayer();
 		testedMatch.setNextPlayer();
-		if (currentPlayer == testedMatch.getCurrentPlayer()) return false;
-		currentPlayer = testedMatch.getCurrentPlayer();
+		try {
+			testedMatch.getBoard().getCouncilPalace().occupy(testedMatch.getCurrentPlayer(), testedMatch.getCurrentPlayer().getFamily().getMember(MembersColor.BLACK));
+		} catch (NotOccupableException e) {
+			e.printStackTrace();
+		}
+		
+		for (int i=0; i<13; i++){
+			if (currentPlayer == testedMatch.getCurrentPlayer()) return false;
+			currentPlayer = testedMatch.getCurrentPlayer();
+			testedMatch.setNextPlayer();
+		}
+		if (testedMatch.getRound() != RoundType.FINAL_ROUND) return false;
 		return true;
 	}
 
 	private boolean checkThrowDices() {
+		testedMatch.throwDices();
+		int equalValuesCounter = 0;
 		int dicesValues[] = testedMatch.getDices();
 		for (int j=0; j<10; j++){
-			for (int i: dicesValues)
-				if (i<1 || i>6) return false;
-			if (dicesValues == testedMatch.getDices()) return false;
-			dicesValues = testedMatch.getDices();
+			if (testedMatch.getBlackDice()< 1 || testedMatch.getBlackDice() > 6) return false;
+		if (testedMatch.getWhiteDice()< 1 || testedMatch.getWhiteDice() > 6) return false;
+		if (testedMatch.getOrangeDice()< 1 || testedMatch.getOrangeDice() > 6) return false;
+		testedMatch.throwDices();
+			int newDices[] = testedMatch.getDices();
+			for (int i=0; i< newDices.length;i++) if (dicesValues[i] == newDices[i]) equalValuesCounter++;
+			dicesValues = newDices;
 		}
-		return true;
+		if (equalValuesCounter <10) return true;
+		else return false;
 		
 	}
 
