@@ -16,8 +16,10 @@ import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.controller.WorkMessage;
 import it.polimi.ingsw.ps21.model.actions.Action;
+import it.polimi.ingsw.ps21.model.actions.CouncilAction;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
+import it.polimi.ingsw.ps21.model.actions.WorkAction;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
 public class UserHandler extends Observable implements Visitor, Runnable, Observer {
@@ -39,11 +41,13 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 	@Override
 	public void visit(VaticanChoice choice) {
 		choice.setChosen(connection.reqVaticanChoice());
+		choice.setVisited();
 	}
 
 	@Override
 	public void visit(CostChoice choice) {
 		choice.setChosen(connection.reqCostChoice(choice.getChoices()));
+		choice.setVisited();
 	}
 
 	@Override
@@ -109,7 +113,7 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 					if (timeoutExpired)
 						connection.sendMessage("Timeout expired");
 					else {
-						parseAction(newAction);
+						notifyObservers(newAction);
 					}
 				}
 			} else if (arg instanceof MatchData) {
@@ -144,8 +148,25 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 
 	// TODO
 	private void parseAction(ActionData action) {
-		setChanged();
-		Action userAction = new NullAction(this.playerId);
+		Action userAction = new NullAction(playerId);
+		switch (action.getType()){
+		case COUNCIL:
+			break;
+		case HARVEST:
+			break;
+		case MARKET:
+			break;
+		case NULL:
+			break;
+		case PLAY_LEADERCARD:
+			break;
+		case PRODUCTION:
+			break;
+		case TAKE_CARD:
+			break;
+		default:
+			break;
+		}
 		notifyObservers(userAction);
 	}
 

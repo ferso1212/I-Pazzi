@@ -19,16 +19,15 @@ public class CouncilAction extends Action{
 	private FamilyMember famMember;
 	private CouncilChoice councilChoice;
 		
-	public CouncilAction(PlayerColor playerId, CouncilPalace council, FamilyMember famMember) {
+	public CouncilAction(PlayerColor playerId, FamilyMember famMember) {
 		super(playerId);
-		this.council = council;
 		this.famMember = famMember;
 	}
 	
 	
 	@Override
 	public Message update(Player player, Match match) {
-		
+		this.council = match.getBoard().getCouncilPalace();
 		if(this.famMember.getColor() == MembersColor.NEUTRAL){
 			return new RefusedAction(player.getId(), "You can't place the Neutral member in the council palace!");
 		}
