@@ -71,25 +71,17 @@ public class CardTest {
 		if (testTerritory.getDiceRequirement()!=3) return false;
 		if (testTerritory.getCosts().length != 1) return false;
 		if (testTerritory.getPossibleEffects().length!=1) return false;
-		try {
-			if (testTerritory.getChosenPemanentEffect()!= testPermanentEffect1) return false;
-		} catch (UnchosenException e) {
-			System.out.print("Expected exception, everithing allright");
-		}
 		return true;
 	}
 
 	private boolean checkBuildingCreation() {
 		BuildingCard testBuilding= new BuildingCard("test", 1, testReq, 2, testInstantEffect, testPermanentEffect1);
-		try {
+	
 			if (testBuilding.getEra() != 1) return false;
 			if (testBuilding.getCardType()!=DevelopmentCardType.BUILDING) return false;
 			if (testBuilding.getInstantEffect()!= testInstantEffect) return false;
 			if (testBuilding.getDiceRequirement() != 2) return false;
-			if (testBuilding.getChosenPemanentEffect()!= testPermanentEffect1) return false;
-		} catch (UnchosenException e) {
-			System.out.println("Expected exception, everithing allright");
-		}
+		
 		if (testBuilding.getCosts().length!=1 || testBuilding.getCosts()[0] != testReq) return false;
 		if (testBuilding.getCosts().length!=1 || testBuilding.getCosts()[0] != testReq) return false;
 		testBuilding = new BuildingCard("test", 1, testReq, 3, testInstantEffect, testPermanentEffect1, testPermanentEffect2);

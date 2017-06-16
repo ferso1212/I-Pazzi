@@ -138,8 +138,6 @@ public class PropertiesSet implements Serializable{
 			output.append(propsToScan[i].toString());
 			output.append(", ");}
 		}
-		output.deleteCharAt(output.length()-1); //removes the last space and the last ',' in the string
-		output.deleteCharAt(output.length()-1);
 		return output.toString();
 	}
 	
@@ -169,6 +167,9 @@ public class PropertiesSet implements Serializable{
 		return true;
 	}
 	
+	/** Checks if all the properties have value=0.
+	 * @return true if all the properties in this set have value equal to 0.
+	 */
 	public boolean isNull() {
 		for(Property prop: this.getProperties()){
 		if(prop.getValue() != 0)	return false;}

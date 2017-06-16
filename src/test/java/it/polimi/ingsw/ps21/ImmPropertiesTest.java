@@ -7,14 +7,10 @@ import org.junit.Test;
 
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
+import it.polimi.ingsw.ps21.model.properties.PropertiesSet;
 
 public class ImmPropertiesTest {
 	
-	@Before
-	public void setUp()
-	{
-		
-	}
 
 	@Test
 	public void testConstructor() {
@@ -34,6 +30,22 @@ public class ImmPropertiesTest {
 		assertEquals(0, props2.getPropertyValue(PropertiesId.FAITHPOINTS));
 	}
 	
-	
+	@Test
+	public void testMethods()
+	{
+		ImmProperties props= new ImmProperties(1,2,3,4,5,6,7);
+		ImmProperties props2= new ImmProperties(4,7,2);
+		assertEquals(false, props.greaterOrEqual(props2));
+		PropertiesSet props3= new PropertiesSet(0,0,0,1,2,3,4);
+		assertEquals(true, props.greaterOrEqual(props3));
+		ImmProperties propSum= props.sum(props2);
+		assertEquals(5, propSum.getPropertyValue(PropertiesId.COINS));
+		assertEquals(9, propSum.getPropertyValue(PropertiesId.WOOD));
+		assertEquals(5, propSum.getPropertyValue(PropertiesId.STONES));
+		assertEquals(4, propSum.getPropertyValue(PropertiesId.SERVANTS));
+		assertEquals(5, propSum.getPropertyValue(PropertiesId.VICTORYPOINTS));
+		assertEquals(6, propSum.getPropertyValue(PropertiesId.MILITARYPOINTS));
+		assertEquals(7, propSum.getPropertyValue(PropertiesId.FAITHPOINTS));
+	}
 
 }

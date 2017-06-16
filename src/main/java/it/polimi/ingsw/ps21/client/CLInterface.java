@@ -102,7 +102,6 @@ public class CLInterface implements UserInterface {
 	
 	public void showOtherPlayer(PlayerData player){
 		System.out.println("COLOR: " + player.getId());
-		System.out.println("COLOR: " + this.playerID);
 		System.out.println("PROPERTIES:");
 		for (PropertiesId id: PropertiesId.values()){
 			if (player.getCards().containsKey(id))
@@ -243,10 +242,10 @@ public class CLInterface implements UserInterface {
 	public ActionData makeAction() {
 		// TODO define ActionData and how to parse it
 		System.out.println("It's your turn: which action do you want to do?");
-		System.out.println("1)-Place a family member in a Towe Space;\n2)-Place a family member in Council palace\n"
+		System.out.println("1)-Place a family member in a Tower Space;\n2)-Place a family member in Council palace\n"
 				+ "3)-Place a family member in a Work Space\n" + "4)-Place a family memeber in a Market Space");
 		if (advancedMatch) System.out.println("5)-Activate a Leader Card");
-		int actionChoice = userInput.nextInt();
+		int actionChoice = Integer.parseInt(userInput.nextLine());
 		while ( actionChoice!=1 && actionChoice!=2 && actionChoice != 3 && actionChoice != 4 && (!(advancedMatch) || actionChoice!=5 )){
 			System.out.println("Invalid action, please insert a valid choice: ");
 		}
@@ -267,7 +266,7 @@ public class CLInterface implements UserInterface {
 			System.out.println("2} Building Card;");
 			System.out.println("3) Character Card;");
 			System.out.println("4) Venture Card;");
-			cardType = userInput.nextInt();
+			cardType = Integer.parseInt(userInput.nextLine());
 			while (cardType < 1 || cardType > 4){
 				System.out.println("Invalid choice, please insert another choice:");
 				cardType = userInput.nextInt();

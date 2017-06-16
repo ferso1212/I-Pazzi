@@ -242,7 +242,7 @@ public class MatchFactory {
 		}
 
 		Element blueSubDeck = configuration.getDocumentElement();
-		NodeList blueCards = blueSubDeck.getElementsByTagName("Venture1Card");
+		NodeList blueCards = blueSubDeck.getElementsByTagName("VentureCard");
 		result = new SubDeck<>();
 		for (int i = 0; i < blueCards.getLength(); i++) {
 			Node cardNode = blueCards.item(i);

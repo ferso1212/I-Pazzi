@@ -27,5 +27,12 @@ public class RequirementAndCost implements Serializable{
 	public ImmProperties getCosts() {
 		return costs;
 	}
+	
+	public String toString(){
+		StringBuilder b = new StringBuilder();
+		b.append("\nRequirements: " + requirement.toString());
+		b.append("\nCosts: " + costs.toString());
+		return b.toString();
+	}
 
 }

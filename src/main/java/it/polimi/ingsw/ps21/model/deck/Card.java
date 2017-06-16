@@ -10,7 +10,11 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
  * @author daniele
  *
  */
-public abstract class Card {
+public abstract class Card implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2129457007775569871L;
 	protected String name;
 	protected ArrayList<RequirementAndCost> possibleRequirement;
 	

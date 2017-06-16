@@ -18,7 +18,7 @@ public class ImmProperties implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-private PropertiesSet properties;
+	private PropertiesSet properties;
 
 /**
  * Constructs the ImmProperties objects. Accepts an arbitrary number of integer parameters that are the initial values of the stored properties.
@@ -99,10 +99,14 @@ public ImmProperties sum(ImmProperties addend)
 	for(PropertiesId propId: PropertiesId.values())
 	{
 		sum[i]=this.getPropertyValue(propId)+ addend.getPropertyValue(propId);
+		i++;
 	}
 	return new ImmProperties(sum);
 }
 
+/** Checks if all the properties have value=0.
+ * @return true if all the properties in this set have value equal to 0.
+ */
 public boolean isNull()
 {
 	return this.properties.isNull();
