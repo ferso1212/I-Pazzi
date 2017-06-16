@@ -8,17 +8,29 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps21.model.actions.Action;
+import it.polimi.ingsw.ps21.model.actions.CouncilAction;
+import it.polimi.ingsw.ps21.model.actions.DevelopmentAction;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
+import it.polimi.ingsw.ps21.model.actions.MarketAction;
 import it.polimi.ingsw.ps21.model.actions.NotExecutableException;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
+import it.polimi.ingsw.ps21.model.actions.PlayLeaderCard;
+import it.polimi.ingsw.ps21.model.actions.WorkAction;
+import it.polimi.ingsw.ps21.model.actions.WorkType;
+import it.polimi.ingsw.ps21.model.board.Space;
+import it.polimi.ingsw.ps21.model.board.WorkSpace;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.match.RoundType;
 import it.polimi.ingsw.ps21.model.match.VaticanRoundException;
+import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
+import it.polimi.ingsw.ps21.model.properties.PropertiesId;
+import it.polimi.ingsw.ps21.view.ActionData;
 import it.polimi.ingsw.ps21.view.RoundTimer;
+import it.polimi.ingsw.ps21.view.TimeoutExpiredMessage;
 import it.polimi.ingsw.ps21.view.UserHandler;
 
 public class MatchController extends Observable implements Observer {
@@ -49,7 +61,7 @@ public class MatchController extends Observable implements Observer {
 			handler.addObserver(this);
 		}
 		// this.timer = new RoundTimer(MatchFactory.instance().makeTimeoutRound());
-		this.timer = new RoundTimer(15000);
+		this.timer = new RoundTimer(60000);
 		this.timer.addObserver(this);
 		timerThread = new Thread(this.timer);
 		startMatch();
@@ -196,19 +208,76 @@ public class MatchController extends Observable implements Observer {
 				ExtraAction action = (ExtraAction) arg;
 				this.currentAction=action;
 				getActionChoices();
-			} else if (arg instanceof Action) {
-				this.currentAction=(Action)arg;
+			} else if (arg instanceof ActionData) {
+				parseAction((ActionData)arg);
 				getActionChoices();
+				
 			}
 			}
 		}
 		if (source == timer && state != ActionState.ACCEPTED) {
 				setChanged();
-				notifyObservers(new RefusedAction(currentPlayer.getId(), "Timeout expired!"));
+				notifyObservers(new TimeoutExpiredMessage(currentPlayer.getId()));
 				nextPlayer();
 				reqPlayerAction();
 			}
 
+	}
+
+	private void parseAction(ActionData data) {
+		Action parsedAction;
+		Player currentPlayer = match.getCurrentPlayer();
+		FamilyMember chosenMember = currentPlayer.getFamily().getMember(data.getFamilyMember());
+		chosenMember.increaseValue(data.getServants());
+		currentPlayer.getProperties().getProperty(PropertiesId.SERVANTS).payValue(data.getServants());
+		switch (data.getType()) {
+		case COUNCIL:
+		{
+			parsedAction = new CouncilAction(currentPlayer.getId(), chosenMember);
+		}
+			break;
+		case HARVEST:
+		{
+			WorkSpace workSpace;
+			if (data.getSpace()== 1) workSpace = match.getBoard().getSingleWorkSpace(WorkType.HARVEST);
+			else workSpace = match.getBoard().getMultipleWorkSpace(WorkType.HARVEST);
+			parsedAction = new WorkAction(currentPlayer.getId(), workSpace, currentPlayer.getFamily().getMember(data.getFamilyMember()));
+		}
+			
+			break;
+		case MARKET:
+		{
+			// TODO remove councilChoice parsedAction = new MarketAction(currentPlayer.getId(), match.getBoard().getMarketSpace(data.getSpace()), chosenMember, councilChoice)
+			parsedAction = new NullAction(currentPlayer.getId());
+		}
+			break;
+		case NULL:
+			parsedAction = new NullAction(currentPlayer.getId());
+			break;
+		case PLAY_LEADERCARD:
+		{
+			// todo parsedAction = new PlayLeaderCard(playerId, cardToPlay);
+			parsedAction = new NullAction(currentPlayer.getId());
+		}
+			break;
+		case PRODUCTION:
+		{
+			WorkSpace workSpace;
+			if (data.getSpace()== 1) workSpace = match.getBoard().getSingleWorkSpace(WorkType.HARVEST);
+			else workSpace = match.getBoard().getMultipleWorkSpace(WorkType.HARVEST);
+			parsedAction = new WorkAction(currentPlayer.getId(), workSpace, currentPlayer.getFamily().getMember(data.getFamilyMember()));
+		}
+			break;
+		case TAKE_CARD:
+		{
+			parsedAction = new DevelopmentAction(currentPlayer.getId(), chosenMember, data.getTower(), data.getSpace());
+		}
+			break;
+		default:
+			parsedAction = new NullAction(currentPlayer.getId());
+			break;
+		}
+		this.currentAction = parsedAction;
 	}
 
 	private void setupLeaderCards() {

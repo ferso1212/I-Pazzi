@@ -303,7 +303,7 @@ public class CLInterface implements UserInterface {
 			ArrayList<Integer> possibleSpaces = new ArrayList<>();
 			for (int k=0; k < matchInfo.getBoard().getTowerSpaces()[cardType].length; k++){
 				if (!matchInfo.getBoard().getTowerSpaces()[cardType][k].exists()){
-					System.out.println( (k+1) + 
+					System.out.println( (k+1) + ") " +
 								"Card: " + matchInfo.getBoard().getCards()[cardType][k] +
 								"Instant bonus: " + matchInfo.getBoard().getTowerBonuses()[cardType][k]);
 					possibleSpaces.add(k+1);

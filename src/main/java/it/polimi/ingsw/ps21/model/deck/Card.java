@@ -54,8 +54,8 @@ public abstract class Card implements Serializable {
 	
 	public abstract Card clone();
 
-	public Requirement[] getRequirements(){
-		return possibleRequirement.toArray(new Requirement[0]);
+	public RequirementAndCost[] getRequirements(){
+		return possibleRequirement.toArray(new RequirementAndCost[0]);
 	}
 
 }

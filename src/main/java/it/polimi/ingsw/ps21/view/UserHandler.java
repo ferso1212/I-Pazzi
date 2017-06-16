@@ -113,6 +113,7 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 					if (timeoutExpired)
 						connection.sendMessage("Timeout expired");
 					else {
+						setChanged();
 						notifyObservers(newAction);
 					}
 				}
@@ -121,7 +122,6 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 			} else if (arg instanceof String) {
 				if (((String) arg).compareTo("Match Started") == 0) {
 					connection.matchStarted();
-					setChanged();
 
 				} else
 					connection.sendMessage((String) arg);
@@ -144,30 +144,6 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 
 	private void parseExtraAction(ExtraAction action) {
 		// TODO
-	}
-
-	// TODO
-	private void parseAction(ActionData action) {
-		Action userAction = new NullAction(playerId);
-		switch (action.getType()){
-		case COUNCIL:
-			break;
-		case HARVEST:
-			break;
-		case MARKET:
-			break;
-		case NULL:
-			break;
-		case PLAY_LEADERCARD:
-			break;
-		case PRODUCTION:
-			break;
-		case TAKE_CARD:
-			break;
-		default:
-			break;
-		}
-		notifyObservers(userAction);
 	}
 
 }

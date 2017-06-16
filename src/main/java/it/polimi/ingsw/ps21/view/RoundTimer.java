@@ -11,7 +11,7 @@ public class RoundTimer extends Observable implements Runnable {
 	public RoundTimer(int timeout) {
 		super();
 		this.timeout = new TimeoutTask();
-		new Timer().schedule(new TimeoutTask(), timeout);
+		new Timer().schedule(new TimeoutTask(), (long)timeout);
 	}
 
 	@Override

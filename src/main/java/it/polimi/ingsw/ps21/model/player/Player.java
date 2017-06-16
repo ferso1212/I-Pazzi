@@ -236,9 +236,10 @@ public class Player {
 	 */
 	public ArrayList<Requirement> metCardRequirements(Card card) {
 		ArrayList<Requirement> output = new ArrayList<Requirement>();
-		for (Requirement req : card.getRequirements()) {
-			if (this.checkRequirement(req))
-				output.add(req);
+		for (RequirementAndCost req : card.getRequirements()) {
+			// TODO need to be fixed for RequirementAndCost
+			if (this.checkRequirement(req.getRequirement()))
+				output.add(req.getRequirement());
 		}
 		return output;
 	}
@@ -252,8 +253,9 @@ public class Player {
 	 *         card
 	 */
 	public boolean checkCardRequirements(Card card) {
-		for (Requirement req : card.getRequirements()) {
-			if (this.checkRequirement(req))
+		for (RequirementAndCost req : card.getRequirements()) {
+			if (this.checkRequirement(req.getRequirement()));
+			// Need to check cost
 				return true;
 		}
 		return false;

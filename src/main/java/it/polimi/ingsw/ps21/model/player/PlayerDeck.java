@@ -47,6 +47,9 @@ public class PlayerDeck implements Cloneable{
 		super();
 		addingCardRequirements = (EnumMap<DevelopmentCardType, Requirement[]>) MatchFactory.instance().makeCardAddingRequirements();
 		decksMap= new EnumMap<>(DevelopmentCardType.class);
+		for (DevelopmentCardType t: DevelopmentCardType.values()){
+			decksMap.put(t, new ArrayList<>());
+		}
 	}
 	
 	public int countCards(DevelopmentCardType type){
