@@ -52,6 +52,7 @@ public class Match extends Observable {
 		order = new ArrayDeque<>();
 		ArrayList<Player> tempPlayer = new ArrayList<>();
 		board = new Board(colors.length, false);
+		board.getDeck().shuffle();
 		extraActions = new ArrayList<>();
 		for (int i=0; i<colors.length; i++){
 			players.put(colors[i], new Player(colors[i], new PlayerProperties(0)));

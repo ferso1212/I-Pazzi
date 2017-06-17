@@ -83,6 +83,15 @@ public class Deck implements Cloneable {
 	@Override
 	public String toString(){
 		StringBuilder temp = new StringBuilder();		
+		temp.append("Deck:");
+		temp.append("\n=============================\tTerritory Deck\t=====================");
+		temp.append(greenCards.toString());
+		temp.append("\n=============================\tBuilding Deck\t=====================");
+		temp.append(yellowCards.toString());
+		temp.append("\n=============================\tCharacter Deck\t=====================");
+		temp.append(blueCards.toString());
+		temp.append("\n=============================\tVenture Deck\t=====================");
+		temp.append(purpleCards.toString());
 		return temp.toString();
 	}
 	

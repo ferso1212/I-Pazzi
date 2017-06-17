@@ -58,4 +58,16 @@ public abstract class Card implements Serializable {
 		return possibleRequirement.toArray(new RequirementAndCost[0]);
 	}
 
+	@Override
+	public String toString(){
+		StringBuilder temp = new StringBuilder();
+		temp.append("Card:\n-Name: " + this.name);
+		temp.append("\n-Possible Requirement: ");
+		for (RequirementAndCost r:possibleRequirement){
+			temp.append("\n\t- Requirement: " + r.getRequirement().toString());
+			temp.append("\n\t- Cost: " +  r.getCosts().toString());
+		}		
+		return temp.toString();
+		
+	}
 }

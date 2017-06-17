@@ -26,8 +26,7 @@ public class Requirement implements Serializable{
 	{
 		StringBuilder b= new StringBuilder();
 		b.append("You need to have " + properties.toString());
-		b.append("\n");
-		b.append(cardsNumber.toString());
+		b.append("\n" + cardsNumber.toString());
 		return b.toString();
 	}
 }

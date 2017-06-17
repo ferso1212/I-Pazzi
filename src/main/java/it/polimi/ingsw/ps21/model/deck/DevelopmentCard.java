@@ -46,16 +46,16 @@ public abstract class DevelopmentCard extends Card implements Serializable{
 	@Override
 	public String toString(){ 
 		StringBuilder temp = new StringBuilder();
-		temp.append("\nPossible Requirements and costs: ");
-		for (int i=0; i< possibleRequirement.size(); i++){
-			if (i!=0) temp.append("\n------------------\n ");
-			temp.append(possibleRequirement.get(i).toString());
-		}
-		temp.append("\nInstant Effect: " + instantEffect.toString() + "\nEffetti Permanenti: ");
+		temp.append("Card:\n-Name: " + this.name + "\tPeriod: " + this.cardEra + "\tType: " + this.getCardType());
+		temp.append("\n-Possible Requirement: ");
+		for (RequirementAndCost r:possibleRequirement){
+			temp.append("\n\t- Requirement: " + r.getRequirement().toString());
+			temp.append("\n\t- Cost: " +  r.getCosts().toString());
+		}	
+		temp.append("\n-Instant Effect: " + instantEffect.toString() + "\n-Permanent Effects: ");
 		for (EffectSet e: permanentEffects){
-			temp.append(e.toString() + ", ");
+			temp.append("\n\t-" + e.toString() + ";");
 		}
-		temp.append("\n");
 		return temp.toString();
 	}
 	

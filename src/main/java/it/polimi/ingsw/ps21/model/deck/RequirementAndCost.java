@@ -30,8 +30,8 @@ public class RequirementAndCost implements Serializable{
 	
 	public String toString(){
 		StringBuilder b = new StringBuilder();
-		b.append("\nRequirements: " + requirement.toString());
-		b.append("\nCosts: " + costs.toString());
+		b.append("\n-Requirements: " + requirement.toString());
+		b.append("\n-Costs: " + costs.toString());
 		return b.toString();
 	}
 

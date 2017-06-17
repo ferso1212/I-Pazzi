@@ -26,8 +26,9 @@ public class CardsNumber implements Serializable {
 		StringBuilder b = new StringBuilder();
 		for (DevelopmentCardType cardType : DevelopmentCardType.values()) {
 			if (cardsNums.get(cardType) != 0) {
-				b.append("\nYou need to have " + cardsNums.get(cardType) + " " + cardType.toString() + " cards;");
+				b.append("\tYou need to have " + cardsNums.get(cardType) + " " + cardType.toString() + " cards;");
 			}
+			else b.append("\tYou don't need any " + cardType.toString());
 
 		}
 		return b.toString();

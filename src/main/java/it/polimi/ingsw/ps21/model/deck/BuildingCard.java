@@ -36,4 +36,10 @@ public class BuildingCard extends DevelopmentCard{
 	public DevelopmentCard clone() {
 		return new BuildingCard(name, cardEra, possibleRequirement.toArray(new RequirementAndCost[0]), diceRequirement, instantEffect, permanentEffects.toArray(new EffectSet[0]));
 	}
+	
+	public String toString(){
+		StringBuilder temp = new StringBuilder(super.toString());
+		temp.append("\nDice Requirement: " + diceRequirement);
+		return temp.toString();
+	}
 }

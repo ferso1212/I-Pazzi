@@ -33,7 +33,7 @@ public class PropEffect extends Effect {
 
 	@Override
 	public String getType() {
-		return new String(this.getClass().getName());
+		return "Property Effect";
 	}
 
 	@Override

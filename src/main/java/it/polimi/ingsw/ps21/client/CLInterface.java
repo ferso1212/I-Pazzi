@@ -71,16 +71,17 @@ public class CLInterface implements UserInterface {
 				+ matchInfo.getWhiteDice() + " Orange = " + matchInfo.getOrangeDice());
 		DevelopmentCard[][] cards = boardInfo.getCards();
 		for (int i = 0; i < 4; i++) {
-			System.out.println("\nTower " + i + 1 + "");
+			System.out.println("\nTower " + (i + 1) + "" +"\n" + "------------------------------------------------------------");
 			for (int j = 0; j < 4; j++) {
-				System.out.println("\nFloor " + j + ":");
-				DevelopmentCard card = cards[i][j];
+				System.out.println("\nFloor " + (j +1) + ":");
+				DevelopmentCard card = cards[j][i];
 				if (card!=null)
-					System.out.println(" Card: " + card.toString());
+					System.out.println(card.toString());
 				else System.out.println(" Empty Floor");
 				System.out.println("Family Member: " + (boardInfo.getTowerSpaces()[i][j]).toString());
+				System.out.println("------------------------------------------------------------");
 			}
-			System.out.println(";");
+			System.out.println("===================================================================");
 		}
 	}
 
@@ -306,11 +307,11 @@ public class CLInterface implements UserInterface {
 			}
 			// TODO choose floor;
 			ArrayList<Integer> possibleSpaces = new ArrayList<>();
-			for (int k=0; k < matchInfo.getBoard().getTowerSpaces()[cardType - 1].length; k++){
-				if (!matchInfo.getBoard().getTowerSpaces()[cardType-1][k].exists()){
+			for (int k=0; k < 4; k++){
+				if (!matchInfo.getBoard().getTowerSpaces()[k][cardType-1].exists()){
 					System.out.println( (k+1) + ") " +
-								"Card: " + matchInfo.getBoard().getCards()[cardType-1][k] +
-								"Instant bonus: " + matchInfo.getBoard().getTowerBonuses()[cardType-1][k]);
+								matchInfo.getBoard().getCards()[k][cardType-1] +
+								"\nInstant bonus: " + matchInfo.getBoard().getTowerBonuses()[k][cardType-1]);
 					possibleSpaces.add(k+1);
 				}
 			}

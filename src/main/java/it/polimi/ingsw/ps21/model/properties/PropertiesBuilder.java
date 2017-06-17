@@ -21,7 +21,7 @@ public class PropertiesBuilder {
 		NodeList propChilds = propsNode.getChildNodes();
 		for (int i=0; i < propChilds.getLength(); i++){
 			Node valueNode = propChilds.item(i);
-			if(valueNode.getNodeType() == valueNode.ELEMENT_NODE)
+			if(valueNode.getNodeType() == Node.ELEMENT_NODE)
 				tempPropsValue[PropertiesId.valueOf(((Element) valueNode).getTagName().toUpperCase()).ordinal()] = Integer.parseInt(valueNode.getAttributes().getNamedItem("value").getNodeValue());
 			}		
 		return new ImmProperties(tempPropsValue);
@@ -37,7 +37,7 @@ public class PropertiesBuilder {
 		
 		NodeList colors = cardNode.getElementsByTagName("Green");
 		while(i < colors.getLength()) {
-			if (colors.item(i).getNodeType() == cardNode.ELEMENT_NODE) break;
+			if (colors.item(i).getNodeType() == Node.ELEMENT_NODE) break;
 			i++;
 		}
 		Element subElement = (Element) colors.item(i); 
@@ -45,7 +45,7 @@ public class PropertiesBuilder {
 		
 		colors = cardNode.getElementsByTagName("Blue");
 		while(i < colors.getLength()) {
-			if (colors.item(i).getNodeType() == cardNode.ELEMENT_NODE) break;
+			if (colors.item(i).getNodeType() == Node.ELEMENT_NODE) break;
 			i++;
 		}
 		subElement = (Element) colors.item(i); 
@@ -53,7 +53,7 @@ public class PropertiesBuilder {
 
 		colors = cardNode.getElementsByTagName("Yellow");
 		while(i < colors.getLength()) {
-			if (colors.item(i).getNodeType() == cardNode.ELEMENT_NODE) break;
+			if (colors.item(i).getNodeType() == Node.ELEMENT_NODE) break;
 			i++;
 		}
 		subElement = (Element) colors.item(i); 
@@ -61,7 +61,7 @@ public class PropertiesBuilder {
 		
 		colors = cardNode.getElementsByTagName("Purple");
 		while(i < colors.getLength()) {
-			if (colors.item(i).getNodeType() == cardNode.ELEMENT_NODE) break;
+			if (colors.item(i).getNodeType() == Node.ELEMENT_NODE) break;
 			i++;
 		}
 		subElement = (Element) colors.item(i); 
@@ -77,7 +77,7 @@ public class PropertiesBuilder {
 			NodeList cardNumNodes = req.getElementsByTagName("CardsNumber");
 			for (int i= 0; i<cardNumNodes.getLength(); i++){
 				Node cardNode = cardNumNodes.item(i);
-				if (cardNode.getNodeType() == cardNode.ELEMENT_NODE){
+				if (cardNode.getNodeType() == Node.ELEMENT_NODE){
 					tempCardNum = PropertiesBuilder.makeCardNums((Element) cardNode);
 				}
 			}
@@ -85,7 +85,7 @@ public class PropertiesBuilder {
 			NodeList propsNodes = req.getElementsByTagName("Properties"); // Check on Child element with tag name properties (
 			for (int i= 0; i<propsNodes.getLength(); i++){
 				Node propsNode = propsNodes.item(i);
-				if (propsNode.getNodeType() == propsNode.ELEMENT_NODE){
+				if (propsNode.getNodeType() == Node.ELEMENT_NODE){
 					props = PropertiesBuilder.makeImmProperites((Element) propsNode);
 				}
 			}

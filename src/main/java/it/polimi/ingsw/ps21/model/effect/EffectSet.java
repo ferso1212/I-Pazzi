@@ -14,7 +14,7 @@ public class EffectSet implements Serializable {
 	private Effect[] simultaneousEffects;
 	
 	public EffectSet(Effect ...effects){
-		if (effects.length == 0) {
+		if (effects.length == 0 || effects == null) {
 			simultaneousEffects = new Effect[1];
 			simultaneousEffects[0] = new NullEffect();
 		}
@@ -35,7 +35,7 @@ public class EffectSet implements Serializable {
 			for (Effect e: simultaneousEffects){
 				temp.add(e.getType());
 			}
-			return (String[]) temp.toArray();
+			return temp.toArray(new String[0]);
 		}
 		
 		/**Returns the total cost to activate all the effects in the set.
@@ -50,6 +50,24 @@ public class EffectSet implements Serializable {
 				totalCost=totalCost.sum(e.getCost());
 			}
 			return totalCost;
+		}
+		
+		public String toString(){
+			StringBuilder temp = new StringBuilder();
+			temp.append("Effect types: ");
+			String[] types = getTypes();
+			int i=0;
+			for (i=0; i<types.length-1; i++){
+				temp.append(types[i] + " and ");
+			}
+			temp.append(types[i] + ";");
+			temp.append("     Description: ");
+			for(i=0; i<simultaneousEffects.length-1; i++){
+				temp.append(simultaneousEffects[i].getDesc() + " and ");
+			}
+			temp.append(simultaneousEffects[i].getDesc() + ";");
+			return temp.toString();
+			
 		}
 
 	}

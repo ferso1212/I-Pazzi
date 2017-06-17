@@ -1,5 +1,6 @@
 		package it.polimi.ingsw.ps21.model.effect;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
@@ -18,6 +19,7 @@ public class CardDiceEffect extends Effect {
 	public CardDiceEffect(int diceValue, DevelopmentCardType... types)
 			throws TooManyArgumentException {
 		super(new ImmProperties(0));
+		this.types = new HashSet<>();
 		if (types.length > 2)
 			throw new TooManyArgumentException();
 		cardDiceValue = diceValue;

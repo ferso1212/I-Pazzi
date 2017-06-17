@@ -42,7 +42,7 @@ public class EffectBuilder {
 	 */
 	public EffectSet makeInstanEffect(Element effectNode){ // Mi trovo nel nodo InstantEffect
 		NodeList subNodes = effectNode.getChildNodes(); // IL nodo figlio è Effect set
-		ArrayList<Effect> effectSet = new ArrayList<>();
+		ArrayList<Effect> effects = new ArrayList<>();
 		for (int i=0; i< subNodes.getLength(); i++)
 		{
 			Node node = subNodes.item(i);
@@ -51,12 +51,13 @@ public class EffectBuilder {
 					NodeList singleEffectNodes = node.getChildNodes();
 					for (int j=0; j< singleEffectNodes.getLength(); j++)
 					{
-							if (singleEffectNodes.item(j).getNodeType() == Node.ELEMENT_NODE) effectSet.add(parseEffect((Element) singleEffectNodes.item(j))); // Node che punta all'elemento del singolo effetto nell'effectSet
+							if (singleEffectNodes.item(j).getNodeType() == Node.ELEMENT_NODE) effects.add(parseEffect((Element) singleEffectNodes.item(j))); // Node che punta all'elemento del singolo effetto nell'effectSet
 					}
+					
 			}
 		}
-		if (effectSet.size() == 0) return new EffectSet(new NullEffect());
-		else return new EffectSet(effectSet.toArray(new Effect[0]));
+		if (effects.size() == 0) return new EffectSet(new NullEffect());
+		else return new EffectSet(effects.toArray(new Effect[0]));
 	}
 	
 	/**
@@ -64,8 +65,26 @@ public class EffectBuilder {
 	 * @param node of the element that represent an EffectSet
 	 * @return
 	 */
-	public EffectSet makePermanentEffect(Element effectNode){
-		return new EffectSet(new NullEffect());
+	public EffectSet[] makePermanentEffect(Element effectNode){ //Mi trovo nel nodo PermanentEffect
+		NodeList subNodes = effectNode.getChildNodes(); // Il nodo figlio è Effect set
+		ArrayList<EffectSet> effectSet = new ArrayList<>();
+		for (int i=0; i< subNodes.getLength(); i++)
+		{
+			Node node = subNodes.item(i);
+			
+			if(node.getNodeType() == Node.ELEMENT_NODE) // Nodo EffectSet
+			{
+					NodeList singleEffectNodes = node.getChildNodes();
+					ArrayList<Effect> effects = new ArrayList<>();
+					for (int j=0; j< singleEffectNodes.getLength(); j++)
+					{
+							if (singleEffectNodes.item(j).getNodeType() == Node.ELEMENT_NODE) effects.add(parseEffect((Element) singleEffectNodes.item(j))); // Node che punta all'elemento del singolo effetto nell'effectSet
+					}
+					effectSet.add(new EffectSet(effects.toArray(new Effect[0])));
+			}
+		}
+		if (effectSet.size() == 0) return new EffectSet[0];
+		else return effectSet.toArray(new EffectSet[0]);
 	}
 	
 	/**
@@ -146,13 +165,13 @@ public class EffectBuilder {
 			return new WorkDiceEffect(diceValue, type);
 			
 		}
-		case "MultipierEffect":
+		case "MultiplierEffect":
 		{
-			ImmProperties cost = PropertiesBuilder.makeCost((Element) node.getElementsByTagName("Cost"));
+			ImmProperties cost = PropertiesBuilder.makeCost((Element) node.getElementsByTagName("Cost").item(0));
 			ImmProperties bonus = PropertiesBuilder.makeImmProperites((Element) node.getElementsByTagName("Properties").item(0));
 			MultiplierType type;
 			int value;
-			Element multipierType = (Element) node.getElementsByTagName("MultiplierType");
+			Element multipierType = (Element) node.getElementsByTagName("MultiplierType").item(0);
 			NodeList childs = node.getChildNodes();
 			int i=0;
 			Node child = childs.item(0);
@@ -219,11 +238,10 @@ public class EffectBuilder {
 			int diceValue = Integer.parseInt(node.getAttribute("diceValue"));
 			if (node.getElementsByTagName("Production").getLength() != 0) type = WorkType.PRODUCTION ;
 			else type = WorkType.HARVEST;
-			// TODO implement ExtraWorkEffect
-			return new NullEffect();
+			return new 
 		}
 		default :
-		return new NullEffect();
+			return new NullEffect();
 		}
 	}
 }

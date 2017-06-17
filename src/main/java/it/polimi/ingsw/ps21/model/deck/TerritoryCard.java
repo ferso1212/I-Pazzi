@@ -31,4 +31,11 @@ public class TerritoryCard extends DevelopmentCard {
 	public DevelopmentCard clone() {
 		return new TerritoryCard(name, cardEra, diceReq, instantEffect, permanentEffects.toArray(new EffectSet[0]));
 	}
+	
+	@Override
+	public String toString(){
+		StringBuilder temp = new StringBuilder(super.toString());
+		temp.append("\nDice Requirement: " + diceReq);
+		return temp.toString();
+	}
 }

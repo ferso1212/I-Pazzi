@@ -64,7 +64,7 @@ public class CardBuilder {
 			ArrayList<RequirementAndCost> cardReqandCost = new ArrayList<>();
 			// To be implemented
 			EffectSet instantEffect = new EffectSet(new NullEffect());
-			ArrayList<EffectSet> permanentEffects = new ArrayList<>();
+			EffectSet permanentEffects[] = new EffectSet[0];
 			NodeList cardProps = cardNode.getChildNodes();
 			for (int i=0; i < cardProps.getLength(); i++){
 			Node prop = cardProps.item(i);
@@ -77,7 +77,7 @@ public class CardBuilder {
 					instantEffect = effectBuilder.makeInstanEffect((Element) prop);
 					break;
 				case "PermanentEffect":
-					permanentEffects.add(effectBuilder.makePermanentEffect((Element) prop));
+					permanentEffects = effectBuilder.makePermanentEffect((Element) prop);
 					break;
 				default:
 					throw new BuildingCardException();
@@ -85,15 +85,15 @@ public class CardBuilder {
 				}
 			}
 			if (cardType == DevelopmentCardType.TERRITORY)
-				return new TerritoryCard(cardName, cardEra, diceReq, instantEffect, permanentEffects.toArray(new EffectSet[0]));				
+				return new TerritoryCard(cardName, cardEra, diceReq, instantEffect, permanentEffects);				
 			else 
 				if (cardType == DevelopmentCardType.CHARACTER)
-					return new CharacterCard(cardName, cardEra, cardReqandCost.toArray(new RequirementAndCost[0]), instantEffect, permanentEffects.toArray(new EffectSet[0]));
+					return new CharacterCard(cardName, cardEra, cardReqandCost.toArray(new RequirementAndCost[0]), instantEffect, permanentEffects);
 				else
 					if (cardType == DevelopmentCardType.VENTURE)
-						return new VentureCard(cardName, cardEra, cardReqandCost.toArray(new RequirementAndCost[0]),instantEffect, permanentEffects.get(0));
+						return new VentureCard(cardName, cardEra, cardReqandCost.toArray(new RequirementAndCost[0]),instantEffect, permanentEffects[0]);
 					else
-						return new BuildingCard(cardName, cardEra, cardReqandCost.toArray(new RequirementAndCost[0]), diceReq, instantEffect, permanentEffects.toArray(new EffectSet[0]));
+						return new BuildingCard(cardName, cardEra, cardReqandCost.toArray(new RequirementAndCost[0]), diceReq, instantEffect, permanentEffects);
 		}
 
 		private RequirementAndCost makeRequirementAndCost(Element prop) {

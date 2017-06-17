@@ -1,6 +1,6 @@
 package it.polimi.ingsw.ps21.model.deck;
 
-import java.awt.List;
+import java.util.List;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,6 +10,9 @@ import java.util.Queue;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import it.polimi.ingsw.ps21.controller.PlayerData;
 
@@ -71,7 +74,7 @@ public class SubDeck<T extends DevelopmentCard> {
 			tempDeck.add(firstEra.poll());
 		}
 		while (!tempDeck.isEmpty()){
-			int i = generator.nextInt(tempDeck.size() -1);
+			int i = generator.nextInt(tempDeck.size());
 			shuffledDeck.add(tempDeck.get(i));
 			tempDeck.remove(i);
 		}
@@ -79,10 +82,10 @@ public class SubDeck<T extends DevelopmentCard> {
 		shuffledDeck = new ArrayDeque<>();
 		tempDeck = new ArrayList<>();
 		while(!secondEra.isEmpty()){
-			tempDeck.add(firstEra.poll());
+			tempDeck.add(secondEra.poll());
 		}
 		while (!tempDeck.isEmpty()){
-			int i = generator.nextInt(tempDeck.size() -1);
+			int i = generator.nextInt(tempDeck.size());
 			shuffledDeck.add(tempDeck.get(i));
 			tempDeck.remove(i);
 		}
@@ -90,10 +93,10 @@ public class SubDeck<T extends DevelopmentCard> {
 		shuffledDeck = new ArrayDeque<>();
 		tempDeck = new ArrayList<>();
 		while(!thirdEra.isEmpty()){
-			tempDeck.add(firstEra.poll());
+			tempDeck.add(thirdEra.poll());
 		}
 		while (!tempDeck.isEmpty()){
-			int i = generator.nextInt(tempDeck.size() -1);
+			int i = generator.nextInt(tempDeck.size());
 			shuffledDeck.add(tempDeck.get(i));
 			tempDeck.remove(i);
 		}
@@ -106,7 +109,24 @@ public class SubDeck<T extends DevelopmentCard> {
 	
 	public String toString(){
 	 StringBuilder temp = new StringBuilder();
-	 temp.append("{ " + firstEra.toString() + "\n" + secondEra.toString() + "\n" + thirdEra.toString() + " }");
+	 Stream<T> tempStream = firstEra.stream();
+	 List<T> firstEraCards = tempStream.collect(Collectors.toList());
+	 tempStream = secondEra.stream();
+	 List<T> secondEraCards = tempStream.collect(Collectors.toList());
+	 tempStream = thirdEra.stream();
+	 List<T> thirdEraCards = tempStream.collect(Collectors.toList());
+	 temp.append("\n----------\t First Era \t-------------");
+	 for (T c: firstEraCards){
+		 temp.append("\n-" + c.toString());
+	 }
+	 temp.append("\n----------\t Second Era \t-------------");
+	 for (T c: secondEraCards){
+		 temp.append("\n-" + c.toString());
+	 }
+	 temp.append("\n----------\t Third Era \t-------------");
+	 for (T c: thirdEraCards){
+		 temp.append("\n-" + c.toString());
+	 }
 	 return temp.toString();
 	}
 	
