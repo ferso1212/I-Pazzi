@@ -306,11 +306,11 @@ public class CLInterface implements UserInterface {
 			}
 			// TODO choose floor;
 			ArrayList<Integer> possibleSpaces = new ArrayList<>();
-			for (int k=0; k < matchInfo.getBoard().getTowerSpaces()[cardType].length; k++){
-				if (!matchInfo.getBoard().getTowerSpaces()[cardType][k].exists()){
+			for (int k=0; k < matchInfo.getBoard().getTowerSpaces()[cardType - 1].length; k++){
+				if (!matchInfo.getBoard().getTowerSpaces()[cardType-1][k].exists()){
 					System.out.println( (k+1) + ") " +
-								"Card: " + matchInfo.getBoard().getCards()[cardType][k] +
-								"Instant bonus: " + matchInfo.getBoard().getTowerBonuses()[cardType][k]);
+								"Card: " + matchInfo.getBoard().getCards()[cardType-1][k] +
+								"Instant bonus: " + matchInfo.getBoard().getTowerBonuses()[cardType-1][k]);
 					possibleSpaces.add(k+1);
 				}
 			}
