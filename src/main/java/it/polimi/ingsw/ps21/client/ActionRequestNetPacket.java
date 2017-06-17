@@ -11,7 +11,7 @@ public class ActionRequestNetPacket extends NetPacket implements Serializable{
 
 	public ActionRequestNetPacket(int messNum) {
 		super(messNum);
-		this.type=PacketType.ACTION_REQUEST;
+		this.type=PacketType.ACTION;
 	}
 	
 

@@ -10,7 +10,7 @@ public class PrivilegesChoiceRequestNetPacket extends NetPacket implements Seria
 	public PrivilegesChoiceRequestNetPacket(int messNum, int acquiredPrivileges) {
 		super(messNum);
 		this.privileges = acquiredPrivileges;
-		this.type=PacketType.PRIVILEGES_CHOICE_RESPONSE;
+		this.type=PacketType.PRIVILEGES_CHOICE;
 	}
 
 	public int getNumberOfAcquiredPrivileges() {

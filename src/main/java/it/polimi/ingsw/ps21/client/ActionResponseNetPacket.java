@@ -14,7 +14,7 @@ public class ActionResponseNetPacket extends NetPacket implements Serializable{
 	public ActionResponseNetPacket(int messNum, ActionData data) {
 		super(messNum);
 		this.action = data;
-		this.type=PacketType.ACTION_RESPONSE;
+		this.type=PacketType.ACTION;
 	}
 
 	public ActionData getAction() {

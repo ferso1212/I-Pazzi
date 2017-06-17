@@ -12,7 +12,7 @@ public class VaticanChoiceResponseNetPacket extends NetPacket implements Seriali
 	public VaticanChoiceResponseNetPacket(int messNum, boolean supportsVatican) {
 		super(messNum);
 		this.supportsVatican = supportsVatican;
-		this.type=PacketType.VATICAN_CHOICE_RESPONSE;
+		this.type=PacketType.VATICAN_CHOICE;
 	}
 
 	public boolean supportsVatican() {

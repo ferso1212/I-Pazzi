@@ -15,7 +15,7 @@ public class CostChoiceRequestNetPacket extends NetPacket implements Serializabl
 	public CostChoiceRequestNetPacket(int messNum, ArrayList<ImmProperties> costChoices) {
 		super(messNum);
 		this.costChoices = costChoices;
-		this.type=PacketType.COST_CHOICE_REQUEST;
+		this.type=PacketType.COST_CHOICE;
 	}
 
 	public ArrayList<ImmProperties> getCostChoices() {
@@ -29,7 +29,7 @@ public class CostChoiceRequestNetPacket extends NetPacket implements Serializabl
 		{
 			this.costChoices.add(cost);
 		}
-		this.type=PacketType.COST_CHOICE_REQUEST;
+		this.type=PacketType.COST_CHOICE;
 	}
 
 }
