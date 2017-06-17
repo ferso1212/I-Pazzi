@@ -56,7 +56,7 @@ public class DiscountEffect extends Effect {
 
 	@Override
 	public String getType() {
-		return new String(this.getClass().getName());
+		return "Discount Effect";
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class DiscountEffect extends Effect {
 		StringBuilder output= new StringBuilder("When you pick a " );
 		for(DevelopmentCardType type: types)
 		{output.append(type.toString() + " card ");
-		if(type.ordinal()<type.values().length -1 ) output.append("or a ");
+		if(type.ordinal()<DevelopmentCardType.values().length -1 ) output.append("or a ");
 		}
 		output.append(", you get a discount on its cost of " + discount.toString());
 		return output.toString();

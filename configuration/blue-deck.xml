@@ -64,8 +64,11 @@
                 </PickAnotherCardEffect>
             </EffectSet>
         </InstantEffect>
-        <PermanentEffect>
-        </PermanentEffect>
+  	<PermanentEffect>
+		<EffectSet>
+			<NullEffect />
+		</EffectSet>
+	</PermanentEffect>
     </CharacterCard>
     <CharacterCard name="Mecenate" period="2">
         <RequirementAndCost>
@@ -117,6 +120,11 @@
                 </PickAnotherCardEffect>
             </EffectSet>
         </InstantEffect>
+	<PermanentEffect>
+		<EffectSet>
+			<NullEffect />
+		</EffectSet>
+	</PermanentEffect>
     </CharacterCard>
     <CharacterCard name="Architetto" period="2">
         <RequirementAndCost>
@@ -168,6 +176,11 @@
                 </PickAnotherCardEffect>
             </EffectSet>
         </InstantEffect>
+	<PermanentEffect>
+		<EffectSet>
+			<NullEffect />
+		</EffectSet>
+	</PermanentEffect>
     </CharacterCard>
     <CharacterCard name="Dama" period="1">
         <RequirementAndCost>
@@ -358,6 +371,11 @@
                 </PickAnotherCardEffect>
             </EffectSet>
         </InstantEffect>
+	<PermanentEffect>
+		<EffectSet>
+			<NullEffect />
+		</EffectSet>
+	</PermanentEffect>
     </CharacterCard>
     <CharacterCard name="Eroe" period="2">
         <RequirementAndCost>
@@ -398,6 +416,11 @@
                 <PrivilegeEffect number="1" />
             </EffectSet>
         </InstantEffect>
+	<PermanentEffect>
+		<EffectSet>
+			<NullEffect />
+		</EffectSet>
+	</PermanentEffect>
     </CharacterCard>
     <CharacterCard name="Messo Reale" period="2">
         <RequirementAndCost>
@@ -435,6 +458,11 @@
                 <PrivilegeEffect number="3" />
             </EffectSet>
         </InstantEffect>
+	<PermanentEffect>
+		<EffectSet>
+			<NullEffect />
+		</EffectSet>
+	</PermanentEffect>
     </CharacterCard>
     <CharacterCard name="Fattore" period="2">
         <RequirementAndCost>
@@ -581,6 +609,11 @@
                 </PropEffect>
             </EffectSet>
         </InstantEffect>
+	<PermanentEffect>
+		<EffectSet>
+			<NullEffect />
+		</EffectSet>
+	</PermanentEffect>
     </CharacterCard>
     <CharacterCard name="Ambasciatore" period="3">
         <RequirementAndCost>
@@ -624,8 +657,11 @@
                 <PrivilegeEffect number="1" />
             </EffectSet>
         </InstantEffect>
-        <PermanentEffect>
-        </PermanentEffect>
+	<PermanentEffect>
+		<EffectSet>
+			<NullEffect />
+		</EffectSet>
+	</PermanentEffect>
     </CharacterCard>
     <CharacterCard name="Contadino" period="1">
         <RequirementAndCost>
@@ -776,6 +812,9 @@
             </EffectSet>
         </InstantEffect>
         <PermanentEffect>
+		<EffectSet>
+			<NullEffect />
+		</EffectSet>
         </PermanentEffect>
     </CharacterCard>
     <CharacterCard name="Governatore" period="3">
@@ -839,6 +878,9 @@
             </EffectSet>
         </InstantEffect>
         <PermanentEffect>
+		<EffectSet>
+			<NullEffect />
+		</EffectSet>
         </PermanentEffect>
     </CharacterCard>
     <CharacterCard name="Cortigiana" period="3">
@@ -901,6 +943,11 @@
                 </MultiplierEffect>
             </EffectSet>
         </InstantEffect>
+	<PermanentEffect>
+		<EffectSet>
+			<NullEffect />
+		</EffectSet>
+	</PermanentEffect>
     </CharacterCard>
     <CharacterCard name="Araldo" period="3">
         <RequirementAndCost>
@@ -962,6 +1009,11 @@
                 </MultiplierEffect>
             </EffectSet>
         </InstantEffect>
+	<PermanentEffect>
+		<EffectSet>
+			<NullEffect />
+		</EffectSet>
+	</PermanentEffect>
     </CharacterCard>
     <CharacterCard name="Cardinale" period="3">
         <RequirementAndCost>
@@ -1023,6 +1075,11 @@
                 </ExtraWorkEffect>
             </EffectSet>
         </InstantEffect>
+	<PermanentEffect>
+		<EffectSet>
+			<NullEffect />
+		</EffectSet>
+	</PermanentEffect>
     </CharacterCard>
     <CharacterCard name="Vescovo" period="3">
         <RequirementAndCost>
@@ -1084,6 +1141,11 @@
                 </ExtraWorkEffect>
             </EffectSet>
         </InstantEffect>
+	<PermanentEffect>
+		<EffectSet>
+			<NullEffect />
+		</EffectSet>
+	</PermanentEffect>
     </CharacterCard>
     <CharacterCard name="Generale" period="3">
         <RequirementAndCost>
@@ -1145,6 +1207,11 @@
                 </MultiplierEffect>
             </EffectSet>
         </InstantEffect>
+	<PermanentEffect>
+		<EffectSet>
+			<NullEffect />
+		</EffectSet>
+	</PermanentEffect>
     </CharacterCard>
     <CharacterCard name="Condottiero" period="1">
         <RequirementAndCost>
@@ -1318,6 +1385,4 @@
             </EffectSet>
         </PermanentEffect>
     </CharacterCard>
-
-
 </SubDeckBlue>

@@ -40,7 +40,7 @@ public class EffectBuilder {
 	 * @param node of the element that represent an EffectSet
 	 * @return
 	 */
-	public EffectSet makeInstanEffect(Element effectNode){ // Mi trovo nel nodo InstantEffect
+	public EffectSet makeInstantEffect(Element effectNode){ // Mi trovo nel nodo InstantEffect
 		NodeList subNodes = effectNode.getChildNodes(); // IL nodo figlio è Effect set
 		ArrayList<Effect> effects = new ArrayList<>();
 		for (int i=0; i< subNodes.getLength(); i++)
@@ -51,12 +51,14 @@ public class EffectBuilder {
 					NodeList singleEffectNodes = node.getChildNodes();
 					for (int j=0; j< singleEffectNodes.getLength(); j++)
 					{
-							if (singleEffectNodes.item(j).getNodeType() == Node.ELEMENT_NODE) effects.add(parseEffect((Element) singleEffectNodes.item(j))); // Node che punta all'elemento del singolo effetto nell'effectSet
+							if (singleEffectNodes.item(j).getNodeType() == Node.ELEMENT_NODE)
+								effects.add(parseEffect((Element) singleEffectNodes.item(j))); // Node che punta all'elemento del singolo effetto nell'effectSet
 					}
 					
 			}
 		}
-		if (effects.size() == 0) return new EffectSet(new NullEffect());
+		if (effects.size() == 0)
+			return new EffectSet(new NullEffect());
 		else return new EffectSet(effects.toArray(new Effect[0]));
 	}
 	
@@ -171,12 +173,12 @@ public class EffectBuilder {
 			ImmProperties bonus = PropertiesBuilder.makeImmProperites((Element) node.getElementsByTagName("Properties").item(0));
 			MultiplierType type;
 			int value;
-			Element multipierType = (Element) node.getElementsByTagName("MultiplierType").item(0);
-			NodeList childs = node.getChildNodes();
+			Element multiplierType = (Element) node.getElementsByTagName("MultiplierType").item(0);
+			NodeList childs = multiplierType.getChildNodes();
 			int i=0;
 			Node child = childs.item(0);
 			i++;
-			while( child.getNodeType()!=child.ELEMENT_NODE && i<childs.getLength()) {
+			while( child.getNodeType()!=Node.ELEMENT_NODE && i<childs.getLength()) {
 				child = childs.item(i);
 				i++;
 			}
@@ -238,7 +240,7 @@ public class EffectBuilder {
 			int diceValue = Integer.parseInt(node.getAttribute("diceValue"));
 			if (node.getElementsByTagName("Production").getLength() != 0) type = WorkType.PRODUCTION ;
 			else type = WorkType.HARVEST;
-			return new 
+			return new ExtraWorkEffect(diceValue, type);
 		}
 		default :
 			return new NullEffect();

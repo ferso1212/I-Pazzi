@@ -22,14 +22,12 @@ public class CouncilEffect extends Effect {
 
 	@Override
 	public String getType() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Council Effect";
 	}
 
 	@Override
 	public String getDesc() {
-		// TODO Auto-generated method stub
-		return null;
+		return "You can choose " +  numberPrivileges + " different Council Privileges";
 	}
 
 }

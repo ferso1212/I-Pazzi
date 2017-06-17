@@ -79,12 +79,12 @@ public class MultiplierEffect extends Effect {
 	}
 	@Override
 	public String getType() {
-		return new String(this.getClass().getName());
+		return "Multipier Effect";
 	}
 	@Override
 	public String getDesc() {
-		// TODO Auto-generated method stub
-		return null;
+		return "For every " + secondFactorValue + " of " + secondFactorType + " you have " + bonusProperties.toString();
+		
 	}
 	
 }

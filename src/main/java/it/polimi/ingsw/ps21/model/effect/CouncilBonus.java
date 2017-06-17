@@ -37,8 +37,7 @@ public class CouncilBonus extends InstantLeaderEffect {
 
 	@Override
 	public String getDesc() {
-		// TODO Auto-generated method stub
-		return null;
+		return "TO BE IMPLEMENTED";
 	}
 
 }

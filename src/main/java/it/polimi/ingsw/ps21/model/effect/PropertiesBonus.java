@@ -22,14 +22,12 @@ public class PropertiesBonus extends InstantLeaderEffect {
 
 	@Override
 	public String getType() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Properties Bonus Effect";
 	}
 
 	@Override
 	public String getDesc() {
-		// TODO Auto-generated method stub
-		return null;
+		return "TO BE IMPLEMENTED";
 	}
 
 }

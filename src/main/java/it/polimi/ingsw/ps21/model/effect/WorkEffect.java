@@ -30,7 +30,7 @@ public class WorkEffect extends PermanentLeaderEffect {
 	@Override
 	public String getDesc() {
 		// TODO Auto-generated method stub
-		return null;
+		return "TO BE IMPLEMENTED";
 	}
 
 }

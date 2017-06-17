@@ -68,13 +68,13 @@ public class CardBuilder {
 			NodeList cardProps = cardNode.getChildNodes();
 			for (int i=0; i < cardProps.getLength(); i++){
 			Node prop = cardProps.item(i);
-			if (prop.getNodeType() == prop.ELEMENT_NODE){ // Evito i nodi che non rappresentano elementi in xml
+			if (prop.getNodeType() == Node.ELEMENT_NODE){ // Evito i nodi che non rappresentano elementi in xml
 				switch (prop.getNodeName()) {
 				case "RequirementAndCost":
 					cardReqandCost.add(makeRequirementAndCost((Element)prop));
 					break;
 				case "InstantEffect":
-					instantEffect = effectBuilder.makeInstanEffect((Element) prop);
+					instantEffect = effectBuilder.makeInstantEffect((Element) prop);
 					break;
 				case "PermanentEffect":
 					permanentEffects = effectBuilder.makePermanentEffect((Element) prop);

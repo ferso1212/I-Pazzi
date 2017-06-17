@@ -26,7 +26,7 @@ public class PrivilegeEffect extends Effect{
 
 	@Override
 	public String getDesc() {
-		return "You have to choose a Council Privilege.";
+		return "You can choose " + numberOfPrivileges + " different Council Privilege.";
 	}
 	
 	

@@ -22,7 +22,7 @@ public class PropertiesBuilder {
 		for (int i=0; i < propChilds.getLength(); i++){
 			Node valueNode = propChilds.item(i);
 			if(valueNode.getNodeType() == Node.ELEMENT_NODE)
-				tempPropsValue[PropertiesId.valueOf(((Element) valueNode).getTagName().toUpperCase()).ordinal()] = Integer.parseInt(valueNode.getAttributes().getNamedItem("value").getNodeValue());
+				tempPropsValue[PropertiesId.valueOf(((Element) valueNode).getTagName().toUpperCase()).ordinal()] = Integer.parseInt(((Element)valueNode).getAttribute("value"));
 			}		
 		return new ImmProperties(tempPropsValue);
 	}

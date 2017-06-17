@@ -32,20 +32,19 @@ public class PickAnotherCard extends Effect {
 
 	@Override
 	public String getType() {
-		StringBuilder result = new StringBuilder("");
-		result.append("This effect allows player to pick another card of type ");
-		for (int i=0; i<types.length; i++){
-			result.append(types[i].toString());
-			if (i != types.length) result.append(", ");
-		}
-		result.append("with a dice value of " + diceReq + "without placing any FamilyMember");
-		return result.toString();
+		return "Pick Another Card Effect";
 	}
 
 	@Override
 	public String getDesc() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder result = new StringBuilder("");
+		result.append("You can pick another card of type ");
+		for (int i=0; i<types.length; i++){
+			result.append(types[i].toString());
+			if (i != types.length) result.append(", ");
+		}
+		result.append("with a dice value of " + diceReq + " without placing any FamilyMember");
+		return result.toString();
 	}
 
 }

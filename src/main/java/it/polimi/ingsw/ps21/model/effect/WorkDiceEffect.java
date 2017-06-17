@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps21.model.effect;
 
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
+import it.polimi.ingsw.ps21.model.actions.NullAction;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.player.Player;
@@ -19,20 +20,18 @@ public class WorkDiceEffect extends Effect {
 
 	@Override
 	public ExtraAction activate(Player player) {
-		// TODO Auto-generated method stub
-		return null;
+		player.getModifiers().getWorkMods().setWorkMod(type, diceValue);
+		return new NullAction(player.getId());
 	}
 
 	@Override
 	public String getType() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Work Dice Effect";
 	}
 
 	@Override
 	public String getDesc() {
-		// TODO Auto-generated method stub
-		return null;
+		return "This effect increase your dice of value of " + diceValue + " for " + type + " actions"; 
 	}
 
 }

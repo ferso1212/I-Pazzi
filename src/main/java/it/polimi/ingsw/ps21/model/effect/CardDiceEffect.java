@@ -45,7 +45,7 @@ public class CardDiceEffect extends Effect {
 
 	@Override
 	public String getType() {
-		return new String(this.getClass().getName());
+		return "Card Dice Effect";
 	}
 
 	@Override

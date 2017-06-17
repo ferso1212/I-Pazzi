@@ -29,14 +29,13 @@ public class MemberBonus extends InstantLeaderEffect {
 
 	@Override
 	public String getType() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Member Bonus Effect";
 	}
 
 	@Override
 	public String getDesc() {
 		// TODO Auto-generated method stub
-		return null;
+		return "TO BE IMPLEMENTED";
 	}
 
 }

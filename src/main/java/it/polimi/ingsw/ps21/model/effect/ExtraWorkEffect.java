@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps21.model.effect;
 
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
+import it.polimi.ingsw.ps21.model.actions.ExtraWorkAction;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
@@ -17,20 +18,17 @@ public class ExtraWorkEffect extends Effect {
 
 	@Override
 	public ExtraAction activate(Player player) {
-		// TODO Auto-generated method stub
-		return null;
+		return new ExtraWorkAction(player.getId(), diceValue, type);
 	}
 
 	@Override
 	public String getType() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Extra Work Effect";
 	}
 
 	@Override
 	public String getDesc() {
-		// TODO Auto-generated method stub
-		return null;
+		return "You can make an extra " + type + " action with the dice value of " + diceValue ;
 	}
 
 }

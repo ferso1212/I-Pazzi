@@ -39,7 +39,7 @@ public class PropEffect extends Effect {
 	@Override
 	public String getDesc() {
 		String output= new String("You instantly acquire ");
-		output.concat(bonus.toString());
+		output = output.concat(bonus.toString());
 		return output;
 	}
 
