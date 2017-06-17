@@ -2,5 +2,5 @@
 <!DOCTYPE ServerConfiguration SYSTEM "server-schema.dtd" >
 <ServerConfiguration>
 	<TimeoutLobby value="50000" />
-	<TimeoutRound value="40000" />
+	<TimeoutRound value="120000" />
 </ServerConfiguration>

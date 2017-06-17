@@ -6,6 +6,7 @@ import java.util.Observer;
 
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
 import it.polimi.ingsw.ps21.controller.ActionRequest;
+import it.polimi.ingsw.ps21.controller.CompletedActionMessage;
 import it.polimi.ingsw.ps21.controller.CostChoice;
 import it.polimi.ingsw.ps21.controller.CouncilChoice;
 import it.polimi.ingsw.ps21.controller.EffectChoice;
@@ -102,6 +103,7 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 					if (action.getPlayerId() == this.playerId) {
 						actionsForMe.add(action);
 					}
+				connection.reqExtraActionChoice(actions);
 				}
 			} else if (arg instanceof ActionRequest) {
 				ActionRequest req = (ActionRequest) arg;
@@ -135,6 +137,19 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 					else if(arg instanceof AcceptedAction)
 					{
 						connection.sendMessage(((AcceptedAction)arg).getMessage());
+					}
+					else if (arg instanceof CostChoice)
+					{
+						CostChoice message = (CostChoice) arg;
+						message.setChosen(connection.reqCostChoice(message.getChoices()));
+						message.setVisited();
+					}
+					else if (arg instanceof EffectChoice){
+						EffectChoice message = (EffectChoice) arg;
+						message.setEffectChosen(connection.reqEffectChoice(message.getPossibleEffects()));
+					}
+					else if (arg instanceof CompletedActionMessage){
+						connection.sendMessage(((CompletedActionMessage)arg).getMessage());
 					}
 				}
 			}

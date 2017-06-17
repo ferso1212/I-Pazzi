@@ -8,6 +8,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import it.polimi.ingsw.ps21.controller.MatchData;
+import it.polimi.ingsw.ps21.model.actions.ExtraAction;
+import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.ActionData;
@@ -93,7 +95,7 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	}
 
 	@Override
-	public int reqExtraActionChoice(ActionData[] actions) throws RemoteException {
+	public int reqExtraActionChoice(ExtraAction[] actions) throws RemoteException {
 		return ui.reqExtraActionChoice(actions);
 		
 	}
@@ -106,6 +108,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	@Override
 	public void updateMatch(MatchData match) throws RemoteException {
 		ui.updateView(match);		
+	}
+
+	@Override
+	public int reqEffectChoice(EffectSet[] possibleEffects) throws RemoteException {
+		return ui.reqEffectChoice(possibleEffects);
 	}
 
 	/*@Override

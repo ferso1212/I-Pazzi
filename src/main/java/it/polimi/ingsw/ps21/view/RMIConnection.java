@@ -9,6 +9,8 @@ import java.util.logging.Logger;
 import it.polimi.ingsw.ps21.client.RMIClientInterface;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.model.actions.ActionType;
+import it.polimi.ingsw.ps21.model.actions.ExtraAction;
+import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 /**
@@ -116,7 +118,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 
 
 	@Override
-	public int reqExtraActionChoice(ActionData[] actions) {
+	public int reqExtraActionChoice(ExtraAction[] actions) {
 		try {
 			return client.reqExtraActionChoice(actions);
 		} catch (RemoteException e) {
@@ -147,6 +149,19 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 			LOGGER.log(Level.SEVERE, "Error updating remote client infos", e );
 		}
 		
+	}
+
+
+	@Override
+	public EffectSet reqEffectChoice(EffectSet[] possibleEffects) {
+		EffectSet chosen;
+		try {
+			chosen = possibleEffects[client.reqEffectChoice(possibleEffects)];
+		} catch (RemoteException e) {
+			LOGGER.log(Level.WARNING, "Error calling remote method reqEffectChoice", e);
+			chosen = possibleEffects[0]; // valore di ripiego
+		}
+		return chosen;
 	}
 
 }

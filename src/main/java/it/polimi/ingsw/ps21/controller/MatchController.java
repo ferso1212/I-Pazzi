@@ -20,10 +20,12 @@ import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.board.Space;
 import it.polimi.ingsw.ps21.model.board.WorkSpace;
 import it.polimi.ingsw.ps21.model.match.Match;
+import it.polimi.ingsw.ps21.model.match.MatchFactory;
 import it.polimi.ingsw.ps21.model.match.RoundType;
 import it.polimi.ingsw.ps21.model.match.VaticanRoundException;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
+import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
@@ -61,7 +63,7 @@ public class MatchController extends Observable implements Observer {
 			handler.addObserver(this);
 		}
 		// this.timer = new RoundTimer(MatchFactory.instance().makeTimeoutRound());
-		this.timer = new RoundTimer(60000);
+		this.timer = new RoundTimer(MatchFactory.instance().makeTimeoutRound());
 		this.timer.addObserver(this);
 		timerThread = new Thread(this.timer);
 		startMatch();
@@ -75,7 +77,7 @@ public class MatchController extends Observable implements Observer {
 	}
 
 	private void getActionChoices() {
-
+		while(state != ActionState.ACCEPTED && state != ActionState.REFUSED){
 		if (state == ActionState.AWAITING_CHOICES) {
 			Message returnMessage = currentAction.update(this.currentPlayer, this.match);
 			if (returnMessage instanceof RefusedAction)
@@ -86,10 +88,14 @@ public class MatchController extends Observable implements Observer {
 			setChanged();
 			notifyObservers(returnMessage); // request choice to the user or
 											// notify that the action has been
-											// accepted or refused
-			performAction();
-		} else if (state == ActionState.ACCEPTED) {
-			performAction();
+			}	
+		}	// accepted or refused
+			 if (state == ActionState.ACCEPTED) performAction();
+			 else {
+				 ActionRequest req = new ActionRequest(currentPlayer.getId());
+					setChanged();
+					notifyObservers(req);
+			 }
 		}
 
 		/*
@@ -111,7 +117,6 @@ public class MatchController extends Observable implements Observer {
 		 * 
 		 * }
 		 */
-	}
 
 	private void performAction() {
 		
@@ -126,6 +131,9 @@ public class MatchController extends Observable implements Observer {
 				setChanged();
 				notifyObservers(new CompletedActionMessage(currentPlayer.getId()));
 				nextPlayer();
+			}
+			else {
+				reqExtraAction(extraActions.toArray(new ExtraAction[0]));
 			}
 		} catch (NotExecutableException e) {
 			LOGGER.log(Level.INFO , "Action not executable", e);
@@ -144,6 +152,11 @@ public class MatchController extends Observable implements Observer {
 
 		
 	}
+
+	private void reqExtraAction(ExtraAction[] array) {
+		setChanged();
+		notifyObservers(array);
+		}
 
 	//TODO: verificare se è round vatican
 	private void newRound() {
@@ -228,6 +241,15 @@ public class MatchController extends Observable implements Observer {
 		Action parsedAction;
 		Player currentPlayer = match.getCurrentPlayer();
 		FamilyMember chosenMember = currentPlayer.getFamily().getMember(data.getFamilyMember());
+		int diceValue;
+		if(chosenMember.getColor() == MembersColor.BLACK)
+			diceValue=match.getBlackDice();
+		else if(chosenMember.getColor() == MembersColor.ORANGE)
+			diceValue=match.getOrangeDice();
+		else if(chosenMember.getColor() == MembersColor.WHITE)
+			diceValue=match.getWhiteDice();
+		else diceValue = 0;
+		chosenMember.increaseValue(diceValue);
 		chosenMember.increaseValue(data.getServants());
 		currentPlayer.getProperties().getProperty(PropertiesId.SERVANTS).payValue(data.getServants());
 		switch (data.getType()) {

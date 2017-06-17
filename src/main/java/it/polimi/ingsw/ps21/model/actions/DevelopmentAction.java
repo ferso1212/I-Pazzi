@@ -47,8 +47,8 @@ public class DevelopmentAction extends Action {
 
 		switch (this.updateCounter) {
 		case 2: {
-			if ((player.checkCardRequirements(space.getCard())) && (famMember.getValue() >= space.getDiceRequirement())
-					&& (space.isOccupable(player, famMember)) && (!famMember.isUsed())
+			if (( (space.isOccupable(player, famMember)) && player.checkCardRequirements(space.getCard())) 
+					&& (famMember.getValue() >= space.getDiceRequirement())	&& (!famMember.isUsed())
 					&& (player.checkRequirement(player.getDeck().getAddingCardRequirement(space.getCard())))
 					&& (player.getProperties().getPayableRequirementsAndCosts(space.getCard().getCosts()).size() > 0)) {
 				this.costMessage = new CostChoice(player.getId(), player.getProperties().getPayableRequirementsAndCosts(space.getCard().getCosts()));
@@ -119,7 +119,7 @@ public class DevelopmentAction extends Action {
 
 		space.setCard(null); // rimuove carta dallo spazio-torre
 
-		player.getDeck().addCard(space.getCard()); // aggiunta della carta al deck del player
+		player.getDeck().addCard(selectedCard); // aggiunta della carta al deck del player
 
 		this.extraActionFromInstantEffect = selectedCard.getInstantEffect().activate(player);
 		

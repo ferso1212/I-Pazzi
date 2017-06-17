@@ -13,6 +13,7 @@ import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.actions.ActionType;
+import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
@@ -72,7 +73,10 @@ public class CLInterface implements UserInterface {
 			System.out.println("\nTower " + i + 1 + "");
 			for (int j = 0; j < 4; j++) {
 				System.out.println("\nFloor " + j + ":");
-				System.out.println(" Card: " + cards[i][j].toString());
+				DevelopmentCard card = cards[i][j];
+				if (card!=null)
+					System.out.println(" Card: " + card.toString());
+				else System.out.println(" Empty Floor");
 				System.out.println("Family Member: " + (boardInfo.getTowerSpaces()[i][j]).toString());
 			}
 			System.out.println(";");
@@ -415,7 +419,7 @@ public class CLInterface implements UserInterface {
 			System.out.println("Invalid choice, please insert another choice:");
 			choice = userInput.nextInt();
 		}
-		return availableColors.get(choice);
+		return availableColors.get(choice-1);
 	}
 
 	@Override
@@ -424,8 +428,9 @@ public class CLInterface implements UserInterface {
 		System.out.println("Match started!");
 	}
 
+
 	@Override
-	public int reqExtraActionChoice(ActionData[] actions) {
+	public int reqExtraActionChoice(ExtraAction[] actions) {
 		if (actions.length == 1) {
 			System.out.println("You can execute this ExtraAction: " + actions[0].toString());
 			return 0;
