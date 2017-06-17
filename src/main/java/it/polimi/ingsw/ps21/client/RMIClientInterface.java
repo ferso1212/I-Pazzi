@@ -10,6 +10,7 @@ import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.ActionData;
+import it.polimi.ingsw.ps21.view.ExtraActionData;
 
 public interface RMIClientInterface extends Remote {
 
@@ -29,7 +30,7 @@ public interface RMIClientInterface extends Remote {
 	
 	public ActionData actionRequest()throws RemoteException;
 
-	public int reqExtraActionChoice(ExtraAction[] actions) throws RemoteException;
+	public int reqExtraActionChoice(ExtraActionData[] actions) throws RemoteException;
 
 	public void updateMatch(MatchData match) throws RemoteException;
 

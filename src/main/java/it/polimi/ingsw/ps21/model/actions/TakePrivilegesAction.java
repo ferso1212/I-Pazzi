@@ -11,6 +11,7 @@ import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
+import it.polimi.ingsw.ps21.view.ExtraActionData;
 
 public class TakePrivilegesAction extends ExtraAction {
 	
@@ -21,6 +22,7 @@ public class TakePrivilegesAction extends ExtraAction {
 	public TakePrivilegesAction(PlayerColor playerId, int numberOfPrivileges) {
 		super(playerId);
 		this.numberOfPrivileges = numberOfPrivileges;
+		this.data = new ExtraActionData(this);
 	}
 
 	@Override
@@ -54,6 +56,10 @@ public class TakePrivilegesAction extends ExtraAction {
 		ArrayList<ExtraAction> returnExtraAction = new ArrayList<ExtraAction>();
 		returnExtraAction.add(new NullAction(player.getId()));
 		return returnExtraAction.toArray(new ExtraAction[0]);
+	}
+	
+	public int getNumberOfPrivileges(){
+		return this.numberOfPrivileges;
 	}
 	
 }

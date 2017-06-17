@@ -17,6 +17,7 @@ import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
+import it.polimi.ingsw.ps21.view.ExtraActionData;
 
 public class PickAnotherCardAction extends ExtraAction {
 
@@ -36,6 +37,7 @@ public class PickAnotherCardAction extends ExtraAction {
 		else
 			this.types = DevelopmentCardType.values();
 		this.updateCounter = 3;
+		this.data = new ExtraActionData(this);
 	}
 
 	@Override
@@ -140,5 +142,12 @@ public class PickAnotherCardAction extends ExtraAction {
 
 		return this.extraActionFromInstantEffect.toArray(new ExtraAction[0]);
 	}
+	
+	public DevelopmentCardType[] getTypes(){
+		return this.types;
+	}
 
+	public int getDice(){
+		return this.diceReq;
+	}
 }

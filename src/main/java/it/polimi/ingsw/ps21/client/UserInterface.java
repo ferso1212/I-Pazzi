@@ -13,6 +13,7 @@ import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.ActionData;
+import it.polimi.ingsw.ps21.view.ExtraActionData;
 
 public abstract interface UserInterface {
 	
@@ -46,7 +47,7 @@ public abstract interface UserInterface {
 	
 	public abstract void matchEnded();
 
-	public abstract int reqExtraActionChoice(ExtraAction[] actions);
+	public abstract int reqExtraActionChoice(ExtraActionData[] actions);
 
 
 

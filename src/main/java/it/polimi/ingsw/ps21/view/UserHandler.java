@@ -95,17 +95,20 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 	@Override
 	public void update(Observable o, Object arg) {
 		if (o instanceof MatchController) {
-			if (arg instanceof ExtraAction[]) {
-				// TODO
-				ExtraAction[] actions = (ExtraAction[]) arg;
-				ArrayList<ExtraAction> actionsForMe = new ArrayList<>();
-				for (ExtraAction action : actions) {
-					if (action.getPlayerId() == this.playerId) {
-						actionsForMe.add(action);
+			if (arg instanceof ExtraActionRequest) {
+				ExtraActionRequest request = (ExtraActionRequest) arg;
+				if (request.getDest()== this.playerId){
+					ExtraActionData[] actions = request.getPossibilities();
+					ExtraActionData chosen = actions[connection.reqExtraActionChoice(actions)];
+					if (timeoutExpired)
+						connection.sendMessage("Timeout expired");
+					else {
+						setChanged();
+						notifyObservers(chosen);
 					}
-				connection.reqExtraActionChoice(actions);
 				}
-			} else if (arg instanceof ActionRequest) {
+			} 
+			else if (arg instanceof ActionRequest) {
 				ActionRequest req = (ActionRequest) arg;
 				if (req.getDest() != this.playerId)
 					return;
@@ -119,7 +122,8 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 						notifyObservers(newAction);
 					}
 				}
-			} else if (arg instanceof MatchData) {
+			}
+			 else if (arg instanceof MatchData) {
 				connection.remoteUpdate((MatchData) arg);
 			} else if (arg instanceof String) {
 				if (((String) arg).compareTo("Match Started") == 0) {
@@ -154,7 +158,6 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 				}
 			}
 		}
-
 	}
 
 	private void parseExtraAction(ExtraAction action) {

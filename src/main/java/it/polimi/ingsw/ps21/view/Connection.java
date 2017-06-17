@@ -26,7 +26,7 @@ public abstract interface Connection{
 	
 	public void setID(PlayerColor player);
 	
-	public int reqExtraActionChoice(ExtraAction[] actions);
+	public int reqExtraActionChoice(ExtraActionData[] actions);
 	
 	public ActionData reqAction();
 

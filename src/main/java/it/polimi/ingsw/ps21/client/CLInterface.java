@@ -24,6 +24,7 @@ import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.view.ActionData;
+import it.polimi.ingsw.ps21.view.ExtraActionData;
 
 public class CLInterface implements UserInterface {
 
@@ -430,21 +431,21 @@ public class CLInterface implements UserInterface {
 
 
 	@Override
-	public int reqExtraActionChoice(ExtraAction[] actions) {
+	public int reqExtraActionChoice(ExtraActionData[] actions) {
 		if (actions.length == 1) {
-			System.out.println("You can execute this ExtraAction: " + actions[0].toString());
+			System.out.println("You can execute this ExtraAction: " + actions[0].getDescription());
 			return 0;
 		} else {
 			System.out.println("You can execute other extra actions. Choose between:");
 			for (int i = 0; i < actions.length; i++)
-				System.out.println((i + 1) + actions[i].toString() + ";");
+				System.out.println((i + 1) + actions[i].getDescription() + ";");
 			System.out.println("Please, insert your choice: ");
 			int userChoice = userInput.nextInt();
 			while (userChoice < 1 || userChoice > actions.length) {
 				System.out.println("Your choice is invalid, please insert another one...");
 				userChoice = userInput.nextInt();
 			}
-			return userChoice;
+			return userChoice-1;
 		}
 	}
 

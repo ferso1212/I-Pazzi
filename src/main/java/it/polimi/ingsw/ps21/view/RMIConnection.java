@@ -118,7 +118,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 
 
 	@Override
-	public int reqExtraActionChoice(ExtraAction[] actions) {
+	public int reqExtraActionChoice(ExtraActionData[] actions) {
 		try {
 			return client.reqExtraActionChoice(actions);
 		} catch (RemoteException e) {

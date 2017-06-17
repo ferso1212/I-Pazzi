@@ -31,6 +31,8 @@ import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.view.ActionData;
+import it.polimi.ingsw.ps21.view.ExtraActionData;
+import it.polimi.ingsw.ps21.view.ExtraActionRequest;
 import it.polimi.ingsw.ps21.view.RoundTimer;
 import it.polimi.ingsw.ps21.view.TimeoutExpiredMessage;
 import it.polimi.ingsw.ps21.view.UserHandler;
@@ -42,6 +44,7 @@ public class MatchController extends Observable implements Observer {
 	private Match match;
 	private boolean matchEnded = false;
 	private Action currentAction;
+	private ArrayList<ExtraAction> currentExtraActions;
 
 	private static enum ActionState {
 		ACCEPTED, REFUSED, AWAITING_CHOICES,
@@ -99,6 +102,25 @@ public class MatchController extends Observable implements Observer {
 			 }
 		}
 
+	private void getExtraActionChoices() {
+		while(state != ActionState.ACCEPTED && state != ActionState.REFUSED){
+		if (state == ActionState.AWAITING_CHOICES) {
+			Message returnMessage = currentAction.update(this.currentPlayer, this.match);
+			if (returnMessage instanceof RefusedAction)
+				state = ActionState.REFUSED;
+			else if (returnMessage instanceof AcceptedAction) {
+				state = ActionState.ACCEPTED;
+			}
+			setChanged();
+			notifyObservers(returnMessage); // request choice to the user or
+											// notify that the action has been
+			}	
+		}	// accepted or refused
+			 if (state == ActionState.ACCEPTED) performExtraAction();
+			 else {
+				 	reqExtraAction();
+			 }
+		}
 		/*
 		 * while (!returnMessage.isVisited()) {
 		 * 
@@ -123,18 +145,52 @@ public class MatchController extends Observable implements Observer {
 		
 		try {
 			ExtraAction[] poolExtraAction = match.doAction(currentAction);
-			ArrayList<ExtraAction> extraActions = new ArrayList<>();
+			currentExtraActions = new ArrayList<>();
 			for (ExtraAction a : poolExtraAction) {
 				if (!(a instanceof NullAction))
-					extraActions.add(a);
+					currentExtraActions.add(a);
 			}
-			if (extraActions.isEmpty()) {
+			if (currentExtraActions.isEmpty()) {
 				setChanged();
 				notifyObservers(new CompletedActionMessage(currentPlayer.getId()));
 				nextPlayer();
 			}
 			else {
-				reqExtraAction(extraActions.toArray(new ExtraAction[0]));
+				reqExtraAction();
+			}
+		} catch (NotExecutableException e) {
+			LOGGER.log(Level.INFO , "Action not executable", e);
+		} catch (RequirementNotMetException e) {
+			LOGGER.log(Level.WARNING , "Player doesn't met the requirements for this action", e);
+		} catch (InsufficientPropsException e) {
+			LOGGER.log(Level.INFO , "Player doesn't have enough properties to execute this action", e);
+		} catch (VaticanRoundException e) {
+			LOGGER.log(Level.SEVERE, "Match is in Vatican State, so cannot execute this type of action", e);
+		}
+		// creare un nuovo array di extra action senza NullAction da notificare
+		// all'utente
+		// se l'array depurato è vuoto chiama la setNextPlayer, la setNextPlayer
+		// ritorna un enum che dice il tipo di round: se è cambiato, significa
+		// che è un nuovo round;
+
+		
+	}
+	
+	private void performExtraAction() {
+		
+		try {
+			ExtraAction[] poolExtraAction = match.doAction(currentAction);
+			for (ExtraAction a : poolExtraAction) {
+				if (!(a instanceof NullAction))
+					currentExtraActions.add(a);
+			}
+			if (currentExtraActions.isEmpty()) {
+				setChanged();
+				notifyObservers(new CompletedActionMessage(currentPlayer.getId()));
+				nextPlayer();
+			}
+			else {
+				reqExtraAction();
 			}
 		} catch (NotExecutableException e) {
 			LOGGER.log(Level.INFO , "Action not executable", e);
@@ -154,10 +210,22 @@ public class MatchController extends Observable implements Observer {
 		
 	}
 
-	private void reqExtraAction(ExtraAction[] array) {
+	private void reqExtraAction() {
+		ArrayList<ExtraActionData> extraDatas = new ArrayList<>();
+		for (ExtraAction a: currentExtraActions)
+			extraDatas.add(a.getData());
+		if (extraDatas.isEmpty()) 
+			{
+				
+				notifyObservers(new Message(this.currentPlayer.getId()));
+				nextPlayer();
+			}
+		
+		else{
 		setChanged();
-		notifyObservers(array);
+		notifyObservers(new ExtraActionRequest(this.currentPlayer.getId(), extraDatas.toArray(new ExtraActionData[0])));
 		}
+	}
 
 	//TODO: verificare se è round vatican
 	private void newRound() {
@@ -218,20 +286,34 @@ public class MatchController extends Observable implements Observer {
 		if (source instanceof UserHandler) {
 			if(((UserHandler) source).getPlayerId()==this.currentPlayer.getId()){
 				this.state=ActionState.AWAITING_CHOICES;
-			if (arg instanceof ExtraAction) {
-				ExtraAction action = (ExtraAction) arg;
-				this.currentAction=action;
-				getActionChoices();
+			if (arg instanceof ExtraActionData) {
+				ExtraActionData action = (ExtraActionData) arg;
+				int i=0;
+					for (i=0; i< currentExtraActions.size(); i++){
+						if (currentExtraActions.get(i).getData() == action) break;
+					}
+					if (i < currentExtraActions.size()) // significa che è stata trovata
+						{
+						this.currentAction=currentExtraActions.get(i);
+						this.currentExtraActions.remove(i);
+						getExtraActionChoices();									
+						}
+					else {
+						setChanged();
+						notifyObservers(new RefusedAction(currentPlayer.getId(), "Your chosen extra action doesn't exist"));
+						reqExtraAction();
+						
+					}
 			} else if (arg instanceof ActionData) {
 				parseAction((ActionData)arg);
 				getActionChoices();
-				
-			}
+				}
 			}
 		}
 		if (source == timer && state != ActionState.ACCEPTED) {
 				setChanged();
 				notifyObservers(new TimeoutExpiredMessage(currentPlayer.getId()));
+				this.currentExtraActions = new ArrayList<>();
 				nextPlayer();
 				reqPlayerAction();
 			}

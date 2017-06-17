@@ -8,11 +8,13 @@ import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
+import it.polimi.ingsw.ps21.view.ExtraActionData;
 
 public class NullAction extends ExtraAction {
 
 	public NullAction(PlayerColor playerId) {
 		super(playerId);
+		this.data = new ExtraActionData(this);
 	}
 
 	@Override
