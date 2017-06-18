@@ -21,8 +21,7 @@ public class MarketAction extends Action{
 	private CouncilChoice councilChoice;
 	private int updateCounter = 1;
 	
-	public MarketAction(PlayerColor playerId, SingleMarketSpace space, FamilyMember famMember,
-			CouncilChoice councilChoice) {
+	public MarketAction(PlayerColor playerId, SingleMarketSpace space, FamilyMember famMember) {
 		super(playerId);
 		this.space = space;
 		this.famMember = famMember;

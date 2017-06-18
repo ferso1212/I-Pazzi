@@ -8,8 +8,10 @@ import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps21.client.RMIClientInterface;
 import it.polimi.ingsw.ps21.controller.MatchData;
+import it.polimi.ingsw.ps21.controller.WorkMessage;
 import it.polimi.ingsw.ps21.model.actions.ActionType;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
@@ -162,6 +164,20 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 			chosen = possibleEffects[0]; // valore di ripiego
 		}
 		return chosen;
+	}
+
+
+	@Override
+	public int reqWorkChoice(DevelopmentCard workCard) {
+		try {
+			return client.reqWorkChoice(workCard);
+		} catch (RemoteException e) {
+			LOGGER.log(Level.WARNING, "Error calling remote method reWorkChoice on client", e);
+			return 0;
+		}
+		
+		
+		
 	}
 
 }

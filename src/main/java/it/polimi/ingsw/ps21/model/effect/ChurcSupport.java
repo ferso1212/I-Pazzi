@@ -28,7 +28,7 @@ public class ChurcSupport extends PermanentLeaderEffect {
 
 	@Override
 	public String getDesc() {
-		return "TO BE Implemented"
+		return "TO BE Implemented";
 	}
 
 }

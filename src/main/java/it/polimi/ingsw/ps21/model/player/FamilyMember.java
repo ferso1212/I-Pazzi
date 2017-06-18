@@ -28,6 +28,8 @@ public class FamilyMember {
 	public void increaseValue(int servants)
 	{
 		this.value += servants;
+		if (this.value < 0)
+			this.value = 0;
 	}
 	
 	/**Returns the color of the family member.
