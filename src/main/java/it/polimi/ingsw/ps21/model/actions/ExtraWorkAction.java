@@ -6,15 +6,12 @@ import it.polimi.ingsw.ps21.controller.AcceptedAction;
 import it.polimi.ingsw.ps21.controller.Message;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.controller.WorkMessage;
-import it.polimi.ingsw.ps21.model.board.WorkSpace;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.IllegalCardTypeException;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.match.Match;
-import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
-import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class ExtraWorkAction extends ExtraAction {
@@ -49,7 +46,7 @@ public class ExtraWorkAction extends ExtraAction {
 				if (cardWithCost.size() == 0)
 					return new AcceptedAction(player.getId());
 
-				this.workMessage = new WorkMessage(player.getId(), cardWithCost.toArray(new DevelopmentCard[0]));
+				this.workMessage = new WorkMessage(player.getId(), cardWithCost.toArray(new DevelopmentCard[0]), cardWithoutCost.toArray(new DevelopmentCard[0]));
 
 			} catch (IllegalCardTypeException e) {
 				return new RefusedAction(player.getId());
@@ -77,10 +74,21 @@ public class ExtraWorkAction extends ExtraAction {
 	}
 
 	@Override
-	public ExtraAction[] activate(Player player, Match match)
-			throws NotExecutableException, RequirementNotMetException, InsufficientPropsException {
-		// TODO Auto-generated method stub
-		return null;
+	public ExtraAction[] activate(Player player, Match match){
+		
+	ArrayList<ExtraAction> activatedEffects = new ArrayList<ExtraAction>();
+
+	for (int i = 0; i < workMessage.getChosenCardsAndEffects().length; i++) {
+		if (workMessage.getChosenCardsAndEffects()[i] != 0) {
+			activatedEffects.addAll(workMessage.getChoices()[i].getPossibleEffects()[workMessage.getChosenCardsAndEffects()[i] - 1].activate(player));
+		}
+	}
+	
+	for (int i = 0; i < workMessage.getcardsToActivateWithoutChoice().length; i++) {
+		activatedEffects.addAll(workMessage.getcardsToActivateWithoutChoice()[i].getPossibleEffects()[0].activate(player));
+	}
+
+	return activatedEffects.toArray(new ExtraAction[0]);
 	}
 
 }
