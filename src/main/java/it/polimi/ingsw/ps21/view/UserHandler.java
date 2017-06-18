@@ -10,6 +10,7 @@ import it.polimi.ingsw.ps21.controller.CompletedActionMessage;
 import it.polimi.ingsw.ps21.controller.CostChoice;
 import it.polimi.ingsw.ps21.controller.CouncilChoice;
 import it.polimi.ingsw.ps21.controller.EffectChoice;
+import it.polimi.ingsw.ps21.controller.ExecutedChoice;
 import it.polimi.ingsw.ps21.controller.MatchController;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.Message;
@@ -44,27 +45,33 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 	public void visit(VaticanChoice choice) {
 		choice.setChosen(connection.reqVaticanChoice());
 		choice.setVisited();
+		notifyObservers(new ExecutedChoice(this.playerId));
 	}
 
 	@Override
 	public void visit(CostChoice choice) {
 		choice.setChosen(connection.reqCostChoice(choice.getChoices()));
 		choice.setVisited();
-	}
+		setChanged();
+		notifyObservers(new ExecutedChoice(this.playerId));
+		}
 
 	@Override
 	public void visit(CouncilChoice choice) {
 		// TODO need to pass possible privileges
 		choice.setPrivilegesChosen(connection.reqPrivilegesChoice(choice.getNumberOfChoices()));
 		choice.setVisited();
+		setChanged();
+		notifyObservers(new ExecutedChoice(this.playerId));
 	}
 
 	@Override
 	public void visit(EffectChoice choice) {
-		// TODO Auto-generated method stub
+		choice.setEffectChosen(connection.reqEffectChoice(choice.getPossibleEffects()));
 		choice.isVisited();
-
-	}
+		setChanged();
+		notifyObservers(new ExecutedChoice(this.playerId));
+		}
 
 	@Override
 	public void visit(WorkMessage message) {
@@ -74,7 +81,10 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 		for (int i=0; i<choices.length; i++){
 			choices[i] = connection.reqWorkChoice(cardPossibilities[i]);
 		}
+		message.setChosenCardsAndEffects(choices);
 		message.setVisited();
+		setChanged();
+		notifyObservers(new ExecutedChoice(this.playerId));
 	}
 
 	@Override
@@ -87,6 +97,8 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 	public void visit(RefusedAction message) {
 		connection.sendMessage(message.getMessage());
 		message.setVisited();
+		setChanged();
+		notifyObservers(new ExecutedChoice(this.playerId));
 	}
 
 	@Override
@@ -152,12 +164,12 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 					else if (arg instanceof CostChoice)
 					{
 						CostChoice message = (CostChoice) arg;
-						message.setChosen(connection.reqCostChoice(message.getChoices()));
-						message.setVisited();
+						visit(message);
 					}
 					else if (arg instanceof EffectChoice){
 						EffectChoice message = (EffectChoice) arg;
-						message.setEffectChosen(connection.reqEffectChoice(message.getPossibleEffects()));
+						visit(message);
+						
 					}
 					else if (arg instanceof CompletedActionMessage){
 						connection.sendMessage(((CompletedActionMessage)arg).getMessage());

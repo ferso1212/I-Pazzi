@@ -77,29 +77,25 @@ public class MatchController extends Observable implements Observer {
 	}
 
 	private void getActionChoices() {
-		while(state != ActionState.ACCEPTED && state != ActionState.REFUSED){
-		if (state == ActionState.AWAITING_CHOICES) {
+		
 			Message returnMessage = currentAction.update(this.currentPlayer, this.match);
-			if (returnMessage instanceof RefusedAction)
+			if (returnMessage instanceof RefusedAction){
 				state = ActionState.REFUSED;
+				ActionRequest req = new ActionRequest(currentPlayer.getId());
+				setChanged();
+				notifyObservers(req);
+			}
 			else if (returnMessage instanceof AcceptedAction) {
 				state = ActionState.ACCEPTED;
+				performAction();
 			}
 			setChanged();
 			notifyObservers(returnMessage); // request choice to the user or
 											// notify that the action has been
-			}	
-		}	// accepted or refused
-			 if (state == ActionState.ACCEPTED) performAction();
-			 else {
-				 ActionRequest req = new ActionRequest(currentPlayer.getId());
-					setChanged();
-					notifyObservers(req);
-			 }
+			// accepted or refused
 		}
 
 	private void getExtraActionChoices() {
-		while(state != ActionState.ACCEPTED && state != ActionState.REFUSED){
 		if (state == ActionState.AWAITING_CHOICES) {
 			Message returnMessage = currentAction.update(this.currentPlayer, this.match);
 			if (returnMessage instanceof RefusedAction)
@@ -110,9 +106,8 @@ public class MatchController extends Observable implements Observer {
 			setChanged();
 			notifyObservers(returnMessage); // request choice to the user or
 											// notify that the action has been
-			}	
-		}	// accepted or refused
-			 if (state == ActionState.ACCEPTED) performExtraAction();
+			}	// accepted or refused
+			 if (state == ActionState.ACCEPTED) performAction();
 			 else {
 				 	reqExtraAction();
 			 }
@@ -155,7 +150,7 @@ public class MatchController extends Observable implements Observer {
 		}	
 	}
 	
-	private void performExtraAction() {
+	/*private void performExtraAction() {
 		
 		try {
 			ExtraAction[] poolExtraAction = match.doAction(currentAction);
@@ -188,7 +183,7 @@ public class MatchController extends Observable implements Observer {
 			notifyObservers(new RefusedAction(currentPlayer.getId(), "Match is in Vatican State, so cannot execute this type of action"));
 			nextPlayer();
 		}		
-	}
+	}*/
 
 	private void reqExtraAction() {
 		ArrayList<ExtraActionData> extraDatas = new ArrayList<>();
@@ -276,7 +271,7 @@ public class MatchController extends Observable implements Observer {
 						{
 						this.currentAction=currentExtraActions.get(i);
 						this.currentExtraActions.remove(i);
-						getExtraActionChoices();									
+						getActionChoices();									
 						}
 					else {
 						setChanged();
@@ -288,6 +283,9 @@ public class MatchController extends Observable implements Observer {
 				parseAction((ActionData)arg);
 				getActionChoices();
 				}
+			else if (arg instanceof ExecutedChoice){
+				if (((ExecutedChoice)arg).getDest() == this.currentPlayer.getId()) getActionChoices();
+			}
 			}
 		}
 		if (source == timer && state != ActionState.ACCEPTED) {
@@ -297,6 +295,7 @@ public class MatchController extends Observable implements Observer {
 				nextPlayer();
 				reqPlayerAction();
 			}
+		
 
 	}
 
