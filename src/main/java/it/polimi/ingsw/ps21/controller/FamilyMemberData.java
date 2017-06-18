@@ -4,12 +4,14 @@ import java.io.Serializable;
 
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.MembersColor;
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
 public class FamilyMemberData implements Serializable {
 	private MembersColor color;
 	private int value;
 	private boolean used;
 	private boolean exists;
+	private PlayerColor ownerId;
 	
 	public FamilyMemberData(FamilyMember member)
 	{
@@ -17,7 +19,9 @@ public class FamilyMemberData implements Serializable {
 		else {
 		this.color=member.getColor();
 		this.value=member.getValue();
-		this.used= member.isUsed();}
+		this.used= member.isUsed();
+		this.ownerId=member.getOwnerId();
+		this.exists=true;}
 	}
 
 	public MembersColor getColor() {
@@ -41,7 +45,12 @@ public class FamilyMemberData implements Serializable {
 		if(!exists) return "FREE";
 		else
 		{
-			return this.color + " member with value " + this.value;
+			return this.color + " member of player " + this.ownerId + " with value " + this.value;
 		}
+	}
+	
+	public PlayerColor getOwnerId()
+	{
+		return this.ownerId;
 	}
 }

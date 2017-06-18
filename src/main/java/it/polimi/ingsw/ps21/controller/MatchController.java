@@ -65,8 +65,6 @@ public class MatchController extends Observable implements Observer {
 			this.addObserver(handler);
 			handler.addObserver(this);
 		}
-		// this.timer = new RoundTimer(MatchFactory.instance().makeTimeoutRound());
-
 		this.timer = new RoundTimer(MatchFactory.instance().makeTimeoutRound());
 		this.timer.addObserver(this);
 		timerThread = new Thread(this.timer);
@@ -160,12 +158,20 @@ public class MatchController extends Observable implements Observer {
 			}
 		} catch (NotExecutableException e) {
 			LOGGER.log(Level.INFO , "Action not executable", e);
+			notifyObservers(new RefusedAction(currentPlayer.getId(), "Action not executable"));
+			nextPlayer();
 		} catch (RequirementNotMetException e) {
 			LOGGER.log(Level.WARNING , "Player doesn't met the requirements for this action", e);
+			notifyObservers(new RefusedAction(currentPlayer.getId(), "Player doesn't met the requirements for this action"));
+			nextPlayer();
 		} catch (InsufficientPropsException e) {
 			LOGGER.log(Level.INFO , "Player doesn't have enough properties to execute this action", e);
+			notifyObservers(new RefusedAction(currentPlayer.getId(), "Player doesn't have enough properties to execute this action"));
+			nextPlayer();
 		} catch (VaticanRoundException e) {
 			LOGGER.log(Level.SEVERE, "Match is in Vatican State, so cannot execute this type of action", e);
+			notifyObservers(new RefusedAction(currentPlayer.getId(), "Match is in Vatican State, so cannot execute this type of action"));
+			nextPlayer();
 		}
 		// creare un nuovo array di extra action senza NullAction da notificare
 		// all'utente
@@ -194,12 +200,20 @@ public class MatchController extends Observable implements Observer {
 			}
 		} catch (NotExecutableException e) {
 			LOGGER.log(Level.INFO , "Action not executable", e);
+			notifyObservers(new RefusedAction(currentPlayer.getId(), "Action not executable"));
+			nextPlayer();
 		} catch (RequirementNotMetException e) {
 			LOGGER.log(Level.WARNING , "Player doesn't met the requirements for this action", e);
+			notifyObservers(new RefusedAction(currentPlayer.getId(), "Player doesn't met the requirements for this action"));
+			nextPlayer();
 		} catch (InsufficientPropsException e) {
 			LOGGER.log(Level.INFO , "Player doesn't have enough properties to execute this action", e);
+			notifyObservers(new RefusedAction(currentPlayer.getId(), "Player doesn't have enough properties to execute this action"));
+			nextPlayer();
 		} catch (VaticanRoundException e) {
 			LOGGER.log(Level.SEVERE, "Match is in Vatican State, so cannot execute this type of action", e);
+			notifyObservers(new RefusedAction(currentPlayer.getId(), "Match is in Vatican State, so cannot execute this type of action"));
+			nextPlayer();
 		}
 		// creare un nuovo array di extra action senza NullAction da notificare
 		// all'utente

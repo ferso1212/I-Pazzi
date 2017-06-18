@@ -87,10 +87,10 @@
         </Properties>
     </InitialProperties>
     <CardBonuses>
-        <TerritoryBonuses value1="0" value2="1" value3="2" value4="3" value5="5" value6="10" />
-        <BuildingBonuses value1="0" value2="1" value3="2" value4="3" value5="5" value6="10" />
-        <CharacterBonuses value1="0" value2="1" value3="2" value4="3" value5="5" value6="10" />
-        <VentureBonuses value1="0" value2="1" value3="2" value4="3" value5="5" value6="10" />
+        <TerritoryBonuses value0="0" value1="0" value2="1" value3="1" value4="4" value5="10" value6="20" />
+        <BuildingBonuses value0="0" value1="0" value2="0" value3="0" value4="0" value5="0" value6="0" />
+        <CharacterBonuses value0="0" value1="1" value2="3" value3="6" value4="10" value5="15" value6="21" />
+        <VentureBonuses value0="0" value1="0" value2="1" value3="2" value4="3" value5="5" value6="10" />
     </CardBonuses>
     <CardRequirement>
         <TerritoryRequirement>
@@ -134,7 +134,7 @@
                     <Stones value="0" />
                     <Servants value="0" />
                     <Coins value="0" />
-                    <MilitaryPoints value="0" />
+                    <MilitaryPoints value="3" />
                     <VictoryPoints value="0" />
                     <FaithPoints value="0" />
                 </Properties>
@@ -151,7 +151,7 @@
                     <Stones value="0" />
                     <Servants value="0" />
                     <Coins value="0" />
-                    <MilitaryPoints value="0" />
+                    <MilitaryPoints value="7" />
                     <VictoryPoints value="0" />
                     <FaithPoints value="0" />
                 </Properties>
@@ -168,7 +168,7 @@
                     <Stones value="0" />
                     <Servants value="0" />
                     <Coins value="0" />
-                    <MilitaryPoints value="0" />
+                    <MilitaryPoints value="12" />
                     <VictoryPoints value="0" />
                     <FaithPoints value="0" />
                 </Properties>
@@ -185,7 +185,7 @@
                     <Stones value="0" />
                     <Servants value="0" />
                     <Coins value="0" />
-                    <MilitaryPoints value="0" />
+                    <MilitaryPoints value="18" />
                     <VictoryPoints value="0" />
                     <FaithPoints value="0" />
                 </Properties>
@@ -517,6 +517,15 @@
             <Wood value="0" />
             <Stones value="0" />
             <Servants value="0" />
+            <Coins value="5" />
+            <MilitaryPoints value="0" />
+            <VictoryPoints value="0" />
+            <FaithPoints value="0" />
+        </Properties>
+        <Properties>
+            <Wood value="0" />
+            <Stones value="0" />
+            <Servants value="5" />
             <Coins value="0" />
             <MilitaryPoints value="0" />
             <VictoryPoints value="0" />
@@ -526,17 +535,8 @@
             <Wood value="0" />
             <Stones value="0" />
             <Servants value="0" />
-            <Coins value="0" />
-            <MilitaryPoints value="0" />
-            <VictoryPoints value="0" />
-            <FaithPoints value="0" />
-        </Properties>
-        <Properties>
-            <Wood value="0" />
-            <Stones value="0" />
-            <Servants value="0" />
-            <Coins value="0" />
-            <MilitaryPoints value="0" />
+            <Coins value="2" />
+            <MilitaryPoints value="3" />
             <VictoryPoints value="0" />
             <FaithPoints value="0" />
         </Properties>
@@ -550,13 +550,13 @@
             <FaithPoints value="0" />
         </Properties>
     </MarketBonuses>
-    <MarketPrivileges first="0" second="0" third="0" fourth="0" />
+    <MarketPrivileges first="0" second="0" third="0" fourth="2" />
     <CouncilBonus>
         <Properties>
             <Wood value="0" />
             <Stones value="0" />
             <Servants value="0" />
-            <Coins value="0" />
+            <Coins value="1" />
             <MilitaryPoints value="0" />
             <VictoryPoints value="0" />
             <FaithPoints value="0" />
@@ -584,7 +584,7 @@
                 <FaithPoints value="0" />
             </Properties>
             <Properties>
-                <Wood value="0" />
+                <Wood value="1" />
                 <Stones value="0" />
                 <Servants value="0" />
                 <Coins value="0" />
@@ -593,7 +593,7 @@
                 <FaithPoints value="0" />
             </Properties>
             <Properties>
-                <Wood value="0" />
+                <Wood value="2" />
                 <Stones value="0" />
                 <Servants value="0" />
                 <Coins value="0" />
@@ -627,7 +627,7 @@
                 <Servants value="0" />
                 <Coins value="0" />
                 <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
+                <VictoryPoints value="1" />
                 <FaithPoints value="0" />
             </Properties>
             <Properties>
@@ -636,7 +636,7 @@
                 <Servants value="0" />
                 <Coins value="0" />
                 <MilitaryPoints value="0" />
-                <VictoryPoints value="0" />
+                <VictoryPoints value="2" />
                 <FaithPoints value="0" />
             </Properties>
         </BuildingTower>
@@ -661,7 +661,7 @@
             </Properties>
             <Properties>
                 <Wood value="0" />
-                <Stones value="0" />
+                <Stones value="1" />
                 <Servants value="0" />
                 <Coins value="0" />
                 <MilitaryPoints value="0" />
@@ -670,7 +670,7 @@
             </Properties>
             <Properties>
                 <Wood value="0" />
-                <Stones value="0" />
+                <Stones value="2" />
                 <Servants value="0" />
                 <Coins value="0" />
                 <MilitaryPoints value="0" />
@@ -701,7 +701,7 @@
                 <Wood value="0" />
                 <Stones value="0" />
                 <Servants value="0" />
-                <Coins value="0" />
+                <Coins value="1" />
                 <MilitaryPoints value="0" />
                 <VictoryPoints value="0" />
                 <FaithPoints value="0" />
@@ -710,7 +710,7 @@
                 <Wood value="0" />
                 <Stones value="0" />
                 <Servants value="0" />
-                <Coins value="0" />
+                <Coins value="2" />
                 <MilitaryPoints value="0" />
                 <VictoryPoints value="0" />
                 <FaithPoints value="0" />

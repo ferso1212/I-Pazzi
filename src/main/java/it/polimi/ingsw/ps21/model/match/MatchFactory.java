@@ -615,45 +615,37 @@ public class MatchFactory {
 				configuration.normalize();
 				Element board = configuration.getDocumentElement();
 				Element cardBonuses = (Element) board.getElementsByTagName("CardBonuses").item(0);
-				int[] bonuses = new int[6];
+				int[] bonuses = new int[7];
 
 				Element territory = (Element) cardBonuses.getElementsByTagName("TerritoryBonuses").item(0);
-				bonuses[0] = Integer.parseInt(territory.getAttribute("value1"));
-				bonuses[1] = Integer.parseInt(territory.getAttribute("value2"));
-				bonuses[2] = Integer.parseInt(territory.getAttribute("value3"));
-				bonuses[3] = Integer.parseInt(territory.getAttribute("value4"));
-				bonuses[4] = Integer.parseInt(territory.getAttribute("value5"));
-				bonuses[5] = Integer.parseInt(territory.getAttribute("value6"));
+				for(int i=0; i<=6; i++)
+				{
+					bonuses[i] = Integer.parseInt(territory.getAttribute("value"+i));
+				}
 				result.put(DevelopmentCardType.TERRITORY, bonuses);
 
-				bonuses = new int[6];
+				bonuses = new int[7];
 				Element building = (Element) cardBonuses.getElementsByTagName("BuildingBonuses").item(0);
-				bonuses[0] = Integer.parseInt(building.getAttribute("value1"));
-				bonuses[1] = Integer.parseInt(building.getAttribute("value2"));
-				bonuses[2] = Integer.parseInt(building.getAttribute("value3"));
-				bonuses[3] = Integer.parseInt(building.getAttribute("value4"));
-				bonuses[4] = Integer.parseInt(building.getAttribute("value5"));
-				bonuses[5] = Integer.parseInt(building.getAttribute("value6"));
+				for(int i=0; i<=6; i++)
+				{
+					bonuses[i] = Integer.parseInt(territory.getAttribute("value"+i));
+				}
 				result.put(DevelopmentCardType.BUILDING, bonuses);
 
-				bonuses = new int[6];
+				bonuses = new int[7];
 				Element character = (Element) cardBonuses.getElementsByTagName("CharacterBonuses").item(0);
-				bonuses[0] = Integer.parseInt(character.getAttribute("value1"));
-				bonuses[1] = Integer.parseInt(character.getAttribute("value2"));
-				bonuses[2] = Integer.parseInt(character.getAttribute("value3"));
-				bonuses[3] = Integer.parseInt(character.getAttribute("value4"));
-				bonuses[4] = Integer.parseInt(character.getAttribute("value5"));
-				bonuses[5] = Integer.parseInt(character.getAttribute("value6"));
+				for(int i=0; i<=6; i++)
+				{
+					bonuses[i] = Integer.parseInt(territory.getAttribute("value"+i));
+				}
 				result.put(DevelopmentCardType.BUILDING, bonuses);
 
-				bonuses = new int[6];
+				bonuses = new int[7];
 				Element venture = (Element) cardBonuses.getElementsByTagName("VentureBonuses").item(0);
-				bonuses[0] = Integer.parseInt(venture.getAttribute("value1"));
-				bonuses[1] = Integer.parseInt(venture.getAttribute("value2"));
-				bonuses[2] = Integer.parseInt(venture.getAttribute("value3"));
-				bonuses[3] = Integer.parseInt(venture.getAttribute("value4"));
-				bonuses[4] = Integer.parseInt(venture.getAttribute("value5"));
-				bonuses[5] = Integer.parseInt(venture.getAttribute("value6"));
+				for(int i=0; i<=6; i++)
+				{
+					bonuses[i] = Integer.parseInt(territory.getAttribute("value"+i));
+				}
 				result.put(DevelopmentCardType.VENTURE, bonuses);
 			} catch (SAXException | IOException | NullPointerException i) {
 			LOGGER.log(Level.WARNING, "Error creating Card Final Bonuses, returning default values", i);

@@ -35,6 +35,7 @@ import it.polimi.ingsw.ps21.client.ViewUpdateRequestNetPacket;
 import it.polimi.ingsw.ps21.controller.BoardData;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.PlayerData;
+import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
@@ -162,7 +163,7 @@ public class SocketConnection implements Connection{
 
 
 	@Override
-	public int reqExtraActionChoice(ActionData[] actions) {
+	public int reqExtraActionChoice(ExtraActionData[] actions) {
 		return ((ExtraActionChoiceResponseNetPacket)requestAndAwaitResponse(new ExtraActionChoiceRequestNetPacket(messageCounter, actions))).getChosen();
 	}
 
@@ -181,6 +182,13 @@ public class SocketConnection implements Connection{
 		} catch (IOException e) {
 			LOGGER.log(Level.WARNING, "Unable to send ID to the remote client due to IOException", e);
 		}
+	}
+
+
+	@Override
+	public EffectSet reqEffectChoice(EffectSet[] possibleEffects) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 		
 

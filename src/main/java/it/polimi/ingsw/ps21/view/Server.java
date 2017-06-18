@@ -2,6 +2,7 @@ package it.polimi.ingsw.ps21.view;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.rmi.registry.Registry;
@@ -14,6 +15,7 @@ public class Server implements Runnable {
 	// private RMIConnectionsAcceptor rmiAcceptor;
 	private Lobby stdLobby;
 	private Lobby advLobby;
+	//private ArrayList<String> users;
 
 	
 	

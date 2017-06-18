@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps21.view;
 
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -23,6 +24,7 @@ public class Lobby extends Thread{
 	private boolean timeoutExpired;
 	private boolean startedTimer = false;
 	private boolean isAdvanced;
+	private HashMap<String, MatchRunner> usersMatches;
 
 	public Lobby(boolean type)
 	{
@@ -68,19 +70,20 @@ public class Lobby extends Thread{
 		// Creates UserHandlers for each connection and and a new
 		// MatchRunner with those UserHandlers
 		int playersAdded = 0;
+		UserHandler[] usersToAdd;
 		synchronized (connectionsQueue) {
 			System.out.println("\nInitializing a new " + chosenRules + " match with " + Math.min(MAX_PLAYERS_NUM, connectionsQueue.size())
 					+ " players.");
-			UserHandler[] usersToAdd = new UserHandler[Math.min(connectionsQueue.size(), MAX_PLAYERS_NUM)];
+			usersToAdd = new UserHandler[Math.min(connectionsQueue.size(), MAX_PLAYERS_NUM)];
 			while ((playersAdded < usersToAdd.length) && (connectionsQueue.size() > 0)) {
 				usersToAdd[playersAdded] = new UserHandler(PlayerColor.values()[playersAdded],
 						connectionsQueue.poll());
 				playersAdded++;
 			}
-			new Thread((new MatchRunner(isAdvanced, usersToAdd))).start();
-			System.out.println("\nNew MatchRunner thread created with " + playersAdded + " players.");
 		}
-
+		new Thread((new MatchRunner(isAdvanced, usersToAdd))).start();
+		System.out.println("\nNew MatchRunner thread created with " + playersAdded + " players.");
+		
 	}
 	}
 	
