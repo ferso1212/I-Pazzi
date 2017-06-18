@@ -38,8 +38,9 @@ public class WorkAction extends Action {
 	public Message update(Player player, Match match) {
 		
 		if (this.space.equals(match.getBoard().getMultipleWorkSpace(this.space.getWorkType()))){
-			this.famMember.increaseValue( - match.getBoard().getMultipleWorkSpace(this.space.getWorkType()).getDiceMalus());
-			this.actionValue = this.famMember.getValue();
+			this.actionValue = this.famMember.getValue() - match.getBoard().getMultipleWorkSpace(this.space.getWorkType()).getDiceMalus();
+			if(this.actionValue < 0)
+				this.actionValue = 0;
 		} else if (this.space.equals(match.getBoard().getSingleWorkSpace(this.space.getWorkType()))) {
 			this.actionValue = this.famMember.getValue();
 		}
