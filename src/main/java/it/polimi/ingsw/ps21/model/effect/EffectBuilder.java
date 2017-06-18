@@ -1,6 +1,5 @@
 package it.polimi.ingsw.ps21.model.effect;
 
-import java.awt.image.SinglePixelPackedSampleModel;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,10 +12,8 @@ import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.MultiplierType;
 import it.polimi.ingsw.ps21.model.deck.TooManyArgumentException;
-import it.polimi.ingsw.ps21.model.match.BuildingCardException;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesBuilder;
-import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 
 public class EffectBuilder {
 	private static final Logger LOGGER = Logger.getLogger(EffectBuilder.class.getName());
