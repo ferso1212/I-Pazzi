@@ -190,6 +190,15 @@ public class SocketConnection implements Connection{
 		// TODO Auto-generated method stub
 		return null;
 	}
-		
 
+
+	@Override
+	public String reqName() {
+		// TODO Chiede un nome al giocatore e lo setta nel campo "nome" della connessione stessa
+		return null;
+	}
+		
+	public boolean isConnected(){
+		return this.socket.isConnected();
+	}
 }

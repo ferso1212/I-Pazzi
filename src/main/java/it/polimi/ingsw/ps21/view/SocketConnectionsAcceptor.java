@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -21,10 +22,10 @@ public class SocketConnectionsAcceptor extends ConnectionsAcceptor implements Ru
 
 	private static final int PORT = 7777; // TODO choose correct port
 private ServerSocket serverSocket;
+private ArrayList<String> names;
 	
-	
-	public SocketConnectionsAcceptor(ConcurrentLinkedQueue<Connection> stdConnections, ConcurrentLinkedQueue<Connection> advConnections) {
-		super(stdConnections, advConnections);
+	public SocketConnectionsAcceptor(ConcurrentLinkedQueue<Connection> stdConnections, ConcurrentLinkedQueue<Connection> advConnections, ArrayList<String> names) {
+		super(stdConnections, advConnections, names);
 	}
 
 	@Override
@@ -41,7 +42,7 @@ private ServerSocket serverSocket;
 				Socket newSocket = serverSocket.accept();
 				System.out.println("\nNew inbound connection detected. Source IP address: " + newSocket.getInetAddress());
 
-			(new SocketConnectionAdder(newSocket, stdConnections, advConnections)).start();
+			(new SocketConnectionAdder(newSocket, stdConnections, advConnections, names)).start();
 				
 				
 			} catch (IOException e) {

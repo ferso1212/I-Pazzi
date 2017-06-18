@@ -163,5 +163,10 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 	private void parseExtraAction(ExtraAction action) {
 		// TODO
 	}
+	
+	public String getName()
+	{
+		return this.connection.getName();
+	}
 
 }

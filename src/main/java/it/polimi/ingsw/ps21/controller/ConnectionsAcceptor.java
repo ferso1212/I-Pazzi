@@ -17,12 +17,14 @@ public class ConnectionsAcceptor {
 	protected ConcurrentLinkedQueue<Connection> stdConnections;
 	protected ConcurrentLinkedQueue<Connection> advConnections;
 	protected boolean acceptingConnections;
+	protected ArrayList<String> names;
 	
-	public ConnectionsAcceptor(ConcurrentLinkedQueue<Connection> stdConnections, ConcurrentLinkedQueue<Connection> advConnections)
+	public ConnectionsAcceptor(ConcurrentLinkedQueue<Connection> stdConnections, ConcurrentLinkedQueue<Connection> advConnections, ArrayList<String> names)
 	{
 		this.acceptingConnections=true;
 		this.stdConnections=stdConnections;
 		this.advConnections=advConnections;
+		this.names=names;
 	}
 	
 }

@@ -1,8 +1,11 @@
 package it.polimi.ingsw.ps21.view;
 
+import java.awt.List;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.rmi.registry.Registry;
@@ -15,15 +18,18 @@ public class Server implements Runnable {
 	// private RMIConnectionsAcceptor rmiAcceptor;
 	private Lobby stdLobby;
 	private Lobby advLobby;
+	private ArrayList<String> names;
+	private ConcurrentHashMap<String, UserHandler> playingUsers;
+	
 	//private ArrayList<String> users;
 
 	
 	
 
 	public Server() {
-		this.stdLobby=new Lobby(false);
-		this.advLobby=new Lobby(true);
-		
+		this.stdLobby=new Lobby(false, names, playingUsers);
+		this.advLobby=new Lobby(true, names, playingUsers);
+		this.names=new ArrayList<>();
 
 	}
 

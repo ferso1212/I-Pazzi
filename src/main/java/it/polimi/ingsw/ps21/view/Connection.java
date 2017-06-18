@@ -31,5 +31,7 @@ public abstract interface Connection{
 	public ActionData reqAction();
 
 	public EffectSet reqEffectChoice(EffectSet[] possibleEffects);
+	
+	public String reqName();
 
 }
