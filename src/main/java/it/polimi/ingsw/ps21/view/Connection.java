@@ -24,7 +24,7 @@ public abstract interface Connection{
 
 	public boolean reqVaticanChoice();
 	
-	public ImmProperties[] reqPrivilegesChoice(int number);
+	public ImmProperties[] reqPrivilegesChoice(int number, ImmProperties[] privilegesValue);
 	
 	public void setID(PlayerColor player);
 	

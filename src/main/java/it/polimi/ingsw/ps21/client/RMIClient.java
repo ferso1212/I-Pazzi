@@ -76,8 +76,8 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	}
 
 	@Override
-	public ImmProperties[] reqPrivileges(int number) {
-		return ui.reqPrivileges(number);
+	public ImmProperties[] reqPrivileges(int number, ImmProperties[] privilegesValues) {
+		return ui.reqPrivileges(number, privilegesValues);
 	
 	}
 

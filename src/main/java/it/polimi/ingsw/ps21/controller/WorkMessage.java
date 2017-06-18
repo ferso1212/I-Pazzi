@@ -2,14 +2,12 @@ package it.polimi.ingsw.ps21.controller;
 
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
-import it.polimi.ingsw.ps21.model.player.PlayerProperties;
 
 public class WorkMessage extends Message {
 
 	private DevelopmentCard[] choices;
 	private int[] chosenCardsAndEffects;
 	private DevelopmentCard[] cardsToActivateWithoutChoice;
-	private PlayerProperties clonedPlayerProperties;
 
 
 	public WorkMessage(PlayerColor destination, DevelopmentCard[] choices, DevelopmentCard[] cardsToActivateWithoutChoice) {
@@ -27,18 +25,8 @@ public class WorkMessage extends Message {
 		return cardsToActivateWithoutChoice;
 	}
 
-	public boolean setChosenCardsAndEffects(int[] playerChoices) {
-		PlayerProperties totalCosts = new PlayerProperties(0);
-		for (int i = 0; i < playerChoices.length; i++) {
-			if (chosenCardsAndEffects[i] != 0) {
-				totalCosts.increaseProperties(choices[i].getPossibleEffects()[playerChoices[i]].getTotalCost());
-			}
-		}
-		if (this.clonedPlayerProperties.greaterOrEqual(totalCosts)) {
+	public void setChosenCardsAndEffects(int[] playerChoices) {
 			this.chosenCardsAndEffects = playerChoices;
-			return true;
-		}
-		return false;
 	}
 
 	public DevelopmentCard[] getChoices() {

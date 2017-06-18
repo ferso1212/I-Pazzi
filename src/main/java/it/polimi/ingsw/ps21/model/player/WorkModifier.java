@@ -44,14 +44,14 @@ public class WorkModifier {
 	public int getWorkMod(WorkType type) throws IllegalArgumentException
 	{
 		if(type==WorkType.HARVEST) return this.harvestModifier;
-		if(type==WorkType.PRODUCTION) return this.productionModifier;
+		else if(type==WorkType.PRODUCTION) return this.productionModifier;
 		else throw new IllegalArgumentException();
 	}
 	
 	public void setWorkMod(WorkType type, int value) throws IllegalArgumentException
 	{
 		if(type==WorkType.HARVEST) this.harvestModifier=value;
-		if(type==WorkType.PRODUCTION) this.productionModifier=value;
+		else if(type==WorkType.PRODUCTION) this.productionModifier=value;
 		else throw new IllegalArgumentException();
 	}
 }

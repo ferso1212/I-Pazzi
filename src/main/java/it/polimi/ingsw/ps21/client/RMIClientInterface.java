@@ -21,7 +21,7 @@ public interface RMIClientInterface extends Remote {
 	
 	public boolean vaticanChoice()throws RemoteException;
 	
-	public ImmProperties[] reqPrivileges(int number) throws RemoteException;
+	public ImmProperties[] reqPrivileges(int number, ImmProperties[] privilegesValues) throws RemoteException;
 	
 	public void setId(PlayerColor id) throws RemoteException;
 	

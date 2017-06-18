@@ -174,14 +174,24 @@ public class CLInterface implements UserInterface {
 	}
 
 	@Override
-	public ImmProperties[] reqPrivileges(int number) { // TODO need possible
+	public ImmProperties[] reqPrivileges(int number, ImmProperties[] privilegesValues) { // TODO need possible
 														// choices of privileges
 		int avaiablePrivileges = number;
 		ArrayList<ImmProperties> choices = new ArrayList<>();
 		System.out.println("You have to choose " + number + " council privileges to take, you can choose between: ");
-
-		while (avaiablePrivileges != 0) {
-
+		while(avaiablePrivileges > 0){
+		for(int i=0; i < privilegesValues.length; i++){
+			System.out.println((i+1) + ") " + privilegesValues[i].toString());
+		}
+		int userChoice = userInput.nextInt();
+		while((userChoice < 1) || (userChoice > privilegesValues.length)){
+			System.out.println("Invalid Choice! Please inser another choice:");
+			userChoice = userInput.nextInt();
+		}
+		if (!choices.contains(privilegesValues[userChoice - 1])){
+			choices.add(privilegesValues[userChoice - 1]);
+			avaiablePrivileges--;
+		}else System.out.println("You have already choose this privilege, please choose another one: ");
 		}
 		return choices.toArray(new ImmProperties[0]);
 	}

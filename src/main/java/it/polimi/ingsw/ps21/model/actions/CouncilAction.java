@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps21.model.actions;
 
+import it.polimi.ingsw.ps21.controller.AcceptedAction;
 import it.polimi.ingsw.ps21.controller.CouncilChoice;
 import it.polimi.ingsw.ps21.controller.Message;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
@@ -22,20 +23,37 @@ public class CouncilAction extends Action{
 	public CouncilAction(PlayerColor playerId, FamilyMember famMember) {
 		super(playerId);
 		this.famMember = famMember;
+		this.updateCounter = 1;
 	}
 	
 	
 	@Override
 	public Message update(Player player, Match match) {
-		this.council = match.getBoard().getCouncilPalace();
-		if(this.famMember.getColor() == MembersColor.NEUTRAL){
-			return new RefusedAction(player.getId(), "You can't place the Neutral member in the council palace!");
+		switch (this.updateCounter) {
+		case 1:
+		{
+			this.council = match.getBoard().getCouncilPalace();
+			if(this.famMember.getColor() == MembersColor.NEUTRAL){
+				return new RefusedAction(player.getId(), "You can't place the Neutral member in the council palace!");
+			}
+			
+			if ((this.council.isOccupable(player, famMember)) && (!famMember.isUsed())){
+				this.councilChoice = new CouncilChoice(player.getId(), council.getCouncilPrivileges());
+				this.updateCounter--;
+				return this.councilChoice;
+			} else return new RefusedAction(player.getId());
 		}
 		
-		if ((this.council.isOccupable(player, famMember)) && (!famMember.isUsed())){
-			this.councilChoice = new CouncilChoice(player.getId(), council.getCouncilPrivileges());
-			return this.councilChoice;
-		} else return new RefusedAction(player.getId());
+		case 0:
+		{
+			return new AcceptedAction(player.getId());
+		}
+
+
+		default:
+			return new RefusedAction(player.getId());
+		}
+		
 	}
 	
 	
