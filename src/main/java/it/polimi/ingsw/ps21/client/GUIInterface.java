@@ -1,9 +1,14 @@
 package it.polimi.ingsw.ps21.client;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
@@ -21,7 +26,8 @@ public class GUIInterface implements UserInterface{
 	private JFrame mainWindow;
 	private ImageIcon boardIcon;
 	private JLabel boardLabel;
-	private Jpanel
+	private JPanel boardPanel;
+	private final String boardPath = (new File("")).getAbsolutePath().concat("/src/images/board.gif");
 	
 	
 	public GUIInterface (int rulesType){
@@ -30,28 +36,47 @@ public class GUIInterface implements UserInterface{
 			
 			@Override
 			public void run() {
-				setUpWindow();
+				try {
+					setUpWindow();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 			}
 		});
 	}
 	
-	public void setUpWindow(){
+	public void setUpWindow()throws IOException{
+		
 		mainWindow = new JFrame("Lorenzo il Magnifico");
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainWindow.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
-		mainWindow.setContentPane(contentPane);
-		
-		
-		boardIcon = new ImageIcon("Users/darix/OneDrive/Immagini/LorenzoGraphics/gameboard_f_c.jpeg");
-		boardLabel = new JLabel(boardIcon);
-		boardLabel.setVisible(true);
-		
 		
 		mainWindow.setLayout(new GridLayout(1, 2));
-		mainWindow.add(boardLabel, 0);
+		
+		boardPanel = new JPanel();
+		JPanel board2 = new JPanel();
+		mainWindow.add(boardPanel, 0);
+		mainWindow.add(board2, 1);
+		boardPanel.setLayout(new BorderLayout());
+		boardPanel.setBackground(new Color(0, 127, 255));
+		board2.setBackground(new Color(255, 191, 0));
+		
+		boardLabel = new JLabel();
+		boardPanel.add(boardLabel);
 		
 		mainWindow.pack();
+		
+		Image myImage = ImageIO.read(new File(boardPath));
+		//boardLabel = new JLabel(new ImageIcon(myImage.getScaledInstance(boardPanel.getWidth(), boardPanel.getHeight(), Image.SCALE_SMOOTH)));
+		//boardPanel.add(boardLabel);
+		//ImageIcon imageIcon = new ImageIcon(new ImageIcon(myImage).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+		boardLabel.setIcon( new ImageIcon(myImage.getScaledInstance(800, 1000 , Image.SCALE_DEFAULT)) );
+		
+		
+		
+	
 		mainWindow.setVisible(true);
 	}
 

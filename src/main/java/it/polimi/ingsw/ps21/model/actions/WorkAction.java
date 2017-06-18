@@ -61,7 +61,7 @@ public class WorkAction extends Action {
 					}
 
 					this.workMessage = new WorkMessage(player.getId(),
-							cardWithCost.toArray(new DevelopmentCard[0]));
+							cardWithCost.toArray(new DevelopmentCard[0]), cardWithoutCost.toArray(new DevelopmentCard[0]));
 				} catch (IllegalCardTypeException e) {
 					return new RefusedAction(player.getId());
 				}
@@ -134,6 +134,10 @@ public class WorkAction extends Action {
 			if (workMessage.getChosenCardsAndEffects()[i] != 0) {
 				activatedEffects.addAll(workMessage.getChoices()[i].getPossibleEffects()[workMessage.getChosenCardsAndEffects()[i] - 1].activate(player));
 			}
+		}
+		
+		for (int i = 0; i < workMessage.getcardsToActivateWithoutChoice().length; i++) {
+			activatedEffects.addAll(workMessage.getcardsToActivateWithoutChoice()[i].getPossibleEffects()[0].activate(player));
 		}
 
 		return activatedEffects.toArray(new ExtraAction[0]);
