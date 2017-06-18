@@ -1,24 +1,18 @@
 package it.polimi.ingsw.ps21.client;
 
-import java.awt.SystemColor;
 import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.Scanner;
 
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
 import it.polimi.ingsw.ps21.controller.BoardData;
-import it.polimi.ingsw.ps21.controller.FamilyMemberData;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
-import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.actions.ActionType;
-import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
-import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;

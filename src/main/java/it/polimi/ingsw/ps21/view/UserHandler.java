@@ -1,6 +1,5 @@
 package it.polimi.ingsw.ps21.view;
 
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -17,11 +16,7 @@ import it.polimi.ingsw.ps21.controller.Message;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.controller.WorkMessage;
-import it.polimi.ingsw.ps21.model.actions.Action;
-import it.polimi.ingsw.ps21.model.actions.CouncilAction;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
-import it.polimi.ingsw.ps21.model.actions.NullAction;
-import it.polimi.ingsw.ps21.model.actions.WorkAction;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 

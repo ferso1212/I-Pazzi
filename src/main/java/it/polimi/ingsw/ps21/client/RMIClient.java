@@ -8,7 +8,6 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import it.polimi.ingsw.ps21.controller.MatchData;
-import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
@@ -29,11 +28,12 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	private transient UserInterface ui;
 	public boolean connected = false;
 	private String username;
+	private final String SERVER_HOSTNAME = "127.0.0.1"; 
 	
 	public RMIClient(String username, UserInterface ui, int chosenRules, int port) throws RemoteException, NotBoundException{
 		this.username = username;
 		this.ui = ui;
-		serverRegistry = LocateRegistry.getRegistry("localhost", port);
+		serverRegistry = LocateRegistry.getRegistry(SERVER_HOSTNAME, port);
 		RMIConnectionCreator connectionService = (RMIConnectionCreator) serverRegistry.lookup("RMIConnectionCreator");
 	   	connection = connectionService.getNewConnection(username, chosenRules);
 		connection.setClient((RMIClientInterface) this); 
@@ -121,10 +121,5 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	public int reqWorkChoice(DevelopmentCard workCard) throws RemoteException {
 		return ui.reqWorkChoice(workCard);
 	}
-
-	/*@Override
-	public String getString() throws RemoteException {
-		return "Not implemented yet";
-	}*/
 
 }
