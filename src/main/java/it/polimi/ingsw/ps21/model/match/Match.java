@@ -34,7 +34,7 @@ import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 public class Match extends Observable {
 	
 	protected EnumMap<PlayerColor, Player> players;
-	protected Queue<Player> order;
+	protected ArrayList<Player> order;
 	protected ArrayList<ExtraAction> extraActions;
 	protected Board board;
 	protected int orangeDice;
@@ -43,13 +43,14 @@ public class Match extends Observable {
 	protected int period; 
 	protected RoundType round;
 	private boolean ended = false;
+	private int currentPlayer;
 	
 	public Match(PlayerColor...colors )throws InvalidIDException, BuildingDeckException{
 		if (colors.length>4) throw new InvalidIDException();
 		MatchFactory builder = MatchFactory.instance();
 		ImmProperties[] initialProperties = builder.makeInitialProperties();
 		players = new EnumMap<>(PlayerColor.class);
-		order = new ArrayDeque<>();
+		order = new ArrayList<>();
 		ArrayList<Player> tempPlayer = new ArrayList<>();
 		board = new Board(colors.length, false);
 		board.getDeck().shuffle();
@@ -62,6 +63,7 @@ public class Match extends Observable {
 		for (int j=0; j<4; j++)
 			for (int i=0; i<tempPlayer.size(); i++)
 				order.add(tempPlayer.get(i));
+		currentPlayer=0;
 		period = 1;
 		round = RoundType.INITIAL_ROUND;
 		throwDices();
@@ -108,13 +110,13 @@ public class Match extends Observable {
 	}
 	
 	public Player getCurrentPlayer(){
-		return order.peek();
+		return order.get(currentPlayer);
 	}
 	
 	public ExtraAction[] doAction(Action action) throws NotExecutableException, RequirementNotMetException, InsufficientPropsException, VaticanRoundException{
 		if (!(round == RoundType.VATICAN_ROUND)) {
 			ExtraAction[] extraActionPool;
-		extraActionPool = action.activate(order.element(),this);
+		extraActionPool = action.activate(order.get(currentPlayer),this);
 		setChanged();
 		notifyObservers();
 		return extraActionPool;
@@ -125,24 +127,8 @@ public class Match extends Observable {
 	 * @return TRUE if no actions are left in the queue (all players have performed all their placement action in the round)
 	 */
 	public RoundType setNextPlayer(){
-		order.poll();
-		if (!(order.isEmpty())) return round;
-		if (round == RoundType.INITIAL_ROUND) round = RoundType.FINAL_ROUND;
-		else if (round == RoundType.FINAL_ROUND) round = RoundType.VATICAN_ROUND;
-		else round = RoundType.INITIAL_ROUND;
-		Queue<FamilyMember> temp = board.getCouncilPalace().getOccupants();
-		ArrayList<Player> newOrder = new ArrayList<>();
-		for (FamilyMember f: temp){
-			Player player = players.get(f.getOwnerId());
-			if (newOrder.contains(player));
-			else newOrder.add(player);
-		}
-		order = new ArrayDeque<>();
-		for ( int j = 0 ; j < newOrder.size(); j++) order.add(newOrder.get(j));
-		if (round != RoundType.VATICAN_ROUND)
-			for (int i=0; i<3; i++)
-				for ( int j =0 ; j< newOrder.size(); j++) order.add(newOrder.get(j));
-		board.newSetBoard(period);
+		currentPlayer++;
+		if (currentPlayer == order.size()) nextRound();
 		return round;
 	}
 
@@ -184,23 +170,8 @@ public class Match extends Observable {
 		if (supportedPlayers.isEmpty()){
 		for (Player p: players.values()){
 			if (!(supportChoices.containsKey(p))) return;
-		}
-		if (period < 3){
-			Queue<FamilyMember> temp = board.getCouncilPalace().getOccupants();
-			ArrayList<Player> newOrder = new ArrayList<>();
-			for (FamilyMember f: temp){
-				Player player = players.get(f.getOwnerId());
-				if (newOrder.contains(player));
-				else newOrder.add(player);
 			}
-			order = new ArrayDeque<>();
-			for (int i=0; i<4; i++)
-				for ( int j = newOrder.size() -1 ; j>=0; j--) order.add(newOrder.get(j));
-			board.newSetBoard(period + 1);
-			period ++;
-			round = RoundType.INITIAL_ROUND;
-		}	
-		else endMatch();
+		nextRound();
 		}
 	}
 	
@@ -213,6 +184,8 @@ public class Match extends Observable {
 		Map<Player, Integer> militaryBonus = calculateMilitaryWinner();
 		Map<Player, Integer> playerPositions = calculateWinner(militaryBonus); 	
 		ended = true;
+		setChanged();
+		notifyObservers();
 	}
 
 	private Map<Player, Integer> calculateMilitaryWinner(){
@@ -293,6 +266,49 @@ public class Match extends Observable {
 
 	public int getBlackDice() {
 		return blackDice;
+	}
+	
+	public void nextRound(){
+		if (round == RoundType.INITIAL_ROUND) round = RoundType.FINAL_ROUND;
+		else if (round == RoundType.FINAL_ROUND) round = RoundType.VATICAN_ROUND;
+		else if (round == RoundType.VATICAN_ROUND){ 
+			if (period <3) round = RoundType.INITIAL_ROUND;
+			else {
+				endMatch();
+				return;
+			}
+ 		}
+		currentPlayer = 1;
+		Queue<FamilyMember> temp = board.getCouncilPalace().getOccupants();
+		ArrayList<Player> oldOrder = new ArrayList<>();
+		for (int i=0; i< players.values().size(); i++){
+			oldOrder.add(order.get(i));
+		}
+		ArrayList<Player> newOrder = new ArrayList<>();
+		for (FamilyMember f: temp){
+			Player player = players.get(f.getOwnerId());
+			if (order.contains(player));
+			else {	
+				newOrder.add(player);
+				oldOrder.remove(player);
+			}
+		}
+		for (Player p: oldOrder){
+			newOrder.add(p);
+		}
+		order = new ArrayList<>();
+		for ( int j = 0 ; j < newOrder.size(); j++) order.add(newOrder.get(j));
+		if (round != RoundType.VATICAN_ROUND){
+			for (int i=0; i<3; i++)
+				for ( int j =0 ; j< newOrder.size(); j++) order.add(newOrder.get(j));
+			board.newSetBoard(period);
+			for (Player p: players.values()){
+				p.getFamily().roundReset();
+			}
+		}
+		setChanged();
+		notifyObservers();
+		
 	}
 
 	
