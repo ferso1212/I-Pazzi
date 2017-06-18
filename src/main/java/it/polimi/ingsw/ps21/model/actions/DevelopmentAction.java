@@ -11,7 +11,6 @@ import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.model.board.SingleTowerSpace;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
-import it.polimi.ingsw.ps21.model.deck.RequirementAndCost;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
@@ -19,7 +18,6 @@ import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
-import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 
 public class DevelopmentAction extends Action {
@@ -47,11 +45,16 @@ public class DevelopmentAction extends Action {
 
 		switch (this.updateCounter) {
 		case 2: {
-			if (( (space.isOccupable(player, famMember)) && player.checkCardRequirements(space.getCard())) 
+			if (((!(match.getBoard().getTower(this.tower).isOccupied()) && (player.getProperties().getPayableRequirementsAndCosts(space.getCard().getCosts()).size() > 0) ) 
+					|| ((match.getBoard().getTower(this.tower).isOccupied()) && (player.getProperties().getPayableRequirementsAndCosts(space.getCard().getOccupiedTowerCosts()).size() > 0) ) )
+					&& (space.isOccupable(player, famMember)) && (player.checkCardRequirements(space.getCard())) 
 					&& (famMember.getValue() >= space.getDiceRequirement())	&& (!famMember.isUsed())
-					&& (player.checkRequirement(player.getDeck().getAddingCardRequirement(space.getCard())))
-					&& (player.getProperties().getPayableRequirementsAndCosts(space.getCard().getCosts()).size() > 0)) {
-				this.costMessage = new CostChoice(player.getId(), player.getProperties().getPayableRequirementsAndCosts(space.getCard().getCosts()));
+					&& (player.checkRequirement(player.getDeck().getAddingCardRequirement(space.getCard())))) {
+				if (!(match.getBoard().getTower(this.tower).isOccupied()))
+					this.costMessage = new CostChoice(player.getId(), player.getProperties().getPayableRequirementsAndCosts(space.getCard().getCosts()));
+				else if ((match.getBoard().getTower(this.tower).isOccupied())){
+					this.costMessage = new CostChoice(player.getId(), player.getProperties().getPayableRequirementsAndCosts(space.getCard().getOccupiedTowerCosts()));
+				}
 				this.updateCounter--;
 				return this.costMessage;
 			} else

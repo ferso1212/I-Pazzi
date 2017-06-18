@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 
 public abstract class DevelopmentCard extends Card implements Serializable{
@@ -73,6 +74,16 @@ public abstract class DevelopmentCard extends Card implements Serializable{
 	
 	public RequirementAndCost[] getCosts(){
 		return  possibleRequirement.toArray(new RequirementAndCost[0]);
+	}
+	
+	public RequirementAndCost[] getOccupiedTowerCosts(){
+		
+		ArrayList<RequirementAndCost> newPossibleCosts = new ArrayList<>();
+		for (RequirementAndCost r : this.possibleRequirement){
+			RequirementAndCost occupiedTowerCost = new RequirementAndCost(r.getRequirement(), r.getCosts().sum(new ImmProperties(3)));
+			newPossibleCosts.add(occupiedTowerCost);
+		}
+		return newPossibleCosts.toArray(new RequirementAndCost[0]);
 	}
 	
 }

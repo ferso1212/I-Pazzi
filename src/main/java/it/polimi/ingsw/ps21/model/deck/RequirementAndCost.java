@@ -34,5 +34,7 @@ public class RequirementAndCost implements Serializable{
 		b.append("\n-Costs: " + costs.toString());
 		return b.toString();
 	}
+	
+	
 
 }
