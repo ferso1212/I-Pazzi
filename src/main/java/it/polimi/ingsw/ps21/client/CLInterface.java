@@ -450,4 +450,22 @@ public class CLInterface implements UserInterface {
 		}
 	}
 
+	@Override
+	public int reqWorkChoice(DevelopmentCard workCard) {
+		int effectChosen = 0;
+		System.out.println("Which effect do you want to activate on this card?");
+		System.out.println("Card: " +  workCard.getName());
+		System.out.println("Possible choices:\n-0)Don't activate any effect;");
+		EffectSet possibleEffects[] = workCard.getPossibleEffects();
+		for (int i=0; i<possibleEffects.length; i++){
+			System.out.println("-" + (i+1) + ") " + possibleEffects[i].toString());
+		}
+		effectChosen = userInput.nextInt();
+		while( effectChosen < 0 || effectChosen > possibleEffects.length){
+			System.out.println("Fuck you! Insert a valid choice...");
+			effectChosen = userInput.nextInt();
+		}
+		return effectChosen;
+	}
+
 }

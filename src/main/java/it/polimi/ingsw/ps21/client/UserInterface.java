@@ -8,6 +8,7 @@ import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
@@ -48,6 +49,8 @@ public abstract interface UserInterface {
 	public abstract void matchEnded();
 
 	public abstract int reqExtraActionChoice(ExtraActionData[] actions);
+
+	public int reqWorkChoice(DevelopmentCard workCard);
 
 
 

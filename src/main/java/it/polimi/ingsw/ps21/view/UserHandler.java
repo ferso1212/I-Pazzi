@@ -21,6 +21,7 @@ import it.polimi.ingsw.ps21.model.actions.CouncilAction;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
 import it.polimi.ingsw.ps21.model.actions.WorkAction;
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
 public class UserHandler extends Observable implements Visitor, Runnable, Observer {
@@ -67,7 +68,13 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 
 	@Override
 	public void visit(WorkMessage message) {
-
+		connection.sendMessage(message.getMessage());
+		DevelopmentCard cardPossibilities[] = message.getChoices();
+		int choices[] = new int[cardPossibilities.length];
+		for (int i=0; i<choices.length; i++){
+			choices[i] = connection.reqWorkChoice(cardPossibilities[i]);
+		}
+		message.setVisited();
 	}
 
 	@Override
@@ -154,6 +161,10 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 					}
 					else if (arg instanceof CompletedActionMessage){
 						connection.sendMessage(((CompletedActionMessage)arg).getMessage());
+					}
+					else if (arg instanceof WorkMessage){
+						WorkMessage message = (WorkMessage) arg;
+						visit(message);
 					}
 				}
 			}
