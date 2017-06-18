@@ -14,10 +14,8 @@ import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.MarketAction;
 import it.polimi.ingsw.ps21.model.actions.NotExecutableException;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
-import it.polimi.ingsw.ps21.model.actions.PlayLeaderCard;
 import it.polimi.ingsw.ps21.model.actions.WorkAction;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
-import it.polimi.ingsw.ps21.model.board.Space;
 import it.polimi.ingsw.ps21.model.board.WorkSpace;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
@@ -118,26 +116,8 @@ public class MatchController extends Observable implements Observer {
 			 else {
 				 	reqExtraAction();
 			 }
-		}
-		/*
-		 * while (!returnMessage.isVisited()) {
-		 * 
-		 * } ExtraAction[] extraActions =
-		 * this.match.doAction(this.currentAction); Queue<ExtraAction>
-		 * poolExtraActions = new ArrayDeque<>(); for (ExtraAction e :
-		 * extraActions) { if (!(e instanceof NullAction))
-		 * poolExtraActions.add(e); } while (!poolExtraActions.isEmpty()) {
-		 * ExtraAction currentExtraAction = poolExtraActions.peek();
-		 * notifyObservers(currentExtraAction); returnMessage =
-		 * currentExtraAction.isLegal(this.currentPlayer, this.match);
-		 * notifyObservers(returnMessage); while (returnMessage.isVisited()) {
-		 * 
-		 * } extraActions = this.match.doAction(currentExtraAction);
-		 * poolExtraActions.poll(); for (ExtraAction e : extraActions) { if (!(e
-		 * instanceof NullAction)) poolExtraActions.add(e); }
-		 * 
-		 * }
-		 */
+	}
+		 
 
 	private void performAction() {
 		
@@ -172,14 +152,7 @@ public class MatchController extends Observable implements Observer {
 			LOGGER.log(Level.SEVERE, "Match is in Vatican State, so cannot execute this type of action", e);
 			notifyObservers(new RefusedAction(currentPlayer.getId(), "Match is in Vatican State, so cannot execute this type of action"));
 			nextPlayer();
-		}
-		// creare un nuovo array di extra action senza NullAction da notificare
-		// all'utente
-		// se l'array depurato è vuoto chiama la setNextPlayer, la setNextPlayer
-		// ritorna un enum che dice il tipo di round: se è cambiato, significa
-		// che è un nuovo round;
-
-		
+		}	
 	}
 	
 	private void performExtraAction() {
@@ -214,14 +187,7 @@ public class MatchController extends Observable implements Observer {
 			LOGGER.log(Level.SEVERE, "Match is in Vatican State, so cannot execute this type of action", e);
 			notifyObservers(new RefusedAction(currentPlayer.getId(), "Match is in Vatican State, so cannot execute this type of action"));
 			nextPlayer();
-		}
-		// creare un nuovo array di extra action senza NullAction da notificare
-		// all'utente
-		// se l'array depurato è vuoto chiama la setNextPlayer, la setNextPlayer
-		// ritorna un enum che dice il tipo di round: se è cambiato, significa
-		// che è un nuovo round;
-
-		
+		}		
 	}
 
 	private void reqExtraAction() {
@@ -351,9 +317,7 @@ public class MatchController extends Observable implements Observer {
 		currentPlayer.getProperties().getProperty(PropertiesId.SERVANTS).payValue(data.getServants());
 		switch (data.getType()) {
 		case COUNCIL:
-		{
 			parsedAction = new CouncilAction(currentPlayer.getId(), chosenMember);
-		}
 			break;
 		case HARVEST:
 		{
@@ -365,19 +329,14 @@ public class MatchController extends Observable implements Observer {
 			
 			break;
 		case MARKET:
-		{
-			// TODO remove councilChoice parsedAction = new MarketAction(currentPlayer.getId(), match.getBoard().getMarketSpace(data.getSpace()), chosenMember, councilChoice)
-			parsedAction = new NullAction(currentPlayer.getId());
-		}
+			parsedAction = new MarketAction(currentPlayer.getId(), match.getBoard().getMarketSpace(data.getSpace()), chosenMember);
 			break;
 		case NULL:
 			parsedAction = new NullAction(currentPlayer.getId());
 			break;
 		case PLAY_LEADERCARD:
-		{
 			// todo parsedAction = new PlayLeaderCard(playerId, cardToPlay);
 			parsedAction = new NullAction(currentPlayer.getId());
-		}
 			break;
 		case PRODUCTION:
 		{
@@ -393,6 +352,7 @@ public class MatchController extends Observable implements Observer {
 		}
 			break;
 		default:
+			LOGGER.log(Level.INFO, "Invalid ActionData type, generated a default new Action");
 			parsedAction = new NullAction(currentPlayer.getId());
 			break;
 		}
@@ -400,7 +360,6 @@ public class MatchController extends Observable implements Observer {
 	}
 
 	private void setupLeaderCards() {
-
 	}
 
 }
