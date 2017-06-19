@@ -30,21 +30,7 @@ public class SocketConnectionAdder extends Thread {
 
 	public void run() {
 		SocketConnection newInboundConnection = new SocketConnection(socket);
-		
-		
-			
-			
-			/*if (alreadyExists) {
-				if (newInboundConnection.wantsNewMatch()) {
-					newInboundConnection.sendMessage("\nThis name is already taken. Please insert a different name. ");
-				}
-				else
-				{
-					newInboundConnection.sendMessage("\nName found. Joining your match... ");
-				}
-				
-			} else
-				newInboundConnection.sendMessage("\nName accepted! "); */
+
 		String name;
 			if(newInboundConnection.wantsNewMatch())
 			{	

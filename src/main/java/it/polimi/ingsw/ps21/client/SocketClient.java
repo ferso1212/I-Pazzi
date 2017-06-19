@@ -10,8 +10,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps21.controller.MatchData;
+import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.ActionData;
+import it.polimi.ingsw.ps21.view.WorkChoiceRequestNetPacket;
+import it.polimi.ingsw.ps21.view.WorkChoiceResponseNetPacket;
 
 public class SocketClient {
 	private static final String SERVER_IP = "127.0.0.1";
@@ -101,7 +104,8 @@ public class SocketClient {
 			}
 
 			case PRIVILEGES_CHOICE: {
-				ImmProperties[] chosen = ui.reqPrivileges(((PrivilegesChoiceRequestNetPacket)receivedPacket).getNum());
+				PrivilegesChoiceRequestNetPacket response= (PrivilegesChoiceRequestNetPacket)receivedPacket;
+				ImmProperties[] chosen = ui.reqPrivileges(response.getNum(), response.getChoices());
 				out.writeObject(new PrivilegesChoiceResponseNetPacket(receivedPacket.getNum(), chosen));
 				break;
 
@@ -137,6 +141,17 @@ public class SocketClient {
 			case PLAYER_ID: {
 				ui.setID(((PlayerIdNetPacket)receivedPacket).getId());
 				break;
+			}
+			case EFFECT_CHOICE:
+			{
+				int chosen = ui.reqEffectChoice(((EffectChoiceRequestNetPacket)receivedPacket).getPossibleEffects());
+				out.writeObject(new EffectChoiceResponseNetPacket(receivedPacket.getNum(), chosen));
+				break;
+			}
+			case WORK_CHOICE:
+			{
+				int chosen= ui.reqWorkChoice(((WorkChoiceRequestNetPacket)receivedPacket).getCard());
+				out.writeObject(new WorkChoiceResponseNetPacket(receivedPacket.getNum(), chosen));
 			}
 			default:
 				break;

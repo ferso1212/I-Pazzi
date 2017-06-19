@@ -20,6 +20,8 @@ import it.polimi.ingsw.ps21.client.ChosenRulesNetPacket;
 import it.polimi.ingsw.ps21.client.ClientConnection;
 import it.polimi.ingsw.ps21.client.CostChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.CostChoiceResponseNetPacket;
+import it.polimi.ingsw.ps21.client.EffectChoiceRequestNetPacket;
+import it.polimi.ingsw.ps21.client.EffectChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.ExtraActionChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.ExtraActionChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.GenericStringNetPacket;
@@ -123,8 +125,8 @@ public class SocketConnection implements Connection{
 
 	@Override
 
-	public ImmProperties[] reqPrivilegesChoice(int number) {
-		return ((PrivilegesChoiceResponseNetPacket)requestAndAwaitResponse(new PrivilegesChoiceRequestNetPacket(this.messageCounter, number))).getChosenPrivileges();
+	public ImmProperties[] reqPrivilegesChoice(int number, ImmProperties choices[]) {
+		return ((PrivilegesChoiceResponseNetPacket)requestAndAwaitResponse(new PrivilegesChoiceRequestNetPacket(this.messageCounter, number, choices))).getChosenPrivileges();
 
 	}
 
@@ -190,8 +192,8 @@ public class SocketConnection implements Connection{
 
 	@Override
 	public EffectSet reqEffectChoice(EffectSet[] possibleEffects) {
-		// TODO Auto-generated method stub
-		return null;
+		int chosen = ((EffectChoiceResponseNetPacket)requestAndAwaitResponse(new EffectChoiceRequestNetPacket(messageCounter, possibleEffects))).getChosen();
+		return possibleEffects[chosen];
 	}
 
 
@@ -209,14 +211,13 @@ public class SocketConnection implements Connection{
 
 	@Override
 	public int reqWorkChoice(DevelopmentCard message) {
-		// TODO Auto-generated method stub
-		return 0;
+		return ((WorkChoiceResponseNetPacket)requestAndAwaitResponse(new WorkChoiceRequestNetPacket(messageCounter, message))).getChosen();
 	}
 
 
 	@Override
 	public boolean wantsNewMatch() {
-		/
+		
 		return this.newMatch;
 	}
 }

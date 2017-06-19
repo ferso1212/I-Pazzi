@@ -95,7 +95,7 @@ public class ClientMain {
 		
 	}
 	
-	private boolean parseChoice(int input)
+	private static boolean parseChoice(int input)
 	{
 		if(input==1) return true;
 		else return false;
