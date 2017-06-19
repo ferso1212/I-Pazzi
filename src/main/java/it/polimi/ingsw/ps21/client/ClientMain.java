@@ -32,27 +32,34 @@ public class ClientMain {
     	in.nextLine();
     	if((chosenConnection!=1 && chosenConnection!=2)) System.out.println("\nInvalid choice.");
     	}
-    	System.out.println("\nInsert your name: ");
     	
-    	String name= in.nextLine();
-    	//--    	
-    	int chosenRules=0;
-    	while(chosenRules!=1 && chosenRules!=2)
+    	int chosenInterface=0;
+    	while(chosenInterface!=1 && chosenInterface!=2)
     	{
     		
-    	System.out.println("\nChoose the rules that you want to use in the game: \n1 Standard \n 2 Advanced");
+    	System.out.println("\nChoose the interface that you want to use in the game: \n1 Command Line Interface \n 2 Graphical User Interface");
         try {
-			chosenRules= in.nextInt();
+			chosenInterface= in.nextInt();
     	} catch (InputMismatchException e) {
 			 LOGGER.log(Level.INFO, "Invalid input", e);
 			}
     	}
-		CLInterface CLImatch = new CLInterface(chosenRules);
-
+		CLInterface CLImatch = new CLInterface();
+		int chosenJoin=0;
+    	while(chosenJoin!=1 && chosenJoin!=2)
+    	{
+    		
+    	System.out.println("\nWhat do you want to do? \n1 Join a new match \n 2 Join an existing match");
+        try {
+			chosenJoin= in.nextInt();
+    	} catch (InputMismatchException e) {
+			 LOGGER.log(Level.INFO, "Invalid input", e);
+			}
+    	}
     	
-		while(newMatch == true){
 			if (chosenConnection==1) {
-				SocketClient client = new SocketClient(CLImatch); 
+				SocketClient client = new SocketClient(CLImatch, parseChoice(chosenJoin)); 
+				
 					boolean matchStarted=client.start(chosenRules, name);
 					if (matchStarted){
 								
@@ -76,7 +83,7 @@ public class ClientMain {
 				}
 			}
 						
-		}
+		
 		in.close();
 		}
 	
@@ -86,5 +93,11 @@ public class ClientMain {
 	private ClientMain()
 	{
 		
+	}
+	
+	private boolean parseChoice(int input)
+	{
+		if(input==1) return true;
+		else return false;
 	}
 }

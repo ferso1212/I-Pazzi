@@ -59,7 +59,7 @@ public class Property implements Cloneable, Serializable{
 		return id;
 	}
 	
-	/**Increases the value stored in the object by num units.
+	/**Increases the value stored in the object by (num + additionModifier) units.
 	 * This method can't be used to reduce the value of the property.
 	 * @param num
 	 * @return true if the operation succeeded, false if the 'num' parameter is negative
@@ -73,7 +73,7 @@ public class Property implements Cloneable, Serializable{
 		return true;
 	}
 	
-	/**Reduces the value stored in the object by num units
+	/**Reduces the value stored in the object by (num + paymentModifier) units
 	 * This method can't be used to increase the value of the property.
 	 * @param num
 	 * @return true if the operation succeeded, false if the 'num' parameter is negative
@@ -87,7 +87,7 @@ public class Property implements Cloneable, Serializable{
 		return true;
 	}
 	
-	/**Returns true if the value stored in the object in greater or equal than the number passed as argument
+	/**Returns true if the value stored in the object is greater or equal than the number passed as argument
 	 * 
 	 * @param num to compare
 	 * @return

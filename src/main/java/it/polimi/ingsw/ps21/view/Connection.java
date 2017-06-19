@@ -11,6 +11,7 @@ import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public abstract interface Connection{
+	public boolean wantsNewMatch();
 
 	public void matchStarted();
 	

@@ -20,22 +20,39 @@ public class SocketClient {
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
 	private UserInterface ui;
+	private Socket socket;
 
-	public SocketClient(UserInterface ui) {
+	public SocketClient(UserInterface ui, boolean joinNewMatch) {
+		try{
 		this.ui=ui;
+		System.out.println("\nTrying to connect to the server with TCP socket...");
+		socket = new Socket(SERVER_IP, PORT);
+		System.out.println("\nEstablished TCP connection to the server.");
+		in = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+		out = new ObjectOutputStream(socket.getOutputStream());
+		out.reset();
+		} catch(IOException e)
+		{
+			LOGGER.log(Level.INFO, "Input-Output exception.", e);
+		}
+		
+			try {
+				out.writeObject(new InitNetPacket(0, joinNewMatch));
+			} catch (IOException e) {
+		LOGGER.log(Level.SEVERE, "Unable to send initial packet from client due to IOException", e);
+			}
+		
 		
 	}
+	
 
 	public boolean start(int chosenRules, String name) {
-		System.out.println("\nTrying to connect to the server with TCP socket...");
+		
 		try {
-			Socket socket = new Socket(SERVER_IP, PORT);
-			System.out.println("\nEstablished TCP connection to the server.");
-			in = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-			out = new ObjectOutputStream(socket.getOutputStream());
-			out.reset();
-			StartInfoNetPacket initialInfos = new StartInfoNetPacket(0, chosenRules, name);
-			out.writeObject(initialInfos);
+			
+			//StartInfoNetPacket initialInfos = new StartInfoNetPacket(0, chosenRules, name);
+			//out.writeObject(initialInfos);
+			out.writeObject(new GenericStringNetPacket(0, "Client ready to receive"));
 			NetPacket receivedPacket = (NetPacket)in.readObject();
 				parseSocketInput(receivedPacket);
 				while (socket.isConnected()) {

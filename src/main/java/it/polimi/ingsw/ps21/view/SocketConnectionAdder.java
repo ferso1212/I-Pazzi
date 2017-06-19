@@ -26,19 +26,28 @@ public class SocketConnectionAdder extends Thread {
 	}
 
 	public void run() {
-		SocketConnection newInboundConnection= new SocketConnection(socket);
+		SocketConnection newInboundConnection = new SocketConnection(socket);
 		boolean alreadyExists;
 		do {
-			String name= newInboundConnection.reqName();
-			synchronized(names)
-			{
-				alreadyExists=names.contains(name);
-				if(!alreadyExists) names.add(name);
+			String name = newInboundConnection.reqName();
+			synchronized (names) {
+				alreadyExists = names.contains(name);
+				if (!alreadyExists && newInboundConnection.wantsNewMatch())
+					names.add(name);
 			}
-			if(alreadyExists) newInboundConnection.sendMessage("\nThis name is already taken. Please insert a different name. ");
-			else newInboundConnection.sendMessage("\nName accepted! ");
-		}while(alreadyExists && newInboundConnection.isConnected());
-		
+			if (alreadyExists) {
+				if (newInboundConnection.wantsNewMatch()) {
+					newInboundConnection.sendMessage("\nThis name is already taken. Please insert a different name. ");
+				}
+				else
+				{
+					newInboundConnection.sendMessage("\nName found. Joining your match... ");
+				}
+				
+			} else
+				newInboundConnection.sendMessage("\nName accepted! ");
+		} while (alreadyExists && newInboundConnection.isConnected());
+
 		addConnectionToQueue(newInboundConnection);
 
 	}
@@ -47,18 +56,19 @@ public class SocketConnectionAdder extends Thread {
 		if (!newConnection.isAdvanced()) {
 			synchronized (connectionsQueue) {
 				this.connectionsQueue.add(newConnection);
-			
-			System.out.println("\n" + newConnection.getName()
-					+ "'s inbound connection added to the standard lobby in position " + connectionsQueue.size());
+
+				System.out.println("\n" + newConnection.getName()
+						+ "'s inbound connection added to the standard lobby in position " + connectionsQueue.size());
 			}
 		}
 
 		else {
 			synchronized (advConnectionsQueue) {
 				this.advConnectionsQueue.add(newConnection);
-			
-			System.out.println("\n" + newConnection.getName()
-					+ "'s inbound connection added to the advanced lobby in position " + advConnectionsQueue.size());
+
+				System.out.println("\n" + newConnection.getName()
+						+ "'s inbound connection added to the advanced lobby in position "
+						+ advConnectionsQueue.size());
 			}
 		}
 	}

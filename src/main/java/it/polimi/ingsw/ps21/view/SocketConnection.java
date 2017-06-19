@@ -16,27 +16,28 @@ import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps21.client.ActionRequestNetPacket;
 import it.polimi.ingsw.ps21.client.ActionResponseNetPacket;
+import it.polimi.ingsw.ps21.client.ChosenRulesNetPacket;
 import it.polimi.ingsw.ps21.client.ClientConnection;
 import it.polimi.ingsw.ps21.client.CostChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.CostChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.ExtraActionChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.ExtraActionChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.GenericStringNetPacket;
+import it.polimi.ingsw.ps21.client.InitNetPacket;
 import it.polimi.ingsw.ps21.client.MatchStartedNetPacket;
+import it.polimi.ingsw.ps21.client.NameRequestNetPacket;
+import it.polimi.ingsw.ps21.client.NameResponseNetPacket;
 import it.polimi.ingsw.ps21.client.NetPacket;
 import it.polimi.ingsw.ps21.client.PacketType;
 import it.polimi.ingsw.ps21.client.PlayerIdNetPacket;
 import it.polimi.ingsw.ps21.client.PrivilegesChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.PrivilegesChoiceResponseNetPacket;
-import it.polimi.ingsw.ps21.client.StartInfoNetPacket;
 import it.polimi.ingsw.ps21.client.VaticanChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.VaticanChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.ViewUpdateRequestNetPacket;
-import it.polimi.ingsw.ps21.controller.BoardData;
 import it.polimi.ingsw.ps21.controller.MatchData;
-import it.polimi.ingsw.ps21.controller.PlayerData;
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
-import it.polimi.ingsw.ps21.model.match.MatchFactory;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
@@ -48,7 +49,7 @@ public class SocketConnection implements Connection{
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
 	private boolean connected;
-	
+	protected boolean newMatch;
 	private int messageCounter;
 
 	public SocketConnection(Socket socket) {
@@ -60,10 +61,12 @@ public class SocketConnection implements Connection{
 			in= new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
 			out.reset();
 			//in.reset();
-			StartInfoNetPacket initialInfos= (StartInfoNetPacket)in.readObject();
-			if(initialInfos.getChosenRules()==1) this.isAdvanced=false;
-			else this.isAdvanced=true;
-			this.name=initialInfos.getName();
+			InitNetPacket choice= (InitNetPacket)in.readObject();
+			if(choice.isNew()) newMatch=true;
+			else newMatch=false;
+			//if(chosenRules.getChosenRules()==1) this.isAdvanced=false;
+			//else this.isAdvanced=true;
+			//this.name=initialInfos.getName();
 		} catch (IOException e) {
 			connected=false;
 		} catch (ClassNotFoundException e) {
@@ -194,11 +197,26 @@ public class SocketConnection implements Connection{
 
 	@Override
 	public String reqName() {
-		// TODO Chiede un nome al giocatore e lo setta nel campo "nome" della connessione stessa
-		return null;
+		String receivedName= ((NameResponseNetPacket)requestAndAwaitResponse(new NameRequestNetPacket(messageCounter))).getName();
+		this.name=receivedName;
+		return name;
 	}
 		
 	public boolean isConnected(){
 		return this.socket.isConnected();
+	}
+
+
+	@Override
+	public int reqWorkChoice(DevelopmentCard message) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public boolean wantsNewMatch() {
+		/
+		return this.newMatch;
 	}
 }

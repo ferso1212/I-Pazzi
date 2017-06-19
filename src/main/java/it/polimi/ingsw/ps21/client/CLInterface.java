@@ -37,15 +37,20 @@ public class CLInterface implements UserInterface {
 	private boolean advancedMatch;
 	private boolean matchStarted = false;
 
-	public CLInterface(int chosenRules) {
+	public CLInterface() {
 		userInput = new Scanner(System.in);
+		
+	}
+
+	public void setup(int chosenRules)
+	{
 		if (chosenRules == 1)
 			advancedMatch = false;
 		else
 			advancedMatch = true;
 		System.out.println("Waiting for match starting...");
 	}
-
+	
 	@Override
 	public void updateView(MatchData match) {
 		this.matchInfo = match;
