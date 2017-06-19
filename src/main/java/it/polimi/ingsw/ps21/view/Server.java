@@ -37,7 +37,7 @@ public class Server implements Runnable {
 	public void run() {
 		this.stdLobby.start();
 		this.advLobby.start();
-		new Thread(new SocketConnectionsAcceptor(this.stdLobby.getConnections(), this.advLobby.getConnections())).start();
+		new Thread(new SocketConnectionsAcceptor(this.stdLobby.getConnections(), this.advLobby.getConnections(), this.names, this.playingUsers)).start();
 		try {
 			Registry locRegistry = LocateRegistry.createRegistry(5000);
 			RMIConnectionAcceptor rmiAcceptor = new RMIConnectionAcceptor(this.stdLobby.getConnections(), this.advLobby.getConnections());

@@ -4,6 +4,7 @@ package it.polimi.ingsw.ps21.controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import it.polimi.ingsw.ps21.view.Connection;
@@ -18,13 +19,15 @@ public class ConnectionsAcceptor {
 	protected ConcurrentLinkedQueue<Connection> advConnections;
 	protected boolean acceptingConnections;
 	protected ArrayList<String> names;
+	protected ConcurrentHashMap<String, UserHandler> playingUsers;
 	
-	public ConnectionsAcceptor(ConcurrentLinkedQueue<Connection> stdConnections, ConcurrentLinkedQueue<Connection> advConnections, ArrayList<String> names)
+	public ConnectionsAcceptor(ConcurrentLinkedQueue<Connection> stdConnections, ConcurrentLinkedQueue<Connection> advConnections, ArrayList<String> names, ConcurrentHashMap<String, UserHandler> playingUsers)
 	{
 		this.acceptingConnections=true;
 		this.stdConnections=stdConnections;
 		this.advConnections=advConnections;
 		this.names=names;
+		this.playingUsers=playingUsers;
 	}
 	
 }

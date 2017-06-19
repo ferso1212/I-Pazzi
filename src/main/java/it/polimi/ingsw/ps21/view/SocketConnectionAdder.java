@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class SocketConnectionAdder extends Thread {
@@ -16,26 +17,24 @@ public class SocketConnectionAdder extends Thread {
 	private ConcurrentLinkedQueue<Connection> connectionsQueue;
 	private ConcurrentLinkedQueue<Connection> advConnectionsQueue;
 	private ArrayList<String> names;
+	private ConcurrentHashMap<String, UserHandler> playingUsers;
 
 	public SocketConnectionAdder(Socket socket, ConcurrentLinkedQueue<Connection> connectionsQueue,
-			ConcurrentLinkedQueue<Connection> advConnectionsQueue, ArrayList<String> names) {
+			ConcurrentLinkedQueue<Connection> advConnectionsQueue, ArrayList<String> names, ConcurrentHashMap<String, UserHandler> playingUsers) {
 		super();
 		this.socket = socket;
 		this.connectionsQueue = connectionsQueue;
 		this.advConnectionsQueue = advConnectionsQueue;
+		this.playingUsers=playingUsers;
 	}
 
 	public void run() {
 		SocketConnection newInboundConnection = new SocketConnection(socket);
-		boolean alreadyExists;
-		do {
-			String name = newInboundConnection.reqName();
-			synchronized (names) {
-				alreadyExists = names.contains(name);
-				if (!alreadyExists && newInboundConnection.wantsNewMatch())
-					names.add(name);
-			}
-			if (alreadyExists) {
+		
+		
+			
+			
+			/*if (alreadyExists) {
 				if (newInboundConnection.wantsNewMatch()) {
 					newInboundConnection.sendMessage("\nThis name is already taken. Please insert a different name. ");
 				}
@@ -45,10 +44,40 @@ public class SocketConnectionAdder extends Thread {
 				}
 				
 			} else
-				newInboundConnection.sendMessage("\nName accepted! ");
-		} while (alreadyExists && newInboundConnection.isConnected());
+				newInboundConnection.sendMessage("\nName accepted! "); */
+		String name;
+			if(newInboundConnection.wantsNewMatch())
+			{	
+			boolean alreadyExists;
+				do
+				{
+					name = newInboundConnection.reqName();
+					synchronized (names) {
+						alreadyExists = names.contains(name);
+						if (!alreadyExists) names.add(name);
+					}
+					if(alreadyExists) newInboundConnection.sendMessage("This name already exists. Please choose another name. ");
+					else addConnectionToQueue(newInboundConnection);
+				}while(alreadyExists && newInboundConnection.isConnected());
+				
+			}
+			else
+			{
+				boolean existsInMatches;
+				do
+				{
+					name = newInboundConnection.reqName();
+					synchronized(playingUsers)
+					{
+						existsInMatches=playingUsers.containsKey(name);
+					}
+					if(!existsInMatches) newInboundConnection.sendMessage("Name not found.");
+				}while(!existsInMatches && newInboundConnection.isConnected());
+				if(existsInMatches) rejoin(newInboundConnection);
+			}
+		
 
-		addConnectionToQueue(newInboundConnection);
+		
 
 	}
 
@@ -71,6 +100,11 @@ public class SocketConnectionAdder extends Thread {
 						+ advConnectionsQueue.size());
 			}
 		}
+	}
+	
+	private void rejoin(SocketConnection newConnection)
+	{
+		(playingUsers.get(newConnection.getName())).setConnection(newConnection);
 	}
 
 }

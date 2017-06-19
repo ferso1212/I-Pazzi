@@ -193,4 +193,8 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 		return this.connection.getName();
 	}
 
+	public void setConnection(Connection newConnection)
+	{
+		this.connection=newConnection;
+	}
 }
