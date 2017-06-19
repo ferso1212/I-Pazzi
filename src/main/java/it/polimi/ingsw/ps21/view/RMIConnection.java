@@ -88,9 +88,9 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 
 
 	@Override
-	public ImmProperties[] reqPrivilegesChoice(int number) {
+	public ImmProperties[] reqPrivilegesChoice(int number, ImmProperties[] privilegesValues) {
 		try {
-			return client.reqPrivileges(number);
+			return client.reqPrivileges(number, privilegesValues);
 		} catch (RemoteException e) {
 			LOGGER.log(Level.WARNING, "Error calling remote method reqPrivileges", e);
 			return new ImmProperties[0];

@@ -81,16 +81,18 @@ public class MatchController extends Observable implements Observer {
 			Message returnMessage = currentAction.update(this.currentPlayer, this.match);
 			if (returnMessage instanceof RefusedAction){
 				state = ActionState.REFUSED;
-				ActionRequest req = new ActionRequest(currentPlayer.getId());
 				setChanged();
-				notifyObservers(req);
+				notifyObservers((RefusedAction)returnMessage);
+				reqPlayerAction();
 			}
 			else if (returnMessage instanceof AcceptedAction) {
 				state = ActionState.ACCEPTED;
+				setChanged();
+				notifyObservers((AcceptedAction)returnMessage);
 				performAction();
-			}
+			} else {
 			setChanged();
-			notifyObservers(returnMessage); // request choice to the user or
+			notifyObservers(returnMessage); }// request choice to the user or
 											// notify that the action has been
 			// accepted or refused
 		}

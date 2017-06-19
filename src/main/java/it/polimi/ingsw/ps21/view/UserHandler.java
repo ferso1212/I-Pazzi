@@ -1,6 +1,5 @@
 package it.polimi.ingsw.ps21.view;
 
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -17,11 +16,7 @@ import it.polimi.ingsw.ps21.controller.Message;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.controller.WorkMessage;
-import it.polimi.ingsw.ps21.model.actions.Action;
-import it.polimi.ingsw.ps21.model.actions.CouncilAction;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
-import it.polimi.ingsw.ps21.model.actions.NullAction;
-import it.polimi.ingsw.ps21.model.actions.WorkAction;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
@@ -59,7 +54,7 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 	@Override
 	public void visit(CouncilChoice choice) {
 		// TODO need to pass possible privileges
-		choice.setPrivilegesChosen(connection.reqPrivilegesChoice(choice.getNumberOfChoices()));
+		choice.setPrivilegesChosen(connection.reqPrivilegesChoice(choice.getNumberOfChoices(), choice.getPrivilegesValues()));
 		choice.setVisited();
 		setChanged();
 		notifyObservers(new ExecutedChoice(this.playerId));
@@ -97,8 +92,6 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 	public void visit(RefusedAction message) {
 		connection.sendMessage(message.getMessage());
 		message.setVisited();
-		setChanged();
-		notifyObservers(new ExecutedChoice(this.playerId));
 	}
 
 	@Override
@@ -159,7 +152,11 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 					}
 					else if(arg instanceof AcceptedAction)
 					{
-						connection.sendMessage(((AcceptedAction)arg).getMessage());
+						visit((AcceptedAction)arg);
+					}
+					else if(arg instanceof RefusedAction)
+					{
+						visit((RefusedAction)arg);
 					}
 					else if (arg instanceof CostChoice)
 					{
@@ -176,6 +173,10 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 					}
 					else if (arg instanceof WorkMessage){
 						WorkMessage message = (WorkMessage) arg;
+						visit(message);
+					}
+					else if (arg instanceof CouncilChoice){
+						CouncilChoice message = (CouncilChoice) arg;
 						visit(message);
 					}
 				}

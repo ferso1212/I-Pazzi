@@ -37,12 +37,30 @@ public class TestMatches {
 	public void test() {
 		//assert(true);
 	 assert(checkMatchCreation());
+	 assert(checkNewRound());
+	 setUp();
 	 assert(checkInvalidMatchCreation());
 	 assert(checkThrowDices());
 	 assert(checkPlayerLoop());
 	 assert(checkCopingMatch());
+	
 	}
 	
+	private boolean checkNewRound() {
+		PlayerColor oldOrder[]= testedMatch.getOrderQueue();
+		testedMatch.nextRound();
+		PlayerColor newOrder[] = testedMatch.getOrderQueue();
+		if (!(testedMatch.getRound()!=RoundType.VATICAN_ROUND) || oldOrder.length != newOrder.length) return false; // vatican round implies different size
+		for (int i=0; i<oldOrder.length; i++)
+		{
+			if (oldOrder[i]!=newOrder[i]) return false;
+		}
+		testedMatch.nextRound();
+		if (testedMatch.getRound()!= RoundType.VATICAN_ROUND) return false;
+		return true;
+		
+	}
+
 	private boolean checkCopingMatch() {
 		Match previousMatch = new Match(testedMatch);
 		if (!compareMatch(previousMatch, testedMatch)) return false;

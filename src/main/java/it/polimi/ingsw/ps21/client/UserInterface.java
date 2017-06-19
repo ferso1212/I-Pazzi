@@ -44,7 +44,7 @@ public abstract interface UserInterface {
 
 	public abstract String nextInput();
 
-	public abstract ImmProperties[] reqPrivileges(int number);
+	public abstract ImmProperties[] reqPrivileges(int number, ImmProperties[] privilegesValues);
 	
 	public abstract void matchEnded();
 
