@@ -14,6 +14,7 @@ import java.util.Random;
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.NotExecutableException;
+import it.polimi.ingsw.ps21.model.actions.VaticanAction;
 import it.polimi.ingsw.ps21.model.board.Board;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
@@ -132,6 +133,7 @@ public class Match extends Observable {
 				notifyObservers();
 				return extraActionPool;
 			}
+			else throw new VaticanRoundException();
 	}
 	
 	/**
