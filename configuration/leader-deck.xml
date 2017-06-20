@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<!DOCTYPE LeaderDeck SYSTEM "blue-deck-schema.dtd">
+<!DOCTYPE LeaderDeck SYSTEM "leader-deck-schema.dtd">
 <LeaderDeck>
 	<LeaderCard name="nome">
 		<InstantLeaderEffect>

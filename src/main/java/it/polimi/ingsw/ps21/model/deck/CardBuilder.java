@@ -15,6 +15,7 @@ import org.w3c.dom.NodeList;
 import it.polimi.ingsw.ps21.model.effect.Effect;
 import it.polimi.ingsw.ps21.model.effect.EffectBuilder;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
+import it.polimi.ingsw.ps21.model.effect.LeaderEffect;
 import it.polimi.ingsw.ps21.model.effect.NullEffect;
 import it.polimi.ingsw.ps21.model.effect.PropEffect;
 import it.polimi.ingsw.ps21.model.match.BuildingCardException;
@@ -110,6 +111,18 @@ public class CardBuilder {
 				cost = new ImmProperties(0);
 			}
 			return new RequirementAndCost(req, cost);
+		}
+
+		public static LeaderCard makeLeaderCard(Element cardNode) {
+			EffectBuilder effectBuilder = EffectBuilder.instance();
+			NamedNodeMap cardAttributes = cardNode.getAttributes();
+			String cardName = cardAttributes.getNamedItem("name").getNodeValue();
+			LeaderEffect effect;
+			NodeList childs = cardNode.getChildNodes();
+			for (int i = 0; i<childs.getLength(); i++){
+				if (childs.item(i).getNodeType() == Node.ELEMENT_NODE) effect = effectBuilder.makeLeaderEffect((Element)childs.item(i));
+			}
+			return new LeaderCard(cardName, effect);
 		}
 		
 

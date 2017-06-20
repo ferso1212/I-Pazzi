@@ -24,6 +24,7 @@ import it.polimi.ingsw.ps21.model.deck.Deck;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.ExcommunicationDeck;
 import it.polimi.ingsw.ps21.model.deck.IllegalCardException;
+import it.polimi.ingsw.ps21.model.deck.LeaderDeck;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.deck.SubDeck;
 import it.polimi.ingsw.ps21.model.deck.TerritoryCard;
@@ -49,6 +50,7 @@ public class MatchFactory {
 	private final String purplePath = (new File("")).getAbsolutePath().concat("/configuration/purple-deck.xml");
 	private final String boardPath = (new File("")).getAbsolutePath().concat("/configuration/board.xml");
 	private final String serverPath = (new File("")).getAbsolutePath().concat("/configuration/server-config.xml");
+	private String leaderDeckPath = (new File("")).getAbsolutePath().concat("/configuration/leader-deck.xml");
 	private DocumentBuilder builder = null;
 	private Deck configuratedDeck;
 	private ExcommunicationDeck excommunications;
@@ -64,6 +66,8 @@ public class MatchFactory {
 	private int[] marketPrivileges = null;
 	private int timeoutServer = 0;
 	private int timeoutRound = 0;
+	private LeaderDeck leaderDeck = null;
+
 
 	/**
 	 * Constructor of different match variables configurable by file (These
@@ -279,7 +283,33 @@ public class MatchFactory {
 			configuratedDeck.setPurpleDeck(makePurpleDeck());
 			
 		}
-		return (Deck) configuratedDeck.clone();
+		return configuratedDeck.copy();
+	}
+	
+	public synchronized LeaderDeck makeLeaderDeck() throws BuildingDeckException{
+		if (leaderDeck == null){
+			try {
+				LeaderDeck result = new LeaderDeck();
+				File leaderDeckFile = new File(leaderDeckPath);
+				Document configuration = builder.parse(leaderDeckFile);
+				Element leaderDeckNode = configuration.getDocumentElement();
+				NodeList leaderCards = leaderDeckNode.getElementsByTagName("LeaderCard");
+				for (int i=0; i<leaderCards.getLength(); i++){
+					result.addCard(CardBuilder.makeLeaderCard((Element) leaderCards.item(i)));
+				}
+				
+				
+				leaderDeck = result;
+				return leaderDeck.copy();
+			} catch (SAXException e) {
+				LOGGER.log(Level.SEVERE, "Error parsing file", e);
+				throw new BuildingDeckException("Error parsing file");
+			} catch (IOException e) {
+				LOGGER.log(Level.SEVERE, "Error opening leader configuration file", e);
+				throw new BuildingDeckException("Error opening leader configuration file");
+			}
+			
+		} else return leaderDeck.copy() ;
 	}
 	
 	public synchronized ExcommunicationDeck makeExcommunicationDeck() throws BuildingDeckException {
@@ -605,6 +635,7 @@ public class MatchFactory {
 		return councilPrivileges;
 	}
 
+	
 	public synchronized Map<DevelopmentCardType, int[]> makeCardBonus() {
 		if (cardBonuses == null) {
 			Document configuration;
@@ -849,7 +880,9 @@ public class MatchFactory {
 			marketPrivileges = result;
 		}
 		return marketPrivileges;
-
+		
 	}
+	
+	
 
 }

@@ -211,11 +211,15 @@ public class MatchController extends Observable implements Observer {
 	}
 
 	private void reqPlayerAction() {
-		timerThread = new Thread(this.timer);
-		timerThread.start();
-		ActionRequest req = new ActionRequest(currentPlayer.getId());
-		setChanged();
-		notifyObservers(req);
+		if (roundType != RoundType.VATICAN_ROUND){
+			timerThread = new Thread(this.timer);
+			timerThread.start();
+			ActionRequest req = new ActionRequest(currentPlayer.getId());
+			setChanged();
+			notifyObservers(req);}
+		else {
+			this.currentAction = new VaticanAction(currentPlayer.getId());
+		}
 	}
 
 	private void nextPlayer() {
@@ -361,6 +365,7 @@ public class MatchController extends Observable implements Observer {
 	}
 
 	private void setupLeaderCards() {
+		
 	}
 
 }

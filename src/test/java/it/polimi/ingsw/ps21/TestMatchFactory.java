@@ -7,6 +7,7 @@ import java.util.Map;
 import it.polimi.ingsw.ps21.model.deck.Deck;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.ExcommunicationDeck;
+import it.polimi.ingsw.ps21.model.deck.LeaderDeck;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
@@ -44,7 +45,7 @@ public class TestMatchFactory extends TestCase {
         assert(checkTowerBonuses());
         assert(checkTrackBonuses());
         assert(checkMarketPrivileges());
-    }
+   }
 
 	private boolean checkExcommunications() {
 		try {
@@ -93,11 +94,13 @@ public class TestMatchFactory extends TestCase {
 
 	private boolean checkDeckMaking() {
 		Deck testDeck;
+		LeaderDeck testLeaderdeck;
 		try {
 			if (testedBuilder == null) return false;
 			testDeck = testedBuilder.makeDeck();
 			if (testDeck.isEmpty()) return false;
-			else
+			testLeaderdeck = testedBuilder.makeLeaderDeck();
+			if (testLeaderdeck.isEmpty()) return false;
 			{
 				System.out.println(testDeck.toString());
 				return true;

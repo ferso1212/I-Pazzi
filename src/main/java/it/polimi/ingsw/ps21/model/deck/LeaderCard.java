@@ -44,7 +44,7 @@ public class LeaderCard extends Card implements Serializable{
 		return null;
 	}
 	 
-	public Requirement getRequirement(){
+	public Requirement[] getRequirement(){
 		return leaderEffect.getRequirement();
 	}
 	

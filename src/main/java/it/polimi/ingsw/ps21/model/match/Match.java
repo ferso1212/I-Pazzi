@@ -114,13 +114,24 @@ public class Match extends Observable {
 	}
 	
 	public ExtraAction[] doAction(Action action) throws NotExecutableException, RequirementNotMetException, InsufficientPropsException, VaticanRoundException{
-		if (!(round == RoundType.VATICAN_ROUND)) {
-			ExtraAction[] extraActionPool;
-		extraActionPool = action.activate(order.get(currentPlayer),this);
-		setChanged();
-		notifyObservers();
-		return extraActionPool;
-		} else throw new VaticanRoundException();
+		if (!(round == RoundType.VATICAN_ROUND)){
+			if ((!(action instanceof VaticanAction))){
+				ExtraAction[] extraActionPool;
+				extraActionPool = action.activate(order.get(currentPlayer),this);
+				setChanged();
+				notifyObservers();
+				return extraActionPool;
+		}
+			else throw new VaticanRoundException();
+		}
+		else
+			if (action instanceof VaticanAction){
+				ExtraAction []extraActionPool;
+				extraActionPool = action.activate(order.get(currentPlayer), this);
+				setChanged();
+				notifyObservers();
+				return extraActionPool;
+			}
 	}
 	
 	/**
