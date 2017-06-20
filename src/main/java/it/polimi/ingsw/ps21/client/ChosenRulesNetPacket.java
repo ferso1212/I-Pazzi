@@ -2,29 +2,23 @@ package it.polimi.ingsw.ps21.client;
 
 import java.io.Serializable;
 
-public class StartInfoNetPacket extends NetPacket implements Serializable{
+public class ChosenRulesNetPacket extends NetPacket implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6111618531545899325L;
 	int chosenRules;
-	String name;
 	
-	public StartInfoNetPacket(int messNum, int chosenRules, String name) {
+	public ChosenRulesNetPacket(int messNum, int chosenRules) {
 		super(messNum);
 		this.chosenRules = chosenRules;
-		this.name = name;
-		this.type=PacketType.START_INFO;
+		this.type=PacketType.CHOSEN_RULES;
 	}
 
 	public int getChosenRules() {
 		return chosenRules;
 	}
 
-	public String getName() {
-		return name;
-	}
-	
 	
 
 }

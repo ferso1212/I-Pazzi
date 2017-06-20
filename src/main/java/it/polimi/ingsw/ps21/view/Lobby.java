@@ -1,7 +1,9 @@
 package it.polimi.ingsw.ps21.view;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Timer;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import it.polimi.ingsw.ps21.controller.MatchRunner;
@@ -11,7 +13,8 @@ import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
 public class Lobby extends Thread{
 	private ConcurrentLinkedQueue<Connection> connectionsQueue;
-	
+	private ConcurrentHashMap<String, UserHandler> playingUsers;
+	private ArrayList<String> names;
 	private final long TIMEOUT=3000; //TODO change
 	// the milliseconds that the server will
 	// wait once 2 players joined
@@ -24,14 +27,17 @@ public class Lobby extends Thread{
 	private boolean timeoutExpired;
 	private boolean startedTimer = false;
 	private boolean isAdvanced;
-	private HashMap<String, MatchRunner> usersMatches;
-
-	public Lobby(boolean type)
+	
+	
+	public Lobby(boolean type, ArrayList<String> names, ConcurrentHashMap<String, UserHandler> playingUsers)
 	{
 		//this.TIMEOUT= MatchFactory.instance().makeTimeoutServer();
 		this.timeoutExpired=false;
 		this.connectionsQueue= new ConcurrentLinkedQueue<>();
 		this.isAdvanced=type;
+		this.names=names;
+		this.playingUsers=playingUsers;
+		
 	}
 	
 	public void run(){
@@ -76,8 +82,9 @@ public class Lobby extends Thread{
 					+ " players.");
 			usersToAdd = new UserHandler[Math.min(connectionsQueue.size(), MAX_PLAYERS_NUM)];
 			while ((playersAdded < usersToAdd.length) && (connectionsQueue.size() > 0)) {
-				usersToAdd[playersAdded] = new UserHandler(PlayerColor.values()[playersAdded],
-						connectionsQueue.poll());
+				UserHandler newUser=new UserHandler(PlayerColor.values()[playersAdded], connectionsQueue.poll());
+				usersToAdd[playersAdded] = newUser;
+				playingUsers.put(newUser.getName(), newUser);
 				playersAdded++;
 			}
 		}
@@ -87,7 +94,7 @@ public class Lobby extends Thread{
 	}
 	}
 	
-	public ConcurrentLinkedQueue getConnections()
+	public ConcurrentLinkedQueue<Connection> getConnections()
 	{
 		return this.connectionsQueue;
 	}

@@ -224,6 +224,7 @@ public class MatchController extends Observable implements Observer {
 	}
 
 	private void nextPlayer() {
+		this.currentExtraActions.clear();
 		RoundType oldRoundType = this.roundType;
 		this.roundType = match.setNextPlayer();
 		currentPlayer = match.getCurrentPlayer();
@@ -292,6 +293,14 @@ public class MatchController extends Observable implements Observer {
 				}
 			else if (arg instanceof ExecutedChoice){
 				if (((ExecutedChoice)arg).getDest() == this.currentPlayer.getId()) getActionChoices();
+			}
+			else if (arg instanceof String)
+			{
+				String s= (String)arg;
+				if(s.equals("playerDisconnected"))
+				{
+					nextPlayer();
+				}
 			}
 			}
 		}

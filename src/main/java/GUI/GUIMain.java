@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps21.client;
+package GUI;
 
 public class GUIMain {
 

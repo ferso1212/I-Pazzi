@@ -25,11 +25,14 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 	private final static Logger LOGGER = Logger.getLogger(RMIConnection.class.getName());
 
 	private String name;
-	// Unused private Queue<String> input;
-	// Unused private Queue<String> output;
 	private transient RMIClientInterface client;
-	public RMIConnection(String userName) throws RemoteException{
-		name = userName;
+	private boolean newMatch;
+	int id;
+	
+	public RMIConnection(boolean wantsNewConnection, int id) throws RemoteException{
+		this.newMatch=wantsNewConnection;
+		this.id=id;
+		
 	}
 
 
@@ -131,12 +134,12 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 
 
 	@Override
-	public ActionData reqAction() {
+	public ActionData reqAction() throws DisconnectedException {
 		try {
 			return client.actionRequest();
 		} catch (RemoteException e) {
 			LOGGER.log(Level.WARNING, "Error calling remote method actionRequest");
-			return new ActionData(ActionType.NULL, null,0 , null, 0);
+			throw new DisconnectedException();
 		}
 	}
 
@@ -179,5 +182,31 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 		
 		
 	}
+
+
+	public boolean wantsNewMatch() {
+		return this.newMatch;
+	}
+
+
+	
+	public String reqName() throws RemoteException {
+		this.name = client.reqName();
+		return name;
+	}
+
+
+	public boolean reqWantsAdvRules() throws RemoteException {
+		return client.reqRules();
+	}
+
+
+	@Override
+	public int getId() throws RemoteException {
+		
+		return this.id;
+	}
+
+
 
 }

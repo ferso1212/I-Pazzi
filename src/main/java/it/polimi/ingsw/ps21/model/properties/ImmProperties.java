@@ -74,6 +74,11 @@ public boolean greaterOrEqual(ImmProperties propsToCompare)
 	return true;
 }
 
+/**Compares this object with the PropertiesSet passed as argument.
+ * If all the properties in this object have a value equal or greater than the value of the corresponding property in the set passed as argument, true is returned.
+ * @param setToCompare PropertiesSet containing the values to compare
+ * @return true if, for each property in the set passed as argument, the value of that property is < than the value of the corresponding property in this set.
+ */
 public boolean greaterOrEqual(PropertiesSet propsToCompare)
 {
 	return this.properties.greaterOrEqual(propsToCompare);

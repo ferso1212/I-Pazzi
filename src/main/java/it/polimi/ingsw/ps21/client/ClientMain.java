@@ -32,31 +32,39 @@ public class ClientMain {
     	in.nextLine();
     	if((chosenConnection!=1 && chosenConnection!=2)) System.out.println("\nInvalid choice.");
     	}
-    	System.out.println("\nInsert your name: ");
     	
-    	String name= in.nextLine();
-    	//--    	
-    	int chosenRules=0;
-    	while(chosenRules!=1 && chosenRules!=2)
+    	int chosenInterface=0;
+    	while(chosenInterface!=1 && chosenInterface!=2)
     	{
     		
-    	System.out.println("\nChoose the rules that you want to use in the game: \n1 Standard \n 2 Advanced");
+    	System.out.println("\nChoose the interface that you want to use in the game: \n1 Command Line Interface \n 2 Graphical User Interface");
         try {
-			chosenRules= in.nextInt();
+			chosenInterface= in.nextInt();
     	} catch (InputMismatchException e) {
 			 LOGGER.log(Level.INFO, "Invalid input", e);
 			}
     	}
-		CLInterface CLImatch = new CLInterface(chosenRules);
-
+		CLInterface CLImatch = new CLInterface();
+		int chosenJoin=0;
+    	while(chosenJoin!=1 && chosenJoin!=2)
+    	{
+    		
+    	System.out.println("\nWhat do you want to do? \n1 Join a new match \n 2 Join an existing match");
+        try {
+			chosenJoin= in.nextInt();
+    	} catch (InputMismatchException e) {
+			 LOGGER.log(Level.INFO, "Invalid input", e);
+			}
+    	}
     	
-		while(newMatch == true){
 			if (chosenConnection==1) {
-				SocketClient client = new SocketClient(CLImatch); 
-					boolean matchStarted=client.start(chosenRules, name);
+				SocketClient client = new SocketClient(CLImatch, parseChoice(chosenJoin)); 
+
+				
+					boolean matchStarted=client.start();
 					if (matchStarted){
 								
-										System.out.println("Do you want to play another match, fucking looser?\n(Y)es\n(N)o");
+										System.out.println("Do you want to play another match, fucking loser?\n(Y)es\n(N)o");
 											String response = in.nextLine();			
 							}
 								else {System.out.println("Failed to connect to server");
@@ -65,19 +73,13 @@ public class ClientMain {
 			}
 			else{
 				try {
-					RMIClient rmiclient = new RMIClient(name, CLImatch, chosenRules, RMI_PORT);
-					rmiclient.start();
-					while(!CLImatch.isEnded());
-		
+					RMIClient rmiclient = new RMIClient(CLImatch, "127.0.0.1", RMI_PORT, parseChoice(chosenJoin));
 				} catch (RemoteException | NotBoundException e) {
 					System.out.println("Failed to connect to server through RMI.");
 					LOGGER.log(Level.WARNING, "RMI Connection failed", e);
 					newMatch = false;
 				}
 			}
-						
-		}
-		in.close();
 		}
 	
 	/**
@@ -86,5 +88,11 @@ public class ClientMain {
 	private ClientMain()
 	{
 		
+	}
+	
+	private static boolean parseChoice(int input)
+	{
+		if(input==1) return true;
+		else return false;
 	}
 }

@@ -10,8 +10,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps21.controller.MatchData;
+import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.ActionData;
+import it.polimi.ingsw.ps21.view.RulesChoiceResponseNetPacket;
+import it.polimi.ingsw.ps21.view.WorkChoiceRequestNetPacket;
+import it.polimi.ingsw.ps21.view.WorkChoiceResponseNetPacket;
 
 public class SocketClient {
 	private static final String SERVER_IP = "127.0.0.1";
@@ -20,22 +24,39 @@ public class SocketClient {
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
 	private UserInterface ui;
+	private Socket socket;
 
-	public SocketClient(UserInterface ui) {
+	public SocketClient(UserInterface ui, boolean joinNewMatch) {
+		try{
 		this.ui=ui;
+		System.out.println("\nTrying to connect to the server with TCP socket...");
+		socket = new Socket(SERVER_IP, PORT);
+		System.out.println("\nEstablished TCP connection to the server.");
+		in = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+		out = new ObjectOutputStream(socket.getOutputStream());
+		out.reset();
+		} catch(IOException e)
+		{
+			LOGGER.log(Level.INFO, "Input-Output exception.", e);
+		}
+		
+			try {
+				out.writeObject(new InitNetPacket(0, joinNewMatch));
+			} catch (IOException e) {
+		LOGGER.log(Level.SEVERE, "Unable to send initial packet from client due to IOException", e);
+			}
+		
 		
 	}
+	
 
-	public boolean start(int chosenRules, String name) {
-		System.out.println("\nTrying to connect to the server with TCP socket...");
+	public boolean start() {
+		
 		try {
-			Socket socket = new Socket(SERVER_IP, PORT);
-			System.out.println("\nEstablished TCP connection to the server.");
-			in = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-			out = new ObjectOutputStream(socket.getOutputStream());
-			out.reset();
-			StartInfoNetPacket initialInfos = new StartInfoNetPacket(0, chosenRules, name);
-			out.writeObject(initialInfos);
+			
+			//StartInfoNetPacket initialInfos = new StartInfoNetPacket(0, chosenRules, name);
+			//out.writeObject(initialInfos);
+			System.out.println("\nClient ready to receive from server.");
 			NetPacket receivedPacket = (NetPacket)in.readObject();
 				parseSocketInput(receivedPacket);
 				while (socket.isConnected()) {
@@ -83,7 +104,8 @@ public class SocketClient {
 			}
 
 			case PRIVILEGES_CHOICE: {
-				ImmProperties[] chosen = ui.reqPrivileges(((PrivilegesChoiceRequestNetPacket)receivedPacket).getNum());
+				PrivilegesChoiceRequestNetPacket response= (PrivilegesChoiceRequestNetPacket)receivedPacket;
+				ImmProperties[] chosen = ui.reqPrivileges(response.getNum(), response.getChoices());
 				out.writeObject(new PrivilegesChoiceResponseNetPacket(receivedPacket.getNum(), chosen));
 				break;
 
@@ -118,6 +140,30 @@ public class SocketClient {
 			}
 			case PLAYER_ID: {
 				ui.setID(((PlayerIdNetPacket)receivedPacket).getId());
+				break;
+			}
+			case EFFECT_CHOICE:
+			{
+				int chosen = ui.reqEffectChoice(((EffectChoiceRequestNetPacket)receivedPacket).getPossibleEffects());
+				out.writeObject(new EffectChoiceResponseNetPacket(receivedPacket.getNum(), chosen));
+				break;
+			}
+			case WORK_CHOICE:
+			{
+				int chosen= ui.reqWorkChoice(((WorkChoiceRequestNetPacket)receivedPacket).getCard());
+				out.writeObject(new WorkChoiceResponseNetPacket(receivedPacket.getNum(), chosen));
+				break;
+			}
+			case NAME:
+			{
+				String chosenName= ui.reqName();
+				out.writeObject(new NameResponseNetPacket(receivedPacket.getNum(), chosenName));
+				break;
+			}
+			case RULES_CHOICE:
+			{
+				boolean wantsAdvRules= ui.reqIfWantsAdvancedRules();
+				out.writeObject(new RulesChoiceResponseNetPacket(receivedPacket.getNum(), wantsAdvRules));
 				break;
 			}
 			default:

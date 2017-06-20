@@ -31,15 +31,20 @@ public class CLInterface implements UserInterface {
 	private boolean advancedMatch;
 	private boolean matchStarted = false;
 
-	public CLInterface(int chosenRules) {
+	public CLInterface() {
 		userInput = new Scanner(System.in);
+		
+	}
+
+	public void setup(int chosenRules)
+	{
 		if (chosenRules == 1)
 			advancedMatch = false;
 		else
 			advancedMatch = true;
 		System.out.println("Waiting for match starting...");
 	}
-
+	
 	@Override
 	public void updateView(MatchData match) {
 		this.matchInfo = match;
@@ -470,6 +475,24 @@ public class CLInterface implements UserInterface {
 			effectChosen = userInput.nextInt();
 		}
 		return effectChosen;
+	}
+
+	@Override
+	public String reqName() {
+		System.out.println("\nInsert your name: ");
+		return userInput.nextLine();
+	}
+
+	@Override
+	public boolean reqIfWantsAdvancedRules() {
+		int chosenRules=0;
+		while(chosenRules!= 1 && chosenRules != 2)
+		{
+		System.out.println("\nWhich rules do you want to use? \n1 Standard \n2 Advanced");
+		chosenRules=userInput.nextInt();
+		}
+		if(chosenRules==2) return true;
+		else return false;
 	}
 
 }

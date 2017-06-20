@@ -133,9 +133,11 @@ public class PropertiesSet implements Serializable{
 		StringBuilder output= new StringBuilder();
 		Property[] propsToScan= propertiesMap.values().toArray(new Property[0]);
 		for(int i=0; i<propsToScan.length; i++) 
+		{	if(propsToScan[i].getValue()!=0)
 		{
 			output.append(propsToScan[i].toString());
 			output.append(", ");
+		}
 		}
 		return output.toString();
 	}

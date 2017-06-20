@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps21.client;
+package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -11,14 +11,17 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import it.polimi.ingsw.ps21.client.UserInterface;
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.ActionData;
+import it.polimi.ingsw.ps21.view.ExtraActionData;
 
 public class GUIInterface implements UserInterface{
 	
@@ -26,7 +29,6 @@ public class GUIInterface implements UserInterface{
 	private JFrame mainWindow;
 	private ImageIcon boardIcon;
 	private JLabel boardLabel;
-	private JPanel boardPanel;
 	private final String boardPath = (new File("")).getAbsolutePath().concat("/src/images/board.gif");
 	
 	
@@ -53,26 +55,18 @@ public class GUIInterface implements UserInterface{
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainWindow.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
 		
-		mainWindow.setLayout(new GridLayout(1, 2));
-		
-		boardPanel = new JPanel();
-		JPanel board2 = new JPanel();
-		mainWindow.add(boardPanel, 0);
-		mainWindow.add(board2, 1);
-		boardPanel.setLayout(new BorderLayout());
-		boardPanel.setBackground(new Color(0, 127, 255));
-		board2.setBackground(new Color(255, 191, 0));
+		mainWindow.setLayout(new BorderLayout(5, 5));
+		mainWindow.setBackground(Color.cyan);
 		
 		boardLabel = new JLabel();
-		boardPanel.add(boardLabel);
+		mainWindow.add(boardLabel);
 		
-		mainWindow.pack();
 		
 		Image myImage = ImageIO.read(new File(boardPath));
 		//boardLabel = new JLabel(new ImageIcon(myImage.getScaledInstance(boardPanel.getWidth(), boardPanel.getHeight(), Image.SCALE_SMOOTH)));
 		//boardPanel.add(boardLabel);
 		//ImageIcon imageIcon = new ImageIcon(new ImageIcon(myImage).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
-		boardLabel.setIcon( new ImageIcon(myImage.getScaledInstance(800, 1000 , Image.SCALE_DEFAULT)) );
+		boardLabel.setIcon( new ImageIcon(myImage.getScaledInstance(800, 1000, Image.SCALE_DEFAULT)) );
 		
 		
 		
@@ -166,6 +160,24 @@ public class GUIInterface implements UserInterface{
 
 	@Override
 	public int reqExtraActionChoice(ActionData[] actions) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public ImmProperties[] reqPrivileges(int number, ImmProperties[] privilegesValues) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int reqExtraActionChoice(ExtraActionData[] actions) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int reqWorkChoice(DevelopmentCard workCard) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
