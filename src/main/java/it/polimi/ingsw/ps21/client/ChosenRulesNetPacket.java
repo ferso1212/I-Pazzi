@@ -12,7 +12,7 @@ public class ChosenRulesNetPacket extends NetPacket implements Serializable{
 	public ChosenRulesNetPacket(int messNum, int chosenRules) {
 		super(messNum);
 		this.chosenRules = chosenRules;
-		this.type=PacketType.CHOSEN_RULES;
+		this.type=PacketType.RULES_CHOICE;
 	}
 
 	public int getChosenRules() {

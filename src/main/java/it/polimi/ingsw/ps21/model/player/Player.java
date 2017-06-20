@@ -272,7 +272,14 @@ public class Player {
 	public PlayerDeck getDeck() {
 		return devCards;
 	}
-
+	
+	/**
+	 * Calculates the final victory points of this player.
+	 * @param trackBonuses
+	 * @param cardBonuses
+	 * @param militaryTrackPlacement
+	 * @return
+	 */
 	public int getFinalVictoryPoints(TrackBonuses trackBonuses, Map<DevelopmentCardType, int[]> cardBonuses,
 			int militaryTrackPlacement) {
 		int pointsToRemove=0;

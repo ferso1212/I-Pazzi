@@ -8,13 +8,14 @@ import it.polimi.ingsw.ps21.controller.PlayerData;
 
 /**Used to store datas of resources and points. 
  * The following datas are stored for each property: 
- * <li>the <b>id</b>, which is a string that identifies the property;
+ * <li>the <b>id</b>, which is a value of the PropertieId enum that identifies the property;
  * <li>the <b>value</b>, which is an integer value that describes the quantity of that property;
- * <li>the <b>modifier</b>, which is an integer value that is added to the quantity to pay each time the payValue(num) method is called.
+ * <li>the <b>paymentModifier</b>, which is an integer value that is added to the quantity to pay each time the payValue(num) method is called.
+ * <li>the <b>additionModifier</b>, which is an integer value that is added to the quantity to add each time the addValue(num) method is called.
  * @author fabri
  *
  */
-public class Property implements Cloneable, Serializable{
+public class Property implements Serializable{
 	/**
 	 * 
 	 */
@@ -115,14 +116,15 @@ public class Property implements Cloneable, Serializable{
 		this.additionModifier = increasingModifier;
 	}
 
+	/**
+	 * Performs a deep copy of this object.
+	 */
 	public Property clone()
 	{
-		try {
-			return (Property)super.clone();
-		} catch (CloneNotSupportedException e) {
-			LOGGER.log(Level.SEVERE, "Clone failed", e);
-			return null;
-		}
+		Property output= new Property(this.id, this.value);
+		output.setAdditionModifier(additionModifier);
+		output.setPaymentModifier(paymentModifier);
+		return output;
 	}
 
 	/**Returns a string in the format: "value prop_name", for example: "5 coins" or "7 wood pieces"

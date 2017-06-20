@@ -31,10 +31,15 @@ public ImmProperties(int...initValues)
 	this.properties=new PropertiesSet(initValues);
 }
 
+/**Constructs the PropertiesSet with the objects passed as argument; the missing properties will be created automatically with value 0.
+ * 
+ * @param props the Property object to insert in the set. They must have different IDs, otherwise one may overwrite another.
+ */
 public ImmProperties(Property...properties)
 {
 	this.properties=new PropertiesSet(properties);
 }
+
 /**Returns the value of the property with the matching id.
  * @param id the id of the property.
  * @return the value of the property.

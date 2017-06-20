@@ -52,6 +52,10 @@ public class PropertiesSet implements Serializable{
 		}
 	}
 	
+	/**Constructs the PropertiesSet with the objects passed as argument; the missing properties will be created automatically with value 0.
+	 * 
+	 * @param props the Property object to insert in the set. They must have different IDs, otherwise one may overwrite another.
+	 */
 	public PropertiesSet(Property...props)
 	{
 		this.propertiesMap = new EnumMap<>(PropertiesId.class);
@@ -59,6 +63,12 @@ public class PropertiesSet implements Serializable{
 		{
 			this.propertiesMap.put(prop.getId(), prop);
 		}
+		
+		for (PropertiesId propId : PropertiesId.values()) // for each value in the PropertiesId enum
+		{
+			if(!this.propertiesMap.containsKey(propId)) this.propertiesMap.put(propId, new Property(propId, 0));
+		}
+		
 	}
 
 	/**
@@ -110,10 +120,9 @@ public class PropertiesSet implements Serializable{
 	}
 	
 	/**Performs a deep copy of this object.
-	 * @throws CloneNotSupportedException 
 	 * 
 	 */
-	public PropertiesSet clone() throws CloneNotSupportedException
+	public PropertiesSet clone()
 	{
 		Property[] propsToClone= new Property[this.propertiesMap.size()];
 		
@@ -121,6 +130,7 @@ public class PropertiesSet implements Serializable{
 		for(Property prop: this.propertiesMap.values())
 		{
 			propsToClone[i]=prop.clone();
+			i++;
 		}
 		return new PropertiesSet(propsToClone);
 	}
