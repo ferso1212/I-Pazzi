@@ -1,0 +1,82 @@
+<!ELEMENT LeaderDeck (LeaderCard*)>
+<!ELEMENT LeaderCard (InstantLeaderEffect | PermanentLeaderEffect)>
+<!ELEMENT Requirement (Properties, CardsNumber)>
+<!ELEMENT PermanentLeaderEffect ( ChurchSupport | DoubleResources | LorenzoIlMangifico | NoMilitaryForTerritory | NoPayOccupiedTower | OccupiedSpace | InstantWorkEffect) >
+<!ELEMENT InstantLeaderEffect ( CouncilBonus | MemberBonus | PropertiesBonus )>
+<!ELEMENT NoMilitaryForTerritory ( Requirement, DevelopmentCardType ) >
+<!ELEMENT DevelopmentCardType (Building | Territory | Character | Venture )>
+<!ELEMENT OccupiedSpace (Requirement) >
+<!ELEMENT NoPayOccupiedTower ( Requirement )>
+<!ELEMENT ChurchSupport ( Requirement ) >
+<!ELEMENT CouncilBonus ( Requirement ) >
+<!ELEMENT DoubleResources ( Requirement )>
+<!ELEMENT LorenzoIlMagnifico ( Requirement )>
+<!ELEMENT MemberBonus ( MemberColor ) >
+<!ELEMENT PropertiesBonus (Requirement , Properties)>
+<!ELEMENT InstantWorkEffect (Requirement, WorkType) >
+<!ELEMENT MemberColor ( Black | Orange | White | Neutral )>
+<!ELEMENT Black EMPTY>
+<!ELEMENT Orange EMPTY>
+<!ELEMENT White EMPTY>
+<!ELEMENT Neutral EMPTY>
+<!ELEMENT Building EMPTY>
+<!ELEMENT Territory EMPTY>
+<!ELEMENT Character EMPTY>
+<!ELEMENT Venture EMPTY>
+
+
+
+<!ELEMENT NullEffect EMPTY>
+<!ELEMENT DiscountEffect (Properties,Green?, Yellow?, Blue?, Purple?) >
+<!ELEMENT BlockTowerEffect EMPTY>
+<!ELEMENT CouncilEffect EMPTY>
+<!ELEMENT PrivilegeEffect EMPTY>
+<!ELEMENT MultiplierEffect (Cost, Properties, MultiplierType)>
+<!ELEMENT MultiplierType (Wood|Stone|Coins|Servant|VictoryPoints|MilitaryPoints|FaithPoints|Blue|Green|Purple|Yellow)>
+<!ELEMENT ExtraWorkEffect (Harvest|Production)>
+<!ELEMENT Harvest EMPTY>
+<!ELEMENT Production EMPTY>
+<!ELEMENT WorkDiceEffect (Harvest|Production)>
+<!ATTLIST WorkDiceEffect diceValue CDATA #REQUIRED>
+<!ATTLIST ExtraWorkEffect diceValue CDATA #REQUIRED>
+<!ELEMENT CardDiceEffect (Green?, Yellow?, Blue?, Purple?) >
+<!ELEMENT PickAnotherCardEffect (Green?, Yellow?, Blue? ,Purple?)>
+
+<!ELEMENT Properties (Wood, Stones, Servants, Coins, MilitaryPoints, VictoryPoints, FaithPoints)>
+<!ELEMENT Coins EMPTY>
+<!ELEMENT Stones EMPTY>
+<!ELEMENT Wood EMPTY>
+<!ELEMENT Servants EMPTY>
+<!ELEMENT MilitaryPoints EMPTY>
+<!ELEMENT FaithPoints EMPTY>
+<!ELEMENT VictoryPoints EMPTY>
+
+<!ELEMENT CardsNumber (Green, Yellow, Blue, Purple)>
+<!ELEMENT Green EMPTY>
+<!ELEMENT Yellow EMPTY>
+<!ELEMENT Blue EMPTY>
+<!ELEMENT Purple EMPTY>
+
+
+<!ATTLIST LeaderCard name CDATA #REQUIRED>
+<!ATTLIST Coins value CDATA #REQUIRED>
+<!ATTLIST Stones value CDATA #REQUIRED>
+<!ATTLIST Wood value CDATA #REQUIRED>
+<!ATTLIST Servants value CDATA #REQUIRED>
+<!ATTLIST MilitaryPoints value CDATA #REQUIRED>
+<!ATTLIST FaithPoints value CDATA #REQUIRED>
+<!ATTLIST VictoryPoints value CDATA #REQUIRED>
+<!ATTLIST Green value CDATA #REQUIRED>
+<!ATTLIST Yellow value CDATA #REQUIRED>
+<!ATTLIST Blue value CDATA #REQUIRED>
+<!ATTLIST Purple value CDATA #REQUIRED>
+<!ATTLIST PickAnotherCardEffect diceValue CDATA #REQUIRED>
+<!ATTLIST CardDiceEffect diceValue CDATA #REQUIRED>
+<!ATTLIST CouncilEffect value CDATA #REQUIRED>
+<!ATTLIST CouncilEffect value CDATA #REQUIRED
+			factorType CDATA #REQUIRED>
+<!ATTLIST ExtraWorkEffect diceValue CDATA #REQUIRED>
+<!ATTLIST PrivilegeEffect number CDATA #REQUIRED>
+<!ATTLIST CouncilBonus number CDATA #REQUIRED>
+<!ATTLIST MemberBonus value CDATA #REQUIRED>
+<!ATTLIST InstantWorkEffect diceValue CDATA #REQUIRED>

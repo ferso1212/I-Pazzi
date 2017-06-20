@@ -60,7 +60,6 @@ public class SocketClient {
 			NetPacket receivedPacket = (NetPacket)in.readObject();
 				parseSocketInput(receivedPacket);
 				while (socket.isConnected()) {
-					
 					receivedPacket = (NetPacket)in.readObject();
 					parseSocketInput(receivedPacket);
 				}

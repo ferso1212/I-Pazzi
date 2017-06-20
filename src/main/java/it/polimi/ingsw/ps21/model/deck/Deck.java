@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import it.polimi.ingsw.ps21.controller.PlayerData;
 
 
-public class Deck implements Cloneable {
+public class Deck{
 	private final static Logger LOGGER = Logger.getLogger(Deck.class.getName());
 	protected SubDeck<TerritoryCard> greenCards;
 	protected SubDeck<BuildingCard> yellowCards;
@@ -100,7 +100,7 @@ public class Deck implements Cloneable {
 	}
 	
 	//TODO implement deep clone
-	public Deck clone()
+	public Deck copy()
 	{
 		Deck clone = new Deck();
 		clone.setBlueDeck(blueCards.clone());

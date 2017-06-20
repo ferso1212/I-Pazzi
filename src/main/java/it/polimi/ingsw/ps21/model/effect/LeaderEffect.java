@@ -15,33 +15,32 @@ public abstract class LeaderEffect implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -4418363160082201407L;
-	protected Requirement requirement;
+	protected Requirement[] requirements;
 	public boolean activated = false;
 	public boolean clonable =false;
 	
-	public LeaderEffect(Requirement req) {
-		requirement = req;
+	public LeaderEffect(Requirement...reqs) {
+		requirements = reqs;
 	}
 
 	public boolean isActivated() {
 		return activated;
 	}
 	
-	public ExtraAction activate(AdvancedPlayer player){
-		this.clonable = true;
-		this.activated = true;
-		return new NullAction(player.getId());
-	}
+	public abstract ExtraAction activate(AdvancedPlayer player);
 	
 	public abstract void resetActivation();
 
 	public boolean isClonable() {
-		// TODO Auto-generated method stub
 		return clonable;
 	}
 	
 	public abstract String getType();
 	public abstract String getDesc();
+	
+	public Requirement[] getRequirement(){
+		return this.requirements;
+	}
 
 		
 	

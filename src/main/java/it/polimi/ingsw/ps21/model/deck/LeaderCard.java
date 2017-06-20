@@ -1,13 +1,9 @@
 package it.polimi.ingsw.ps21.model.deck;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-
 import it.polimi.ingsw.ps21.model.effect.LeaderEffect;
-import it.polimi.ingsw.ps21.model.player.Player;
-import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
-public abstract class LeaderCard extends Card implements Serializable{
+public class LeaderCard extends Card implements Serializable{
 	
 	/**
 	 * 
@@ -17,12 +13,10 @@ public abstract class LeaderCard extends Card implements Serializable{
 	private boolean activated = false;
 	
 	protected LeaderEffect leaderEffect;
-	protected Requirement requirement;
 	
 	public LeaderCard(String name, LeaderEffect effect) {
 		super(name);
 		this.leaderEffect = effect;	
-		this.requirement = new Requirement(new CardsNumber(0,0,0,0), new ImmProperties(0));
 	}
 	
 	public LeaderEffect getEffect(){
@@ -35,12 +29,23 @@ public abstract class LeaderCard extends Card implements Serializable{
 		return leaderEffect.isClonable();
 	}
 	
-	public abstract void resetActivation();
+	public void resetActivation(){
+		// TODO 
+	};
 	
 	public boolean isActivated()
 	{
 		return this.activated;
 	}
+
+	@Override
+	public Card clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	 
+	public Requirement[] getRequirement(){
+		return leaderEffect.getRequirement();
+	}
 	
 }

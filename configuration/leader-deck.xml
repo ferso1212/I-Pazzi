@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<!DOCTYPE LeaderDeck SYSTEM "leader-deck-schema.dtd">
+<LeaderDeck>
+	<LeaderCard name="nome">
+		<InstantLeaderEffect>
+		</InstantLeaderEffect>
+	</LeaderCard>
+	<LeaderCard name="nome">
+		<PermanentLeaderEffect>
+		</PermanentLeaderEffect>
+	</LeaderCard>
+</LeaderDeck>
+
+
+

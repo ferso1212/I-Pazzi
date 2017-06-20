@@ -8,10 +8,12 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.MultiplierType;
 import it.polimi.ingsw.ps21.model.deck.TooManyArgumentException;
+import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesBuilder;
 
@@ -242,5 +244,9 @@ public class EffectBuilder {
 		default :
 			return new NullEffect();
 		}
+	}
+
+	public LeaderEffect makeLeaderEffect(Element item) {
+		return null;
 	}
 }

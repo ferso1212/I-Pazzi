@@ -21,6 +21,10 @@
 <!ELEMENT MilitaryPoints EMPTY>
 <!ELEMENT FaithPoints EMPTY>
 <!ELEMENT VictoryPoints EMPTY>
+<!ELEMENT FinalVPointsExcommunications (Green | Blue | Purple)>
+<!ELEMENT FinalVPointsExcommunication (Properties)>
+<!ELEMENT NoFInalVPointsForEveryResource EMPTY>
+<!ELEMENT NoFinalVPointsForBuindingsCost EMPTY>
 
 
 <!ATTLIST Excommunication id CDATA #REQUIRED period CDATA #REQUIRED >

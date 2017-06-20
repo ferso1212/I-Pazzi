@@ -17,7 +17,7 @@ public class ChurcSupport extends PermanentLeaderEffect {
 
 	@Override
 	public ExtraAction activate(AdvancedPlayer player) {
-		// TODO Auto-generated method stub
+		player.getAdvMod().setVaticanSupportBonus(true);
 		return new NullAction(player.getId());
 	}
 
@@ -28,7 +28,7 @@ public class ChurcSupport extends PermanentLeaderEffect {
 
 	@Override
 	public String getDesc() {
-		return "TO BE Implemented";
+		return "You earn 5 victory point bonus every time you accept church support";
 	}
 
 }
