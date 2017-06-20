@@ -81,6 +81,14 @@ public class AdvancedModifier {
 		this.buildingCardDiscount = buildingCardDiscount;
 	}
 	
-	
+	public AdvancedModifier()
+	{
+		this.reoccupyPlaces=false;
+		this.buildingCardDiscount=false;
+		this.doubleResources=false;
+		this.noMilitaryForTerritory=false;
+		this.vaticanSupportBonus=false;
+		this.noPayOccupiedTower=false;
+	}
 	
 }

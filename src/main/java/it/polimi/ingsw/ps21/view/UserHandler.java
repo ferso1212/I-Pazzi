@@ -2,6 +2,8 @@ package it.polimi.ingsw.ps21.view;
 
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
 import it.polimi.ingsw.ps21.controller.ActionRequest;
@@ -21,6 +23,7 @@ import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
 public class UserHandler extends Observable implements Visitor, Runnable, Observer {
+	private final static Logger LOGGER = Logger.getLogger(UserHandler.class.getName());
 	private PlayerColor playerId;
 	private Connection connection;
 	private String name;
@@ -38,60 +41,92 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 
 	@Override
 	public void visit(VaticanChoice choice) {
-		choice.setChosen(connection.reqVaticanChoice());
-		choice.setVisited();
-		notifyObservers(new ExecutedChoice(this.playerId));
+		try {
+			choice.setChosen(connection.reqVaticanChoice());
+			choice.setVisited();
+			notifyObservers(new ExecutedChoice(this.playerId));
+		} catch (DisconnectedException e) {
+			LOGGER.log(Level.WARNING, "Current player is not connected.", e);
+			setChanged();
+			notifyObservers("playerDisconnected");
+		}
 	}
 
 	@Override
 	public void visit(CostChoice choice) {
-		choice.setChosen(connection.reqCostChoice(choice.getChoices()));
-		choice.setVisited();
-		setChanged();
-		notifyObservers(new ExecutedChoice(this.playerId));
+		try {
+			choice.setChosen(connection.reqCostChoice(choice.getChoices()));
+			choice.setVisited();
+			setChanged();
+			notifyObservers(new ExecutedChoice(this.playerId));
+		} catch (DisconnectedException e) {
+			LOGGER.log(Level.WARNING, "Current player is not connected.", e);
+			setChanged();
+			notifyObservers("playerDisconnected");
+		}
 		}
 
 	@Override
 	public void visit(CouncilChoice choice) {
 		// TODO need to pass possible privileges
-		choice.setPrivilegesChosen(connection.reqPrivilegesChoice(choice.getNumberOfChoices(), choice.getPrivilegesValues()));
-		choice.setVisited();
-		setChanged();
-		notifyObservers(new ExecutedChoice(this.playerId));
+		try {
+			choice.setPrivilegesChosen(connection.reqPrivilegesChoice(choice.getNumberOfChoices(), choice.getPrivilegesValues()));
+			choice.setVisited();
+			setChanged();
+			notifyObservers(new ExecutedChoice(this.playerId));
+		} catch (DisconnectedException e) {
+			LOGGER.log(Level.WARNING, "Current player is not connected.", e);
+			setChanged();
+			notifyObservers("playerDisconnected");
+		}
 	}
 
 	@Override
 	public void visit(EffectChoice choice) {
-		choice.setEffectChosen(connection.reqEffectChoice(choice.getPossibleEffects()));
-		choice.isVisited();
-		setChanged();
-		notifyObservers(new ExecutedChoice(this.playerId));
+		try {
+			choice.setEffectChosen(connection.reqEffectChoice(choice.getPossibleEffects()));
+			choice.isVisited();
+			setChanged();
+			notifyObservers(new ExecutedChoice(this.playerId));
+		} catch (DisconnectedException e) {
+			LOGGER.log(Level.WARNING, "Current player is not connected.", e);
+			setChanged();
+			notifyObservers("playerDisconnected");
+		}
 		}
 
 	@Override
 	public void visit(WorkMessage message) {
-		connection.sendMessage(message.getMessage());
-		DevelopmentCard cardPossibilities[] = message.getChoices();
-		int choices[] = new int[cardPossibilities.length];
-		for (int i=0; i<choices.length; i++){
-			choices[i] = connection.reqWorkChoice(cardPossibilities[i]);
+		try {
+			connection.sendMessage(message.getMessage());
+			DevelopmentCard cardPossibilities[] = message.getChoices();
+			int choices[] = new int[cardPossibilities.length];
+			for (int i=0; i<choices.length; i++){
+				choices[i] = connection.reqWorkChoice(cardPossibilities[i]);
+			}
+			message.setChosenCardsAndEffects(choices);
+			message.setVisited();
+			setChanged();
+			notifyObservers(new ExecutedChoice(this.playerId));
+		} catch (DisconnectedException e) {
+			LOGGER.log(Level.WARNING, "Current player is not connected.", e);
+			setChanged();
+			notifyObservers("playerDisconnected");
 		}
-		message.setChosenCardsAndEffects(choices);
-		message.setVisited();
-		setChanged();
-		notifyObservers(new ExecutedChoice(this.playerId));
 	}
 
 	@Override
 	public void visit(AcceptedAction message) {
-		connection.sendMessage(message.getMessage());
-		message.setVisited();
+		
+			connection.sendMessage(message.getMessage());
+			message.setVisited();
 	}
 
 	@Override
 	public void visit(RefusedAction message) {
-		connection.sendMessage(message.getMessage());
-		message.setVisited();
+			connection.sendMessage(message.getMessage());
+			message.setVisited();
+		
 	}
 
 	@Override
@@ -106,81 +141,87 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if (o instanceof MatchController) {
-			if (arg instanceof ExtraActionRequest) {
-				ExtraActionRequest request = (ExtraActionRequest) arg;
-				if (request.getDest()== this.playerId){
-					ExtraActionData[] actions = request.getPossibilities();
-					ExtraActionData chosen = actions[connection.reqExtraActionChoice(actions)];
-					if (timeoutExpired)
-						connection.sendMessage("Timeout expired");
+		try {
+			if (o instanceof MatchController) {
+				if (arg instanceof ExtraActionRequest) {
+					ExtraActionRequest request = (ExtraActionRequest) arg;
+					if (request.getDest()== this.playerId){
+						ExtraActionData[] actions = request.getPossibilities();
+						ExtraActionData chosen = actions[connection.reqExtraActionChoice(actions)];
+						if (timeoutExpired)
+							connection.sendMessage("Timeout expired");
+						else {
+							setChanged();
+							notifyObservers(chosen);
+						}
+					}
+				} 
+				else if (arg instanceof ActionRequest) {
+					ActionRequest req = (ActionRequest) arg;
+					if (req.getDest() != this.playerId)
+						return;
 					else {
-						setChanged();
-						notifyObservers(chosen);
+						this.timeoutExpired = false;
+						ActionData newAction = connection.reqAction();
+						if (timeoutExpired)
+							connection.sendMessage("Timeout expired");
+						else {
+							setChanged();
+							notifyObservers(newAction);
+						}
 					}
 				}
-			} 
-			else if (arg instanceof ActionRequest) {
-				ActionRequest req = (ActionRequest) arg;
-				if (req.getDest() != this.playerId)
-					return;
-				else {
-					this.timeoutExpired = false;
-					ActionData newAction = connection.reqAction();
-					if (timeoutExpired)
-						connection.sendMessage("Timeout expired");
-					else {
-						setChanged();
-						notifyObservers(newAction);
+				 else if (arg instanceof MatchData) {
+					connection.remoteUpdate((MatchData) arg);
+				} else if (arg instanceof String) {
+					if (((String) arg).compareTo("Match Started") == 0) {
+						connection.matchStarted();
+
+					} else
+						connection.sendMessage((String) arg);
+
+				} else if (arg instanceof Message) {
+					if (((Message) arg).getDest() == this.playerId) {
+						if (arg instanceof TimeoutExpiredMessage) {
+							this.timeoutExpired = true;
+							connection.sendMessage(((TimeoutExpiredMessage)arg).getMessage());
+						}
+						else if(arg instanceof AcceptedAction)
+						{
+							visit((AcceptedAction)arg);
+						}
+						else if(arg instanceof RefusedAction)
+						{
+							visit((RefusedAction)arg);
+						}
+						else if (arg instanceof CostChoice)
+						{
+							CostChoice message = (CostChoice) arg;
+							visit(message);
+						}
+						else if (arg instanceof EffectChoice){
+							EffectChoice message = (EffectChoice) arg;
+							visit(message);
+							
+						}
+						else if (arg instanceof CompletedActionMessage){
+							connection.sendMessage(((CompletedActionMessage)arg).getMessage());
+						}
+						else if (arg instanceof WorkMessage){
+							WorkMessage message = (WorkMessage) arg;
+							visit(message);
+						}
+						else if (arg instanceof CouncilChoice){
+							CouncilChoice message = (CouncilChoice) arg;
+							visit(message);
+						}
 					}
 				}
 			}
-			 else if (arg instanceof MatchData) {
-				connection.remoteUpdate((MatchData) arg);
-			} else if (arg instanceof String) {
-				if (((String) arg).compareTo("Match Started") == 0) {
-					connection.matchStarted();
-
-				} else
-					connection.sendMessage((String) arg);
-
-			} else if (arg instanceof Message) {
-				if (((Message) arg).getDest() == this.playerId) {
-					if (arg instanceof TimeoutExpiredMessage) {
-						this.timeoutExpired = true;
-						connection.sendMessage(((TimeoutExpiredMessage)arg).getMessage());
-					}
-					else if(arg instanceof AcceptedAction)
-					{
-						visit((AcceptedAction)arg);
-					}
-					else if(arg instanceof RefusedAction)
-					{
-						visit((RefusedAction)arg);
-					}
-					else if (arg instanceof CostChoice)
-					{
-						CostChoice message = (CostChoice) arg;
-						visit(message);
-					}
-					else if (arg instanceof EffectChoice){
-						EffectChoice message = (EffectChoice) arg;
-						visit(message);
-						
-					}
-					else if (arg instanceof CompletedActionMessage){
-						connection.sendMessage(((CompletedActionMessage)arg).getMessage());
-					}
-					else if (arg instanceof WorkMessage){
-						WorkMessage message = (WorkMessage) arg;
-						visit(message);
-					}
-					else if (arg instanceof CouncilChoice){
-						CouncilChoice message = (CouncilChoice) arg;
-						visit(message);
-					}
-				}
-			}
+		} catch (DisconnectedException e) {
+			LOGGER.log(Level.WARNING, "Current player is not connected.", e);
+			setChanged();
+			notifyObservers("playerDisconnected");
 		}
 	}
 

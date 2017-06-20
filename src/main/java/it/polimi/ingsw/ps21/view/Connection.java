@@ -19,25 +19,25 @@ public abstract interface Connection{
 	
 	public String getName();
 	
-	public void remoteUpdate(MatchData match);
+	public void remoteUpdate(MatchData match) throws DisconnectedException;
 	
-	public int reqCostChoice(ArrayList<ImmProperties> costs);
+	public int reqCostChoice(ArrayList<ImmProperties> costs) throws DisconnectedException;
 
-	public boolean reqVaticanChoice();
+	public boolean reqVaticanChoice() throws DisconnectedException;
 	
-	public ImmProperties[] reqPrivilegesChoice(int number, ImmProperties[] privilegesValue);
+	public ImmProperties[] reqPrivilegesChoice(int number, ImmProperties[] privilegesValue) throws DisconnectedException;
 	
 	public void setID(PlayerColor player);
 	
-	public int reqExtraActionChoice(ExtraActionData[] actions);
+	public int reqExtraActionChoice(ExtraActionData[] actions) throws DisconnectedException;
 	
-	public ActionData reqAction();
+	public ActionData reqAction() throws DisconnectedException;
 
-	public EffectSet reqEffectChoice(EffectSet[] possibleEffects);
+	public EffectSet reqEffectChoice(EffectSet[] possibleEffects) throws DisconnectedException;
 	
 	public String reqName();
 
-	public int reqWorkChoice(DevelopmentCard message);
+	public int reqWorkChoice(DevelopmentCard message) throws DisconnectedException;
 	
 	public boolean reqWantsAdvRules();
 

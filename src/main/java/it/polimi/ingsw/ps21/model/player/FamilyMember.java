@@ -11,6 +11,7 @@ public class FamilyMember {
 	protected int modifier;
 	protected PlayerColor ownerId;
 	protected boolean used;
+	private boolean fixed;
 	
 	/**
 	 * Returns the value of the family member, which is the number on the corresponding dice + the number of servants used in the action + the value of the modifier.
@@ -53,10 +54,11 @@ public class FamilyMember {
 		this.ownerId=id;
 	}
 
-	/**
+	/**Sets the family member's value, if it's not fixed.
 	 * @param value the value to set
 	 */
 	public void setValue(int value) {
+		if(fixed) return;
 		this.value = value;
 	}
 
@@ -91,6 +93,10 @@ public class FamilyMember {
 	 */
 	public void setUsed(boolean used) {
 		this.used = used;
+	}
+
+	public void setFixed(boolean fixed) {
+		this.fixed = fixed;
 	}
 	
 	

@@ -64,7 +64,7 @@ public class ClientMain {
 					boolean matchStarted=client.start();
 					if (matchStarted){
 								
-										System.out.println("Do you want to play another match, fucking looser?\n(Y)es\n(N)o");
+										System.out.println("Do you want to play another match, fucking loser?\n(Y)es\n(N)o");
 											String response = in.nextLine();			
 							}
 								else {System.out.println("Failed to connect to server");

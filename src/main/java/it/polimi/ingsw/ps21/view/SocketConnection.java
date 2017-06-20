@@ -40,6 +40,7 @@ import it.polimi.ingsw.ps21.client.ViewUpdateRequestNetPacket;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.model.actions.ActionType;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
+import it.polimi.ingsw.ps21.model.deck.RequirementAndCost;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
@@ -86,11 +87,12 @@ public class SocketConnection implements Connection{
 		messageCounter++;
 	} catch (IOException e) {
 		LOGGER.log(Level.WARNING, "Unable to send choice request to the remote client due to IOException", e);
+		return;
 	}
 		
 	}
 
-	private NetPacket requestAndAwaitResponse(NetPacket packetToSend)
+	private NetPacket requestAndAwaitResponse(NetPacket packetToSend) throws IOException
 	{
 		try {
 			out.writeObject(packetToSend);
@@ -102,9 +104,6 @@ public class SocketConnection implements Connection{
 			}
 			return receivedPacket;
 			
-		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unable to send choice request to the remote client due to IOException", e);
-			return null;
 		} catch (ClassNotFoundException e) {
 			LOGGER.log(Level.WARNING, "Unable to parse received object due to ClassNotFound Exception", e);
 			return null;
@@ -112,33 +111,41 @@ public class SocketConnection implements Connection{
 	}
 	
 	@Override
-	public int reqCostChoice(ArrayList<ImmProperties> costs) {
-		if(!this.socket.isConnected()) return 0;
-		return ((CostChoiceResponseNetPacket)requestAndAwaitResponse(new CostChoiceRequestNetPacket(messageCounter, costs))).getChosen();
+	public int reqCostChoice(ArrayList<ImmProperties> costs) throws DisconnectedException {
+		
+		try {
+			return ((CostChoiceResponseNetPacket)requestAndAwaitResponse(new CostChoiceRequestNetPacket(messageCounter, costs))).getChosen();
+		} catch (IOException e) {
+			LOGGER.log(Level.WARNING, "Unable to request cost choice to the remote client due to IOException", e);
+			throw new DisconnectedException();
+		}
+		
 		
 	}
 
 
 	@Override
-	public boolean reqVaticanChoice() {
-		if(!this.socket.isConnected()) return false;
-		return ((VaticanChoiceResponseNetPacket)requestAndAwaitResponse(new VaticanChoiceRequestNetPacket(messageCounter))).supportsVatican();
+	public boolean reqVaticanChoice() throws DisconnectedException {
+
+		try {
+			return ((VaticanChoiceResponseNetPacket)requestAndAwaitResponse(new VaticanChoiceRequestNetPacket(messageCounter))).supportsVatican();
+		} catch (IOException e) {
+			LOGGER.log(Level.WARNING, "Unable to request vatican choice to the remote client due to IOException", e);
+			throw new DisconnectedException();
+		}
 	}
 
 
 	@Override
 
-	public ImmProperties[] reqPrivilegesChoice(int number, ImmProperties choices[]) {
-		if(!this.socket.isConnected()) 
-		{
-			ImmProperties[] defaultReturn= new ImmProperties[number];
-			for(int i=0; i<number; i++)
-			{
-				defaultReturn[i]=choices[i];
-			}
-			return defaultReturn;
+	public ImmProperties[] reqPrivilegesChoice(int number, ImmProperties choices[]) throws DisconnectedException {
+		
+		try {
+			return ((PrivilegesChoiceResponseNetPacket)requestAndAwaitResponse(new PrivilegesChoiceRequestNetPacket(this.messageCounter, number, choices))).getChosenPrivileges();
+		} catch (IOException e) {
+			LOGGER.log(Level.WARNING, "Unable to request privileges choice to the remote client due to IOException", e);
+			throw new DisconnectedException();
 		}
-		return ((PrivilegesChoiceResponseNetPacket)requestAndAwaitResponse(new PrivilegesChoiceRequestNetPacket(this.messageCounter, number, choices))).getChosenPrivileges();
 
 	}
 
@@ -166,7 +173,7 @@ public class SocketConnection implements Connection{
 	
 
 	@Override
-	public void matchStarted() {
+	public void matchStarted(){
 		try {
 			out.writeObject(new MatchStartedNetPacket(this.messageCounter));
 		} catch (IOException e) {
@@ -177,16 +184,25 @@ public class SocketConnection implements Connection{
 
 
 	@Override
-	public int reqExtraActionChoice(ExtraActionData[] actions) {
-		if(!this.socket.isConnected()) return 0;
-		return ((ExtraActionChoiceResponseNetPacket)requestAndAwaitResponse(new ExtraActionChoiceRequestNetPacket(messageCounter, actions))).getChosen();
+	public int reqExtraActionChoice(ExtraActionData[] actions) throws DisconnectedException{
+		try {
+			return ((ExtraActionChoiceResponseNetPacket)requestAndAwaitResponse(new ExtraActionChoiceRequestNetPacket(messageCounter, actions))).getChosen();
+		} catch (IOException e) {
+			LOGGER.log(Level.WARNING, "Unable to request action to the remote client due to IOException", e);
+			throw new DisconnectedException();
+		}
 	}
 
 
 	@Override
-	public ActionData reqAction(){
-		if(!this.socket.isConnected()) return new ActionData(ActionType.NULL, null,0 , null, 0);
-		return ((ActionResponseNetPacket)requestAndAwaitResponse(new ActionRequestNetPacket(messageCounter))).getAction();
+	public ActionData reqAction() throws DisconnectedException{
+		
+		try {
+			return ((ActionResponseNetPacket)requestAndAwaitResponse(new ActionRequestNetPacket(messageCounter))).getAction();
+		} catch (IOException e) {
+			LOGGER.log(Level.WARNING, "Unable to request action to the remote client due to IOException", e);
+			throw new DisconnectedException();
+		}
 		
 	}
 	
@@ -202,18 +218,28 @@ public class SocketConnection implements Connection{
 
 
 	@Override
-	public EffectSet reqEffectChoice(EffectSet[] possibleEffects) {
-		if (!this.socket.isConnected()) return possibleEffects[0];
-		int chosen = ((EffectChoiceResponseNetPacket)requestAndAwaitResponse(new EffectChoiceRequestNetPacket(messageCounter, possibleEffects))).getChosen();
-		return possibleEffects[chosen];
+	public EffectSet reqEffectChoice(EffectSet[] possibleEffects) throws DisconnectedException{
+		
+		try {
+			int chosen = ((EffectChoiceResponseNetPacket)requestAndAwaitResponse(new EffectChoiceRequestNetPacket(messageCounter, possibleEffects))).getChosen();
+			return possibleEffects[chosen];
+		} catch (IOException e) {
+			LOGGER.log(Level.WARNING, "Unable to request effect choice to the remote client due to IOException", e);
+			throw new DisconnectedException();
+		}
 	}
 
 
 	@Override
 	public String reqName() {
-		String receivedName= ((NameResponseNetPacket)requestAndAwaitResponse(new NameRequestNetPacket(messageCounter))).getName();
-		this.name=receivedName;
-		return name;
+		try {
+			String receivedName= ((NameResponseNetPacket)requestAndAwaitResponse(new NameRequestNetPacket(messageCounter))).getName();
+			this.name=receivedName;
+			return name;
+		} catch (IOException e) {
+			LOGGER.log(Level.WARNING, "Unable to request name to the remote client due to IOException", e);
+			return null;
+		}
 	}
 		
 	public boolean isConnected(){
@@ -222,9 +248,14 @@ public class SocketConnection implements Connection{
 
 
 	@Override
-	public int reqWorkChoice(DevelopmentCard message) {
-		if (!this.socket.isConnected()) return 0;
-		return ((WorkChoiceResponseNetPacket)requestAndAwaitResponse(new WorkChoiceRequestNetPacket(messageCounter, message))).getChosen();
+	public int reqWorkChoice(DevelopmentCard message) throws DisconnectedException {
+	
+		try {
+			return ((WorkChoiceResponseNetPacket)requestAndAwaitResponse(new WorkChoiceRequestNetPacket(messageCounter, message))).getChosen();
+		} catch (IOException e) {
+			LOGGER.log(Level.WARNING, "Unable to request work choice to the remote client due to IOException", e);
+			throw new DisconnectedException();
+		}
 	}
 
 
@@ -236,8 +267,13 @@ public class SocketConnection implements Connection{
 
 
 	@Override
-	public boolean reqWantsAdvRules() {
-		return ((RulesChoiceResponseNetPacket)requestAndAwaitResponse(new RulesChoiceRequestNetPacket(messageCounter))).wantsAdvanced();
+	public boolean reqWantsAdvRules(){
+		try {
+			return ((RulesChoiceResponseNetPacket)requestAndAwaitResponse(new RulesChoiceRequestNetPacket(messageCounter))).wantsAdvanced();
+		} catch (IOException e) {
+			LOGGER.log(Level.WARNING, "Unable to request rules choice to the remote client due to IOException", e);
+			return false;
+		}
 		
 	}
 	
