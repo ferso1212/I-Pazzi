@@ -38,6 +38,7 @@ import it.polimi.ingsw.ps21.client.VaticanChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.VaticanChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.ViewUpdateRequestNetPacket;
 import it.polimi.ingsw.ps21.controller.MatchData;
+import it.polimi.ingsw.ps21.model.actions.ActionType;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
@@ -79,6 +80,7 @@ public class SocketConnection implements Connection{
 
 	@Override
 	public void remoteUpdate(MatchData match) {
+		if(!this.socket.isConnected()) return;
 		try{
 		out.writeObject(new ViewUpdateRequestNetPacket(this.messageCounter, match));
 		messageCounter++;
@@ -111,6 +113,7 @@ public class SocketConnection implements Connection{
 	
 	@Override
 	public int reqCostChoice(ArrayList<ImmProperties> costs) {
+		if(!this.socket.isConnected()) return 0;
 		return ((CostChoiceResponseNetPacket)requestAndAwaitResponse(new CostChoiceRequestNetPacket(messageCounter, costs))).getChosen();
 		
 	}
@@ -118,6 +121,7 @@ public class SocketConnection implements Connection{
 
 	@Override
 	public boolean reqVaticanChoice() {
+		if(!this.socket.isConnected()) return false;
 		return ((VaticanChoiceResponseNetPacket)requestAndAwaitResponse(new VaticanChoiceRequestNetPacket(messageCounter))).supportsVatican();
 	}
 
@@ -125,6 +129,15 @@ public class SocketConnection implements Connection{
 	@Override
 
 	public ImmProperties[] reqPrivilegesChoice(int number, ImmProperties choices[]) {
+		if(!this.socket.isConnected()) 
+		{
+			ImmProperties[] defaultReturn= new ImmProperties[number];
+			for(int i=0; i<number; i++)
+			{
+				defaultReturn[i]=choices[i];
+			}
+			return defaultReturn;
+		}
 		return ((PrivilegesChoiceResponseNetPacket)requestAndAwaitResponse(new PrivilegesChoiceRequestNetPacket(this.messageCounter, number, choices))).getChosenPrivileges();
 
 	}
@@ -133,6 +146,7 @@ public class SocketConnection implements Connection{
 
 	@Override
 	public void sendMessage(String mess) {
+		if(!this.socket.isConnected()) return;
 		try {
 
 			out.writeObject(new GenericStringNetPacket(this.messageCounter, mess));
@@ -164,12 +178,14 @@ public class SocketConnection implements Connection{
 
 	@Override
 	public int reqExtraActionChoice(ExtraActionData[] actions) {
+		if(!this.socket.isConnected()) return 0;
 		return ((ExtraActionChoiceResponseNetPacket)requestAndAwaitResponse(new ExtraActionChoiceRequestNetPacket(messageCounter, actions))).getChosen();
 	}
 
 
 	@Override
 	public ActionData reqAction(){
+		if(!this.socket.isConnected()) return new ActionData(ActionType.NULL, null,0 , null, 0);
 		return ((ActionResponseNetPacket)requestAndAwaitResponse(new ActionRequestNetPacket(messageCounter))).getAction();
 		
 	}
@@ -187,6 +203,7 @@ public class SocketConnection implements Connection{
 
 	@Override
 	public EffectSet reqEffectChoice(EffectSet[] possibleEffects) {
+		if (!this.socket.isConnected()) return possibleEffects[0];
 		int chosen = ((EffectChoiceResponseNetPacket)requestAndAwaitResponse(new EffectChoiceRequestNetPacket(messageCounter, possibleEffects))).getChosen();
 		return possibleEffects[chosen];
 	}
@@ -206,6 +223,7 @@ public class SocketConnection implements Connection{
 
 	@Override
 	public int reqWorkChoice(DevelopmentCard message) {
+		if (!this.socket.isConnected()) return 0;
 		return ((WorkChoiceResponseNetPacket)requestAndAwaitResponse(new WorkChoiceRequestNetPacket(messageCounter, message))).getChosen();
 	}
 
