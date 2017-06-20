@@ -477,4 +477,22 @@ public class CLInterface implements UserInterface {
 		return effectChosen;
 	}
 
+	@Override
+	public String reqName() {
+		System.out.println("\nInsert your name: ");
+		return userInput.nextLine();
+	}
+
+	@Override
+	public boolean reqIfWantsAdvancedRules() {
+		int chosenRules=0;
+		while(chosenRules!= 1 && chosenRules != 2)
+		{
+		System.out.println("\nWhich rules do you want to use? \n1 Standard \n2 Advanced");
+		chosenRules=userInput.nextInt();
+		}
+		if(chosenRules==2) return true;
+		else return false;
+	}
+
 }

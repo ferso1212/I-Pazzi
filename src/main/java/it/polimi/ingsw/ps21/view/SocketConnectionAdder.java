@@ -26,6 +26,7 @@ public class SocketConnectionAdder extends Thread {
 		this.connectionsQueue = connectionsQueue;
 		this.advConnectionsQueue = advConnectionsQueue;
 		this.playingUsers=playingUsers;
+		this.names=names;
 	}
 
 	public void run() {
@@ -68,7 +69,8 @@ public class SocketConnectionAdder extends Thread {
 	}
 
 	private void addConnectionToQueue(SocketConnection newConnection) {
-		if (!newConnection.isAdvanced()) {
+		boolean wantsAdvRules=newConnection.reqWantsAdvRules();
+		if (!wantsAdvRules) {
 			synchronized (connectionsQueue) {
 				this.connectionsQueue.add(newConnection);
 

@@ -47,7 +47,6 @@ public class SocketConnection implements Connection{
 	private final static Logger LOGGER = Logger.getLogger(SocketConnection.class.getName());
 	private Socket socket;
 	private String name;
-	private boolean isAdvanced;
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
 	private boolean connected;
@@ -55,7 +54,7 @@ public class SocketConnection implements Connection{
 	private int messageCounter;
 
 	public SocketConnection(Socket socket) {
-		
+		this.connected=true;
 		this.socket = socket;
 		this.messageCounter=1;
 		try {
@@ -151,10 +150,6 @@ public class SocketConnection implements Connection{
 		return this.name;
 	}
 	
-	public boolean isAdvanced() {
-		return this.isAdvanced;
-	}
-
 
 	@Override
 	public void matchStarted() {
@@ -220,4 +215,14 @@ public class SocketConnection implements Connection{
 		
 		return this.newMatch;
 	}
+
+
+	@Override
+	public boolean reqWantsAdvRules() {
+		return ((RulesChoiceResponseNetPacket)requestAndAwaitResponse(new RulesChoiceRequestNetPacket(messageCounter))).wantsAdvanced();
+		
+	}
+	
+
+	
 }

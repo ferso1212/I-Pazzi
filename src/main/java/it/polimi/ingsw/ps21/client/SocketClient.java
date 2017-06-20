@@ -13,6 +13,7 @@ import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.ActionData;
+import it.polimi.ingsw.ps21.view.RulesChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.view.WorkChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.view.WorkChoiceResponseNetPacket;
 
@@ -49,13 +50,13 @@ public class SocketClient {
 	}
 	
 
-	public boolean start(int chosenRules, String name) {
+	public boolean start() {
 		
 		try {
 			
 			//StartInfoNetPacket initialInfos = new StartInfoNetPacket(0, chosenRules, name);
 			//out.writeObject(initialInfos);
-			out.writeObject(new GenericStringNetPacket(0, "Client ready to receive"));
+			System.out.println("\nClient ready to receive from server.");
 			NetPacket receivedPacket = (NetPacket)in.readObject();
 				parseSocketInput(receivedPacket);
 				while (socket.isConnected()) {
@@ -152,6 +153,19 @@ public class SocketClient {
 			{
 				int chosen= ui.reqWorkChoice(((WorkChoiceRequestNetPacket)receivedPacket).getCard());
 				out.writeObject(new WorkChoiceResponseNetPacket(receivedPacket.getNum(), chosen));
+				break;
+			}
+			case NAME:
+			{
+				String chosenName= ui.reqName();
+				out.writeObject(new NameResponseNetPacket(receivedPacket.getNum(), chosenName));
+				break;
+			}
+			case RULES_CHOICE:
+			{
+				boolean wantsAdvRules= ui.reqIfWantsAdvancedRules();
+				out.writeObject(new RulesChoiceResponseNetPacket(receivedPacket.getNum(), wantsAdvRules));
+				break;
 			}
 			default:
 				break;

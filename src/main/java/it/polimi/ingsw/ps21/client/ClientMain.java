@@ -59,8 +59,9 @@ public class ClientMain {
     	
 			if (chosenConnection==1) {
 				SocketClient client = new SocketClient(CLImatch, parseChoice(chosenJoin)); 
+
 				
-					boolean matchStarted=client.start(chosenRules, name);
+					boolean matchStarted=client.start();
 					if (matchStarted){
 								
 										System.out.println("Do you want to play another match, fucking looser?\n(Y)es\n(N)o");
@@ -71,7 +72,7 @@ public class ClientMain {
 								}
 			}
 			else{
-				try {
+				/*try {
 					RMIClient rmiclient = new RMIClient(name, CLImatch, chosenRules, RMI_PORT);
 					rmiclient.start();
 					while(!CLImatch.isEnded());
@@ -80,7 +81,7 @@ public class ClientMain {
 					System.out.println("Failed to connect to server through RMI.");
 					LOGGER.log(Level.WARNING, "RMI Connection failed", e);
 					newMatch = false;
-				}
+				}*/
 			}
 						
 		

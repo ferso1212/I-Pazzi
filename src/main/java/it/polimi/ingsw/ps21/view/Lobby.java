@@ -94,7 +94,7 @@ public class Lobby extends Thread{
 	}
 	}
 	
-	public ConcurrentLinkedQueue getConnections()
+	public ConcurrentLinkedQueue<Connection> getConnections()
 	{
 		return this.connectionsQueue;
 	}

@@ -27,10 +27,11 @@ public class Server implements Runnable {
 	
 
 	public Server() {
+		this.names=new ArrayList<>();
+		this.playingUsers=new ConcurrentHashMap<>();
 		this.stdLobby=new Lobby(false, names, playingUsers);
 		this.advLobby=new Lobby(true, names, playingUsers);
-		this.names=new ArrayList<>();
-
+	
 	}
 
 	@Override

@@ -52,6 +52,8 @@ public abstract interface UserInterface {
 
 	public int reqWorkChoice(DevelopmentCard workCard);
 
-
+	public String reqName();
+	
+	public boolean reqIfWantsAdvancedRules();
 
 }

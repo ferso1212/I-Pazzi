@@ -17,7 +17,7 @@ public class SocketConnectionsAcceptor extends ConnectionsAcceptor implements Ru
 
 	private static final int PORT = 7777; // TODO choose correct port
 private ServerSocket serverSocket;
-private ArrayList<String> names;
+
 	
 	public SocketConnectionsAcceptor(ConcurrentLinkedQueue<Connection> stdConnections, ConcurrentLinkedQueue<Connection> advConnections, ArrayList<String> names, ConcurrentHashMap<String, UserHandler> playingUsers) {
 		super(stdConnections, advConnections, names, playingUsers);

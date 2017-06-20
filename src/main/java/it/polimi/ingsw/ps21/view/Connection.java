@@ -38,5 +38,7 @@ public abstract interface Connection{
 	public String reqName();
 
 	public int reqWorkChoice(DevelopmentCard message);
+	
+	public boolean reqWantsAdvRules();
 
 }
