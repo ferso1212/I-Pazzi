@@ -11,8 +11,6 @@ import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public abstract interface Connection{
-	public boolean wantsNewMatch();
-
 	public void matchStarted();
 	
 	public void sendMessage(String mess);
@@ -33,12 +31,10 @@ public abstract interface Connection{
 	
 	public ActionData reqAction() throws DisconnectedException;
 
-	public EffectSet reqEffectChoice(EffectSet[] possibleEffects) throws DisconnectedException;
-	
-	public String reqName();
 
-	public int reqWorkChoice(DevelopmentCard message) throws DisconnectedException;
-	
-	public boolean reqWantsAdvRules();
+	public EffectSet reqEffectChoice(EffectSet[] possibleEffects) throws DisconnectedException;;
+
+	public int reqWorkChoice(DevelopmentCard message) throws DisconnectedException;;
+
 
 }

@@ -25,11 +25,11 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 	private final static Logger LOGGER = Logger.getLogger(RMIConnection.class.getName());
 
 	private String name;
-	// Unused private Queue<String> input;
-	// Unused private Queue<String> output;
 	private transient RMIClientInterface client;
-	public RMIConnection(String userName) throws RemoteException{
-		name = userName;
+	private boolean newMatch;
+	
+	public RMIConnection(boolean wantsNewConnection) throws RemoteException{
+		
 	}
 
 
@@ -178,6 +178,22 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 		
 		
 		
+	}
+
+
+	public boolean wantsNewMatch() {
+		return this.newMatch;
+	}
+
+
+	
+	public String reqName() throws RemoteException {
+		return client.reqName();
+	}
+
+
+	public boolean reqWantsAdvRules() throws RemoteException {
+		return client.reqRules();
 	}
 
 }
