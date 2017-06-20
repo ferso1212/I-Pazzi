@@ -14,12 +14,10 @@ public class DoubleResources extends PermanentLeaderEffect {
 
 	public DoubleResources(Requirement req) {
 		super(req);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public ExtraAction activate(AdvancedPlayer player) {
-		// To be implemented
 		player.getAdvMod().setDoubleResources(true);
 		return new NullAction(player.getId());
 	}

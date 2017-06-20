@@ -42,6 +42,10 @@ public abstract class LeaderEffect implements Serializable{
 	
 	public abstract String getType();
 	public abstract String getDesc();
+	
+	public Requirement getRequirement(){
+		return this.requirement;
+	}
 
 		
 	

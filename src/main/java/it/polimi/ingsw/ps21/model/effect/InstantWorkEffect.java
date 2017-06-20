@@ -1,7 +1,9 @@
 package it.polimi.ingsw.ps21.model.effect;
 
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
+import it.polimi.ingsw.ps21.model.actions.ExtraWorkAction;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
+import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.player.Player;
@@ -9,16 +11,19 @@ import it.polimi.ingsw.ps21.model.player.Player;
 /*
  * To be implemented
  */
-public class WorkEffect extends PermanentLeaderEffect {
+public class InstantWorkEffect extends PermanentLeaderEffect {
 
-	public WorkEffect(Requirement req) {
+	private WorkType type;
+	private int diceValue;
+	public InstantWorkEffect(Requirement req, WorkType type, int diceValue) {
 		super(req);
+		this.type = type;
+		this.diceValue = diceValue;
 	}
 
 	@Override
 	public ExtraAction activate(AdvancedPlayer player) {
-		// TODO Auto-generated method stub
-		return null;
+		return new ExtraWorkAction(player.getId(), 0, type);
 
 	}
 
@@ -29,8 +34,7 @@ public class WorkEffect extends PermanentLeaderEffect {
 
 	@Override
 	public String getDesc() {
-		// TODO Auto-generated method stub
-		return "TO BE IMPLEMENTED";
+		return "You can execute one extra " + type + "action with the diceValue of " + diceValue ;
 	}
 
 }

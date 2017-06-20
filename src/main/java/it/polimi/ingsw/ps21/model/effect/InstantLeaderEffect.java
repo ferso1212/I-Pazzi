@@ -7,6 +7,11 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 public abstract class InstantLeaderEffect extends LeaderEffect{
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1248622228845456305L;
+
 	public InstantLeaderEffect(Requirement req) {
 		super(req);
 	}
