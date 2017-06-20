@@ -79,7 +79,7 @@ public class AdvancedPlayer extends Player {
 	
 	public boolean checkCardRequirements(LeaderCard card)
 	{
-		for (Requirement req : card.getRequirements()) {
+		for (Requirement req : card.getLeaderRequirements()) {
 			if (this.checkRequirement(req)) return true;
 		}
 		return false;
