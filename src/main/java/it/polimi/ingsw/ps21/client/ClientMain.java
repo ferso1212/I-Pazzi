@@ -72,16 +72,14 @@ public class ClientMain {
 								}
 			}
 			else{
-				/*try {
-					RMIClient rmiclient = new RMIClient(name, CLImatch, chosenRules, RMI_PORT);
+				try {
+					RMIClient rmiclient = new RMIClient(CLImatch, "127.0.0.1", RMI_PORT, parseChoice(chosenJoin));
 					rmiclient.start();
-					while(!CLImatch.isEnded());
-		
 				} catch (RemoteException | NotBoundException e) {
 					System.out.println("Failed to connect to server through RMI.");
 					LOGGER.log(Level.WARNING, "RMI Connection failed", e);
 					newMatch = false;
-				}*/
+				}
 			}
 						
 		

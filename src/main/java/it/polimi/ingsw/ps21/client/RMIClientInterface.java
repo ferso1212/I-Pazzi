@@ -38,4 +38,8 @@ public interface RMIClientInterface extends Remote {
 	public int reqEffectChoice(EffectSet[] possibleEffects) throws RemoteException;
 
 	public int reqWorkChoice(DevelopmentCard workCard) throws RemoteException;
+
+	public String reqName() throws RemoteException;
+	
+	public boolean reqRules() throws RemoteException;
 }

@@ -30,18 +30,23 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	private String username;
 	private final String SERVER_HOSTNAME = "127.0.0.1"; 
 	
-	public RMIClient(String username, UserInterface ui, int chosenRules, int port) throws RemoteException, NotBoundException{
-		this.username = username;
+	public RMIClient( UserInterface ui, String hostname, int port, boolean newMatch) throws RemoteException, NotBoundException{
 		this.ui = ui;
 		serverRegistry = LocateRegistry.getRegistry(SERVER_HOSTNAME, port);
 		RMIConnectionCreator connectionService = (RMIConnectionCreator) serverRegistry.lookup("RMIConnectionCreator");
-	   	connection = connectionService.getNewConnection(username, chosenRules);
+	   	connection = connectionService.getNewConnection(newMatch);	
 		connection.setClient((RMIClientInterface) this); 
 		connected = true;
+		try {
+			connectionService.setupConnection(connection);
+		} catch (RemoteException e) {
+			connected = false;
+		}
 	}
 	
 	public void start(){ 
 		 if (connected) ui.showInfo("Connected to RMI Server");
+		 else ui.showInfo("Error! Not connected to RMI Server");
 		
 		
 	}
@@ -120,6 +125,16 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	@Override
 	public int reqWorkChoice(DevelopmentCard workCard) throws RemoteException {
 		return ui.reqWorkChoice(workCard);
+	}
+
+	@Override
+	public String reqName() throws RemoteException {
+		return ui.reqName();
+	}
+
+	@Override
+	public boolean reqRules() throws RemoteException {
+		return ui.reqIfWantsAdvancedRules();
 	}
 
 }

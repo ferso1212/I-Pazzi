@@ -41,7 +41,7 @@ public class Server implements Runnable {
 		new Thread(new SocketConnectionsAcceptor(this.stdLobby.getConnections(), this.advLobby.getConnections(), this.names, this.playingUsers)).start();
 		try {
 			Registry locRegistry = LocateRegistry.createRegistry(5000);
-			RMIConnectionAcceptor rmiAcceptor = new RMIConnectionAcceptor(this.stdLobby.getConnections(), this.advLobby.getConnections());
+			RMIConnectionAcceptor rmiAcceptor = new RMIConnectionAcceptor(this.stdLobby.getConnections(), this.advLobby.getConnections(), this.names, this.playingUsers);
 			RMIConnectionCreator stubAcceptor = rmiAcceptor;
 			locRegistry.rebind("RMIConnectionCreator", stubAcceptor);
 			// new Thread(rmiAcceptor).start();
