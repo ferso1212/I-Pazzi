@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Level;
@@ -19,8 +20,8 @@ public class RMIConnectionAcceptor extends UnicastRemoteObject implements RMICon
 	ArrayList<RMIConnection> connections = new ArrayList<>();
 	private ArrayList<String> usedNames;
 	private ConcurrentHashMap<String, UserHandler> playingUsers;
-	private ArrayList<Connection> connection;
-	private ConcurrentHashMap<RMIConnectionInterface, RMIConnection> interfaceMap;
+	private HashMap<Integer, RMIConnection> connectionsMap;
+	private int interfaceCounter;
 
 	public RMIConnectionAcceptor(ConcurrentLinkedQueue<Connection> connectionsQueue,
 			ConcurrentLinkedQueue<Connection> advConnectionsQueue, ArrayList<String> names,
@@ -29,6 +30,9 @@ public class RMIConnectionAcceptor extends UnicastRemoteObject implements RMICon
 		this.advConnectionsQueue = advConnectionsQueue;
 		this.playingUsers = playingUsers;
 		this.usedNames = names;
+		this.interfaceCounter=0;
+		this.connectionsMap=new HashMap<>();
+		
 	}
 
 	@Override
@@ -41,9 +45,10 @@ public class RMIConnectionAcceptor extends UnicastRemoteObject implements RMICon
 	@Override
 	public synchronized RMIConnectionInterface getNewConnection(boolean wantsNewConnection) throws RemoteException {
 		if (connections.size() < 128) {
-			RMIConnection newConnection = new RMIConnection(wantsNewConnection);
+			interfaceCounter++;
+			RMIConnection newConnection = new RMIConnection(wantsNewConnection, interfaceCounter);
 			RMIConnectionInterface rmiinterface = (RMIConnectionInterface) newConnection;
-			interfaceMap.put(rmiinterface, newConnection);
+			this.connectionsMap.put(interfaceCounter, newConnection);
 			return rmiinterface;
 		} else
 			return null;
@@ -51,9 +56,13 @@ public class RMIConnectionAcceptor extends UnicastRemoteObject implements RMICon
 
 	public boolean rejoinConnection(RMIConnectionInterface newConnection, String oldName) {
 		synchronized (playingUsers) {
-			if (playingUsers.containsKey(oldName) && interfaceMap.containsKey(newConnection)) {
-				playingUsers.get(oldName).setConnection(interfaceMap.get(newConnection));
-				interfaceMap.remove(newConnection);
+			if (playingUsers.containsKey(oldName)) {
+				try {
+					playingUsers.get(oldName).setConnection(connectionsMap.get(newConnection.getId()));
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				return true;
 			} else
 				return false;
@@ -61,11 +70,12 @@ public class RMIConnectionAcceptor extends UnicastRemoteObject implements RMICon
 	}
 
 	public synchronized void setupConnection(RMIConnectionInterface connection) throws RemoteException {
-		if (interfaceMap.containsKey(connection)) {
-			RMIConnection unsettedConnection = interfaceMap.get(connection);
+			int value=connection.getId();
+			if(!connectionsMap.containsKey(value)) return;
 			try {
+				RMIConnection unsettedConnection = this.connectionsMap.get(connection.getId());
 				if (unsettedConnection.wantsNewMatch()) {
-					String name = unsettedConnection.reqName();
+					String name;
 					boolean usedName;
 					do {
 						name = unsettedConnection.reqName();
@@ -79,26 +89,24 @@ public class RMIConnectionAcceptor extends UnicastRemoteObject implements RMICon
 					} while (usedName);
 					boolean rules = unsettedConnection.reqWantsAdvRules();
 					addConnectionToQueue(rules, unsettedConnection);
-					interfaceMap.remove(connection);
+					
 				} else {
-					String name = unsettedConnection.reqName();
+					String name;
 					boolean usedName;
 					do {
+						name = unsettedConnection.reqName();
 						synchronized (playingUsers) {
 							usedName = playingUsers.containsKey(name);
-						}
-						if (!usedName)
-							name = unsettedConnection.reqName();
+						}							
 					} while (!usedName);
 					playingUsers.get(name).setConnection(unsettedConnection);
-					interfaceMap.remove(connection);
+					
 				}
 			} catch (RemoteException e) {
 				LOGGER.log(Level.SEVERE, "Error in new connection setup, removing unsetted connection", e);
-				interfaceMap.remove(connection);
+				
 			}
 
-		}
 	}
 
 	private void addConnectionToQueue(boolean advancedRules, RMIConnection newConnection) {

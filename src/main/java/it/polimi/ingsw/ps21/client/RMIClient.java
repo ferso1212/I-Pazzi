@@ -43,13 +43,6 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 			connected = false;
 		}
 	}
-	
-	public void start(){ 
-		 if (connected) ui.showInfo("Connected to RMI Server");
-		 else ui.showInfo("Error! Not connected to RMI Server");
-		
-		
-	}
 		/*try {
 			while(true){
 			this.wait(30);

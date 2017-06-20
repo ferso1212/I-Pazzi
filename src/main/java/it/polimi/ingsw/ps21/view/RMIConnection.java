@@ -27,8 +27,11 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 	private String name;
 	private transient RMIClientInterface client;
 	private boolean newMatch;
+	int id;
 	
-	public RMIConnection(boolean wantsNewConnection) throws RemoteException{
+	public RMIConnection(boolean wantsNewConnection, int id) throws RemoteException{
+		this.newMatch=wantsNewConnection;
+		this.id=id;
 		
 	}
 
@@ -131,12 +134,12 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 
 
 	@Override
-	public ActionData reqAction() {
+	public ActionData reqAction() throws DisconnectedException {
 		try {
 			return client.actionRequest();
 		} catch (RemoteException e) {
 			LOGGER.log(Level.WARNING, "Error calling remote method actionRequest");
-			return new ActionData(ActionType.NULL, null,0 , null, 0);
+			throw new DisconnectedException();
 		}
 	}
 
@@ -188,12 +191,22 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 
 	
 	public String reqName() throws RemoteException {
-		return client.reqName();
+		this.name = client.reqName();
+		return name;
 	}
 
 
 	public boolean reqWantsAdvRules() throws RemoteException {
 		return client.reqRules();
 	}
+
+
+	@Override
+	public int getId() throws RemoteException {
+		
+		return this.id;
+	}
+
+
 
 }

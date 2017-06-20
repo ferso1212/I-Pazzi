@@ -230,7 +230,7 @@ public class SocketConnection implements Connection{
 	}
 
 
-	@Override
+	
 	public String reqName() {
 		try {
 			String receivedName= ((NameResponseNetPacket)requestAndAwaitResponse(new NameRequestNetPacket(messageCounter))).getName();
@@ -259,14 +259,14 @@ public class SocketConnection implements Connection{
 	}
 
 
-	@Override
+	
 	public boolean wantsNewMatch() {
 		
 		return this.newMatch;
 	}
 
 
-	@Override
+	
 	public boolean reqWantsAdvRules(){
 		try {
 			return ((RulesChoiceResponseNetPacket)requestAndAwaitResponse(new RulesChoiceRequestNetPacket(messageCounter))).wantsAdvanced();
