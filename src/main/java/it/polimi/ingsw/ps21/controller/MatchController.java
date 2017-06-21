@@ -36,6 +36,11 @@ import it.polimi.ingsw.ps21.view.RoundTimer;
 import it.polimi.ingsw.ps21.view.TimeoutExpiredMessage;
 import it.polimi.ingsw.ps21.view.UserHandler;
 
+/**Controller class of the MVC pattern. Separates Model (Match) from View (UserHandler).
+ * Observes all the UserHandlers and is observed by all of them. The controller observes the match, too.
+ * @author fabri
+ * @author daniele
+ */
 public class MatchController extends Observable implements Observer {
 	private static final Logger LOGGER = Logger.getLogger(MatchController.class.getName());
 	private EnumMap<PlayerColor, UserHandler> handlersMap;
@@ -54,6 +59,13 @@ public class MatchController extends Observable implements Observer {
 	private RoundTimer timer;
 	private Thread timerThread;
 
+	/**Constructs the controller.
+	 * The controller adds himself as observer of the match and of all the UserHandlers.
+	 * Each UserHandler is also registered as observer of the controller.
+	 * Once the object is created, the match starts.
+	 * @param match the model to observe
+	 * @param handlers the UserHandlers the controller will communicate with.
+	 */
 	public MatchController(Match match, UserHandler... handlers) {
 		super();
 		this.match = match;
@@ -70,6 +82,10 @@ public class MatchController extends Observable implements Observer {
 		startMatch();
 	}
 
+	/**
+	 * Starts a new match.
+	 * This method performs 2 actions: notifies the UserHandlers with the datas of the new match and starts a new round.
+	 */
 	public void startMatch() {
 		setChanged();
 		MatchData matchinfo = new MatchData(match);
@@ -77,6 +93,12 @@ public class MatchController extends Observable implements Observer {
 		newRound();
 	}
 
+	/**Checks if an action requires the user to choice some parameters in order to be performed and, if so, requests that choice to the user.
+	 * This is achieved by calling the action.update() method and checking its return value:
+	 * <li>if action.update() returns a RefusedAction message, the action is discarded and another action is requested to the player;
+	 * <li>if action.update() returns a AcceptedAction message, the action is executed and the player is notified;
+	 * <li>otherwise, the action needs some parameters (user choices) in order to be performed, so the choice is requested to the player.
+	 */
 	private void getActionChoices() {
 		
 			Message returnMessage = currentAction.update(this.currentPlayer, this.match);
@@ -98,6 +120,12 @@ public class MatchController extends Observable implements Observer {
 			// accepted or refused
 		}
 
+	/**Checks if an extra action requires the user to choice some parameters in order to be performed and, if so, requests that choice to the user.
+	 * This is achieved by calling the action.update() method and checking its return value:
+	 * <li>if action.update() returns a RefusedAction message, the action is discarded and another action is requested to the player;
+	 * <li>if action.update() returns a AcceptedAction message, the action is executed and the player is notified;
+	 * <li>otherwise, the action needs some parameters (user choices) in order to be performed, so the choice is requested to the player.
+	 */
 	private void getExtraActionChoices() {
 		if (state == ActionState.AWAITING_CHOICES) {
 			Message returnMessage = currentAction.update(this.currentPlayer, this.match);
@@ -116,7 +144,9 @@ public class MatchController extends Observable implements Observer {
 			 }
 	}
 		 
-
+	/**
+	 * Performs the action that is being handled by the controller, stores the eventual extra actions generated and activates the first of them.
+	 */
 	private void performAction() {
 		
 		try {
@@ -188,6 +218,9 @@ public class MatchController extends Observable implements Observer {
 		}		
 	}*/
 
+	/**Notifies the UserHandler with the available extra actions
+	 * 
+	 */
 	private void reqExtraAction() {
 		ArrayList<ExtraActionData> extraDatas = new ArrayList<>();
 		for (ExtraAction a: currentExtraActions)
@@ -205,12 +238,19 @@ public class MatchController extends Observable implements Observer {
 		}
 	}
 
+	/**
+	 * Starts a new round
+	 */
 	//TODO: verificare se è round vatican
 	private void newRound() {
 		currentPlayer=match.getCurrentPlayer();
 		reqPlayerAction();
 	}
 
+	/**
+	 * Requests a new action to the current player.
+	 * If the current stage is Vatican Report, the requested acyion will be a Vatican Action.
+	 */
 	private void reqPlayerAction() {
 		if (roundType != RoundType.VATICAN_ROUND){
 			timerThread = new Thread(this.timer);
@@ -223,6 +263,11 @@ public class MatchController extends Observable implements Observer {
 		}
 	}
 
+	/**
+	 * Clears the extra actions queue and moves the game to the next player.
+	 * If there are no moves left in the current round, a new round is started.
+	 * In every case, a new action is requested to the next player.
+	 */
 	private void nextPlayer() {
 		this.currentExtraActions.clear();
 		RoundType oldRoundType = this.roundType;
