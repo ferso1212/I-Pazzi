@@ -319,15 +319,6 @@ public class MatchController extends Observable implements Observer {
 		Action parsedAction;
 		Player currentPlayer = match.getCurrentPlayer();
 		FamilyMember chosenMember = currentPlayer.getFamily().getMember(data.getFamilyMember());
-		int diceValue;
-		if(chosenMember.getColor() == MembersColor.BLACK)
-			diceValue=match.getBlackDice();
-		else if(chosenMember.getColor() == MembersColor.ORANGE)
-			diceValue=match.getOrangeDice();
-		else if(chosenMember.getColor() == MembersColor.WHITE)
-			diceValue=match.getWhiteDice();
-		else diceValue = 0;
-		chosenMember.increaseValue(diceValue);
 		chosenMember.increaseValue(data.getServants());
 		currentPlayer.getProperties().getProperty(PropertiesId.SERVANTS).payValue(data.getServants());
 		switch (data.getType()) {

@@ -18,6 +18,7 @@ import it.polimi.ingsw.ps21.model.actions.VaticanAction;
 import it.polimi.ingsw.ps21.model.board.Board;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
+import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.PlayerProperties;
@@ -34,8 +35,8 @@ import it.polimi.ingsw.ps21.model.properties.PropertiesId;
  */
 public class Match extends Observable {
 	
-	protected EnumMap<PlayerColor, Player> players;
-	protected ArrayList<Player> order;
+	private EnumMap<PlayerColor, Player> players;
+	private ArrayList<Player> order;
 	protected ArrayList<ExtraAction> extraActions;
 	protected Board board;
 	protected int orangeDice;
@@ -46,7 +47,7 @@ public class Match extends Observable {
 	private boolean ended = false;
 	private int currentPlayer;
 	
-	public Match(PlayerColor...colors )throws InvalidIDException, BuildingDeckException{
+	public Match(PlayerColor...colors)throws InvalidIDException, BuildingDeckException{
 		if (colors.length>4) throw new InvalidIDException();
 		MatchFactory builder = MatchFactory.instance();
 		ImmProperties[] initialProperties = builder.makeInitialProperties();
@@ -91,6 +92,11 @@ public class Match extends Observable {
 		orangeDice = (int) generator.nextInt(5) + 1;
 		blackDice = (int) generator.nextInt(5) + 1;
 		whiteDice = (int) generator.nextInt(5) + 1;
+		for (Player p: players.values()){
+			p.getFamily().getMember(MembersColor.ORANGE).setValue(orangeDice);
+			p.getFamily().getMember(MembersColor.ORANGE).setValue(blackDice);
+			p.getFamily().getMember(MembersColor.ORANGE).setValue(whiteDice);
+		}
 	}
 
 	

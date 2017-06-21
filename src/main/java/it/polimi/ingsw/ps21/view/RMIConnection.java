@@ -69,34 +69,34 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 
 
 	@Override
-	public int reqCostChoice(ArrayList<ImmProperties> costs) {
+	public int reqCostChoice(ArrayList<ImmProperties> costs) throws DisconnectedException {
 		try {
 			return client.setCost(costs);
 		} catch (RemoteException e) {
 			LOGGER.log(Level.WARNING, "Error calling remote method setCosts()", e);
-			return 0;
+			throw new DisconnectedException();
 		}
 	}
 
 
 	@Override
-	public boolean reqVaticanChoice() {
+	public boolean reqVaticanChoice() throws DisconnectedException{
 		try {
 			return client.vaticanChoice();
 		} catch (RemoteException e) {
 			LOGGER.log(Level.WARNING, "Error calling remote method vaticanChoice", e);
-			return false;
+			throw new DisconnectedException();
 		}
 	}
 
 
 	@Override
-	public ImmProperties[] reqPrivilegesChoice(int number, ImmProperties[] privilegesValues) {
+	public ImmProperties[] reqPrivilegesChoice(int number, ImmProperties[] privilegesValues) throws DisconnectedException {
 		try {
 			return client.reqPrivileges(number, privilegesValues);
 		} catch (RemoteException e) {
 			LOGGER.log(Level.WARNING, "Error calling remote method reqPrivileges", e);
-			return new ImmProperties[0];
+			throw new DisconnectedException(); 
 		}
 	}
 
@@ -145,38 +145,39 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 
 
 	@Override
-	public void remoteUpdate(MatchData match) {
+	public void remoteUpdate(MatchData match) throws DisconnectedException{
 		try 
 		{ 
 			client.updateMatch(match);
 		
 		} catch (RemoteException e){
 			LOGGER.log(Level.SEVERE, "Error updating remote client infos", e );
+			throw new DisconnectedException();
 		}
 		
 	}
 
 
 	@Override
-	public EffectSet reqEffectChoice(EffectSet[] possibleEffects) {
+	public EffectSet reqEffectChoice(EffectSet[] possibleEffects) throws DisconnectedException {
 		EffectSet chosen;
 		try {
 			chosen = possibleEffects[client.reqEffectChoice(possibleEffects)];
 		} catch (RemoteException e) {
 			LOGGER.log(Level.WARNING, "Error calling remote method reqEffectChoice", e);
-			chosen = possibleEffects[0]; // valore di ripiego
+			throw new DisconnectedException();
 		}
 		return chosen;
 	}
 
 
 	@Override
-	public int reqWorkChoice(DevelopmentCard workCard) {
+	public int reqWorkChoice(DevelopmentCard workCard) throws DisconnectedException{
 		try {
 			return client.reqWorkChoice(workCard);
 		} catch (RemoteException e) {
 			LOGGER.log(Level.WARNING, "Error calling remote method reWorkChoice on client", e);
-			return 0;
+			throw new DisconnectedException();
 		}
 		
 		
@@ -203,7 +204,6 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 
 	@Override
 	public int getId() throws RemoteException {
-		
 		return this.id;
 	}
 
