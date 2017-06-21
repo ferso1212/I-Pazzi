@@ -7,21 +7,28 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import it.polimi.ingsw.ps21.client.ActionRequestNetPacket;
+import it.polimi.ingsw.ps21.client.ActionResponseNetPacket;
 import it.polimi.ingsw.ps21.client.CostChoiceRequestNetPacket;
+import it.polimi.ingsw.ps21.client.CostChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.EffectChoiceRequestNetPacket;
+import it.polimi.ingsw.ps21.client.EffectChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.ExtraActionChoiceRequestNetPacket;
+import it.polimi.ingsw.ps21.client.ExtraActionChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.GenericStringNetPacket;
+import it.polimi.ingsw.ps21.client.InitNetPacket;
+import it.polimi.ingsw.ps21.client.MatchStartedNetPacket;
 import it.polimi.ingsw.ps21.client.NameRequestNetPacket;
 import it.polimi.ingsw.ps21.client.NameResponseNetPacket;
 import it.polimi.ingsw.ps21.client.PacketType;
+import it.polimi.ingsw.ps21.client.PlayerIdNetPacket;
 import it.polimi.ingsw.ps21.client.PrivilegesChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.PrivilegesChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.VaticanChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.VaticanChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.ViewUpdateRequestNetPacket;
 import it.polimi.ingsw.ps21.controller.MatchData;
+import it.polimi.ingsw.ps21.model.actions.ActionType;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
-import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.TooManyArgumentException;
 import it.polimi.ingsw.ps21.model.effect.DiscountEffect;
@@ -29,14 +36,15 @@ import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
 import it.polimi.ingsw.ps21.model.match.InvalidIDException;
 import it.polimi.ingsw.ps21.model.match.Match;
+import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
+import it.polimi.ingsw.ps21.view.ActionData;
 import it.polimi.ingsw.ps21.view.ExtraActionData;
 import it.polimi.ingsw.ps21.view.ExtraActionType;
 import it.polimi.ingsw.ps21.view.RulesChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.view.RulesChoiceResponseNetPacket;
-import it.polimi.ingsw.ps21.view.WorkChoiceRequestNetPacket;
 
 public class NetPacketsTest {
 
@@ -170,6 +178,68 @@ public class NetPacketsTest {
 	
 	@Test
 	public void testGenericString() {
-		GenericStringNetPacket p = new GenericStringNetPacket(1, )
+		GenericStringNetPacket p = new GenericStringNetPacket(1, "Bufu");
+		assertEquals(1, p.getNum());
+		assertEquals(PacketType.GENERIC_STRING, p.getType());
+		assertEquals("Bufu", p.getStr());
+	}
+	
+	@Test
+	public void testCostChoiceResponse() {
+		CostChoiceResponseNetPacket p = new CostChoiceResponseNetPacket(1, 1);
+		assertEquals(1, p.getNum());
+		assertEquals(PacketType.COST_CHOICE, p.getType());
+		assertEquals(1, p.getChosen());
+	}
+	
+	@Test
+	public void testEffectChoiceResponse() {
+		EffectChoiceResponseNetPacket p = new EffectChoiceResponseNetPacket(1, 1);
+		assertEquals(1, p.getNum());
+		assertEquals(PacketType.EFFECT_CHOICE, p.getType());
+		assertEquals(1, p.getChosen());
+	}
+	
+	@Test
+	public void testExtraActionChoiceResponse() {
+		ExtraActionChoiceResponseNetPacket p = new ExtraActionChoiceResponseNetPacket(1, 1);
+		assertEquals(1, p.getNum());
+		assertEquals(PacketType.EXTRA_ACTION_CHOICE, p.getType());
+		assertEquals(1, p.getChosen());
+	}
+	
+	@Test
+	public void testActionResponse() {
+		ActionResponseNetPacket p = new ActionResponseNetPacket(1, new ActionData(ActionType.NULL, MembersColor.BLACK, 1,DevelopmentCardType.BUILDING , 1));
+		assertEquals(1, p.getNum());
+		assertEquals(PacketType.ACTION, p.getType());
+		assertEquals(1, p.getAction().getServants());
+		assertEquals(ActionType.NULL, p.getAction().getType());
+		assertEquals(MembersColor.BLACK, p.getAction().getFamilyMember());
+		assertEquals(DevelopmentCardType.BUILDING, p.getAction().getTower());
+	}
+	
+	@Test
+	public void testInit() {
+		InitNetPacket p = new InitNetPacket(1, false);
+		assertEquals(1, p.getNum());
+		assertEquals(PacketType.INIT, p.getType());
+		assertEquals(false, p.isNew());
+	}
+	
+	@Test
+	public void testMatchStarted() {
+		MatchStartedNetPacket p = new MatchStartedNetPacket(1);
+		assertEquals(1, p.getNum());
+		assertEquals(PacketType.MATCH_STARTED_NOTIFICATION, p.getType());
+	}
+	
+	@Test
+	public void testPlayerId() {
+		PlayerIdNetPacket p = new PlayerIdNetPacket(1, PlayerColor.BLUE);
+		assertEquals(1, p.getNum());
+		assertEquals(PacketType.PLAYER_ID, p.getType());
+		assertEquals(PlayerColor.BLUE, p.getId());
+		
 	}
 }
