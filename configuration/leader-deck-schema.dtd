@@ -10,10 +10,11 @@
 <!ELEMENT ChurchSupport ( Requirement ) >
 <!ELEMENT CouncilBonus ( Requirement ) >
 <!ELEMENT DoubleResources ( Requirement )>
-<!ELEMENT LorenzoIlMagnifico ( Requirement )>
+<!ELEMENT LorenzoIlMagnifico ( Requirement, Requirement, Requirement, Requirement )>
 <!ELEMENT MemberBonus ( MemberColor ) >
 <!ELEMENT PropertiesBonus (Requirement , Properties)>
 <!ELEMENT InstantWorkEffect (Requirement, WorkType) >
+<!ELEMENT WorkType (Harvest|Production)>
 <!ELEMENT MemberColor ( Black | Orange | White | Neutral )>
 <!ELEMENT Black EMPTY>
 <!ELEMENT Orange EMPTY>
@@ -28,17 +29,12 @@
 
 <!ELEMENT NullLeaderEffect EMPTY>
 <!ELEMENT DiscountEffect (Properties,Green?, Yellow?, Blue?, Purple?) >
-<!ELEMENT BlockTowerEffect EMPTY>
-<!ELEMENT CouncilEffect EMPTY>
 <!ELEMENT PrivilegeEffect EMPTY>
 <!ELEMENT MultiplierEffect (Cost, Properties, MultiplierType)>
 <!ELEMENT MultiplierType (Wood|Stone|Coins|Servant|VictoryPoints|MilitaryPoints|FaithPoints|Blue|Green|Purple|Yellow)>
-<!ELEMENT ExtraWorkEffect (Harvest|Production)>
 <!ELEMENT Harvest EMPTY>
 <!ELEMENT Production EMPTY>
 <!ELEMENT WorkDiceEffect (Harvest|Production)>
-<!ATTLIST WorkDiceEffect diceValue CDATA #REQUIRED>
-<!ATTLIST ExtraWorkEffect diceValue CDATA #REQUIRED>
 <!ELEMENT CardDiceEffect (Green?, Yellow?, Blue?, Purple?) >
 <!ELEMENT PickAnotherCardEffect (Green?, Yellow?, Blue? ,Purple?)>
 
@@ -57,7 +53,8 @@
 <!ELEMENT Blue EMPTY>
 <!ELEMENT Purple EMPTY>
 
-
+<!ATTLIST WorkDiceEffect diceValue CDATA #REQUIRED>
+<!ATTLIST ExtraWorkEffect diceValue CDATA #REQUIRED>
 <!ATTLIST LeaderCard name CDATA #REQUIRED>
 <!ATTLIST Coins value CDATA #REQUIRED>
 <!ATTLIST Stones value CDATA #REQUIRED>

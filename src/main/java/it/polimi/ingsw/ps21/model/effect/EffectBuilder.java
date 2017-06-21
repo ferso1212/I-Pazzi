@@ -278,22 +278,62 @@ public class EffectBuilder {
 			case "PropertiesBonus":
 			{
 				Requirement req = PropertiesBuilder.makeRequirement((Element)effectElement.getElementsByTagName("Requirement").item(0));
-				
-				return new PropertiesBonus(req);
+				ImmProperties bonus = PropertiesBuilder.makeImmProperites((Element)effectElement.getElementsByTagName("Properties").item(0));
+				return new PropertiesBonus(req, bonus);
 			}
 			case "InstantWorkEffect":
+			{
+				Requirement req = PropertiesBuilder.makeRequirement((Element)effectElement.getElementsByTagName("Requirement").item(0));
+				WorkType type = makeWorkType((Element)effectElement.getElementsByTagName("WorkType").item(0));
+				int value = Integer.parseInt(effectElement.getAttribute("diceValue"));
+				return new InstantWorkEffect(req, type, value);
+			}
 			default:
 			 return new NullLeaderEffect();
 			}
 		}
 		else {
-			switch(((Element)effectNode).getNodeName()){
+			switch(effectElement.getNodeName()){
 			case "ChurchSupport":
+			{
+				Requirement req = PropertiesBuilder.makeRequirement((Element)effectElement.getElementsByTagName("Requirement").item(0));
+				return new ChurcSupport(req);				
+			}
 			case "DoubleResources":
+			{
+				Requirement req = PropertiesBuilder.makeRequirement((Element)effectElement.getElementsByTagName("Requirement").item(0));
+				return new DoubleResources(req);	
+			}
 			case "LorenzioIlMagnifico":
+			{
+				ArrayList<Requirement> reqs = new ArrayList<>();
+				NodeList reqNodes = effectElement.getElementsByTagName("Requirement");
+				for (int j = 0; j < reqNodes.getLength(); j++) {
+					if (reqNodes.item(j).getNodeType() == Node.ELEMENT_NODE) reqs.add(PropertiesBuilder.makeRequirement((Element) reqNodes.item(j)));
+				}
+				return new LorenzoIlMagnificoEffect(reqs.toArray(new Requirement[0]));
+			}
 			case "NoMilitaryForTerritory":
+			{
+				Requirement req = PropertiesBuilder.makeRequirement((Element)effectElement.getElementsByTagName("Requirement").item(0));
+				DevelopmentCardType typ;
+				Element typesElement = (Element) effectElement.getElementsByTagName("DevelopmentCardType").item(0);
+				if (typesElement.getElementsByTagName("Building").getLength() > 0) typ =DevelopmentCardType.BUILDING;
+				else if (typesElement.getElementsByTagName("Territory").getLength() > 0) typ = DevelopmentCardType.TERRITORY;
+				else if (typesElement.getElementsByTagName("Character").getLength() > 0) typ  = DevelopmentCardType.CHARACTER;
+				else typ = DevelopmentCardType.VENTURE;
+				return new NoMilitaryForTerritory(req, typ);	
+			}
 			case "NoPayOccupiedTower":
+			{
+				Requirement req = PropertiesBuilder.makeRequirement((Element)effectElement.getElementsByTagName("Requirement").item(0));
+				return new NoPayOccupiedTower(req);
+			}
 			case "OccupiedSpace":
+			{
+				Requirement req = PropertiesBuilder.makeRequirement((Element)effectElement.getElementsByTagName("Requirement").item(0));
+				return new OccupiedSpaceEffect(req);
+			}
 			default:
 				return new NullLeaderEffect();
 			}
@@ -302,5 +342,10 @@ public class EffectBuilder {
 			LOGGER.log(Level.WARNING, "Unrecognized Leader Effect tag", e);
 			return new NullLeaderEffect();
 		}
+	}
+
+	private WorkType makeWorkType(Element item) {
+		if (item.getElementsByTagName("Harvest").getLength() > 0) return WorkType.HARVEST;
+		else return WorkType.PRODUCTION;
 	}
 }

@@ -1,9 +1,10 @@
 <!ELEMENT ExcommunicationDeck (Excommunication*)>
-<!ELEMENT Excommunication (ActionExcommunication | CardDiceExcommunication | DiceExcommunication | FinalVPointExcommunication | PropAdditionExcommunication | ServantsValueExcommunication | WorkExcommunication )>
+<!ELEMENT Excommunication (ActionExcommunication | CardDiceExcommunication | DiceExcommunication | FinalVPointsExcommunications1 | FinalVPointsExcommunications2 | PropAdditionExcommunication | ServantsValueExcommunication | WorkExcommunication | NoFinalVPointsForBuindingsCost | NoFInalVPointsForEveryResource )>
 <!ELEMENT  ActionExcommunication EMPTY>
 <!ELEMENT  CardDiceExcommunication (Green | Blue | Yellow | Purple)>
 <!ELEMENT  DiceExcommunication EMPTY>
-<!ELEMENT  FinalVPointExcommunication EMPTY>
+<!ELEMENT  FinalVPointsExcommunications1 (Green | Blue | Yellow | Purple)>
+<!ELEMENT  FinalVPointsExcommunications2 EMPTY>
 <!ELEMENT  PropAdditionExcommunication (Properties) >
 <!ELEMENT  ServantsValueExcommunication EMPTY >
 <!ELEMENT  WorkExcommunication (Harvest | Production)>
@@ -23,7 +24,7 @@
 <!ELEMENT VictoryPoints EMPTY>
 <!ELEMENT FinalVPointsExcommunications (Green | Blue | Purple)>
 <!ELEMENT FinalVPointsExcommunication (Properties)>
-<!ELEMENT NoFInalVPointsForEveryResource EMPTY>
+<!ELEMENT NoFinalVPointsForEveryResource EMPTY>
 <!ELEMENT NoFinalVPointsForBuindingsCost EMPTY>
 
 
@@ -44,3 +45,8 @@
 <!ATTLIST MilitaryPoints value CDATA #REQUIRED>
 <!ATTLIST FaithPoints value CDATA #REQUIRED>
 <!ATTLIST VictoryPoints value CDATA #REQUIRED>
+<!ATTLIST FinalVPointsExcommunications2  victoryDivisor CDATA #REQUIRED
+					militaryDivisor CDATA #REQUIRED
+					buildingWoodDivisor CDATA #REQUIRED
+					buildingStonesDivisor CDATA #REQUIRED
+					resDivisor CDATA #REQUIRED>

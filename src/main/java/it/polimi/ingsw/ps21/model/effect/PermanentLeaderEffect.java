@@ -12,6 +12,10 @@ public abstract class PermanentLeaderEffect extends LeaderEffect {
 	public PermanentLeaderEffect(Requirement req){
 		super(req);
 	}
+	
+	public PermanentLeaderEffect(Requirement reqs[]){
+		super(reqs);
+	}
 	@Override
 	public void resetActivation(){		
 	}

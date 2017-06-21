@@ -13,8 +13,8 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
  * To be Implemented
  */
 public class LorenzoIlMagnificoEffect extends PermanentLeaderEffect {
-	public LorenzoIlMagnificoEffect(Requirement req) {
-		super(req);
+	public LorenzoIlMagnificoEffect(Requirement reqs[]) {
+		super(reqs);
 	}
 	private LeaderCard chosenLeaderCopy;
 	

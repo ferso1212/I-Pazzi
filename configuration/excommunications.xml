@@ -64,7 +64,7 @@
         </WorkExcommunication>
 	</Excommunication >
      <Excommunication id="6" period="1">
-        <DiceExcommunication whitwValue="1" blackValue="1" orangeValue="1"/>
+        <DiceExcommunication whiteValue="1" blackValue="1" orangeValue="1"/>
 	</Excommunication >
     <Excommunication id="7" period="2">
         <CardDiceExcommunication diceValue="4">
@@ -96,51 +96,31 @@
         <ActionExcommunication delayFirstAction="1" noMarketAction="0"/>
 	</Excommunication >
     <Excommunication id="14" period="3">
-        <FinalVPointsExcommunications>
+        <FinalVPointsExcommunications1>
             <Blue value="0"/>
-        </FinalVPointsExcommunications>
+        </FinalVPointsExcommunications1>
 	</Excommunication >
     <Excommunication id="15" period="3">
-        <FinalVPointsExcommunications>
+        <FinalVPointsExcommunications1>
             <Purple value="0"/>
-        </FinalVPointsExcommunications>
+        </FinalVPointsExcommunications1>
 	</Excommunication >
     <Excommunication id="16" period="3">
-        <FinalVPointsExcommunications>
+        <FinalVPointsExcommunications1>
             <Green value="0"/>
-        </FinalVPointsExcommunications>
+        </FinalVPointsExcommunications1>
 	</Excommunication >
     <Excommunication id="17" period="3">
-        <FinalVPointsExcommunication>
-            <Properties>
-		                    <Wood value="0"/>
-		                    <Stones value="0"/>
-		                    <Servants value="0"/>
-		                    <Coins value="0"/>
-		                    <MilitaryPoints value="0"/>
-		                    <VictoryPoints value="5"/>
-		                    <FaithPoints value ="0"/>
-			</Properties>	
-        </FinalVPointsExcommunication>
+      <FinalVPointsExcommunications2 victoryDivisor="5" militaryDivisor="0" buildingWoodDivisor="0" buildingStonesDivisor="0" resDivisor="0"/>
 	</Excommunication >
     <Excommunication id="18" period="3">
-        <FinalVPointsExcommunication>
-            <Properties>
-		                    <Wood value="0"/>
-		                    <Stones value="0"/>
-		                    <Servants value="0"/>
-		                    <Coins value="0"/>
-		                    <MilitaryPoints value="1"/>
-		                    <VictoryPoints value="0"/>
-		                    <FaithPoints value ="0"/>
-			</Properties>	
-        </FinalVPointsExcommunication>
+        <FinalVPointsExcommunications2 victoryDivisor="0" militaryDivisor="1" buildingWoodDivisor="0" buildingStonesDivisor="0" resDivisor="0"/>
 	</Excommunication >
     <Excommunication id="19" period="3">
-        <NoFinalVPointsForBuindingsCost/>
+        <FinalVPointsExcommunications2 victoryDivisor="0" militaryDivisor="0" buildingWoodDivisor="1" buildingStonesDivisor="1" resDivisor="0"/>
 	</Excommunication >
     <Excommunication id="20" period="3">
-        <NoFInalVPointsForEveryResource/>
+	<FinalVPointsExcommunications2 victoryDivisor="0" militaryDivisor="0" buildingWoodDivisor="0" buildingStonesDivisor="0" resDivisor="1"/>
 	</Excommunication >
   	
 	

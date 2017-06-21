@@ -1,31 +1,35 @@
 package it.polimi.ingsw.ps21.model.effect;
 
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
+import it.polimi.ingsw.ps21.model.actions.NullAction;
+import it.polimi.ingsw.ps21.model.deck.CardsNumber;
+import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class NullLeaderEffect extends LeaderEffect {
 
+	public NullLeaderEffect() {
+		super(new Requirement(new CardsNumber(0), new ImmProperties(0)));
+	}
+
 	@Override
 	public ExtraAction activate(AdvancedPlayer player) {
-		// TODO Auto-generated method stub
-		return null;
+		return new NullAction(player.getId());
 	}
 
 	@Override
 	public void resetActivation() {
-		// TODO Auto-generated method stub
-
+		this.activated = false;
 	}
 
 	@Override
 	public String getType() {
-		// TODO Auto-generated method stub
 		return "Null Effect";
 	}
 
 	@Override
 	public String getDesc() {
-		// TODO Auto-generated method stub
 		return "This effect does nothing";
 	}
 

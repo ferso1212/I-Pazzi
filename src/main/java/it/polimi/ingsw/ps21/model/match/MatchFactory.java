@@ -32,6 +32,7 @@ import it.polimi.ingsw.ps21.model.deck.VentureCard;
 import it.polimi.ingsw.ps21.model.excommunications.ActionExcommunication;
 import it.polimi.ingsw.ps21.model.excommunications.CardDiceExcommunication;
 import it.polimi.ingsw.ps21.model.excommunications.DiceExcommunication;
+import it.polimi.ingsw.ps21.model.excommunications.FinalVPointsExcommunication;
 import it.polimi.ingsw.ps21.model.excommunications.PropAdditionExcommunication;
 import it.polimi.ingsw.ps21.model.excommunications.ServantsValueExcommunication;
 import it.polimi.ingsw.ps21.model.excommunications.WorkExcommunication;
@@ -277,7 +278,6 @@ public class MatchFactory {
 		if (configuratedDeck == null) {
 			configuratedDeck = new Deck();
 			configuratedDeck.setGreenDeck(makeGreenDeck());
-			// TODO Fix files of decks
 			configuratedDeck.setBlueDeck(makeBlueDeck());
 			configuratedDeck.setYellowDeck(makeYellowDeck());
 			configuratedDeck.setPurpleDeck(makePurpleDeck());
@@ -297,8 +297,6 @@ public class MatchFactory {
 				for (int i=0; i<leaderCards.getLength(); i++){
 					result.addCard(CardBuilder.makeLeaderCard((Element) leaderCards.item(i)));
 				}
-				
-				
 				leaderDeck = result;
 				return leaderDeck.copy();
 			} catch (SAXException e) {
@@ -307,6 +305,9 @@ public class MatchFactory {
 			} catch (IOException e) {
 				LOGGER.log(Level.SEVERE, "Error opening leader configuration file", e);
 				throw new BuildingDeckException("Error opening leader configuration file");
+			} catch (BuildingCardException e) {
+				LOGGER.log(Level.SEVERE, "Error creating leader card", e);
+				throw new BuildingDeckException("Error creating leader card");
 			}
 			
 		} else return leaderDeck.copy() ;
@@ -365,6 +366,17 @@ public class MatchFactory {
 							int black = Integer.parseInt(excommunicationType.getAttribute("blackValue"));
 							int orange = Integer.parseInt(excommunicationType.getAttribute("orangeValue"));
 							excommunications.addCard(new DiceExcommunication(id, period, white, orange, black));
+						}
+						case "FinalVPointsExcommunications1":
+							break;
+						case "FinalVPointsExcommunications2":
+						{
+							int victoryPointsReductionDivisor = Integer.parseInt(excommunicationType.getAttribute("victoryDivisor"));
+							int militaryDivisorVPointsReduction = Integer.parseInt(excommunicationType.getAttribute("militaryDivisor"));
+							int vPointsReductionBuildingWoodDivisor = Integer.parseInt(excommunicationType.getAttribute("buildingWoodDivisor"));
+							int vPointsReductionBuildingStoneDivisor = Integer.parseInt(excommunicationType.getAttribute("buildingStonesDivisor"));
+							int vPointsReductionResDivisor = Integer.parseInt(excommunicationType.getAttribute("resDivisor"));
+							excommunications.addCard(new FinalVPointsExcommunication(id, period, victoryPointsReductionDivisor, militaryDivisorVPointsReduction, vPointsReductionBuildingWoodDivisor, vPointsReductionBuildingStoneDivisor, vPointsReductionResDivisor));
 						}
 							break;
 						case "ServantsValueExcommunication":
@@ -659,7 +671,7 @@ public class MatchFactory {
 				Element building = (Element) cardBonuses.getElementsByTagName("BuildingBonuses").item(0);
 				for(int i=0; i<=6; i++)
 				{
-					bonuses[i] = Integer.parseInt(territory.getAttribute("value"+i));
+					bonuses[i] = Integer.parseInt(building.getAttribute("value"+i));
 				}
 				result.put(DevelopmentCardType.BUILDING, bonuses);
 
@@ -667,7 +679,7 @@ public class MatchFactory {
 				Element character = (Element) cardBonuses.getElementsByTagName("CharacterBonuses").item(0);
 				for(int i=0; i<=6; i++)
 				{
-					bonuses[i] = Integer.parseInt(territory.getAttribute("value"+i));
+					bonuses[i] = Integer.parseInt(character.getAttribute("value"+i));
 				}
 				result.put(DevelopmentCardType.BUILDING, bonuses);
 
@@ -675,7 +687,7 @@ public class MatchFactory {
 				Element venture = (Element) cardBonuses.getElementsByTagName("VentureBonuses").item(0);
 				for(int i=0; i<=6; i++)
 				{
-					bonuses[i] = Integer.parseInt(territory.getAttribute("value"+i));
+					bonuses[i] = Integer.parseInt(venture.getAttribute("value"+i));
 				}
 				result.put(DevelopmentCardType.VENTURE, bonuses);
 			} catch (SAXException | IOException | NullPointerException i) {

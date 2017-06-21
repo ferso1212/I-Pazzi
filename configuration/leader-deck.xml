@@ -1,8 +1,30 @@
 <?xml version="1.0" ?>
 <!DOCTYPE LeaderDeck SYSTEM "leader-deck-schema.dtd">
 <LeaderDeck>
-	<LeaderCard name="nome">
+	<LeaderCard name="Francesco Sforza">
 		<InstantLeaderEffect>
+			<InstantWorkEffect diceValue="1">
+			<Requirement>
+        		        <Properties>
+        		            <Wood value="0" />
+        		            <Stones value="0" />
+        		            <Servants value="0" />
+        		            <Coins value="0" />
+        		            <MilitaryPoints value="0" />
+        		            <VictoryPoints value="0" />
+        		            <FaithPoints value="0" />
+        		        </Properties>
+        		        <CardsNumber>
+        		            <Green value="0" />
+        		            <Yellow value="0" />
+    		                <Blue value="0" />
+    		                <Purple value="0" />
+    		            </CardsNumber>
+  		          </Requirement>
+				<WorkType>
+					<Harvest/>
+				</WorkType>
+			</InstantWorkEffect>
 		</InstantLeaderEffect>
 	</LeaderCard>
 	<LeaderCard name="nome">

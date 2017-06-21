@@ -19,10 +19,14 @@ public abstract class LeaderEffect implements Serializable{
 	public boolean activated = false;
 	public boolean clonable =false;
 	
-	public LeaderEffect(Requirement...reqs) {
+	public LeaderEffect(Requirement reqs[]) {
 		requirements = reqs;
 	}
 
+	public LeaderEffect(Requirement req){
+		requirements = new Requirement[1];
+		requirements[0]=req;
+	}
 	public boolean isActivated() {
 		return activated;
 	}
