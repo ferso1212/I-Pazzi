@@ -342,7 +342,7 @@ public class MatchController extends Observable implements Observer {
 			else if (arg instanceof String)
 			{
 				String s= (String)arg;
-				if(s.equals("playerDisconnected"))
+				if("playerDisconnected".equals(s))
 				{
 					nextPlayer();
 				}
@@ -392,8 +392,8 @@ public class MatchController extends Observable implements Observer {
 		case PRODUCTION:
 		{
 			WorkSpace workSpace;
-			if (data.getSpace()== 1) workSpace = match.getBoard().getSingleWorkSpace(WorkType.HARVEST);
-			else workSpace = match.getBoard().getMultipleWorkSpace(WorkType.HARVEST);
+			if (data.getSpace()== 1) workSpace = match.getBoard().getSingleWorkSpace(WorkType.PRODUCTION);
+			else workSpace = match.getBoard().getMultipleWorkSpace(WorkType.PRODUCTION);
 			parsedAction = new WorkAction(currentPlayer.getId(), workSpace, currentPlayer.getFamily().getMember(data.getFamilyMember()));
 		}
 			break;
