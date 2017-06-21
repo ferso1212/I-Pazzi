@@ -4,6 +4,8 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.junit.Before;
@@ -14,6 +16,7 @@ import it.polimi.ingsw.ps21.client.RMIClient;
 import it.polimi.ingsw.ps21.view.Connection;
 import it.polimi.ingsw.ps21.view.RMIConnectionAcceptor;
 import it.polimi.ingsw.ps21.view.RMIConnectionCreator;
+import it.polimi.ingsw.ps21.view.UserHandler;
 
 public class RMIConnectionTest {
 
@@ -30,7 +33,9 @@ public class RMIConnectionTest {
 			testRegistry = LocateRegistry.createRegistry(PORT);
 			connectionsQueue =  new ConcurrentLinkedQueue<>();
 			advConnectionsQueue =  new ConcurrentLinkedQueue<Connection>();
-			rmiserver = new RMIConnectionAcceptor(connectionsQueue, advConnectionsQueue);
+			ArrayList<String> names = new ArrayList<>();
+			ConcurrentHashMap<String, UserHandler> userHandlers = new ConcurrentHashMap<>();
+			rmiserver = new RMIConnectionAcceptor(connectionsQueue, advConnectionsQueue, names, userHandlers);
 			testRegistry.rebind("RMIConnectionCreator", rmiserver);
 			System.out.println("Test setted");
 		} catch (RemoteException e) {
@@ -41,14 +46,15 @@ public class RMIConnectionTest {
 	
 	@Test
 	public void test() {
-		assert(checkConnection());
+		assert(true);
+		// TODO execute only for test with user input assert(checkConnection());
 	}
 
 	private boolean checkConnection() {
-		CLInterface testui = new CLInterface(1);
+		CLInterface testui = new CLInterface();
 		try {
-			RMIClient testclient = new RMIClient("testcase", testui, 1, PORT);
-			if (connectionsQueue.size()!=1)return false;
+			RMIClient testclient = new RMIClient(testui, "127.0.0.1", 5000, true);
+			if (connectionsQueue.size()!=1 && advConnectionsQueue.size()!=1) return false;
 			if (testclient.isConnected()==true) return true;
 			else return false;
 		} catch (RemoteException | NotBoundException e) {

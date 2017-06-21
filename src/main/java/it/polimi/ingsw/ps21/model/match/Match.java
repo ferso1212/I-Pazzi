@@ -29,6 +29,11 @@ import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 
 /**
  * Class that represent all information about match and communicates with Controller
+ * this match control players order for the action execution and setup board and players for every round
+ * It also decides randomly dice values for each round and set them automatically for every family member
+ * 
+ *  At the end of the match it also calculate the winner
+ *  Using notifyObservers() it notify to controller every change in match 
  * 
  * @author gullit
  *

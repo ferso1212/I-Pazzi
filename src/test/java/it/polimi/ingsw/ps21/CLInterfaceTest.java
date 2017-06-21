@@ -28,7 +28,7 @@ public class CLInterfaceTest {
 	private Match testMatch;
 	@Before 
 	public void setUp(){
-		testCli = new CLInterface(1);
+		testCli = new CLInterface();
 		testCli.setID(PlayerColor.BLUE);
 		try {
 			testMatch = new Match(validPlayers);

@@ -96,31 +96,29 @@
         <ActionExcommunication delayFirstAction="1" noMarketAction="0"/>
 	</Excommunication >
     <Excommunication id="14" period="3">
-        <FinalVPointsExcommunications1>
+        <FinalCardVPointsExcommunication>
             <Blue value="0"/>
-        </FinalVPointsExcommunications1>
+        </FinalCardVPointsExcommunication>
 	</Excommunication >
     <Excommunication id="15" period="3">
-        <FinalVPointsExcommunications1>
-            <Purple value="0"/>
-        </FinalVPointsExcommunications1>
+        <VentureFinalPointsExcommunication />
 	</Excommunication >
     <Excommunication id="16" period="3">
-        <FinalVPointsExcommunications1>
+        <FinalCardVPointsExcommunication>
             <Green value="0"/>
-        </FinalVPointsExcommunications1>
+        </FinalCardVPointsExcommunication>
 	</Excommunication >
     <Excommunication id="17" period="3">
-      <FinalVPointsExcommunications2 victoryDivisor="5" militaryDivisor="0" buildingWoodDivisor="0" buildingStonesDivisor="0" resDivisor="0"/>
+      <FinalVPointsExcommunication victoryDivisor="5" militaryDivisor="0" buildingWoodDivisor="0" buildingStonesDivisor="0" resDivisor="0"/>
 	</Excommunication >
     <Excommunication id="18" period="3">
-        <FinalVPointsExcommunications2 victoryDivisor="0" militaryDivisor="1" buildingWoodDivisor="0" buildingStonesDivisor="0" resDivisor="0"/>
+        <FinalVPointsExcommunication victoryDivisor="0" militaryDivisor="1" buildingWoodDivisor="0" buildingStonesDivisor="0" resDivisor="0"/>
 	</Excommunication >
     <Excommunication id="19" period="3">
-        <FinalVPointsExcommunications2 victoryDivisor="0" militaryDivisor="0" buildingWoodDivisor="1" buildingStonesDivisor="1" resDivisor="0"/>
+        <FinalVPointsExcommunication victoryDivisor="0" militaryDivisor="0" buildingWoodDivisor="1" buildingStonesDivisor="1" resDivisor="0"/>
 	</Excommunication >
     <Excommunication id="20" period="3">
-	<FinalVPointsExcommunications2 victoryDivisor="0" militaryDivisor="0" buildingWoodDivisor="0" buildingStonesDivisor="0" resDivisor="1"/>
+	<FinalVPointsExcommunication victoryDivisor="0" militaryDivisor="0" buildingWoodDivisor="0" buildingStonesDivisor="0" resDivisor="1"/>
 	</Excommunication >
   	
 	

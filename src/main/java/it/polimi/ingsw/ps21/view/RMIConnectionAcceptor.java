@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 public class RMIConnectionAcceptor extends UnicastRemoteObject implements RMIConnectionCreator, Runnable {
 
 	private static final long serialVersionUID = 3367187689111437262L;
-	private final Logger LOGGER = Logger.getLogger(RMIConnectionAcceptor.class.getName());
+	private final transient Logger LOGGER = Logger.getLogger(RMIConnectionAcceptor.class.getName());
 	transient Registry registry;
 	private ConcurrentLinkedQueue<Connection> connectionsQueue;
 	private ConcurrentLinkedQueue<Connection> advConnectionsQueue;
@@ -60,8 +60,7 @@ public class RMIConnectionAcceptor extends UnicastRemoteObject implements RMICon
 				try {
 					playingUsers.get(oldName).setConnection(connectionsMap.get(newConnection.getId()));
 				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					LOGGER.log(Level.WARNING, "Error rejoining UserHandler with new Connection", e);
 				}
 				return true;
 			} else

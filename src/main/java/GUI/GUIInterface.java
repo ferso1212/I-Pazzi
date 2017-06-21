@@ -147,22 +147,11 @@ public class GUIInterface implements UserInterface{
 	}
 
 	@Override
-	public ImmProperties[] reqPrivileges(int number) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void matchEnded() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
-	public int reqExtraActionChoice(ActionData[] actions) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public ImmProperties[] reqPrivileges(int number, ImmProperties[] privilegesValues) {
@@ -180,6 +169,18 @@ public class GUIInterface implements UserInterface{
 	public int reqWorkChoice(DevelopmentCard workCard) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public String reqName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean reqIfWantsAdvancedRules() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

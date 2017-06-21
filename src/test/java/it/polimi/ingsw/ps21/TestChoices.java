@@ -9,6 +9,7 @@ import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.model.effect.CouncilEffect;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.effect.PropEffect;
+import it.polimi.ingsw.ps21.model.excommunications.VenturePointsExcommunication;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
@@ -25,7 +26,7 @@ public class TestChoices{
 			EffectSet testset[] = new EffectSet[2];
 			testset[0] = new EffectSet(new PropEffect(new ImmProperties(0), new ImmProperties(3,0,1)), new CouncilEffect(new ImmProperties(0), 2));
 			testedEffectChoice = new EffectChoice(PlayerColor.BLUE, testset);
-			testedVaticanChoice = new VaticanChoice(PlayerColor.BLUE);
+			testedVaticanChoice = new VaticanChoice(PlayerColor.BLUE, new VenturePointsExcommunication(2, 3));
 			// TODO add other choices
 	}
 	

@@ -32,15 +32,23 @@ import it.polimi.ingsw.ps21.model.deck.VentureCard;
 import it.polimi.ingsw.ps21.model.excommunications.ActionExcommunication;
 import it.polimi.ingsw.ps21.model.excommunications.CardDiceExcommunication;
 import it.polimi.ingsw.ps21.model.excommunications.DiceExcommunication;
+import it.polimi.ingsw.ps21.model.excommunications.FinalCardVPointsExcommunication;
 import it.polimi.ingsw.ps21.model.excommunications.FinalVPointsExcommunication;
 import it.polimi.ingsw.ps21.model.excommunications.PropAdditionExcommunication;
 import it.polimi.ingsw.ps21.model.excommunications.ServantsValueExcommunication;
+import it.polimi.ingsw.ps21.model.excommunications.VenturePointsExcommunication;
 import it.polimi.ingsw.ps21.model.excommunications.WorkExcommunication;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesBuilder;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.model.properties.Property;
 
+
+/**
+ * Constructor of different match variables configurable by file (These
+ * match settings are the same for all matches starting from the same Server
+ * Session If there are any problems with file, default values;
+ */
 public class MatchFactory {
 	private final static Logger LOGGER = Logger.getLogger(MatchFactory.class.getName());
 	private final String excommunicationsPath = (new File("")).getAbsolutePath().concat("/configuration/excommunications.xml");;
@@ -70,13 +78,8 @@ public class MatchFactory {
 	private LeaderDeck leaderDeck = null;
 
 
-	/**
-	 * Constructor of different match variables configurable by file (These
-	 * match settings are the same for all matches starting from the same Server
-	 * Session If there are any problems with file, default values;
-	 * 
-	 * @throws ParserConfigurationException
-	 * @throws IOException
+/**
+	 * @throws ParserConfigurationException if it fails to create DocumentBuilder for parsing xml files
 	 */
 
 	private MatchFactory() {
@@ -92,16 +95,16 @@ public class MatchFactory {
 
 	/**
 	 * 
-	 * @param greenPath
+	 * greenPath
 	 *            path of the XML file for greenDeck configuration
-	 * @param yellowPath
+	 * yellowPath
 	 *            path of the XML file for yellowDeck configuration
-	 * @param bluePath
+	 * bluePath
 	 *            path of the XML file for blueDeck configuration
-	 * @param purplePath
+	 * purplePath
 	 *            path of the XML file for purpleDeck configuration
-	 * @throws ParserConfigurationException
-	 * @throws IOException
+	 * 
+	 * 
 	 */
 
 	public synchronized static MatchFactory instance() {
@@ -272,7 +275,6 @@ public class MatchFactory {
 	 * 
 	 * @return
 	 * @throws BuildingDeckException
-	 * @throws ParserConfigurationException 
 	 */
 	public synchronized Deck makeDeck() throws BuildingDeckException {
 		if (configuratedDeck == null) {
@@ -286,6 +288,11 @@ public class MatchFactory {
 		return configuratedDeck.copy();
 	}
 	
+	/**
+	 * This deck is created for advanced match only
+	 * @return
+	 * @throws BuildingDeckException if there is some problem in parsing of file, or if file can't be open
+	 */
 	public synchronized LeaderDeck makeLeaderDeck() throws BuildingDeckException{
 		if (leaderDeck == null){
 			try {
@@ -367,9 +374,17 @@ public class MatchFactory {
 							int orange = Integer.parseInt(excommunicationType.getAttribute("orangeValue"));
 							excommunications.addCard(new DiceExcommunication(id, period, white, orange, black));
 						}
-						case "FinalVPointsExcommunications1":
+						case "FinalCardVPointsExcommunication":
+						{
+							DevelopmentCardType cardType;
+							if (excommunicationType.getElementsByTagName("Green").getLength() > 0) cardType = DevelopmentCardType.TERRITORY;
+							else if (excommunicationType.getElementsByTagName("Yellow").getLength() > 0) cardType = DevelopmentCardType.BUILDING;
+							else if (excommunicationType.getElementsByTagName("Blue").getLength() > 0) cardType = DevelopmentCardType.CHARACTER;
+							else cardType = DevelopmentCardType.VENTURE;
+							excommunications.addCard(new FinalCardVPointsExcommunication(id, period, cardType));
+						}
 							break;
-						case "FinalVPointsExcommunications2":
+						case "FinalVPointsExcommunication":
 						{
 							int victoryPointsReductionDivisor = Integer.parseInt(excommunicationType.getAttribute("victoryDivisor"));
 							int militaryDivisorVPointsReduction = Integer.parseInt(excommunicationType.getAttribute("militaryDivisor"));
@@ -384,6 +399,9 @@ public class MatchFactory {
 							int value = Integer.parseInt(excommunicationType.getAttribute("servantsValue"));
 							excommunications.addCard(new ServantsValueExcommunication(id, period, value));
 						}
+							break;
+						case "VentureFinalPointsExcommunication":
+							excommunications.addCard(new VenturePointsExcommunication(id, period));
 							break;
 						case "WorkExcommunication":
 						{
@@ -413,7 +431,7 @@ public class MatchFactory {
 				throw new BuildingDeckException("Error creating Excommunication deck");
 			}
 		}
-		return excommunications;
+		return excommunications.copy();
 	}
 
 	public synchronized ImmProperties[] makePrivileges() {
@@ -869,6 +887,7 @@ public class MatchFactory {
 		
 	}
 
+	
 	public int[] makeMarketPrivileges() {
 		if (marketPrivileges == null) {
 			Document configuration;
