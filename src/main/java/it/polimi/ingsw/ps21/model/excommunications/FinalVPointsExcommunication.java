@@ -4,11 +4,11 @@ import it.polimi.ingsw.ps21.model.player.Player;
 
 /**Used to store excommunications that at the end of the game reduce the player's victory points according to other properties.
  * There are 5 possible modifiers:
- * <li>victoryPointsReductionDivisor: the player loses floor((Player's victory points)/Divisor) victory points
- * <li>militaryDivisorVPointsReduction: the player loses floor((Player's military points)/Divisor) victory points
- * <li>vPointsReductionBuildingWoodDivisor: the player loses floor((sum of wood requirements on player's building cards)/Divisor) victory points
- * <li>vPointsReductionBuildingStoneDivisor: the player loses floor((sum of stone requirements on player's building cards)/Divisor) victory points
- * <li>vPointsReductionResDivisor: the player loses floor((sum of resources in player's supply)/Divisor) victory points
+ * <li>victoryPointsReductionDivisor:if this value is !=0, at the end of the game the player loses floor((Player's victory points)/Divisor) victory points
+ * <li>militaryDivisorVPointsReduction: if this value is !=0, at the end of the game the player loses floor((Player's military points)/Divisor) victory points
+ * <li>vPointsReductionBuildingWoodDivisor: if this value is !=0, at the end of the game the player loses floor((sum of wood requirements on player's building cards)/Divisor) victory points
+ * <li>vPointsReductionBuildingStoneDivisor: if this value is !=0, at the end of the game the player loses floor((sum of stone requirements on player's building cards)/Divisor) victory points
+ * <li>vPointsReductionResDivisor: if this value is !=0, at the end of the game the player loses floor((sum of resources in player's supply)/Divisor) victory points
  * @author fabri
  *
  */
