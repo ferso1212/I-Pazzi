@@ -1,8 +1,8 @@
 <!ELEMENT LeaderDeck (LeaderCard*)>
 <!ELEMENT LeaderCard (InstantLeaderEffect | PermanentLeaderEffect)>
 <!ELEMENT Requirement (Properties, CardsNumber)>
-<!ELEMENT PermanentLeaderEffect ( ChurchSupport | DoubleResources | LorenzoIlMangifico | NoMilitaryForTerritory | NoPayOccupiedTower | OccupiedSpace | InstantWorkEffect) >
-<!ELEMENT InstantLeaderEffect ( CouncilBonus | MemberBonus | PropertiesBonus )>
+<!ELEMENT PermanentLeaderEffect ( ChurchSupport | DoubleResources | LorenzoIlMangifico | NoMilitaryForTerritory | NoPayOccupiedTower | OccupiedSpace | NullLeaderEffect) >
+<!ELEMENT InstantLeaderEffect ( CouncilBonus | MemberBonus | PropertiesBonus | InstantWorkEffect | NullLeaderEffect )>
 <!ELEMENT NoMilitaryForTerritory ( Requirement, DevelopmentCardType ) >
 <!ELEMENT DevelopmentCardType (Building | Territory | Character | Venture )>
 <!ELEMENT OccupiedSpace (Requirement) >
@@ -26,7 +26,7 @@
 
 
 
-<!ELEMENT NullEffect EMPTY>
+<!ELEMENT NullLeaderEffect EMPTY>
 <!ELEMENT DiscountEffect (Properties,Green?, Yellow?, Blue?, Purple?) >
 <!ELEMENT BlockTowerEffect EMPTY>
 <!ELEMENT CouncilEffect EMPTY>

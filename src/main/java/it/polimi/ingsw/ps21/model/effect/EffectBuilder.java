@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.management.modelmbean.XMLParseException;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -12,8 +14,10 @@ import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.MultiplierType;
+import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.deck.TooManyArgumentException;
 import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
+import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesBuilder;
 
@@ -246,7 +250,57 @@ public class EffectBuilder {
 		}
 	}
 
-	public LeaderEffect makeLeaderEffect(Element item) {
-		return null;
+	public LeaderEffect makeLeaderEffect(Element node) {
+		LeaderEffect result;
+		NodeList childs = node.getChildNodes();
+		int i=0;
+		Node effectNode = childs.item(i);
+		i++;
+		while(i<childs.getLength() && effectNode.getNodeType()!=Node.ELEMENT_NODE){
+			effectNode = childs.item(i);
+			i++;
+		}
+		if (i == childs.getLength()) return new NullLeaderEffect();
+		Element effectElement = (Element) effectNode;
+		try {if (node.getNodeName()=="InstantLeaderEffect"){
+			switch((effectElement).getNodeName()){
+			case "CouncilBonus":{
+				Requirement req = PropertiesBuilder.makeRequirement((Element)effectElement.getElementsByTagName("Requirement").item(0));
+				int number = Integer.parseInt(effectElement.getAttribute("number") );
+				return new CouncilBonus(req,number);
+			}
+			case "MemberBonus": {
+				Requirement req = PropertiesBuilder.makeRequirement((Element)effectElement.getElementsByTagName("Requirement").item(0));
+				MembersColor color = PropertiesBuilder.makeMemberColor((Element)effectElement.getElementsByTagName("MemberColor").item(0));
+				int bonus = Integer.parseInt(effectElement.getAttribute("value"));
+				return new MemberBonus(req, color, bonus);
+			}
+			case "PropertiesBonus":
+			{
+				Requirement req = PropertiesBuilder.makeRequirement((Element)effectElement.getElementsByTagName("Requirement").item(0));
+				
+				return new PropertiesBonus(req);
+			}
+			case "InstantWorkEffect":
+			default:
+			 return new NullLeaderEffect();
+			}
+		}
+		else {
+			switch(((Element)effectNode).getNodeName()){
+			case "ChurchSupport":
+			case "DoubleResources":
+			case "LorenzioIlMagnifico":
+			case "NoMilitaryForTerritory":
+			case "NoPayOccupiedTower":
+			case "OccupiedSpace":
+			default:
+				return new NullLeaderEffect();
+			}
+			}	
+		} catch(XMLParseException e){
+			LOGGER.log(Level.WARNING, "Unrecognized Leader Effect tag", e);
+			return new NullLeaderEffect();
+		}
 	}
 }

@@ -1,23 +1,28 @@
 package it.polimi.ingsw.ps21.model.effect;
 
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
+import it.polimi.ingsw.ps21.model.actions.NullAction;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.player.Player;
-/*
- * To be Implemented
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
+/**
+ * This Leader Effect increase player properties when activated (one time for round)
+ * @author gullit
+ *
  */
 public class PropertiesBonus extends InstantLeaderEffect {
 
-	public PropertiesBonus(Requirement req) {
+	private ImmProperties bonus;
+	public PropertiesBonus(Requirement req, ImmProperties bonus) {
 		super(req);
-		// TODO Auto-generated constructor stub
+		this.bonus = bonus;
 	}
 
 	@Override
 	public ExtraAction activate(AdvancedPlayer player) {
-		// TODO Auto-generated method stub
-		return null;
+		player.getProperties().increaseProperties(bonus);
+		return new NullAction(player.getId());
 	}
 
 	@Override
@@ -27,7 +32,7 @@ public class PropertiesBonus extends InstantLeaderEffect {
 
 	@Override
 	public String getDesc() {
-		return "TO BE IMPLEMENTED";
+		return "This effect increase player properties of " + bonus + " when activated";
 	}
 
 }

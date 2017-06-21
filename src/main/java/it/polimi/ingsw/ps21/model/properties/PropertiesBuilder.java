@@ -8,6 +8,7 @@ import org.w3c.dom.NodeList;
 
 import it.polimi.ingsw.ps21.model.deck.CardsNumber;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
+import it.polimi.ingsw.ps21.model.player.MembersColor;
 
 public class PropertiesBuilder {
 	
@@ -91,6 +92,13 @@ public class PropertiesBuilder {
 			}
 			return new Requirement(tempCardNum, props);
 		}
+	}
+	
+	public static MembersColor makeMemberColor(Element memberColor){
+		if (memberColor.getElementsByTagName("Black").getLength() > 0) return MembersColor.BLACK;
+		if (memberColor.getElementsByTagName("Orange").getLength() > 0) return MembersColor.ORANGE;
+		if (memberColor.getElementsByTagName("Neutral").getLength() > 0) return MembersColor.NEUTRAL;
+		else return MembersColor.WHITE;
 	}
 
 }

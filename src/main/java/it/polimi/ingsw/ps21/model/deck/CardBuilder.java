@@ -113,15 +113,22 @@ public class CardBuilder {
 			return new RequirementAndCost(req, cost);
 		}
 
-		public static LeaderCard makeLeaderCard(Element cardNode) {
+		public static LeaderCard makeLeaderCard(Element cardNode) throws BuildingCardException {
 			EffectBuilder effectBuilder = EffectBuilder.instance();
 			NamedNodeMap cardAttributes = cardNode.getAttributes();
 			String cardName = cardAttributes.getNamedItem("name").getNodeValue();
 			LeaderEffect effect;
 			NodeList childs = cardNode.getChildNodes();
-			for (int i = 0; i<childs.getLength(); i++){
-				if (childs.item(i).getNodeType() == Node.ELEMENT_NODE) effect = effectBuilder.makeLeaderEffect((Element)childs.item(i));
+			int i=0;
+			Node child = childs.item(0);
+			i++;
+			while(child.getNodeType()!= Node.ELEMENT_NODE && i<childs.getLength()){
+				child = childs.item(i);
+				i++;
 			}
+			if (i== childs.getLength()) throw new BuildingCardException();
+			Element effectNode = (Element) child;
+			effect = effectBuilder.makeLeaderEffect(effectNode);
 			return new LeaderCard(cardName, effect);
 		}
 		
