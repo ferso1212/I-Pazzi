@@ -8,7 +8,7 @@ import it.polimi.ingsw.ps21.model.player.Player;
  * @author fabri
  *
  */
-public class FinalVPointsExcommunications extends Excommunication{
+public class FinalCardVPointsExcommunication extends Excommunication{
 	
 	private DevelopmentCardType cardType;
 	private boolean noVentureCardsFinalVictoryPointsBonus;
@@ -38,7 +38,7 @@ public class FinalVPointsExcommunications extends Excommunication{
 	 * @param cardType if!=null, at the end of the game this excommunication will prevent the player from getting the final victory points bonuses from the number of cards of that type he has.
 	 * @param noVentureCardsFinalVictoryPointsBonus if true, at the end of the game this excommunication will prevent the player from getting the final victory points bonuses from the venture cards' permanent effect.
 	 */
-	public FinalVPointsExcommunications(int id, int period, DevelopmentCardType cardType, boolean noVentureCardsFinalVictoryPointsBonus) {
+	public FinalCardVPointsExcommunication(int id, int period, DevelopmentCardType cardType, boolean noVentureCardsFinalVictoryPointsBonus) {
 		super(id, period);
 		this.cardType=cardType;
 		this.noVentureCardsFinalVictoryPointsBonus=noVentureCardsFinalVictoryPointsBonus;
