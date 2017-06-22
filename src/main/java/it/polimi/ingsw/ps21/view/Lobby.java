@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import it.polimi.ingsw.ps21.controller.LobbyTimeoutTask;
 import it.polimi.ingsw.ps21.controller.MatchRunner;
-import it.polimi.ingsw.ps21.controller.TimeoutTask;
+import it.polimi.ingsw.ps21.controller.LobbyTimeoutTask;
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
@@ -28,6 +28,7 @@ public class Lobby extends Thread{
 	private boolean timeoutExpired;
 	private boolean startedTimer = false;
 	private boolean isAdvanced;
+	private Timer timer;
 	
 	
 	public Lobby(boolean type, ArrayList<String> names, ConcurrentHashMap<String, UserHandler> playingUsers)
@@ -47,10 +48,10 @@ public class Lobby extends Thread{
 	else chosenRules=new String("standard");
 	
 	while (true) {
-		Timer timer = new Timer();
+		this.timer = new Timer();
 		LobbyTimeoutTask expired;
-		if(isAdvanced) expired = new LobbyTimeoutTask("advanced");
-		else expired = new LobbyTimeoutTask("standard");
+		expired=new LobbyTimeoutTask(chosenRules);
+		
 		while (connectionsQueue.size() < MAX_PLAYERS_NUM && !expired.isExpired()) {
 			if (connectionsQueue.size() >= MIN_PLAYERS_NUM && !startedTimer) // the
 																		// counter
@@ -68,7 +69,7 @@ public class Lobby extends Thread{
 
 				timer.schedule(expired, TIMEOUT);
 				startedTimer = true;
-				System.out.println("Timeout started");
+				System.out.println("Lobby timeout started");
 			}
 
 		}
@@ -76,6 +77,7 @@ public class Lobby extends Thread{
 		if (connectionsQueue.size() >= MAX_PLAYERS_NUM)
 			System.out.println("\nThere are enough connections in the queue to fulfill a match.");
 		timeoutExpired = false;
+		this.timer.cancel();
 		// Creates UserHandlers for each connection and and a new
 		// MatchRunner with those UserHandlers
 		int playersAdded = 0;
