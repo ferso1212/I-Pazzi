@@ -28,7 +28,7 @@
 		</InstantLeaderEffect>
 	</LeaderCard>
 	<LeaderCard name="Lucrezia Borgia">
-		<PermanentLeaderEffect>
+	<PermanentLeaderEffect>
 			<IncreaseDiceValues whiteValue="2" blackValue="2" orangeValue="2">
 			<Requirement>
         		        <Properties>
@@ -122,8 +122,6 @@
     		            </CardsNumber>
   		          </Requirement>		
 		</ChurchSupport>
-		
-		
 	</PermanentLeaderEffect>
 	</LeaderCard>
 	<LeaderCard name="Federico da Montefeltro">
