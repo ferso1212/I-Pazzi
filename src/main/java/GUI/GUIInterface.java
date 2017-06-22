@@ -24,6 +24,7 @@ import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.ActionData;
+import it.polimi.ingsw.ps21.view.EndData;
 import it.polimi.ingsw.ps21.view.ExtraActionData;
 
 public class GUIInterface implements UserInterface{
@@ -88,11 +89,6 @@ public class GUIInterface implements UserInterface{
 		
 	}
 
-	@Override
-	public ActionData makeAction() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void showInfo(String name) {
@@ -148,11 +144,6 @@ public class GUIInterface implements UserInterface{
 		return null;
 	}
 
-	@Override
-	public void matchEnded() {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 	@Override
@@ -183,6 +174,18 @@ public class GUIInterface implements UserInterface{
 	public boolean reqIfWantsAdvancedRules() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public ActionData makeAction(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void matchEnded(EndData data) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
