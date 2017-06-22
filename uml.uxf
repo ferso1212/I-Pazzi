@@ -477,7 +477,7 @@ m2=0...</panel_attributes>
     <coordinates>
       <x>2264</x>
       <y>3344</y>
-      <w>272</w>
+      <w>280</w>
       <h>400</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -490,7 +490,7 @@ m2=1...2</panel_attributes>
     <coordinates>
       <x>2640</x>
       <y>3440</y>
-      <w>928</w>
+      <w>936</w>
       <h>376</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -587,7 +587,7 @@ m2=1
     <coordinates>
       <x>2400</x>
       <y>3056</y>
-      <w>48</w>
+      <w>56</w>
       <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
@@ -872,26 +872,20 @@ m2=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4384</x>
-      <y>1232</y>
+      <x>3896</x>
+      <y>1760</y>
       <w>552</w>
-      <h>448</h>
+      <h>288</h>
     </coordinates>
-    <panel_attributes>/Match/
+    <panel_attributes>SimpleMatch
 --
 # poolExtraAction :Queue&lt;ExtraAction&gt;
 # board: Board
 # players :EnumMap&lt;PlayerColor, Player&gt;
 # playersActionOrder: Queue&lt;Player&gt;
 //playersActionOrder contains 4 objects for each player and contains the order of the actions of an entire round
-# era :int
-# round : int
-# board :Board
-# orangeDice :int
-# whiteDice :int
-# blackDice :int
+
 --
-+ getDices() :int[]
 //0:nero 1:bianco 2:arancione
 + getPlayers: Player[]
 - start() :void 
@@ -913,26 +907,46 @@ m2=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3928</x>
-      <y>1272</y>
+      <x>4584</x>
+      <y>1776</y>
       <w>360</w>
-      <h>112</h>
+      <h>272</h>
     </coordinates>
     <panel_attributes>AdvancedMatch
 --
-+ getLeaderCards () :ArrayList&lt;LeaderCard&gt; </panel_attributes>
+# poolExtraAction :Queue&lt;ExtraAction&gt;
+# board: Board
+# players :EnumMap&lt;PlayerColor, AdvancedPlayer&gt;
+# playersActionOrder: Queue&lt;AdvancedPlayer&gt;
+--
+//0:nero 1:bianco 2:arancione
++ getPlayers: Player[]
+- start() :void 
+// loop del gioco finche non il model non diventa
++ throwDices() : Int 
++ work(player: Player, member: MembersColor, space: Space, servants: int): void
++ activateCards(player: Player, cards: DevelopmentCard[]): void
+//la activateWorkCards riceve le carte territorio/palazzo attivabili dalla getWorkCards() e ne attiva gli effetti permanenti
++ doAction(action: Action):ExtraAction
+//doAction() should check the Player.getActionMod().marketActionForbidden()
++ getCopy() :Match
+//sets both PlayersOrder (if used) and PlayersActionOrder.
+// to set PlayersActionOrder, it should also check Player.getActionMod().firstActionDelayed()
++ getBoard() :Board
+//calcola i punti vittoria finali di un giocatore
++ getExtraAction() :ExtraAction</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>4280</x>
-      <y>1312</y>
-      <w>120</w>
-      <h>96</h>
+      <x>4488</x>
+      <y>1648</y>
+      <w>248</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>130.0;100.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;290.0;160.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -1001,13 +1015,13 @@ layer=1</panel_attributes>
     <coordinates>
       <x>3040</x>
       <y>1464</y>
-      <w>1360</w>
+      <w>1160</w>
       <h>232</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m1=1
 m2=1</panel_attributes>
-    <additional_attributes>1680.0;10.0;870.0;10.0;870.0;260.0;10.0;260.0</additional_attributes>
+    <additional_attributes>1430.0;30.0;870.0;10.0;870.0;260.0;10.0;260.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -1696,38 +1710,25 @@ m1=2..4</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>4928</x>
-      <y>1656</y>
-      <w>792</w>
-      <h>24</h>
+      <x>4704</x>
+      <y>1424</y>
+      <w>1016</w>
+      <h>256</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;970.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;1250.0;300.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>4928</x>
-      <y>1608</y>
-      <w>792</w>
-      <h>32</h>
+      <x>4704</x>
+      <y>1408</y>
+      <w>1016</w>
+      <h>232</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 observes</panel_attributes>
-    <additional_attributes>970.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>4928</x>
-      <y>184</y>
-      <w>2760</w>
-      <h>1328</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-observes
-</panel_attributes>
-    <additional_attributes>10.0;1640.0;440.0;1630.0;450.0;990.0;450.0;10.0;3430.0;10.0;3430.0;860.0</additional_attributes>
+    <additional_attributes>1250.0;270.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLPackage</id>
@@ -2496,7 +2497,7 @@ m2=1..n</panel_attributes>
     <coordinates>
       <x>592</x>
       <y>2816</y>
-      <w>120</w>
+      <w>128</w>
       <h>248</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -2912,8 +2913,8 @@ layer=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>7112</x>
-      <y>1528</y>
+      <x>7224</x>
+      <y>1472</y>
       <w>344</w>
       <h>264</h>
     </coordinates>
@@ -2989,117 +2990,6 @@ playerId :</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>3920</x>
-      <y>1776</y>
-      <w>264</w>
-      <h>192</h>
-    </coordinates>
-    <panel_attributes>UnsettedMatch
-// GameServer must use this class to create new Match
---
-
-
---
-+ startMatch() : Match
-// Set random order of player and return first InitialRoundMatch
-+ addPlayer(Player) :void
-
-layer=1</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>4104</x>
-      <y>2056</y>
-      <w>224</w>
-      <h>184</h>
-    </coordinates>
-    <panel_attributes>InitialRoundMatch
---
-
-
-layer=1</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>4840</x>
-      <y>1760</y>
-      <w>152</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>EndedMatch
---
-
---
-+ getWinner() : Player
-layer=1</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>4200</x>
-      <y>1672</y>
-      <w>320</w>
-      <h>400</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>380.0;10.0;10.0;480.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>4104</x>
-      <y>1672</y>
-      <w>312</w>
-      <h>120</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>370.0;10.0;10.0;130.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>4624</x>
-      <y>1672</y>
-      <w>320</w>
-      <h>104</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;380.0;110.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>4368</x>
-      <y>2080</y>
-      <w>224</w>
-      <h>184</h>
-    </coordinates>
-    <panel_attributes>FinalRoundMatch
---
-// Quando esegue doAction() se viene eseguita l'ultima azione
-//notifica la Controller.gameLoop passando come oggetto una scelta VaticanChoice
-layer=1</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>4416</x>
-      <y>1672</y>
-      <w>192</w>
-      <h>424</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>220.0;10.0;10.0;510.0</additional_attributes>
-  </element>
-  <element>
     <id>Relation</id>
     <coordinates>
       <x>1136</x>
@@ -3127,8 +3017,8 @@ layer=0</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>7264</x>
-      <y>2296</y>
+      <x>7608</x>
+      <y>2040</y>
       <w>264</w>
       <h>96</h>
     </coordinates>
@@ -3438,9 +3328,9 @@ layer=1</panel_attributes>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>5920</x>
+      <x>5904</x>
       <y>1856</y>
-      <w>128</w>
+      <w>160</w>
       <h>72</h>
     </coordinates>
     <panel_attributes>Visitable
@@ -3451,10 +3341,10 @@ layer=1</panel_attributes>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>7728</x>
+      <x>7712</x>
       <y>688</y>
-      <w>176</w>
-      <h>144</h>
+      <w>208</w>
+      <h>152</h>
     </coordinates>
     <panel_attributes>Visitor
 --
@@ -3481,34 +3371,6 @@ layer=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4640</x>
-      <y>2088</y>
-      <w>328</w>
-      <h>184</h>
-    </coordinates>
-    <panel_attributes>VaticanSupport
---
-- choices :Map&lt;Player, Boolean&gt;
---
-+ setSupport(player :Player, choice :Boolean) :void
-// Puo' lanciare unchosenException per notificare il controller della mancazna di una scelta
-layer=1</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>4600</x>
-      <y>1672</y>
-      <w>88</w>
-      <h>432</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;90.0;520.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
       <x>3424</x>
       <y>4232</y>
       <w>216</w>
@@ -3525,26 +3387,8 @@ layer=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>6728</x>
-      <y>1704</y>
-      <w>288</w>
-      <h>128</h>
-    </coordinates>
-    <panel_attributes>DevCardData
---
-- name: String
-- requirementsInOr: ArrayList&lt;Requirement&gt;;
-- era: int;
-- permanentEffects: EffectData[] ;
-- instantEffects: EffectData[] ;
-- costsInOr: ImmProperties[] ;</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>6736</x>
-      <y>1904</y>
+      <x>7328</x>
+      <y>2040</y>
       <w>240</w>
       <h>144</h>
     </coordinates>
@@ -4113,10 +3957,10 @@ layer=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>7360</x>
-      <y>1072</y>
-      <w>96</w>
-      <h>24</h>
+      <x>7184</x>
+      <y>1064</y>
+      <w>280</w>
+      <h>120</h>
     </coordinates>
     <panel_attributes>RMIConnection</panel_attributes>
     <additional_attributes/>
@@ -4146,13 +3990,13 @@ layer=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>7392</x>
+      <x>7400</x>
       <y>1000</y>
-      <w>104</w>
-      <h>88</h>
+      <w>96</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>110.0;10.0;10.0;90.0</additional_attributes>
+    <additional_attributes>100.0;10.0;10.0;80.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -4341,5 +4185,125 @@ layer=1</panel_attributes>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>280.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4184</x>
+      <y>1352</y>
+      <w>528</w>
+      <h>304</h>
+    </coordinates>
+    <panel_attributes>/Match/
+--
+# period :int
+# round : RoundType
+# board :Board
+# orangeDice :int
+# whiteDice :int
+# blackDice :int
+--
++ getDices() :int[]
+//0:nero 1:bianco 2:arancione
++ getPlayers: Player[]
+- start() :void 
+// loop del gioco finche non il model non diventa
++ throwDices() : Int 
++ work(player: Player, member: MembersColor, space: Space, servants: int): void
++ activateCards(player: Player, cards: DevelopmentCard[]): void
+//la activateWorkCards riceve le carte territorio/palazzo attivabili dalla getWorkCards() e ne attiva gli effetti permanenti
++ doAction(action: Action):ExtraAction
+//doAction() should check the Player.getActionMod().marketActionForbidden()
++ getCopy() :Match
+//sets both PlayersOrder (if used) and PlayersActionOrder.
+// to set PlayersActionOrder, it should also check Player.getActionMod().firstActionDelayed()
++ getBoard() :Board
+//calcola i punti vittoria finali di un giocatore
++ getExtraAction() :ExtraAction
+
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4336</x>
+      <y>1648</y>
+      <w>136</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>150.0;10.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>7136</x>
+      <y>1016</y>
+      <w>88</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+creates</panel_attributes>
+    <additional_attributes>90.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLInterface</id>
+    <coordinates>
+      <x>7216</x>
+      <y>776</y>
+      <w>256</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>RMIConnectionInterface
+--
++setClient(RMIClientInterface client): void 	
++receiveMessage(String mess): void 
++ disconnect( ) : void 
++ getId(): int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>7320</x>
+      <y>872</y>
+      <w>24</w>
+      <h>208</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;240.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>7576</x>
+      <y>2296</y>
+      <w>264</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>ExtraActionData
+--
+- type: ActionType
+- familyMember: MemberColor
+- servants: int
+- tower: DevelopmentCardType
+- space: int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4376</x>
+      <y>2136</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>RoundType
+--
+INITIAL_ROUND
+FINAL_ROUND
+VATICAN_SUPPORT</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>
