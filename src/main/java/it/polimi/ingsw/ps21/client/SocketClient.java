@@ -105,7 +105,7 @@ public class SocketClient {
 
 			case PRIVILEGES_CHOICE: {
 				PrivilegesChoiceRequestNetPacket response= (PrivilegesChoiceRequestNetPacket)receivedPacket;
-				ImmProperties[] chosen = ui.reqPrivileges(response.getNum(), response.getChoices());
+				ImmProperties[] chosen = ui.reqPrivileges(response.getNumberOfAcquiredPrivileges(), response.getChoices());
 				out.writeObject(new PrivilegesChoiceResponseNetPacket(receivedPacket.getNum(), chosen));
 				break;
 

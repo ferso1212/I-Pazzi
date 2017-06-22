@@ -45,7 +45,15 @@ public class TestMatchFactory extends TestCase {
         assert(checkTowerBonuses());
         assert(checkTrackBonuses());
         assert(checkMarketPrivileges());
+        assert(checkCouncil());
    }
+
+	private boolean checkCouncil() {
+		if(testedBuilder.makeCouncilPrivileges()!=1) return false;
+		if(testedBuilder.makeCouncilBonuses().isNull()) return false;
+		return true;
+		
+	}
 
 	private boolean checkExcommunications() {
 		try {

@@ -32,9 +32,9 @@ import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.view.ActionData;
+import it.polimi.ingsw.ps21.view.ActionTimer;
 import it.polimi.ingsw.ps21.view.ExtraActionData;
 import it.polimi.ingsw.ps21.view.ExtraActionRequest;
-import it.polimi.ingsw.ps21.view.RoundTimer;
 import it.polimi.ingsw.ps21.view.TimeoutExpiredMessage;
 import it.polimi.ingsw.ps21.view.UserHandler;
 
@@ -53,13 +53,14 @@ public class MatchController extends Observable implements Observer {
 	private ArrayList<ExtraAction> currentExtraActions;
 
 	private static enum ActionState {
-		ACCEPTED, REFUSED, AWAITING_CHOICES,
+		ACCEPTED, REFUSED, AWAITING_CHOICES, TIMEOUT_EXPIRED,
 	}
 
 	private ActionState state;
 	private RoundType roundType;
-	private RoundTimer timer;
+	private ActionTimer timer;
 	private Thread timerThread;
+	private Timer roundTimer;
 
 
 	/**Constructs the controller.
@@ -79,9 +80,11 @@ public class MatchController extends Observable implements Observer {
 			this.addObserver(handler);
 			handler.addObserver(this);
 		}
-		this.timer = new RoundTimer(MatchFactory.instance().makeTimeoutRound());
+		//this.timer = new ActionTimer(MatchFactory.instance().makeTimeoutRound());
+		this.timer = new ActionTimer(5000);
 		this.timer.addObserver(this);
 		timerThread = new Thread(this.timer);
+		
 		startMatch();
 	}
 
@@ -256,7 +259,7 @@ public class MatchController extends Observable implements Observer {
 	 */
 	private void reqPlayerAction() {
 		if (roundType != RoundType.VATICAN_ROUND){
-			//timerThread = new Thread(this.timer);
+			timerThread = new Thread(this.timer);
 			timerThread.start();
 			ActionRequest req = new ActionRequest(currentPlayer.getId());
 			setChanged();
@@ -273,6 +276,7 @@ public class MatchController extends Observable implements Observer {
 	 */
 	private void nextPlayer() {
 		this.currentExtraActions.clear();
+		timerThread.interrupt();
 		RoundType oldRoundType = this.roundType;
 		this.roundType = match.setNextPlayer();
 		currentPlayer = match.getCurrentPlayer();
@@ -355,9 +359,8 @@ public class MatchController extends Observable implements Observer {
 		if (source == timer && state != ActionState.ACCEPTED) {
 				setChanged();
 				notifyObservers(new TimeoutExpiredMessage(currentPlayer.getId()));
-				this.currentExtraActions = new ArrayList<>();
+				this.currentExtraActions.clear();
 				nextPlayer();
-				reqPlayerAction();
 			}
 		
 

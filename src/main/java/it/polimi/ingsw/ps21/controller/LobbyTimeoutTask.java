@@ -15,7 +15,7 @@ public class LobbyTimeoutTask extends TimerTask {
 	@Override
 	public void run() {
 		  timeoutExpired= true;
-		 System.out.println("\n" + lobbyType+" lobby timeout expired." );
+		 System.out.println("\n" + lobbyType + " lobby timeout expired." );
 		}
 	
 	public boolean isExpired()

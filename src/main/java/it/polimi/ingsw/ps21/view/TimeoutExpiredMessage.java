@@ -7,7 +7,7 @@ public class TimeoutExpiredMessage extends Message{
 
 	public TimeoutExpiredMessage(PlayerColor dest) {
 		super(dest);
-		this.message="Timeout expired!";
+		this.message="Action timeout expired!";
 	}
 
 }
