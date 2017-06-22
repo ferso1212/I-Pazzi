@@ -35,6 +35,7 @@ public class AdvancedMatch extends Match {
 	}
 	
 	public AdvancedMatch(PlayerColor...colors) throws InvalidIDException, BuildingDeckException{
+		super();
 		if (colors.length>4) throw new InvalidIDException();
 		MatchFactory builder = MatchFactory.instance();
 		ImmProperties[] initialProperties = builder.makeInitialProperties();

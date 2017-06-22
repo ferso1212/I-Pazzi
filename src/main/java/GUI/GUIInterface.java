@@ -7,12 +7,15 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import it.polimi.ingsw.ps21.client.UserInterface;
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
+import it.polimi.ingsw.ps21.controller.MatchController;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
@@ -24,7 +27,7 @@ import it.polimi.ingsw.ps21.view.ActionData;
 import it.polimi.ingsw.ps21.view.ExtraActionData;
 
 public class GUIInterface implements UserInterface{
-	
+	private static final Logger LOGGER = Logger.getLogger(GUIInterface.class.getName());
 	private int rulesType;
 	private JFrame mainWindow;
 	private ImageIcon boardIcon;
@@ -41,8 +44,7 @@ public class GUIInterface implements UserInterface{
 				try {
 					setUpWindow();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					LOGGER.log(Level.SEVERE, "\nUnable to set up a windows due to IOException", e);
 				}
 				
 			}

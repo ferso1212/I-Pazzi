@@ -6,6 +6,7 @@ import java.util.Timer;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import it.polimi.ingsw.ps21.controller.LobbyTimeoutTask;
 import it.polimi.ingsw.ps21.controller.MatchRunner;
 import it.polimi.ingsw.ps21.controller.TimeoutTask;
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
@@ -47,7 +48,9 @@ public class Lobby extends Thread{
 	
 	while (true) {
 		Timer timer = new Timer();
-		TimeoutTask expired = new TimeoutTask();
+		LobbyTimeoutTask expired;
+		if(isAdvanced) expired = new LobbyTimeoutTask("advanced");
+		else expired = new LobbyTimeoutTask("standard");
 		while (connectionsQueue.size() < MAX_PLAYERS_NUM && !expired.isExpired()) {
 			if (connectionsQueue.size() >= MIN_PLAYERS_NUM && !startedTimer) // the
 																		// counter

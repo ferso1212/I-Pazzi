@@ -49,7 +49,7 @@ public abstract class Match extends Observable {
 	protected boolean ended = false;
 	protected int currentPlayer;
 	
-	public Match()throws InvalidIDException, BuildingDeckException{
+	public Match(){
 	}
 	
 	public Match(Match previousMatch){

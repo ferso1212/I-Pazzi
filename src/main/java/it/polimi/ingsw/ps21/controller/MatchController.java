@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -58,6 +60,7 @@ public class MatchController extends Observable implements Observer {
 	private RoundType roundType;
 	private RoundTimer timer;
 	private Thread timerThread;
+
 
 	/**Constructs the controller.
 	 * The controller adds himself as observer of the match and of all the UserHandlers.
@@ -249,11 +252,11 @@ public class MatchController extends Observable implements Observer {
 
 	/**
 	 * Requests a new action to the current player.
-	 * If the current stage is Vatican Report, the requested acyion will be a Vatican Action.
+	 * If the current stage is Vatican Report, the requested action will be a Vatican Action.
 	 */
 	private void reqPlayerAction() {
 		if (roundType != RoundType.VATICAN_ROUND){
-			timerThread = new Thread(this.timer);
+			//timerThread = new Thread(this.timer);
 			timerThread.start();
 			ActionRequest req = new ActionRequest(currentPlayer.getId());
 			setChanged();
