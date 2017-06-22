@@ -14,8 +14,8 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 public class PropertiesBonus extends InstantLeaderEffect {
 
 	private ImmProperties bonus;
-	public PropertiesBonus(Requirement req, ImmProperties bonus) {
-		super(req);
+	public PropertiesBonus(Requirement reqs[], ImmProperties bonus) {
+		super(reqs);
 		this.bonus = bonus;
 	}
 

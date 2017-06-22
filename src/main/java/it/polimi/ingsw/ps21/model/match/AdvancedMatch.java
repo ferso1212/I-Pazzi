@@ -30,8 +30,18 @@ public class AdvancedMatch extends Match {
 	private ArrayList<AdvancedPlayer> order;
 	private ArrayList<ExtraAction> extraActions;
 	
-	public AdvancedMatch(Match previousMatch) {
-		super(previousMatch);
+	public AdvancedMatch(AdvancedMatch advancedMatch) {
+		this.blackDice = advancedMatch.blackDice;
+		this.orangeDice = advancedMatch.orangeDice;
+		this.whiteDice = advancedMatch.whiteDice;
+		this.period = advancedMatch.period;
+		this.round = advancedMatch.round;
+		this.board = advancedMatch.board;
+		this.currentPlayer = advancedMatch.currentPlayer;
+		this.ended = advancedMatch.ended;
+		this.extraActions = advancedMatch.extraActions;
+		this.players = advancedMatch.players;
+		this.order = advancedMatch.order;
 	}
 	
 	public AdvancedMatch(PlayerColor...colors) throws InvalidIDException, BuildingDeckException{
@@ -42,7 +52,7 @@ public class AdvancedMatch extends Match {
 		players = new EnumMap<>(PlayerColor.class);
 		order = new ArrayList<>();
 		ArrayList<AdvancedPlayer> tempPlayer = new ArrayList<>();
-		board = new Board(colors.length, false);
+		board = new Board(colors.length, true);
 		board.getDeck().shuffle();
 		extraActions = new ArrayList<>();
 		for (int i=0; i<colors.length; i++){
@@ -59,6 +69,7 @@ public class AdvancedMatch extends Match {
 		throwDices();
 		board.newSetBoard(period);
 		setChanged();
+		notifyObservers("Leader Card Shuffle");
 	}
 	
 	@Override

@@ -12,8 +12,8 @@ public abstract class InstantLeaderEffect extends LeaderEffect{
 	 */
 	private static final long serialVersionUID = 1248622228845456305L;
 
-	public InstantLeaderEffect(Requirement req) {
-		super(req);
+	public InstantLeaderEffect(Requirement[] reqs) {
+		super(reqs);
 	}
 	
 	@Override

@@ -6,17 +6,17 @@ import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.player.MembersColor;
 
-public class FixedDiceValue extends PermanentLeaderEffect {
+public class IncreaseDiceValuesEffect extends PermanentLeaderEffect {
+
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7001930598983769233L;
 	private int whiteValue;
 	private int blackValue;
 	private int orangeValue;
-	public FixedDiceValue(Requirement req, int orange, int black, int white) {
-		super(req);
+	public IncreaseDiceValuesEffect(Requirement reqs[], int orange, int black, int white) {
+		super(reqs);
 		this.whiteValue = white;
 		this.orangeValue = orange;
 		this.blackValue = black;
@@ -28,17 +28,17 @@ public class FixedDiceValue extends PermanentLeaderEffect {
 
 	@Override
 	public String getDesc() {
-		return "This effect set the orange dice to "+ orangeValue + ", the black dice to " + blackValue + "and the white to " + whiteValue +
+		return "This effect increase the orange dice value of "+ orangeValue + ", the black dice value of " + blackValue + "and the white dice value of " + whiteValue +
 					" for all your next actions";
 	}
 	@Override
 	public ExtraAction activate(AdvancedPlayer player) {
 		this.clonable = true;
 		this.activated = true;
-		player.getFamily().getMember(MembersColor.ORANGE).setModifier(orangeValue);
-		player.getFamily().getMember(MembersColor.WHITE).setModifier(orangeValue);
-		player.getFamily().getMember(MembersColor.BLACK).setModifier(orangeValue);
+		// TODO
+		player.getFamily().getMember(MembersColor.ORANGE);
+		player.getFamily().getMember(MembersColor.WHITE);
+		player.getFamily().getMember(MembersColor.BLACK);
 		return new NullAction(player.getId());
 	}
-
 }
