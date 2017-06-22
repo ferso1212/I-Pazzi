@@ -336,7 +336,7 @@ public class EffectBuilder {
 				}
 				return new DoubleResources(reqs.toArray(new Requirement[0]));	
 			}
-			case "LorenzioIlMagnifico":
+			case "LorenzoIlMagnifico":
 			{
 				ArrayList<Requirement> reqs = new ArrayList<>();
 				NodeList reqNodes = effectElement.getElementsByTagName("Requirement");
@@ -361,13 +361,7 @@ public class EffectBuilder {
 				for (int j=0; j<requirementsNodes.getLength(); j++){
 					reqs.add(PropertiesBuilder.makeRequirement((Element)requirementsNodes.item(j)));
 				}
-				DevelopmentCardType typ;
-				Element typesElement = (Element) effectElement.getElementsByTagName("DevelopmentCardType").item(0);
-				if (typesElement.getElementsByTagName("Building").getLength() > 0) typ =DevelopmentCardType.BUILDING;
-				else if (typesElement.getElementsByTagName("Territory").getLength() > 0) typ = DevelopmentCardType.TERRITORY;
-				else if (typesElement.getElementsByTagName("Character").getLength() > 0) typ  = DevelopmentCardType.CHARACTER;
-				else typ = DevelopmentCardType.VENTURE;
-				return new NoMilitaryForTerritory(reqs.toArray(new Requirement[0]), typ);	
+				return new NoMilitaryForTerritory(reqs.toArray(new Requirement[0]));	
 			}
 			case "NoPayOccupiedTower":
 			{
@@ -399,7 +393,7 @@ public class EffectBuilder {
 				int white = Integer.parseInt(effectElement.getAttribute("whiteValue"));
 				return new FixedDiceValuesEffect(reqs.toArray(new Requirement[0]), orange, black, white);
 			}
-			case "IncreaseDiceValue":
+			case "IncreaseDiceValues":
 			{
 				ArrayList<Requirement> reqs = new ArrayList<>();
 				NodeList requirementsNodes = effectElement.getElementsByTagName("Requirement");

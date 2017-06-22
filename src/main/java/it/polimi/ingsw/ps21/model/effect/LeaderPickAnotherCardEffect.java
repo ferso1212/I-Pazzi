@@ -29,13 +29,12 @@ public class LeaderPickAnotherCardEffect extends InstantLeaderEffect {
 	@Override
 	public String getType() {
 		// TODO Auto-generated method stub
-		return null;
+		return "Pick Another Card Leader Effect";
 	}
 
 	@Override
 	public String getDesc() {
-		// TODO Auto-generated method stub
-		return null;
+		return "You can pick one Development Card with dice value of 6";
 	}
 
 }

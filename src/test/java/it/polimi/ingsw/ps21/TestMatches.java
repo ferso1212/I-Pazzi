@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import it.polimi.ingsw.ps21.model.board.NotOccupableException;
 import it.polimi.ingsw.ps21.model.deck.TerritoryCard;
+import it.polimi.ingsw.ps21.model.match.AdvancedMatch;
 import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
 import it.polimi.ingsw.ps21.model.match.InvalidIDException;
 import it.polimi.ingsw.ps21.model.match.Match;
@@ -139,7 +140,8 @@ public class TestMatches {
 
 	private boolean checkInvalidMatchCreation() {
 		try {
-			new Match(invalidPlayers);
+			new SimpleMatch(invalidPlayers);
+			new AdvancedMatch(invalidPlayers);
 			return false;
 		} catch (InvalidIDException | BuildingDeckException e) {
 			LOGGER.log(Level.INFO, "Exception catched as expected, invalid match not created", e);
@@ -150,7 +152,7 @@ public class TestMatches {
 	
 	private boolean checkMatchCreation() {
 		try {
-			Match match = new Match(validPlayers);
+			SimpleMatch match = new SimpleMatch(validPlayers);
 			if (match.getPeriod()!=1) return false;
 			if (match.getRound()!=RoundType.INITIAL_ROUND) return false;
 			return true;

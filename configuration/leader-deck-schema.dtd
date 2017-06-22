@@ -1,9 +1,9 @@
 <!ELEMENT LeaderDeck (LeaderCard*)>
 <!ELEMENT LeaderCard (InstantLeaderEffect | PermanentLeaderEffect)>
 <!ELEMENT Requirement (Properties, CardsNumber)>
-<!ELEMENT PermanentLeaderEffect ( ChurchSupport | DoubleResources | LorenzoIlMangifico | NoMilitaryForTerritory | NoPayOccupiedTower | OccupiedSpace | NullLeaderEffect | FixedDiceValues | IncreaseDiceValues | DiscountLeaderEffect ) >
-<!ELEMENT InstantLeaderEffect ( CouncilBonus | MemberBonus | PropertiesBonus | PrivilegesBonus | InstantWorkEffect | LeaderPickAnotherCard | NullLeaderEffect )>
-<!ELEMENT NoMilitaryForTerritory ( Requirement*, DevelopmentCardType ) >
+<!ELEMENT PermanentLeaderEffect ( ChurchSupport | DoubleResources | LorenzoIlMangifico | NoMilitaryForTerritory | NoPayOccupiedTower | OccupiedSpace | NullLeaderEffect | FixedDiceValues | IncreaseDiceValues | DiscountLeaderEffect | MemberBonus ) >
+<!ELEMENT InstantLeaderEffect ( CouncilBonus | PropertiesBonus | PrivilegesBonus | InstantWorkEffect | LeaderPickAnotherCard | NullLeaderEffect )>
+<!ELEMENT NoMilitaryForTerritory ( Requirement* ) >
 <!ELEMENT DevelopmentCardType (Building | Territory | Character | Venture )>
 <!ELEMENT OccupiedSpace (Requirement*) >
 <!ELEMENT NoPayOccupiedTower ( Requirement* )>
@@ -12,7 +12,7 @@
 <!ELEMENT FixedDiceValues (Requirement*)>
 <!ELEMENT IncreaseDiceValues (Requirement*)>
 <!ELEMENT DoubleResources ( Requirement* )>
-<!ELEMENT LorenzoIlMagnifico ( Requirement *)>
+<!ELEMENT LorenzoIlMagnifico ( Requirement* )>
 <!ELEMENT MemberBonus ( Requirement* ) >
 <!ELEMENT PropertiesBonus (Requirement* , Properties)>
 <!ELEMENT LeaderPickAnotherCard (Requirement*)>

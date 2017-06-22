@@ -21,8 +21,7 @@ public class MemberBonus extends InstantLeaderEffect {
 	}
 	@Override
 	public ExtraAction activate(AdvancedPlayer player) {
-		for (MembersColor color: MembersColor.values()){
-			player.getFamily().getMember(color).increaseModifier(valueBonus);}
+		player.getFamily().getMember(MembersColor.NEUTRAL).increaseModifier(valueBonus);
 		return new NullAction(player.getId());
 	}
 

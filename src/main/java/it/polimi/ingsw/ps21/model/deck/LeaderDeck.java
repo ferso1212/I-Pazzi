@@ -43,5 +43,14 @@ public class LeaderDeck{
 	public boolean isEmpty() {
 		return leaderCards.isEmpty();
 	}
+	
+	@Override
+	public String toString(){
+		StringBuilder temp = new StringBuilder("LeaderDeck: \n");
+		for (LeaderCard card: leaderCards){
+			temp.append("-LeaderCard:" + card.toString() + "\n");
+		}
+		return temp.toString();
+	}
 
 }

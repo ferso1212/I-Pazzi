@@ -103,6 +103,7 @@ public class TestMatchFactory extends TestCase {
 			if (testLeaderdeck.isEmpty()) return false;
 			{
 				System.out.println(testDeck.toString());
+				System.out.println(testLeaderdeck.toString());
 				return true;
 			}
 		} catch (BuildingDeckException e) {

@@ -13,15 +13,14 @@ import it.polimi.ingsw.ps21.model.player.Player;
 
 public class NoMilitaryForTerritory extends PermanentLeaderEffect {
 
-	public DevelopmentCardType type;
-	public NoMilitaryForTerritory(Requirement requirements[],DevelopmentCardType type) {
+	public NoMilitaryForTerritory(Requirement requirements[]) {
 		super(requirements);
 	}
 	
 
 	@Override
 	public ExtraAction activate(AdvancedPlayer player) {
-		player.getDeck().setNoAddingRequirement(type);
+		player.getDeck().setNoAddingRequirement(DevelopmentCardType.TERRITORY);
 		return new NullAction(player.getId());
 	}
 

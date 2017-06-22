@@ -182,7 +182,7 @@
 	</InstantLeaderEffect>
 	</LeaderCard>
 	<LeaderCard name="Michelangelo Bonarroti">
-	<InstnatLeaderEffect>
+	<InstantLeaderEffect>
 	<PropertiesBonus>
 			<Requirement>
         		        <Properties>
@@ -210,7 +210,7 @@
         		            <VictoryPoints value="0" />
         		            <FaithPoints value="0" />
         		 </Properties>
-		</PropertiesBonus>
+	</PropertiesBonus>
 	</InstantLeaderEffect>
 	</LeaderCard>
 	<LeaderCard name="Cosime de' Medici">
@@ -307,7 +307,7 @@
         		            <FaithPoints value="0" />
         		 </Properties>
 		</PropertiesBonus>
-	</instantLeaderEffect>
+	</InstantLeaderEffect>
 	</LeaderCard>
 	<LeaderCard name="Santa Rita">
 	<PermanentLeaderEffect>
@@ -406,7 +406,7 @@
 	<LeaderCard name="Cesare Borgia">
 	<PermanentLeaderEffect>
 		<NoMilitaryForTerritory>
-		<Requirement>
+			<Requirement>
         		        <Properties>
         		            <Wood value="0" />
         		            <Stones value="0" />
@@ -527,7 +527,7 @@
     		                <Purple value="2" />
     		            </CardsNumber>
   		          </Requirement>
-		<DiscountLeaderEffect/>
+		</DiscountLeaderEffect>
 	</PermanentLeaderEffect>
 	</LeaderCard>
 	<LeaderCard name="Ludovico il Moro">
