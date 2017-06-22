@@ -36,6 +36,7 @@ import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
 import it.polimi.ingsw.ps21.model.match.InvalidIDException;
 import it.polimi.ingsw.ps21.model.match.Match;
+import it.polimi.ingsw.ps21.model.match.SimpleMatch;
 import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
@@ -51,7 +52,7 @@ public class NetPacketsTest {
 	@Test
 	public void testActionRequest() {
 		// Action request
-		ActionRequestNetPacket p = new ActionRequestNetPacket(1);
+		ActionRequestNetPacket p = new ActionRequestNetPacket(1, 0);
 		assertEquals(1, p.getNum());
 		assertEquals(PacketType.ACTION, p.getType());
 	}
@@ -125,7 +126,7 @@ public class NetPacketsTest {
 		// View update request
 		try {
 			ViewUpdateRequestNetPacket p8 = new ViewUpdateRequestNetPacket(1,
-					new MatchData(new Match(PlayerColor.BLUE, PlayerColor.GREEN)));
+					new MatchData(new SimpleMatch(PlayerColor.BLUE, PlayerColor.GREEN)));
 			assertEquals(1, p8.getNum());
 			assertEquals(PacketType.VIEW_UPDATE_REQUEST, p8.getType());
 		} catch (InvalidIDException e) {
@@ -210,7 +211,7 @@ public class NetPacketsTest {
 	
 	@Test
 	public void testActionResponse() {
-		ActionResponseNetPacket p = new ActionResponseNetPacket(1, new ActionData(ActionType.NULL, MembersColor.BLACK, 1,DevelopmentCardType.BUILDING , 1));
+		ActionResponseNetPacket p = new ActionResponseNetPacket(1, new ActionData(ActionType.NULL, MembersColor.BLACK, 1,DevelopmentCardType.BUILDING , 1, 0));
 		assertEquals(1, p.getNum());
 		assertEquals(PacketType.ACTION, p.getType());
 		assertEquals(1, p.getAction().getServants());

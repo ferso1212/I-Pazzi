@@ -64,7 +64,12 @@ public class TestMatches {
 	}
 
 	private boolean checkCopingMatch() {
-		SimpleMatch testedMatch = new SimpleMatch(validPlayers);
+		SimpleMatch testedMatch;
+		try {
+			testedMatch = new SimpleMatch(validPlayers);
+		} catch (InvalidIDException | BuildingDeckException e1) {
+			return false;
+		}
 		SimpleMatch copiedMatch = new SimpleMatch(testedMatch);
 		if (!compareMatch(copiedMatch, testedMatch)) return false;
 		try {
@@ -140,7 +145,6 @@ public class TestMatches {
 
 	private boolean checkInvalidMatchCreation() {
 		try {
-			new SimpleMatch(invalidPlayers);
 			new AdvancedMatch(invalidPlayers);
 			return false;
 		} catch (InvalidIDException | BuildingDeckException e) {

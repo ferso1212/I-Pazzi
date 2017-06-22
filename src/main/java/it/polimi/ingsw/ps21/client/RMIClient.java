@@ -101,8 +101,8 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	}
 
 	@Override
-	public ActionData actionRequest() throws RemoteException {
-		return ui.makeAction();
+	public ActionData actionRequest(int id) throws RemoteException {
+		return ui.makeAction(id);
 	}
 
 	@Override

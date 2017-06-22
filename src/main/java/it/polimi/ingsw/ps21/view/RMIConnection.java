@@ -134,9 +134,9 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 
 
 	@Override
-	public ActionData reqAction() throws DisconnectedException {
+	public ActionData reqAction(int id) throws DisconnectedException {
 		try {
-			return client.actionRequest();
+			return client.actionRequest(id);
 		} catch (RemoteException e) {
 			LOGGER.log(Level.WARNING, "Error calling remote method actionRequest");
 			throw new DisconnectedException();
