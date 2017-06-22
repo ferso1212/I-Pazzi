@@ -195,10 +195,10 @@ public class SocketConnection implements Connection{
 
 
 	@Override
-	public ActionData reqAction() throws DisconnectedException{
+	public ActionData reqAction(int id) throws DisconnectedException{
 		
 		try {
-			return ((ActionResponseNetPacket)requestAndAwaitResponse(new ActionRequestNetPacket(messageCounter))).getAction();
+			return ((ActionResponseNetPacket)requestAndAwaitResponse(new ActionRequestNetPacket(messageCounter, id))).getAction();
 		} catch (IOException e) {
 			LOGGER.log(Level.WARNING, "Unable to request action to the remote client due to IOException", e);
 			throw new DisconnectedException();

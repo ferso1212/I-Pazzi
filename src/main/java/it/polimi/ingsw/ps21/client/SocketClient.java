@@ -129,7 +129,8 @@ public class SocketClient {
 				break;
 			}
 			case ACTION: {
-				ActionData chosenAction= ui.makeAction();
+				ActionRequestNetPacket req= (ActionRequestNetPacket)receivedPacket;
+				ActionData chosenAction= ui.makeAction(req.getId());
 				out.writeObject(new ActionResponseNetPacket(receivedPacket.getNum(), chosenAction));
 				break;
 			}

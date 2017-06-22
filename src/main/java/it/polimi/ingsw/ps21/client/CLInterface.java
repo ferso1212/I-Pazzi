@@ -264,7 +264,7 @@ public class CLInterface implements UserInterface {
 	}
 
 	@Override
-	public ActionData makeAction() {
+	public ActionData makeAction(int id) {
 		// TODO define ActionData and how to parse it
 		System.out.println("It's your turn: which action do you want to do?");
 		System.out.println("1)-Place a family member in a Tower Space;\n2)-Place a family member in Council palace\n"
@@ -398,7 +398,7 @@ public class CLInterface implements UserInterface {
 			space = 0;
 			break;
 		}
-		return new ActionData(type, familyMember, servants, tower, space);
+		return new ActionData(type, familyMember, servants, tower, space, id);
 	}
 
 	// TODO make this private after test

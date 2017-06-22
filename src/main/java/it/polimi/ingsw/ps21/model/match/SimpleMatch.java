@@ -101,7 +101,7 @@ public class SimpleMatch extends Match {
 				return;
 			}
  		}
-		currentPlayer = 1;
+		currentPlayer = 0;
 		Queue<FamilyMember> temp = board.getCouncilPalace().getOccupants();
 		ArrayList<Player> oldOrder = new ArrayList<>();
 		for (int i=0; i< players.values().size(); i++){

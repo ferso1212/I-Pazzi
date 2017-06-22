@@ -6,9 +6,11 @@ import it.polimi.ingsw.ps21.model.player.PlayerColor;
 public class ActionRequest extends Message{
 	
 	private Action choosenAction;
+	private int id;
 
-	public ActionRequest(PlayerColor dest) {
+	public ActionRequest(PlayerColor dest, int id) {
 		super(dest);
+		this.id=id;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -18,6 +20,10 @@ public class ActionRequest extends Message{
 
 	public void setChoosenAction(Action choosenAction) {
 		this.choosenAction = choosenAction;
+	}
+
+	public int getId() {
+		return id;
 	}
 	
 	

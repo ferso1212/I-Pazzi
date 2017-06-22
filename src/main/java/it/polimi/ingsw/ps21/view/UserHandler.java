@@ -162,7 +162,7 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 						return;
 					else {
 						this.timeoutExpired = false;
-						ActionData newAction = connection.reqAction();
+						ActionData newAction = connection.reqAction(req.getId());
 						if (timeoutExpired)
 							connection.sendMessage("\nAction timeout expired");
 						else {

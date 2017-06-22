@@ -22,7 +22,7 @@ public abstract interface UserInterface {
 	
 	public abstract void updateView(MatchData match);
 	
-	public ActionData makeAction();
+	public ActionData makeAction(int id);
 	
 	public abstract void showInfo(String name);
 	

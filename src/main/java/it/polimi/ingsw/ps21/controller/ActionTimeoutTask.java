@@ -24,5 +24,10 @@ public class ActionTimeoutTask extends TimerTask{
 		{
 			return timeoutExpired;
 		}
+		
+		public void reset()
+		{
+			this.timeoutExpired=false;
+		}
 	
 }

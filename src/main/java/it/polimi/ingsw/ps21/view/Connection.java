@@ -29,7 +29,7 @@ public abstract interface Connection{
 	
 	public int reqExtraActionChoice(ExtraActionData[] actions) throws DisconnectedException;
 	
-	public ActionData reqAction() throws DisconnectedException;
+	public ActionData reqAction(int id) throws DisconnectedException;
 
 
 	public EffectSet reqEffectChoice(EffectSet[] possibleEffects) throws DisconnectedException;;
