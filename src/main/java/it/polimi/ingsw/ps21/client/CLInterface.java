@@ -18,6 +18,7 @@ import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.view.ActionData;
+import it.polimi.ingsw.ps21.view.EndData;
 import it.polimi.ingsw.ps21.view.ExtraActionData;
 
 public class CLInterface implements UserInterface {
@@ -203,9 +204,11 @@ public class CLInterface implements UserInterface {
 	}
 
 	@Override
-	public void matchEnded() {
+	public void matchEnded(EndData data) {
 		this.matchEnded = true;
-
+		System.out.println("\nYou have totalized " + data.getPlayersFinalPoints().get(playerID) + " victory points.");
+		
+		
 	}
 
 	@Override

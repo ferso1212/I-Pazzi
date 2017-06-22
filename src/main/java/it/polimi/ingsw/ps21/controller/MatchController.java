@@ -33,6 +33,7 @@ import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.view.ActionData;
 import it.polimi.ingsw.ps21.view.ActionTimer;
+import it.polimi.ingsw.ps21.view.EndData;
 import it.polimi.ingsw.ps21.view.ExtraActionData;
 import it.polimi.ingsw.ps21.view.ExtraActionRequest;
 import it.polimi.ingsw.ps21.view.TimeoutExpiredMessage;
@@ -62,8 +63,9 @@ public class MatchController extends Observable implements Observer {
 
 	private ActionState state;
 	private RoundType roundType;
-	private ActionTimer timer;
-	private Thread timerThread;
+	//private ActionTimer timer;
+	//private Thread timerThread;
+	private Timer timer;
 	
 
 	/**
@@ -86,13 +88,15 @@ public class MatchController extends Observable implements Observer {
 			this.addObserver(handler);
 			handler.addObserver(this);
 		}
-		this.timer = new ActionTimer(5000);
+		//this.timer = new ActionTimer(5000);
 		//this.timer = new ActionTimer(MatchFactory.instance().makeTimeoutRound());
 		
-		this.timer.addObserver(this);
-		timerThread = new Thread(this.timer);
+		//this.timer.addObserver(this);
+		//timerThread = new Thread(this.timer);
 		this.currentExtraActions = new ArrayList<>();
 		this.actionCounter = 0;
+		this.timer=new Timer();
+
 		startMatch();
 	}
 
@@ -284,8 +288,18 @@ public class MatchController extends Observable implements Observer {
 	 */
 	private void reqPlayerAction() {
 		if (roundType != RoundType.VATICAN_ROUND) {
-			timerThread = new Thread(this.timer);
-			timerThread.start();
+			//timerThread = new Thread(this.timer);
+			//timerThread.start();
+			this.timer=new Timer();
+			timer.schedule(new TimerTask() {
+
+				@Override
+				public void run() {
+					setChanged();
+					notifyObservers(new TimeoutExpiredMessage(currentPlayer.getId()));
+					nextPlayer();
+					
+				}}, 10000);
 			ActionRequest req = new ActionRequest(currentPlayer.getId(), ++this.actionCounter);
 			setChanged();
 			notifyObservers(req);
@@ -301,7 +315,8 @@ public class MatchController extends Observable implements Observer {
 	 */
 	private void nextPlayer() {
 		this.currentExtraActions.clear();
-		timerThread.interrupt();
+		this.timer.cancel();
+		this.timer.purge();
 		RoundType oldRoundType = this.roundType;
 		this.roundType = match.setNextPlayer();
 		currentPlayer = match.getCurrentPlayer();
@@ -325,7 +340,7 @@ public class MatchController extends Observable implements Observer {
 
 	@Override
 	public void update(Observable source, Object arg) {
-		if (source != match && source != timer && !handlersMap.containsValue(source)) {
+		if (source != match && !handlersMap.containsValue(source)) {
 			throw new IllegalArgumentException();
 		}
 		if (source == match) {
@@ -338,6 +353,15 @@ public class MatchController extends Observable implements Observer {
 			} else if (arg == null) {
 				setChanged();
 				notifyObservers(new MatchData(match));
+				setChanged();
+				
+			}
+			else if (arg instanceof EndData)
+			{
+				this.timer.cancel();
+				this.timer.purge();
+				setChanged();
+				notifyObservers((EndData)arg);
 			}
 		}
 		if (source instanceof UserHandler) {
@@ -381,11 +405,11 @@ public class MatchController extends Observable implements Observer {
 				}
 			}
 		}
-		if (source == timer && state != ActionState.ACCEPTED) {
+		/*if (source == timer && state != ActionState.ACCEPTED) {
 			setChanged();
 			notifyObservers(new TimeoutExpiredMessage(currentPlayer.getId()));
 			nextPlayer();
-		}
+		}*/
 
 	}
 

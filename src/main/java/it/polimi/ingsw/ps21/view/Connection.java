@@ -32,9 +32,9 @@ public abstract interface Connection{
 	public ActionData reqAction(int id) throws DisconnectedException;
 
 
-	public EffectSet reqEffectChoice(EffectSet[] possibleEffects) throws DisconnectedException;;
+	public EffectSet reqEffectChoice(EffectSet[] possibleEffects) throws DisconnectedException;
 
-	public int reqWorkChoice(DevelopmentCard message) throws DisconnectedException;;
+	public int reqWorkChoice(DevelopmentCard message) throws DisconnectedException;
 
-
+	public void matchEnded(EndData data);
 }

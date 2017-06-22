@@ -156,6 +156,10 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 						}
 					}
 				} 
+				else if(arg instanceof EndData)
+				{
+					connection.matchEnded((EndData)arg);
+				}
 				else if (arg instanceof ActionRequest) {
 					ActionRequest req = (ActionRequest) arg;
 					if (req.getDest() != this.playerId)

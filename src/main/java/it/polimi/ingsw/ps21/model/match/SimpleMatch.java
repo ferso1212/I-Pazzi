@@ -22,6 +22,7 @@ import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.PlayerProperties;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
+import it.polimi.ingsw.ps21.view.EndData;
 
 public class SimpleMatch extends Match {
 	
@@ -150,8 +151,8 @@ public class SimpleMatch extends Match {
 		return players.values();
 	}
 	
-	private Map<Player, Integer> calculateWinner(Map<Player, Integer> militaryBonus) {
-		Map<Player, Integer> result = new HashMap<>();
+	private Map<PlayerColor, Integer> calculateWinner(Map<Player, Integer> militaryBonus) {
+		Map<PlayerColor, Integer> result = new HashMap<>();
 		// Calculate value orders
 		int values[] = new int[players.size()];
 		for (int i=0; i<values.length; i++){
@@ -167,18 +168,18 @@ public class SimpleMatch extends Match {
 		for(Player p:players.values()){
 			for (int j=0; j<values.length;j++)
 			if (p.getFinalVictoryPoints(board.getTrackBonuses(), board.getCardBonus(), militaryBonus.get(p)) == values[j]) 
-				result.put(p, j+1);
+				result.put(p.getId(), j+1);
 		}
-		return null;
+		return result;
 	}
 	
 	private void endMatch() {
 		// TODO Check implementation
 		Map<Player, Integer> militaryBonus = calculateMilitaryWinner();
-		Map<Player, Integer> playerPositions = calculateWinner(militaryBonus); 	
+		Map<PlayerColor, Integer> playersFinalPoints = calculateWinner(militaryBonus); 	
 		ended = true;
 		setChanged();
-		notifyObservers();
+		notifyObservers(new EndData(playersFinalPoints));
 	}
 
 	private Map<Player, Integer> calculateMilitaryWinner() {

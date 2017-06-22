@@ -13,6 +13,7 @@ import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.ActionData;
+import it.polimi.ingsw.ps21.view.MatchEndedNetPacket;
 import it.polimi.ingsw.ps21.view.RulesChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.view.WorkChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.view.WorkChoiceResponseNetPacket;
@@ -165,6 +166,11 @@ public class SocketClient {
 			{
 				boolean wantsAdvRules= ui.reqIfWantsAdvancedRules();
 				out.writeObject(new RulesChoiceResponseNetPacket(receivedPacket.getNum(), wantsAdvRules));
+				break;
+			}
+			case MATCH_END:
+			{
+				ui.matchEnded(((MatchEndedNetPacket)receivedPacket).getData());
 				break;
 			}
 			default:

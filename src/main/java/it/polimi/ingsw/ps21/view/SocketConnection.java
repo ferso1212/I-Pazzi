@@ -210,7 +210,7 @@ public class SocketConnection implements Connection{
 	public void setID(PlayerColor player)
 	{
 		try {
-			out.writeObject(new PlayerIdNetPacket(this.messageCounter, player));
+			out.writeObject(new PlayerIdNetPacket(++this.messageCounter, player));
 		} catch (IOException e) {
 			LOGGER.log(Level.WARNING, "Unable to send ID to the remote client due to IOException", e);
 		}
@@ -273,6 +273,17 @@ public class SocketConnection implements Connection{
 		} catch (IOException e) {
 			LOGGER.log(Level.WARNING, "Unable to request rules choice to the remote client due to IOException", e);
 			return false;
+		}
+		
+	}
+
+
+	@Override
+	public void matchEnded(EndData data) {
+		try {
+			out.writeObject(new MatchEndedNetPacket(++messageCounter, data));
+		} catch (IOException e) {
+			LOGGER.log(Level.WARNING, "Unable to send 'match ended' notification to the remote client due to IOException", e);
 		}
 		
 	}

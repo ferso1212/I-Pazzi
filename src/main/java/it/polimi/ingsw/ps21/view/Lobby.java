@@ -69,7 +69,7 @@ public class Lobby extends Thread{
 
 				timer.schedule(expired, TIMEOUT);
 				startedTimer = true;
-				System.out.println("Lobby timeout started");
+				System.out.println("\n" + chosenRules+ " lobby timeout started");
 			}
 
 		}
