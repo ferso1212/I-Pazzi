@@ -14,8 +14,8 @@ import it.polimi.ingsw.ps21.model.player.Player;
 public class NoMilitaryForTerritory extends PermanentLeaderEffect {
 
 	public DevelopmentCardType type;
-	public NoMilitaryForTerritory(Requirement requirement,DevelopmentCardType type) {
-		super(requirement);
+	public NoMilitaryForTerritory(Requirement requirements[],DevelopmentCardType type) {
+		super(requirements);
 	}
 	
 

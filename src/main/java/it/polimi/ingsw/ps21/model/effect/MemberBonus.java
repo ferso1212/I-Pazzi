@@ -13,17 +13,16 @@ import it.polimi.ingsw.ps21.model.player.Player;
 
 public class MemberBonus extends InstantLeaderEffect {
 
-	private MembersColor color;
 	private int valueBonus;
 	
-	public MemberBonus(Requirement req, MembersColor color, int value){
-		super(req);
-		this.color = color;
+	public MemberBonus(Requirement reqs[], int value){
+		super(reqs);
 		this.valueBonus = value;
 	}
 	@Override
 	public ExtraAction activate(AdvancedPlayer player) {
-		player.getFamily().getMember(color).increaseModifier(valueBonus);
+		for (MembersColor color: MembersColor.values()){
+			player.getFamily().getMember(color).increaseModifier(valueBonus);}
 		return new NullAction(player.getId());
 	}
 

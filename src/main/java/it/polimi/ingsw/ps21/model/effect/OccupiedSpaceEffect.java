@@ -12,8 +12,8 @@ import it.polimi.ingsw.ps21.model.player.Player;
 
 public class OccupiedSpaceEffect extends PermanentLeaderEffect{
 
-	public OccupiedSpaceEffect(Requirement req) {
-		super(req);
+	public OccupiedSpaceEffect(Requirement reqs[]) {
+		super(reqs);
 		// TODO Auto-generated constructor stub
 	}
 

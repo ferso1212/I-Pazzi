@@ -20,8 +20,8 @@ public class CouncilBonus extends InstantLeaderEffect {
 	private int bonuses;
 	
 	
-	public CouncilBonus(Requirement req,int councilBonusNumber){
-		super(req);
+	public CouncilBonus(Requirement reqs[],int councilBonusNumber){
+		super(reqs);
 		bonuses = councilBonusNumber;
 	}
 	

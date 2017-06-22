@@ -14,6 +14,7 @@ import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
 import it.polimi.ingsw.ps21.model.match.InvalidIDException;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.match.RoundType;
+import it.polimi.ingsw.ps21.model.match.SimpleMatch;
 import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
@@ -27,7 +28,7 @@ public class TestMatches {
 	@Before
 	public void setUp(){
 		try {
-			testedMatch = new Match(validPlayers);
+			testedMatch = new SimpleMatch(validPlayers);
 		} catch (InvalidIDException | BuildingDeckException e) {
 			fail("Error creating test match");
 		} 
@@ -62,11 +63,12 @@ public class TestMatches {
 	}
 
 	private boolean checkCopingMatch() {
-		Match previousMatch = new Match(testedMatch);
-		if (!compareMatch(previousMatch, testedMatch)) return false;
+		SimpleMatch testedMatch = new SimpleMatch(validPlayers);
+		SimpleMatch copiedMatch = new SimpleMatch(testedMatch);
+		if (!compareMatch(copiedMatch, testedMatch)) return false;
 		try {
-			Match copiedMatch = testedMatch.getCopy();
-			if (copiedMatch != testedMatch) return true;
+			SimpleMatch testCopy = testedMatch.getCopy();
+			if (testCopy != testedMatch) return true;
 			else return false;
 		} catch (CloneNotSupportedException e) {
 			return false;

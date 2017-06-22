@@ -15,8 +15,8 @@ public class WorkBonus extends InstantLeaderEffect {
 	private WorkType type;
 	private int value;
 	
-	public WorkBonus(Requirement req, WorkType type, int value) {
-		super(req);
+	public WorkBonus(Requirement reqs[], WorkType type, int value) {
+		super(reqs);
 		this.type = type;
 		this.value = value;
 		// TODO Auto-generated constructor stub
