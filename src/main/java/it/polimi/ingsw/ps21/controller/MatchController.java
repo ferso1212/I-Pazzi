@@ -56,6 +56,7 @@ public class MatchController extends Observable implements Observer {
 	private Action currentAction;
 	private ArrayList<ExtraAction> currentExtraActions;
 	private int actionCounter;
+	private int actionTimeout;
 
 	private static enum ActionState {
 		ACCEPTED, REFUSED, AWAITING_CHOICES, TIMEOUT_EXPIRED,
@@ -96,7 +97,7 @@ public class MatchController extends Observable implements Observer {
 		this.currentExtraActions = new ArrayList<>();
 		this.actionCounter = 0;
 		this.timer=new Timer();
-
+		this.actionTimeout=MatchFactory.instance().makeTimeoutRound();
 		startMatch();
 	}
 
@@ -299,7 +300,7 @@ public class MatchController extends Observable implements Observer {
 					notifyObservers(new TimeoutExpiredMessage(currentPlayer.getId()));
 					nextPlayer();
 					
-				}}, 10000);
+				}}, actionTimeout);
 			ActionRequest req = new ActionRequest(currentPlayer.getId(), ++this.actionCounter);
 			setChanged();
 			notifyObservers(req);
