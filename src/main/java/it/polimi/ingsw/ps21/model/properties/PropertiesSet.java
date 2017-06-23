@@ -163,6 +163,12 @@ public class PropertiesSet implements Serializable{
 		return true;
 	}
 	
+	public boolean smallerOrEqual(PropertiesSet setToCompare) {
+		for(Property prop: setToCompare.propertiesMap.values()){
+		if(prop.getValue() < this.getProperty(prop.getId()).getValue())	return false;}
+		return true;
+	}
+	
 	/**
 	 * Increases the value of all the properties in this object by a number of units specified in another ImmProperties object.
 	 * 
@@ -185,6 +191,13 @@ public class PropertiesSet implements Serializable{
 		for(Property prop: this.getProperties()){
 		if(prop.getValue() != 0)	return false;}
 		return true;
+	}
+	
+	public boolean isEqual(PropertiesSet setToCompare)
+	{
+		for(Property prop: setToCompare.propertiesMap.values()){
+			if(prop.getValue() != this.getProperty(prop.getId()).getValue())	return false;}
+			return true;
 	}
 	
 }

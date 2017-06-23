@@ -208,5 +208,12 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 	}
 
 
+	@Override
+	public void matchEnded(EndData data) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 
 }

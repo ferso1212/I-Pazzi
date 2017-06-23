@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import it.polimi.ingsw.ps21.controller.MatchController;
+import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.deck.CardsNumber;
 import it.polimi.ingsw.ps21.model.deck.Deck;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
@@ -18,6 +19,8 @@ import it.polimi.ingsw.ps21.model.deck.IllegalCardTypeException;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
+import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
+import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.PlayerProperties;
@@ -45,6 +48,7 @@ public class TestPlayer {
 	public void test() {
 		assertEquals(PlayerColor.BLUE, player.getId());
 		assertEquals(10, player.getFinalVictoryPoints(MatchFactory.instance().makeTrackBonuses(), MatchFactory.instance().makeCardBonus(), 4));
+		
 		assertNotEquals(null, player.getPersonalBonusTile());
 		assertNotEquals(null, player.getFamily());
 		assertNotEquals(null, player.getModifiers());
@@ -53,7 +57,11 @@ public class TestPlayer {
 			DevelopmentCard card= deck.getCard(1, DevelopmentCardType.TERRITORY);
 			assertEquals(true, player.checkCardRequirements(card));
 			assertNotEquals(0, player.metCardRequirements(card).size());
+			player.payCard(card.getCardType(), new ImmProperties(1,1,1));
 			player.getDeck().addCard(card);
+			assertEquals(1, player.getActivableWorks(6, WorkType.HARVEST).size());
+			player.getFamily().getMember(MembersColor.ORANGE).setValue(5);
+			assertEquals(5, player.getMemberValue(player.getFamily().getMember(MembersColor.ORANGE), card));
 			
 		} catch (RequirementNotMetException e) {
 			LOGGER.log(Level.SEVERE, "URequirement not met for the card", e);
@@ -62,11 +70,19 @@ public class TestPlayer {
 			LOGGER.log(Level.SEVERE, "Illegal card", e);
 			fail();
 			e.printStackTrace();
-		} /*catch (IllegalCardTypeException e) {
+		} catch (IllegalCardTypeException e) {
 			LOGGER.log(Level.SEVERE, "Illegal card type", e);
 			fail();
-		}*/
+		} catch (InsufficientPropsException e) {
+			LOGGER.log(Level.SEVERE, "Insufficient props", e);
+			fail();
+		}
+		ImmProperties[] costsToPay={new ImmProperties(1,1,1), new ImmProperties(22,22,12,12)};
+		
+		assertEquals(1, player.getProperties().getPayableCosts(costsToPay).size());
+		}
+
 	
 	}
 
-}
+

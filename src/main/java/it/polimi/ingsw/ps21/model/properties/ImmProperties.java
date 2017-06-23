@@ -89,6 +89,17 @@ public boolean greaterOrEqual(PropertiesSet propsToCompare)
 	return this.properties.greaterOrEqual(propsToCompare);
 }
 
+public boolean isEqual(PropertiesSet propsToCompare)
+{
+	return this.properties.isEqual(propsToCompare);
+}
+
+
+public boolean smallerOrEqual(PropertiesSet propsToCompare)
+{
+	return this.properties.smallerOrEqual(propsToCompare);
+}
+
 /** Returns a string in the format: "value1 prop1name, value2 prop2name, value3 prop3name". Only properties with a value != 0 are reported in the string.
  * For example: "5 coins, 3 wood pieces, 7 coins"
  */
