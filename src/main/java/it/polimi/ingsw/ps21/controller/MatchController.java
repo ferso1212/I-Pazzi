@@ -279,6 +279,9 @@ public class MatchController extends Observable implements Observer {
 	 */
 	// TODO: verificare se è round vatican
 	private void newRound() {
+		this.currentExtraActions.clear();
+		this.timer.cancel();
+		this.timer.purge();
 		currentPlayer = match.getCurrentPlayer();
 		reqPlayerAction();
 	}
