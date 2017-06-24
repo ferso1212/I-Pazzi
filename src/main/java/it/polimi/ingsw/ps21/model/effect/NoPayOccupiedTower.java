@@ -11,8 +11,8 @@ import it.polimi.ingsw.ps21.model.player.Player;
  */
 public class NoPayOccupiedTower extends PermanentLeaderEffect {
 
-	public NoPayOccupiedTower(Requirement req) {
-		super(req);
+	public NoPayOccupiedTower(Requirement reqs[]) {
+		super(reqs);
 	}
 
 	@Override

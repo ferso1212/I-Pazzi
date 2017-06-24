@@ -16,6 +16,7 @@ import it.polimi.ingsw.ps21.model.actions.ActionType;
 import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
 import it.polimi.ingsw.ps21.model.match.InvalidIDException;
 import it.polimi.ingsw.ps21.model.match.Match;
+import it.polimi.ingsw.ps21.model.match.SimpleMatch;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.PlayerProperties;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
@@ -28,10 +29,10 @@ public class CLInterfaceTest {
 	private Match testMatch;
 	@Before 
 	public void setUp(){
-		testCli = new CLInterface(1);
+		testCli = new CLInterface();
 		testCli.setID(PlayerColor.BLUE);
 		try {
-			testMatch = new Match(validPlayers);
+			testMatch = new SimpleMatch(validPlayers);
 		} catch (InvalidIDException | BuildingDeckException e) {
 			fail("Error creating test match");
 		} 
@@ -47,7 +48,7 @@ public class CLInterfaceTest {
 	
 	private boolean checkActionReq() {
 		testCli.updateView(new MatchData(testMatch));
-		ActionData result = testCli.makeAction();
+		ActionData result = testCli.makeAction(0);
 		if (result.getType() == ActionType.NULL) return false;
 		else return true;
 	}

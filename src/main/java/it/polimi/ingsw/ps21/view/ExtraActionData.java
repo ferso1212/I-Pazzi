@@ -11,6 +11,7 @@ import it.polimi.ingsw.ps21.model.effect.PickAnotherCard;
 
 public class ExtraActionData implements Serializable {
 	
+	private int actionId;
 	private ExtraActionType type;
 	private String message;
 	/**
@@ -28,15 +29,18 @@ public class ExtraActionData implements Serializable {
 			this.message = this.message.concat(types[i] + " or ");
 		}
 		this.message = this.message.concat(types[i] + " with the dice requirement of " + action.getDice());
+
 	}
 
 	public ExtraActionData(TakePrivilegesAction action){
 		this.type = ExtraActionType.PICK_ANOTHER_CARD;
-		this.message = "Take Privileges: Choose " + action.getNumberOfPrivileges() + " differnt privileges";
+		this.message = "Take Privileges: Choose " + action.getNumberOfPrivileges() + " different privileges";
+	
 	}
 	public ExtraActionData(NullAction action){
 		this.type = ExtraActionType.NULL_ACTION;
 		this.message = "Null Action: nothing to do";
+
 	}
 	public ExtraActionType getType(){
 		return this.type;
@@ -45,5 +49,15 @@ public class ExtraActionData implements Serializable {
 	public String getDescription(){
 		return this.message;
 	}
+
+	public int getActionId() {
+		return actionId;
+	}
+
+	public void setActionId(int actionId) {
+		this.actionId = actionId;
+	}
+	
+	
 
 }

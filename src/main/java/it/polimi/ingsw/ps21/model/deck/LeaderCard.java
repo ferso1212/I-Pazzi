@@ -1,6 +1,8 @@
 package it.polimi.ingsw.ps21.model.deck;
 
 import java.io.Serializable;
+import java.io.ObjectInputStream.GetField;
+
 import it.polimi.ingsw.ps21.model.effect.LeaderEffect;
 
 public class LeaderCard extends Card implements Serializable{
@@ -44,8 +46,14 @@ public class LeaderCard extends Card implements Serializable{
 		return null;
 	}
 	 
-	public Requirement[] getRequirement(){
+	public Requirement[] getLeaderRequirements(){
 		return leaderEffect.getRequirement();
+	}
+	
+	public String toString(){
+		StringBuilder temp = new StringBuilder();
+		temp.append("Name = " + getName() +"\t Effect: " + leaderEffect.getType() + ": " + leaderEffect.getDesc() );
+		return temp.toString();
 	}
 	
 }

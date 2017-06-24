@@ -31,10 +31,15 @@ public ImmProperties(int...initValues)
 	this.properties=new PropertiesSet(initValues);
 }
 
+/**Constructs the PropertiesSet with the objects passed as argument; the missing properties will be created automatically with value 0.
+ * 
+ * @param props the Property object to insert in the set. They must have different IDs, otherwise one may overwrite another.
+ */
 public ImmProperties(Property...properties)
 {
 	this.properties=new PropertiesSet(properties);
 }
+
 /**Returns the value of the property with the matching id.
  * @param id the id of the property.
  * @return the value of the property.
@@ -74,9 +79,25 @@ public boolean greaterOrEqual(ImmProperties propsToCompare)
 	return true;
 }
 
+/**Compares this object with the PropertiesSet passed as argument.
+ * If all the properties in this object have a value equal or greater than the value of the corresponding property in the set passed as argument, true is returned.
+ * @param setToCompare PropertiesSet containing the values to compare
+ * @return true if, for each property in the set passed as argument, the value of that property is < than the value of the corresponding property in this set.
+ */
 public boolean greaterOrEqual(PropertiesSet propsToCompare)
 {
 	return this.properties.greaterOrEqual(propsToCompare);
+}
+
+public boolean isEqual(PropertiesSet propsToCompare)
+{
+	return this.properties.isEqual(propsToCompare);
+}
+
+
+public boolean smallerOrEqual(PropertiesSet propsToCompare)
+{
+	return this.properties.smallerOrEqual(propsToCompare);
 }
 
 /** Returns a string in the format: "value1 prop1name, value2 prop2name, value3 prop3name". Only properties with a value != 0 are reported in the string.

@@ -11,12 +11,12 @@ import it.polimi.ingsw.ps21.model.player.Player;
 /*
  * To be implemented
  */
-public class InstantWorkEffect extends PermanentLeaderEffect {
+public class InstantWorkEffect extends InstantLeaderEffect {
 
 	private WorkType type;
 	private int diceValue;
-	public InstantWorkEffect(Requirement req, WorkType type, int diceValue) {
-		super(req);
+	public InstantWorkEffect(Requirement reqs[], WorkType type, int diceValue) {
+		super(reqs);
 		this.type = type;
 		this.diceValue = diceValue;
 	}

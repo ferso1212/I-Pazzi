@@ -50,6 +50,20 @@ public class ExcommunicationDeck {
 	public boolean isEmpty() {
 		return firstExcommunications.isEmpty() && secondExcommunications.isEmpty() && thirdExcommunications.isEmpty();
 	}
+
+	public ExcommunicationDeck copy() {
+		ExcommunicationDeck copy = new ExcommunicationDeck();
+		for (Excommunication f : firstExcommunications){
+			copy.addCard(f);
+		}
+		for (Excommunication f : secondExcommunications){
+			copy.addCard(f);
+		}
+		for (Excommunication f : thirdExcommunications){
+			copy.addCard(f);
+		}
+		return copy;
+	}
 	
 	
 	

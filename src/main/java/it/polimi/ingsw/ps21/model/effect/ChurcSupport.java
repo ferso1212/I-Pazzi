@@ -11,8 +11,8 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
  */
 public class ChurcSupport extends PermanentLeaderEffect {
 
-	public ChurcSupport(Requirement req){
-		super(req);
+	public ChurcSupport(Requirement reqs[]){
+		super(reqs);
 	}
 
 	@Override

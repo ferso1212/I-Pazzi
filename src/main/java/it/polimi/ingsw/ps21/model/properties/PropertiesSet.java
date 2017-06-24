@@ -52,6 +52,10 @@ public class PropertiesSet implements Serializable{
 		}
 	}
 	
+	/**Constructs the PropertiesSet with the objects passed as argument; the missing properties will be created automatically with value 0.
+	 * 
+	 * @param props the Property object to insert in the set. They must have different IDs, otherwise one may overwrite another.
+	 */
 	public PropertiesSet(Property...props)
 	{
 		this.propertiesMap = new EnumMap<>(PropertiesId.class);
@@ -59,6 +63,12 @@ public class PropertiesSet implements Serializable{
 		{
 			this.propertiesMap.put(prop.getId(), prop);
 		}
+		
+		for (PropertiesId propId : PropertiesId.values()) // for each value in the PropertiesId enum
+		{
+			if(!this.propertiesMap.containsKey(propId)) this.propertiesMap.put(propId, new Property(propId, 0));
+		}
+		
 	}
 
 	/**
@@ -110,10 +120,9 @@ public class PropertiesSet implements Serializable{
 	}
 	
 	/**Performs a deep copy of this object.
-	 * @throws CloneNotSupportedException 
 	 * 
 	 */
-	public PropertiesSet clone() throws CloneNotSupportedException
+	public PropertiesSet clone()
 	{
 		Property[] propsToClone= new Property[this.propertiesMap.size()];
 		
@@ -121,6 +130,7 @@ public class PropertiesSet implements Serializable{
 		for(Property prop: this.propertiesMap.values())
 		{
 			propsToClone[i]=prop.clone();
+			i++;
 		}
 		return new PropertiesSet(propsToClone);
 	}
@@ -133,9 +143,11 @@ public class PropertiesSet implements Serializable{
 		StringBuilder output= new StringBuilder();
 		Property[] propsToScan= propertiesMap.values().toArray(new Property[0]);
 		for(int i=0; i<propsToScan.length; i++) 
+		{	if(propsToScan[i].getValue()!=0)
 		{
 			output.append(propsToScan[i].toString());
 			output.append(", ");
+		}
 		}
 		return output.toString();
 	}
@@ -148,6 +160,12 @@ public class PropertiesSet implements Serializable{
 	public boolean greaterOrEqual(PropertiesSet setToCompare) {
 		for(Property prop: setToCompare.propertiesMap.values()){
 		if(prop.getValue() > this.getProperty(prop.getId()).getValue())	return false;}
+		return true;
+	}
+	
+	public boolean smallerOrEqual(PropertiesSet setToCompare) {
+		for(Property prop: setToCompare.propertiesMap.values()){
+		if(prop.getValue() < this.getProperty(prop.getId()).getValue())	return false;}
 		return true;
 	}
 	
@@ -173,6 +191,13 @@ public class PropertiesSet implements Serializable{
 		for(Property prop: this.getProperties()){
 		if(prop.getValue() != 0)	return false;}
 		return true;
+	}
+	
+	public boolean isEqual(PropertiesSet setToCompare)
+	{
+		for(Property prop: setToCompare.propertiesMap.values()){
+			if(prop.getValue() != this.getProperty(prop.getId()).getValue())	return false;}
+			return true;
 	}
 	
 }

@@ -14,6 +14,7 @@ import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.ActionData;
+import it.polimi.ingsw.ps21.view.EndData;
 import it.polimi.ingsw.ps21.view.ExtraActionData;
 
 public abstract interface UserInterface {
@@ -22,7 +23,7 @@ public abstract interface UserInterface {
 	
 	public abstract void updateView(MatchData match);
 	
-	public ActionData makeAction();
+	public ActionData makeAction(int id);
 	
 	public abstract void showInfo(String name);
 	
@@ -46,12 +47,16 @@ public abstract interface UserInterface {
 
 	public abstract ImmProperties[] reqPrivileges(int number, ImmProperties[] privilegesValues);
 	
-	public abstract void matchEnded();
+	public abstract void matchEnded(EndData data);
 
 	public abstract int reqExtraActionChoice(ExtraActionData[] actions);
 
 	public int reqWorkChoice(DevelopmentCard workCard);
 
+	public String reqName();
+	
+	public boolean reqIfWantsAdvancedRules();
+	
 
 
 }

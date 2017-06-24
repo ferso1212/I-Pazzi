@@ -27,7 +27,7 @@ import it.polimi.ingsw.ps21.model.deck.RequirementAndCost;
  * <li>Player's deck, containing the cards he acquired during the game
  * (Territory Cards, Building Cards, Character Cards and Venture Cards)
  * <li>Personal bonus tile
- * <li>Color: one of the possible values of the PlayerColor enum, used also to
+ * <li>Color (id): one of the possible values of the PlayerColor enum, used also to
  * identify the player
  * <li>Properties: resources (wood, coins, servants, stones) and points
  * (military points, victory points and faith points).
@@ -254,9 +254,7 @@ public class Player {
 	 */
 	public boolean checkCardRequirements(Card card) {
 		for (RequirementAndCost req : card.getRequirements()) {
-			if (this.checkRequirement(req.getRequirement()));
-			// Need to check cost
-				return true;
+			if (this.checkRequirement(req.getRequirement())) return true;
 		}
 		return false;
 	}
@@ -274,7 +272,14 @@ public class Player {
 	public PlayerDeck getDeck() {
 		return devCards;
 	}
-
+	
+	/**
+	 * Calculates the final victory points of this player.
+	 * @param trackBonuses
+	 * @param cardBonuses
+	 * @param militaryTrackPlacement
+	 * @return
+	 */
 	public int getFinalVictoryPoints(TrackBonuses trackBonuses, Map<DevelopmentCardType, int[]> cardBonuses,
 			int militaryTrackPlacement) {
 		int pointsToRemove=0;

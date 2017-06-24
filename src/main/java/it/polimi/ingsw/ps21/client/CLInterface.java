@@ -18,6 +18,7 @@ import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.view.ActionData;
+import it.polimi.ingsw.ps21.view.EndData;
 import it.polimi.ingsw.ps21.view.ExtraActionData;
 
 public class CLInterface implements UserInterface {
@@ -31,15 +32,20 @@ public class CLInterface implements UserInterface {
 	private boolean advancedMatch;
 	private boolean matchStarted = false;
 
-	public CLInterface(int chosenRules) {
+	public CLInterface() {
 		userInput = new Scanner(System.in);
+		
+	}
+
+	public void setup(int chosenRules)
+	{
 		if (chosenRules == 1)
 			advancedMatch = false;
 		else
 			advancedMatch = true;
 		System.out.println("Waiting for match starting...");
 	}
-
+	
 	@Override
 	public void updateView(MatchData match) {
 		this.matchInfo = match;
@@ -198,9 +204,11 @@ public class CLInterface implements UserInterface {
 	}
 
 	@Override
-	public void matchEnded() {
+	public void matchEnded(EndData data) {
 		this.matchEnded = true;
-
+		System.out.println("\nYou have totalized " + data.getPlayersFinalPoints().get(playerID) + " victory points.");
+		
+		
 	}
 
 	@Override
@@ -259,7 +267,7 @@ public class CLInterface implements UserInterface {
 	}
 
 	@Override
-	public ActionData makeAction() {
+	public ActionData makeAction(int id) {
 		// TODO define ActionData and how to parse it
 		System.out.println("It's your turn: which action do you want to do?");
 		System.out.println("1)-Place a family member in a Tower Space;\n2)-Place a family member in Council palace\n"
@@ -393,7 +401,7 @@ public class CLInterface implements UserInterface {
 			space = 0;
 			break;
 		}
-		return new ActionData(type, familyMember, servants, tower, space);
+		return new ActionData(type, familyMember, servants, tower, space, id);
 	}
 
 	// TODO make this private after test
@@ -470,6 +478,24 @@ public class CLInterface implements UserInterface {
 			effectChosen = userInput.nextInt();
 		}
 		return effectChosen;
+	}
+
+	@Override
+	public String reqName() {
+		System.out.println("\nInsert your name: ");
+		return userInput.nextLine();
+	}
+
+	@Override
+	public boolean reqIfWantsAdvancedRules() {
+		int chosenRules=0;
+		while(chosenRules!= 1 && chosenRules != 2)
+		{
+		System.out.println("\nWhich rules do you want to use? \n1 Standard \n2 Advanced");
+		chosenRules=userInput.nextInt();
+		}
+		if(chosenRules==2) return true;
+		else return false;
 	}
 
 }

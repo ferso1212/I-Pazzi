@@ -8,12 +8,15 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import it.polimi.ingsw.ps21.client.UserInterface;
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
+import it.polimi.ingsw.ps21.controller.MatchController;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
@@ -22,10 +25,11 @@ import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.ActionData;
+import it.polimi.ingsw.ps21.view.EndData;
 import it.polimi.ingsw.ps21.view.ExtraActionData;
 
 public class GUIInterface implements UserInterface{
-	
+	private static final Logger LOGGER = Logger.getLogger(GUIInterface.class.getName());
 	private int rulesType;
 	private JFrame mainWindow;
 	private ImageIcon boardIcon;
@@ -48,8 +52,7 @@ public class GUIInterface implements UserInterface{
 				try {
 					setUpWindow();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					LOGGER.log(Level.SEVERE, "\nUnable to set up a windows due to IOException", e);
 				}
 				
 			}
@@ -118,11 +121,6 @@ public class GUIInterface implements UserInterface{
 		
 	}
 
-	@Override
-	public ActionData makeAction() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void showInfo(String name) {
@@ -178,23 +176,7 @@ public class GUIInterface implements UserInterface{
 		return null;
 	}
 
-	@Override
-	public ImmProperties[] reqPrivileges(int number) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public void matchEnded() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int reqExtraActionChoice(ActionData[] actions) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public ImmProperties[] reqPrivileges(int number, ImmProperties[] privilegesValues) {
@@ -212,6 +194,30 @@ public class GUIInterface implements UserInterface{
 	public int reqWorkChoice(DevelopmentCard workCard) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public String reqName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean reqIfWantsAdvancedRules() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public ActionData makeAction(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void matchEnded(EndData data) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

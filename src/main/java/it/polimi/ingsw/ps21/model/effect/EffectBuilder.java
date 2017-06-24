@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.management.modelmbean.XMLParseException;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -12,8 +14,10 @@ import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.MultiplierType;
+import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.deck.TooManyArgumentException;
 import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
+import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesBuilder;
 
@@ -246,7 +250,182 @@ public class EffectBuilder {
 		}
 	}
 
-	public LeaderEffect makeLeaderEffect(Element item) {
-		return null;
+	public LeaderEffect makeLeaderEffect(Element node) {
+		NodeList childs = node.getChildNodes();
+		int i=0;
+		Node effectNode = childs.item(i);
+		i++;
+		while(i<childs.getLength() && effectNode.getNodeType()!=Node.ELEMENT_NODE){
+			effectNode = childs.item(i);
+			i++;
+		}
+		if (i == childs.getLength()) return new NullLeaderEffect();
+		Element effectElement = (Element) effectNode;
+		try {if (node.getNodeName()=="InstantLeaderEffect"){
+			switch((effectElement).getNodeName()){
+			case "CouncilBonus":{
+				ArrayList<Requirement> reqs = new ArrayList<>();
+				NodeList requirementsNodes = effectElement.getElementsByTagName("Requirement");
+				for (int j=0; j<requirementsNodes.getLength(); j++){
+					reqs.add(PropertiesBuilder.makeRequirement((Element)requirementsNodes.item(j)));
+				}
+				int number = Integer.parseInt(effectElement.getAttribute("number") );
+				return new CouncilBonus(reqs.toArray(new Requirement[0]),number);
+			}
+			case "LeaderPickAnotherCard":
+			{
+				ArrayList<Requirement> reqs = new ArrayList<>();
+				NodeList requirementsNodes = effectElement.getElementsByTagName("Requirement");
+				for (int j=0; j<requirementsNodes.getLength(); j++){
+					reqs.add(PropertiesBuilder.makeRequirement((Element)requirementsNodes.item(j)));
+				}
+				return new LeaderPickAnotherCardEffect(reqs.toArray(new Requirement[0]));
+			}
+			case "PropertiesBonus":
+			{
+				ArrayList<Requirement> reqs = new ArrayList<>();
+				NodeList requirementsNodes = effectElement.getElementsByTagName("Requirement");
+				for (int j=0; j<requirementsNodes.getLength(); j++){
+					reqs.add(PropertiesBuilder.makeRequirement((Element)requirementsNodes.item(j)));
+				}
+				ImmProperties bonus = PropertiesBuilder.makeImmProperites((Element)effectElement.getElementsByTagName("Properties").item(0));
+				return new PropertiesBonus(reqs.toArray(new Requirement[0]), bonus);
+			}
+			case "PrivilegesBonus":
+			{
+				ArrayList<Requirement> reqs = new ArrayList<>();
+				NodeList requirementsNodes = effectElement.getElementsByTagName("Requirement");
+				for (int j=0; j<requirementsNodes.getLength(); j++){
+					reqs.add(PropertiesBuilder.makeRequirement((Element)requirementsNodes.item(j)));
+				}
+				int number = Integer.parseInt(effectElement.getAttribute("number"));
+				return new PrivilegesBonus(reqs.toArray(new Requirement[0]), number);
+			}
+			case "InstantWorkEffect":
+			{
+				ArrayList<Requirement> reqs = new ArrayList<>();
+				NodeList requirementsNodes = effectElement.getElementsByTagName("Requirement");
+				for (int j=0; j<requirementsNodes.getLength(); j++){
+					reqs.add(PropertiesBuilder.makeRequirement((Element)requirementsNodes.item(j)));
+				}
+				WorkType type = makeWorkType((Element)effectElement.getElementsByTagName("WorkType").item(0));
+				int value = Integer.parseInt(effectElement.getAttribute("diceValue"));
+				return new InstantWorkEffect(reqs.toArray(new Requirement[0]), type, value);
+			}
+			default:
+			 return new NullLeaderEffect();
+			}
+		}
+		else {
+			switch(effectElement.getNodeName()){
+			case "ChurchSupport":
+			{
+				ArrayList<Requirement> reqs = new ArrayList<>();
+				NodeList requirementsNodes = effectElement.getElementsByTagName("Requirement");
+				for (int j=0; j<requirementsNodes.getLength(); j++){
+					reqs.add(PropertiesBuilder.makeRequirement((Element)requirementsNodes.item(j)));
+				}
+				return new ChurcSupport(reqs.toArray(new Requirement[0]));				
+			}
+			case "DoubleResources":
+			{
+				ArrayList<Requirement> reqs = new ArrayList<>();
+				NodeList requirementsNodes = effectElement.getElementsByTagName("Requirement");
+				for (int j=0; j<requirementsNodes.getLength(); j++){
+					reqs.add(PropertiesBuilder.makeRequirement((Element)requirementsNodes.item(j)));
+				}
+				return new DoubleResources(reqs.toArray(new Requirement[0]));	
+			}
+			case "LorenzoIlMagnifico":
+			{
+				ArrayList<Requirement> reqs = new ArrayList<>();
+				NodeList reqNodes = effectElement.getElementsByTagName("Requirement");
+				for (int j = 0; j < reqNodes.getLength(); j++) {
+					if (reqNodes.item(j).getNodeType() == Node.ELEMENT_NODE) reqs.add(PropertiesBuilder.makeRequirement((Element) reqNodes.item(j)));
+				}
+				return new LorenzoIlMagnificoEffect(reqs.toArray(new Requirement[0]));
+			}
+			case "MemberBonus": {
+				ArrayList<Requirement> reqs = new ArrayList<>();
+				NodeList requirementsNodes = effectElement.getElementsByTagName("Requirement");
+				for (int j=0; j<requirementsNodes.getLength(); j++){
+					reqs.add(PropertiesBuilder.makeRequirement((Element)requirementsNodes.item(j)));
+				}
+				int bonus = Integer.parseInt(effectElement.getAttribute("value"));
+				return new MemberBonus(reqs.toArray(new Requirement[0]), bonus);
+			}
+			case "NoMilitaryForTerritory":
+			{
+				ArrayList<Requirement> reqs = new ArrayList<>();
+				NodeList requirementsNodes = effectElement.getElementsByTagName("Requirement");
+				for (int j=0; j<requirementsNodes.getLength(); j++){
+					reqs.add(PropertiesBuilder.makeRequirement((Element)requirementsNodes.item(j)));
+				}
+				return new NoMilitaryForTerritory(reqs.toArray(new Requirement[0]));	
+			}
+			case "NoPayOccupiedTower":
+			{
+				ArrayList<Requirement> reqs = new ArrayList<>();
+				NodeList requirementsNodes = effectElement.getElementsByTagName("Requirement");
+				for (int j=0; j<requirementsNodes.getLength(); j++){
+					reqs.add(PropertiesBuilder.makeRequirement((Element)requirementsNodes.item(j)));
+				}
+				return new NoPayOccupiedTower(reqs.toArray(new Requirement[0]));
+			}
+			case "OccupiedSpace":
+			{
+				ArrayList<Requirement> reqs = new ArrayList<>();
+				NodeList requirementsNodes = effectElement.getElementsByTagName("Requirement");
+				for (int j=0; j<requirementsNodes.getLength(); j++){
+					reqs.add(PropertiesBuilder.makeRequirement((Element)requirementsNodes.item(j)));
+				}
+				return new OccupiedSpaceEffect(reqs.toArray(new Requirement[0]));
+			}
+			case "FixedDiceValues":
+			{
+				ArrayList<Requirement> reqs = new ArrayList<>();
+				NodeList requirementsNodes = effectElement.getElementsByTagName("Requirement");
+				for (int j=0; j<requirementsNodes.getLength(); j++){
+					reqs.add(PropertiesBuilder.makeRequirement((Element)requirementsNodes.item(j)));
+				}
+				int orange = Integer.parseInt(effectElement.getAttribute("orangeValue"));
+				int black = Integer.parseInt(effectElement.getAttribute("blackValue"));
+				int white = Integer.parseInt(effectElement.getAttribute("whiteValue"));
+				return new FixedDiceValuesEffect(reqs.toArray(new Requirement[0]), orange, black, white);
+			}
+			case "IncreaseDiceValues":
+			{
+				ArrayList<Requirement> reqs = new ArrayList<>();
+				NodeList requirementsNodes = effectElement.getElementsByTagName("Requirement");
+				for (int j=0; j<requirementsNodes.getLength(); j++){
+					reqs.add(PropertiesBuilder.makeRequirement((Element)requirementsNodes.item(j)));
+				}
+				int orange = Integer.parseInt(effectElement.getAttribute("orangeValue"));
+				int black = Integer.parseInt(effectElement.getAttribute("blackValue"));
+				int white = Integer.parseInt(effectElement.getAttribute("whiteValue"));
+				return new IncreaseDiceValuesEffect(reqs.toArray(new Requirement[0]), orange, black, white);
+			}
+			case "DiscountLeaderEffect":
+			{
+				ArrayList<Requirement> reqs = new ArrayList<>();
+				NodeList requirementsNodes = effectElement.getElementsByTagName("Requirement");
+				for (int j=0; j<requirementsNodes.getLength(); j++){
+					reqs.add(PropertiesBuilder.makeRequirement((Element)requirementsNodes.item(j)));
+				}
+				return new DiscountLeaderEffect(reqs.toArray(new Requirement[0]));
+			}
+			default:
+				return new NullLeaderEffect();
+			}
+			}	
+		} catch(XMLParseException e){
+			LOGGER.log(Level.WARNING, "Unrecognized Leader Effect tag", e);
+			return new NullLeaderEffect();
+		}
+	}
+
+	private WorkType makeWorkType(Element item) {
+		if (item.getElementsByTagName("Harvest").getLength() > 0) return WorkType.HARVEST;
+		else return WorkType.PRODUCTION;
 	}
 }

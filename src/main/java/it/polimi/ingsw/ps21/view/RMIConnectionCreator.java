@@ -5,6 +5,8 @@ import java.rmi.RemoteException;
 
 public interface RMIConnectionCreator extends Remote {
 	 
-	public abstract RMIConnectionInterface getNewConnection(String connectionName, int chosenRules) throws RemoteException;
+	public abstract RMIConnectionInterface getNewConnection(boolean wantsNewMatch) throws RemoteException;
+	
+	public abstract void setupConnection(RMIConnectionInterface connection) throws RemoteException;
 
 }

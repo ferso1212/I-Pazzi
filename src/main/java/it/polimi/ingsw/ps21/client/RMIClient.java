@@ -13,6 +13,7 @@ import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.ActionData;
+import it.polimi.ingsw.ps21.view.EndData;
 import it.polimi.ingsw.ps21.view.ExtraActionData;
 import it.polimi.ingsw.ps21.view.RMIConnectionCreator;
 import it.polimi.ingsw.ps21.view.RMIConnectionInterface;
@@ -30,20 +31,18 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	private String username;
 	private final String SERVER_HOSTNAME = "127.0.0.1"; 
 	
-	public RMIClient(String username, UserInterface ui, int chosenRules, int port) throws RemoteException, NotBoundException{
-		this.username = username;
+	public RMIClient( UserInterface ui, String hostname, int port, boolean newMatch) throws RemoteException, NotBoundException{
 		this.ui = ui;
 		serverRegistry = LocateRegistry.getRegistry(SERVER_HOSTNAME, port);
 		RMIConnectionCreator connectionService = (RMIConnectionCreator) serverRegistry.lookup("RMIConnectionCreator");
-	   	connection = connectionService.getNewConnection(username, chosenRules);
+	   	connection = connectionService.getNewConnection(newMatch);	
 		connection.setClient((RMIClientInterface) this); 
 		connected = true;
-	}
-	
-	public void start(){ 
-		 if (connected) ui.showInfo("Connected to RMI Server");
-		
-		
+		try {
+			connectionService.setupConnection(connection);
+		} catch (RemoteException e) {
+			connected = false;
+		}
 	}
 		/*try {
 			while(true){
@@ -103,8 +102,8 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	}
 
 	@Override
-	public ActionData actionRequest() throws RemoteException {
-		return ui.makeAction();
+	public ActionData actionRequest(int id) throws RemoteException {
+		return ui.makeAction(id);
 	}
 
 	@Override
@@ -120,6 +119,21 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	@Override
 	public int reqWorkChoice(DevelopmentCard workCard) throws RemoteException {
 		return ui.reqWorkChoice(workCard);
+	}
+
+	@Override
+	public String reqName() throws RemoteException {
+		return ui.reqName();
+	}
+
+	@Override
+	public boolean reqRules() throws RemoteException {
+		return ui.reqIfWantsAdvancedRules();
+	}
+
+	@Override
+	public void matchEnded(EndData data) throws RemoteException {
+		ui.matchEnded(data);		
 	}
 
 }

@@ -1,9 +1,10 @@
 <!ELEMENT ExcommunicationDeck (Excommunication*)>
-<!ELEMENT Excommunication (ActionExcommunication | CardDiceExcommunication | DiceExcommunication | FinalVPointExcommunication | PropAdditionExcommunication | ServantsValueExcommunication | WorkExcommunication )>
+<!ELEMENT Excommunication (ActionExcommunication | CardDiceExcommunication | DiceExcommunication | FinalCardVPointsExcommunication | FinalVPointsExcommunication | PropAdditionExcommunication | ServantsValueExcommunication | WorkExcommunication | NoFinalVPointsForBuindingsCost | NoFInalVPointsForEveryResource | VentureFinalPointsExcommunication)>
 <!ELEMENT  ActionExcommunication EMPTY>
 <!ELEMENT  CardDiceExcommunication (Green | Blue | Yellow | Purple)>
 <!ELEMENT  DiceExcommunication EMPTY>
-<!ELEMENT  FinalVPointExcommunication EMPTY>
+<!ELEMENT  FinalCardVPointsExcommunication (Green | Blue | Yellow | Purple)>
+<!ELEMENT  FinalVPointsExcommunication EMPTY>
 <!ELEMENT  PropAdditionExcommunication (Properties) >
 <!ELEMENT  ServantsValueExcommunication EMPTY >
 <!ELEMENT  WorkExcommunication (Harvest | Production)>
@@ -21,10 +22,9 @@
 <!ELEMENT MilitaryPoints EMPTY>
 <!ELEMENT FaithPoints EMPTY>
 <!ELEMENT VictoryPoints EMPTY>
-<!ELEMENT FinalVPointsExcommunications (Green | Blue | Purple)>
-<!ELEMENT FinalVPointsExcommunication (Properties)>
-<!ELEMENT NoFInalVPointsForEveryResource EMPTY>
+<!ELEMENT NoFinalVPointsForEveryResource EMPTY>
 <!ELEMENT NoFinalVPointsForBuindingsCost EMPTY>
+<!ELEMENT VentureFinalPointsExcommunication EMPTY>
 
 
 <!ATTLIST Excommunication id CDATA #REQUIRED period CDATA #REQUIRED >
@@ -44,3 +44,8 @@
 <!ATTLIST MilitaryPoints value CDATA #REQUIRED>
 <!ATTLIST FaithPoints value CDATA #REQUIRED>
 <!ATTLIST VictoryPoints value CDATA #REQUIRED>
+<!ATTLIST FinalVPointsExcommunication  victoryDivisor CDATA #REQUIRED
+					militaryDivisor CDATA #REQUIRED
+					buildingWoodDivisor CDATA #REQUIRED
+					buildingStonesDivisor CDATA #REQUIRED
+					resDivisor CDATA #REQUIRED>

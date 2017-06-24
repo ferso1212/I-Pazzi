@@ -6,11 +6,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.ParserConfigurationException;
+
+import it.polimi.ingsw.ps21.model.match.AdvancedMatch;
 import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
 import it.polimi.ingsw.ps21.model.match.CompleteMatchException;
 import it.polimi.ingsw.ps21.model.match.InvalidIDException;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
+import it.polimi.ingsw.ps21.model.match.SimpleMatch;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.view.UserHandler;
 
@@ -34,8 +37,8 @@ public class MatchRunner implements Runnable {
 
 				playersIds[i]=playerHandlers[i].getPlayerId();
 			}
-			if(isAdvanced) match= null; //TODO replace with: new AdvancedMatch(playersIds);
-			else  match = new Match(playersIds);
+			if(isAdvanced) match= new AdvancedMatch(playersIds);
+			else  match = new SimpleMatch(playersIds);
 			
 			this.controller = new MatchController(match, playerHandlers);
 			
