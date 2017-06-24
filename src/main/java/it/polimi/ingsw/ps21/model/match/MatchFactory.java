@@ -577,7 +577,7 @@ public class MatchFactory {
 		if (trackBonuses == null) {
 			Document configuration;
 			TrackBonuses result;
-			int[] military = new int[2];
+			int[] military = {0,0,0,0};
 			int[] faith = new int[16];
 			try {
 				File boardFile = new File(boardPath);
@@ -699,7 +699,7 @@ public class MatchFactory {
 				{
 					bonuses[i] = Integer.parseInt(character.getAttribute("value"+i));
 				}
-				result.put(DevelopmentCardType.BUILDING, bonuses);
+				result.put(DevelopmentCardType.CHARACTER, bonuses);
 
 				bonuses = new int[7];
 				Element venture = (Element) cardBonuses.getElementsByTagName("VentureBonuses").item(0);

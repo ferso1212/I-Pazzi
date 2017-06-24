@@ -215,8 +215,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 		} catch (RemoteException e) {
 			LOGGER.log(Level.WARNING, "Error sending information on ended Match", e);
 		}
+
 	}
-
-
 
 }

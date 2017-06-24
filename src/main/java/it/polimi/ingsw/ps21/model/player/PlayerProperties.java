@@ -160,7 +160,8 @@ public class PlayerProperties implements Cloneable{
 	 *         property in this object.
 	 */
 	public boolean greaterOrEqual(ImmProperties propsToCompare) {
-		return !(propsToCompare.greaterOrEqual(properties));
+		
+		return (propsToCompare.smallerOrEqual(this.properties));
 	}
 
 	/**Accepts in input an array of RequirementAndCosts and returns an arraylist containing the costs that the player can pay (because he has enough resources).
