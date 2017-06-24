@@ -17,7 +17,6 @@ public class CardListener implements ActionListener{
 		if (event.getSource().getClass().equals(DevelopmentCardLabel.class)){
 			
 			DevelopmentActionPanel actionPanel = new DevelopmentActionPanel((DevelopmentCardLabel)event.getSource());
-			event.getSource().
 
 			
 		}else if (event.getSource() instanceof WorkActionButton){

@@ -99,7 +99,7 @@ public class LorenzoFlow {
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainWindow.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
 		
-		BoardPanel boardPanel = new BoardPanel((new File("")).getAbsolutePath().concat("/src/images/board.gif"));
+		JPanel boardPanel = new JPanel();
 		boardPanel.setLayout(null);
 		mainWindow.getContentPane().add(boardPanel);
 		
