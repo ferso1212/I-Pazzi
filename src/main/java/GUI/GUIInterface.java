@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.File;
@@ -28,7 +29,13 @@ public class GUIInterface implements UserInterface{
 	private int rulesType;
 	private JFrame mainWindow;
 	private ImageIcon boardIcon;
-	private JLabel boardLabel;
+	private JPanel firstPanel;
+	private JPanel secondPanel;
+	private JLabel board;
+	private JButton button1;
+	private JButton button2;
+	private JButton button3;
+	private JButton button4;
 	private final String boardPath = (new File("")).getAbsolutePath().concat("/src/images/board.gif");
 	
 	
@@ -54,19 +61,44 @@ public class GUIInterface implements UserInterface{
 		mainWindow = new JFrame("Lorenzo il Magnifico");
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainWindow.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
+		mainWindow.setLayout(new GridLayout(1, 2));
 		
-		mainWindow.setLayout(new BorderLayout(5, 5));
-		mainWindow.setBackground(Color.cyan);
+		this.firstPanel = new JPanel(new BorderLayout());
+		this.secondPanel = new JPanel(new GridLayout(0, 2));
 		
-		boardLabel = new JLabel();
-		mainWindow.add(boardLabel);
+		this.firstPanel.setBackground(Color.blue);
+		this.firstPanel.setPreferredSize(new Dimension(800, 1000));
+		
+		this.button1 = new JButton("Button1");
+		this.button2 = new JButton("Button2");
+		this.button3 = new JButton("Button3");
+		this.button4 = new JButton("Button4");
+		
+		secondPanel.add(button1);
+		secondPanel.add(button2);
+		secondPanel.add(button3);
+		secondPanel.add(button4);
+		
+		this.board = new JLabel();
 		
 		
-		Image myImage = ImageIO.read(new File(boardPath));
+		
+		this.mainWindow.add(this.firstPanel);
+		this.mainWindow.add(this.secondPanel);
+		
+		this.mainWindow.pack();
+		
+		
+		
+		//boardLabel = new JLabel();
+		//mainWindow.add(boardLabel);
+		
+		
+		//Image myImage = ImageIO.read(new File(boardPath));
 		//boardLabel = new JLabel(new ImageIcon(myImage.getScaledInstance(boardPanel.getWidth(), boardPanel.getHeight(), Image.SCALE_SMOOTH)));
 		//boardPanel.add(boardLabel);
 		//ImageIcon imageIcon = new ImageIcon(new ImageIcon(myImage).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
-		boardLabel.setIcon( new ImageIcon(myImage.getScaledInstance(800, 1000, Image.SCALE_DEFAULT)) );
+		//boardLabel.setIcon( new ImageIcon(myImage.getScaledInstance(800, 1000, Image.SCALE_DEFAULT)) );
 		
 		
 		
