@@ -1,10 +1,12 @@
 package it.polimi.ingsw.ps21.client;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
 import it.polimi.ingsw.ps21.controller.BoardData;
+import it.polimi.ingsw.ps21.controller.FamilyMemberData;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
@@ -67,17 +69,17 @@ public class CLInterface implements UserInterface {
 	private void showMatchInfos() {
 		System.out.println("------------\tMatch Status\t------------");
 		System.out.print("Period: " + matchInfo.getPeriod() + "\tRound: " + matchInfo.getRound());
-		System.out.println("\nBoard:\nDices: Black = " + matchInfo.getBlackDice() + " White = "
-				+ matchInfo.getWhiteDice() + " Orange = " + matchInfo.getOrangeDice());
+		System.out.println("\nBoard:\nDices:\tBlack = " + matchInfo.getBlackDice() + "\tWhite = "
+				+ matchInfo.getWhiteDice() + "\tOrange = " + matchInfo.getOrangeDice());
 		DevelopmentCard[][] cards = boardInfo.getCards();
 		for (int i = 0; i < 4; i++) {
-			System.out.println("\nTower " + (i + 1) + "" +"\n" + "------------------------------------------------------------");
+			System.out.println("\nTower " + (i + 1) + "\n------------------------------------------------------------");
 			for (int j = 0; j < 4; j++) {
 				System.out.println("\nFloor " + (j +1) + ":");
 				DevelopmentCard card = cards[j][i];
 				if (card!=null)
 					System.out.println(card.toString());
-				else System.out.println(" Empty Floor");
+				else System.out.println("Empty Floor");
 				System.out.println("Family Member: " + (boardInfo.getTowerSpaces()[i][j]).toString());
 				System.out.println("------------------------------------------------------------");
 			}
@@ -158,7 +160,7 @@ public class CLInterface implements UserInterface {
 
 	@Override
 	public boolean reqVaticanChoice() {
-		System.out.println("You have to take a choice, bastard:\n ");
+		System.out.println("You have to choose to support the Church:");
 		System.out.println(
 				"Do you want to receive an excommunication(1) or not(2)? If you reject excommunication you will loose all your faith points");
 		int userChoice = userInput.nextInt();
@@ -206,7 +208,11 @@ public class CLInterface implements UserInterface {
 	@Override
 	public void matchEnded(EndData data) {
 		this.matchEnded = true;
-		System.out.println("\nYou have totalized " + data.getPlayersFinalPoints().get(playerID) + " victory points.");
+		Map<PlayerColor, Integer> result = data.getPlayersFinalPoints();
+		for(PlayerColor color: result.keySet()){
+			if (color.equals(playerID)) System.out.println("You have totalized " + result.get(color) + " final points;");
+			else System.out.println("Player " + color + " has totalized " + result.get(color) + " final points;");
+		}
 		
 		
 	}
@@ -420,20 +426,20 @@ public class CLInterface implements UserInterface {
 	public MembersColor chooseColor() {
 		System.out.println("Which family member do you want to use?");
 		System.out.println("Available Family Member:");
-		ArrayList<MembersColor> availableColors = new ArrayList<>();
+		ArrayList<FamilyMemberData> availableColors = new ArrayList<>();
 		for (MembersColor c : MembersColor.values()) {
 			if (!(playerInfo.getFamilyMember(c).isUsed()))
-				availableColors.add(c);
+				availableColors.add(playerInfo.getFamilyMember(c));
 		}
 		for (int i = 0; i < availableColors.size(); i++) {
-			System.out.println((i + 1) + ") " + availableColors.get(i));
+			System.out.println((i + 1) + ") " + availableColors.get(i).getColor() + "\tValue = " + availableColors.get(i).getValue());
 		}
 		int choice = userInput.nextInt();
 		while (choice < 1 || choice > availableColors.size()) {
 			System.out.println("Invalid choice, please insert another choice:");
 			choice = userInput.nextInt();
 		}
-		return availableColors.get(choice-1);
+		return availableColors.get(choice-1).getColor();
 	}
 
 	@Override
