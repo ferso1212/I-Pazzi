@@ -68,7 +68,7 @@ public class LorenzoFlow {
 		initialize(3, false);
 	}
 	
-	public class CardListener implements ActionListener{
+	private class MyListener implements ActionListener{
 		
 
 		@Override
@@ -99,68 +99,99 @@ public class LorenzoFlow {
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainWindow.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
 		
+		
+		//setting BoardPanel
 		BoardPanel boardPanel = new BoardPanel((new File("")).getAbsolutePath().concat("/src/images/board.gif"));
 		boardPanel.setLayout(null);
 		mainWindow.getContentPane().add(boardPanel);
 		
+		// development card
 		for (int i = 0; i < 4; i++) {
 			DevelopmentCardLabel developmentCard = new DevelopmentCardLabel("src/images/LorenzoCards_compressed_png/devcards_f_en_c_"+(i+1)+".png");
-			developmentCard.addActionListener(new LorenzoFlow.CardListener());
+			developmentCard.addActionListener(new MyListener());
 			boardPanel.add(developmentCard).setBounds(80, 85 + 118*i, 70, 100);
 			}
 		
+		//excommunication
 		for (int i = 0; i<3 ; i++) {
 			ExcommunicationLabel excomCard = new ExcommunicationLabel("src/images/Lorenzo_Punchboard_CUT_compressed/excomm_"+(i+1)+"_"+(i+1)+".png");
 			boardPanel.add(excomCard).setBounds(165 + 50*i , 595, 50, 100);
 			}
 		
+		//work space
 		WorkActionButton singleHarvest = new WorkActionButton(WorkType.HARVEST, true);
 		boardPanel.add(singleHarvest).setBounds(75 , 790, 50, 60);
+		singleHarvest.addActionListener(new MyListener());
 		
 		WorkActionButton singleProduction = new WorkActionButton(WorkType.PRODUCTION, true);
 		boardPanel.add(singleProduction).setBounds(75 , 865, 50, 60);
+		singleProduction.addActionListener(new MyListener());
 		
 		WorkActionButton multipleHarvest = new WorkActionButton(WorkType.HARVEST, false);
 		boardPanel.add(multipleHarvest).setBounds(145 , 790, 145, 60);
+		multipleHarvest.addActionListener(new MyListener());
 		
 		WorkActionButton multipleProduction = new WorkActionButton(WorkType.PRODUCTION, false);
 		boardPanel.add(multipleProduction).setBounds(145 , 865, 145, 60);
+		multipleProduction.addActionListener(new MyListener());
 		
+		//market space
 		MarketButton firstMarket = new MarketButton(1);
 		boardPanel.add(firstMarket).setBounds(393, 775, 54, 60);
+		firstMarket.addActionListener(new MyListener());
 		
 		MarketButton secondMarket = new MarketButton(2);
 		boardPanel.add(secondMarket).setBounds(453, 775, 54, 60);
+		secondMarket.addActionListener(new MyListener());
 		
 		MarketButton thirdMarket = new MarketButton(3);
 		boardPanel.add(thirdMarket).setBounds(512, 790, 54, 60);
+		thirdMarket.addActionListener(new MyListener());
 		
 		MarketButton fourthMarket = new MarketButton(4);
 		boardPanel.add(fourthMarket).setBounds(558, 830, 54, 60);
+		fourthMarket.addActionListener(new MyListener());
 		
+		//council space
 		CouncilButton councilButton = new CouncilButton();
 		boardPanel.add(councilButton).setBounds(348, 550, 178, 78);
+		councilButton.addActionListener(new MyListener());
 		
-		rightPanel = new JPanel();
+		//left general panel setting with grid layout 2 rows 1 column
+		rightPanel = new JPanel(); 
 		mainWindow.getContentPane().add(rightPanel);
 		rightPanel.setLayout(new GridLayout(2, 0, 0, 0));
 		
+		//on the top of the left panel there is a split panel with personal board and personal bonus tile
 		JSplitPane splitPane = new JSplitPane();
 		rightPanel.add(splitPane);
 		
+		//setting prsonal bonus tile
 		JLabel personalBonusTile = new JLabel();
 		personalBonusTile.setHorizontalAlignment(SwingConstants.LEFT);
 		personalBonusTile.setIcon(new ImageIcon("C:\\Users\\darix\\I-Pazzi\\src\\images\\Lorenzo_Punchboard_CUT_compressed\\personalbonustile_2.png"));
 		splitPane.setLeftComponent(personalBonusTile);
 		
+		//setting a tabbedPane in the right space of splitPane
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		splitPane.setRightComponent(tabbedPane);
+		
 		for (int i = 1; i <= numberOfPlayer; i++) {
-			JLabel playerTile = new JLabel("Player " + i + " Tile");
-			playerTile.setHorizontalAlignment(SwingConstants.LEFT);
-			playerTile.setIcon(new ImageIcon("C:\\Users\\darix\\I-Pazzi\\src\\images\\Lorenzo_Punchboard_FRONT_compressed\\punchboard_f_c_03.jpg"));
+			PlayerTile playerTile = new PlayerTile();
 			tabbedPane.addTab("Player " + i + " Tile", null, playerTile, null);
 		}
-		splitPane.setRightComponent(tabbedPane);
+		
+		//setting a panel sith borderLayout in the splitPane
+		JPanel actionPanel = new JPanel();
+		rightPanel.add(actionPanel);
+		actionPanel.setLayout(new BorderLayout(0, 0));
+		
+		RoundInfo roundInfo = new RoundInfo("Informazioni sul round");
+		actionPanel.add(roundInfo, BorderLayout.PAGE_START);
+		
+		actionPanel.add(new FamilyMemberPanel(), BorderLayout.LINE_START);
+		
+		
 		
 		
 		

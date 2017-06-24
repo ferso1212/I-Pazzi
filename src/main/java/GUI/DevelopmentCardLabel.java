@@ -17,13 +17,15 @@ public class DevelopmentCardLabel extends JButton{
 	private Image cardImage;
 	private static int width = 70;
 	private static int height = 100;
+	private String path;
 	
 	public DevelopmentCardLabel(String path){
+		this.path = path;
 		try {
 			
 			this.cardImage = ImageIO.read(new File((new File("")).getAbsolutePath().concat("/").concat(path)));
 			this.setIcon(new ImageIcon(cardImage.getScaledInstance(DevelopmentCardLabel.width, DevelopmentCardLabel.height, Image.SCALE_DEFAULT)));
-			this.setToolTipText("<html><body><div><img src=\"file:"+path+"\"></div><div></div></body></html> ");
+			this.setToolTipText("<html><body><div><img src=\"file:"+path+"\"></div></div></body></html> ");
 			
 			
 		} catch (IOException e) {
@@ -40,6 +42,8 @@ public class DevelopmentCardLabel extends JButton{
 		return this.getParent();
 	}
 	
-	
+	public String getPath(){
+		return this.path;
+	}
 
 }

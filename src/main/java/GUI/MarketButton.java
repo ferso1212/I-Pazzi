@@ -12,7 +12,6 @@ public class MarketButton extends JButton{
 		
 		this.spaceNumber = spaceNumber;
 		this.setToolTipText("Proprietà");
-		this.addActionListener(new CardListener());
 		this.setOpaque(false);
 		this.setContentAreaFilled(false);
 		this.setBorderPainted(false);

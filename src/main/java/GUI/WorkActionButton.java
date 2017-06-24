@@ -16,7 +16,6 @@ public class WorkActionButton extends JButton{
 		this.setOpaque(false);
 		this.setContentAreaFilled(false);
 		this.setBorderPainted(false);
-		this.addActionListener(new CardListener());
 	}
 
 	public WorkType getType() {
