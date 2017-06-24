@@ -13,6 +13,7 @@ import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.ActionData;
+import it.polimi.ingsw.ps21.view.EndData;
 import it.polimi.ingsw.ps21.view.ExtraActionData;
 import it.polimi.ingsw.ps21.view.RMIConnectionCreator;
 import it.polimi.ingsw.ps21.view.RMIConnectionInterface;
@@ -128,6 +129,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	@Override
 	public boolean reqRules() throws RemoteException {
 		return ui.reqIfWantsAdvancedRules();
+	}
+
+	@Override
+	public void matchEnded(EndData data) throws RemoteException {
+		ui.matchEnded(data);		
 	}
 
 }
