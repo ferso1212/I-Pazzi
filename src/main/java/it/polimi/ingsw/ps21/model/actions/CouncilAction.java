@@ -20,9 +20,10 @@ public class CouncilAction extends Action{
 	private FamilyMember famMember;
 	private CouncilChoice councilChoice;
 		
-	public CouncilAction(PlayerColor playerId, FamilyMember famMember) {
+	public CouncilAction(PlayerColor playerId, FamilyMember famMember, int possibleServants) {
 		super(playerId);
 		this.famMember = famMember;
+		this.possibleServants = possibleServants;
 		this.updateCounter = 1;
 	}
 	
@@ -33,11 +34,11 @@ public class CouncilAction extends Action{
 		case 1:
 		{
 			this.council = match.getBoard().getCouncilPalace();
-			if(this.famMember.getColor() == MembersColor.NEUTRAL){
+			if((this.famMember.getColor() == MembersColor.NEUTRAL)){
 				return new RefusedAction(player.getId(), "You can't place the Neutral member in the council palace!");
 			}
 			
-			if ((this.council.isOccupable(player, famMember)) && (!famMember.isUsed())){
+			if (((this.famMember.getValue() + possibleServants) >= this.council.getDiceRequirement()) && (!famMember.isUsed())){
 				this.councilChoice = new CouncilChoice(player.getId(), council.getCouncilPrivileges());
 				this.updateCounter--;
 				return this.councilChoice;
@@ -59,6 +60,8 @@ public class CouncilAction extends Action{
 	
 	@Override
 	public ExtraAction[] activate(Player player, Match match) throws NotExecutableException, RequirementNotMetException, InsufficientPropsException {
+		
+		super.payServants(player, this.possibleServants, this.famMember.getColor());
 		
 		match.getBoard().placeMember(player, this.famMember, this.council);
 		

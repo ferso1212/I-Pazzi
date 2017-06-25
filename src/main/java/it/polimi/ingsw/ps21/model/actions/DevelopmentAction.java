@@ -30,9 +30,10 @@ public class DevelopmentAction extends Action {
 	private ArrayList<ExtraAction> extraActionFromInstantEffect = new ArrayList<ExtraAction>();
 	private ArrayList<ExtraAction> extraActionFromPermanentEffect = new ArrayList<ExtraAction>();
 
-	public DevelopmentAction(PlayerColor playerId, FamilyMember famMember, DevelopmentCardType tower, int floor) {
+	public DevelopmentAction(PlayerColor playerId, FamilyMember famMember, int possibleServants, DevelopmentCardType tower, int floor) {
 		super(playerId);
 		this.famMember = famMember;
+		this.possibleServants = possibleServants;
 		this.tower = tower;
 		this.floor = floor;
 		this.updateCounter=2;
@@ -48,7 +49,7 @@ public class DevelopmentAction extends Action {
 			if (((!(match.getBoard().getTower(this.tower).isOccupied()) && (player.getProperties().getPayableRequirementsAndCosts(space.getCard().getCosts()).size() > 0) ) 
 					|| ((match.getBoard().getTower(this.tower).isOccupied()) && (player.getProperties().getPayableRequirementsAndCosts(space.getCard().getOccupiedTowerCosts()).size() > 0) ) )
 					&& (space.isOccupable(player, famMember)) && (player.checkCardRequirements(space.getCard())) 
-					&& (famMember.getValue() >= space.getDiceRequirement())	&& (!famMember.isUsed())
+					&& ((famMember.getValue() + this.possibleServants) >= space.getDiceRequirement())	&& (!famMember.isUsed())
 					&& (player.checkRequirement(player.getDeck().getAddingCardRequirement(space.getCard())))) {
 				if (!(match.getBoard().getTower(this.tower).isOccupied()))
 					this.costMessage = new CostChoice(player.getId(), player.getProperties().getPayableRequirementsAndCosts(space.getCard().getCosts()));
@@ -101,6 +102,8 @@ public class DevelopmentAction extends Action {
 
 	@Override
 	public ExtraAction[] activate(Player player, Match match) throws NotExecutableException, RequirementNotMetException, InsufficientPropsException{
+		
+		super.payServants(player, this.possibleServants, this.famMember.getColor());
 		
 		SingleTowerSpace space = match.getBoard().getTower(this.tower).getTowerSpace(floor);
 
