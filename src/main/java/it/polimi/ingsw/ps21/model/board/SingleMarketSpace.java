@@ -16,7 +16,7 @@ public class SingleMarketSpace extends Space{
 	}
 	
 	public boolean isOccupable(Player player, FamilyMember member) {
-		if ((occupant == null) && (member.getValue() > this.diceRequirement)) {
+		if ((occupant == null) && (member.getValue() >= this.diceRequirement)) {
 			return true;
 		}
 		return false;

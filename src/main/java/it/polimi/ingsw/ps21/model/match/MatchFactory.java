@@ -51,15 +51,15 @@ import it.polimi.ingsw.ps21.model.properties.Property;
  */
 public class MatchFactory {
 	private final static Logger LOGGER = Logger.getLogger(MatchFactory.class.getName());
-	private final String excommunicationsPath = (new File("")).getAbsolutePath().concat("/configuration/excommunications.xml");;
+	private final String excommunicationsPath = (new File("")).getAbsolutePath().concat("/src/configuration/excommunications.xml");;
 	private static MatchFactory instance = null;
-	private final String greenPath = (new File("")).getAbsolutePath().concat("/configuration/green-deck.xml");
-	private final String yellowPath = (new File("")).getAbsolutePath().concat("/configuration/yellow-deck.xml");
-	private final String bluePath = (new File("")).getAbsolutePath().concat("/configuration/blue-deck.xml");
-	private final String purplePath = (new File("")).getAbsolutePath().concat("/configuration/purple-deck.xml");
-	private final String boardPath = (new File("")).getAbsolutePath().concat("/configuration/board.xml");
-	private final String serverPath = (new File("")).getAbsolutePath().concat("/configuration/server-config.xml");
-	private String leaderDeckPath = (new File("")).getAbsolutePath().concat("/configuration/leader-deck.xml");
+	private final String greenPath = (new File("")).getAbsolutePath().concat("/src/configuration/green-deck.xml");
+	private final String yellowPath = (new File("")).getAbsolutePath().concat("/src/configuration/yellow-deck.xml");
+	private final String bluePath = (new File("")).getAbsolutePath().concat("/src/configuration/blue-deck.xml");
+	private final String purplePath = (new File("")).getAbsolutePath().concat("/src/configuration/purple-deck.xml");
+	private final String boardPath = (new File("")).getAbsolutePath().concat("/src/configuration/board.xml");
+	private final String serverPath = (new File("")).getAbsolutePath().concat("/src/configuration/server-config.xml");
+	private String leaderDeckPath = (new File("")).getAbsolutePath().concat("/src/configuration/leader-deck.xml");
 	private DocumentBuilder builder = null;
 	private Deck configuratedDeck;
 	private ExcommunicationDeck excommunications;

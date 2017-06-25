@@ -210,7 +210,7 @@ public class CLInterface implements UserInterface {
 		this.matchEnded = true;
 		Map<PlayerColor, Integer> result = data.getPlayersFinalPoints();
 		for(PlayerColor color: result.keySet()){
-			if (color.equals(playerID)) System.out.println("You have totalized " + result.get(color) + " final points;");
+			if (color.equals(playerID)) System.out.println("You have totalized " + result.get(color) + "final points;");
 			else System.out.println("Player " + color + " has totalized " + result.get(color) + " final points;");
 		}
 		
