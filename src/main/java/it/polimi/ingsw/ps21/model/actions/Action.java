@@ -3,6 +3,7 @@ package it.polimi.ingsw.ps21.model.actions;
 import it.polimi.ingsw.ps21.controller.Message;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
+import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
@@ -11,6 +12,7 @@ public abstract class Action {
 	
 	protected PlayerColor playerId;
 	protected int updateCounter;
+	protected int possibleServants;
 	
 	public Action(PlayerColor playerId) {
 		super();
@@ -23,6 +25,10 @@ public abstract class Action {
 
 	public PlayerColor getPlayerId() {
 		return playerId;
+	}
+	
+	protected void payServants(Player player, int numOfServants, MembersColor memberToIncrement){
+		player.getFamily().getMember(memberToIncrement).increaseValue(numOfServants);
 	}
 	
 	

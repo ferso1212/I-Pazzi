@@ -27,10 +27,11 @@ public class WorkAction extends Action {
 	private int actionValue;
 	private WorkMessage workMessage;
 
-	public WorkAction(PlayerColor playerId, WorkSpace space, FamilyMember famMember) {
+	public WorkAction(PlayerColor playerId, WorkSpace space, FamilyMember famMember, int possibleServants) {
 		super(playerId);
 		this.space = space;
 		this.famMember = famMember;
+		this.possibleServants = possibleServants;
 		this.updateCounter = 1;
 	}
 
@@ -38,18 +39,16 @@ public class WorkAction extends Action {
 	public Message update(Player player, Match match) {
 		
 		if (this.space.equals(match.getBoard().getMultipleWorkSpace(this.space.getWorkType()))){
-			this.actionValue = this.famMember.getValue() - match.getBoard().getMultipleWorkSpace(this.space.getWorkType()).getDiceMalus();
-			if(this.actionValue < 0)
-				this.actionValue = 0;
+			this.actionValue = this.famMember.getValue() + this.possibleServants - match.getBoard().getMultipleWorkSpace(this.space.getWorkType()).getDiceMalus();
 		} else if (this.space.equals(match.getBoard().getSingleWorkSpace(this.space.getWorkType()))) {
-			this.actionValue = this.famMember.getValue();
+			this.actionValue = this.famMember.getValue() + this.possibleServants;
 		}
 				
 		
 		switch (this.updateCounter) {
 		
 		case 1: {
-			if ((space.isOccupable(player, famMember)) && (!famMember.isUsed())) {
+			if ((space.isOccupable(player, famMember)) && (!famMember.isUsed()) && (this.actionValue >= space.getDiceRequirement())) {
 
 				if (((match.getNumberPlayers() == 3) || (match.getNumberPlayers() == 4))
 						&& ((famMember.getColor() == MembersColor.WHITE) || (famMember.getColor() == MembersColor.BLACK)
@@ -62,7 +61,7 @@ public class WorkAction extends Action {
 					ArrayList<DevelopmentCard> cardWithCost = new ArrayList<DevelopmentCard>();
 					ArrayList<DevelopmentCard> cardWithoutCost = new ArrayList<DevelopmentCard>();
 
-					for (DevelopmentCard c : player.getActivableWorks(this.famMember.getValue(), this.space.getWorkType())) {
+					for (DevelopmentCard c : player.getActivableWorks(this.actionValue, this.space.getWorkType())) {
 						for (EffectSet e : c.getPossibleEffects()){
 							if (e.getTotalCost().isNull())
 								cardWithoutCost.add(c);
@@ -131,6 +130,8 @@ public class WorkAction extends Action {
 	@Override
 	public ExtraAction[] activate(Player player, Match match) throws NotExecutableException, RequirementNotMetException, InsufficientPropsException {
 
+		super.payServants(player, this.possibleServants, this.famMember.getColor());
+		
 		ArrayList<ExtraAction> activatedEffects = new ArrayList<ExtraAction>();
 
 		match.getBoard().placeMember(player, this.famMember, this.space);

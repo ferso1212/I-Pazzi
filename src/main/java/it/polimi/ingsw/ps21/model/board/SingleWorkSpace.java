@@ -16,7 +16,7 @@ public class SingleWorkSpace extends WorkSpace{
 	
 	@Override
 	public boolean isOccupable(Player player, FamilyMember member) {
-		if ((occupant == null) && (member.getValue() > this.diceRequirement)) {
+		if ((occupant == null)) {
 			return true;
 		}
 		return false;

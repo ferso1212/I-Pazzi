@@ -21,10 +21,11 @@ public class MarketAction extends Action{
 	private CouncilChoice councilChoice;
 	private int updateCounter = 1;
 	
-	public MarketAction(PlayerColor playerId, SingleMarketSpace space, FamilyMember famMember) {
+	public MarketAction(PlayerColor playerId, SingleMarketSpace space, int possibleServants, FamilyMember famMember) {
 		super(playerId);
 		this.space = space;
 		this.famMember = famMember;
+		this.possibleServants = possibleServants;
 	}
 
 	@Override
@@ -37,7 +38,7 @@ public class MarketAction extends Action{
 				return new RefusedAction(player.getId(), "You can't place a family member in a market space because you have an excommunication!");
 			}
 			
-			if ((space.isOccupable(player, famMember)) && (!famMember.isUsed())){
+			if (((famMember.getValue() + this.possibleServants) >= space.getDiceRequirement()) && (space.isOccupable(player, famMember)) && (!famMember.isUsed())){
 				if ((space.getNumberOfPrivileges() > 0) && (match.getBoard().getCouncilPalace().checkPlayer(player))){
 					this.councilChoice = new CouncilChoice(player.getId(), space.getNumberOfPrivileges());
 					this.updateCounter--;
@@ -61,6 +62,8 @@ public class MarketAction extends Action{
 
 	@Override
 	public ExtraAction[] activate(Player player, Match match) throws NotExecutableException, RequirementNotMetException, InsufficientPropsException {
+		
+		super.payServants(player, possibleServants, this.famMember.getColor());
 		
 		match.getBoard().placeMember(player, this.famMember, this.space);
 		

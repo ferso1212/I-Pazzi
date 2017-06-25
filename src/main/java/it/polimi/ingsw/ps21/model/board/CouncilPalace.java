@@ -30,13 +30,6 @@ public class CouncilPalace extends Space {
 	}
 
 	@Override
-	public boolean isOccupable(Player player, FamilyMember member) {
-		if((member.getColor() != MembersColor.NEUTRAL) && (member.getValue() - this.diceMalus >= this.diceRequirement))
-			return true;
-		return false;
-	}
-
-	@Override
 	public void occupy(Player player, FamilyMember member) throws NotOccupableException {
 		this.occupants.add(member);
 		member.setUsed(true);
