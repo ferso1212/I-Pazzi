@@ -65,7 +65,9 @@ public class TestMatches {
 		for (PlayerColor c: testResult.getPlayersFinalPoints().keySet()){
 			System.out.println(c + "\t" + testResult.getPlayersFinalPoints().get(c));
 		}
-		assert(true);
+		assert(testResult.getPlayersFinalPoints().get(PlayerColor.BLUE) == 5
+				&& testResult.getPlayersFinalPoints().get(PlayerColor.RED) == 0
+				&& testResult.getPlayersFinalPoints().get(PlayerColor.YELLOW) == 2); // Control the correct values for final points
 	}
 	
 	private boolean checkNewRound() {
