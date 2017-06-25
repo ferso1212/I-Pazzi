@@ -25,6 +25,7 @@ import it.polimi.ingsw.ps21.model.player.PlayerProperties;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
+import it.polimi.ingsw.ps21.view.EndData;
 
 
 /**
@@ -48,6 +49,7 @@ public abstract class Match extends Observable {
 	protected RoundType round;
 	protected boolean ended = false;
 	protected int currentPlayer;
+	protected EndData statistics;
 	
 	public Match(){
 	}
@@ -134,6 +136,8 @@ public abstract class Match extends Observable {
 	
     public abstract void nextRound();
 
-	
+	public EndData getResult(){
+		return this.statistics;
+	}
 }
 	

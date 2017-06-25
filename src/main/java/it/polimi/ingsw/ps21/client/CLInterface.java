@@ -80,7 +80,8 @@ public class CLInterface implements UserInterface {
 		for (int i = 0; i < 4; i++) {
 			System.out.println("\nTower " + (i + 1) + "\n------------------------------------------------------------");
 			for (int j = 0; j < 4; j++) {
-				System.out.println("\nFloor " + (j +1) + ":");
+				System.out.println("\nFloor " + (j +1) + ":" );
+				System.out.println("Dice Requirement: " + matchInfo.getBoard().getTowerRequirements()[j][i] + ":" );
 				DevelopmentCard card = cards[j][i];
 				if (card!=null)
 					System.out.println(card.toString());
@@ -334,7 +335,7 @@ public class CLInterface implements UserInterface {
 				if (!matchInfo.getBoard().getTowerSpaces()[k][cardType-1].exists()){
 					System.out.println( (k+1) + ") " +
 								matchInfo.getBoard().getCards()[k][cardType-1] +
-								"\nInstant bonus: " + matchInfo.getBoard().getTowerBonuses()[k][cardType-1]);
+								"\nInstant bonus: " + matchInfo.getBoard().getTowerBonuses()[k][cardType-1] + "\nFloor dice requirement: " + matchInfo.getBoard().getTowerRequirements()[k][cardType-1]);
 					possibleSpaces.add(k+1);
 				}
 			}

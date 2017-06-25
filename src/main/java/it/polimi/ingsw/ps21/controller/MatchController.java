@@ -383,7 +383,7 @@ public class MatchController extends Observable implements Observer {
 					{
 						this.currentAction = currentExtraActions.get(i);
 						this.currentExtraActions.remove(i);
-						getActionChoices();
+						getExtraActionChoices();
 					} else {
 						setChanged();
 						notifyObservers(
@@ -420,11 +420,9 @@ public class MatchController extends Observable implements Observer {
 		Action parsedAction;
 		Player currentPlayer = match.getCurrentPlayer();
 		FamilyMember chosenMember = currentPlayer.getFamily().getMember(data.getFamilyMember());
-		chosenMember.increaseValue(data.getServants());
-		currentPlayer.getProperties().getProperty(PropertiesId.SERVANTS).payValue(data.getServants());
 		switch (data.getType()) {
 		case COUNCIL:
-			parsedAction = new CouncilAction(currentPlayer.getId(), chosenMember);
+			parsedAction = new CouncilAction(currentPlayer.getId(), chosenMember, data.getServants());
 			break;
 		case HARVEST: {
 			WorkSpace workSpace;
@@ -433,13 +431,13 @@ public class MatchController extends Observable implements Observer {
 			else
 				workSpace = match.getBoard().getMultipleWorkSpace(WorkType.HARVEST);
 			parsedAction = new WorkAction(currentPlayer.getId(), workSpace,
-					currentPlayer.getFamily().getMember(data.getFamilyMember()));
+					chosenMember, data.getServants());
 		}
 
 			break;
 		case MARKET:
 			parsedAction = new MarketAction(currentPlayer.getId(), match.getBoard().getMarketSpace(data.getSpace()),
-					chosenMember);
+					data.getServants(), chosenMember);
 			break;
 		case NULL:
 			parsedAction = new NullAction(currentPlayer.getId());
@@ -455,11 +453,11 @@ public class MatchController extends Observable implements Observer {
 			else
 				workSpace = match.getBoard().getMultipleWorkSpace(WorkType.PRODUCTION);
 			parsedAction = new WorkAction(currentPlayer.getId(), workSpace,
-					currentPlayer.getFamily().getMember(data.getFamilyMember()));
+					currentPlayer.getFamily().getMember(data.getFamilyMember()), data.getServants());
 		}
 			break;
 		case TAKE_CARD: {
-			parsedAction = new DevelopmentAction(currentPlayer.getId(), chosenMember, data.getTower(), data.getSpace());
+			parsedAction = new DevelopmentAction(currentPlayer.getId(), chosenMember, data.getSpace(), data.getTower(), data.getServants());
 		}
 			break;
 		default:

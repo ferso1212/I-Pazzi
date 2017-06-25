@@ -14,6 +14,7 @@ import it.polimi.ingsw.ps21.model.actions.NotExecutableException;
 import it.polimi.ingsw.ps21.model.actions.PlayLeaderCard;
 import it.polimi.ingsw.ps21.model.actions.VaticanAction;
 import it.polimi.ingsw.ps21.model.board.Board;
+import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.MembersColor;
@@ -22,6 +23,7 @@ import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.PlayerProperties;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
+import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.view.EndData;
 
 public class SimpleMatch extends Match {
@@ -91,13 +93,12 @@ public class SimpleMatch extends Match {
 	public void nextRound() {
 		if (round == RoundType.INITIAL_ROUND) {
 			round = RoundType.FINAL_ROUND;
-			throwDices();
 		} else if (round == RoundType.FINAL_ROUND)
 			round = RoundType.VATICAN_ROUND;
 		else if (round == RoundType.VATICAN_ROUND) {
-			throwDices();
-			if (period < NUM_OF_PERIODS)
+			if (period < NUM_OF_PERIODS){
 				round = RoundType.INITIAL_ROUND;
+			}
 			else {
 				endMatch();
 				return;
@@ -133,6 +134,7 @@ public class SimpleMatch extends Match {
 			for (Player p : players.values()) {
 				p.getFamily().roundReset();
 			}
+			throwDices();
 		}
 		setChanged();
 		notifyObservers();
@@ -156,24 +158,9 @@ public class SimpleMatch extends Match {
 
 	private Map<PlayerColor, Integer> calculateWinner(Map<Player, Integer> militaryBonus) {
 		Map<PlayerColor, Integer> result = new HashMap<>();
-		// Calculate value orders
-		int values[] = new int[players.size()];
-		for (int i = 0; i < values.length; i++) {
-			values[i] = 0;
-		}
 		for (Player p : players.values()) {
-			for (int j = 0; j < values.length; j++)
-				if (p.getFinalVictoryPoints(board.getTrackBonuses(), board.getCardBonus(),
-						militaryBonus.get(p)) >= values[j]) {
-					values[j] = p.getFinalVictoryPoints(board.getTrackBonuses(), board.getCardBonus(),
-							militaryBonus.get(p));
-				}
-		}
-		for (Player p : players.values()) {
-			for (int j = 0; j < values.length; j++)
-				if (p.getFinalVictoryPoints(board.getTrackBonuses(), board.getCardBonus(),
-						militaryBonus.get(p)) == values[j])
-					result.put(p.getId(), j + 1);
+			result.put(p.getId(), p.getFinalVictoryPoints(board.getTrackBonuses(), board.getCardBonus(),
+						militaryBonus.get(p)));
 		}
 		return result;
 	}
@@ -183,13 +170,94 @@ public class SimpleMatch extends Match {
 		Map<Player, Integer> militaryBonus = calculateMilitaryWinner();
 		Map<PlayerColor, Integer> playersFinalPoints = calculateWinner(militaryBonus);
 		ended = true;
+		this.statistics = new EndData(playersFinalPoints);
 		setChanged();
 		notifyObservers(new EndData(playersFinalPoints));
 	}
 
 	private Map<Player, Integer> calculateMilitaryWinner() {
-		// TODO Auto-generated method stub
-		return null;
+		Map<Player, Integer> result = new HashMap<>();
+		Player winners[] = new Player[players.values().size()];
+		int firstnumber = 0; // numero di giocatori con il massimo dei punti militari
+		int max=0;
+		int secondValue=0;
+		int secondNumber = 0; // numero di giocatori in seconda posizione
+		for (Player p: players.values()){
+			if (p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue() >= max){
+				if (p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue() == max){
+					firstnumber++;
+				}
+				else {
+					secondNumber = firstnumber;
+					firstnumber = 1;
+				}
+				max = p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue();
+				
+				if (winners[0] == null)
+					winners[0]=p;
+				else {
+					Player temp1 = winners[0];
+					winners[0] = p;
+					int i=1;
+					for (i=1; i<winners.length -1 ; i++){
+						if (winners[i] == null) {
+							winners[i]=temp1;
+							temp1 = null;
+						}
+						else {Player temp2 = winners[i];
+						winners[i] = temp1;
+						temp1 = temp2;}
+					}
+					if (temp1!= null) winners[i] = temp1;
+				}
+				
+			}
+				else {
+					if (p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue() >= secondValue){
+						if (p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue() == secondValue){
+							secondNumber++;
+						}
+						else secondNumber = 1;
+						secondValue = p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue();
+						if (winners[firstnumber] == null)
+							winners[firstnumber]=p;
+						else {
+							Player temp1 = winners[firstnumber];
+							winners[firstnumber] = p;
+							int i=firstnumber+1;
+							for (i=firstnumber+1; i<winners.length -1 ; i++){
+								if (winners[i] == null) {
+									winners[i]=temp1;
+									temp1 = null;
+								}
+								else {Player temp2 = winners[i];
+								winners[i] = temp1;
+								temp1 = temp2;}
+							}
+							if (temp1!= null) winners[i] = temp1;
+						}
+				}
+					else {
+						int i=0;
+						while (winners[i]!= null && i<winners.length){
+							i++;
+						}
+						if (i < winners.length) winners[i] = p;
+					}
+				}
+			}
+		for (int i=0; i< winners.length; i++){
+			if (i <= firstnumber -1) result.put(winners[i], 1);
+			else  if (i < firstnumber + secondNumber){
+				if (firstnumber == 1){
+					result.put(winners[i], 2);
+				}
+				else result.put(winners[i], 3);
+			}
+			else result.put(winners[i], 3);
+		}
+		
+		return result;
 	}
 
 	@Override
