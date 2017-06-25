@@ -335,7 +335,7 @@ public class CLInterface implements UserInterface {
 				if (!matchInfo.getBoard().getTowerSpaces()[k][cardType-1].exists()){
 					System.out.println( (k+1) + ") " +
 								matchInfo.getBoard().getCards()[k][cardType-1] +
-								"\nInstant bonus: " + matchInfo.getBoard().getTowerBonuses()[k][cardType-1] + "\nFloor dice requirement: " + matchInfo.getBoard().getTowerRequirements()[k][cardType-1]);
+								"\nInstant bonus: " + matchInfo.getBoard().getTowerBonuses()[k][cardType-1] + "\nFloor dice requirement: " + matchInfo.getBoard().getTowerRequirements()[k][cardType-1] + "\n-----");
 					possibleSpaces.add(k+1);
 				}
 			}

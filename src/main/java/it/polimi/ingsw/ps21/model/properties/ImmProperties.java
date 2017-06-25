@@ -105,7 +105,8 @@ public boolean smallerOrEqual(PropertiesSet propsToCompare)
  */
 public String toString()
 {
-	return properties.toString();
+	String output=properties.toString();
+	return output;
 }
 
 /**Adds the values in this object to the ones in the object passed as argument and returns a new ImmProperties object that contains the sum.
