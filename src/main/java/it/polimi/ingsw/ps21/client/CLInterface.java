@@ -23,6 +23,11 @@ import it.polimi.ingsw.ps21.view.ActionData;
 import it.polimi.ingsw.ps21.view.EndData;
 import it.polimi.ingsw.ps21.view.ExtraActionData;
 
+/**
+ * This interface show information about the match in text form. Player can interact with match using keyboard.
+ * @author gullit
+ *
+ */
 public class CLInterface implements UserInterface {
 
 	private Scanner userInput;

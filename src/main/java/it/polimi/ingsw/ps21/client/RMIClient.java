@@ -18,6 +18,12 @@ import it.polimi.ingsw.ps21.view.ExtraActionData;
 import it.polimi.ingsw.ps21.view.RMIConnectionCreator;
 import it.polimi.ingsw.ps21.view.RMIConnectionInterface;
 
+/**
+ * This class implements the client side of connection using RMI protocol.
+ * It communicates directly with RMIConnectionInterface
+ * @author gullit
+ *
+ */
 public class RMIClient extends UnicastRemoteObject implements RMIClientInterface{
 	
 	/**
