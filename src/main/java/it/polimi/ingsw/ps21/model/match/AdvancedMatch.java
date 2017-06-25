@@ -182,9 +182,17 @@ public class AdvancedMatch extends Match {
 		int secondValue=0;
 		int secondNumber=0;
 		for (AdvancedPlayer p: players.values()){
-			if (p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue() > max){
+			if (p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue() >= max){
+				if(p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue() == max)
+				{
+					firstnumber++;
+				}
+				else {
+					secondNumber = firstnumber;
+					firstnumber=1;
+				}
+				
 				max = p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue();
-				firstnumber++;
 				if (winners[0] == null)
 					winners[0]=p;
 				else {
@@ -205,8 +213,10 @@ public class AdvancedMatch extends Match {
 			}
 			else 
 				if (p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue() >= secondValue){
-					secondValue = p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue();
+					if (p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue() == secondValue)
 					secondNumber++;
+					else secondNumber=1;
+					secondValue = p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue();
 					if (winners[firstnumber] == null)
 						winners[firstnumber]=p;
 					else {
