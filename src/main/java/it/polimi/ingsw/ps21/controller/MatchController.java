@@ -457,7 +457,7 @@ public class MatchController extends Observable implements Observer {
 		}
 			break;
 		case TAKE_CARD: {
-			parsedAction = new DevelopmentAction(currentPlayer.getId(), chosenMember, data.getSpace(), data.getTower(), data.getServants());
+			parsedAction = new DevelopmentAction(currentPlayer.getId(), chosenMember, data.getServants(), data.getTower(), data.getSpace());
 		}
 			break;
 		default:

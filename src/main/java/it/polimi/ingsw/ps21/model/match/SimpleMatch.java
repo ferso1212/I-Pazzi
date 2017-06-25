@@ -58,7 +58,7 @@ public class SimpleMatch extends Match {
 		round = RoundType.INITIAL_ROUND;
 		throwDices();
 		board.newSetBoard(period);
-		setChanged(); // TODO Auto-generated constructor stub
+		setChanged();
 	}
 
 	public SimpleMatch(SimpleMatch simpleMatch) {
