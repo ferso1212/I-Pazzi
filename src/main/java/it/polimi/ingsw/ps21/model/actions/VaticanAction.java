@@ -16,6 +16,11 @@ import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 
+/**
+ * This class handles the choice and assignement of an excommunication in the Vatican Round of match
+ * @author gullit
+ *
+ */
 public class VaticanAction extends Action {
 
 	private VaticanChoice vaticanChoice;
@@ -25,6 +30,13 @@ public class VaticanAction extends Action {
 		this.updateCounter = 1;
 	}
 
+	/**
+	 * When executed first time this method returns an excommunication message if the player doesn't have the possibility
+	 * to support the church, else it returns a vatican choice that will be notified to the UserHandler.
+	 * When executed second time if the player has choosen to support the church returns an AcceptedAction, if he has choosen
+	 * to not support the churc it returns an ExcommunicationMessage and if he has not visited the message it returns a Refused Action message
+	 * 
+	 */
 	@Override
 	public Message update(Player player, Match match) {
 		switch (this.updateCounter) {
@@ -35,16 +47,19 @@ public class VaticanAction extends Action {
 				this.vaticanChoice = new VaticanChoice(player.getId(),
 						match.getBoard().getExcommunications()[match.getPeriod() - 1]);
 				return this.vaticanChoice;
-			} else
+			} else{
 				this.vaticanChoice = new VaticanChoice(player.getId(),
 						match.getBoard().getExcommunications()[match.getPeriod() - 1]);
 				vaticanChoice.setChosen(false);
 				return new ExcommunicationMessage(player.getId());
+			}
 		}
 
 		case 0: {
-			if ((this.vaticanChoice.isVisited()) && (!this.vaticanChoice.getChosen())) {
+			if ((this.vaticanChoice.isVisited())) {
+				if (!this.vaticanChoice.getChosen())
 				return new ExcommunicationMessage(player.getId());
+				else return new AcceptedAction(player.getId());
 			} else
 				return new RefusedAction(player.getId());
 		}
