@@ -96,7 +96,7 @@ public class DevelopmentAction extends Action {
 		}
 
 		default:
-			return new RefusedAction(player.getId());
+			return new RefusedAction(player.getId(), "Unhandled case");
 		}
 	}
 
