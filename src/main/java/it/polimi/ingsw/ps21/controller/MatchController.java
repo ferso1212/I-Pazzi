@@ -291,8 +291,8 @@ public class MatchController extends Observable implements Observer {
 	 */
 	private void reqPlayerAction() {
 		if (roundType != RoundType.VATICAN_ROUND) {
-			//timerThread = new Thread(this.timer);
-			//timerThread.start();
+			this.timer.cancel();
+			this.timer.purge();
 			this.timer=new Timer();
 			timer.schedule(new TimerTask() {
 

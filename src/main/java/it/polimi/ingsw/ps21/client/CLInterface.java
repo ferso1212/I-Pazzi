@@ -358,7 +358,7 @@ public class CLInterface implements UserInterface {
 		}
 			break;
 		case 3: {
-			System.out.println("Do you want to use Harvest (1) area or Produciton (2) area?");
+			System.out.println("Do you want to use Harvest (1) area or Production (2) area?");
 			int workChoice = userInput.nextInt();
 			while (workChoice != 1 && workChoice != 2) {
 				System.out.println("Invalid choice, please insert another choice");
@@ -373,11 +373,16 @@ public class CLInterface implements UserInterface {
 			}
 			familyMember = chooseColor();
 			servants = chooseServants();
+			int spaceChoice;
+			if(this.matchInfo.getPlayers().length<=2) spaceChoice=1;
+			else
+			{
 			System.out.println("Do you want to use Single space(1)  or Multiple space (2)?");
-			int spaceChoice = userInput.nextInt();
+			spaceChoice = userInput.nextInt();
 			while (spaceChoice != 1 && spaceChoice != 2) {
 				System.out.println("Invalid choice, please insert another choice");
 				spaceChoice = userInput.nextInt();
+			}
 			}
 			space = spaceChoice;
 		}

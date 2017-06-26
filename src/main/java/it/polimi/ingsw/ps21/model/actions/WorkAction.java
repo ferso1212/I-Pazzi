@@ -48,14 +48,16 @@ public class WorkAction extends Action {
 		switch (this.updateCounter) {
 		
 		case 1: {
-			if ((space.isOccupable(player, famMember)) && (!famMember.isUsed()) && (this.actionValue >= space.getDiceRequirement())) {
-
-				if (((match.getNumberPlayers() == 3) || (match.getNumberPlayers() == 4))
+			if (!space.isOccupable(player, famMember))  return new RefusedAction(player.getId(), "Action refused: this space is already occupied");
+					//&& (!famMember.isUsed()) && (this.actionValue >= space.getDiceRequirement())) 
+			if(famMember.isUsed()) return new RefusedAction(player.getId(), "Action refused: you have already used this member!");
+			if((this.actionValue < space.getDiceRequirement()))		return new RefusedAction(player.getId(), "Action refused: unsufficient dice value.");
+			if (((match.getNumberPlayers() == 3) || (match.getNumberPlayers() == 4))
 						&& ((famMember.getColor() == MembersColor.WHITE) || (famMember.getColor() == MembersColor.BLACK)
 								|| (famMember.getColor() == MembersColor.ORANGE))
-						&& !((this.checkOccupant(match, famMember, space) == MembersColor.NEUTRAL)
-								|| (this.checkOccupant(match, famMember, space) == null))) {
-					return new RefusedAction(player.getId());
+						&& !((this.checkOccupant(match, famMember, space) == MembersColor.NEUTRAL) || (this.checkOccupant(match, famMember, space) == null))) {
+					//refuse action because in the other space there is a coloured member
+					return new RefusedAction(player.getId(), "You can't place a coloured member in this space because you have another colored member in the other space.");
 				}
 				try {
 					ArrayList<DevelopmentCard> cardWithCost = new ArrayList<DevelopmentCard>();
@@ -76,8 +78,7 @@ public class WorkAction extends Action {
 				}
 				this.updateCounter--;
 				return this.workMessage;
-			} else
-				return new RefusedAction(player.getId());
+		
 		}
 
 		case 0:
@@ -90,7 +91,7 @@ public class WorkAction extends Action {
 			}
 			if (player.checkProperties(totalCost))
 				return new AcceptedAction(player.getId());
-			else return new RefusedAction(player.getId());
+			else return new RefusedAction(player.getId(), "You don't have enough properties");
 		}
 
 		default:{
@@ -99,8 +100,7 @@ public class WorkAction extends Action {
 		}
 	}
 
-	private MembersColor checkOccupant(Match match, FamilyMember famMember, Space space)
-			throws IllegalArgumentException {
+	private MembersColor checkOccupant(Match match, FamilyMember famMember, Space space) throws IllegalArgumentException {
 		if (space == match.getBoard().getSingleWorkSpace(WorkType.HARVEST)) {
 			for (FamilyMember f : match.getBoard().getMultipleWorkSpace(WorkType.HARVEST).getOccupants()) {
 				if (famMember.getOwnerId() == f.getOwnerId())
