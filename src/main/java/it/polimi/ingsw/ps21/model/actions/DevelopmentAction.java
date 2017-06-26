@@ -46,20 +46,20 @@ public class DevelopmentAction extends Action {
 
 		switch (this.updateCounter) {
 		case 2: {
-			if (((!(match.getBoard().getTower(this.tower).isOccupied()) && (player.getProperties().getPayableRequirementsAndCosts(space.getCard().getCosts()).size() > 0) ) 
-					|| ((match.getBoard().getTower(this.tower).isOccupied()) && (player.getProperties().getPayableRequirementsAndCosts(space.getCard().getOccupiedTowerCosts()).size() > 0) ) )
-					&& (space.isOccupable(player, famMember)) && (player.checkCardRequirements(space.getCard())) 
-					&& ((famMember.getValue() + this.possibleServants) >= space.getDiceRequirement())	&& (!famMember.isUsed())
-					&& (player.checkRequirement(player.getDeck().getAddingCardRequirement(space.getCard())))) {
-				if (!(match.getBoard().getTower(this.tower).isOccupied()))
+			if (!(match.getBoard().getTower(this.tower).isOccupied()))return new RefusedAction(player.getId(), "Space already occupied");
+			if (!((player.getProperties().getPayableRequirementsAndCosts(space.getCard().getCosts()).size() > 0) || ((match.getBoard().getTower(this.tower).isOccupied()) && (player.getProperties().getPayableRequirementsAndCosts(space.getCard().getOccupiedTowerCosts()).size() > 0) ))) return new RefusedAction(player.getId(), "You can't pay any of possible costs");
+			if(!(space.isOccupable(player, famMember))) return new RefusedAction(player.getId(), "You can't place this family member in this space");
+			if(!(player.checkCardRequirements(space.getCard()))) return new RefusedAction(player.getId(), "You don't meet card requirements");
+			if (!((famMember.getValue() + this.possibleServants) >= space.getDiceRequirement())) return new RefusedAction(player.getId(), "Dice value of family member isn't enough") ;
+			if (!(!famMember.isUsed())) return new RefusedAction(player.getId(), "This family member is already used");
+			if (!(player.checkRequirement(player.getDeck().getAddingCardRequirement(space.getCard())))) return new RefusedAction(player.getId(), "You don't meet requirement for adding this card");
+			if (!(match.getBoard().getTower(this.tower).isOccupied()))
 					this.costMessage = new CostChoice(player.getId(), player.getProperties().getPayableRequirementsAndCosts(space.getCard().getCosts()));
-				else if ((match.getBoard().getTower(this.tower).isOccupied())){
+			else if ((match.getBoard().getTower(this.tower).isOccupied())){
 					this.costMessage = new CostChoice(player.getId(), player.getProperties().getPayableRequirementsAndCosts(space.getCard().getOccupiedTowerCosts()));
-				}
+			}
 				this.updateCounter--;
 				return this.costMessage;
-			} else
-				return new RefusedAction(player.getId());
 		}
 		case 1: {
 				if (space.getCard().getCardType().equals(DevelopmentCardType.CHARACTER) && (this.costMessage.getChosen() != null)) {
@@ -83,7 +83,7 @@ public class DevelopmentAction extends Action {
 					if (this.costMessage.getChosen() != null){
 						this.updateCounter--;
 						return new AcceptedAction(player.getId());
-					} else return new RefusedAction(player.getId());
+					} else return new RefusedAction(player.getId(), "You don't have choosen a cost");
 					
 				}
 			}
@@ -92,7 +92,7 @@ public class DevelopmentAction extends Action {
 		{
 			if (this.effectMessage.getEffectChosen() != null)
 				return new AcceptedAction(player.getId());
-			else return new RefusedAction(player.getId());
+			else return new RefusedAction(player.getId(), "You don't have choosen an effect");
 		}
 
 		default:
