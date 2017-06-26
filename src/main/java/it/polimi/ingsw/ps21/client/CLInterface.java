@@ -219,7 +219,10 @@ public class CLInterface implements UserInterface {
 	@Override
 	public void matchEnded(EndData data) {
 		this.matchEnded = true;
+		if (data.getWinner() == playerID) System.out.println("CONGRATULATIONS: You won!!!!!");
+		else System.out.println("Player " + data.getWinner() + " won the match!");
 		Map<PlayerColor, Integer> result = data.getPlayersFinalPoints();
+		System.out.println("----------\t RESULT \t---------------");
 		for(PlayerColor color: result.keySet()){
 			if (color.equals(playerID)) System.out.println("You have totalized " + result.get(color) + "final points;");
 			else System.out.println("Player " + color + " has totalized " + result.get(color) + " final points;");
