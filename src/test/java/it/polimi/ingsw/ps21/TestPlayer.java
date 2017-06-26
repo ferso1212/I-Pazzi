@@ -23,6 +23,7 @@ import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
+import it.polimi.ingsw.ps21.model.player.PlayerDeck;
 import it.polimi.ingsw.ps21.model.player.PlayerProperties;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
@@ -60,8 +61,17 @@ public class TestPlayer {
 			player.payCard(card.getCardType(), new ImmProperties(1,1,1));
 			player.getDeck().addCard(card);
 			assertEquals(1, player.getActivableWorks(6, WorkType.HARVEST).size());
+			assertEquals(0, player.getActivableWorks(6, WorkType.PRODUCTION).size());
 			player.getFamily().getMember(MembersColor.ORANGE).setValue(5);
 			assertEquals(5, player.getMemberValue(player.getFamily().getMember(MembersColor.ORANGE), card));
+			player.getDeck().setNoAddingRequirement(DevelopmentCardType.TERRITORY);
+			PlayerDeck clonedDeck= player.getDeck().clone();
+			assertEquals(player.getDeck().countCards(DevelopmentCardType.TERRITORY), clonedDeck.countCards(DevelopmentCardType.TERRITORY));
+			player.getFamily().getMember(MembersColor.BLACK).setValue(3);
+			assertEquals(3, player.getFamily().getMember(MembersColor.BLACK).getValue());
+			player.getFamily().getMember(MembersColor.BLACK).setFixed(true);
+			player.getFamily().getMember(MembersColor.BLACK).setValue(5);
+			assertEquals(3, player.getFamily().getMember(MembersColor.BLACK).getValue());
 			
 		} catch (RequirementNotMetException e) {
 			LOGGER.log(Level.SEVERE, "URequirement not met for the card", e);
