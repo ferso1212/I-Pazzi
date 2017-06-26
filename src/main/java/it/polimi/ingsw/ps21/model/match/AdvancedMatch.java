@@ -157,7 +157,7 @@ public class AdvancedMatch extends Match {
 	}
 	
 	private Map<PlayerColor, Integer> calculateWinner(Map<Player, Integer> militaryBonus) {
-		Map<PlayerColor, Integer> result = new HashMap<>();
+		Map<PlayerColor, Integer> result = new EnumMap<>(PlayerColor.class);
 		for(AdvancedPlayer p:players.values()){
 			result.put(p.getId(),p.getFinalVictoryPoints(board.getTrackBonuses(), board.getCardBonus(), militaryBonus.get(p)));
 		}
