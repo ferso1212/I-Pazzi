@@ -17,6 +17,7 @@ import it.polimi.ingsw.ps21.model.player.FamilyMember;
 public class BoardData implements Serializable{
 	private DevelopmentCard[][] cards;
 	private FamilyMemberData[][] towerSpaces;
+	private int[][] towerRequirements;
 	private ImmProperties[][] towerBonuses;
 	private FamilyMemberData[] market;
 	private ImmProperties[] marketBonuses;
@@ -36,6 +37,7 @@ public class BoardData implements Serializable{
 		int towerIndex=0;
 		this.towerSpaces=new FamilyMemberData[board.getTower(DevelopmentCardType.BUILDING).FLOORS_NUM][DevelopmentCardType.values().length];
 		this.towerBonuses=new ImmProperties[board.getTower(DevelopmentCardType.BUILDING).FLOORS_NUM][DevelopmentCardType.values().length];
+		this.towerRequirements = new int[board.getTower(DevelopmentCardType.BUILDING).FLOORS_NUM][DevelopmentCardType.values().length];
 		for(DevelopmentCardType cardType: DevelopmentCardType.values()) //cycles through the towers
 		{
 			Tower tower=board.getTower(cardType);
@@ -44,6 +46,7 @@ public class BoardData implements Serializable{
 				this.cards[floor][towerIndex]=tower.getTowerSpace(floor).getCard(); 
 				this.towerSpaces[floor][towerIndex]=new FamilyMemberData(tower.getTowerSpace(floor).getOccupant());
 				this.towerBonuses[floor][towerIndex]=tower.getTowerSpace(floor).getInstantBonus();
+				this.towerRequirements[floor][towerIndex] = tower.getTowerSpace(floor).getDiceRequirement();
 			}
 			towerIndex++;
 		}
@@ -144,6 +147,9 @@ public class BoardData implements Serializable{
 		return marketPrivileges;
 	}
 	
+	public int[][] getTowerRequirements(){
+		return this.towerRequirements;
+	}
 	
 	
 }

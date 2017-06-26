@@ -2,6 +2,7 @@ package it.polimi.ingsw.ps21;
 
 import static org.junit.Assert.*;
 
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -9,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import it.polimi.ingsw.ps21.model.board.NotOccupableException;
-import it.polimi.ingsw.ps21.model.deck.TerritoryCard;
 import it.polimi.ingsw.ps21.model.match.AdvancedMatch;
 import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
 import it.polimi.ingsw.ps21.model.match.InvalidIDException;
@@ -19,6 +19,8 @@ import it.polimi.ingsw.ps21.model.match.SimpleMatch;
 import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
+import it.polimi.ingsw.ps21.model.properties.PropertiesId;
+import it.polimi.ingsw.ps21.view.EndData;
 
 public class TestMatches {
 	private final static Logger LOGGER = Logger.getLogger(TestMatches.class.getName());
@@ -46,6 +48,26 @@ public class TestMatches {
 	 assert(checkPlayerLoop());
 	 assert(checkCopingMatch());
 	
+	}
+	
+	@Test
+	public void endTest(){
+		Collection<Player> players = testedMatch.getPlayers();
+		for (Player p: players){
+			if (p.getId() == PlayerColor.BLUE) p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).setValue(10);
+			if (p.getId() == PlayerColor.RED) p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).setValue(1);
+			if (p.getId() == PlayerColor.YELLOW) p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).setValue(9);
+		}
+		while (!testedMatch.isEnded()){
+		testedMatch.nextRound();
+		}
+		EndData testResult = testedMatch.getResult();
+		for (PlayerColor c: testResult.getPlayersFinalPoints().keySet()){
+			System.out.println(c + "\t" + testResult.getPlayersFinalPoints().get(c));
+		}
+		assert(testResult.getPlayersFinalPoints().get(PlayerColor.BLUE) == 5
+				&& testResult.getPlayersFinalPoints().get(PlayerColor.RED) == 0
+				&& testResult.getPlayersFinalPoints().get(PlayerColor.YELLOW) == 2); // Control the correct values for final points
 	}
 	
 	private boolean checkNewRound() {

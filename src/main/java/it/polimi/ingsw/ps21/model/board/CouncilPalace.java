@@ -43,4 +43,11 @@ public class CouncilPalace extends Space {
 		return false;
 	}
 
+	@Override
+	public boolean isOccupable(Player player, FamilyMember member) {
+		if (member.getColor()== MembersColor.NEUTRAL) return false;
+		if (member.getValue()<0) return false;
+		else return true;
+	}
+
 }

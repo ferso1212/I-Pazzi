@@ -1,4 +1,4 @@
-package GUI;
+package it.polimi.ingsw.ps21.client.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

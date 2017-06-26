@@ -8,15 +8,13 @@ import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps21.client.RMIClientInterface;
 import it.polimi.ingsw.ps21.controller.MatchData;
-import it.polimi.ingsw.ps21.controller.WorkMessage;
-import it.polimi.ingsw.ps21.model.actions.ActionType;
-import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 /**
  * Implementation of a connection between server and client using RMI protocol
+ * This class communicates directly with RMIClientInterface.
  */
 public class RMIConnection extends UnicastRemoteObject implements RMIConnectionInterface, Connection{
 	

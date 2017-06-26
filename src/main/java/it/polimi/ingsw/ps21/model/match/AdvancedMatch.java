@@ -23,6 +23,8 @@ import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.PlayerProperties;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
+import it.polimi.ingsw.ps21.model.properties.PropertiesId;
+import it.polimi.ingsw.ps21.view.EndData;
 
 public class AdvancedMatch extends Match {
 
@@ -146,6 +148,7 @@ public class AdvancedMatch extends Match {
 		for (AdvancedPlayer p: players.values()){
 			p.getFamily().roundReset();
 		}
+		throwDices();
 	}
 	setChanged();
 	notifyObservers();
@@ -153,40 +156,106 @@ public class AdvancedMatch extends Match {
 
 	}
 	
-	private Map<Player, Integer> calculateWinner(Map<Player, Integer> militaryBonus) {
-		Map<Player, Integer> result = new HashMap<>();
-		// Calculate value orders
-		int values[] = new int[players.size()];
-		for (int i=0; i<values.length; i++){
-			values[i]=0;
+	private Map<PlayerColor, Integer> calculateWinner(Map<Player, Integer> militaryBonus) {
+		Map<PlayerColor, Integer> result = new EnumMap<>(PlayerColor.class);
+		for(AdvancedPlayer p:players.values()){
+			result.put(p.getId(),p.getFinalVictoryPoints(board.getTrackBonuses(), board.getCardBonus(), militaryBonus.get(p)));
 		}
-		for (Player p: players.values()){
-			for (int j=0; j<values.length; j++)
-			 if (p.getFinalVictoryPoints(board.getTrackBonuses(), board.getCardBonus(), militaryBonus.get(p)) >= values[j]) 
-				 {
-				 	values[j] = p.getFinalVictoryPoints(board.getTrackBonuses(), board.getCardBonus(), militaryBonus.get(p));
-				  }
-		}
-		for(Player p:players.values()){
-			for (int j=0; j<values.length;j++)
-			if (p.getFinalVictoryPoints(board.getTrackBonuses(), board.getCardBonus(), militaryBonus.get(p)) == values[j]) 
-				result.put(p, j+1);
-		}
-		return null;
+		return result;
 	}
 	
 	private void endMatch() {
 		// TODO Check implementation
 		Map<Player, Integer> militaryBonus = calculateMilitaryWinner();
-		Map<Player, Integer> playerPositions = calculateWinner(militaryBonus); 	
+		Map<PlayerColor, Integer> playersFinalPoints = calculateWinner(militaryBonus); 	
 		ended = true;
+		this.statistics = new EndData(playersFinalPoints);
 		setChanged();
-		notifyObservers();
+		notifyObservers(new EndData(playersFinalPoints));
 	}
 
 	private Map<Player, Integer> calculateMilitaryWinner() {
-		// TODO Auto-generated method stub
-		return null;
+		Map<Player, Integer> result = new HashMap<>();
+		AdvancedPlayer winners[] = new AdvancedPlayer[players.values().size()];
+		int firstnumber = 0;
+		int max=0;
+		int secondValue=0;
+		int secondNumber=0;
+		for (AdvancedPlayer p: players.values()){
+			if (p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue() >= max){
+				if(p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue() == max)
+				{
+					firstnumber++;
+				}
+				else {
+					secondNumber = firstnumber;
+					firstnumber=1;
+				}
+				
+				max = p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue();
+				if (winners[0] == null)
+					winners[0]=p;
+				else {
+					AdvancedPlayer temp1 = winners[0];
+					winners[0] = p;
+					int i=1;
+					for (i=1; i<winners.length -1 ; i++){
+						if (winners[i] == null) {
+							winners[i]=temp1;
+							temp1 = null;
+						}
+						else {AdvancedPlayer temp2 = winners[i];
+						winners[i] = temp1;
+						temp1 = temp2;}
+					}
+					if (temp1!= null) winners[i] = temp1;
+				}
+			}
+			else 
+				if (p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue() >= secondValue){
+					if (p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue() == secondValue)
+					secondNumber++;
+					else secondNumber=1;
+					secondValue = p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue();
+					if (winners[firstnumber] == null)
+						winners[firstnumber]=p;
+					else {
+						AdvancedPlayer temp1 = winners[firstnumber];
+						winners[firstnumber] = p;
+						int i=firstnumber+1;
+						for (i=firstnumber+1; i<winners.length -1 ; i++){
+							if (winners[i] == null) {
+								winners[i]=temp1;
+								temp1 = null;
+							}
+							else {AdvancedPlayer temp2 = winners[i];
+							winners[i] = temp1;
+							temp1 = temp2;}
+						}
+						if (temp1!= null) winners[i] = temp1;
+					}
+			}
+				else {
+					int i=0;
+					while (winners[i]!= null && i<winners.length){
+						i++;
+					}
+					if (i < winners.length) winners[i] = p;
+				}
+		}
+		for (int i=0; i< winners.length; i++){
+			if (i <= firstnumber -1) result.put(winners[i], 1);
+			else  if (i < firstnumber + secondNumber){
+				if (firstnumber == 1){
+					result.put(winners[i], 2);
+				}
+				else result.put(winners[i],3);
+			}
+			else result.put(winners[i], 3);
+		}
+		
+		return result;
+	
 	}
 
 	@Override

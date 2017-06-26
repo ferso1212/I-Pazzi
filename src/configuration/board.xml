@@ -510,7 +510,7 @@
             </Requirement>
         </VentureRequirement>
     </CardRequirement>
-    <MilitaryBonuses first="1" second="2" />
+    <MilitaryBonuses first="5" second="2" />
     <FaithBonuses zero="0" first="1" second="2" third="3" fourth="4" fifth="5" sixth="7" seventh="9" eighth="11" nineth="13" tenth="15" eleventh="17" twelveth="19" thirteenth="22" fourteenth="25" fifteenth="30" />
     <MarketBonuses>
         <Properties>
