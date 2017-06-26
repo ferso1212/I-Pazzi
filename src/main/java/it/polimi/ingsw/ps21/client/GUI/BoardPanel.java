@@ -1,7 +1,8 @@
 package it.polimi.ingsw.ps21.client.GUI;
  
  import java.awt.Graphics;
- import java.awt.image.BufferedImage;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
  import java.io.File;
  import java.io.IOException;
  import javax.imageio.ImageIO;
@@ -32,7 +33,7 @@ package it.polimi.ingsw.ps21.client.GUI;
  	@Override
  	public void paintComponent(Graphics g){
  		super.paintComponent(g);
- 		
+ 		this.boardImage.getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_SMOOTH);
  		g.drawImage(this.boardImage, 0, 0, null);
  	}
  
