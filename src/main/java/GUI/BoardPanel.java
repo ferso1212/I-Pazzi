@@ -32,6 +32,7 @@ package GUI;
  	@Override
  	public void paintComponent(Graphics g){
  		super.paintComponent(g);
+ 		
  		g.drawImage(this.boardImage, 0, 0, null);
  	}
  
