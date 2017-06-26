@@ -65,11 +65,11 @@ public class ExtraWorkAction extends ExtraAction {
 			}
 			if (player.checkProperties(totalCost))
 				return new AcceptedAction(player.getId());
-			else return new RefusedAction(player.getId());
+			else return new RefusedAction(player.getId(), "You don't have enough properties");
 		}
 
 		default:
-			return new RefusedAction(player.getId());
+			return new RefusedAction(player.getId(), "Unhandled case");
 		}
 	}
 

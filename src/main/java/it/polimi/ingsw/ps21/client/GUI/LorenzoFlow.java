@@ -95,15 +95,16 @@ public class LorenzoFlow {
 	private void initialize(int numberOfPlayer, boolean isAdvanced) {
 		mainWindow = new JFrame();
 		mainWindow.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
-		mainWindow.setBounds(100, 100, 450, 300);
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainWindow.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
 		
 		
 		//setting BoardPanel
-		BoardPanel boardPanel = new BoardPanel((new File("")).getAbsolutePath().concat("/src/images/board.gif"));
+		BoardPanel boardPanel = new BoardPanel((new File("")).getAbsolutePath().concat("/src/images/board2.jpg"));
 		boardPanel.setLayout(null);
 		mainWindow.getContentPane().add(boardPanel);
+		mainWindow.pack();
+		boardPanel.setPreferredSize(boardPanel.getParent().getSize());
 		
 		// development card
 		for (int i = 0; i < 4; i++) {
@@ -190,12 +191,6 @@ public class LorenzoFlow {
 		actionPanel.add(roundInfo, BorderLayout.PAGE_START);
 		
 		actionPanel.add(new FamilyMemberPanel(), BorderLayout.LINE_START);
-		
-		
-		
-		
-		
-
 		
 		
 	}

@@ -38,25 +38,26 @@ public class MarketAction extends Action{
 				return new RefusedAction(player.getId(), "You can't place a family member in a market space because you have an excommunication!");
 			}
 			
-			if (((famMember.getValue() + this.possibleServants) >= space.getDiceRequirement()) && (space.isOccupable(player, famMember)) && (!famMember.isUsed())){
-				if ((space.getNumberOfPrivileges() > 0) && (match.getBoard().getCouncilPalace().checkPlayer(player))){
-					this.councilChoice = new CouncilChoice(player.getId(), space.getNumberOfPrivileges());
-					this.updateCounter--;
-					return this.councilChoice;
-				}
-				return new AcceptedAction(player.getId());
-			} else return new RefusedAction(player.getId());
+			if (!(((famMember.getValue() + this.possibleServants) >= space.getDiceRequirement()))) return new RefusedAction(player.getId(), "Dice value of member isn't enough");
+			if (!(space.isOccupable(player, famMember))) return new RefusedAction(player.getId(), "You can't use this family member in this place");
+			if (!(!famMember.isUsed())) return new RefusedAction(player.getId(), "This family member is already used");
+//			if ((space.getNumberOfPrivileges() > 0) && (match.getBoard().getCouncilPalace().checkPlayer(player))){
+//					this.councilChoice = new CouncilChoice(player.getId(), space.getNumberOfPrivileges());
+//					this.updateCounter--;
+//					return this.councilChoice;
+//				}
+			return new AcceptedAction(player.getId());
 		}
 		
 		case 0:
 		{
-			if (this.councilChoice.getPrivilegesChosen().length == space.getNumberOfPrivileges())
+//			if (this.councilChoice.getPrivilegesChosen().length == space.getNumberOfPrivileges())
 				return new AcceptedAction(player.getId());
-			return new RefusedAction(player.getId());
+//			return new RefusedAction(player.getId(), "You have choosen a wrong number of privileges");
 		}
 
 		default:
-			return new RefusedAction(player.getId());
+			return new RefusedAction(player.getId(),  "Unhandled case");
 		}
 	}
 
@@ -76,7 +77,7 @@ public class MarketAction extends Action{
 		}
 		
 		ExtraAction[] returnActions = new ExtraAction[1];
-		returnActions[0] = new NullAction(player.getId());
+		returnActions[0] = new TakePrivilegesAction(player.getId(), space.getNumberOfPrivileges());
 		return returnActions;
 	}
 	
