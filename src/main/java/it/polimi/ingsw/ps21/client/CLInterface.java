@@ -107,10 +107,10 @@ public class CLInterface implements UserInterface {
 			if (this.playerInfo.getCards().containsKey(t))
 				;
 			{
-				System.out.println("-" + t + ":");
+				System.out.println("\t\t" + t + ":");
 				ArrayList<DevelopmentCard> typeCards = this.playerInfo.getCards().get(t);
 				for (DevelopmentCard c : typeCards) {
-					System.out.print(c + ";\t");
+					System.out.println(c + ";");
 				}
 			}
 		}
@@ -136,10 +136,10 @@ public class CLInterface implements UserInterface {
 		System.out.println("---------\tPICKED CARDS\t-------");
 		for (DevelopmentCardType t : DevelopmentCardType.values()) {
 			if (player.getCards().containsKey(t)) {
-				System.out.println("-" + t + ":");
+				System.out.println("\t\t" + t + ":");
 				ArrayList<DevelopmentCard> typeCards = player.getCards().get(t);
 				for (DevelopmentCard c : typeCards) {
-					System.out.print(c.toString() + ";\t");
+					System.out.println(c.toString() + ";");
 				}
 			}
 		}
@@ -266,6 +266,7 @@ public class CLInterface implements UserInterface {
 			System.out.println("Wich one of these effects do you want to activate?");
 			for (int i = 0; i < effectChoice.length; i++) {
 				System.out.println((i + 1) + "): " + effectChoice[i]);
+				System.out.println("Cost" + effectChoice[i].getTotalCost() + ";");
 			}
 			int choosen = userInput.nextInt();
 			while (choosen < 1 || choosen > effectChoice.length) {
