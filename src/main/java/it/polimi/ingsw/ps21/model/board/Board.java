@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.deck.Deck;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
+import it.polimi.ingsw.ps21.model.deck.ExcommunicationDeck;
 import it.polimi.ingsw.ps21.model.deck.IllegalCardException;
 import it.polimi.ingsw.ps21.model.excommunications.Excommunication;
 import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
@@ -40,12 +41,18 @@ public class Board {
 		this.towers = new EnumMap<>(DevelopmentCardType.class);
 		this.councilPalace = new CouncilPalace(1, file.makeCouncilBonuses(), 0, file.makeCouncilPrivileges());
 		this.developmentDeck = file.makeDeck();
+		developmentDeck.shuffle();
 		this.cardBonus = file.makeCardBonus();
 		this.possibleValuesPrivileges = file.makePrivileges();
 		this.trackBonuses = file.makeTrackBonuses();
 		this.excommunicationRequirements = new int[3];
 		this.excommunicationRequirements = file.makeExcommunicationRequirements();
-
+		ExcommunicationDeck excomDeck = file.makeExcommunicationDeck();
+		excomDeck.shuffle();
+		this.excommunications = new Excommunication[3];
+		this.excommunications[0] = excomDeck.getExcommunication(1);
+		this.excommunications[1] = excomDeck.getExcommunication(2);
+		this.excommunications[2] = excomDeck.getExcommunication(3);
 		if (!isAdvanced) {
 			if(playerNumber < 4){
 				this.marketPlaces = new SingleMarketSpace[2];
@@ -121,6 +128,13 @@ public class Board {
 				s.reset();
 			}
 		}
+		for(SingleMarketSpace m: this.marketPlaces) m.reset();
+		this.singleHarvPlace.reset();
+		this.singleProdPlace.reset();
+		this.multipleHarvPlace.reset();
+		this.multipleProdPlace.reset();
+		this.councilPalace.reset();
+			
 	}
 
 	public void newSetBoard(int era) {

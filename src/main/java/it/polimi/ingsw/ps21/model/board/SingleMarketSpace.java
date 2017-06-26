@@ -36,6 +36,12 @@ public class SingleMarketSpace extends Space{
 	public int getNumberOfPrivileges() {
 		return numberOfPrivileges;
 	}
+
+	@Override
+	public void reset() {
+		this.occupant=null;
+		
+	}
 	
 	
 

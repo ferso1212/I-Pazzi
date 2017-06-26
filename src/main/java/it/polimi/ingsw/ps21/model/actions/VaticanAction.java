@@ -34,6 +34,7 @@ public class VaticanAction extends Action {
 				this.updateCounter--;
 				this.vaticanChoice = new VaticanChoice(player.getId(),
 						match.getBoard().getExcommunications()[match.getPeriod() - 1]);
+				return this.vaticanChoice;
 			} else
 				return new ExcommunicationMessage(player.getId());
 		}

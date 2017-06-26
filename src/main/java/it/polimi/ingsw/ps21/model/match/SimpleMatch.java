@@ -91,6 +91,7 @@ public class SimpleMatch extends Match {
 	}
 
 	public void nextRound() {
+		currentPlayer = 0;
 		if (round == RoundType.INITIAL_ROUND) {
 			round = RoundType.FINAL_ROUND;
 		} else if (round == RoundType.FINAL_ROUND)
@@ -104,7 +105,6 @@ public class SimpleMatch extends Match {
 				return;
 			}
 		}
-		currentPlayer = 0;
 		Queue<FamilyMember> temp = board.getCouncilPalace().getOccupants();
 		ArrayList<Player> oldOrder = new ArrayList<>();
 		for (int i = 0; i < players.values().size(); i++) {

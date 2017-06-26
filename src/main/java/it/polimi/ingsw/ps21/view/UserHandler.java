@@ -11,6 +11,7 @@ import it.polimi.ingsw.ps21.controller.CompletedActionMessage;
 import it.polimi.ingsw.ps21.controller.CostChoice;
 import it.polimi.ingsw.ps21.controller.CouncilChoice;
 import it.polimi.ingsw.ps21.controller.EffectChoice;
+import it.polimi.ingsw.ps21.controller.ExcommunicationMessage;
 import it.polimi.ingsw.ps21.controller.ExecutedChoice;
 import it.polimi.ingsw.ps21.controller.MatchController;
 import it.polimi.ingsw.ps21.controller.MatchData;
@@ -47,8 +48,9 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 			notifyObservers(new ExecutedChoice(this.playerId));
 		} catch (DisconnectedException e) {
 			LOGGER.log(Level.WARNING, "Current player is not connected.", e);
+			choice.setChosen(false);
 			setChanged();
-			notifyObservers("playerDisconnected");
+			notifyObservers(new ExecutedChoice(this.playerId));
 		}
 	}
 
@@ -219,6 +221,11 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 							CouncilChoice message = (CouncilChoice) arg;
 							visit(message);
 						}
+						else if (arg instanceof ExcommunicationMessage) {
+							ExcommunicationMessage message= (ExcommunicationMessage)arg;
+							visit(message);
+							
+						}
 					}
 				}
 			}
@@ -227,6 +234,11 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 			setChanged();
 			notifyObservers("playerDisconnected");
 		}
+	}
+
+	private void visit(ExcommunicationMessage message) {
+		connection.sendMessage(message.getMessage());
+		message.setVisited();
 	}
 
 	private void parseExtraAction(ExtraAction action) {

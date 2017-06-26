@@ -18,5 +18,9 @@ public class RefusedAction extends Message{
 		this.problem = problem;
 	}
 	
-	
+	@Override
+	public String getMessage()
+	{
+		return message + "\t" + problem;
+	}
 }

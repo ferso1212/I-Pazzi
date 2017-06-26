@@ -308,6 +308,8 @@ public class MatchController extends Observable implements Observer {
 			notifyObservers(req);
 		} else {
 			this.currentAction = new VaticanAction(currentPlayer.getId());
+			this.state = ActionState.AWAITING_CHOICES;
+			getActionChoices();
 		}
 	}
 

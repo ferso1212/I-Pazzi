@@ -5,7 +5,7 @@ import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
-public class WorkSpace extends Space{
+public abstract class WorkSpace extends Space{
 	
 	protected WorkType workType;
 
@@ -26,6 +26,8 @@ public class WorkSpace extends Space{
 	@Override
 	public void occupy(Player player, FamilyMember member) throws NotOccupableException {		
 	}
+
+
 	
 
 }

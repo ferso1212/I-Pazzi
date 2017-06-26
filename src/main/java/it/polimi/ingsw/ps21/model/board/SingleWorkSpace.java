@@ -34,6 +34,12 @@ public class SingleWorkSpace extends WorkSpace{
 		return occupant;
 	}
 
+	@Override
+	public void reset() {
+		this.occupant=null;
+		
+	}
+
 	
 
 }

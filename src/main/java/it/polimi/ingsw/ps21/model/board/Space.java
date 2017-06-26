@@ -26,5 +26,7 @@ public abstract class Space {
 	public abstract boolean isOccupable(Player player, FamilyMember member) ;
 	
 	public abstract void occupy(Player player, FamilyMember member) throws NotOccupableException;
+	
+	public abstract void reset();
 
 }
