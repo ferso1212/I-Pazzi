@@ -15,6 +15,7 @@ import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
+import it.polimi.ingsw.ps21.model.excommunications.Excommunication;
 import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
@@ -112,6 +113,10 @@ public class CLInterface implements UserInterface {
 					System.out.print(c + ";\t");
 				}
 			}
+		}
+		System.out.println("---------\t EXCOMMUNICATION \t-------------");
+		for (Excommunication e: this.playerInfo.getExcommunications()){
+			System.out.println("-" + e.toString() + ";");
 		}
 		System.out.println("----\t TILE BONUSES \t-----");
 		System.out.println("HARVEST:\tDice Requirement =" + this.playerInfo.getTileHarvDiceReq() + ";\t" + "Bonus = "

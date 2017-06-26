@@ -11,6 +11,7 @@ import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.IllegalCardTypeException;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
+import it.polimi.ingsw.ps21.model.excommunications.Excommunication;
 import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
@@ -29,6 +30,7 @@ public class PlayerData implements Serializable {
 	private int tileProdDiceReq;
 	private EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>> cards;
 	private EnumMap<MembersColor, FamilyMemberData> family;
+	private Excommunication[] excommunications;
 	
 	
 	public PlayerData(Player player) {
@@ -62,7 +64,7 @@ public class PlayerData implements Serializable {
 		{
 			family.put(color, new FamilyMemberData(player.getFamily().getMember(color)));
 		}
-		
+		this.excommunications = player.getExcommunications();
 	}
 
 
@@ -140,6 +142,9 @@ public class PlayerData implements Serializable {
 		return family.get(color);
 	}
 	
+	public Excommunication[] getExcommunications(){
+		return this.excommunications;
+	}
 	
 	
 }

@@ -9,6 +9,13 @@ import java.util.logging.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
+import it.polimi.ingsw.ps21.controller.AcceptedAction;
+import it.polimi.ingsw.ps21.controller.ExcommunicationMessage;
+import it.polimi.ingsw.ps21.controller.Message;
+import it.polimi.ingsw.ps21.controller.RefusedAction;
+import it.polimi.ingsw.ps21.controller.VaticanChoice;
+import it.polimi.ingsw.ps21.model.actions.NotExecutableException;
+import it.polimi.ingsw.ps21.model.actions.VaticanAction;
 import it.polimi.ingsw.ps21.model.board.NotOccupableException;
 import it.polimi.ingsw.ps21.model.match.AdvancedMatch;
 import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
@@ -16,9 +23,11 @@ import it.polimi.ingsw.ps21.model.match.InvalidIDException;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.match.RoundType;
 import it.polimi.ingsw.ps21.model.match.SimpleMatch;
+import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
+import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.view.EndData;
 
@@ -51,6 +60,11 @@ public class TestMatches {
 	}
 	
 	@Test
+	public void vaticanTest(){
+		assert(checkVaticanRound());
+	}
+	
+	@Test
 	public void endTest(){
 		Collection<Player> players = testedMatch.getPlayers();
 		for (Player p: players){
@@ -70,6 +84,37 @@ public class TestMatches {
 				&& testResult.getPlayersFinalPoints().get(PlayerColor.YELLOW) == 2); // Control the correct values for final points
 	}
 	
+
+	
+	private boolean checkVaticanRound() {
+		RoundType round = testedMatch.getRound();
+		while(round!=RoundType.VATICAN_ROUND){
+			round = testedMatch.setNextPlayer();
+		}
+	while (round == RoundType.VATICAN_ROUND){
+		Player player = testedMatch.getCurrentPlayer();
+		VaticanAction action = new VaticanAction(player.getId());
+		Message message = action.update(player, testedMatch);
+		while (! (message instanceof ExcommunicationMessage) ){
+			if (message instanceof RefusedAction) return false;
+			else 
+				if(message instanceof VaticanChoice){
+					((VaticanChoice)message).setChosen(false);
+					((VaticanChoice)message).setVisited();
+				}
+			message = action.update(player, testedMatch);
+		}
+		try {
+			action.activate(player, testedMatch);
+		} catch (NotExecutableException | RequirementNotMetException | InsufficientPropsException e) {
+			LOGGER.log(Level.WARNING, "Error executing vatican action");
+			return false;
+			}
+		round = testedMatch.setNextPlayer();
+		}		
+		return true;
+	}
+
 	private boolean checkNewRound() {
 		PlayerColor oldOrder[]= testedMatch.getOrderQueue();
 		testedMatch.nextRound();

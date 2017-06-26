@@ -36,6 +36,9 @@ public class VaticanAction extends Action {
 						match.getBoard().getExcommunications()[match.getPeriod() - 1]);
 				return this.vaticanChoice;
 			} else
+				this.vaticanChoice = new VaticanChoice(player.getId(),
+						match.getBoard().getExcommunications()[match.getPeriod() - 1]);
+				vaticanChoice.setChosen(false);
 				return new ExcommunicationMessage(player.getId());
 		}
 
@@ -68,8 +71,7 @@ public class VaticanAction extends Action {
 			extraActionList.add(new NullAction(player.getId()));
 			return extraActionList.toArray(new ExtraAction[0]);
 		}else{
-			
-			match.getBoard().getExcommunications()[match.getPeriod() - 1].activate(player);
+			player.addExcommunication(match.getBoard().getExcommunications()[match.getPeriod() - 1]);
 			
 			extraActionList.add(new NullAction(player.getId()));
 			return extraActionList.toArray(new ExtraAction[0]);

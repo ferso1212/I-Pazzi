@@ -31,7 +31,7 @@ public class SimpleMatch extends Match {
 	private EnumMap<PlayerColor, Player> players;
 	private ArrayList<Player> order;
 	private ArrayList<ExtraAction> extraActions;
-	private static final int NUM_OF_PERIODS=1;
+	private static final int NUM_OF_PERIODS=3;
 
 	public SimpleMatch(PlayerColor... colors) throws InvalidIDException, BuildingDeckException {
 		super();
@@ -101,6 +101,7 @@ public class SimpleMatch extends Match {
 				round = RoundType.INITIAL_ROUND;
 			}
 			else {
+				round = RoundType.MATCH_ENDED;
 				endMatch();
 				return;
 			}
