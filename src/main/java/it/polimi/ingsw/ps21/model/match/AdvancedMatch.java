@@ -61,6 +61,8 @@ public class AdvancedMatch extends Match {
 		order = new ArrayList<>();
 		board = new Board(colors.length, true);
 		board.getDeck().shuffle();
+		this.leaderCards=builder.makeLeaderDeck();
+		this.leaderCards.shuffle();
 		extraActions = new ArrayList<>();
 		PersonalBonusTile[] tempTiles = builder.makeAdvancedTiles();
 		this.possibleAdvTiles = new ArrayList<>();
@@ -77,7 +79,7 @@ public class AdvancedMatch extends Match {
 		round = RoundType.LEADER_ROUND;
 		setupLeaderChoices();
 		setChanged();
-		notifyObservers("Leader Card Shuffle");
+		notifyObservers();
 	}
 	
 	private void setupLeaderChoices() {

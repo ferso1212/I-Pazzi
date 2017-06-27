@@ -145,8 +145,7 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 
 	@Override
 	public int reqLeaderChoice(LeaderCard[] choices) throws RemoteException {
-		// TODO Auto-generated method stub
-		return 0;
+		return ui.chooseLeaderCard(choices);
 	}
 
 }
