@@ -1,9 +1,15 @@
 package it.polimi.ingsw.ps21.model.player;
 
+import java.io.Serializable;
+
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
-public class PersonalBonusTile {
+public class PersonalBonusTile implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -244048267142678617L;
 	private ImmProperties harvBonus;
 	private int harvDiceReq;
 	private ImmProperties prodBonus;
@@ -43,5 +49,12 @@ public class PersonalBonusTile {
 		this.prodDiceReq = prodDiceReq;
 	}
 	
+	public String toString()
+	{
+		StringBuilder b= new StringBuilder();
+		b.append("Production \tRequirement: "+ prodDiceReq + "\tBonus: " + prodBonus.toString());
+		b.append("\n Harvest \tRequirement: "+ harvDiceReq + "\tBonus: " + harvBonus.toString());
+		return b.toString();
+	}
 	
 }

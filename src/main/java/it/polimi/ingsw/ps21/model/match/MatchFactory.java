@@ -958,7 +958,7 @@ public class MatchFactory {
 				File boardFile = new File(boardPath);
 				configuration = builder.parse(boardFile);
 				Element board = configuration.getDocumentElement();
-				NodeList advancedTileNode = board.getElementsByTagName("SimpleTile");
+				NodeList advancedTileNode = board.getElementsByTagName("AdvancedTiles");
 				for(int i=0; i<advancedTileNode.getLength(); i++){
 					if (advancedTileNode.item(i).getNodeType() == Node.ELEMENT_NODE){
 						Element tile = (Element) advancedTileNode.item(i);

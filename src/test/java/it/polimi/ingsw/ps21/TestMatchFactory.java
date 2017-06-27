@@ -55,6 +55,7 @@ public class TestMatchFactory extends TestCase {
 		if (testsimpletile.getTileBonus(WorkType.HARVEST, 1).isNull()) return false;
 		if (testsimpletile.getTileBonus(WorkType.PRODUCTION, 1).isNull()) return false;
 		PersonalBonusTile testadvtiles[] = testedBuilder.makeAdvancedTiles();
+		if(testadvtiles.length!=4) return false;
 		for (PersonalBonusTile t: testadvtiles) {
 			if (testsimpletile.getTileBonus(WorkType.HARVEST, 6).isNull()) return false;
 			if (testsimpletile.getTileBonus(WorkType.PRODUCTION, 6).isNull()) return false;

@@ -323,8 +323,9 @@ public class MatchController extends Observable implements Observer {
 		else if (roundType == RoundType.TILE_CHOICE){
 			AdvancedMatch m= (AdvancedMatch)this.match;
 			TileChoice message = new TileChoice(currentPlayer.getId(), m.getPossibleTiles());
-			this.currentAction = new TileChoiceAction(this.currentPlayer.getId(), message);<>
+			this.currentAction = new TileChoiceAction(this.currentPlayer.getId(), message);
 			this.state = ActionState.AWAITING_CHOICES;
+			getActionChoices();
 			
 			}
 	}

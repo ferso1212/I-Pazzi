@@ -32,5 +32,10 @@ public class TileChoice extends Message {
 		PersonalBonusTile choice = possibleChoices.remove(chosen);
 		return choice;
 	}
+	
+	public PersonalBonusTile[] getChoices()
+	{
+		return this.possibleChoices.toArray(new PersonalBonusTile[0]);
+	}
 
 }
