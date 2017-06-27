@@ -34,14 +34,18 @@ import it.polimi.ingsw.ps21.client.PacketType;
 import it.polimi.ingsw.ps21.client.PlayerIdNetPacket;
 import it.polimi.ingsw.ps21.client.PrivilegesChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.PrivilegesChoiceResponseNetPacket;
+import it.polimi.ingsw.ps21.client.TileChoiceRequestNetPacket;
+import it.polimi.ingsw.ps21.client.TileChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.VaticanChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.VaticanChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.ViewUpdateRequestNetPacket;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.model.actions.ActionType;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
+import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.deck.RequirementAndCost;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
+import it.polimi.ingsw.ps21.model.player.PersonalBonusTile;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
@@ -286,6 +290,28 @@ public class SocketConnection implements Connection{
 			LOGGER.log(Level.WARNING, "Unable to send 'match ended' notification to the remote client due to IOException", e);
 		}
 		
+	}
+
+
+	@Override
+	public int reqLeaderCardChoice(LeaderCard[] choices) {
+		try {
+			return((LeaderChoiceResponseNetPacket)requestAndAwaitResponse(new LeaderChoiceRequestNetPacket(messageCounter, choices))).getChosen();
+		} catch (IOException e) {
+			LOGGER.log(Level.WARNING, "Unable to request leader card choice to the remote client due to IOException", e);
+			return 0;
+		}
+	}
+
+
+	@Override
+	public int reqPersonalTileChoice(PersonalBonusTile[] choices) {
+		try {
+			return ((TileChoiceResponseNetPacket)requestAndAwaitResponse(new TileChoiceRequestNetPacket(messageCounter, choices))).getChosen();
+		} catch (IOException e) {
+			LOGGER.log(Level.WARNING, "Unable to request personal bonus tile choice to the remote client due to IOException", e);
+			return 0;
+		}
 	}
 	
 

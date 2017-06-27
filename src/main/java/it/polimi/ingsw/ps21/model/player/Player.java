@@ -15,6 +15,7 @@ import it.polimi.ingsw.ps21.model.deck.IllegalCardTypeException;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.deck.TerritoryCard;
 import it.polimi.ingsw.ps21.model.excommunications.Excommunication;
+import it.polimi.ingsw.ps21.model.match.MatchFactory;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.model.properties.PropertiesSet;
@@ -188,7 +189,7 @@ public class Player {
 	public Player(PlayerColor id, PlayerProperties startingProperties) {
 		this.properties = startingProperties;
 		this.id = id;
-		this.personalBonusTile=new PersonalBonusTile(new ImmProperties(0, 1, 1, 1, 0, 0, 0), 1, new ImmProperties(2,0,0,0,0,2,0), 1); //TODO: load from file
+		this.personalBonusTile=MatchFactory.instance().makeSimpleTile(); 
 		try {
 			this.devCards=new PlayerDeck();
 		} catch (ParserConfigurationException e) {
