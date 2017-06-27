@@ -122,7 +122,11 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 	@Override
 	public void visit(LeaderChoice message)
 	{
-		
+		int chosenLeader=connection.reqLeaderCardChoice(message.getChoices());
+		message.setChosenCard(chosenLeader);
+		message.setVisited();
+		setChanged();
+		notifyObservers(new ExecutedChoice(this.playerId));
 	}
 
 	@Override
@@ -194,10 +198,7 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 					} else
 						connection.sendMessage((String) arg);
 
-				} else if (arg instanceof LeaderCard[])
-				{
-					
-				}
+				} 
 				
 				else if (arg instanceof Message) {
 					if (((Message) arg).getDest() == this.playerId) {
@@ -238,6 +239,11 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 							ExcommunicationMessage message= (ExcommunicationMessage)arg;
 							visit(message);
 							
+						}
+						else if (arg instanceof LeaderChoice)
+						{
+							LeaderChoice message= (LeaderChoice)arg;
+							visit(message);
 						}
 					}
 				}

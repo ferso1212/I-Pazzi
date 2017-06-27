@@ -19,7 +19,7 @@ public class LeaderChoice extends Message{
 		return chosenCard;
 	}
 
-	public void setChoosenCard(int coosenCard) {
+	public void setChosenCard(int chosenCard) {
 		this.chosenCard = chosenCard;
 	}
 

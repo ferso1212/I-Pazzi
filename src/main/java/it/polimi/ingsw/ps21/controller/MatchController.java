@@ -500,10 +500,10 @@ public class MatchController extends Observable implements Observer {
 			deck.shuffle();
 			for(UserHandler p: this.handlersMap.values())
 			{
-				LeaderCard[] cardsChoices = new LeaderCard[4];
+				ArrayList<LeaderCard> cardsChoices = new ArrayList<>();
 				for(int i=0; i<4; i++)
 				{
-					cardsChoices[i]=deck.getCard();
+					cardsChoices.add(deck.getCard());
 				}
 				this.unchosenLeaderCards.put(p.getPlayerId(), cardsChoices);
 				setChanged();
