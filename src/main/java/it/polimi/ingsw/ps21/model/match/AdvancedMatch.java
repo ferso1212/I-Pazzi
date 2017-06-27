@@ -353,4 +353,8 @@ public class AdvancedMatch extends Match {
 		return this.possibleChoices.get(currentPlayer);
 	}
 	
+	public ArrayList<PersonalBonusTile> getPossibleTiles(){
+		return this.possibleAdvTiles;
+	}
+	
 }

@@ -33,6 +33,7 @@ import it.polimi.ingsw.ps21.model.match.VaticanRoundException;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.MembersColor;
+import it.polimi.ingsw.ps21.model.player.PersonalBonusTile;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
@@ -318,8 +319,11 @@ public class MatchController extends Observable implements Observer {
 			this.state=ActionState.AWAITING_CHOICES;
 			getActionChoices();
 		}
+		else if (roundType == RoundType.TILE_CHOICE){
+			AdvancedMatch m= (AdvancedMatch)this.match;
+			TileChoice message = new TileChoice(currentPlayer.getId(), m.getPossibleTiles());
+			}
 	}
-
 	/**
 	 * Clears the extra actions queue and moves the game to the next player. If
 	 * there are no moves left in the current round, a new round is started. In
