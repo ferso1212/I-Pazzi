@@ -19,20 +19,20 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class Board {
 
-	protected final static Logger LOGGER = Logger.getLogger(Board.class.getName());
-	protected EnumMap<DevelopmentCardType, Tower> towers;
-	protected TrackBonuses trackBonuses;
+	private final static Logger LOGGER = Logger.getLogger(Board.class.getName());
+	private EnumMap<DevelopmentCardType, Tower> towers;
+	private TrackBonuses trackBonuses;
 	private SingleMarketSpace[] marketPlaces;
 	private SingleWorkSpace singleHarvPlace;
 	private SingleWorkSpace singleProdPlace;
-	protected MultipleWorkSpace multipleHarvPlace;
-	protected MultipleWorkSpace multipleProdPlace;
-	protected CouncilPalace councilPalace;
-	protected Map<DevelopmentCardType, int[]> cardBonus;
-	protected Deck developmentDeck;
-	protected ImmProperties[] possibleValuesPrivileges;
-	protected Excommunication[] excommunications;
-	protected int[] excommunicationRequirements;
+	private MultipleWorkSpace multipleHarvPlace;
+	private MultipleWorkSpace multipleProdPlace;
+	private CouncilPalace councilPalace;
+	private Map<DevelopmentCardType, int[]> cardBonus;
+	private Deck developmentDeck;
+	private ImmProperties[] possibleValuesPrivileges;
+	private Excommunication[] excommunications;
+	private int[] excommunicationRequirements;
 	
 
 	public Board(int playerNumber, boolean isAdvanced)throws BuildingDeckException {
