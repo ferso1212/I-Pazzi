@@ -205,7 +205,7 @@ public class TestMatches {
 			for (int i=0; i< newDices.length;i++) if (dicesValues[i] == newDices[i]) equalValuesCounter++;
 			dicesValues = newDices;
 		}
-		if (equalValuesCounter <10) return true;
+		if (equalValuesCounter <15) return true;
 		else return false;
 		
 	}

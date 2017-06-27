@@ -111,8 +111,8 @@ public class AdvancedMatch extends Match {
 		super.throwDices();
 		for (AdvancedPlayer p: players.values()){
 			p.getFamily().getMember(MembersColor.ORANGE).setValue(orangeDice);
-			p.getFamily().getMember(MembersColor.ORANGE).setValue(blackDice);
-			p.getFamily().getMember(MembersColor.ORANGE).setValue(whiteDice);
+			p.getFamily().getMember(MembersColor.BLACK).setValue(blackDice);
+			p.getFamily().getMember(MembersColor.WHITE).setValue(whiteDice);
 		}
 	}
 
@@ -136,11 +136,11 @@ public class AdvancedMatch extends Match {
 			}
 			else return;
 		}
-	if (round == RoundType.TILE_CHOICE){
+	else if (round == RoundType.TILE_CHOICE){
 		round = RoundType.INITIAL_ROUND;
 		period=1;
 	}
-	if (round == RoundType.INITIAL_ROUND) round = RoundType.FINAL_ROUND;
+	else if (round == RoundType.INITIAL_ROUND) round = RoundType.FINAL_ROUND;
 	else if (round == RoundType.FINAL_ROUND) round = RoundType.VATICAN_ROUND;
 	else if (round == RoundType.VATICAN_ROUND){ 
 		if (period <3) {
@@ -151,7 +151,7 @@ public class AdvancedMatch extends Match {
 			endMatch();
 			return;
 		}
-		}
+	}
 	currentPlayer = 1;
 	Queue<FamilyMember> temp = board.getCouncilPalace().getOccupants();
 	ArrayList<AdvancedPlayer> oldOrder = new ArrayList<>();
