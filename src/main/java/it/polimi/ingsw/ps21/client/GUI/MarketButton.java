@@ -14,7 +14,7 @@ public class MarketButton extends JButton{
 		this.setToolTipText("Proprietà");
 		this.setOpaque(false);
 		this.setContentAreaFilled(false);
-		this.setBorderPainted(false);
+		this.setBorderPainted(true);
 		
 	}
 

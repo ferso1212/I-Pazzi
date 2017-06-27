@@ -66,6 +66,8 @@ public class LorenzoFlow {
 	 */
 	public LorenzoFlow() {
 		initialize(3, false);
+		
+		
 	}
 	
 	private class MyListener implements ActionListener{
@@ -106,17 +108,18 @@ public class LorenzoFlow {
 		mainWindow.pack();
 		boardPanel.setPreferredSize(boardPanel.getParent().getSize());
 		
+		
 		// development card
 		for (int i = 0; i < 4; i++) {
-			DevelopmentCardLabel developmentCard = new DevelopmentCardLabel("src/images/LorenzoCards_compressed_png/devcards_f_en_c_"+(i+1)+".png");
+			DevelopmentCardLabel developmentCard = new DevelopmentCardLabel("src/images/LorenzoCards_compressed_png/devcards_f_en_c_"+(i+1)+".png", boardPanel.getScaleFactor());
 			developmentCard.addActionListener(new MyListener());
-			boardPanel.add(developmentCard).setBounds(80, 85 + 118*i, 70, 100);
+			boardPanel.add(developmentCard).setBounds( (int)(590 * boardPanel.getScaleFactor()), 85 + 118*i, 70, 100);
 			}
 		
 		//excommunication
 		for (int i = 0; i<3 ; i++) {
-			ExcommunicationLabel excomCard = new ExcommunicationLabel("src/images/Lorenzo_Punchboard_CUT_compressed/excomm_"+(i+1)+"_"+(i+1)+".png");
-			boardPanel.add(excomCard).setBounds(165 + 50*i , 595, 50, 100);
+			ExcommunicationLabel excomCard = new ExcommunicationLabel("src/images/Lorenzo_Punchboard_CUT_compressed/excomm_"+(i+1)+"_"+(i+1)+".png", boardPanel.getScaleFactor());
+			boardPanel.add(excomCard).setBounds((int)(1180 * boardPanel.getScaleFactor()) + (int)(50 * i * boardPanel.getScaleFactor()) , 595, 50, 100);
 			}
 		
 		//work space
@@ -158,7 +161,7 @@ public class LorenzoFlow {
 		boardPanel.add(councilButton).setBounds(348, 550, 178, 78);
 		councilButton.addActionListener(new MyListener());
 		
-		//left general panel setting with grid layout 2 rows 1 column
+		//right general panel setting with grid layout 2 rows 1 column
 		rightPanel = new JPanel(); 
 		mainWindow.getContentPane().add(rightPanel);
 		rightPanel.setLayout(new GridLayout(2, 0, 0, 0));
@@ -182,7 +185,7 @@ public class LorenzoFlow {
 			tabbedPane.addTab("Player " + i + " Tile", null, playerTile, null);
 		}
 		
-		//setting a panel sith borderLayout in the splitPane
+		//setting a panel with borderLayout in the splitPane
 		JPanel actionPanel = new JPanel();
 		rightPanel.add(actionPanel);
 		actionPanel.setLayout(new BorderLayout(0, 0));
