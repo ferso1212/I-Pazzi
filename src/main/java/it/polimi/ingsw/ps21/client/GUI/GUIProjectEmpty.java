@@ -135,7 +135,7 @@ public class GUIProjectEmpty {
 	private void placeDevelopmentCards() {
 		for (int i = 0; i < 4; i++) {
 			DevelopmentCardLabel developmentCard = new DevelopmentCardLabel(
-					"src/images/LorenzoCards_compressed_png/devcards_f_en_c_" + (i + 1) + ".png",
+					"Commercial Hub",
 					boardPanel.getScaleFactor());
 			developmentCard.addActionListener(new MyListener());
 			boardPanel.add(developmentCard).setBounds(resize(615), resize(580) + resize(820) * i, resize(470),
