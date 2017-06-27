@@ -487,16 +487,7 @@ public class MatchController extends Observable implements Observer {
 	}
 
 	private void setupLeaderCards() {
-		AdvancedMatch advMatch= (AdvancedMatch)this.match;
-		ArrayList<LeaderCard> leaderCards= new ArrayList<>;
-		for(UserHandler p: this.handlersMap.values())
-		{
-			LeaderCard[] cardsChoices = new LeaderCard[4];
-			for(int i=0; i<4; i++)
-			{
-				cardsChoices[i]=advMatch.getBoard().
-			}
-		}
+
 	}
 
 }
