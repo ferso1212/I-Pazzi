@@ -18,6 +18,7 @@ import it.polimi.ingsw.ps21.model.actions.LeaderChoiceAction;
 import it.polimi.ingsw.ps21.model.actions.MarketAction;
 import it.polimi.ingsw.ps21.model.actions.NotExecutableException;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
+import it.polimi.ingsw.ps21.model.actions.TileChoiceAction;
 import it.polimi.ingsw.ps21.model.actions.VaticanAction;
 import it.polimi.ingsw.ps21.model.actions.WorkAction;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
@@ -322,6 +323,9 @@ public class MatchController extends Observable implements Observer {
 		else if (roundType == RoundType.TILE_CHOICE){
 			AdvancedMatch m= (AdvancedMatch)this.match;
 			TileChoice message = new TileChoice(currentPlayer.getId(), m.getPossibleTiles());
+			this.currentAction = new TileChoiceAction(this.currentPlayer.getId(), message);
+			this.state = ActionState.AWAITING_CHOICES;
+			
 			}
 	}
 	/**
