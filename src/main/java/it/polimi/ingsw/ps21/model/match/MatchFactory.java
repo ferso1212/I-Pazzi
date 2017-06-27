@@ -38,6 +38,7 @@ import it.polimi.ingsw.ps21.model.excommunications.PropAdditionExcommunication;
 import it.polimi.ingsw.ps21.model.excommunications.ServantsValueExcommunication;
 import it.polimi.ingsw.ps21.model.excommunications.VenturePointsExcommunication;
 import it.polimi.ingsw.ps21.model.excommunications.WorkExcommunication;
+import it.polimi.ingsw.ps21.model.player.PersonalBonusTile;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesBuilder;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
@@ -76,6 +77,8 @@ public class MatchFactory {
 	private int timeoutServer = 0;
 	private int timeoutRound = 0;
 	private LeaderDeck leaderDeck = null;
+	private PersonalBonusTile simpleTile = null;
+	private PersonalBonusTile[] advancedTiles = null;
 
 
 /**
@@ -914,6 +917,34 @@ public class MatchFactory {
 		
 	}
 	
+	
+	public PersonalBonusTile makeSimpleTile(){
+		if (simpleTile==null){	
+			Document configuration;
+			PersonalBonusTile result;
+			try {
+				File boardFile = new File(boardPath);
+				configuration = builder.parse(boardFile);
+				Element board = configuration.getDocumentElement();
+				Element simpleTileNode = (Element) board.getElementsByTagName("SimpleTile").item(0);
+				Element tile = (Element) simpleTileNode.getElementsByTagName("PersonalBonusTile").item(0);
+				int harvReq;
+				ImmProperties harvBonus;
+				Element harvest = (Element) tile.getElementsByTagName("HarvestBonus").item(0);
+				harvBonus = PropertiesBuilder.makeImmProperites((Element)harvest.getElementsByTagName("Properties").item(0));
+				int prodReq;
+				ImmProperties prodBonus;
+				Element production = (Element) tile.getElementsByTagName("ProductionBonus").item(0);
+				prodBonus = PropertiesBuilder.makeImmProperites((Element)production.getElementsByTagName("Properties").item(0));
+			} catch (SAXException | IOException | NullPointerException e) {
+				LOGGER.log(Level.WARNING, "Error creating market privileges, returning default value", e);
+				result = new PersonalBonusTile(new ImmProperties(0), 1, new ImmProperties(0), 1);
+			}
+			simpleTile = result;
+		}
+		else 
+			return simpleTile;
+	}
 	
 
 }

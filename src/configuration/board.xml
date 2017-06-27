@@ -86,6 +86,132 @@
             <FaithPoints value="0" />
         </Properties>
     </InitialProperties>
+    <SimpleTile>
+	<PersonalBonusTiles>
+		<HarvestBonus diceReq="1">
+			<Properties>
+          	 	 <Wood value="2" />
+          		  <Stones value="2" />
+          		  <Servants value="3" />
+         		   <Coins value="8" />
+         		   <MilitaryPoints value="2" />
+         		   <VictoryPoints value="0" />
+        		    <FaithPoints value="0" />
+       		 </Properties>
+		</HarvestBonus>
+		<ProductionBonus diceReq="1">
+		<Properties>
+          	 	 <Wood value="2" />
+          		  <Stones value="2" />
+          		  <Servants value="3" />
+         		   <Coins value="8" />
+         		   <MilitaryPoints value="2" />
+         		   <VictoryPoints value="0" />
+        		    <FaithPoints value="0" />
+       		 </Properties>
+		</ProductionBonus>		
+	</PersonalBonusTiles>
+    </SimpleTile>
+    <AdvancedTiles>
+		<PersonalBonusTiles>
+		<HarvestBonus diceReq="1">
+			<Properties>
+          	 	 <Wood value="2" />
+          		  <Stones value="2" />
+          		  <Servants value="3" />
+         		   <Coins value="8" />
+         		   <MilitaryPoints value="2" />
+         		   <VictoryPoints value="0" />
+        		    <FaithPoints value="0" />
+       		 </Properties>
+		</HarvestBonus>
+		<ProductionBonus diceReq="1">
+		<Properties>
+          	 	 <Wood value="2" />
+          		  <Stones value="2" />
+          		  <Servants value="3" />
+         		   <Coins value="8" />
+         		   <MilitaryPoints value="2" />
+         		   <VictoryPoints value="0" />
+        		    <FaithPoints value="0" />
+       		 </Properties>
+		</ProductionBonus>		
+	</PersonalBonusTiles>
+	<PersonalBonusTiles>
+		<HarvestBonus diceReq="1">
+			<Properties>
+          	 	 <Wood value="2" />
+          		  <Stones value="2" />
+          		  <Servants value="3" />
+         		   <Coins value="8" />
+         		   <MilitaryPoints value="2" />
+         		   <VictoryPoints value="0" />
+        		    <FaithPoints value="0" />
+       		 </Properties>
+		</HarvestBonus>
+		<ProductionBonus diceReq="1">
+		<Properties>
+          	 	 <Wood value="2" />
+          		  <Stones value="2" />
+          		  <Servants value="3" />
+         		   <Coins value="8" />
+         		   <MilitaryPoints value="2" />
+         		   <VictoryPoints value="0" />
+        		    <FaithPoints value="0" />
+       		 </Properties>
+		</ProductionBonus>		
+	</PersonalBonusTiles>
+	<PersonalBonusTiles>
+		<HarvestBonus diceReq="1">
+			<Properties>
+          	 	 <Wood value="2" />
+          		  <Stones value="2" />
+          		  <Servants value="3" />
+         		   <Coins value="8" />
+         		   <MilitaryPoints value="2" />
+         		   <VictoryPoints value="0" />
+        		    <FaithPoints value="0" />
+       		 </Properties>
+		</HarvestBonus>
+		<ProductionBonus diceReq="1">
+		<Properties>
+          	 	 <Wood value="2" />
+          		  <Stones value="2" />
+          		  <Servants value="3" />
+         		   <Coins value="8" />
+         		   <MilitaryPoints value="2" />
+         		   <VictoryPoints value="0" />
+        		    <FaithPoints value="0" />
+       		 </Properties>
+		</ProductionBonus>		
+	</PersonalBonusTiles>
+	<PersonalBonusTiles>
+		<HarvestBonus diceReq="1">
+			<Properties>
+          	 	 <Wood value="2" />
+          		  <Stones value="2" />
+          		  <Servants value="3" />
+         		   <Coins value="8" />
+         		   <MilitaryPoints value="2" />
+         		   <VictoryPoints value="0" />
+        		    <FaithPoints value="0" />
+       		 </Properties>
+		</HarvestBonus>
+		<ProductionBonus diceReq="1">
+		<Properties>
+          	 	 <Wood value="2" />
+          		  <Stones value="2" />
+          		  <Servants value="3" />
+         		   <Coins value="8" />
+         		   <MilitaryPoints value="2" />
+         		   <VictoryPoints value="0" />
+        		    <FaithPoints value="0" />
+       		 </Properties>
+		</ProductionBonus>		
+	</PersonalBonusTiles>
+    </AdvancedTiles>
+    
+    
     <CardBonuses>
         <TerritoryBonuses value0="0" value1="0" value2="1" value3="1" value4="4" value5="10" value6="20" />
         <BuildingBonuses value0="0" value1="0" value2="0" value3="0" value4="0" value5="0" value6="0" />

@@ -11,6 +11,7 @@ import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
+import it.polimi.ingsw.ps21.model.player.PersonalBonusTile;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.ActionData;
@@ -57,6 +58,7 @@ public abstract interface UserInterface {
 	
 	public boolean reqIfWantsAdvancedRules();
 	
+	public int chooseTile(PersonalBonusTile[] possibilities);
 
 
 }
