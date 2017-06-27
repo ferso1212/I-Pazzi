@@ -188,10 +188,10 @@
         <PersonalBonusTile>
             <HarvestBonus diceReq="1">
                 <Properties>
-                    <Wood value="2" />
-                    <Stones value="2" />
-                    <Servants value="3" />
-                    <Coins value="8" />
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="1" />
+                    <Coins value="0" />
                     <MilitaryPoints value="2" />
                     <VictoryPoints value="0" />
                     <FaithPoints value="0" />
@@ -199,11 +199,11 @@
             </HarvestBonus>
             <ProductionBonus diceReq="1">
                 <Properties>
-                    <Wood value="2" />
-                    <Stones value="2" />
-                    <Servants value="3" />
-                    <Coins value="8" />
-                    <MilitaryPoints value="2" />
+                    <Wood value="1" />
+                    <Stones value="1" />
+                    <Servants value="0" />
+                    <Coins value="1" />
+                    <MilitaryPoints value="0" />
                     <VictoryPoints value="0" />
                     <FaithPoints value="0" />
                 </Properties>
