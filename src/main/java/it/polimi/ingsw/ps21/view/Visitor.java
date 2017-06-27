@@ -4,6 +4,7 @@ import it.polimi.ingsw.ps21.controller.AcceptedAction;
 import it.polimi.ingsw.ps21.controller.CostChoice;
 import it.polimi.ingsw.ps21.controller.CouncilChoice;
 import it.polimi.ingsw.ps21.controller.EffectChoice;
+import it.polimi.ingsw.ps21.controller.LeaderChoice;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.controller.WorkMessage;
@@ -25,4 +26,6 @@ public abstract interface Visitor {
 	public abstract void visit(AcceptedAction message);
 
 	public abstract void visit(RefusedAction message);
+	
+	public abstract void visit(LeaderChoice message);
 }

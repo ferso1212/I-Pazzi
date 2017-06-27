@@ -6,6 +6,7 @@ import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.WorkMessage;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
+import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
@@ -37,4 +38,6 @@ public abstract interface Connection{
 	public int reqWorkChoice(DevelopmentCard message) throws DisconnectedException;
 
 	public void matchEnded(EndData data);
+	
+	public int reqLeaderCardChoice(LeaderCard[] choices);
 }

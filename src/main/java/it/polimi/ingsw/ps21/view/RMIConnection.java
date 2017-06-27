@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import it.polimi.ingsw.ps21.client.RMIClientInterface;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
+import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
@@ -220,6 +221,18 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 	@Override
 	public String name() throws RemoteException {
 		return this.getName();
+	}
+
+
+	@Override
+	public int reqLeaderCardChoice(LeaderCard[] choices) {
+		try {
+			return client.reqLeaderChoice(choices);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
 }

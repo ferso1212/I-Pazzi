@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
+import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
@@ -140,6 +141,12 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	@Override
 	public void matchEnded(EndData data) throws RemoteException {
 		ui.matchEnded(data);		
+	}
+
+	@Override
+	public int reqLeaderChoice(LeaderCard[] choices) throws RemoteException {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

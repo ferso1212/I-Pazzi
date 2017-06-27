@@ -13,6 +13,7 @@ import it.polimi.ingsw.ps21.controller.CouncilChoice;
 import it.polimi.ingsw.ps21.controller.EffectChoice;
 import it.polimi.ingsw.ps21.controller.ExcommunicationMessage;
 import it.polimi.ingsw.ps21.controller.ExecutedChoice;
+import it.polimi.ingsw.ps21.controller.LeaderChoice;
 import it.polimi.ingsw.ps21.controller.MatchController;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.Message;
@@ -21,6 +22,7 @@ import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.controller.WorkMessage;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
+import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
 public class UserHandler extends Observable implements Visitor, Runnable, Observer {
@@ -116,6 +118,16 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 			notifyObservers("playerDisconnected");
 		}
 	}
+	
+	@Override
+	public void visit(LeaderChoice message)
+	{
+		int chosenLeader=connection.reqLeaderCardChoice(message.getChoices());
+		message.setChosenCard(chosenLeader);
+		message.setVisited();
+		setChanged();
+		notifyObservers(new ExecutedChoice(this.playerId));
+	}
 
 	@Override
 	public void visit(AcceptedAction message) {
@@ -186,7 +198,9 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 					} else
 						connection.sendMessage((String) arg);
 
-				} else if (arg instanceof Message) {
+				} 
+				
+				else if (arg instanceof Message) {
 					if (((Message) arg).getDest() == this.playerId) {
 						if (arg instanceof TimeoutExpiredMessage) {
 							this.timeoutExpired = true;
@@ -225,6 +239,11 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 							ExcommunicationMessage message= (ExcommunicationMessage)arg;
 							visit(message);
 							
+						}
+						else if (arg instanceof LeaderChoice)
+						{
+							LeaderChoice message= (LeaderChoice)arg;
+							visit(message);
 						}
 					}
 				}
