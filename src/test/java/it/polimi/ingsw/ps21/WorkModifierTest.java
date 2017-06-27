@@ -24,7 +24,7 @@ public class WorkModifierTest {
 		assertEquals(5, this.mod.getWorkMod(WorkType.HARVEST));
 		
 		this.mod.setProductionModifier(3);
-		assertEquals(5, this.mod.getWorkMod(WorkType.PRODUCTION));
+		assertEquals(3, this.mod.getWorkMod(WorkType.PRODUCTION));
 		
 		this.mod.setWorkMod(WorkType.HARVEST, 2);
 		assertEquals(2, this.mod.getWorkMod(WorkType.HARVEST));
