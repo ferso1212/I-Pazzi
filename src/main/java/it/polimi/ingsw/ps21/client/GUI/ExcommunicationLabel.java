@@ -12,14 +12,14 @@ import javax.swing.JLabel;
 public class ExcommunicationLabel extends JLabel{
 	
 	private Image excomImage;
-	private static int width = 50;
-	private static int height = 100;
 	
-	public ExcommunicationLabel (String path){
+	public ExcommunicationLabel (String path, double scaleFactor){
 		try {
 			
+			int width = (int)(330 *scaleFactor);
+			int height = (int)(710 * scaleFactor);			
 			this.excomImage = ImageIO.read(new File((new File("")).getAbsolutePath().concat("/").concat(path)));
-			this.setIcon(new ImageIcon(excomImage.getScaledInstance(ExcommunicationLabel.width, ExcommunicationLabel.height, Image.SCALE_DEFAULT)));
+			this.setIcon(new ImageIcon(excomImage.getScaledInstance(width, height, Image.SCALE_DEFAULT)));
 			this.setToolTipText("<html><body><div><img src=\"file:"+path+"\"></div><div></div></body></html> ");
 			
 		} catch (IOException e) {

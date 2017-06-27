@@ -15,7 +15,7 @@ public class WorkActionButton extends JButton{
 		this.singleSpace = singleSpace;
 		this.setOpaque(false);
 		this.setContentAreaFilled(false);
-		this.setBorderPainted(false);
+		this.setBorderPainted(true);
 	}
 
 	public WorkType getType() {
