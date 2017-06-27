@@ -477,7 +477,7 @@ m2=0...</panel_attributes>
     <coordinates>
       <x>2264</x>
       <y>3344</y>
-      <w>280</w>
+      <w>272</w>
       <h>400</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -490,7 +490,7 @@ m2=1...2</panel_attributes>
     <coordinates>
       <x>2640</x>
       <y>3440</y>
-      <w>936</w>
+      <w>928</w>
       <h>376</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -587,7 +587,7 @@ m2=1
     <coordinates>
       <x>2400</x>
       <y>3056</y>
-      <w>56</w>
+      <w>48</w>
       <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
@@ -2083,75 +2083,6 @@ m2=2..4</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>32</x>
-      <y>1504</y>
-      <w>240</w>
-      <h>128</h>
-    </coordinates>
-    <panel_attributes>AdvFamilyMember
---
-- fixed: boolean
---
-+ setValue(value: int): void
-+ setFixed(): void
-
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>136</x>
-      <y>1176</y>
-      <w>24</w>
-      <h>344</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;410.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>456</x>
-      <y>1712</y>
-      <w>376</w>
-      <h>120</h>
-    </coordinates>
-    <panel_attributes>AdvFamily
---
-- members: EnumMap&lt;advMembersColor, FamilyMember&gt;
---
-+ getMember(color: MembersColor) : AdvFamilyMember</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>624</x>
-      <y>1360</y>
-      <w>48</w>
-      <h>368</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;40.0;440.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>264</x>
-      <y>1520</y>
-      <w>208</w>
-      <h>232</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
-m1=1
-m2=4
-</panel_attributes>
-    <additional_attributes>240.0;270.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
     <id>Relation</id>
     <coordinates>
       <x>3016</x>
@@ -2393,11 +2324,11 @@ m2=1</panel_attributes>
     <coordinates>
       <x>384</x>
       <y>592</y>
-      <w>528</w>
+      <w>536</w>
       <h>640</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>640.0;780.0;640.0;730.0;10.0;730.0;10.0;20.0;290.0;10.0</additional_attributes>
+    <additional_attributes>650.0;780.0;650.0;730.0;10.0;730.0;10.0;10.0;290.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -2497,7 +2428,7 @@ m2=1..n</panel_attributes>
     <coordinates>
       <x>592</x>
       <y>2816</y>
-      <w>128</w>
+      <w>120</w>
       <h>248</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -3328,9 +3259,9 @@ layer=1</panel_attributes>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>5904</x>
+      <x>5920</x>
       <y>1856</y>
-      <w>160</w>
+      <w>128</w>
       <h>72</h>
     </coordinates>
     <panel_attributes>Visitable
@@ -3341,10 +3272,10 @@ layer=1</panel_attributes>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>7712</x>
+      <x>7728</x>
       <y>688</y>
-      <w>208</w>
-      <h>152</h>
+      <w>176</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>Visitor
 --
@@ -4250,9 +4181,9 @@ creates</panel_attributes>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>7216</x>
+      <x>7232</x>
       <y>776</y>
-      <w>256</w>
+      <w>224</w>
       <h>112</h>
     </coordinates>
     <panel_attributes>RMIConnectionInterface

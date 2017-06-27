@@ -3,11 +3,15 @@ package it.polimi.ingsw.ps21.client;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
 import it.polimi.ingsw.ps21.controller.BoardData;
 import it.polimi.ingsw.ps21.controller.FamilyMemberData;
+import it.polimi.ingsw.ps21.controller.MatchController;
 import it.polimi.ingsw.ps21.controller.MatchData;
+import it.polimi.ingsw.ps21.controller.NotAdvancedPlayerException;
 import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.model.actions.ActionType;
@@ -26,12 +30,14 @@ import it.polimi.ingsw.ps21.view.EndData;
 import it.polimi.ingsw.ps21.view.ExtraActionData;
 
 /**
- * This interface show information about the match in text form. Player can interact with match using keyboard.
+ * This interface show information about the match in text form. Player can
+ * interact with match using keyboard.
+ * 
  * @author gullit
  *
  */
 public class CLInterface implements UserInterface {
-
+	private static final Logger LOGGER = Logger.getLogger(CLInterface.class.getName());
 	private Scanner userInput;
 	private PlayerColor playerID = null;
 	private PlayerData playerInfo;
@@ -43,18 +49,17 @@ public class CLInterface implements UserInterface {
 
 	public CLInterface() {
 		userInput = new Scanner(System.in);
-		
+
 	}
 
-	public void setup(int chosenRules)
-	{
+	public void setup(int chosenRules) {
 		if (chosenRules == 1)
 			advancedMatch = false;
 		else
 			advancedMatch = true;
 		System.out.println("Waiting for match starting...");
 	}
-	
+
 	@Override
 	public void updateView(MatchData match) {
 		this.matchInfo = match;
@@ -82,12 +87,13 @@ public class CLInterface implements UserInterface {
 		for (int i = 0; i < 4; i++) {
 			System.out.println("\nTower " + (i + 1) + "\n------------------------------------------------------------");
 			for (int j = 0; j < 4; j++) {
-				System.out.println("\nFloor " + (j +1) + ":" );
-				System.out.println("Dice Requirement: " + matchInfo.getBoard().getTowerRequirements()[j][i] + ":" );
+				System.out.println("\nFloor " + (j + 1) + ":");
+				System.out.println("Dice Requirement: " + matchInfo.getBoard().getTowerRequirements()[j][i] + ":");
 				DevelopmentCard card = cards[j][i];
-				if (card!=null)
+				if (card != null)
 					System.out.println(card.toString());
-				else System.out.println("Empty Floor");
+				else
+					System.out.println("Empty Floor");
 				System.out.println("Family Member: " + (boardInfo.getTowerSpaces()[i][j]).toString());
 				System.out.println("------------------------------------------------------------");
 			}
@@ -116,14 +122,14 @@ public class CLInterface implements UserInterface {
 			}
 		}
 		System.out.println("---------\t EXCOMMUNICATION \t-------------");
-		for (Excommunication e: this.playerInfo.getExcommunications()){
+		for (Excommunication e : this.playerInfo.getExcommunications()) {
 			System.out.println("-" + e.toString() + ";");
 		}
 		System.out.println("----\t TILE BONUSES \t-----");
 		System.out.println("HARVEST:\tDice Requirement =" + this.playerInfo.getTileHarvDiceReq() + ";\t" + "Bonus = "
 				+ this.playerInfo.getTileHarvBonus() + ";");
-		System.out.println("PRODUCTION:\tDice Requirement = " + this.playerInfo.getTileProdDiceReq() + ";\t " + "Bonus = "
-				+ this.playerInfo.getTileProdBonus() + ";");
+		System.out.println("PRODUCTION:\tDice Requirement = " + this.playerInfo.getTileProdDiceReq() + ";\t "
+				+ "Bonus = " + this.playerInfo.getTileProdBonus() + ";");
 
 	}
 
@@ -188,24 +194,27 @@ public class CLInterface implements UserInterface {
 	}
 
 	@Override
-	public ImmProperties[] reqPrivileges(int number, ImmProperties[] privilegesValues) { // TODO need possible
-														// choices of privileges
+	public ImmProperties[] reqPrivileges(int number, ImmProperties[] privilegesValues) { // TODO
+																							// need
+																							// possible
+		// choices of privileges
 		int avaiablePrivileges = number;
 		ArrayList<ImmProperties> choices = new ArrayList<>();
 		System.out.println("You have to choose " + number + " council privileges to take, you can choose between: ");
-		while(avaiablePrivileges > 0){
-		for(int i=0; i < privilegesValues.length; i++){
-			System.out.println((i+1) + ") " + privilegesValues[i].toString());
-		}
-		int userChoice = userInput.nextInt();
-		while((userChoice < 1) || (userChoice > privilegesValues.length)){
-			System.out.println("Invalid Choice! Please inser another choice:");
-			userChoice = userInput.nextInt();
-		}
-		if (!choices.contains(privilegesValues[userChoice - 1])){
-			choices.add(privilegesValues[userChoice - 1]);
-			avaiablePrivileges--;
-		}else System.out.println("You have already choose this privilege, please choose another one: ");
+		while (avaiablePrivileges > 0) {
+			for (int i = 0; i < privilegesValues.length; i++) {
+				System.out.println((i + 1) + ") " + privilegesValues[i].toString());
+			}
+			int userChoice = userInput.nextInt();
+			while ((userChoice < 1) || (userChoice > privilegesValues.length)) {
+				System.out.println("Invalid Choice! Please inser another choice:");
+				userChoice = userInput.nextInt();
+			}
+			if (!choices.contains(privilegesValues[userChoice - 1])) {
+				choices.add(privilegesValues[userChoice - 1]);
+				avaiablePrivileges--;
+			} else
+				System.out.println("You have already choose this privilege, please choose another one: ");
 		}
 		return choices.toArray(new ImmProperties[0]);
 	}
@@ -220,22 +229,24 @@ public class CLInterface implements UserInterface {
 	@Override
 	public void matchEnded(EndData data) {
 		this.matchEnded = true;
-		if (data.getWinner() == playerID) System.out.println("CONGRATULATIONS: You won!!!!!");
-		else System.out.println("Player " + data.getWinner() + " won the match!");
+		if (data.getWinner() == playerID)
+			System.out.println("CONGRATULATIONS: You won!!!!!");
+		else
+			System.out.println("Player " + data.getWinner() + " won the match!");
 		Map<PlayerColor, Integer> result = data.getPlayersFinalPoints();
 		System.out.println("----------\t RESULT \t---------------");
-		for(PlayerColor color: result.keySet()){
-			if (color.equals(playerID)) System.out.println("You have totalized " + result.get(color) + "final points;");
-			else System.out.println("Player " + color + " has totalized " + result.get(color) + " final points;");
+		for (PlayerColor color : result.keySet()) {
+			if (color.equals(playerID))
+				System.out.println("You have totalized " + result.get(color) + "final points;");
+			else
+				System.out.println("Player " + color + " has totalized " + result.get(color) + " final points;");
 		}
-		
-		
+
 	}
 
 	@Override
 	public int reqCostChoice(ArrayList<ImmProperties> costChoices) {
-		if(costChoices.size()==0) 
-		{
+		if (costChoices.size() == 0) {
 			System.out.println("No costs to choose.");
 			return 0;
 		}
@@ -286,7 +297,7 @@ public class CLInterface implements UserInterface {
 		}
 		int choosen = userInput.nextInt();
 		while (choosen < 1 || choosen > possibleChoices.length) {
-			System.out.println("Ahahah you're a very funny jerk, please insert a valid choice...");
+			System.out.println("Invalid choice, please insert a valid choice...");
 			choosen = userInput.nextInt();
 		}
 		return choosen - 1;
@@ -296,12 +307,15 @@ public class CLInterface implements UserInterface {
 	public ActionData makeAction(int id) {
 		// TODO define ActionData and how to parse it
 		System.out.println("It's your turn: which action do you want to do?");
-		System.out.println("0)-No action;\n1)-Place a family member in a Tower Space;\n2)-Place a family member in Council palace\n"
-				+ "3)-Place a family member in a Work Space\n" + "4)-Place a family memeber in a Market Space");
+		System.out.println(
+				"0)-No action;\n1)-Place a family member in a Tower Space;\n2)-Place a family member in Council palace\n"
+						+ "3)-Place a family member in a Work Space\n"
+						+ "4)-Place a family memeber in a Market Space");
 
-		if (advancedMatch) System.out.println("5)-Activate a Leader Card");
+		if (advancedMatch) System.out.println("5)-Activate a Leader Card\n");
 		int actionChoice = userInput.nextInt();
-		while ( actionChoice!=0 && actionChoice!=1 && actionChoice!=2 && actionChoice != 3 && actionChoice != 4 && (!(advancedMatch) || actionChoice!=5 )){
+		while (actionChoice != 0 && actionChoice != 1 && actionChoice != 2 && actionChoice != 3 && actionChoice != 4
+				&& (!(advancedMatch) || actionChoice != 5)) {
 
 			System.out.println("Invalid action, please insert a valid choice: ");
 		}
@@ -311,13 +325,12 @@ public class CLInterface implements UserInterface {
 		DevelopmentCardType tower;
 		int space;
 		switch (actionChoice) {
-		case 0: 
-		{//valori pasuli
-			type=ActionType.NULL;
-			familyMember=MembersColor.NEUTRAL;
-			servants=0;
-			tower=DevelopmentCardType.BUILDING;
-			space=0;
+		case 0: {// valori pasuli
+			type = ActionType.NULL;
+			familyMember = MembersColor.NEUTRAL;
+			servants = 0;
+			tower = DevelopmentCardType.BUILDING;
+			space = 0;
 			break;
 		}
 		case 1: // TODO Development Action setting
@@ -354,16 +367,17 @@ public class CLInterface implements UserInterface {
 			}
 			// TODO choose floor;
 			ArrayList<Integer> possibleSpaces = new ArrayList<>();
-			for (int k=0; k < 4; k++){
-				if (!matchInfo.getBoard().getTowerSpaces()[k][cardType-1].exists()){
-					System.out.println( (k+1) + ") " +
-								matchInfo.getBoard().getCards()[k][cardType-1] +
-								"\nInstant bonus: " + matchInfo.getBoard().getTowerBonuses()[k][cardType-1] + "\nFloor dice requirement: " + matchInfo.getBoard().getTowerRequirements()[k][cardType-1] + "\n-----");
-					possibleSpaces.add(k+1);
+			for (int k = 0; k < 4; k++) {
+				if (!matchInfo.getBoard().getTowerSpaces()[k][cardType - 1].exists()) {
+					System.out.println((k + 1) + ") " + matchInfo.getBoard().getCards()[k][cardType - 1]
+							+ "\nInstant bonus: " + matchInfo.getBoard().getTowerBonuses()[k][cardType - 1]
+							+ "\nFloor dice requirement: "
+							+ matchInfo.getBoard().getTowerRequirements()[k][cardType - 1] + "\n-----");
+					possibleSpaces.add(k + 1);
 				}
 			}
 			space = userInput.nextInt();
-			while (!possibleSpaces.contains(space)){
+			while (!possibleSpaces.contains(space)) {
 				System.out.println("Invalid choice, please choose another space:");
 				space = userInput.nextInt();
 			}
@@ -397,15 +411,15 @@ public class CLInterface implements UserInterface {
 			familyMember = chooseColor();
 			servants = chooseServants();
 			int spaceChoice;
-			if(this.matchInfo.getPlayers().length<=2) spaceChoice=1;
-			else
-			{
-			System.out.println("Do you want to use Single space(1)  or Multiple space (2)?");
-			spaceChoice = userInput.nextInt();
-			while (spaceChoice != 1 && spaceChoice != 2) {
-				System.out.println("Invalid choice, please insert another choice");
+			if (this.matchInfo.getPlayers().length <= 2)
+				spaceChoice = 1;
+			else {
+				System.out.println("Do you want to use Single space(1)  or Multiple space (2)?");
 				spaceChoice = userInput.nextInt();
-			}
+				while (spaceChoice != 1 && spaceChoice != 2) {
+					System.out.println("Invalid choice, please insert another choice");
+					spaceChoice = userInput.nextInt();
+				}
 			}
 			space = spaceChoice;
 		}
@@ -426,13 +440,20 @@ public class CLInterface implements UserInterface {
 				System.out.println("Invalid market choice, please insert another choice");
 				marketChoice = userInput.nextInt();
 			}
-			space = marketChoice-1;
+			space = marketChoice - 1;
 			tower = DevelopmentCardType.BUILDING;
-
+			familyMember = null;
+			servants = 0;
 		}
 			break;
-		// case 5: // TODO Leader Action setting
-		// break;
+		case 5: {
+			type = ActionType.PLAY_LEADERCARD;
+			familyMember = null;
+			servants = 0;
+			tower = null;
+			space = chooseLeaderCardToActivate();
+			break;
+		}
 		default:
 			type = ActionType.NULL;
 			familyMember = MembersColor.NEUTRAL;
@@ -466,14 +487,15 @@ public class CLInterface implements UserInterface {
 				availableColors.add(playerInfo.getFamilyMember(c));
 		}
 		for (int i = 0; i < availableColors.size(); i++) {
-			System.out.println((i + 1) + ") " + availableColors.get(i).getColor() + "\tValue = " + availableColors.get(i).getValue());
+			System.out.println((i + 1) + ") " + availableColors.get(i).getColor() + "\tValue = "
+					+ availableColors.get(i).getValue());
 		}
 		int choice = userInput.nextInt();
 		while (choice < 1 || choice > availableColors.size()) {
 			System.out.println("Invalid choice, please insert another choice:");
 			choice = userInput.nextInt();
 		}
-		return availableColors.get(choice-1).getColor();
+		return availableColors.get(choice - 1).getColor();
 	}
 
 	@Override
@@ -481,7 +503,6 @@ public class CLInterface implements UserInterface {
 		this.matchStarted = true;
 		System.out.println("Match started!");
 	}
-
 
 	@Override
 	public int reqExtraActionChoice(ExtraActionData[] actions) {
@@ -498,7 +519,7 @@ public class CLInterface implements UserInterface {
 				System.out.println("Your choice is invalid, please insert another one...");
 				userChoice = userInput.nextInt();
 			}
-			return userChoice-1;
+			return userChoice - 1;
 		}
 	}
 
@@ -506,14 +527,14 @@ public class CLInterface implements UserInterface {
 	public int reqWorkChoice(DevelopmentCard workCard) {
 		int effectChosen = 0;
 		System.out.println("Which effect do you want to activate on this card?");
-		System.out.println("Card: " +  workCard.getName());
+		System.out.println("Card: " + workCard.getName());
 		System.out.println("Possible choices:\n-0)Don't activate any effect;");
 		EffectSet possibleEffects[] = workCard.getPossibleEffects();
-		for (int i=0; i<possibleEffects.length; i++){
-			System.out.println("-" + (i+1) + ") " + possibleEffects[i].toString());
+		for (int i = 0; i < possibleEffects.length; i++) {
+			System.out.println("-" + (i + 1) + ") " + possibleEffects[i].toString());
 		}
 		effectChosen = userInput.nextInt();
-		while( effectChosen < 0 || effectChosen > possibleEffects.length){
+		while (effectChosen < 0 || effectChosen > possibleEffects.length) {
 			System.out.println("Fuck you! Insert a valid choice...");
 			effectChosen = userInput.nextInt();
 		}
@@ -528,29 +549,61 @@ public class CLInterface implements UserInterface {
 
 	@Override
 	public boolean reqIfWantsAdvancedRules() {
-		int chosenRules=0;
-		while(chosenRules!= 1 && chosenRules != 2)
-		{
-		System.out.println("\nWhich rules do you want to use? \n1 Standard \n2 Advanced");
-		chosenRules=userInput.nextInt();
+		int chosenRules = 0;
+		while (chosenRules != 1 && chosenRules != 2) {
+			System.out.println("\nWhich rules do you want to use? \n1 Standard \n2 Advanced");
+			chosenRules = userInput.nextInt();
 		}
-		if(chosenRules==2) return true;
-		else return false;
+		if (chosenRules == 2){
+			this.advancedMatch=true;
+			return true;}
+		else{
+			this.advancedMatch=false;
+			return false;}
 	}
 
 	@Override
 	public int chooseTile(PersonalBonusTile[] possibilities) {
 		System.out.println("Which personal bonus tile do you want to attach to your personal board?");
-		for (int i=0; i<possibilities.length; i++){
-			System.out.println((i+1) + ")-" + possibilities[i].toString());
-			
+		for (int i = 0; i < possibilities.length; i++) {
+			System.out.println((i + 1) + ")-" + possibilities[i].toString());
+
 		}
 		int userChoice = userInput.nextInt();
-		while(userChoice<1 || userChoice>possibilities.length){
+		while (userChoice < 1 || userChoice > possibilities.length) {
 			System.out.println("Invalid choice! Please insert another choice...");
 			userChoice = userInput.nextInt();
 		}
-		return userChoice-1;
+		return userChoice - 1;
+	}
+
+	public int chooseLeaderCardToActivate() {
+		try {
+			LeaderCard[] leaders= this.playerInfo.getLeaders();
+			System.out.println("Choose a leader card to activate: ");
+			for(int i=0; i<leaders.length; i++)
+			{
+				System.out.println((i+1)+ ")- " + leaders[i].toString());
+			}
+			int userChoice = userInput.nextInt();
+			while (userChoice < 1 || userChoice > leaders.length) {
+				System.out.println("Invalid choice! Please insert another choice...");
+				userChoice = userInput.nextInt();
+			}
+			return userChoice - 1;
+		} catch (NotAdvancedPlayerException e) {
+			System.out.println("\nThis action is not possible in standard matches.");
+			LOGGER.log(Level.WARNING, "\nTried to get leader cards from standard player data", e);
+			return 0;
+		}
+		
+		
+	}
+
+	@Override
+	public void setRules(boolean isAdvanced) {
+		this.advancedMatch=isAdvanced;
+		
 	}
 
 }

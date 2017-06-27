@@ -107,8 +107,9 @@ public class SocketConnectionAdder extends Thread {
 	
 	private void rejoin(SocketConnection newConnection)
 	{
-		(playingUsers.get(newConnection.getName())).setConnection(newConnection);
-		playingUsers.get(newConnection.getName()).notifyReconnection();
+		UserHandler user= playingUsers.get(newConnection.getName());
+		user.setConnection(newConnection);
+		user.notifyReconnection();
 	}
 
 }

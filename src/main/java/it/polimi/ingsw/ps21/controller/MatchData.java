@@ -3,6 +3,7 @@ package it.polimi.ingsw.ps21.controller;
 import java.io.Serializable;
 import java.util.Collection;
 
+import it.polimi.ingsw.ps21.model.match.AdvancedMatch;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.match.RoundType;
 import it.polimi.ingsw.ps21.model.player.Player;
@@ -21,6 +22,7 @@ public class MatchData implements Serializable {
 	private int orangeDice;
 	private int whiteDice;
 	private int blackDice;
+	
 	
 	public int getPeriod(){
 		return period;
@@ -56,6 +58,7 @@ public class MatchData implements Serializable {
 		this.blackDice= match.getBlackDice();
 		this.whiteDice= match.getWhiteDice();
 		this.board=new BoardData(match.getBoard());
+		
 	}
 	
 	public int getOrangeDice() {
@@ -69,5 +72,7 @@ public class MatchData implements Serializable {
 	public int getBlackDice() {
 		return blackDice;
 	}
+
+	
 
 }

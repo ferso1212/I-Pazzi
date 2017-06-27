@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import it.polimi.ingsw.ps21.controller.ExcommunicationMessage;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.board.TrackBonuses;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
@@ -47,7 +46,7 @@ public class Player {
 	protected PlayerProperties properties;
 	protected ModifiersSet modifiers;
 	protected PersonalBonusTile personalBonusTile;
-	private Family family;
+	protected Family family;
 	protected ArrayList<Excommunication> excommunications;
 	protected PlayerDeck devCards;
 	private static final Logger LOGGER = Logger.getLogger(Player.class.getName());
