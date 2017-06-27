@@ -11,6 +11,7 @@ import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
+import it.polimi.ingsw.ps21.model.player.PersonalBonusTile;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.ActionData;
@@ -146,6 +147,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	@Override
 	public int reqLeaderChoice(LeaderCard[] choices) throws RemoteException {
 		return ui.chooseLeaderCard(choices);
+	}
+
+	@Override
+	public int reqPersonalTileChoice(PersonalBonusTile[] choices) throws RemoteException {
+		return ui.chooseTile(choices);
 	}
 
 }
