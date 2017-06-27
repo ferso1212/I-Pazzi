@@ -20,6 +20,7 @@ import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.MembersColor;
+import it.polimi.ingsw.ps21.model.player.PersonalBonusTile;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.PlayerProperties;
@@ -35,6 +36,7 @@ public class AdvancedMatch extends Match {
 	private ArrayList<ExtraAction> extraActions;
 	private ArrayList<ArrayList<LeaderCard>> possibleChoices;
 	private LeaderDeck leaderCards;
+	private ArrayList<PersonalBonusTile> possibleAdvTiles;
 	
 	public AdvancedMatch(AdvancedMatch advancedMatch) {
 		this.blackDice = advancedMatch.blackDice;
@@ -60,6 +62,11 @@ public class AdvancedMatch extends Match {
 		board = new Board(colors.length, true);
 		board.getDeck().shuffle();
 		extraActions = new ArrayList<>();
+		PersonalBonusTile[] tempTiles = builder.makeAdvancedTiles();
+		this.possibleAdvTiles = new ArrayList<>();
+		for (PersonalBonusTile t: tempTiles){
+			possibleAdvTiles.add(t);
+		}
 		for (int i=0; i<colors.length; i++){
 			players.put(colors[i], new AdvancedPlayer(colors[i], new PlayerProperties(0)));
 			players.get(colors[i]).getProperties().increaseProperties(initialProperties[i]);
