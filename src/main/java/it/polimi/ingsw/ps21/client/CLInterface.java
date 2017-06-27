@@ -17,6 +17,7 @@ import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.excommunications.Excommunication;
 import it.polimi.ingsw.ps21.model.player.MembersColor;
+import it.polimi.ingsw.ps21.model.player.PersonalBonusTile;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
@@ -535,6 +536,21 @@ public class CLInterface implements UserInterface {
 		}
 		if(chosenRules==2) return true;
 		else return false;
+	}
+
+	@Override
+	public int chooseTile(PersonalBonusTile[] possibilities) {
+		System.out.println("Wich personal bonus tile do you want to attach to your personal board?");
+		for (int i=0; i<possibilities.length; i++){
+			
+			
+		}
+		int userChoice = userInput.nextInt();
+		while(userChoice<1 || userChoice>possibilities.length){
+			System.out.println("Invali choice! Please insert another choice...");
+			userChoice = userInput.nextInt();
+		}
+		return userChoice-1;
 	}
 
 }

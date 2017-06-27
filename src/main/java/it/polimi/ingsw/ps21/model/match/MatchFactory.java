@@ -940,7 +940,7 @@ public class MatchFactory {
 				prodReq = Integer.parseInt(production.getAttribute("diceReq"));
 				result = new PersonalBonusTile(harvBonus, harvReq, prodBonus, prodReq);
 			} catch (SAXException | IOException | NullPointerException e) {
-				LOGGER.log(Level.WARNING, "Error creating market privileges, returning default value", e);
+				LOGGER.log(Level.WARNING, "Error creating simple bonus tile, returning default value", e);
 				result = new PersonalBonusTile(new ImmProperties(0), 1, new ImmProperties(0), 1);
 			}
 			simpleTile = result;
@@ -953,30 +953,38 @@ public class MatchFactory {
 	public PersonalBonusTile[] makeAdvancedTiles(){
 		if (advancedTiles==null){	
 			Document configuration;
-			PersonalBonusTile result;
+			ArrayList<PersonalBonusTile> result = new ArrayList<>();
 			try {
 				File boardFile = new File(boardPath);
 				configuration = builder.parse(boardFile);
 				Element board = configuration.getDocumentElement();
 				NodeList advancedTileNode = board.getElementsByTagName("SimpleTile");
-				Element tile = (Element) simpleTileNode.getElementsByTagName("PersonalBonusTile").item(0);
-				int harvReq;
-				ImmProperties harvBonus;
-				Element harvest = (Element) tile.getElementsByTagName("HarvestBonus").item(0);
-				harvBonus = PropertiesBuilder.makeImmProperites((Element)harvest.getElementsByTagName("Properties").item(0));
-				harvReq = Integer.parseInt(harvest.getAttribute("diceReq"));
-				int prodReq;
-				ImmProperties prodBonus;
-				Element production = (Element) tile.getElementsByTagName("ProductionBonus").item(0);
-				prodBonus = PropertiesBuilder.makeImmProperites((Element)production.getElementsByTagName("Properties").item(0));
-				prodReq = Integer.parseInt(production.getAttribute("diceReq"));
-				result = new PersonalBonusTile(harvBonus, harvReq, prodBonus, prodReq);
+				for(int i=0; i<advancedTileNode.getLength(); i++){
+					if (advancedTileNode.item(i).getNodeType() == Node.ELEMENT_NODE){
+						Element tile = (Element) advancedTileNode.item(i);
+						int harvReq;
+						ImmProperties harvBonus;
+						Element harvest = (Element) tile.getElementsByTagName("HarvestBonus").item(0);
+						harvBonus = PropertiesBuilder.makeImmProperites((Element)harvest.getElementsByTagName("Properties").item(0));
+						harvReq = Integer.parseInt(harvest.getAttribute("diceReq"));
+						int prodReq;
+						ImmProperties prodBonus;
+						Element production = (Element) tile.getElementsByTagName("ProductionBonus").item(0);
+						prodBonus = PropertiesBuilder.makeImmProperites((Element)production.getElementsByTagName("Properties").item(0));
+						prodReq = Integer.parseInt(production.getAttribute("diceReq"));
+						result.add(new PersonalBonusTile(harvBonus, harvReq, prodBonus, prodReq));
+					}
+				}
 			} catch (SAXException | IOException | NullPointerException e) {
-				LOGGER.log(Level.WARNING, "Error creating market privileges, returning default value", e);
-				result = new PersonalBonusTile(new ImmProperties(0), 1, new ImmProperties(0), 1);
+				LOGGER.log(Level.WARNING, "Error creating advanced personal tiles, returning default value", e);
+				result.add(new PersonalBonusTile(new ImmProperties(0), 1, new ImmProperties(0), 1));
+				result.add(new PersonalBonusTile(new ImmProperties(0), 1, new ImmProperties(0), 1));
+				result.add(new PersonalBonusTile(new ImmProperties(0), 1, new ImmProperties(0), 1));
+				result.add(new PersonalBonusTile(new ImmProperties(0), 1, new ImmProperties(0), 1));
 			}
-			simpleTile = result;
-			return simpleTile;
+			advancedTiles = result.toArray(new PersonalBonusTile[0]);
+			}
+			return advancedTiles;
 		}
 	
 

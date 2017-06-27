@@ -87,7 +87,7 @@
         </Properties>
     </InitialProperties>
     <SimpleTile>
-	<PersonalBonusTiles>
+	<PersonalBonusTile>
 		<HarvestBonus diceReq="1">
 			<Properties>
           	 	 <Wood value="2" />
@@ -110,10 +110,10 @@
         		    <FaithPoints value="0" />
        		 </Properties>
 		</ProductionBonus>		
-	</PersonalBonusTiles>
+	</PersonalBonusTile>
     </SimpleTile>
     <AdvancedTiles>
-		<PersonalBonusTiles>
+		<PersonalBonusTile>
 		<HarvestBonus diceReq="1">
 			<Properties>
           	 	 <Wood value="2" />
@@ -136,8 +136,8 @@
         		    <FaithPoints value="0" />
        		 </Properties>
 		</ProductionBonus>		
-	</PersonalBonusTiles>
-	<PersonalBonusTiles>
+	</PersonalBonusTile>
+	<PersonalBonusTile>
 		<HarvestBonus diceReq="1">
 			<Properties>
           	 	 <Wood value="2" />
@@ -160,8 +160,8 @@
         		    <FaithPoints value="0" />
        		 </Properties>
 		</ProductionBonus>		
-	</PersonalBonusTiles>
-	<PersonalBonusTiles>
+	</PersonalBonusTile>
+	<PersonalBonusTile>
 		<HarvestBonus diceReq="1">
 			<Properties>
           	 	 <Wood value="2" />
@@ -184,8 +184,8 @@
         		    <FaithPoints value="0" />
        		 </Properties>
 		</ProductionBonus>		
-	</PersonalBonusTiles>
-	<PersonalBonusTiles>
+	</PersonalBonusTile>
+	<PersonalBonusTile>
 		<HarvestBonus diceReq="1">
 			<Properties>
           	 	 <Wood value="2" />
@@ -208,7 +208,7 @@
         		    <FaithPoints value="0" />
        		 </Properties>
 		</ProductionBonus>		
-	</PersonalBonusTiles>
+	</PersonalBonusTile>
     </AdvancedTiles>
     
     
