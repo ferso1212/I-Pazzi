@@ -19,7 +19,6 @@ import it.polimi.ingsw.ps21.view.WorkChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.view.WorkChoiceResponseNetPacket;
 
 public class SocketClient {
-	private static final String SERVER_IP = "127.0.0.1";
 	private static final int PORT = 7777;
 	private final static Logger LOGGER = Logger.getLogger(SocketClient.class.getName());
 	private ObjectInputStream in;
@@ -27,11 +26,11 @@ public class SocketClient {
 	private UserInterface ui;
 	private Socket socket;
 
-	public SocketClient(UserInterface ui, boolean joinNewMatch) {
+	public SocketClient(UserInterface ui,String serverAddress, boolean joinNewMatch) {
 		try{
 		this.ui=ui;
 		System.out.println("\nTrying to connect to the server with TCP socket...");
-		socket = new Socket(SERVER_IP, PORT);
+		socket = new Socket(serverAddress, PORT);
 		System.out.println("\nEstablished TCP connection to the server.");
 		in = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
 		out = new ObjectOutputStream(socket.getOutputStream());

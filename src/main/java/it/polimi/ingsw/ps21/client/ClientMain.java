@@ -9,16 +9,14 @@ import java.util.logging.Logger;
 
 public class ClientMain {
 
-	private static boolean newMatch = true;
-	private static boolean CLI = true;
 	private final static Logger LOGGER = Logger.getLogger(ClientMain.class.getName());
-	private final static int RMI_PORT = 5000;
 	
 	public static void main(String args[])
 	{
 		System.out.println("\nClient application started.");
     	Scanner in = new Scanner(System.in);
-    	
+    	String serverAddress = System.getProperty("server.address");
+    	int rmiPort = 5000;
     	int chosenConnection=0;
     	while(chosenConnection!=1 && chosenConnection!=2)
     	{
@@ -58,7 +56,7 @@ public class ClientMain {
     	}
     	
 			if (chosenConnection==1) {
-				SocketClient client = new SocketClient(CLImatch, parseChoice(chosenJoin)); 
+				SocketClient client = new SocketClient(CLImatch, serverAddress, parseChoice(chosenJoin)); 
 
 				
 					boolean matchStarted=client.start();
@@ -68,18 +66,17 @@ public class ClientMain {
 											String response = in.nextLine();			
 							}
 								else {System.out.println("Failed to connect to server");
-								newMatch = false;
 								}
 			}
 			else{
 				try {
-					RMIClient rmiclient = new RMIClient(CLImatch, "127.0.0.1", RMI_PORT, parseChoice(chosenJoin));
+					RMIClient rmiclient = new RMIClient(CLImatch, serverAddress, rmiPort, parseChoice(chosenJoin));
 				} catch (RemoteException | NotBoundException e) {
 					System.out.println("Failed to connect to server through RMI.");
 					LOGGER.log(Level.WARNING, "RMI Connection failed", e);
-					newMatch = false;
 				}
 			}
+			in.close();
 		}
 	
 	/**

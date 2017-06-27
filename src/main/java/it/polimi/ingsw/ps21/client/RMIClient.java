@@ -35,11 +35,10 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	private transient UserInterface ui;
 	public boolean connected = false;
 	private String username;
-	private final String SERVER_HOSTNAME = "127.0.0.1"; 
 	
 	public RMIClient( UserInterface ui, String hostname, int port, boolean newMatch) throws RemoteException, NotBoundException{
 		this.ui = ui;
-		serverRegistry = LocateRegistry.getRegistry(SERVER_HOSTNAME, port);
+		serverRegistry = LocateRegistry.getRegistry(hostname, port);
 		RMIConnectionCreator connectionService = (RMIConnectionCreator) serverRegistry.lookup("RMIConnectionCreator");
 	   	connection = connectionService.getNewConnection(newMatch);	
 		connection.setClient((RMIClientInterface) this); 
