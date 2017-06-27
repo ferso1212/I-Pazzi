@@ -120,11 +120,17 @@ public class AdvancedMatch extends Match {
 
 	@Override
 	public void nextRound() {
-		if (round == RoundType.LEADER_ROUND){
-			if(!switchLeaderChoice())
-				round= RoundType.INITIAL_ROUND;
-				period++;
+	if (round == RoundType.LEADER_ROUND){
+			if(!switchLeaderChoice()){
+				round = RoundType.TILE_CHOICE;
+				return;
+			}
+			else return;
 		}
+	if (round == RoundType.TILE_CHOICE){
+		round = RoundType.INITIAL_ROUND;
+		period=1;
+	}
 	if (round == RoundType.INITIAL_ROUND) round = RoundType.FINAL_ROUND;
 	else if (round == RoundType.FINAL_ROUND) round = RoundType.VATICAN_ROUND;
 	else if (round == RoundType.VATICAN_ROUND){ 
@@ -168,8 +174,6 @@ public class AdvancedMatch extends Match {
 	}
 	setChanged();
 	notifyObservers();
-	
-
 	}
 	
 	private boolean switchLeaderChoice() {
