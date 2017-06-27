@@ -11,6 +11,7 @@ import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
+import it.polimi.ingsw.ps21.model.player.PersonalBonusTile;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 /**
@@ -229,8 +230,18 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 		try {
 			return client.reqLeaderChoice(choices);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.WARNING, "Error requesting leader card choice on client, returning default value");
+			return 0;
+		}
+	}
+
+
+	@Override
+	public int reqPersonalTileChoice(PersonalBonusTile[] choices) {
+		try {
+			return client.reqPersonalTileChoice(choices);
+		} catch (RemoteException e) {
+			LOGGER.log(Level.WARNING, "Error requesting tile choice on client, returning default value");
 			return 0;
 		}
 	}
