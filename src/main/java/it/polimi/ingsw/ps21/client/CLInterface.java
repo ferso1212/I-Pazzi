@@ -540,14 +540,14 @@ public class CLInterface implements UserInterface {
 
 	@Override
 	public int chooseTile(PersonalBonusTile[] possibilities) {
-		System.out.println("Wich personal bonus tile do you want to attach to your personal board?");
+		System.out.println("Which personal bonus tile do you want to attach to your personal board?");
 		for (int i=0; i<possibilities.length; i++){
-			
+			System.out.println((i+1) + ")-" + possibilities[i].toString());
 			
 		}
 		int userChoice = userInput.nextInt();
 		while(userChoice<1 || userChoice>possibilities.length){
-			System.out.println("Invali choice! Please insert another choice...");
+			System.out.println("Invalid choice! Please insert another choice...");
 			userChoice = userInput.nextInt();
 		}
 		return userChoice-1;

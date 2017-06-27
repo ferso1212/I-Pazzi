@@ -18,6 +18,7 @@ import it.polimi.ingsw.ps21.controller.MatchController;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.Message;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
+import it.polimi.ingsw.ps21.controller.TileChoice;
 import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.controller.WorkMessage;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
@@ -245,6 +246,11 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 							LeaderChoice message= (LeaderChoice)arg;
 							visit(message);
 						}
+						else if (arg instanceof TileChoice)
+						{
+							TileChoice message = (TileChoice)arg;
+							visit(message);
+						}
 					}
 				}
 			}
@@ -253,6 +259,15 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 			setChanged();
 			notifyObservers("playerDisconnected");
 		}
+	}
+
+	private void visit(TileChoice message) {
+		int chosenTile=connection.reqPersonalTileChoice(message.getChoices());
+		message.setChosen(chosenTile);
+		message.setVisited();
+		setChanged();
+		notifyObservers(new ExecutedChoice(this.playerId));
+		
 	}
 
 	private void visit(ExcommunicationMessage message) {
