@@ -195,7 +195,7 @@ public class GUIProjectEmpty {
 				//setting prsonal bonus tile
 				JLabel personalBonusTile = new JLabel();
 				personalBonusTile.setHorizontalAlignment(SwingConstants.LEFT);
-				personalBonusTile.setIcon(new ImageIcon("C:\\Users\\darix\\I-Pazzi\\src\\images\\Lorenzo_Punchboard_CUT_compressed\\personalbonustile_2.png"));
+				personalBonusTile.setIcon(new ImageIcon(new File("").getAbsolutePath().concat("/src/images/Lorenzo_Punchboard_CUT_compressed/personalbonustile_2.png")));
 				splitPane.setLeftComponent(personalBonusTile);
 				
 				//setting a tabbedPane in the right space of splitPane
