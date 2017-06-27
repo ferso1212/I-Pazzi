@@ -206,6 +206,7 @@ public class GUIProjectEmpty {
 					PlayerTile playerTile = new PlayerTile();
 					tabbedPane.addTab("Player " + i + " Tile", null, playerTile, null);
 				}
+				
 	}
 	
 	private void setDownRightPanel(){

@@ -1,28 +1,29 @@
 package it.polimi.ingsw.ps21.client.GUI;
- 
- import java.awt.Dimension;
+
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
- import java.io.File;
- import java.io.IOException;
- import javax.imageio.ImageIO;
- import javax.swing.JPanel;
- 
- public class BoardPanel extends JPanel{
- 	
- 	/**
- 	 * 
- 	 */
- 	private static final long serialVersionUID = 1L;
- 	private BufferedImage boardImage; 
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
+
+public class PlayerBoardPanel extends JPanel{
+	
+	private JLabel coins;
+	private JLabel woods;
+	private JLabel stones;
+	private JLabel servants;
+	private BufferedImage playerBoardImage; 
  	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
- 	private double scaleFactor;
 
  	
- 	public BoardPanel(String boardPath){
+ 	public PlayerBoardPanel(String boardPath){
  		super(true);  //crea un JPanel con doubleBuffered true
  		try {
  			setImage(ImageIO.read(new File(boardPath)));
@@ -33,15 +34,14 @@ import java.awt.image.BufferedImage;
  	}
  	
  	public void setImage(BufferedImage img){
- 		this.boardImage = img;
- 		this.scaleFactor = screenSize.getHeight() / this.boardImage.getHeight();
+ 		this.playerBoardImage = img;
  	}
  	
  	@Override
  	public void paintComponent(Graphics g){
  		super.paintComponent(g);
  		try {
-			g.drawImage(resizeImage(boardImage, (int)(this.boardImage.getWidth() * screenSize.getHeight() / this.boardImage.getHeight()), this.getHeight(), BufferedImage.TYPE_INT_RGB), 0, 0, null);
+			g.drawImage(resizeImage(playerBoardImage, (int)(this.playerBoardImage.getWidth() * this.getHeight() / this.playerBoardImage.getHeight()), this.getHeight(), BufferedImage.TYPE_INT_RGB), 0, 0, null);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,9 +57,10 @@ import java.awt.image.BufferedImage;
         return resizedImage;  
     }
 
-	public double getScaleFactor() {
-		return scaleFactor;
+	public BufferedImage getPlayerBoardImage() {
+		return this.playerBoardImage;
 	}
- 	
- 
- }
+	
+	
+
+}

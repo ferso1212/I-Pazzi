@@ -1,7 +1,10 @@
 package it.polimi.ingsw.ps21.client.GUI;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -11,21 +14,17 @@ import javax.swing.SwingConstants;
 
 public class PlayerTile extends JSplitPane{
 	
-	private JLabel playerTile = new JLabel();
+	private PlayerBoardPanel playerTile = new PlayerBoardPanel((new File("")).getAbsolutePath().concat("/src/images/Lorenzo_Punchboard_FRONT_compressed/punchboard_f_c_03.jpg"));
 	private JPanel charactersAndVentures = new JPanel();
 	private JLabel characters = new JLabel();
 	private JLabel ventures = new JLabel();
-	private JLabel coins = new JLabel();
+	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
 	//passare carte character e venture del giocatore
 	public PlayerTile(){
 		
-		playerTile.setHorizontalAlignment(SwingConstants.LEFT);
-		playerTile.setIcon(new ImageIcon("C:\\Users\\darix\\I-Pazzi\\src\\images\\Lorenzo_Punchboard_FRONT_compressed\\punchboard_f_c_03.jpg"));
-		coins.setText("0");
-		//devo mettere layerLayout
-		playerTile.add(coins).setBounds(50, 410, 6, 6);
 		this.setLeftComponent(playerTile);
+		this.setDividerLocation((int)(playerTile.getPlayerBoardImage().getWidth() * (playerTile.getPlayerBoardImage().getHeight() / (screenSize.getHeight() / 2))));
 		
 		characters.setBackground(new Color(0,127,255));
 		characters.setOpaque(true);
