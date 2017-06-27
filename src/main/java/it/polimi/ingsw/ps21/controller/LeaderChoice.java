@@ -7,7 +7,7 @@ import it.polimi.ingsw.ps21.model.player.PlayerColor;
 public class LeaderChoice extends Message{
 	
 	private LeaderCard[] choices;
-	private LeaderCard choosenCard;
+	private int chosenCard;
 	
 
 	public LeaderChoice(LeaderCard[] choices, PlayerColor destination) {
@@ -15,12 +15,12 @@ public class LeaderChoice extends Message{
 		this.choices = choices;
 	}
 
-	public LeaderCard getChoosenCard() {
-		return choosenCard;
+	public int getChosenCard() {
+		return chosenCard;
 	}
 
-	public void setChoosenCard(LeaderCard choosenCard) {
-		this.choosenCard = choosenCard;
+	public void setChoosenCard(int coosenCard) {
+		this.chosenCard = chosenCard;
 	}
 
 	public LeaderCard[] getChoices() {

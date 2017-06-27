@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps21.controller;
 
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 import java.util.EnumMap;
 import java.util.Observable;
 import java.util.Observer;
@@ -21,7 +22,9 @@ import it.polimi.ingsw.ps21.model.actions.WorkAction;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.board.WorkSpace;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
+import it.polimi.ingsw.ps21.model.deck.LeaderDeck;
 import it.polimi.ingsw.ps21.model.match.AdvancedMatch;
+import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
 import it.polimi.ingsw.ps21.model.match.RoundType;
@@ -58,6 +61,8 @@ public class MatchController extends Observable implements Observer {
 	private ArrayList<ExtraAction> currentExtraActions;
 	private int actionCounter;
 	private int actionTimeout;
+	private EnumMap<PlayerColor, ArrayList<LeaderCard>> unchosenLeaderCards;
+	int numOfChosenLeaderCards;
 
 	private static enum ActionState {
 		ACCEPTED, REFUSED, AWAITING_CHOICES, TIMEOUT_EXPIRED,
@@ -99,6 +104,7 @@ public class MatchController extends Observable implements Observer {
 		this.actionCounter = 0;
 		this.timer=new Timer();
 		this.actionTimeout=MatchFactory.instance().makeTimeoutRound();
+		this.numOfChosenLeaderCards=0;
 		startMatch();
 	}
 
@@ -487,15 +493,36 @@ public class MatchController extends Observable implements Observer {
 	}
 
 	private void setupLeaderCards() {
-		AdvancedMatch advMatch= (AdvancedMatch)this.match;
-		ArrayList<LeaderCard> leaderCards= new ArrayList<>;
-		for(UserHandler p: this.handlersMap.values())
-		{
-			LeaderCard[] cardsChoices = new LeaderCard[4];
-			for(int i=0; i<4; i++)
+		
+		try {
+			this.numOfChosenLeaderCards=0;
+			LeaderDeck deck= MatchFactory.instance().makeLeaderDeck();
+			deck.shuffle();
+			for(UserHandler p: this.handlersMap.values())
 			{
-				cardsChoices[i]=advMatch.getBoard().
+				LeaderCard[] cardsChoices = new LeaderCard[4];
+				for(int i=0; i<4; i++)
+				{
+					cardsChoices[i]=deck.getCard();
+				}
+				this.unchosenLeaderCards.put(p.getPlayerId(), cardsChoices);
+				setChanged();
+				notifyObservers(new LeaderChoice(cardsChoices.toArray(new LeaderCard[0]), p.getPlayerId()));
 			}
+		} catch (EmptyStackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (BuildingDeckException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	private void exchangeLeaderCards() {
+		if(this.numOfChosenLeaderCards<4)
+		{
+			
 		}
 	}
 
