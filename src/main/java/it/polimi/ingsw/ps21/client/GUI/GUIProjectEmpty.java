@@ -21,6 +21,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.ImageObserver;
@@ -38,6 +39,7 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 
 import java.awt.Component;
+import java.awt.Dimension;
 
 public class GUIProjectEmpty {
 
@@ -49,6 +51,7 @@ public class GUIProjectEmpty {
 	private JSplitPane splitPane;
 	private double scaleFactor;
 	private int numberOfPlayers;
+	private Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
 
 	/**
 	 * Launch the application.
@@ -89,9 +92,9 @@ public class GUIProjectEmpty {
 	}
 
 	private void initialize(int numberOfPlayer, boolean isAdvanced) {
-		
+
 		this.numberOfPlayers = numberOfPlayer;
-		
+
 		mainWindow = new JFrame();
 		mainWindow.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -189,32 +192,31 @@ public class GUIProjectEmpty {
 		boardPanel.add(councilButton).setBounds(resize(2515), resize(3780), resize(1280), resize(510));
 		councilButton.addActionListener(new MyListener());
 	}
-	
-	private void setUpRightPanel(){
-				
-				//setting prsonal bonus tile
-				JLabel personalBonusTile = new JLabel();
-				personalBonusTile.setHorizontalAlignment(SwingConstants.LEFT);
-				personalBonusTile.setIcon(new ImageIcon(new File("").getAbsolutePath().concat("/src/images/Lorenzo_Punchboard_CUT_compressed/personalbonustile_2.png")));
-				splitPane.setLeftComponent(personalBonusTile);
-				
-				//setting a tabbedPane in the right space of splitPane
-				JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-				splitPane.setRightComponent(tabbedPane);
-				
-				for (int i = 1; i <= this.numberOfPlayers; i++) {
-					PlayerTile playerTile = new PlayerTile();
-					tabbedPane.addTab("Player " + i + " Tile", null, playerTile, null);
-				}
-				
+
+	private void setUpRightPanel() {
+
+		// setting prsonal bonus tile
+		TilePanel personalBonusTile = new TilePanel((new File("")).getAbsolutePath().concat("/src/images/Lorenzo_Punchboard_CUT_compressed/personalbonustile_2.png"));
+		splitPane.setLeftComponent(personalBonusTile);
+		splitPane.setDividerLocation((int)(personalBonusTile.getTileImage().getWidth() * (screenDimension.getHeight() / 2) / personalBonusTile.getTileImage().getHeight()));
+		
+		// setting a tabbedPane in the right space of splitPane
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		splitPane.setRightComponent(tabbedPane);
+
+		for (int i = 1; i <= this.numberOfPlayers; i++) {
+			PlayerTile playerTile = new PlayerTile();
+			tabbedPane.addTab("Player " + i + " Tile", null, playerTile, null);
+		}
+
 	}
-	
-	private void setDownRightPanel(){
-		//setting a panel with borderLayout in the splitPane
-				
-				RoundInfo roundInfo = new RoundInfo("Informazioni sul round");
-				actionPanel.add(roundInfo, BorderLayout.PAGE_START);
-				
-				actionPanel.add(new FamilyMemberPanel(), BorderLayout.LINE_START);
+
+	private void setDownRightPanel() {
+		// setting a panel with borderLayout in the splitPane
+
+		RoundInfo roundInfo = new RoundInfo("Informazioni sul round");
+		actionPanel.add(roundInfo, BorderLayout.PAGE_START);
+
+		actionPanel.add(new FamilyMemberPanel(), BorderLayout.LINE_START);
 	}
 }

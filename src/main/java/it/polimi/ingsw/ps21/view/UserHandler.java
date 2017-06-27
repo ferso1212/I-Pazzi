@@ -122,7 +122,7 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 	@Override
 	public void visit(LeaderChoice message)
 	{
-		int chosenLeader=connection.reqLeaderCardChoice(message.getChoices());
+		int chosenLeader=connection.reqLeaderCardChoice(message.getChoices().toArray(new LeaderCard[0]));
 		message.setChosenCard(chosenLeader);
 		message.setVisited();
 		setChanged();
