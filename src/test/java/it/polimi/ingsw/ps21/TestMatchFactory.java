@@ -19,7 +19,7 @@ public class TestMatchFactory extends TestCase {
 	private MatchFactory testedBuilder;
 	
 	private final int timeoutLobbyValue = 50000;
-	private final int timeoutRoundValue = 120000;
+	private final int timeoutRoundValue = 180000;
 	private final int excomReqValues[] = {3, 4,5};
 	
 	public TestMatchFactory( String testName ) 

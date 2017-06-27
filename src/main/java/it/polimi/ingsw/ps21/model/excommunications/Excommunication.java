@@ -1,4 +1,6 @@
 package it.polimi.ingsw.ps21.model.excommunications;
+import java.io.Serializable;
+
 import it.polimi.ingsw.ps21.model.player.Player;
 
 /**General abstract class for excommunications.
@@ -6,8 +8,12 @@ import it.polimi.ingsw.ps21.model.player.Player;
  * @author fabri
  *
  */
-public abstract class Excommunication {
+public abstract class Excommunication  implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8740305135895892119L;
 	protected int id;
 	protected int period;
 	

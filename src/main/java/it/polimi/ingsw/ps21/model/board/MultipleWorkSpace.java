@@ -52,6 +52,12 @@ public class MultipleWorkSpace extends WorkSpace{
 	public int getDiceMalus() {
 		return diceMalus;
 	}
+
+	@Override
+	public void reset() {
+		this.occupants.clear();
+		
+	}
 	
 	
 

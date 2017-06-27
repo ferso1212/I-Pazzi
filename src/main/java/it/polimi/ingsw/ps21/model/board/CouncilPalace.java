@@ -50,4 +50,10 @@ public class CouncilPalace extends Space {
 		else return true;
 	}
 
+	@Override
+	public void reset() {
+		occupants.clear();
+		
+	}
+
 }

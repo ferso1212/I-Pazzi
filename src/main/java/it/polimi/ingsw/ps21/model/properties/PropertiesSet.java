@@ -141,6 +141,8 @@ public class PropertiesSet implements Serializable{
 	@Override
 	public String toString() {
 		StringBuilder output= new StringBuilder();
+		if (this.isNull()) output.append("Nothing");
+		else {
 		Property[] propsToScan= propertiesMap.values().toArray(new Property[0]);
 		for(int i=0; i<propsToScan.length; i++) 
 		{	if(propsToScan[i].getValue()!=0)
@@ -148,6 +150,7 @@ public class PropertiesSet implements Serializable{
 			output.append(propsToScan[i].toString());
 			output.append(", ");
 		}
+			}
 		}
 		return output.toString();
 	}

@@ -14,7 +14,7 @@ import it.polimi.ingsw.ps21.model.properties.Property;
  * 
  * @author fabri
  */
-public class PlayerProperties implements Cloneable{
+public class PlayerProperties{
 
 	/**
 	 * The properties are stored in a PropertiesSet object.
@@ -201,7 +201,7 @@ public class PlayerProperties implements Cloneable{
 	 */
 	public PlayerProperties clone() throws CloneNotSupportedException
 	{
-		return (PlayerProperties) super.clone();
+		return new PlayerProperties(this.properties.clone());
 	}
 	
 

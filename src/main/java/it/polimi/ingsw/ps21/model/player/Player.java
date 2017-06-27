@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import it.polimi.ingsw.ps21.controller.ExcommunicationMessage;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.board.TrackBonuses;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
@@ -13,6 +14,7 @@ import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.IllegalCardTypeException;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.deck.TerritoryCard;
+import it.polimi.ingsw.ps21.model.excommunications.Excommunication;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.model.properties.PropertiesSet;
@@ -45,6 +47,7 @@ public class Player {
 	protected ModifiersSet modifiers;
 	protected PersonalBonusTile personalBonusTile;
 	private Family family;
+	protected ArrayList<Excommunication> excommunications;
 	protected PlayerDeck devCards;
 	private static final Logger LOGGER = Logger.getLogger(Player.class.getName());
 
@@ -193,6 +196,7 @@ public class Player {
 		}
 		this.modifiers=new ModifiersSet();
 		this.family=new Family(id);
+		this.excommunications = new ArrayList<>();
 	}
 
 	/**
@@ -339,4 +343,12 @@ public class Player {
 		
 	}
 
+	public void addExcommunication(Excommunication excommunication) {
+		excommunication.activate(this);
+		excommunications.add(excommunication);
+	}
+
+	public Excommunication[] getExcommunications() {
+		return excommunications.toArray(new Excommunication[0]);
+	}
 }

@@ -97,6 +97,7 @@ public class LorenzoFlow {
 	private void initialize(int numberOfPlayer, boolean isAdvanced) {
 		mainWindow = new JFrame();
 		mainWindow.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
+		mainWindow.setResizable(false);
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainWindow.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
 		

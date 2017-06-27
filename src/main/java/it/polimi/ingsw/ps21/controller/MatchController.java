@@ -20,6 +20,8 @@ import it.polimi.ingsw.ps21.model.actions.VaticanAction;
 import it.polimi.ingsw.ps21.model.actions.WorkAction;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.board.WorkSpace;
+import it.polimi.ingsw.ps21.model.deck.LeaderCard;
+import it.polimi.ingsw.ps21.model.match.AdvancedMatch;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
 import it.polimi.ingsw.ps21.model.match.RoundType;
@@ -291,8 +293,8 @@ public class MatchController extends Observable implements Observer {
 	 */
 	private void reqPlayerAction() {
 		if (roundType != RoundType.VATICAN_ROUND) {
-			//timerThread = new Thread(this.timer);
-			//timerThread.start();
+			this.timer.cancel();
+			this.timer.purge();
 			this.timer=new Timer();
 			timer.schedule(new TimerTask() {
 
@@ -308,6 +310,8 @@ public class MatchController extends Observable implements Observer {
 			notifyObservers(req);
 		} else {
 			this.currentAction = new VaticanAction(currentPlayer.getId());
+			this.state = ActionState.AWAITING_CHOICES;
+			getActionChoices();
 		}
 	}
 
@@ -369,8 +373,9 @@ public class MatchController extends Observable implements Observer {
 		}
 		if (source instanceof UserHandler) {
 			if (((UserHandler) source).getPlayerId() == this.currentPlayer.getId()) {
-				this.state = ActionState.AWAITING_CHOICES;
+				
 				if (arg instanceof ExtraActionData) {
+					this.state = ActionState.AWAITING_CHOICES;
 					ExtraActionData action = (ExtraActionData) arg;
 					if(action.getActionId()!=this.actionCounter) return;
 					int i = 0;
@@ -392,6 +397,7 @@ public class MatchController extends Observable implements Observer {
 
 					}
 				} else if (arg instanceof ActionData) {
+					this.state = ActionState.AWAITING_CHOICES;
 					ActionData action = (ActionData) arg;
 					if (action.getId() == this.actionCounter) {
 						parseAction(action);
@@ -404,6 +410,18 @@ public class MatchController extends Observable implements Observer {
 					String s = (String) arg;
 					if ("playerDisconnected".equals(s)) {
 						nextPlayer();
+					}
+					else if("reconnection".equals(s))
+					{
+						if (roundType != RoundType.VATICAN_ROUND) {
+							ActionRequest req = new ActionRequest(currentPlayer.getId(), ++this.actionCounter);
+							setChanged();
+							notifyObservers(req);
+						}
+						else {
+							
+							getActionChoices();
+						}
 					}
 				}
 			}
@@ -469,7 +487,16 @@ public class MatchController extends Observable implements Observer {
 	}
 
 	private void setupLeaderCards() {
-
+		AdvancedMatch advMatch= (AdvancedMatch)this.match;
+		ArrayList<LeaderCard> leaderCards= new ArrayList<>;
+		for(UserHandler p: this.handlersMap.values())
+		{
+			LeaderCard[] cardsChoices = new LeaderCard[4];
+			for(int i=0; i<4; i++)
+			{
+				cardsChoices[i]=advMatch.getBoard().
+			}
+		}
 	}
 
 }

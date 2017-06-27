@@ -231,14 +231,14 @@ public class SocketConnection implements Connection{
 
 
 	
-	public String reqName() {
+	public String reqName() throws DisconnectedException{
 		try {
 			String receivedName= ((NameResponseNetPacket)requestAndAwaitResponse(new NameRequestNetPacket(messageCounter))).getName();
 			this.name=receivedName;
 			return name;
 		} catch (IOException e) {
 			LOGGER.log(Level.WARNING, "Unable to request name to the remote client due to IOException", e);
-			return null;
+			throw new DisconnectedException();
 		}
 	}
 		
@@ -267,12 +267,12 @@ public class SocketConnection implements Connection{
 
 
 	
-	public boolean reqWantsAdvRules(){
+	public boolean reqWantsAdvRules() throws DisconnectedException{
 		try {
 			return ((RulesChoiceResponseNetPacket)requestAndAwaitResponse(new RulesChoiceRequestNetPacket(messageCounter))).wantsAdvanced();
 		} catch (IOException e) {
 			LOGGER.log(Level.WARNING, "Unable to request rules choice to the remote client due to IOException", e);
-			return false;
+			throw new DisconnectedException();
 		}
 		
 	}

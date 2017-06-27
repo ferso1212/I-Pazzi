@@ -216,4 +216,10 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 
 	}
 
+
+	@Override
+	public String name() throws RemoteException {
+		return this.getName();
+	}
+
 }

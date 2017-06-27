@@ -14,4 +14,7 @@ public interface RMIConnectionInterface extends Remote {
 	public void disconnect()throws RemoteException;
 
 	public int getId() throws RemoteException;
+
+	public String name() throws RemoteException;
+
 }

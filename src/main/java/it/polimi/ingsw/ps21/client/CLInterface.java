@@ -15,6 +15,7 @@ import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
+import it.polimi.ingsw.ps21.model.excommunications.Excommunication;
 import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
@@ -106,12 +107,16 @@ public class CLInterface implements UserInterface {
 			if (this.playerInfo.getCards().containsKey(t))
 				;
 			{
-				System.out.println("-" + t + ":");
+				System.out.println("\t\t" + t + ":");
 				ArrayList<DevelopmentCard> typeCards = this.playerInfo.getCards().get(t);
 				for (DevelopmentCard c : typeCards) {
-					System.out.print(c + ";\t");
+					System.out.println(c + ";");
 				}
 			}
+		}
+		System.out.println("---------\t EXCOMMUNICATION \t-------------");
+		for (Excommunication e: this.playerInfo.getExcommunications()){
+			System.out.println("-" + e.toString() + ";");
 		}
 		System.out.println("----\t TILE BONUSES \t-----");
 		System.out.println("HARVEST:\tDice Requirement =" + this.playerInfo.getTileHarvDiceReq() + ";\t" + "Bonus = "
@@ -131,10 +136,10 @@ public class CLInterface implements UserInterface {
 		System.out.println("---------\tPICKED CARDS\t-------");
 		for (DevelopmentCardType t : DevelopmentCardType.values()) {
 			if (player.getCards().containsKey(t)) {
-				System.out.println("-" + t + ":");
+				System.out.println("\t\t" + t + ":");
 				ArrayList<DevelopmentCard> typeCards = player.getCards().get(t);
 				for (DevelopmentCard c : typeCards) {
-					System.out.print(c.toString() + ";\t");
+					System.out.println(c.toString() + ";");
 				}
 			}
 		}
@@ -214,7 +219,10 @@ public class CLInterface implements UserInterface {
 	@Override
 	public void matchEnded(EndData data) {
 		this.matchEnded = true;
+		if (data.getWinner() == playerID) System.out.println("CONGRATULATIONS: You won!!!!!");
+		else System.out.println("Player " + data.getWinner() + " won the match!");
 		Map<PlayerColor, Integer> result = data.getPlayersFinalPoints();
+		System.out.println("----------\t RESULT \t---------------");
 		for(PlayerColor color: result.keySet()){
 			if (color.equals(playerID)) System.out.println("You have totalized " + result.get(color) + "final points;");
 			else System.out.println("Player " + color + " has totalized " + result.get(color) + " final points;");
@@ -225,7 +233,11 @@ public class CLInterface implements UserInterface {
 
 	@Override
 	public int reqCostChoice(ArrayList<ImmProperties> costChoices) {
-
+		if(costChoices.size()==0) 
+		{
+			System.out.println("No costs to choose.");
+			return 0;
+		}
 		if (costChoices.size() == 1) {
 			System.out.println("You have to pay this cost: " + costChoices.get(0).toString());
 			return 0;
@@ -254,6 +266,7 @@ public class CLInterface implements UserInterface {
 			System.out.println("Wich one of these effects do you want to activate?");
 			for (int i = 0; i < effectChoice.length; i++) {
 				System.out.println((i + 1) + "): " + effectChoice[i]);
+				System.out.println("Cost" + effectChoice[i].getTotalCost() + ";");
 			}
 			int choosen = userInput.nextInt();
 			while (choosen < 1 || choosen > effectChoice.length) {
@@ -282,12 +295,12 @@ public class CLInterface implements UserInterface {
 	public ActionData makeAction(int id) {
 		// TODO define ActionData and how to parse it
 		System.out.println("It's your turn: which action do you want to do?");
-		System.out.println("1)-Place a family member in a Tower Space;\n2)-Place a family member in Council palace\n"
+		System.out.println("0)-No action;\n1)-Place a family member in a Tower Space;\n2)-Place a family member in Council palace\n"
 				+ "3)-Place a family member in a Work Space\n" + "4)-Place a family memeber in a Market Space");
 
 		if (advancedMatch) System.out.println("5)-Activate a Leader Card");
 		int actionChoice = userInput.nextInt();
-		while ( actionChoice!=1 && actionChoice!=2 && actionChoice != 3 && actionChoice != 4 && (!(advancedMatch) || actionChoice!=5 )){
+		while ( actionChoice!=0 && actionChoice!=1 && actionChoice!=2 && actionChoice != 3 && actionChoice != 4 && (!(advancedMatch) || actionChoice!=5 )){
 
 			System.out.println("Invalid action, please insert a valid choice: ");
 		}
@@ -297,6 +310,15 @@ public class CLInterface implements UserInterface {
 		DevelopmentCardType tower;
 		int space;
 		switch (actionChoice) {
+		case 0: 
+		{//valori pasuli
+			type=ActionType.NULL;
+			familyMember=MembersColor.NEUTRAL;
+			servants=0;
+			tower=DevelopmentCardType.BUILDING;
+			space=0;
+			break;
+		}
 		case 1: // TODO Development Action setting
 		{
 			type = ActionType.TAKE_CARD;
@@ -358,7 +380,7 @@ public class CLInterface implements UserInterface {
 		}
 			break;
 		case 3: {
-			System.out.println("Do you want to use Harvest (1) area or Produciton (2) area?");
+			System.out.println("Do you want to use Harvest (1) area or Production (2) area?");
 			int workChoice = userInput.nextInt();
 			while (workChoice != 1 && workChoice != 2) {
 				System.out.println("Invalid choice, please insert another choice");
@@ -373,11 +395,16 @@ public class CLInterface implements UserInterface {
 			}
 			familyMember = chooseColor();
 			servants = chooseServants();
+			int spaceChoice;
+			if(this.matchInfo.getPlayers().length<=2) spaceChoice=1;
+			else
+			{
 			System.out.println("Do you want to use Single space(1)  or Multiple space (2)?");
-			int spaceChoice = userInput.nextInt();
+			spaceChoice = userInput.nextInt();
 			while (spaceChoice != 1 && spaceChoice != 2) {
 				System.out.println("Invalid choice, please insert another choice");
 				spaceChoice = userInput.nextInt();
+			}
 			}
 			space = spaceChoice;
 		}
