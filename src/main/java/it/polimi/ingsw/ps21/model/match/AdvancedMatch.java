@@ -31,6 +31,7 @@ public class AdvancedMatch extends Match {
 	private EnumMap<PlayerColor, AdvancedPlayer> players;
 	private ArrayList<AdvancedPlayer> order;
 	private ArrayList<ExtraAction> extraActions;
+	private AdvancedBoard board;
 	
 	public AdvancedMatch(AdvancedMatch advancedMatch) {
 		this.blackDice = advancedMatch.blackDice;

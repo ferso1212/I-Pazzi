@@ -41,7 +41,7 @@ import it.polimi.ingsw.ps21.view.EndData;
  */
 public abstract class Match extends Observable {
 	
-	protected Board board;
+	
 	protected int orangeDice;
 	protected int blackDice;
 	protected int whiteDice;
@@ -55,7 +55,7 @@ public abstract class Match extends Observable {
 	}
 	
 	public Match(Match previousMatch){
-		this.board = previousMatch.board;
+		
 		this.blackDice = previousMatch.blackDice;
 		this.orangeDice = previousMatch.orangeDice;
 		this.whiteDice = previousMatch.whiteDice;
@@ -74,9 +74,7 @@ public abstract class Match extends Observable {
 	}
 
 	
-	public Board getBoard() {
-		return board;
-	}
+	
 	
 	/**
 	 * This method is needed by Action.isLegal()

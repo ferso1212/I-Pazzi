@@ -59,6 +59,7 @@ public class RMIConnectionAcceptor extends UnicastRemoteObject implements RMICon
 			if (playingUsers.containsKey(oldName)) {
 				try {
 					playingUsers.get(oldName).setConnection(connectionsMap.get(newConnection.getId()));
+					playingUsers.get(newConnection.name()).notifyReconnection();
 				} catch (RemoteException e) {
 					LOGGER.log(Level.WARNING, "Error rejoining UserHandler with new Connection", e);
 				}

@@ -32,6 +32,7 @@ public class SimpleMatch extends Match {
 	private ArrayList<Player> order;
 	private ArrayList<ExtraAction> extraActions;
 	private static final int NUM_OF_PERIODS=3;
+	private Board board;
 
 	public SimpleMatch(PlayerColor... colors) throws InvalidIDException, BuildingDeckException {
 		super();
@@ -307,5 +308,9 @@ public class SimpleMatch extends Match {
 			return extraActionPool;
 		} else
 			throw new VaticanRoundException();
+	}
+	
+	public Board getBoard() {
+		return board;
 	}
 }

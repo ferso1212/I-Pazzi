@@ -254,4 +254,11 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 	{
 		this.connection=newConnection;
 	}
+	
+	public void notifyReconnection()
+	{
+		setChanged();
+		connection.sendMessage("\nReconnected to match");
+		notifyObservers("reconnection");
+	}
 }
