@@ -958,10 +958,11 @@ public class MatchFactory {
 				File boardFile = new File(boardPath);
 				configuration = builder.parse(boardFile);
 				Element board = configuration.getDocumentElement();
-				NodeList advancedTileNode = board.getElementsByTagName("AdvancedTiles");
-				for(int i=0; i<advancedTileNode.getLength(); i++){
-					if (advancedTileNode.item(i).getNodeType() == Node.ELEMENT_NODE){
-						Element tile = (Element) advancedTileNode.item(i);
+				Element advancedTileNode = (Element) board.getElementsByTagName("AdvancedTiles").item(0);
+				NodeList tiles = advancedTileNode.getElementsByTagName("PersonalBonusTile");
+				for(int i=0; i<tiles.getLength(); i++){
+					if (tiles.item(i).getNodeType() == Node.ELEMENT_NODE){
+						Element tile = (Element) tiles.item(i);
 						int harvReq;
 						ImmProperties harvBonus;
 						Element harvest = (Element) tile.getElementsByTagName("HarvestBonus").item(0);
