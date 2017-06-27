@@ -14,6 +14,8 @@ import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.NotExecutableException;
 import it.polimi.ingsw.ps21.model.actions.VaticanAction;
 import it.polimi.ingsw.ps21.model.board.Board;
+import it.polimi.ingsw.ps21.model.deck.LeaderCard;
+import it.polimi.ingsw.ps21.model.deck.LeaderDeck;
 import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
@@ -31,6 +33,8 @@ public class AdvancedMatch extends Match {
 	private EnumMap<PlayerColor, AdvancedPlayer> players;
 	private ArrayList<AdvancedPlayer> order;
 	private ArrayList<ExtraAction> extraActions;
+	private ArrayList<ArrayList<LeaderCard>> possibleChoices;
+	private LeaderDeck leaderCards;
 	
 	public AdvancedMatch(AdvancedMatch advancedMatch) {
 		this.blackDice = advancedMatch.blackDice;
@@ -53,27 +57,31 @@ public class AdvancedMatch extends Match {
 		ImmProperties[] initialProperties = builder.makeInitialProperties();
 		players = new EnumMap<>(PlayerColor.class);
 		order = new ArrayList<>();
-		ArrayList<AdvancedPlayer> tempPlayer = new ArrayList<>();
 		board = new Board(colors.length, true);
 		board.getDeck().shuffle();
 		extraActions = new ArrayList<>();
 		for (int i=0; i<colors.length; i++){
 			players.put(colors[i], new AdvancedPlayer(colors[i], new PlayerProperties(0)));
 			players.get(colors[i]).getProperties().increaseProperties(initialProperties[i]);
-			tempPlayer.add(players.get(colors[i]));
+			order.add(players.get(colors[i]));
 		}
-		for (int j=0; j<4; j++)
-			for (int i=0; i<tempPlayer.size(); i++)
-				order.add(tempPlayer.get(i));
 		currentPlayer=0;
-		period = 1;
-		round = RoundType.INITIAL_ROUND;
-		throwDices();
-		board.newSetBoard(period);
+		period = 0;
+		round = RoundType.LEADER_ROUND;
+		setupLeaderChoices();
 		setChanged();
 		notifyObservers("Leader Card Shuffle");
 	}
 	
+	private void setupLeaderChoices() {
+		this.possibleChoices = new ArrayList<>();
+			for (int i=0; i<order.size(); i++){
+				ArrayList<LeaderCard> cards = new ArrayList<>();
+					for (int j=0; j<4; j++) cards.add(leaderCards.getCard());
+				possibleChoices.add(i, cards);
+		}
+	}
+
 	@Override
 	public Player getCurrentPlayer(){
 		return order.get(currentPlayer);
@@ -112,10 +120,18 @@ public class AdvancedMatch extends Match {
 
 	@Override
 	public void nextRound() {
+		if (round == RoundType.LEADER_ROUND){
+			if(!switchLeaderChoice())
+				round= RoundType.INITIAL_ROUND;
+				period++;
+		}
 	if (round == RoundType.INITIAL_ROUND) round = RoundType.FINAL_ROUND;
 	else if (round == RoundType.FINAL_ROUND) round = RoundType.VATICAN_ROUND;
 	else if (round == RoundType.VATICAN_ROUND){ 
-		if (period <3) round = RoundType.INITIAL_ROUND;
+		if (period <3) {
+			round = RoundType.INITIAL_ROUND;
+			period++;
+		}
 		else {
 			endMatch();
 			return;
@@ -156,6 +172,21 @@ public class AdvancedMatch extends Match {
 
 	}
 	
+	private boolean switchLeaderChoice() {
+		ArrayList<LeaderCard>leftTemp =  possibleChoices.get(0);
+		ArrayList<LeaderCard> rightTemp = possibleChoices.get(1);
+		int i;
+		for(i=0; i<order.size()-1; i++){
+			rightTemp = possibleChoices.get(i+1);
+			possibleChoices.set(i+1, leftTemp);
+			leftTemp = rightTemp;
+		}
+		possibleChoices.set(0, leftTemp);
+		currentPlayer=0;
+		if (getLeaderPossibilities().isEmpty()) return false;
+		return true;
+	}
+
 	private Map<PlayerColor, Integer> calculateWinner(Map<Player, Integer> militaryBonus) {
 		Map<PlayerColor, Integer> result = new EnumMap<>(PlayerColor.class);
 		for(AdvancedPlayer p:players.values()){
@@ -303,6 +334,10 @@ public class AdvancedMatch extends Match {
 				return extraActionPool;
 			}
 			else throw new VaticanRoundException();
+	}
+	
+	public ArrayList<LeaderCard> getLeaderPossibilities(){
+		return this.possibleChoices.get(currentPlayer);
 	}
 	
 }
