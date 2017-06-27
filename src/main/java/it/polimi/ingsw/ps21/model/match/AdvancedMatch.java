@@ -20,6 +20,7 @@ import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.MembersColor;
+import it.polimi.ingsw.ps21.model.player.PersonalBonusTile;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.PlayerProperties;
@@ -35,6 +36,7 @@ public class AdvancedMatch extends Match {
 	private ArrayList<ExtraAction> extraActions;
 	private ArrayList<ArrayList<LeaderCard>> possibleChoices;
 	private LeaderDeck leaderCards;
+	private ArrayList<PersonalBonusTile> possibleAdvTiles;
 	
 	public AdvancedMatch(AdvancedMatch advancedMatch) {
 		this.blackDice = advancedMatch.blackDice;
@@ -59,7 +61,14 @@ public class AdvancedMatch extends Match {
 		order = new ArrayList<>();
 		board = new Board(colors.length, true);
 		board.getDeck().shuffle();
+		this.leaderCards=builder.makeLeaderDeck();
+		this.leaderCards.shuffle();
 		extraActions = new ArrayList<>();
+		PersonalBonusTile[] tempTiles = builder.makeAdvancedTiles();
+		this.possibleAdvTiles = new ArrayList<>();
+		for (PersonalBonusTile t: tempTiles){
+			possibleAdvTiles.add(t);
+		}
 		for (int i=0; i<colors.length; i++){
 			players.put(colors[i], new AdvancedPlayer(colors[i], new PlayerProperties(0)));
 			players.get(colors[i]).getProperties().increaseProperties(initialProperties[i]);
@@ -70,7 +79,7 @@ public class AdvancedMatch extends Match {
 		round = RoundType.LEADER_ROUND;
 		setupLeaderChoices();
 		setChanged();
-		notifyObservers("Leader Card Shuffle");
+		notifyObservers();
 	}
 	
 	private void setupLeaderChoices() {
@@ -102,8 +111,8 @@ public class AdvancedMatch extends Match {
 		super.throwDices();
 		for (AdvancedPlayer p: players.values()){
 			p.getFamily().getMember(MembersColor.ORANGE).setValue(orangeDice);
-			p.getFamily().getMember(MembersColor.ORANGE).setValue(blackDice);
-			p.getFamily().getMember(MembersColor.ORANGE).setValue(whiteDice);
+			p.getFamily().getMember(MembersColor.BLACK).setValue(blackDice);
+			p.getFamily().getMember(MembersColor.WHITE).setValue(whiteDice);
 		}
 	}
 
@@ -127,11 +136,11 @@ public class AdvancedMatch extends Match {
 			}
 			else return;
 		}
-	if (round == RoundType.TILE_CHOICE){
+	else if (round == RoundType.TILE_CHOICE){
 		round = RoundType.INITIAL_ROUND;
 		period=1;
 	}
-	if (round == RoundType.INITIAL_ROUND) round = RoundType.FINAL_ROUND;
+	else if (round == RoundType.INITIAL_ROUND) round = RoundType.FINAL_ROUND;
 	else if (round == RoundType.FINAL_ROUND) round = RoundType.VATICAN_ROUND;
 	else if (round == RoundType.VATICAN_ROUND){ 
 		if (period <3) {
@@ -142,7 +151,7 @@ public class AdvancedMatch extends Match {
 			endMatch();
 			return;
 		}
-		}
+	}
 	currentPlayer = 1;
 	Queue<FamilyMember> temp = board.getCouncilPalace().getOccupants();
 	ArrayList<AdvancedPlayer> oldOrder = new ArrayList<>();
@@ -342,6 +351,10 @@ public class AdvancedMatch extends Match {
 	
 	public ArrayList<LeaderCard> getLeaderPossibilities(){
 		return this.possibleChoices.get(currentPlayer);
+	}
+	
+	public ArrayList<PersonalBonusTile> getPossibleTiles(){
+		return this.possibleAdvTiles;
 	}
 	
 }

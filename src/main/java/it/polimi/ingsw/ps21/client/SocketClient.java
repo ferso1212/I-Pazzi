@@ -11,8 +11,11 @@ import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
+import it.polimi.ingsw.ps21.model.player.PersonalBonusTile;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.ActionData;
+import it.polimi.ingsw.ps21.view.LeaderChoiceRequestNetPacket;
+import it.polimi.ingsw.ps21.view.LeaderChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.view.MatchEndedNetPacket;
 import it.polimi.ingsw.ps21.view.RulesChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.view.WorkChoiceRequestNetPacket;
@@ -171,6 +174,18 @@ public class SocketClient {
 			case MATCH_END:
 			{
 				ui.matchEnded(((MatchEndedNetPacket)receivedPacket).getData());
+				break;
+			}
+			case LEADER_CARD_CHOICE:
+			{
+				int chosen=ui.chooseLeaderCard(((LeaderChoiceRequestNetPacket)receivedPacket).getChoices());
+				out.writeObject(new LeaderChoiceResponseNetPacket(receivedPacket.getNum(), chosen));
+				break;
+			}
+			case TILE_CHOICE:
+			{
+				int chosen=ui.chooseTile(((TileChoiceRequestNetPacket)receivedPacket).getPossibleChoices());
+				out.writeObject(new TileChoiceResponseNetPacket(receivedPacket.getNum(), chosen));
 				break;
 			}
 			default:

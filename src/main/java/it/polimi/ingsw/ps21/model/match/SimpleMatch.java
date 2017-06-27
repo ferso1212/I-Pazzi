@@ -99,6 +99,7 @@ public class SimpleMatch extends Match {
 		else if (round == RoundType.VATICAN_ROUND) {
 			if (period < NUM_OF_PERIODS){
 				round = RoundType.INITIAL_ROUND;
+				period++;
 			}
 			else {
 				round = RoundType.MATCH_ENDED;

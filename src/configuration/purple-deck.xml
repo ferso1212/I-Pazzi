@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <!DOCTYPE SubDeckPurple SYSTEM "purple-deck-schema.dtd">
 <SubDeckPurple>
-    <VentureCard name="Combattere le Eresie" period="1">
+    <VentureCard name="Fighting Heresies" period="1">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -85,7 +85,7 @@
             </EffectSet>
         </PermanentEffect>
     </VentureCard>
-    <VentureCard name="Scavare Canalizzazioni" period="2">
+    <VentureCard name="Improving The Canals" period="2">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -150,7 +150,7 @@
             </EffectSet>
         </PermanentEffect>
     </VentureCard>
-    <VentureCard name="Conquista Militare" period="3">
+    <VentureCard name="Military Conquest" period="3">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -234,7 +234,7 @@
             </EffectSet>
         </PermanentEffect>
     </VentureCard>
-    <VentureCard name="Sostegno al Cardinale" period="2">
+    <VentureCard name="Support To The Cardinal" period="2">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -348,7 +348,7 @@
             </EffectSet>
         </PermanentEffect>
     </VentureCard>
-    <VentureCard name="Sostegno al Papa" period="3">
+    <VentureCard name="Support To The Pope" period="3">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -462,7 +462,7 @@
             </EffectSet>
         </PermanentEffect>
     </VentureCard>
-    <VentureCard name="Sostegno al Vescovo" period="1">
+    <VentureCard name="Supporting Bishop" period="1">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -576,7 +576,7 @@
             </EffectSet>
         </PermanentEffect>
     </VentureCard>
-    <VentureCard name="Crociata" period="2">
+    <VentureCard name="Crusade" period="2">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -660,7 +660,7 @@
             </EffectSet>
         </PermanentEffect>
     </VentureCard>
-    <VentureCard name="Campagna Militare" period="1">
+    <VentureCard name="Military Campaign" period="1">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -744,7 +744,7 @@
             </EffectSet>
         </PermanentEffect>
     </VentureCard>
-    <VentureCard name="Riparare la Chiesa" period="1">
+    <VentureCard name="Repairing The Church" period="1">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -828,7 +828,7 @@
             </EffectSet>
         </PermanentEffect>
     </VentureCard>
-    <VentureCard name="Ingaggiare Mercenari" period="3">
+    <VentureCard name="Hiring Mercenaries" period="3">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -912,7 +912,7 @@
             </EffectSet>
         </PermanentEffect>
     </VentureCard>
-    <VentureCard name="Guerra Santa" period="3">
+    <VentureCard name="Sacred War" period="3">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -996,7 +996,7 @@
             </EffectSet>
         </PermanentEffect>
     </VentureCard>
-    <VentureCard name="Migliorare le Strade" period="3">
+    <VentureCard name="Improving The Roads" period="3">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1061,7 +1061,7 @@
             </EffectSet>
         </PermanentEffect>
     </VentureCard>
-    <VentureCard name="Ospitare i Mendicanti" period="1">
+    <VentureCard name="Hosting Panhandlers" period="1">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1145,7 +1145,7 @@
             </EffectSet>
         </PermanentEffect>
     </VentureCard>
-    <VentureCard name="Ingaggiare Soldati" period="2">
+    <VentureCard name="Hiring Soldiers" period="2">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1229,7 +1229,7 @@
             </EffectSet>
         </PermanentEffect>
     </VentureCard>
-    <VentureCard name="Riparare l'Abbazia" period="2">
+    <VentureCard name="Repairing The Abbey" period="2">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1313,7 +1313,7 @@
             </EffectSet>
         </PermanentEffect>
     </VentureCard>
-    <VentureCard name="Costruire le Mura" period="1">
+    <VentureCard name="Building The Walls" period="1">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1398,7 +1398,7 @@
             </EffectSet>
         </PermanentEffect>
     </VentureCard>
-    <VentureCard name="Accogliere gli Stranieri" period="2">
+    <VentureCard name="Hosting Foreigners" period="2">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1482,7 +1482,7 @@
             </EffectSet>
         </PermanentEffect>
     </VentureCard>
-    <VentureCard name="Ingaggiare Reclute" period="1">
+    <VentureCard name="Hiring Recruits" period="1">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1566,7 +1566,7 @@
             </EffectSet>
         </PermanentEffect>
     </VentureCard>
-    <VentureCard name="Commissionare Arte Sacra" period="3">
+    <VentureCard name="Promoting Sacred Art" period="3">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1650,7 +1650,7 @@
             </EffectSet>
         </PermanentEffect>
     </VentureCard>
-    <VentureCard name="Supporto al Re" period="2">
+    <VentureCard name="Support To The King" period="2">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1735,7 +1735,7 @@
             </EffectSet>
         </PermanentEffect>
     </VentureCard>
-    <VentureCard name="Costruitre i Bastioni" period="2">
+    <VentureCard name="Building The Bastions" period="2">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1820,7 +1820,7 @@
             </EffectSet>
         </PermanentEffect>
     </VentureCard>
-    <VentureCard name="Costruire le Torri" period="3">
+    <VentureCard name="Building The Towers" period="3">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1905,7 +1905,7 @@
             </EffectSet>
         </PermanentEffect>
     </VentureCard>
-    <VentureCard name="Innalzare una Statua" period="1">
+    <VentureCard name="Raising A Statue" period="1">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1968,7 +1968,7 @@
             </EffectSet>
         </PermanentEffect>
     </VentureCard>
-    <VentureCard name="Riparare la Cattedrale" period="3">
+    <VentureCard name="Repairing The Cathedral" period="3">
         <RequirementAndCost>
             <Requirement>
                 <Properties>

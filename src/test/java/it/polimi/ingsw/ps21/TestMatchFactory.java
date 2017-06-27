@@ -3,7 +3,7 @@ package it.polimi.ingsw.ps21;
 
 import java.util.Map;
 
-
+import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.deck.Deck;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.ExcommunicationDeck;
@@ -11,6 +11,7 @@ import it.polimi.ingsw.ps21.model.deck.LeaderDeck;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
+import it.polimi.ingsw.ps21.model.player.PersonalBonusTile;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import junit.framework.*;
 
@@ -46,7 +47,21 @@ public class TestMatchFactory extends TestCase {
         assert(checkTrackBonuses());
         assert(checkMarketPrivileges());
         assert(checkCouncil());
+        assert(checkTiles());
    }
+
+	private boolean checkTiles() {
+		PersonalBonusTile testsimpletile = testedBuilder.makeSimpleTile();
+		if (testsimpletile.getTileBonus(WorkType.HARVEST, 1).isNull()) return false;
+		if (testsimpletile.getTileBonus(WorkType.PRODUCTION, 1).isNull()) return false;
+		PersonalBonusTile testadvtiles[] = testedBuilder.makeAdvancedTiles();
+		if(testadvtiles.length!=4) return false;
+		for (PersonalBonusTile t: testadvtiles) {
+			if (testsimpletile.getTileBonus(WorkType.HARVEST, 6).isNull()) return false;
+			if (testsimpletile.getTileBonus(WorkType.PRODUCTION, 6).isNull()) return false;
+		}
+		return true;
+	}
 
 	private boolean checkCouncil() {
 		if(testedBuilder.makeCouncilPrivileges()!=1) return false;

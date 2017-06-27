@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <!DOCTYPE SubDeckBlue SYSTEM "blue-deck-schema.dtd">
 <SubDeckBlue>
-    <CharacterCard name="Badessa" period="1">
+    <CharacterCard name="Abbess" period="1">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -70,7 +70,7 @@
 		</EffectSet>
 	</PermanentEffect>
     </CharacterCard>
-    <CharacterCard name="Mecenate" period="2">
+    <CharacterCard name="Patron" period="2">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -126,7 +126,7 @@
 		</EffectSet>
 	</PermanentEffect>
     </CharacterCard>
-    <CharacterCard name="Architetto" period="2">
+    <CharacterCard name="Architect" period="2">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -182,7 +182,7 @@
 		</EffectSet>
 	</PermanentEffect>
     </CharacterCard>
-    <CharacterCard name="Dama" period="1">
+    <CharacterCard name="Dame" period="1">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -238,7 +238,7 @@
             </EffectSet>
         </PermanentEffect>
     </CharacterCard>
-    <CharacterCard name="Costruttore" period="1">
+    <CharacterCard name="Stonemason" period="1">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -311,7 +311,7 @@
             </EffectSet>
         </PermanentEffect>
     </CharacterCard>
-    <CharacterCard name="Capitano" period="2">
+    <CharacterCard name="Captain" period="2">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -377,7 +377,7 @@
 		</EffectSet>
 	</PermanentEffect>
     </CharacterCard>
-    <CharacterCard name="Eroe" period="2">
+    <CharacterCard name="Hero" period="2">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -422,7 +422,7 @@
 		</EffectSet>
 	</PermanentEffect>
     </CharacterCard>
-    <CharacterCard name="Messo Reale" period="2">
+    <CharacterCard name="Royal Messenger" period="2">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -464,7 +464,7 @@
 		</EffectSet>
 	</PermanentEffect>
     </CharacterCard>
-    <CharacterCard name="Fattore" period="2">
+    <CharacterCard name="Paesant" period="2">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -508,7 +508,7 @@
             </EffectSet>
         </PermanentEffect>
     </CharacterCard>
-    <CharacterCard name="Studioso" period="2">
+    <CharacterCard name="Scholar" period="2">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -552,7 +552,7 @@
             </EffectSet>
         </PermanentEffect>
     </CharacterCard>
-    <CharacterCard name="Messo Papale" period="2">
+    <CharacterCard name="Papal Messenger" period="2">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -615,7 +615,7 @@
 		</EffectSet>
 	</PermanentEffect>
     </CharacterCard>
-    <CharacterCard name="Ambasciatore" period="3">
+    <CharacterCard name="Ambassador" period="3">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -663,7 +663,7 @@
 		</EffectSet>
 	</PermanentEffect>
     </CharacterCard>
-    <CharacterCard name="Contadino" period="1">
+    <CharacterCard name="Farmer" period="1">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -707,7 +707,7 @@
             </EffectSet>
         </PermanentEffect>
     </CharacterCard>
-    <CharacterCard name="Artigiano" period="1">
+    <CharacterCard name="Artisan" period="1">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -751,7 +751,7 @@
             </EffectSet>
         </PermanentEffect>
     </CharacterCard>
-    <CharacterCard name="Nobile" period="3">
+    <CharacterCard name="Noble" period="3">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -817,7 +817,7 @@
 		</EffectSet>
         </PermanentEffect>
     </CharacterCard>
-    <CharacterCard name="Governatore" period="3">
+    <CharacterCard name="Governor" period="3">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -883,7 +883,7 @@
 		</EffectSet>
         </PermanentEffect>
     </CharacterCard>
-    <CharacterCard name="Cortigiana" period="3">
+    <CharacterCard name="Paramour" period="3">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -949,7 +949,7 @@
 		</EffectSet>
 	</PermanentEffect>
     </CharacterCard>
-    <CharacterCard name="Araldo" period="3">
+    <CharacterCard name="Herald" period="3">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1015,7 +1015,7 @@
 		</EffectSet>
 	</PermanentEffect>
     </CharacterCard>
-    <CharacterCard name="Cardinale" period="3">
+    <CharacterCard name="Cardinal" period="3">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1081,7 +1081,7 @@
 		</EffectSet>
 	</PermanentEffect>
     </CharacterCard>
-    <CharacterCard name="Vescovo" period="3">
+    <CharacterCard name="Bishop" period="3">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1147,7 +1147,7 @@
 		</EffectSet>
 	</PermanentEffect>
     </CharacterCard>
-    <CharacterCard name="Generale" period="3">
+    <CharacterCard name="General" period="3">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1213,7 +1213,7 @@
 		</EffectSet>
 	</PermanentEffect>
     </CharacterCard>
-    <CharacterCard name="Condottiero" period="1">
+    <CharacterCard name="Warlord" period="1">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1278,7 +1278,7 @@
             </EffectSet>
         </PermanentEffect>
     </CharacterCard>
-    <CharacterCard name="Cavaliere" period="1">
+    <CharacterCard name="Knight" period="1">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1322,7 +1322,7 @@
             </EffectSet>
         </PermanentEffect>
     </CharacterCard>
-    <CharacterCard name="Predicatore" period="1">
+    <CharacterCard name="Preacher" period="1">
         <RequirementAndCost>
             <Requirement>
                 <Properties>

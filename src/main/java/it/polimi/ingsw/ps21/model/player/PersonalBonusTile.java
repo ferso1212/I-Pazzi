@@ -1,13 +1,20 @@
 package it.polimi.ingsw.ps21.model.player;
 
+import java.io.Serializable;
+
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
-public class PersonalBonusTile {
+public class PersonalBonusTile implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -244048267142678617L;
 	private ImmProperties harvBonus;
 	private int harvDiceReq;
 	private ImmProperties prodBonus;
 	private int prodDiceReq;
+	private int id;
 	
 	public ImmProperties getTileBonus(WorkType type, int value) throws IllegalArgumentException
 	{
@@ -35,13 +42,24 @@ public class PersonalBonusTile {
 		else return this.prodDiceReq;
 	}
 
-	public PersonalBonusTile(ImmProperties harvBonus, int harvDiceReq, ImmProperties prodBonus, int prodDiceReq) {
+	public PersonalBonusTile(int id, ImmProperties harvBonus, int harvDiceReq, ImmProperties prodBonus, int prodDiceReq) {
 		super();
+		this.id = id;
 		this.harvBonus = harvBonus;
 		this.harvDiceReq = harvDiceReq;
 		this.prodBonus = prodBonus;
 		this.prodDiceReq = prodDiceReq;
 	}
 	
+	public String toString()
+	{
+		StringBuilder b= new StringBuilder();
+		b.append("Production \tRequirement: "+ prodDiceReq + "\tBonus: " + prodBonus.toString());
+		b.append("\n Harvest \tRequirement: "+ harvDiceReq + "\tBonus: " + harvBonus.toString());
+		return b.toString();
+	}
 	
+	public int getID(){
+		return this.id;
+	}
 }

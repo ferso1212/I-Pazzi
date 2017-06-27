@@ -38,6 +38,7 @@ import it.polimi.ingsw.ps21.model.excommunications.PropAdditionExcommunication;
 import it.polimi.ingsw.ps21.model.excommunications.ServantsValueExcommunication;
 import it.polimi.ingsw.ps21.model.excommunications.VenturePointsExcommunication;
 import it.polimi.ingsw.ps21.model.excommunications.WorkExcommunication;
+import it.polimi.ingsw.ps21.model.player.PersonalBonusTile;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesBuilder;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
@@ -76,6 +77,8 @@ public class MatchFactory {
 	private int timeoutServer = 0;
 	private int timeoutRound = 0;
 	private LeaderDeck leaderDeck = null;
+	private PersonalBonusTile simpleTile = null;
+	private PersonalBonusTile[] advancedTiles = null;
 
 
 /**
@@ -914,6 +917,78 @@ public class MatchFactory {
 		
 	}
 	
+	
+	public PersonalBonusTile makeSimpleTile(){
+		if (simpleTile==null){	
+			Document configuration;
+			PersonalBonusTile result;
+			try {
+				File boardFile = new File(boardPath);
+				configuration = builder.parse(boardFile);
+				Element board = configuration.getDocumentElement();
+				Element simpleTileNode = (Element) board.getElementsByTagName("SimpleTile").item(0);
+				Element tile = (Element) simpleTileNode.getElementsByTagName("PersonalBonusTile").item(0);
+				int id = Integer.parseInt(tile.getAttribute("id"));
+				int harvReq;
+				ImmProperties harvBonus;
+				Element harvest = (Element) tile.getElementsByTagName("HarvestBonus").item(0);
+				harvBonus = PropertiesBuilder.makeImmProperites((Element)harvest.getElementsByTagName("Properties").item(0));
+				harvReq = Integer.parseInt(harvest.getAttribute("diceReq"));
+				int prodReq;
+				ImmProperties prodBonus;
+				Element production = (Element) tile.getElementsByTagName("ProductionBonus").item(0);
+				prodBonus = PropertiesBuilder.makeImmProperites((Element)production.getElementsByTagName("Properties").item(0));
+				prodReq = Integer.parseInt(production.getAttribute("diceReq"));
+				result = new PersonalBonusTile(id, harvBonus, harvReq, prodBonus, prodReq);
+			} catch (SAXException | IOException | NullPointerException e) {
+				LOGGER.log(Level.WARNING, "Error creating simple bonus tile, returning default value", e);
+				result = new PersonalBonusTile(0, new ImmProperties(0), 1, new ImmProperties(0), 1);
+			}
+			simpleTile = result;
+			return simpleTile;
+		}
+		else 
+		return simpleTile;
+	}
+	
+	public PersonalBonusTile[] makeAdvancedTiles(){
+		if (advancedTiles==null){	
+			Document configuration;
+			ArrayList<PersonalBonusTile> result = new ArrayList<>();
+			try {
+				File boardFile = new File(boardPath);
+				configuration = builder.parse(boardFile);
+				Element board = configuration.getDocumentElement();
+				Element advancedTileNode = (Element) board.getElementsByTagName("AdvancedTiles").item(0);
+				NodeList tiles = advancedTileNode.getElementsByTagName("PersonalBonusTile");
+				for(int i=0; i<tiles.getLength(); i++){
+					if (tiles.item(i).getNodeType() == Node.ELEMENT_NODE){
+						Element tile = (Element) tiles.item(i);
+						int id = Integer.parseInt(tile.getAttribute("id"));
+						int harvReq;
+						ImmProperties harvBonus;
+						Element harvest = (Element) tile.getElementsByTagName("HarvestBonus").item(0);
+						harvBonus = PropertiesBuilder.makeImmProperites((Element)harvest.getElementsByTagName("Properties").item(0));
+						harvReq = Integer.parseInt(harvest.getAttribute("diceReq"));
+						int prodReq;
+						ImmProperties prodBonus;
+						Element production = (Element) tile.getElementsByTagName("ProductionBonus").item(0);
+						prodBonus = PropertiesBuilder.makeImmProperites((Element)production.getElementsByTagName("Properties").item(0));
+						prodReq = Integer.parseInt(production.getAttribute("diceReq"));
+						result.add(new PersonalBonusTile(id, harvBonus, harvReq, prodBonus, prodReq));
+					}
+				}
+			} catch (SAXException | IOException | NullPointerException e) {
+				LOGGER.log(Level.WARNING, "Error creating advanced personal tiles, returning default value", e);
+				result.add(new PersonalBonusTile(1, new ImmProperties(0), 1, new ImmProperties(0), 1));
+				result.add(new PersonalBonusTile(2, new ImmProperties(0), 1, new ImmProperties(0), 1));
+				result.add(new PersonalBonusTile(3, new ImmProperties(0), 1, new ImmProperties(0), 1));
+				result.add(new PersonalBonusTile(4, new ImmProperties(0), 1, new ImmProperties(0), 1));
+			}
+			advancedTiles = result.toArray(new PersonalBonusTile[0]);
+			}
+			return advancedTiles;
+		}
 	
 
 }

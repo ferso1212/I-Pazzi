@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <!DOCTYPE SubDeckYellow SYSTEM "yellow-deck-schema.dtd">
 <SubDeckYellow>
-    <BuildingCard name="Residenza" period="1" diceRequirement="1">
+    <BuildingCard name="Residence" period="1" diceRequirement="1">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -86,7 +86,7 @@
             </EffectSet>
         </PermanentEffect>
     </BuildingCard>
-    <BuildingCard name="Castelletto" period="3" diceRequirement="5">
+    <BuildingCard name="Fortress" period="3" diceRequirement="5">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -171,7 +171,7 @@
             </EffectSet>
         </PermanentEffect>
     </BuildingCard>
-    <BuildingCard name="Fiera" period="3" diceRequirement="4">
+    <BuildingCard name="Fair" period="3" diceRequirement="4">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -255,7 +255,7 @@
             </EffectSet>
         </PermanentEffect>
     </BuildingCard>
-    <BuildingCard name="Cappella" period="1" diceRequirement="2">
+    <BuildingCard name="Chapel" period="1" diceRequirement="2">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -339,7 +339,7 @@
             </EffectSet>
         </PermanentEffect>
     </BuildingCard>
-    <BuildingCard name="Fortezza" period="2" diceRequirement="6">
+    <BuildingCard name="Stronghold" period="2" diceRequirement="6">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -423,7 +423,7 @@
             </EffectSet>
         </PermanentEffect>
     </BuildingCard>
-    <BuildingCard name="Cattedrale" period="3" diceRequirement="2">
+    <BuildingCard name="Cathedral" period="3" diceRequirement="2">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -507,7 +507,7 @@
             </EffectSet>
         </PermanentEffect>
     </BuildingCard>
-    <BuildingCard name="Teatro" period="1" diceRequirement="6">
+    <BuildingCard name="Theatre" period="1" diceRequirement="6">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -594,7 +594,7 @@
             </EffectSet>
         </PermanentEffect>
     </BuildingCard>
-    <BuildingCard name="Giardino" period="3" diceRequirement="1">
+    <BuildingCard name="Garden" period="3" diceRequirement="1">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -678,7 +678,7 @@
             </EffectSet>
         </PermanentEffect>
     </BuildingCard>
-    <BuildingCard name="Tesoreria" period="2" diceRequirement="3">
+    <BuildingCard name="Treasury" period="2" diceRequirement="3">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -786,7 +786,7 @@
             </EffectSet>
         </PermanentEffect>
     </BuildingCard>
-    <BuildingCard name="Mercato" period="2" diceRequirement="3">
+    <BuildingCard name="Marketplace" period="2" diceRequirement="3">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -870,7 +870,7 @@
             </EffectSet>
         </PermanentEffect>
     </BuildingCard>
-    <BuildingCard name="Falegnameria" period="1" diceRequirement="4">
+    <BuildingCard name="Carpenter Shop" period="1" diceRequirement="4">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -978,7 +978,7 @@
             </EffectSet>
         </PermanentEffect>
     </BuildingCard>
-    <BuildingCard name="Banca" period="3" diceRequirement="2">
+    <BuildingCard name="Bank" period="3" diceRequirement="2">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1062,7 +1062,7 @@
             </EffectSet>
         </PermanentEffect>
     </BuildingCard>
-    <BuildingCard name="Caserma" period="2" diceRequirement="1">
+    <BuildingCard name="Barracks" period="2" diceRequirement="1">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1146,7 +1146,7 @@
             </EffectSet>
         </PermanentEffect>
     </BuildingCard>
-    <BuildingCard name="Accademia Militare" period="3" diceRequirement="3">
+    <BuildingCard name="Military Academy" period="3" diceRequirement="3">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1230,7 +1230,7 @@
             </EffectSet>
         </PermanentEffect>
     </BuildingCard>
-    <BuildingCard name="Arco di Trionfo" period="1" diceRequirement="6">
+    <BuildingCard name="Triumphal Arch" period="1" diceRequirement="6">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1317,7 +1317,7 @@
             </EffectSet>
         </PermanentEffect>
     </BuildingCard>
-    <BuildingCard name="Esattoria" period="1" diceRequirement="5">
+    <BuildingCard name="Tax Office" period="1" diceRequirement="5">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1404,7 +1404,7 @@
             </EffectSet>
         </PermanentEffect>
     </BuildingCard>
-    <BuildingCard name="Battistero" period="2" diceRequirement="2">
+    <BuildingCard name="Baptistery" period="2" diceRequirement="2">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1488,7 +1488,7 @@
             </EffectSet>
         </PermanentEffect>
     </BuildingCard>
-    <BuildingCard name="Tagliapietre" period="1" diceRequirement="3">
+    <BuildingCard name="Stonemason Shop" period="1" diceRequirement="3">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1596,7 +1596,7 @@
             </EffectSet>
         </PermanentEffect>
     </BuildingCard>
-    <BuildingCard name="Zecca" period="1" diceRequirement="5">
+    <BuildingCard name="Mint" period="1" diceRequirement="5">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1683,7 +1683,7 @@
             </EffectSet>
         </PermanentEffect>
     </BuildingCard>
-    <BuildingCard name="Gilda degli Scultori" period="2" diceRequirement="5">
+    <BuildingCard name="Sculptors Guild" period="2" diceRequirement="5">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1791,7 +1791,7 @@
             </EffectSet>
         </PermanentEffect>
     </BuildingCard>
-    <BuildingCard name="Gilda dei Costruttori" period="2" diceRequirement="4">
+    <BuildingCard name="Stonemasons Guild" period="2" diceRequirement="4">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1875,7 +1875,7 @@
             </EffectSet>
         </PermanentEffect>
     </BuildingCard>
-    <BuildingCard name="Palazzo" period="3" diceRequirement="6">
+    <BuildingCard name="Palace" period="3" diceRequirement="6">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -1959,7 +1959,7 @@
             </EffectSet>
         </PermanentEffect>
     </BuildingCard>
-    <BuildingCard name="Basilica" period="3" diceRequirement="1">
+    <BuildingCard name="Church" period="3" diceRequirement="1">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -2067,7 +2067,7 @@
             </EffectSet>
         </PermanentEffect>
     </BuildingCard>
-    <BuildingCard name="Gilda dei Pittori" period="2" diceRequirement="4">
+    <BuildingCard name="Painters Guild" period="2" diceRequirement="4">
         <RequirementAndCost>
             <Requirement>
                 <Properties>

@@ -1,8 +1,13 @@
-<!ELEMENT Board (Privileges, InitialProperties, CardBonuses, CardRequirement, MilitaryBonuses, FaithBonuses, MarketBonuses, MarketPrivileges, CouncilBonus, CouncilPrivileges, TowersBonuses, ExcommunicationRequirements)>
+<!ELEMENT Board (Privileges, InitialProperties, SimpleTile, AdvancedTiles, CardBonuses, CardRequirement, MilitaryBonuses, FaithBonuses, MarketBonuses, MarketPrivileges, CouncilBonus, CouncilPrivileges, TowersBonuses, ExcommunicationRequirements)>
 <!ELEMENT Privileges (Properties*)>
 <!ELEMENT InitialProperties (Properties*)>
 <!ELEMENT Properties (Wood, Stones, Servants, Coins, MilitaryPoints, VictoryPoints, FaithPoints)>
 <!ELEMENT Coins EMPTY>
+<!ELEMENT SimpleTile (PersonalBonusTile)>
+<!ELEMENT AdvancedTiles (PersonalBonusTile*)>
+<!ELEMENT PersonalBonusTile (HarvestBonus, ProductionBonus)>
+<!ELEMENT HarvestBonus (Properties)>
+<!ELEMENT ProductionBonus (Properties)>
 <!ELEMENT Stones EMPTY>
 <!ELEMENT Wood EMPTY>
 <!ELEMENT Servants EMPTY>
@@ -73,3 +78,6 @@
 <!ATTLIST ExcommunicationRequirements firstPeriod CDATA #REQUIRED  secondPeriod CDATA #REQUIRED thirdPeriod CDATA #REQUIRED>
 <!ATTLIST MarketPrivileges first CDATA #REQUIRED second CDATA #REQUIRED third CDATA #REQUIRED
 			fourth CDATA #REQUIRED>
+<!ATTLIST HarvestBonus diceReq CDATA #REQUIRED>
+<!ATTLIST ProductionBonus diceReq CDATA #REQUIRED>
+<!ATTLIST PersonalBonusTile id CDATA #REQUIRED>
