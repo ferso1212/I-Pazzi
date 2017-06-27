@@ -35,7 +35,7 @@ public class TilePanel extends JPanel {
  	public void paintComponent(Graphics g){
  		super.paintComponent(g);
  		try {
-			g.drawImage(resizeImage(tileImage, this.getHeight(), (int)(this.tileImage.getHeight() * this.getWidth() / this.tileImage.getWidth()), BufferedImage.TYPE_INT_RGB), 0, 0, null);
+			g.drawImage(resizeImage(tileImage, (int)(this.tileImage.getWidth() * this.getHeight() / this.tileImage.getHeight()), this.getHeight(), BufferedImage.TYPE_INT_RGB), 0, 0, null);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -50,5 +50,9 @@ public class TilePanel extends JPanel {
         
         return resizedImage;  
     }
+ 	
+ 	public BufferedImage getTileImage(){
+ 		return this.tileImage;
+ 	}
 
 }
