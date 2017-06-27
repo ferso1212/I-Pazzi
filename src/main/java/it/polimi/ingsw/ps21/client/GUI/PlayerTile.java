@@ -24,7 +24,7 @@ public class PlayerTile extends JSplitPane{
 	public PlayerTile(){
 		
 		this.setLeftComponent(playerTile);
-		this.setDividerLocation((int)(playerTile.getPlayerBoardImage().getWidth() * (playerTile.getPlayerBoardImage().getHeight() / (screenSize.getHeight() / 2))));
+		this.setDividerLocation((int)(playerTile.getPlayerBoardImage().getWidth() * (screenSize.getHeight() / 2) / (playerTile.getPlayerBoardImage().getHeight() )));
 		
 		characters.setBackground(new Color(0,127,255));
 		characters.setOpaque(true);
