@@ -14,6 +14,7 @@ import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.actions.CouncilAction;
 import it.polimi.ingsw.ps21.model.actions.DevelopmentAction;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
+import it.polimi.ingsw.ps21.model.actions.LeaderChoiceAction;
 import it.polimi.ingsw.ps21.model.actions.MarketAction;
 import it.polimi.ingsw.ps21.model.actions.NotExecutableException;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
@@ -298,25 +299,23 @@ public class MatchController extends Observable implements Observer {
 	 * Vatican Report, the requested action will be a Vatican Action.
 	 */
 	private void reqPlayerAction() {
-		if (roundType != RoundType.VATICAN_ROUND) {
-			this.timer.cancel();
-			this.timer.purge();
-			this.timer=new Timer();
-			timer.schedule(new TimerTask() {
-
-				@Override
-				public void run() {
-					setChanged();
-					notifyObservers(new TimeoutExpiredMessage(currentPlayer.getId()));
-					nextPlayer();
-					
-				}}, actionTimeout);
+		if (roundType == RoundType.INITIAL_ROUND || roundType== RoundType.FINAL_ROUND) {
+			startTimer();
 			ActionRequest req = new ActionRequest(currentPlayer.getId(), ++this.actionCounter);
 			setChanged();
 			notifyObservers(req);
-		} else {
+		} else if (roundType==RoundType.VATICAN_ROUND){
 			this.currentAction = new VaticanAction(currentPlayer.getId());
 			this.state = ActionState.AWAITING_CHOICES;
+			getActionChoices();
+		}
+		else if(roundType==RoundType.LEADER_ROUND)
+		{
+			//startTimer();
+			AdvancedMatch m= (AdvancedMatch)this.match;
+			LeaderChoice message= new LeaderChoice(m.getLeaderPossibilities(), this.currentPlayer.getId());
+			this.currentAction=new LeaderChoiceAction(this.currentPlayer.getId(), message);
+			this.state=ActionState.AWAITING_CHOICES;
 			getActionChoices();
 		}
 	}
@@ -494,7 +493,7 @@ public class MatchController extends Observable implements Observer {
 
 	private void setupLeaderCards() {
 		
-		try {
+		/*try {
 			this.numOfChosenLeaderCards=0;
 			LeaderDeck deck= MatchFactory.instance().makeLeaderDeck();
 			deck.shuffle();
@@ -515,7 +514,7 @@ public class MatchController extends Observable implements Observer {
 		} catch (BuildingDeckException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 	}
 	
@@ -524,6 +523,22 @@ public class MatchController extends Observable implements Observer {
 		{
 			
 		}
+	}
+	
+	private void startTimer()
+	{
+		this.timer.cancel();
+		this.timer.purge();
+		this.timer=new Timer();
+		timer.schedule(new TimerTask() {
+
+			@Override
+			public void run() {
+				setChanged();
+				notifyObservers(new TimeoutExpiredMessage(currentPlayer.getId()));
+				nextPlayer();
+				
+			}}, actionTimeout);
 	}
 
 }
