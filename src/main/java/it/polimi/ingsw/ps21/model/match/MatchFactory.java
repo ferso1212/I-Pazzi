@@ -928,6 +928,7 @@ public class MatchFactory {
 				Element board = configuration.getDocumentElement();
 				Element simpleTileNode = (Element) board.getElementsByTagName("SimpleTile").item(0);
 				Element tile = (Element) simpleTileNode.getElementsByTagName("PersonalBonusTile").item(0);
+				int id = Integer.parseInt(tile.getAttribute("id"));
 				int harvReq;
 				ImmProperties harvBonus;
 				Element harvest = (Element) tile.getElementsByTagName("HarvestBonus").item(0);
@@ -938,10 +939,10 @@ public class MatchFactory {
 				Element production = (Element) tile.getElementsByTagName("ProductionBonus").item(0);
 				prodBonus = PropertiesBuilder.makeImmProperites((Element)production.getElementsByTagName("Properties").item(0));
 				prodReq = Integer.parseInt(production.getAttribute("diceReq"));
-				result = new PersonalBonusTile(harvBonus, harvReq, prodBonus, prodReq);
+				result = new PersonalBonusTile(id, harvBonus, harvReq, prodBonus, prodReq);
 			} catch (SAXException | IOException | NullPointerException e) {
 				LOGGER.log(Level.WARNING, "Error creating simple bonus tile, returning default value", e);
-				result = new PersonalBonusTile(new ImmProperties(0), 1, new ImmProperties(0), 1);
+				result = new PersonalBonusTile(0, new ImmProperties(0), 1, new ImmProperties(0), 1);
 			}
 			simpleTile = result;
 			return simpleTile;
@@ -963,6 +964,7 @@ public class MatchFactory {
 				for(int i=0; i<tiles.getLength(); i++){
 					if (tiles.item(i).getNodeType() == Node.ELEMENT_NODE){
 						Element tile = (Element) tiles.item(i);
+						int id = Integer.parseInt(tile.getAttribute("id"));
 						int harvReq;
 						ImmProperties harvBonus;
 						Element harvest = (Element) tile.getElementsByTagName("HarvestBonus").item(0);
@@ -973,15 +975,15 @@ public class MatchFactory {
 						Element production = (Element) tile.getElementsByTagName("ProductionBonus").item(0);
 						prodBonus = PropertiesBuilder.makeImmProperites((Element)production.getElementsByTagName("Properties").item(0));
 						prodReq = Integer.parseInt(production.getAttribute("diceReq"));
-						result.add(new PersonalBonusTile(harvBonus, harvReq, prodBonus, prodReq));
+						result.add(new PersonalBonusTile(id, harvBonus, harvReq, prodBonus, prodReq));
 					}
 				}
 			} catch (SAXException | IOException | NullPointerException e) {
 				LOGGER.log(Level.WARNING, "Error creating advanced personal tiles, returning default value", e);
-				result.add(new PersonalBonusTile(new ImmProperties(0), 1, new ImmProperties(0), 1));
-				result.add(new PersonalBonusTile(new ImmProperties(0), 1, new ImmProperties(0), 1));
-				result.add(new PersonalBonusTile(new ImmProperties(0), 1, new ImmProperties(0), 1));
-				result.add(new PersonalBonusTile(new ImmProperties(0), 1, new ImmProperties(0), 1));
+				result.add(new PersonalBonusTile(1, new ImmProperties(0), 1, new ImmProperties(0), 1));
+				result.add(new PersonalBonusTile(2, new ImmProperties(0), 1, new ImmProperties(0), 1));
+				result.add(new PersonalBonusTile(3, new ImmProperties(0), 1, new ImmProperties(0), 1));
+				result.add(new PersonalBonusTile(4, new ImmProperties(0), 1, new ImmProperties(0), 1));
 			}
 			advancedTiles = result.toArray(new PersonalBonusTile[0]);
 			}

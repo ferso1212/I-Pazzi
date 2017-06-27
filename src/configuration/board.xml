@@ -87,7 +87,7 @@
         </Properties>
     </InitialProperties>
     <SimpleTile>
-        <PersonalBonusTile>
+        <PersonalBonusTile id="0">
             <HarvestBonus diceReq="1">
                 <Properties>
                     <Wood value="1" />
@@ -113,7 +113,7 @@
         </PersonalBonusTile>
     </SimpleTile>
     <AdvancedTiles>
-        <PersonalBonusTile>
+        <PersonalBonusTile id="1">
             <HarvestBonus diceReq="1">
                 <Properties>
                     <Wood value="1" />
@@ -137,7 +137,7 @@
                 </Properties>
             </ProductionBonus>
         </PersonalBonusTile>
-        <PersonalBonusTile>
+        <PersonalBonusTile id="2">
             <HarvestBonus diceReq="1">
                 <Properties>
                     <Wood value="1" />
@@ -161,7 +161,7 @@
                 </Properties>
             </ProductionBonus>
         </PersonalBonusTile>
-        <PersonalBonusTile>
+        <PersonalBonusTile id="3">
             <HarvestBonus diceReq="1">
                 <Properties>
                     <Wood value="0" />
@@ -185,25 +185,25 @@
                 </Properties>
             </ProductionBonus>
         </PersonalBonusTile>
-        <PersonalBonusTile>
+        <PersonalBonusTile id="4">
             <HarvestBonus diceReq="1">
-                <Properties>
-                    <Wood value="0" />
-                    <Stones value="0" />
-                    <Servants value="1" />
-                    <Coins value="0" />
-                    <MilitaryPoints value="2" />
-                    <VictoryPoints value="0" />
-                    <FaithPoints value="0" />
-                </Properties>
-            </HarvestBonus>
-            <ProductionBonus diceReq="1">
                 <Properties>
                     <Wood value="1" />
                     <Stones value="1" />
                     <Servants value="0" />
                     <Coins value="1" />
                     <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </HarvestBonus>
+            <ProductionBonus diceReq="1">
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="1" />
+                    <Coins value="" />
+                    <MilitaryPoints value="2" />
                     <VictoryPoints value="0" />
                     <FaithPoints value="0" />
                 </Properties>

@@ -14,6 +14,7 @@ public class PersonalBonusTile implements Serializable{
 	private int harvDiceReq;
 	private ImmProperties prodBonus;
 	private int prodDiceReq;
+	private int id;
 	
 	public ImmProperties getTileBonus(WorkType type, int value) throws IllegalArgumentException
 	{
@@ -41,8 +42,9 @@ public class PersonalBonusTile implements Serializable{
 		else return this.prodDiceReq;
 	}
 
-	public PersonalBonusTile(ImmProperties harvBonus, int harvDiceReq, ImmProperties prodBonus, int prodDiceReq) {
+	public PersonalBonusTile(int id, ImmProperties harvBonus, int harvDiceReq, ImmProperties prodBonus, int prodDiceReq) {
 		super();
+		this.id = id;
 		this.harvBonus = harvBonus;
 		this.harvDiceReq = harvDiceReq;
 		this.prodBonus = prodBonus;
@@ -57,4 +59,7 @@ public class PersonalBonusTile implements Serializable{
 		return b.toString();
 	}
 	
+	public int getID(){
+		return this.id;
+	}
 }

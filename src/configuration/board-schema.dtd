@@ -80,3 +80,4 @@
 			fourth CDATA #REQUIRED>
 <!ATTLIST HarvestBonus diceReq CDATA #REQUIRED>
 <!ATTLIST ProductionBonus diceReq CDATA #REQUIRED>
+<!ATTLIST PersonalBonusTile id CDATA #REQUIRED>
