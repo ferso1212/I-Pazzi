@@ -211,7 +211,7 @@
 	</PropertiesBonus>
 	</InstantLeaderEffect>
 	</LeaderCard>
-	<LeaderCard name="Cosime de' Medici">
+	<LeaderCard name="Cosimo De Medici">
 	<InstantLeaderEffect>
 	<PropertiesBonus>
 			<Requirement>
@@ -378,7 +378,7 @@
 		</MemberBonus>		
 	</PermanentLeaderEffect>
 	</LeaderCard>
-	<LeaderCard name="Lorenzo de' Medici">
+	<LeaderCard name="Lorenzo De Medici">
 	<PermanentLeaderEffect>
 		<LorenzoIlMagnifico>
 			<Requirement>
