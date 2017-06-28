@@ -12,6 +12,7 @@ import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.IllegalCardTypeException;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.excommunications.Excommunication;
+import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
@@ -31,7 +32,7 @@ public class PlayerData implements Serializable {
 	private EnumMap<DevelopmentCardType, ArrayList<DevelopmentCard>> cards;
 	private EnumMap<MembersColor, FamilyMemberData> family;
 	private Excommunication[] excommunications;
-	
+	private LeaderCard[] leaders;
 	
 	public PlayerData(Player player) {
 		super();
@@ -65,6 +66,12 @@ public class PlayerData implements Serializable {
 			family.put(color, new FamilyMemberData(player.getFamily().getMember(color)));
 		}
 		this.excommunications = player.getExcommunications();
+		if(player instanceof AdvancedPlayer)
+		{
+			this.leaders=((AdvancedPlayer)player).getLeaders();
+			
+		}
+		else this.leaders=new LeaderCard[0];
 	}
 
 
@@ -144,6 +151,12 @@ public class PlayerData implements Serializable {
 	
 	public Excommunication[] getExcommunications(){
 		return this.excommunications;
+	}
+	
+	public LeaderCard[] getLeaders() throws NotAdvancedPlayerException
+	{
+		if(this.leaders==null) throw new NotAdvancedPlayerException();
+		else return this.leaders;
 	}
 	
 	

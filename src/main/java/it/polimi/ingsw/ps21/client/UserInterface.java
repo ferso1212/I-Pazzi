@@ -60,5 +60,5 @@ public abstract interface UserInterface {
 	
 	public int chooseTile(PersonalBonusTile[] possibilities);
 
-
+	public void setRules(boolean isAdvanced);
 }

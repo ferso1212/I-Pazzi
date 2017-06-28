@@ -18,6 +18,7 @@ import it.polimi.ingsw.ps21.model.actions.LeaderChoiceAction;
 import it.polimi.ingsw.ps21.model.actions.MarketAction;
 import it.polimi.ingsw.ps21.model.actions.NotExecutableException;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
+import it.polimi.ingsw.ps21.model.actions.PlayLeaderCard;
 import it.polimi.ingsw.ps21.model.actions.TileChoiceAction;
 import it.polimi.ingsw.ps21.model.actions.VaticanAction;
 import it.polimi.ingsw.ps21.model.actions.WorkAction;
@@ -31,6 +32,7 @@ import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
 import it.polimi.ingsw.ps21.model.match.RoundType;
 import it.polimi.ingsw.ps21.model.match.VaticanRoundException;
+import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.MembersColor;
@@ -475,8 +477,8 @@ public class MatchController extends Observable implements Observer {
 			parsedAction = new NullAction(currentPlayer.getId());
 			break;
 		case PLAY_LEADERCARD:
-			// todo parsedAction = new PlayLeaderCard(playerId, cardToPlay);
-			parsedAction = new NullAction(currentPlayer.getId());
+			LeaderCard cardToPlay= ((AdvancedPlayer)this.currentPlayer).getLeaders()[data.getSpace()];
+			parsedAction = new PlayLeaderCard(currentPlayer.getId(), cardToPlay);
 			break;
 		case PRODUCTION: {
 			WorkSpace workSpace;

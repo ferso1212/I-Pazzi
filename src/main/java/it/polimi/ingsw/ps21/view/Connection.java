@@ -44,4 +44,6 @@ public abstract interface Connection{
 	public int reqLeaderCardChoice(LeaderCard[] choices);
 	
 	public int reqPersonalTileChoice(PersonalBonusTile[] choices);
+	
+	public void setRules(boolean isAdvanced);
 }

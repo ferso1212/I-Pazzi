@@ -34,6 +34,7 @@ import it.polimi.ingsw.ps21.client.PacketType;
 import it.polimi.ingsw.ps21.client.PlayerIdNetPacket;
 import it.polimi.ingsw.ps21.client.PrivilegesChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.PrivilegesChoiceResponseNetPacket;
+import it.polimi.ingsw.ps21.client.RulesNetPacket;
 import it.polimi.ingsw.ps21.client.TileChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.TileChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.VaticanChoiceRequestNetPacket;
@@ -312,6 +313,17 @@ public class SocketConnection implements Connection{
 			LOGGER.log(Level.WARNING, "Unable to request personal bonus tile choice to the remote client due to IOException", e);
 			return 0;
 		}
+	}
+
+
+	@Override
+	public void setRules(boolean isAdvanced) {
+		try {
+			out.writeObject(new RulesNetPacket(messageCounter, isAdvanced));
+		} catch (IOException e) {
+			LOGGER.log(Level.WARNING, "Unable to send rules to the remote client due to IOException", e);
+		}
+		
 	}
 	
 

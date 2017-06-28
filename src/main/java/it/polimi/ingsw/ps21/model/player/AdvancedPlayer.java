@@ -27,7 +27,7 @@ public class AdvancedPlayer extends Player {
 	
 	private ArrayList<LeaderCard> leaderCards;
 	private AdvancedModifier advModifier;
-	private AdvFamily family;
+	
 	/**
 	 * 
 	 * @param id the color of the player
@@ -37,7 +37,6 @@ public class AdvancedPlayer extends Player {
 		super(id, properties);
 		this.leaderCards=new ArrayList<>();
 		this.advModifier= new AdvancedModifier();
-		this.family=new AdvFamily(this.getId());
 	}
 
 	
@@ -86,9 +85,8 @@ public class AdvancedPlayer extends Player {
 		return false;
 	}
 	
-	@Override
-	public AdvFamily getFamily()
+	public LeaderCard[] getLeaders()
 	{
-		return this.family;
+		return this.leaderCards.toArray(new LeaderCard[0]);
 	}
 }

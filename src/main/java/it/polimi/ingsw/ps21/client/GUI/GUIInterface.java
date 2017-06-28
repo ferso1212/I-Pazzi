@@ -22,6 +22,7 @@ import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
+import it.polimi.ingsw.ps21.model.player.PersonalBonusTile;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.ActionData;
@@ -218,6 +219,12 @@ public class GUIInterface implements UserInterface{
 	public void matchEnded(EndData data) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public int chooseTile(PersonalBonusTile[] possibilities) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

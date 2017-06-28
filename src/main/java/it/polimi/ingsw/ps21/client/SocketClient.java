@@ -188,6 +188,12 @@ public class SocketClient {
 				out.writeObject(new TileChoiceResponseNetPacket(receivedPacket.getNum(), chosen));
 				break;
 			}
+			case RULES:
+			{
+				boolean adv= ((RulesNetPacket)receivedPacket).isAdvanced();
+				ui.setRules(adv);
+				break;
+			}
 			default:
 				break;
 			}

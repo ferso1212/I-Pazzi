@@ -87,7 +87,7 @@ public class Lobby extends Thread{
 					+ " players.");
 			usersToAdd = new UserHandler[Math.min(connectionsQueue.size(), MAX_PLAYERS_NUM)];
 			while ((playersAdded < usersToAdd.length) && (connectionsQueue.size() > 0)) {
-				UserHandler newUser=new UserHandler(PlayerColor.values()[playersAdded], connectionsQueue.poll());
+				UserHandler newUser=new UserHandler(PlayerColor.values()[playersAdded], connectionsQueue.poll(), isAdvanced);
 				usersToAdd[playersAdded] = newUser;
 				playingUsers.put(newUser.getName(), newUser);
 				playersAdded++;

@@ -32,8 +32,9 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 	private Connection connection;
 	private String name;
 	private boolean timeoutExpired;
+	private boolean isAdvanced;
 
-	public UserHandler(PlayerColor playerId, Connection connection) {
+	public UserHandler(PlayerColor playerId, Connection connection, boolean isAdvanced) {
 		super();
 		this.playerId = playerId;
 		this.connection = connection;
@@ -41,6 +42,7 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 		// this.connection.sendMessage(this.name + "'s UserHandler created.");
 		this.connection.setID(this.playerId);
 		this.timeoutExpired = false;
+		this.isAdvanced=isAdvanced;
 	}
 
 	@Override
@@ -291,6 +293,7 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 	
 	public void notifyReconnection()
 	{
+		connection.setRules(isAdvanced);
 		setChanged();
 		connection.sendMessage("\nReconnected to match");
 		notifyObservers("reconnection");
