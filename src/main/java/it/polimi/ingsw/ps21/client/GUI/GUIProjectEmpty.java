@@ -35,6 +35,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JSplitPane;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -95,13 +96,23 @@ public class GUIProjectEmpty implements UserInterface{
 	 * Create the application.
 	 */
 	public GUIProjectEmpty() {	
+		SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				mainWindow = new JFrame();
+			}
+		});
 	}
 
 	private class MyListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			mainWindow  = new JFrame("Lorenzo Il Magnifico");
+			mainWindow.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
+			mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			mainWindow.setResizable(false);
 
 		}
 
@@ -331,18 +342,16 @@ public class GUIProjectEmpty implements UserInterface{
 
 	@Override
 	public String reqName() {
-		NameDialog dialog = new NameDialog();
-		dialog.setAlwaysOnTop(true);
-		dialog.setVisible(true);
-		String name = dialog.getName();
-		dialog.setVisible(false);
+		String name = JOptionPane.showInputDialog(mainWindow, "Insert your name", JOptionPane.PLAIN_MESSAGE);
 		return name;
 	}
 
 	@Override
 	public boolean reqIfWantsAdvancedRules() {
-		// TODO Auto-generated method stub
-		return false;
+		Object choices[] = { "Advanced Rules", "Standard Rules" };
+		int chosenMethod = JOptionPane.showOptionDialog(mainWindow, "Which rules do you want to use?", "Choose Rules", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, choices, choices[1]);
+		if (chosenMethod == 0) return true;
+		else return true;
 	}
 
 	@Override
