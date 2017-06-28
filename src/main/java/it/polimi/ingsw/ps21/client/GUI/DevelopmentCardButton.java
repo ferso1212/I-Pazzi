@@ -12,19 +12,19 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-public class DevelopmentCardLabel extends JButton{
+public class DevelopmentCardButton extends JButton{
 	
 	private Image cardImage;
 	private String path;
 	
-	public DevelopmentCardLabel(String name, double scaleFactor){
+	public DevelopmentCardButton(String name, String description, double scaleFactor){
 		this.path = path;
 		try {
 			int width = (int)(470 *scaleFactor);
 			int height = (int)(754 * scaleFactor);
 			this.cardImage = ImageIO.read(new File((new File("")).getAbsolutePath().concat("/src/images/DevelopmentCards/").concat(name.replace(" ","")).concat(".png")));
 			this.setIcon(new ImageIcon(cardImage.getScaledInstance(width, height, Image.SCALE_DEFAULT)));
-			this.setToolTipText("<html><body><div><img src=\"file:src/images/DevelopmentCards/"+name.replace(" ", "")+".png\"></div></div></body></html> ");
+			this.setToolTipText("<html><body><div><img src=\"file:src/images/DevelopmentCards/"+name.replace(" ", "")+".png\"></div><div>"+ description + "</div></body></html> ");
 			
 			
 		} catch (IOException e) {
