@@ -33,6 +33,7 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 	private String name;
 	private boolean timeoutExpired;
 	private boolean isAdvanced;
+	private MatchData matchStatus;
 
 	public UserHandler(PlayerColor playerId, Connection connection, boolean isAdvanced) {
 		super();
@@ -155,6 +156,14 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 	public PlayerColor getPlayerId() {
 		return playerId;
 	}
+	
+	public void UpdateViewAfterReconnection()
+	{
+		try {if(this.matchStatus!=null)	connection.remoteUpdate(this.matchStatus);
+		} catch (DisconnectedException e) {
+			LOGGER.log(Level.WARNING, "Player that had reconnected is now disconnected.", e);
+		}
+	}
 
 	@Override
 	public void update(Observable o, Object arg) {
@@ -193,6 +202,7 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 					}
 				}
 				 else if (arg instanceof MatchData) {
+					 this.matchStatus=(MatchData) arg;
 					connection.remoteUpdate((MatchData) arg);
 				} else if (arg instanceof String) {
 					if (((String) arg).compareTo("Match Started") == 0) {
@@ -297,5 +307,6 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 		setChanged();
 		connection.sendMessage("\nReconnected to match");
 		notifyObservers("reconnection");
+		UpdateViewAfterReconnection();
 	}
 }
