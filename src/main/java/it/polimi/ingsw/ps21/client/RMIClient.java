@@ -154,4 +154,9 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 		return ui.chooseTile(choices);
 	}
 
+	@Override
+	public void setRules(boolean isAdvanced) throws RemoteException {
+		ui.setRules(isAdvanced);
+	}
+
 }

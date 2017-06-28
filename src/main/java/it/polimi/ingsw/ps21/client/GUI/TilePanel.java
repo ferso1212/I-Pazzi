@@ -17,10 +17,10 @@ public class TilePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private BufferedImage tileImage;
 
-	public TilePanel(String tilePath) {
+	public TilePanel(String tileNumber) {
 		super(true); // crea un JPanel con doubleBuffered true
 		try {
-			setImage(ImageIO.read(new File(tilePath)));
+			setImage(ImageIO.read(new File((new File("")).getAbsolutePath().concat("/src/images/ExcommunicationAndTile/Tile").concat(tileNumber).concat(".png"))));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

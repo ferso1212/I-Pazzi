@@ -7,12 +7,15 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import it.polimi.ingsw.ps21.client.GUI.GUIProjectEmpty;
+
 public class ClientMain {
 
 	private static boolean newMatch = true;
 	private static boolean CLI = true;
 	private final static Logger LOGGER = Logger.getLogger(ClientMain.class.getName());
 	private final static int RMI_PORT = 5000;
+	private static UserInterface ui;
 	
 	public static void main(String args[])
 	{
@@ -44,8 +47,7 @@ public class ClientMain {
 			 LOGGER.log(Level.INFO, "Invalid input", e);
 			}
     	}
-		CLInterface CLImatch = new CLInterface();
-		int chosenJoin=0;
+    	int chosenJoin=0;
     	while(chosenJoin!=1 && chosenJoin!=2)
     	{
     		
@@ -55,10 +57,14 @@ public class ClientMain {
     	} catch (InputMismatchException e) {
 			 LOGGER.log(Level.INFO, "Invalid input", e);
 			}
+        if (chosenInterface==1) ui = new CLInterface();
+    	else {
+    		ui = new GUIProjectEmpty();
+		}
     	}
     	
 			if (chosenConnection==1) {
-				SocketClient client = new SocketClient(CLImatch, parseChoice(chosenJoin)); 
+				SocketClient client = new SocketClient(ui, parseChoice(chosenJoin)); 
 
 				
 					boolean matchStarted=client.start();
@@ -73,7 +79,7 @@ public class ClientMain {
 			}
 			else{
 				try {
-					RMIClient rmiclient = new RMIClient(CLImatch, "127.0.0.1", RMI_PORT, parseChoice(chosenJoin));
+					RMIClient rmiclient = new RMIClient(ui, "127.0.0.1", RMI_PORT, parseChoice(chosenJoin));
 				} catch (RemoteException | NotBoundException e) {
 					System.out.println("Failed to connect to server through RMI.");
 					LOGGER.log(Level.WARNING, "RMI Connection failed", e);

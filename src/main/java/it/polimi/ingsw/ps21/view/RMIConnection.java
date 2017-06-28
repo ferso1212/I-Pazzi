@@ -246,4 +246,14 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 		}
 	}
 
+
+	@Override
+	public void setRules(boolean isAdvanced) {
+		try {
+			client.setRules(isAdvanced);
+		} catch (RemoteException e) {
+			LOGGER.log(Level.WARNING, "Error setting rules of match on client side", e);
+		}
+	}
+
 }

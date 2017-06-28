@@ -1,6 +1,8 @@
 package it.polimi.ingsw.ps21.client.GUI;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
@@ -13,6 +15,9 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
+import it.polimi.ingsw.ps21.controller.PlayerData;
+import it.polimi.ingsw.ps21.model.properties.PropertiesId;
+
 public class PlayerBoardPanel extends JPanel{
 	
 	private JLabel coins;
@@ -20,7 +25,8 @@ public class PlayerBoardPanel extends JPanel{
 	private JLabel stones;
 	private JLabel servants;
 	private BufferedImage playerBoardImage; 
- 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	private double resizeParam;
+	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
  	
  	public PlayerBoardPanel(String boardPath){
@@ -31,10 +37,12 @@ public class PlayerBoardPanel extends JPanel{
  			// TODO Auto-generated catch block
  			e.printStackTrace();
  		}
+ 		setProperties();
  	}
  	
  	public void setImage(BufferedImage img){
  		this.playerBoardImage = img;
+ 		this.resizeParam = this.playerBoardImage.getHeight() / (screenSize.getHeight() / 2);
  	}
  	
  	@Override
@@ -61,6 +69,47 @@ public class PlayerBoardPanel extends JPanel{
 		return this.playerBoardImage;
 	}
 	
+	private void setProperties(){
+		
+		//coins = new JLabel(playerInfo.getProperties().get(PropertiesId.COINS).toString());
+		//woods = new JLabel(playerInfo.getProperties().get(PropertiesId.WOOD).toString());
+		//stones = new JLabel(playerInfo.getProperties().get(PropertiesId.STONES).toString());
+		//servants = new JLabel(playerInfo.getProperties().get(PropertiesId.SERVANTS).toString());
+		this.setLayout(null);
+		
+		coins = new JLabel("5");
+		coins.setBackground(Color.WHITE);
+		coins.setOpaque(true);
+		coins.setHorizontalAlignment(JLabel.CENTER);
+		woods = new JLabel("5");
+		woods.setBackground(Color.WHITE);
+		woods.setOpaque(true);
+		woods.setHorizontalAlignment(JLabel.CENTER);
+		stones = new JLabel("5");
+		stones.setBackground(Color.WHITE);
+		stones.setOpaque(true);
+		stones.setHorizontalAlignment(JLabel.CENTER);
+		servants = new JLabel("5");
+		servants.setBackground(Color.WHITE);
+		servants.setOpaque(true);
+		servants.setHorizontalAlignment(JLabel.CENTER);
+		
+		this.add(coins).setBounds(resize(60), resize(405), resize(25), resize(25));
+		this.add(woods).setBounds(resize(170), resize(405), resize(25), resize(25));
+		this.add(stones).setBounds(resize(275), resize(405), resize(25), resize(25));
+		this.add(servants).setBounds(resize(375), resize(405), resize(25), resize(25));
+	}
 	
+	private int resize(int originalSize){
+		return (int)(originalSize * this.resizeParam);
+	}
+	
+	public void updateProperties(PlayerData playerInfo){
+		coins = new JLabel(playerInfo.getProperties().get(PropertiesId.COINS).toString());
+		woods = new JLabel(playerInfo.getProperties().get(PropertiesId.WOOD).toString());
+		stones = new JLabel(playerInfo.getProperties().get(PropertiesId.STONES).toString());
+		servants = new JLabel(playerInfo.getProperties().get(PropertiesId.SERVANTS).toString());
+	}
+
 
 }

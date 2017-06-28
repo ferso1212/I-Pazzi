@@ -13,6 +13,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import javax.swing.RepaintManager;
@@ -28,21 +29,38 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.text.AttributedCharacterIterator;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JSplitPane;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
+import it.polimi.ingsw.ps21.client.UserInterface;
+import it.polimi.ingsw.ps21.controller.AcceptedAction;
+import it.polimi.ingsw.ps21.controller.MatchData;
+import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
+import it.polimi.ingsw.ps21.model.deck.LeaderCard;
+import it.polimi.ingsw.ps21.model.effect.EffectSet;
+import it.polimi.ingsw.ps21.model.player.PersonalBonusTile;
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
+import it.polimi.ingsw.ps21.view.ActionData;
+import it.polimi.ingsw.ps21.view.EndData;
+import it.polimi.ingsw.ps21.view.ExtraActionData;
 
 import java.awt.Component;
 import java.awt.Dimension;
 
-public class GUIProjectEmpty {
-
+public class GUIProjectEmpty implements UserInterface{
+	private static final Logger LOGGER = Logger.getLogger(GUIProjectEmpty.class.getSimpleName());
 	private JFrame mainWindow;
 	private BoardPanel boardPanel;
 	private JPanel rightPanel;
@@ -56,14 +74,19 @@ public class GUIProjectEmpty {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
+  
+	public void start(){
+		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GUIProjectEmpty window = new GUIProjectEmpty();
-					window.mainWindow.setVisible(true);
+					initialize(3, false);
+					placeDevelopmentCards();
+					placeExcommunications();
+					setSpaces();
+					setUpRightPanel();
+					setDownRightPanel();
 				} catch (Exception e) {
-					e.printStackTrace();
+					LOGGER.log(Level.WARNING, "Error creating thread for dispatching visual elements", e);
 				}
 			}
 		});
@@ -72,20 +95,24 @@ public class GUIProjectEmpty {
 	/**
 	 * Create the application.
 	 */
-	public GUIProjectEmpty() {
-		initialize(3, false);
-		placeDevelopmentCards();
-		placeExcommunications();
-		setSpaces();
-		setUpRightPanel();
-		setDownRightPanel();
+	public GUIProjectEmpty() {	
+		SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				mainWindow = new JFrame();
+			}
+		});
 	}
 
 	private class MyListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			mainWindow  = new JFrame("Lorenzo Il Magnifico");
+			mainWindow.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
+			mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			mainWindow.setResizable(false);
 
 		}
 
@@ -126,6 +153,7 @@ public class GUIProjectEmpty {
 		mainWindow.pack();
 
 		this.scaleFactor = boardPanel.getScaleFactor();
+		this.mainWindow.setVisible(true);
 	}
 
 	private int resize(int originalSize) {
@@ -134,20 +162,15 @@ public class GUIProjectEmpty {
 
 	private void placeDevelopmentCards() {
 		for (int i = 0; i < 4; i++) {
-			DevelopmentCardLabel developmentCard = new DevelopmentCardLabel(
-					"src/images/LorenzoCards_compressed_png/devcards_f_en_c_" + (i + 1) + ".png",
-					boardPanel.getScaleFactor());
+			DevelopmentCardLabel developmentCard = new DevelopmentCardLabel("Commercial Hub", boardPanel.getScaleFactor());
 			developmentCard.addActionListener(new MyListener());
-			boardPanel.add(developmentCard).setBounds(resize(615), resize(580) + resize(820) * i, resize(470),
-					resize(720));
+			boardPanel.add(developmentCard).setBounds(resize(615), resize(580) + resize(820) * i, resize(470), resize(720));
 		}
 	}
 
 	private void placeExcommunications() {
 		for (int i = 0; i < 3; i++) {
-			ExcommunicationLabel excomCard = new ExcommunicationLabel(
-					"src/images/Lorenzo_Punchboard_CUT_compressed/excomm_" + (i + 1) + "_" + (i + 1) + ".png",
-					boardPanel.getScaleFactor());
+			ExcommunicationLabel excomCard = new ExcommunicationLabel("1",	boardPanel.getScaleFactor());
 			boardPanel.add(excomCard).setBounds(resize(1180) + resize(380) * i, resize(4100), resize(400), resize(715));
 		}
 	}
@@ -196,7 +219,7 @@ public class GUIProjectEmpty {
 	private void setUpRightPanel() {
 
 		// setting prsonal bonus tile
-		TilePanel personalBonusTile = new TilePanel((new File("")).getAbsolutePath().concat("/src/images/Lorenzo_Punchboard_CUT_compressed/personalbonustile_2.png"));
+		TilePanel personalBonusTile = new TilePanel("0");
 		splitPane.setLeftComponent(personalBonusTile);
 		splitPane.setDividerLocation((int)(personalBonusTile.getTileImage().getWidth() * (screenDimension.getHeight() / 2) / personalBonusTile.getTileImage().getHeight()));
 		
@@ -218,5 +241,128 @@ public class GUIProjectEmpty {
 		actionPanel.add(roundInfo, BorderLayout.PAGE_START);
 
 		actionPanel.add(new FamilyMemberPanel(), BorderLayout.LINE_START);
+	}
+
+
+	@Override
+	public void playMatch() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateView(MatchData match) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ActionData makeAction(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void showInfo(String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean reqVaticanChoice() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int reqCostChoice(ArrayList<ImmProperties> costChoices) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int reqEffectChoice(EffectSet[] effectChoice) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int chooseLeaderCard(LeaderCard[] possibleChoices) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void showMessage(AcceptedAction mess) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showMessage(RefusedAction mess) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setID(PlayerColor id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String nextInput() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ImmProperties[] reqPrivileges(int number, ImmProperties[] privilegesValues) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void matchEnded(EndData data) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int reqExtraActionChoice(ExtraActionData[] actions) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int reqWorkChoice(DevelopmentCard workCard) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String reqName() {
+		String name = JOptionPane.showInputDialog(mainWindow, "Insert your name", JOptionPane.PLAIN_MESSAGE);
+		return name;
+	}
+
+	@Override
+	public boolean reqIfWantsAdvancedRules() {
+		Object choices[] = { "Advanced Rules", "Standard Rules" };
+		int chosenMethod = JOptionPane.showOptionDialog(mainWindow, "Which rules do you want to use?", "Choose Rules", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, choices, choices[1]);
+		if (chosenMethod == 0) return true;
+		else return true;
+	}
+
+	@Override
+	public int chooseTile(PersonalBonusTile[] possibilities) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setRules(boolean isAdvanced) {
+		// TODO Auto-generated method stub
+		
 	}
 }
