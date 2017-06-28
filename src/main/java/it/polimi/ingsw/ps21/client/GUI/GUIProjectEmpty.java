@@ -59,7 +59,7 @@ import it.polimi.ingsw.ps21.view.ExtraActionData;
 import java.awt.Component;
 import java.awt.Dimension;
 
-public class GUIProjectEmpty implements UserInterface{
+public class GUIProjectEmpty implements UserInterface {
 	private static final Logger LOGGER = Logger.getLogger(GUIProjectEmpty.class.getSimpleName());
 	private JFrame mainWindow;
 	private BoardPanel boardPanel;
@@ -69,38 +69,21 @@ public class GUIProjectEmpty implements UserInterface{
 	private JSplitPane splitPane;
 	private double scaleFactor;
 	private int numberOfPlayers;
+	private int updateCounter = 0;
+	private boolean isAdvanced;
 	private Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
 
-	/**
-	 * Launch the application.
-	 */
-  
-	public void start(){
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					initialize(3, false);
-					placeDevelopmentCards();
-					placeExcommunications();
-					setSpaces();
-					setUpRightPanel();
-					setDownRightPanel();
-				} catch (Exception e) {
-					LOGGER.log(Level.WARNING, "Error creating thread for dispatching visual elements", e);
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
 	 */
-	public GUIProjectEmpty() {	
+	public GUIProjectEmpty() {
 		SwingUtilities.invokeLater(new Runnable() {
-			
+
 			@Override
 			public void run() {
-				mainWindow = new JFrame();
+				mainWindow = new JFrame("Lorenzo Il Magnifico");
+				mainWindow.setVisible(true);
 			}
 		});
 	}
@@ -109,20 +92,15 @@ public class GUIProjectEmpty implements UserInterface{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			mainWindow  = new JFrame("Lorenzo Il Magnifico");
-			mainWindow.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
-			mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			mainWindow.setResizable(false);
 
 		}
 
 	}
 
-	private void initialize(int numberOfPlayer, boolean isAdvanced) {
+	private void firstUpdate(MatchData matchInfo) {
 
-		this.numberOfPlayers = numberOfPlayer;
+		this.numberOfPlayers = matchInfo.getPlayers().length;
 
-		mainWindow = new JFrame();
 		mainWindow.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainWindow.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
@@ -154,23 +132,27 @@ public class GUIProjectEmpty implements UserInterface{
 
 		this.scaleFactor = boardPanel.getScaleFactor();
 		this.mainWindow.setVisible(true);
+
+		update(matchInfo);
 	}
 
 	private int resize(int originalSize) {
 		return (int) (originalSize * this.scaleFactor);
 	}
 
-	private void placeDevelopmentCards() {
-		for (int i = 0; i < 4; i++) {
-			DevelopmentCardLabel developmentCard = new DevelopmentCardLabel("Commercial Hub", boardPanel.getScaleFactor());
-			developmentCard.addActionListener(new MyListener());
-			boardPanel.add(developmentCard).setBounds(resize(615), resize(580) + resize(820) * i, resize(470), resize(720));
+	private void placeDevelopmentCards(DevelopmentCard[][] developmentCards) {
+		for (int j = 0; j < 4; j++) {
+			for (int i = 0; i < 4; i++) {
+				DevelopmentCardButton developmentCardButton = new DevelopmentCardButton(developmentCards[i][j].getName(),developmentCards[i][j].toString(), boardPanel.getScaleFactor());
+				developmentCardButton.addActionListener(new MyListener());
+				boardPanel.add(developmentCardButton).setBounds(resize(615) + j*resize(970), resize(580) + resize(820) * i, resize(470),resize(720));
+			}
 		}
 	}
 
 	private void placeExcommunications() {
 		for (int i = 0; i < 3; i++) {
-			ExcommunicationLabel excomCard = new ExcommunicationLabel("1",	boardPanel.getScaleFactor());
+			ExcommunicationLabel excomCard = new ExcommunicationLabel("1", boardPanel.getScaleFactor());
 			boardPanel.add(excomCard).setBounds(resize(1180) + resize(380) * i, resize(4100), resize(400), resize(715));
 		}
 	}
@@ -221,8 +203,9 @@ public class GUIProjectEmpty implements UserInterface{
 		// setting prsonal bonus tile
 		TilePanel personalBonusTile = new TilePanel("0");
 		splitPane.setLeftComponent(personalBonusTile);
-		splitPane.setDividerLocation((int)(personalBonusTile.getTileImage().getWidth() * (screenDimension.getHeight() / 2) / personalBonusTile.getTileImage().getHeight()));
-		
+		splitPane.setDividerLocation((int) (personalBonusTile.getTileImage().getWidth()
+				* (screenDimension.getHeight() / 2) / personalBonusTile.getTileImage().getHeight()));
+
 		// setting a tabbedPane in the right space of splitPane
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		splitPane.setRightComponent(tabbedPane);
@@ -243,17 +226,23 @@ public class GUIProjectEmpty implements UserInterface{
 		actionPanel.add(new FamilyMemberPanel(), BorderLayout.LINE_START);
 	}
 
+	private void update(MatchData matchInfo) {
+		placeDevelopmentCards(matchInfo.getBoard().getCards());
+	}
 
 	@Override
 	public void playMatch() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void updateView(MatchData match) {
-		// TODO Auto-generated method stub
-		
+		if (this.updateCounter == 0)
+			firstUpdate(match);
+		else
+			update(match);
+		this.updateCounter++;
 	}
 
 	@Override
@@ -265,7 +254,7 @@ public class GUIProjectEmpty implements UserInterface{
 	@Override
 	public void showInfo(String name) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -295,19 +284,19 @@ public class GUIProjectEmpty implements UserInterface{
 	@Override
 	public void showMessage(AcceptedAction mess) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void showMessage(RefusedAction mess) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void setID(PlayerColor id) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -325,7 +314,7 @@ public class GUIProjectEmpty implements UserInterface{
 	@Override
 	public void matchEnded(EndData data) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -349,9 +338,13 @@ public class GUIProjectEmpty implements UserInterface{
 	@Override
 	public boolean reqIfWantsAdvancedRules() {
 		Object choices[] = { "Advanced Rules", "Standard Rules" };
-		int chosenMethod = JOptionPane.showOptionDialog(mainWindow, "Which rules do you want to use?", "Choose Rules", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, choices, choices[1]);
-		if (chosenMethod == 0) return true;
-		else return true;
+		int chosenMethod = JOptionPane.showOptionDialog(mainWindow, "Which rules do you want to use?", "Choose Rules",
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, choices, choices[1]);
+		if (chosenMethod == 0)
+			this.isAdvanced = true;
+		else
+			this.isAdvanced = false;
+		return this.isAdvanced;
 	}
 
 	@Override
@@ -362,7 +355,6 @@ public class GUIProjectEmpty implements UserInterface{
 
 	@Override
 	public void setRules(boolean isAdvanced) {
-		// TODO Auto-generated method stub
-		
+		this.isAdvanced = isAdvanced;
 	}
 }
