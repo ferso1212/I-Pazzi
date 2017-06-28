@@ -12,19 +12,22 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
 
+import it.polimi.ingsw.ps21.controller.PlayerData;
+
 public class PlayerTile extends JSplitPane{
 	
-	private PlayerBoardPanel playerTile = new PlayerBoardPanel((new File("")).getAbsolutePath().concat("/src/images/Lorenzo_Punchboard_FRONT_compressed/punchboard_f_c_03.jpg"));
+	private PlayerBoardPanel playerBoardPanel;
 	private JPanel charactersAndVentures = new JPanel();
 	private JLabel characters = new JLabel();
 	private JLabel ventures = new JLabel();
 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
 	//passare carte character e venture del giocatore
-	public PlayerTile(){
+	public PlayerTile(PlayerData infoPlayer){
 		
-		this.setLeftComponent(playerTile);
-		this.setDividerLocation((int)(playerTile.getPlayerBoardImage().getWidth() * (screenSize.getHeight() / 2) / (playerTile.getPlayerBoardImage().getHeight() )));
+		playerBoardPanel = new PlayerBoardPanel((new File("")).getAbsolutePath().concat("/src/images/Lorenzo_Punchboard_FRONT_compressed/punchboard_f_c_03.jpg"), infoPlayer);
+		this.setLeftComponent(playerBoardPanel);
+		this.setDividerLocation((int)(playerBoardPanel.getPlayerBoardImage().getWidth() * (screenSize.getHeight() / 2) / (playerBoardPanel.getPlayerBoardImage().getHeight() )));
 		
 		characters.setBackground(new Color(0,127,255));
 		characters.setOpaque(true);

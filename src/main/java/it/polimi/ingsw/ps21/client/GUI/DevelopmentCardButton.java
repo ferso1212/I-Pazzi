@@ -6,6 +6,8 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -14,6 +16,7 @@ import javax.swing.JLabel;
 
 public class DevelopmentCardButton extends JButton{
 	
+	private static final Logger LOGGER = Logger.getLogger(DevelopmentCardButton.class.getSimpleName());
 	private Image cardImage;
 	private String path;
 	
@@ -28,8 +31,7 @@ public class DevelopmentCardButton extends JButton{
 			
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.WARNING, "Error finding card name." + name, e);
 		}
 	}
 

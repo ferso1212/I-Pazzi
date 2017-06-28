@@ -12,6 +12,7 @@ import it.polimi.ingsw.ps21.model.board.Tower;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
+import it.polimi.ingsw.ps21.model.excommunications.Excommunication;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 
 public class BoardData implements Serializable{
@@ -29,12 +30,14 @@ public class BoardData implements Serializable{
 	private FamilyMemberData[] multipleHarvestSpace;
 	private FamilyMemberData[] multipleProductionSpace;
 	private Map<DevelopmentCardType, int[]> cardsBonus;
+	private Excommunication[] excommunications;
 
 	
 	public BoardData(Board board)
 	{	//---COPIES THE CARDS IN THE TOWER SPACES
 		this.cards = new DevelopmentCard[4][4];
 		int towerIndex=0;
+		this.excommunications = board.getExcommunications();
 		this.towerSpaces=new FamilyMemberData[board.getTower(DevelopmentCardType.BUILDING).FLOORS_NUM][DevelopmentCardType.values().length];
 		this.towerBonuses=new ImmProperties[board.getTower(DevelopmentCardType.BUILDING).FLOORS_NUM][DevelopmentCardType.values().length];
 		this.towerRequirements = new int[board.getTower(DevelopmentCardType.BUILDING).FLOORS_NUM][DevelopmentCardType.values().length];
@@ -151,5 +154,9 @@ public class BoardData implements Serializable{
 		return this.towerRequirements;
 	}
 	
+	public Excommunication[] getExcommunications(){
+		return this.excommunications;
+		
+	}
 	
 }

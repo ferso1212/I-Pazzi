@@ -462,7 +462,7 @@
             </EffectSet>
         </PermanentEffect>
     </VentureCard>
-    <VentureCard name="Supporting Bishop" period="1">
+    <VentureCard name="Support To Bishop" period="1">
         <RequirementAndCost>
             <Requirement>
                 <Properties>
@@ -2058,6 +2058,6 @@
             </EffectSet>
         </PermanentEffect>
     </VentureCard>
-    
-    
+
+
 </SubDeckPurple>

@@ -29,7 +29,7 @@ public class PlayerBoardPanel extends JPanel{
 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
  	
- 	public PlayerBoardPanel(String boardPath){
+ 	public PlayerBoardPanel(String boardPath, PlayerData playerInfo){
  		super(true);  //crea un JPanel con doubleBuffered true
  		try {
  			setImage(ImageIO.read(new File(boardPath)));
@@ -37,7 +37,7 @@ public class PlayerBoardPanel extends JPanel{
  			// TODO Auto-generated catch block
  			e.printStackTrace();
  		}
- 		setProperties();
+ 		setProperties(playerInfo);
  	}
  	
  	public void setImage(BufferedImage img){
@@ -69,27 +69,23 @@ public class PlayerBoardPanel extends JPanel{
 		return this.playerBoardImage;
 	}
 	
-	private void setProperties(){
+	private void setProperties(PlayerData playerInfo){
 		
-		//coins = new JLabel(playerInfo.getProperties().get(PropertiesId.COINS).toString());
-		//woods = new JLabel(playerInfo.getProperties().get(PropertiesId.WOOD).toString());
-		//stones = new JLabel(playerInfo.getProperties().get(PropertiesId.STONES).toString());
-		//servants = new JLabel(playerInfo.getProperties().get(PropertiesId.SERVANTS).toString());
+		coins = new JLabel(Integer.toString(playerInfo.getProperties().get(PropertiesId.COINS)));
+		woods = new JLabel(Integer.toString(playerInfo.getProperties().get(PropertiesId.WOOD)));
+		stones = new JLabel(Integer.toString(playerInfo.getProperties().get(PropertiesId.STONES)));
+		servants = new JLabel(Integer.toString(playerInfo.getProperties().get(PropertiesId.SERVANTS)));
 		this.setLayout(null);
 		
-		coins = new JLabel("5");
 		coins.setBackground(Color.WHITE);
 		coins.setOpaque(true);
 		coins.setHorizontalAlignment(JLabel.CENTER);
-		woods = new JLabel("5");
 		woods.setBackground(Color.WHITE);
 		woods.setOpaque(true);
 		woods.setHorizontalAlignment(JLabel.CENTER);
-		stones = new JLabel("5");
 		stones.setBackground(Color.WHITE);
 		stones.setOpaque(true);
 		stones.setHorizontalAlignment(JLabel.CENTER);
-		servants = new JLabel("5");
 		servants.setBackground(Color.WHITE);
 		servants.setOpaque(true);
 		servants.setHorizontalAlignment(JLabel.CENTER);
@@ -105,10 +101,10 @@ public class PlayerBoardPanel extends JPanel{
 	}
 	
 	public void updateProperties(PlayerData playerInfo){
-		coins = new JLabel(playerInfo.getProperties().get(PropertiesId.COINS).toString());
-		woods = new JLabel(playerInfo.getProperties().get(PropertiesId.WOOD).toString());
-		stones = new JLabel(playerInfo.getProperties().get(PropertiesId.STONES).toString());
-		servants = new JLabel(playerInfo.getProperties().get(PropertiesId.SERVANTS).toString());
+		coins = new JLabel(Integer.toString(playerInfo.getProperties().get(PropertiesId.COINS)));
+		woods = new JLabel(Integer.toString(playerInfo.getProperties().get(PropertiesId.WOOD)));
+		stones = new JLabel(Integer.toString(playerInfo.getProperties().get(PropertiesId.STONES)));
+		servants = new JLabel(Integer.toString(playerInfo.getProperties().get(PropertiesId.SERVANTS)));
 	}
 
 

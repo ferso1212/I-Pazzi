@@ -13,6 +13,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import it.polimi.ingsw.ps21.controller.MatchData;
+
 public class BoardPanel extends JPanel {
 
 	/**
@@ -20,13 +22,13 @@ public class BoardPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private BufferedImage boardImage;
-	private JLabel orangeDice;
-	private JLabel blackDice;
-	private JLabel whiteDice;
+	private JLabel orangeDiceLabel;
+	private JLabel blackDiceLabel;
+	private JLabel whiteDiceLabel;
 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	private double scaleFactor;
 
-	public BoardPanel(String boardPath) {
+	public BoardPanel(String boardPath, int blackDice, int whiteDice, int orangeDice) {
 		super(true); // crea un JPanel con doubleBuffered true
 		try {
 			setImage(ImageIO.read(new File(boardPath)));
@@ -34,7 +36,7 @@ public class BoardPanel extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		setDiceLabel();
+		setDiceLabel(blackDice, whiteDice, orangeDice);
 	}
 
 	public void setImage(BufferedImage img) {
@@ -72,26 +74,26 @@ public class BoardPanel extends JPanel {
 		return (int)(originalSize * this.scaleFactor);
 	}
 
-	private void setDiceLabel(){
+	private void setDiceLabel(int blackDice, int whiteDice, int orangeDice){
 		
 		this.setLayout(null);
 		
-		orangeDice = new JLabel("5");
-		orangeDice.setBackground(Color.WHITE);
-		orangeDice.setOpaque(true);
-		orangeDice.setHorizontalAlignment(JLabel.CENTER);
-		whiteDice = new JLabel("5");
-		whiteDice.setBackground(Color.WHITE);
-		whiteDice.setOpaque(true);
-		whiteDice.setHorizontalAlignment(JLabel.CENTER);
-		blackDice = new JLabel("5");
-		blackDice.setBackground(Color.WHITE);
-		blackDice.setOpaque(true);
-		blackDice.setHorizontalAlignment(JLabel.CENTER);
+		orangeDiceLabel = new JLabel(Integer.toString(orangeDice));
+		orangeDiceLabel.setBackground(Color.WHITE);
+		orangeDiceLabel.setOpaque(true);
+		orangeDiceLabel.setHorizontalAlignment(JLabel.CENTER);
+		whiteDiceLabel = new JLabel(Integer.toString(whiteDice));
+		whiteDiceLabel.setBackground(Color.WHITE);
+		whiteDiceLabel.setOpaque(true);
+		whiteDiceLabel.setHorizontalAlignment(JLabel.CENTER);
+		blackDiceLabel = new JLabel(Integer.toString(blackDice));
+		blackDiceLabel.setBackground(Color.WHITE);
+		blackDiceLabel.setOpaque(true);
+		blackDiceLabel.setHorizontalAlignment(JLabel.CENTER);
 
 		
-		this.add(orangeDice).setBounds(resize(2910), resize(6200), resize(130), resize(130));
-		this.add(whiteDice).setBounds(resize(3365), resize(6200), resize(130), resize(130));
-		this.add(blackDice).setBounds(resize(3810), resize(6200), resize(130), resize(130));
+		this.add(orangeDiceLabel).setBounds(resize(2910), resize(6200), resize(130), resize(130));
+		this.add(whiteDiceLabel).setBounds(resize(3365), resize(6200), resize(130), resize(130));
+		this.add(blackDiceLabel).setBounds(resize(3810), resize(6200), resize(130), resize(130));
 	}
 }
