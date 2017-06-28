@@ -55,7 +55,7 @@ import it.polimi.ingsw.ps21.view.ExtraActionData;
 import java.awt.Component;
 import java.awt.Dimension;
 
-public class GUIProjectEmpty implements UserInterface{
+public class GUIProjectEmpty implements UserInterface, Runnable{
 
 	private JFrame mainWindow;
 	private BoardPanel boardPanel;
@@ -70,12 +70,17 @@ public class GUIProjectEmpty implements UserInterface{
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+  
+	public void start(){
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GUIProjectEmpty window = new GUIProjectEmpty();
-					window.mainWindow.setVisible(true);
+					initialize(3, false);
+					placeDevelopmentCards();
+					placeExcommunications();
+					setSpaces();
+					setUpRightPanel();
+					setDownRightPanel();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -86,14 +91,7 @@ public class GUIProjectEmpty implements UserInterface{
 	/**
 	 * Create the application.
 	 */
-	public GUIProjectEmpty() {
-		
-		initialize(3, false);
-		placeDevelopmentCards();
-		placeExcommunications();
-		setSpaces();
-		setUpRightPanel();
-		setDownRightPanel();
+	public GUIProjectEmpty() {	
 	}
 
 	private class MyListener implements ActionListener {
@@ -141,6 +139,7 @@ public class GUIProjectEmpty implements UserInterface{
 		mainWindow.pack();
 
 		this.scaleFactor = boardPanel.getScaleFactor();
+		this.mainWindow.setVisible(true);
 	}
 
 	private int resize(int originalSize) {
@@ -343,5 +342,11 @@ public class GUIProjectEmpty implements UserInterface{
 	public int chooseTile(PersonalBonusTile[] possibilities) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public void setRules(boolean isAdvanced) {
+		// TODO Auto-generated method stub
+		
 	}
 }
