@@ -79,7 +79,7 @@ public class AdvancedMatch extends Match {
 		round = RoundType.LEADER_ROUND;
 		setupLeaderChoices();
 		setChanged();
-		notifyObservers();
+		notifyObservers("Leader Cards shuffle");
 	}
 	
 	private void setupLeaderChoices() {
@@ -132,6 +132,8 @@ public class AdvancedMatch extends Match {
 	if (round == RoundType.LEADER_ROUND){
 			if(!switchLeaderChoice()){
 				round = RoundType.TILE_CHOICE;
+				setChanged();
+				notifyObservers("Player Tile Choices");
 				return;
 			}
 			else return;
@@ -181,8 +183,11 @@ public class AdvancedMatch extends Match {
 		}
 		throwDices();
 	}
-	setChanged();
-	notifyObservers();
+	if (round!= RoundType.LEADER_ROUND && round != RoundType.TILE_CHOICE)
+	{
+		setChanged();
+		notifyObservers();
+	}
 	}
 	
 	private boolean switchLeaderChoice() {
@@ -332,8 +337,10 @@ public class AdvancedMatch extends Match {
 			if ((!(action instanceof VaticanAction))){
 				ExtraAction[] extraActionPool;
 				extraActionPool = action.activate(order.get(currentPlayer),this);
-				setChanged();
-				notifyObservers();
+				if (round != RoundType.LEADER_ROUND && round != RoundType.TILE_CHOICE)	{
+						setChanged();
+						notifyObservers();
+					}
 				return extraActionPool;
 		}
 			else throw new VaticanRoundException();

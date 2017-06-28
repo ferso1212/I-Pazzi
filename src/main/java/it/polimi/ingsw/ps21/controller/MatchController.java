@@ -376,7 +376,6 @@ public class MatchController extends Observable implements Observer {
 			} else if (arg == null) {
 				setChanged();
 				notifyObservers(new MatchData(match));
-				setChanged();
 				
 			}
 			else if (arg instanceof EndData)
