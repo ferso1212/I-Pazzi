@@ -59,9 +59,7 @@ public class ClientMain {
 			}
         if (chosenInterface==1) ui = new CLInterface();
     	else {
-    		GUIProjectEmpty gui = new GUIProjectEmpty();
-    		gui.start();
-    		ui = gui;
+    		ui = new GUIProjectEmpty();
 		}
     	}
     	

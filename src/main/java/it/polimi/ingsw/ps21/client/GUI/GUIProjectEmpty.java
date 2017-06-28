@@ -13,6 +13,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import javax.swing.RepaintManager;
@@ -29,6 +30,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JSplitPane;
 import javax.swing.JLayeredPane;
@@ -55,8 +58,8 @@ import it.polimi.ingsw.ps21.view.ExtraActionData;
 import java.awt.Component;
 import java.awt.Dimension;
 
-public class GUIProjectEmpty implements UserInterface, Runnable{
-
+public class GUIProjectEmpty implements UserInterface{
+	private static final Logger LOGGER = Logger.getLogger(GUIProjectEmpty.class.getSimpleName());
 	private JFrame mainWindow;
 	private BoardPanel boardPanel;
 	private JPanel rightPanel;
@@ -72,7 +75,7 @@ public class GUIProjectEmpty implements UserInterface, Runnable{
 	 */
   
 	public void start(){
-		EventQueue.invokeLater(new Runnable() {
+		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					initialize(3, false);
@@ -82,7 +85,7 @@ public class GUIProjectEmpty implements UserInterface, Runnable{
 					setUpRightPanel();
 					setDownRightPanel();
 				} catch (Exception e) {
-					e.printStackTrace();
+					LOGGER.log(Level.WARNING, "Error creating thread for dispatching visual elements", e);
 				}
 			}
 		});
@@ -328,8 +331,12 @@ public class GUIProjectEmpty implements UserInterface, Runnable{
 
 	@Override
 	public String reqName() {
-		// TODO Auto-generated method stub
-		return null;
+		NameDialog dialog = new NameDialog();
+		dialog.setAlwaysOnTop(true);
+		dialog.setVisible(true);
+		String name = dialog.getName();
+		dialog.setVisible(false);
+		return name;
 	}
 
 	@Override
