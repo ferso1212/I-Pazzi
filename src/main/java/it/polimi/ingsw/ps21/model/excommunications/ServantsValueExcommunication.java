@@ -8,6 +8,10 @@ import it.polimi.ingsw.ps21.model.player.Player;
  */
 public class ServantsValueExcommunication extends Excommunication{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8062050530390572204L;
 	private int servantsForOne;
 	
 

@@ -17,7 +17,7 @@ import it.polimi.ingsw.ps21.model.match.SimpleMatch;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.view.UserHandler;
 
-public class MatchRunner implements Runnable {
+public class MatchRunner {
 	private final static Logger LOGGER = Logger.getLogger(MatchRunner.class.getName());
 	private UserHandler[] playerHandlers;
 	private MatchController controller;
@@ -28,8 +28,8 @@ public class MatchRunner implements Runnable {
 		this.isAdvanced=isAdvanced;
 	}
 
-	@Override
-	public void run() {
+	
+	public ArrayList<String> run() {
 		try {
 			Match match;
 			PlayerColor[] playersIds= new PlayerColor[playerHandlers.length];
@@ -42,12 +42,25 @@ public class MatchRunner implements Runnable {
 			
 			this.controller = new MatchController(match, playerHandlers);
 			
+			
 		} catch (InvalidIDException e) {
 			LOGGER.log(Level.INFO, "Unable to add another player" , e);
 
 		} catch (BuildingDeckException e) {
 			LOGGER.log(Level.SEVERE, "Unable to create Match" , e);
 		}
+		
+		ArrayList<String> namesToRemove= new ArrayList<>();
+		for(UserHandler user: playerHandlers)
+		{
+			namesToRemove.add(user.getName());
+	
+		}
+		return namesToRemove;
+		
+		
+		
+		
 		
 
 	}

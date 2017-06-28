@@ -93,7 +93,21 @@ public class Lobby extends Thread{
 				playersAdded++;
 			}
 		}
-		new Thread((new MatchRunner(isAdvanced, usersToAdd))).start();
+		Thread matchRunner=new Thread(){
+			public void run()
+			{
+				ArrayList<String> namesToRemove= (new MatchRunner(isAdvanced, usersToAdd)).run();
+				synchronized(playingUsers)
+				{
+					for(String name: namesToRemove) playingUsers.remove(name);
+				}
+				synchronized(names)
+				{
+					names.removeAll(namesToRemove);
+				}
+			}
+		};
+		matchRunner.start();
 		System.out.println("\nNew MatchRunner thread created with " + playersAdded + " players.");
 		
 	}
