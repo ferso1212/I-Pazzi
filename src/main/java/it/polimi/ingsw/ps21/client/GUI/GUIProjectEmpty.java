@@ -28,6 +28,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -44,11 +45,13 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 import it.polimi.ingsw.ps21.client.UserInterface;
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
 import it.polimi.ingsw.ps21.controller.MatchData;
+import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
+import it.polimi.ingsw.ps21.model.excommunications.Excommunication;
 import it.polimi.ingsw.ps21.model.player.PersonalBonusTile;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
@@ -71,8 +74,9 @@ public class GUIProjectEmpty implements UserInterface {
 	private int numberOfPlayers;
 	private int updateCounter = 0;
 	private boolean isAdvanced;
+	private int playerTile;
+	private PlayerColor playerID;
 	private Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
-
 
 	/**
 	 * Create the application.
@@ -105,7 +109,8 @@ public class GUIProjectEmpty implements UserInterface {
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainWindow.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
 
-		boardPanel = new BoardPanel((new File("")).getAbsolutePath().concat("/src/images/board2.jpg"));
+		boardPanel = new BoardPanel((new File("")).getAbsolutePath().concat("/src/images/board2.jpg"),
+				matchInfo.getBlackDice(), matchInfo.getWhiteDice(), matchInfo.getOrangeDice());
 		boardPanel.setLayout(null);
 		mainWindow.getContentPane().add(boardPanel);
 
@@ -143,16 +148,22 @@ public class GUIProjectEmpty implements UserInterface {
 	private void placeDevelopmentCards(DevelopmentCard[][] developmentCards) {
 		for (int j = 0; j < 4; j++) {
 			for (int i = 0; i < 4; i++) {
-				DevelopmentCardButton developmentCardButton = new DevelopmentCardButton(developmentCards[i][j].getName(),developmentCards[i][j].toString(), boardPanel.getScaleFactor());
-				developmentCardButton.addActionListener(new MyListener());
-				boardPanel.add(developmentCardButton).setBounds(resize(615) + j*resize(970), resize(580) + resize(820) * i, resize(470),resize(720));
+				if (developmentCards[i][j] != null) {
+					DevelopmentCardButton developmentCardButton = new DevelopmentCardButton(
+							developmentCards[i][j].getName(), developmentCards[i][j].toString(),
+							boardPanel.getScaleFactor());
+					developmentCardButton.addActionListener(new MyListener());
+					boardPanel.add(developmentCardButton).setBounds(resize(615) + j * resize(970),
+							resize(580) + resize(820) * i, resize(470), resize(720));
+				}
 			}
 		}
 	}
 
-	private void placeExcommunications() {
+	private void placeExcommunications(Excommunication[] excommunications) {
 		for (int i = 0; i < 3; i++) {
-			ExcommunicationLabel excomCard = new ExcommunicationLabel("1", boardPanel.getScaleFactor());
+			ExcommunicationLabel excomCard = new ExcommunicationLabel(excommunications[i].getId(),
+					boardPanel.getScaleFactor());
 			boardPanel.add(excomCard).setBounds(resize(1180) + resize(380) * i, resize(4100), resize(400), resize(715));
 		}
 	}
@@ -198,10 +209,10 @@ public class GUIProjectEmpty implements UserInterface {
 		councilButton.addActionListener(new MyListener());
 	}
 
-	private void setUpRightPanel() {
+	private void setUpRightPanel(PlayerData[] playersInfo) {
 
 		// setting prsonal bonus tile
-		TilePanel personalBonusTile = new TilePanel("0");
+		TilePanel personalBonusTile = new TilePanel(Integer.toString(this.playerTile));
 		splitPane.setLeftComponent(personalBonusTile);
 		splitPane.setDividerLocation((int) (personalBonusTile.getTileImage().getWidth()
 				* (screenDimension.getHeight() / 2) / personalBonusTile.getTileImage().getHeight()));
@@ -210,8 +221,8 @@ public class GUIProjectEmpty implements UserInterface {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		splitPane.setRightComponent(tabbedPane);
 
-		for (int i = 1; i <= this.numberOfPlayers; i++) {
-			PlayerTile playerTile = new PlayerTile();
+		for (int i = 0; i < this.numberOfPlayers; i++) {
+			PlayerTile playerTile = new PlayerTile(playersInfo[i]);
 			tabbedPane.addTab("Player " + i + " Tile", null, playerTile, null);
 		}
 
@@ -227,7 +238,9 @@ public class GUIProjectEmpty implements UserInterface {
 	}
 
 	private void update(MatchData matchInfo) {
+		setUpRightPanel(matchInfo.getPlayers());
 		placeDevelopmentCards(matchInfo.getBoard().getCards());
+		placeExcommunications(matchInfo.getBoard().getExcommunications());
 	}
 
 	@Override
@@ -252,8 +265,9 @@ public class GUIProjectEmpty implements UserInterface {
 	}
 
 	@Override
-	public void showInfo(String name) {
-		// TODO Auto-generated method stub
+	public void showInfo(String message) {
+		JOptionPane.showMessageDialog(mainWindow, "Message from Server: " + message, "Server Message",
+				JOptionPane.INFORMATION_MESSAGE);
 
 	}
 
@@ -295,8 +309,7 @@ public class GUIProjectEmpty implements UserInterface {
 
 	@Override
 	public void setID(PlayerColor id) {
-		// TODO Auto-generated method stub
-
+		this.playerID = id;
 	}
 
 	@Override
@@ -342,15 +355,29 @@ public class GUIProjectEmpty implements UserInterface {
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, choices, choices[1]);
 		if (chosenMethod == 0)
 			this.isAdvanced = true;
-		else
+		else {
 			this.isAdvanced = false;
+			this.playerTile = 0;
+		}
 		return this.isAdvanced;
 	}
 
 	@Override
 	public int chooseTile(PersonalBonusTile[] possibilities) {
-		// TODO Auto-generated method stub
-		return 0;
+		Object choices[] = new Object[possibilities.length];
+		for (int i = 0; i < possibilities.length; i++) {
+			choices[i] = possibilities[i].toString();
+		}
+		String chosenTile = (String) JOptionPane.showInputDialog(mainWindow, "Which tile do you want to use?",
+				"Choose Tile", JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+		int j;
+		for (j = 0; j < choices.length; j++) {
+			if (chosenTile.compareTo((String) choices[j]) == 0) {
+				this.playerTile = possibilities[j].getID();
+				break;
+			}
+		}
+		return j;
 	}
 
 	@Override
