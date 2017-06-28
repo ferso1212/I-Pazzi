@@ -78,7 +78,6 @@ public class AdvancedMatch extends Match {
 		period = 0;
 		round = RoundType.LEADER_ROUND;
 		setupLeaderChoices();
-		setChanged();
 		notifyObservers("Leader Cards shuffle");
 	}
 	
@@ -132,7 +131,6 @@ public class AdvancedMatch extends Match {
 	if (round == RoundType.LEADER_ROUND){
 			if(!switchLeaderChoice()){
 				round = RoundType.TILE_CHOICE;
-				setChanged();
 				notifyObservers("Player Tile Choices");
 				return;
 			}
