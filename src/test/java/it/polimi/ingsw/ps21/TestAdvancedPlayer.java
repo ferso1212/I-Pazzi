@@ -29,7 +29,7 @@ public class TestAdvancedPlayer {
 		assertEquals(0, player.getActivatedLeaderCards().size());
 		assertNotEquals(null, player.getAdvMod());
 		assertEquals(0, player.getActiveAndClonableLeaderCards().size());
-		player.setPersonalBonusTile(new PersonalBonusTile(new ImmProperties(1,1,1,1,1,1), 1, new ImmProperties(1,1,1,1,1,1), 1));
+		player.setPersonalBonusTile(new PersonalBonusTile(1, new ImmProperties(1,1,1,1,1,1), 1, new ImmProperties(1,1,1,1,1,1), 1));
 		
 	}
 

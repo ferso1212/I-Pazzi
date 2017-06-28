@@ -442,8 +442,6 @@ public class CLInterface implements UserInterface {
 			}
 			space = marketChoice - 1;
 			tower = DevelopmentCardType.BUILDING;
-			familyMember = null;
-			servants = 0;
 		}
 			break;
 		case 5: {
