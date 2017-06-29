@@ -53,19 +53,8 @@ public class Lobby extends Thread{
 		expired=new LobbyTimeoutTask(chosenRules);
 		
 		while (connectionsQueue.size() < MAX_PLAYERS_NUM && !expired.isExpired()) {
-			if (connectionsQueue.size() >= MIN_PLAYERS_NUM && !startedTimer) // the
-																		// counter
-																		// starts
-																		// when
-																		// at
-																		// least
-																		// 2
-																		// players
-																		// have
-																		// joined
-																		// the
-																		// lobby
-			{
+			if (connectionsQueue.size() >= MIN_PLAYERS_NUM && !startedTimer) 
+			{//the counter starts when the second player joins the lobby
 
 				timer.schedule(expired, TIMEOUT);
 				startedTimer = true;
@@ -86,7 +75,7 @@ public class Lobby extends Thread{
 			System.out.println("\nInitializing a new " + chosenRules + " match with " + Math.min(MAX_PLAYERS_NUM, connectionsQueue.size())
 					+ " players.");
 			usersToAdd = new UserHandler[Math.min(connectionsQueue.size(), MAX_PLAYERS_NUM)];
-			while ((playersAdded < usersToAdd.length) && (connectionsQueue.size() > 0)) {
+			while ((playersAdded < usersToAdd.length) && (!connectionsQueue.isEmpty())) {
 				UserHandler newUser=new UserHandler(PlayerColor.values()[playersAdded], connectionsQueue.poll(), isAdvanced);
 				usersToAdd[playersAdded] = newUser;
 				playingUsers.put(newUser.getName(), newUser);
