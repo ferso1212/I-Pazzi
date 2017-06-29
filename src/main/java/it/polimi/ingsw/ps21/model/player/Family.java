@@ -66,7 +66,7 @@ public class Family {
 	}
 	
 	/**Returns the value of the member, modified by the number of servants used.
-	 * 
+	 * You should always use this method when you need to increase the value of a member through servants: if you don't use this method and manually add the servants to the member's value, you won't take into account the modifiers.
 	 * @param servants used in the action
 	 * @param color color of the family member used.
 	 * @return the value of the member, modified by the number of servants used.
