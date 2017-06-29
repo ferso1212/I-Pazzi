@@ -38,7 +38,7 @@ public class MarketAction extends Action{
 				return new RefusedAction(player.getId(), "You can't place a family member in a market space because you have an excommunication!");
 			}
 			
-			if (!(((famMember.getValue() + this.possibleServants) >= space.getDiceRequirement()))) return new RefusedAction(player.getId(), "Dice value of member isn't enough");
+			if (!(((player.getFamily().getMemberValueWithServants(this.possibleServants, this.famMember.getColor())) >= space.getDiceRequirement()))) return new RefusedAction(player.getId(), "Dice value of member isn't enough");
 			if (!(space.isOccupable(player, famMember))) return new RefusedAction(player.getId(), "You can't use this family member in this place");
 			if (!(!famMember.isUsed())) return new RefusedAction(player.getId(), "This family member is already used");
 //			if ((space.getNumberOfPrivileges() > 0) && (match.getBoard().getCouncilPalace().checkPlayer(player))){
