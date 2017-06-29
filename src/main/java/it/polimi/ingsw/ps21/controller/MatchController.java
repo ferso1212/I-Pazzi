@@ -119,8 +119,7 @@ public class MatchController extends Observable implements Observer {
 	 */
 	public void startMatch() {
 		setChanged();
-		// MatchData matchinfo = new MatchData(match);
-		// notifyObservers(matchinfo);
+		if(this.match.hasChanged()) notifyObservers(new MatchData(match));
 		this.roundType = match.getRound();
 		newRound();
 	}

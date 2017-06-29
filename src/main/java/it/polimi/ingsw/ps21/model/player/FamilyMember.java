@@ -19,7 +19,7 @@ public class FamilyMember {
 	 */
 	public int getValue()
 	{
-		return (this.value + this.modifier);
+		return Math.max(0, (this.value + this.modifier));
 	}
 	
 	/**Increases the value of the Member by the number of servants used when placed.

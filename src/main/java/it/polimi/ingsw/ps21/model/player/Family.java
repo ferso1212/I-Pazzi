@@ -21,6 +21,7 @@ public class Family {
 		{
 			this.members.put(mColor, new FamilyMember(mColor, playerId));
 		}
+		this.servantsForOne=1;
 	}
 	
 	/**Returns the Family Member of the specified color.

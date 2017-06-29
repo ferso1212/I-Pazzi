@@ -7,6 +7,12 @@ public class WorkModifier {
 	private int harvestModifier;
 	private int productionModifier;
 	
+	public WorkModifier()
+	{
+		this.harvestModifier=0;
+		this.productionModifier=0;
+	}
+	
 	/**
 	 * Returns the value of the production modifier. Production modifiers are
 	 * modifiers that increase/reduce the production action value
@@ -54,4 +60,5 @@ public class WorkModifier {
 		else if(type==WorkType.PRODUCTION) this.productionModifier=value;
 		else throw new IllegalArgumentException();
 	}
+	
 }
