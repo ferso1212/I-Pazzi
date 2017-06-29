@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
+import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,11 +48,13 @@ import it.polimi.ingsw.ps21.controller.AcceptedAction;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
+import it.polimi.ingsw.ps21.model.actions.ActionType;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.excommunications.Excommunication;
+import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.PersonalBonusTile;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
@@ -70,6 +73,7 @@ public class GUIProjectEmpty implements UserInterface {
 	private JPanel actionPanel;
 	private JTabbedPane tabbedPane;
 	private JSplitPane splitPane;
+	private JButton okButton;
 	private double scaleFactor;
 	private int numberOfPlayers;
 	private int updateCounter = 0;
@@ -77,6 +81,7 @@ public class GUIProjectEmpty implements UserInterface {
 	private int playerTile;
 	private PlayerColor playerID;
 	private Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
+	private Semaphore waitingActions;
 
 	/**
 	 * Create the application.
@@ -88,6 +93,7 @@ public class GUIProjectEmpty implements UserInterface {
 			public void run() {
 				mainWindow = new JFrame("Lorenzo Il Magnifico");
 				mainWindow.setVisible(true);
+				waitingActions = new Semaphore(1);
 			}
 		});
 	}
@@ -96,7 +102,12 @@ public class GUIProjectEmpty implements UserInterface {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-
+		if(e.getSource().equals(okButton)){
+			if (waitingActions.availablePermits()==0){
+				waitingActions.release();
+				}
+			}
+				
 		}
 
 	}
@@ -233,8 +244,12 @@ public class GUIProjectEmpty implements UserInterface {
 
 		RoundInfo roundInfo = new RoundInfo("Informazioni sul round");
 		actionPanel.add(roundInfo, BorderLayout.PAGE_START);
-
 		actionPanel.add(new FamilyMemberPanel(), BorderLayout.LINE_START);
+		okButton = new JButton("Send Action");
+		okButton.addActionListener(new MyListener());
+		actionPanel.add(okButton);
+		actionPanel.setVisible(true);
+		mainWindow.pack();
 	}
 
 	private void update(MatchData matchInfo) {
@@ -260,8 +275,14 @@ public class GUIProjectEmpty implements UserInterface {
 
 	@Override
 	public ActionData makeAction(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		setDownRightPanel();
+		waitingActions.drainPermits();
+		try {
+			waitingActions.acquire();
+			return new ActionData(ActionType.NULL, MembersColor.NEUTRAL, 0, null, 0, id);
+		} catch (InterruptedException e) {
+			return new ActionData(ActionType.NULL, MembersColor.NEUTRAL, 0, null, 0, id);
+		}
 	}
 
 	@Override
