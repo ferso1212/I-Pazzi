@@ -239,6 +239,7 @@ public class GUIProjectEmpty implements UserInterface {
 
 	private void update(MatchData matchInfo) {
 		setUpRightPanel(matchInfo.getPlayers());
+		setSpaces();
 		placeDevelopmentCards(matchInfo.getBoard().getCards());
 		placeExcommunications(matchInfo.getBoard().getExcommunications());
 	}
