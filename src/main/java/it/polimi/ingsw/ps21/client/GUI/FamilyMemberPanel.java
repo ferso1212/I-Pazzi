@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
@@ -34,7 +35,7 @@ public class FamilyMemberPanel extends JPanel{
 		this.blackMember.addActionListener(new FamilyListener());
 		this.neutralMember = new FamilyMemberButton(new Color(240, 220, 130));
 		this.neutralMember.addActionListener(new FamilyListener());
-		this.setLayout(new GridLayout(4, 1));
+		this.setLayout(new GridLayout(0,4));
 		startFamilyMemberPanel();
 
 	}

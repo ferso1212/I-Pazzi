@@ -28,14 +28,15 @@ public class ActionPanel extends JPanel{
 		
 		roundInfo = new JLabel("This is the " + matchInfo.getRound() + " of the " + matchInfo.getPeriod() + "° period.");
 		this.add(roundInfo, BorderLayout.PAGE_START);
-		this.add(memberPanel, BorderLayout.LINE_START);
+	//	this.add(memberPanel, BorderLayout.LINE_START);
 		servantsSlider = new ServantsSlider();
 		for(PlayerData p : matchInfo.getPlayers()){
 			if (p.getId() == this.playerId)
 				servantsSlider.updateSlider(p);
 		}
 		JPanel temp = new JPanel();
-		temp.setLayout(new GridBagLayout());
+		temp.setLayout(new GridLayout(1, 4, 5, 0));
+		temp.add(memberPanel);
 		temp.add(new JLabel("Servants to add:"));
 		temp.add(servantsSlider);
 		this.add(temp, BorderLayout.PAGE_END);
