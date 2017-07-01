@@ -83,11 +83,18 @@ public class GUIProjectEmpty implements UserInterface {
 	private PlayerColor playerID;
 	private Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
 	private Semaphore waitingActions;
-
+	private DevelopmentCardButton[][] developmentButtons;
+	private WorkActionButton singleHarvestButton;
+	private WorkActionButton singleProductionButton;
+	private WorkActionButton multipleProductionButton;
+	private WorkActionButton multipleHarvestButton;
+	private CouncilButton councilButton;
+	private MarketButton[] marketButtons;
 	/**
 	 * Create the application.
 	 */
 	public GUIProjectEmpty() {
+		this.developmentButtons = new DevelopmentCardButton[4][4];
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
@@ -145,10 +152,22 @@ public class GUIProjectEmpty implements UserInterface {
 		rightPanel.add(actionPanel);
 		actionPanel.setLayout(new BorderLayout(0, 0));
 
-		mainWindow.pack();
-
 		this.scaleFactor = boardPanel.getScaleFactor();
 		this.mainWindow.setVisible(true);
+		
+		this.developmentButtons = new DevelopmentCardButton[4][4];
+		for (int j = 0; j < 4; j++) {
+			for (int i = 0; i < 4; i++) {
+				{
+					developmentButtons[i][j] = new DevelopmentCardButton(boardPanel.getScaleFactor());
+					developmentButtons[i][j].addActionListener(new MyListener());
+					boardPanel.add(developmentButtons[i][j]).setBounds(resize(615) + j * resize(970),
+							resize(580) + resize(820) * i, resize(470), resize(720));
+				}
+			}
+		}
+
+		mainWindow.pack();
 
 		update(matchInfo);
 	}
@@ -161,13 +180,9 @@ public class GUIProjectEmpty implements UserInterface {
 		for (int j = 0; j < 4; j++) {
 			for (int i = 0; i < 4; i++) {
 				if (developmentCards[i][j] != null) {
-					DevelopmentCardButton developmentCardButton = new DevelopmentCardButton(
-							developmentCards[i][j].getName(), developmentCards[i][j].toString(),
-							boardPanel.getScaleFactor());
-					developmentCardButton.addActionListener(new MyListener());
-					boardPanel.add(developmentCardButton).setBounds(resize(615) + j * resize(970),
-							resize(580) + resize(820) * i, resize(470), resize(720));
+					developmentButtons[i][j].update(developmentCards[i][j].getName(), developmentCards[i][j].toString());
 				}
+				else developmentButtons[i][j].reset();
 			}
 		}
 	}
@@ -182,41 +197,52 @@ public class GUIProjectEmpty implements UserInterface {
 
 	private void setSpaces() {
 		// work space
-		WorkActionButton singleHarvest = new WorkActionButton(WorkType.HARVEST, true);
-		boardPanel.add(singleHarvest).setBounds(resize(545), resize(5485), resize(415), resize(415));
-		singleHarvest.addActionListener(new MyListener());
+		singleHarvestButton = new WorkActionButton(WorkType.HARVEST, true);
+		boardPanel.add(singleHarvestButton).setBounds(resize(545), resize(5485), resize(415), resize(415));
+		singleHarvestButton.addActionListener(new MyListener());
 
-		WorkActionButton singleProduction = new WorkActionButton(WorkType.PRODUCTION, true);
-		boardPanel.add(singleProduction).setBounds(resize(545), resize(6020), resize(415), resize(415));
-		singleProduction.addActionListener(new MyListener());
+		singleProductionButton = new WorkActionButton(WorkType.PRODUCTION, true);
+		boardPanel.add(singleProductionButton).setBounds(resize(545), resize(6020), resize(415), resize(415));
+		singleProductionButton.addActionListener(new MyListener());
 
-		WorkActionButton multipleHarvest = new WorkActionButton(WorkType.HARVEST, false);
-		boardPanel.add(multipleHarvest).setBounds(resize(1100), resize(5485), resize(900), resize(415));
-		multipleHarvest.addActionListener(new MyListener());
+		multipleHarvestButton = new WorkActionButton(WorkType.HARVEST, false);
+		boardPanel.add(multipleHarvestButton).setBounds(resize(1100), resize(5485), resize(900), resize(415));
+		multipleHarvestButton.addActionListener(new MyListener());
 
-		WorkActionButton multipleProduction = new WorkActionButton(WorkType.PRODUCTION, false);
-		boardPanel.add(multipleProduction).setBounds(resize(1100), resize(6020), resize(900), resize(415));
-		multipleProduction.addActionListener(new MyListener());
+		multipleProductionButton = new WorkActionButton(WorkType.PRODUCTION, false);
+		boardPanel.add(multipleProductionButton).setBounds(resize(1100), resize(6020), resize(900), resize(415));
+		multipleProductionButton.addActionListener(new MyListener());
 
+		if (numberOfPlayers<4) {
+			this.marketButtons = new MarketButton[2];
 		// market space
-		MarketButton firstMarket = new MarketButton(1);
-		boardPanel.add(firstMarket).setBounds(resize(2860), resize(5380), resize(415), resize(415));
-		firstMarket.addActionListener(new MyListener());
+		marketButtons[0] = new MarketButton(1);
+		boardPanel.add(marketButtons[0]).setBounds(resize(2860), resize(5380), resize(415), resize(415));
+		marketButtons[0].addActionListener(new MyListener());
 
-		MarketButton secondMarket = new MarketButton(2);
-		boardPanel.add(secondMarket).setBounds(resize(3300), resize(5380), resize(415), resize(415));
-		secondMarket.addActionListener(new MyListener());
+		marketButtons[1] = new MarketButton(2);
+		boardPanel.add(marketButtons[1]).setBounds(resize(3300), resize(5380), resize(415), resize(415));
+		marketButtons[1].addActionListener(new MyListener());
+		}
+		else {	
+			this.marketButtons = new MarketButton[4];
+			marketButtons[0] = new MarketButton(1);
+			boardPanel.add(marketButtons[0]).setBounds(resize(2860), resize(5380), resize(415), resize(415));
+			marketButtons[0].addActionListener(new MyListener());
+			marketButtons[1] = new MarketButton(2);
+			boardPanel.add(marketButtons[1]).setBounds(resize(3300), resize(5380), resize(415), resize(415));
+			marketButtons[1].addActionListener(new MyListener());
+					
+			marketButtons[2] = new MarketButton(3);
+			boardPanel.add(marketButtons[2]).setBounds(resize(3730), resize(5500), resize(415), resize(415));
+			marketButtons[2].addActionListener(new MyListener());
 
-		MarketButton thirdMarket = new MarketButton(3);
-		boardPanel.add(thirdMarket).setBounds(resize(3730), resize(5500), resize(415), resize(415));
-		thirdMarket.addActionListener(new MyListener());
-
-		MarketButton fourthMarket = new MarketButton(4);
-		boardPanel.add(fourthMarket).setBounds(resize(4050), resize(5800), resize(415), resize(415));
-		fourthMarket.addActionListener(new MyListener());
-
+			marketButtons[4] = new MarketButton(4);
+			boardPanel.add(marketButtons[4]).setBounds(resize(4050), resize(5800), resize(415), resize(415));
+			marketButtons[4].addActionListener(new MyListener());
+		}
 		// council space
-		CouncilButton councilButton = new CouncilButton();
+		councilButton = new CouncilButton();
 		boardPanel.add(councilButton).setBounds(resize(2515), resize(3780), resize(1280), resize(510));
 		councilButton.addActionListener(new MyListener());
 	}

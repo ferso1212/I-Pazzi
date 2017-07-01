@@ -19,20 +19,14 @@ public class DevelopmentCardButton extends JButton{
 	private static final Logger LOGGER = Logger.getLogger(DevelopmentCardButton.class.getSimpleName());
 	private transient Image cardImage;
 	private String path;
+	private double scaleFactor;
 	
-	public DevelopmentCardButton(String name, String description, double scaleFactor){
-		this.path = path;
-		try {
+	public DevelopmentCardButton(double scaleFactor){
 			int width = (int)(470 *scaleFactor);
 			int height = (int)(754 * scaleFactor);
-			this.cardImage = ImageIO.read(new File((new File("")).getAbsolutePath().concat("/src/images/DevelopmentCards/").concat(name.replace(" ","")).concat(".png")));
-			this.setIcon(new ImageIcon(cardImage.getScaledInstance(width, height, Image.SCALE_DEFAULT)));
-			this.setToolTipText("<html><body><div><img src=\"file:src/images/DevelopmentCards/"+name.replace(" ", "")+".png\"></div><div>"+ description + "</div></body></html> ");
-			
-			
-		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Error finding card name." + name, e);
-		}
+			this.scaleFactor = scaleFactor;
+			this.setOpaque(false);
+			this.setContentAreaFilled(false);
 	}
 
 	public Image getCardImage() {
@@ -45,6 +39,24 @@ public class DevelopmentCardButton extends JButton{
 	
 	public String getPath(){
 		return this.path;
+	
+	}
+
+	public void update(String name, String cardDescription) {
+	try{
+		this.cardImage = ImageIO.read(new File((new File("")).getAbsolutePath().concat("/src/images/DevelopmentCards/").concat(name.replace(" ","")).concat(".png")));
+		int width = (int)(470 *scaleFactor);
+		int height = (int)(754 * scaleFactor);
+		this.setIcon(new ImageIcon(cardImage.getScaledInstance(width, height, Image.SCALE_DEFAULT)));
+		this.setToolTipText("<html><body><div><img src=\"file:src/images/DevelopmentCards/"+name.replace(" ", "")+".png\"></div><div>"+ cardDescription + "</div></body></html> ");
+		this.setVisible(true);
+	} catch (IOException e) {
+		LOGGER.log(Level.WARNING, "Error finding card name." + name, e);
+	}
+	}
+	
+	public void reset(){
+		this.setVisible(false);
 	}
 
 }
