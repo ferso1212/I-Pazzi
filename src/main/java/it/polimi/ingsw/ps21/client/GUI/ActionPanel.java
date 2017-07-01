@@ -33,6 +33,7 @@ public class ActionPanel extends JPanel{
 		this.setLayout(new BorderLayout(5, 2));
 		Constraints borderConstraints = new Constraints();
 		roundInfo = new JLabel("This is the " + matchInfo.getRound() + " of the " + matchInfo.getPeriod() + "° period.");
+
 		JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); // used to center label roundinfo
 		centerPanel.add(roundInfo);
 		this.add(centerPanel, BorderLayout.PAGE_START);
@@ -53,6 +54,7 @@ public class ActionPanel extends JPanel{
 
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.anchor = GridBagConstraints.EAST;
+
 		temp.add(new JLabel("Servants to add:"));
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.anchor = GridBagConstraints.CENTER;
