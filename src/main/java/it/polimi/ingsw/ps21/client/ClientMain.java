@@ -17,7 +17,7 @@ public class ClientMain {
 	private final static int RMI_PORT = 5000;
 	private static UserInterface ui;
 	
-	public static void main(String args[])
+	public static void main(String [] args)
 	{
 		System.out.println("\nClient application started.");
     	Scanner in = new Scanner(System.in);

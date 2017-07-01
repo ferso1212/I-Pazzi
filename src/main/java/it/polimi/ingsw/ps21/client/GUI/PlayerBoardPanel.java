@@ -24,7 +24,7 @@ public class PlayerBoardPanel extends JPanel{
 	private JLabel woods;
 	private JLabel stones;
 	private JLabel servants;
-	private BufferedImage playerBoardImage; 
+	private transient BufferedImage playerBoardImage; 
 	private double resizeParam;
 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 

@@ -21,7 +21,7 @@ public class BoardPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private BufferedImage boardImage;
+	private transient BufferedImage boardImage;
 	private JLabel orangeDiceLabel;
 	private JLabel blackDiceLabel;
 	private JLabel whiteDiceLabel;
