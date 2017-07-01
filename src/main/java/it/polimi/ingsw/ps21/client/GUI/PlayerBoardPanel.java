@@ -101,10 +101,10 @@ public class PlayerBoardPanel extends JPanel{
 	}
 	
 	public void updateProperties(PlayerData playerInfo){
-		coins = new JLabel(Integer.toString(playerInfo.getProperties().get(PropertiesId.COINS)));
-		woods = new JLabel(Integer.toString(playerInfo.getProperties().get(PropertiesId.WOOD)));
-		stones = new JLabel(Integer.toString(playerInfo.getProperties().get(PropertiesId.STONES)));
-		servants = new JLabel(Integer.toString(playerInfo.getProperties().get(PropertiesId.SERVANTS)));
+		coins.setText(Integer.toString(playerInfo.getProperties().get(PropertiesId.COINS)));
+		woods.setText(Integer.toString(playerInfo.getProperties().get(PropertiesId.WOOD)));
+		stones.setText(Integer.toString(playerInfo.getProperties().get(PropertiesId.STONES)));
+		servants.setText(Integer.toString(playerInfo.getProperties().get(PropertiesId.SERVANTS)));
 	}
 
 

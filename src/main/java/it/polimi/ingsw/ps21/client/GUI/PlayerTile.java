@@ -13,6 +13,9 @@ import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
 
 import it.polimi.ingsw.ps21.controller.PlayerData;
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
 public class PlayerTile extends JSplitPane{
 	
@@ -21,9 +24,12 @@ public class PlayerTile extends JSplitPane{
 	private JLabel characters = new JLabel();
 	private JLabel ventures = new JLabel();
 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	private PlayerColor playerId;
 	
 	//passare carte character e venture del giocatore
 	public PlayerTile(PlayerData infoPlayer){
+		
+		this.playerId = infoPlayer.getId();
 		
 		playerBoardPanel = new PlayerBoardPanel((new File("")).getAbsolutePath().concat("/src/images/Lorenzo_Punchboard_FRONT_compressed/punchboard_f_c_03.jpg"), infoPlayer);
 		this.setLeftComponent(playerBoardPanel);
@@ -32,12 +38,10 @@ public class PlayerTile extends JSplitPane{
 		characters.setBackground(new Color(0,127,255));
 		characters.setOpaque(true);
 		characters.setText("CHARACTERS");
-		characters.setToolTipText("<html><body><div><img src=\"file:src/images/LorenzoCards_compressed_png/devcards_f_en_c_1.png\"><img src=\"file:src/images/LorenzoCards_compressed_png/devcards_f_en_c_2.png\"></div></body></html> ");
 		ventures.setBackground(new Color(244,0,161));
 		ventures.setOpaque(true);
 		ventures.setText("VENTURES");
-		ventures.setToolTipText("<html><body><div><img src=\"file:src/images/LorenzoCards_compressed_png/devcards_f_en_c_1.png\"><img src=\"file:src/images/LorenzoCards_compressed_png/devcards_f_en_c_2.png\"></div></body></html> ");
-
+		
 		charactersAndVentures.setLayout(new GridLayout(2, 1));
 		charactersAndVentures.add(characters);
 		charactersAndVentures.add(ventures);
@@ -48,6 +52,31 @@ public class PlayerTile extends JSplitPane{
 		this.setVisible(true);
 		
 		
+	}
+	
+	public void updateCharactersAndVentures(PlayerData playerData){
+		
+		StringBuilder characterHTML = new StringBuilder();
+		characterHTML.append("<html><body><div>");
+		for (DevelopmentCard c : playerData.getCards().get(DevelopmentCardType.CHARACTER)){
+			characterHTML.append("<img src=\"file:src/images/DevelopmentCards/" + c.getName().replaceAll(" ", "") + ".png\">");
+			}
+		characterHTML.append("</div></body></html>");
+		characters.setToolTipText(characterHTML.toString());
+		
+		StringBuilder ventureHTML = new StringBuilder();
+		ventureHTML.append("<html><body><div>");
+		for (DevelopmentCard c : playerData.getCards().get(DevelopmentCardType.VENTURE)){
+			ventureHTML.append("<img src=\"file:src/images/DevelopmentCards/" + c.getName().replaceAll(" ", "") + ".png\">");
+			}
+		ventureHTML.append("</div></body></html>");
+		ventures.setToolTipText(ventureHTML.toString());
+		
+		playerBoardPanel.updateProperties(playerData);
+	}
+	
+	public PlayerColor getPlayerId(){
+		return this.playerId;
 	}
 
 

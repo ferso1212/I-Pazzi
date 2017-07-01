@@ -14,14 +14,52 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
+
 public class DevelopmentCardButton extends JButton{
 	
 	private static final Logger LOGGER = Logger.getLogger(DevelopmentCardButton.class.getSimpleName());
 	private transient Image cardImage;
-	private String path;
+	private double scaleFactor;
+	private int floor;
+	private DevelopmentCardType tower;
 	
-	public DevelopmentCardButton(String name, String description, double scaleFactor){
-		this.path = path;
+	public DevelopmentCardButton(double scaleFactor, int floor, int tower){
+		this.scaleFactor = scaleFactor;
+		this.floor = floor;
+		switch (tower) {
+		case 0:
+			this.tower = DevelopmentCardType.TERRITORY;
+			break;
+		case 1:
+			this.tower = DevelopmentCardType.BUILDING;
+			break;
+		case 2:
+			this.tower = DevelopmentCardType.CHARACTER;
+			break;
+		case 3:
+			this.tower = DevelopmentCardType.VENTURE;
+			break;
+		default:
+			this.tower = DevelopmentCardType.TERRITORY;
+			break;
+		}
+		this.setVisible(false);
+	}
+
+	public Image getCardImage() {
+		return cardImage;
+	}
+	
+	public Container getFather(){
+		return this.getParent();
+	}
+	
+	public void hideButton(){
+		this.setVisible(false);
+	}
+	
+	public void update(String name, String description){
 		try {
 			int width = (int)(470 *scaleFactor);
 			int height = (int)(754 * scaleFactor);
@@ -33,18 +71,17 @@ public class DevelopmentCardButton extends JButton{
 		} catch (IOException e) {
 			LOGGER.log(Level.WARNING, "Error finding card name." + name, e);
 		}
+		
+		this.setVisible(true);
 	}
 
-	public Image getCardImage() {
-		return cardImage;
-	}
-	
-	public Container getFather(){
-		return this.getParent();
-	}
-	
-	public String getPath(){
-		return this.path;
+	public int getFloor() {
+		return floor;
 	}
 
+	public DevelopmentCardType getTower() {
+		return tower;
+	}
+
+	
 }
