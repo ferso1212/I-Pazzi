@@ -66,6 +66,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 
 public class GUIProjectEmpty implements UserInterface {
+	
 	private static final Logger LOGGER = Logger.getLogger(GUIProjectEmpty.class.getSimpleName());
 	private JFrame mainWindow;
 	private BoardPanel boardPanel;
@@ -225,8 +226,7 @@ public class GUIProjectEmpty implements UserInterface {
 		// setting prsonal bonus tile
 		TilePanel personalBonusTile = new TilePanel(Integer.toString(this.playerTile));
 		splitPane.setLeftComponent(personalBonusTile);
-		splitPane.setDividerLocation((int) (personalBonusTile.getTileImage().getWidth()
-				* (screenDimension.getHeight() / 2) / personalBonusTile.getTileImage().getHeight()));
+		splitPane.setDividerLocation((int) (personalBonusTile.getTileImage().getWidth() * (screenDimension.getHeight() / 2) / personalBonusTile.getTileImage().getHeight()));
 
 		// setting a tabbedPane in the right space of splitPane
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -235,7 +235,9 @@ public class GUIProjectEmpty implements UserInterface {
 		for (int i = 0; i < this.numberOfPlayers; i++) {
 			PlayerTile playerTile = new PlayerTile(playersInfo[i]);
 			tabbedPane.addTab("Player " + i + " Tile", null, playerTile, null);
+			
 		}
+		
 
 	}
 
@@ -249,7 +251,7 @@ public class GUIProjectEmpty implements UserInterface {
 		okButton.addActionListener(new MyListener());
 		actionPanel.add(okButton);
 		actionPanel.setVisible(true);
-		mainWindow.pack();
+		//mainWindow.pack();
 	}
 
 	private void update(MatchData matchInfo) {
@@ -257,6 +259,7 @@ public class GUIProjectEmpty implements UserInterface {
 		setSpaces();
 		placeDevelopmentCards(matchInfo.getBoard().getCards());
 		placeExcommunications(matchInfo.getBoard().getExcommunications());
+		mainWindow.pack();
 	}
 
 	@Override

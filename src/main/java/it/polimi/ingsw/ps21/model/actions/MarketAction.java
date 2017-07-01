@@ -41,19 +41,19 @@ public class MarketAction extends Action{
 			if (!(((player.getFamily().getMemberValueWithServants(this.possibleServants, this.famMember.getColor())) >= space.getDiceRequirement()))) return new RefusedAction(player.getId(), "Dice value of member isn't enough");
 			if (!(space.isOccupable(player, famMember))) return new RefusedAction(player.getId(), "You can't use this family member in this place");
 			if (!(!famMember.isUsed())) return new RefusedAction(player.getId(), "This family member is already used");
-//			if ((space.getNumberOfPrivileges() > 0) && (match.getBoard().getCouncilPalace().checkPlayer(player))){
-//					this.councilChoice = new CouncilChoice(player.getId(), space.getNumberOfPrivileges());
-//					this.updateCounter--;
-//					return this.councilChoice;
-//				}
+			if (space.getNumberOfPrivileges() > 0) {
+					this.councilChoice = new CouncilChoice(player.getId(), space.getNumberOfPrivileges());
+					this.updateCounter--;
+					return this.councilChoice;
+				}
 			return new AcceptedAction(player.getId());
 		}
 		
 		case 0:
 		{
-//			if (this.councilChoice.getPrivilegesChosen().length == space.getNumberOfPrivileges())
+			if (this.councilChoice.getPrivilegesChosen().length == space.getNumberOfPrivileges())
 				return new AcceptedAction(player.getId());
-//			return new RefusedAction(player.getId(), "You have choosen a wrong number of privileges");
+			return new RefusedAction(player.getId(), "You have choosen a wrong number of privileges");
 		}
 
 		default:
