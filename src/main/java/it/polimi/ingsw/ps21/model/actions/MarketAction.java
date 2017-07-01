@@ -18,8 +18,7 @@ public class MarketAction extends Action{
 	
 	private SingleMarketSpace space;
 	private FamilyMember famMember;
-	private CouncilChoice councilChoice;
-	private int updateCounter = 1;
+	private int updateCounter = 0;
 	
 	public MarketAction(PlayerColor playerId, SingleMarketSpace space, int possibleServants, FamilyMember famMember) {
 		super(playerId);
@@ -32,7 +31,7 @@ public class MarketAction extends Action{
 	public Message update(Player player, Match match) {
 		
 		switch (this.updateCounter) {
-		case 1:
+		case 0:
 		{
 			if (player.getModifiers().getActionMods().marketActionForbidden()){
 				return new RefusedAction(player.getId(), "You can't place a family member in a market space because you have an excommunication!");
@@ -41,20 +40,9 @@ public class MarketAction extends Action{
 			if (!(((player.getFamily().getMemberValueWithServants(this.possibleServants, this.famMember.getColor())) >= space.getDiceRequirement()))) return new RefusedAction(player.getId(), "Dice value of member isn't enough");
 			if (!(space.isOccupable(player, famMember))) return new RefusedAction(player.getId(), "You can't use this family member in this place");
 			if (!(!famMember.isUsed())) return new RefusedAction(player.getId(), "This family member is already used");
-			if (space.getNumberOfPrivileges() > 0) {
-					this.councilChoice = new CouncilChoice(player.getId(), space.getNumberOfPrivileges());
-					this.updateCounter--;
-					return this.councilChoice;
-				}
 			return new AcceptedAction(player.getId());
 		}
 		
-		case 0:
-		{
-			if (this.councilChoice.getPrivilegesChosen().length == space.getNumberOfPrivileges())
-				return new AcceptedAction(player.getId());
-			return new RefusedAction(player.getId(), "You have choosen a wrong number of privileges");
-		}
 
 		default:
 			return new RefusedAction(player.getId(),  "Unhandled case");
@@ -69,15 +57,12 @@ public class MarketAction extends Action{
 		match.getBoard().placeMember(player, this.famMember, this.space);
 		
 		player.getProperties().increaseProperties(this.space.getInstantBonus());
+	
+		ExtraAction[] returnActions = {new NullAction(player.getId())};
 		
-		if (this.space.getNumberOfPrivileges() > 0){
-			for (ImmProperties p : this.councilChoice.getPrivilegesChosen()){
-				player.getProperties().increaseProperties(p);
-			}
+		if(this.space.getNumberOfPrivileges() > 0){
+			returnActions[0] = new TakePrivilegesAction(player.getId(), space.getNumberOfPrivileges());
 		}
-		
-		ExtraAction[] returnActions = new ExtraAction[1];
-		returnActions[0] = new TakePrivilegesAction(player.getId(), space.getNumberOfPrivileges());
 		return returnActions;
 	}
 	
