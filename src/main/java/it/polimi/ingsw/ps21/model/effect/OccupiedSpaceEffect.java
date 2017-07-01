@@ -12,9 +12,13 @@ import it.polimi.ingsw.ps21.model.player.Player;
 
 public class OccupiedSpaceEffect extends PermanentLeaderEffect{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6859501731910539388L;
+
 	public OccupiedSpaceEffect(Requirement reqs[]) {
 		super(reqs);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

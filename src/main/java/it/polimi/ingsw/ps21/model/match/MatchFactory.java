@@ -463,7 +463,6 @@ public class MatchFactory {
 				bonuses.add(new ImmProperties(new Property(PropertiesId.MILITARYPOINTS, 2))); // 2
 				bonuses.add(new ImmProperties(new Property(PropertiesId.FAITHPOINTS, 2)));
 			}
-			// TODO
 			privileges = bonuses.toArray(new ImmProperties[0]);
 			return privileges;
 		} else
@@ -510,7 +509,6 @@ public class MatchFactory {
 																										// 1
 																										// stone
 			}
-			// TODO
 			initialProperties = bonuses.toArray(new ImmProperties[0]);
 		}
 		return initialProperties;

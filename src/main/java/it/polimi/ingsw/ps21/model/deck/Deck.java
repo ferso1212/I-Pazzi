@@ -99,7 +99,6 @@ public class Deck{
 		return greenCards.isEmpty() && yellowCards.isEmpty() && blueCards.isEmpty() && purpleCards.isEmpty() && excommunications.isEmpty();
 	}
 	
-	//TODO implement deep clone
 	public Deck copy()
 	{
 		Deck clone = new Deck();
