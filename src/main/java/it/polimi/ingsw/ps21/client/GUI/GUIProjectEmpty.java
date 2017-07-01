@@ -463,8 +463,11 @@ public class GUIProjectEmpty implements UserInterface {
 
 	@Override
 	public boolean reqVaticanChoice() {
-		// TODO Auto-generated method stub
-		return false;
+		boolean choice;
+		Object choices[] = {"Yes", "No"};
+		int chosen =  JOptionPane.showOptionDialog(mainWindow, "Do you want to support the church?", "Vatican Choice", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, choices, choices[1]);
+		if (chosen == 0) return true;
+		else return false;
 	}
 
 	@Override
@@ -487,14 +490,12 @@ public class GUIProjectEmpty implements UserInterface {
 
 	@Override
 	public void showMessage(AcceptedAction mess) {
-		// TODO Auto-generated method stub
-
+		JOptionPane.showMessageDialog(mainWindow, mess, "Accepted Action", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	@Override
 	public void showMessage(RefusedAction mess) {
-		// TODO Auto-generated method stub
-
+		JOptionPane.showMessageDialog(mainWindow, mess, "Refused Action", JOptionPane.WARNING_MESSAGE);
 	}
 
 	@Override
