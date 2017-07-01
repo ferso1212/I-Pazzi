@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 
 public class ExcommunicationLabel extends JLabel{
 	
-	private Image excomImage;
+	private transient Image excomImage;
 	
 	public ExcommunicationLabel (int number, double scaleFactor){
 		try {

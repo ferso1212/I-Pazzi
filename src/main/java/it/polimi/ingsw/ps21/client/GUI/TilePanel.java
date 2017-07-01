@@ -15,7 +15,7 @@ public class TilePanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private BufferedImage tileImage;
+	private transient BufferedImage tileImage;
 
 	public TilePanel(String tileNumber) {
 		super(true); // crea un JPanel con doubleBuffered true

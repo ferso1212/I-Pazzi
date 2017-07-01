@@ -17,7 +17,7 @@ import javax.swing.JLabel;
 public class DevelopmentCardButton extends JButton{
 	
 	private static final Logger LOGGER = Logger.getLogger(DevelopmentCardButton.class.getSimpleName());
-	private Image cardImage;
+	private transient Image cardImage;
 	private String path;
 	
 	public DevelopmentCardButton(String name, String description, double scaleFactor){
