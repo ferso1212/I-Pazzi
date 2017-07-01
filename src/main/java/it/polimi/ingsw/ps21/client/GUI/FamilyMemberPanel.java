@@ -34,7 +34,7 @@ public class FamilyMemberPanel extends JPanel{
 		this.blackMember.addActionListener(new FamilyListener());
 		this.neutralMember = new FamilyMemberButton(new Color(240, 220, 130));
 		this.neutralMember.addActionListener(new FamilyListener());
-		this.setLayout(new GridLayout(4, 1));
+		this.setLayout(new GridLayout(1, 4));
 		startFamilyMemberPanel();
 
 	}

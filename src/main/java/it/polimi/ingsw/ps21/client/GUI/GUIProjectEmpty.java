@@ -1,49 +1,24 @@
 package it.polimi.ingsw.ps21.client.GUI;
 
-import java.awt.EventQueue;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
-import javax.swing.RepaintManager;
-
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.Shape;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.ImageObserver;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JSplitPane;
-import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import it.polimi.ingsw.ps21.client.UserInterface;
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
@@ -65,8 +40,10 @@ import it.polimi.ingsw.ps21.view.ActionData;
 import it.polimi.ingsw.ps21.view.EndData;
 import it.polimi.ingsw.ps21.view.ExtraActionData;
 
-import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 public class GUIProjectEmpty implements UserInterface {
 
@@ -112,9 +89,10 @@ public class GUIProjectEmpty implements UserInterface {
 
 			@Override
 			public void run() {
-				mainWindow = new JFrame("Lorenzo Il Magnifico");
+				mainWindow = new JFrame();
 				waitingActions = new Semaphore(0);
 				mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				mainWindow.setContentPane(new BackgroundPanel());
 				mainWindow.setExtendedState(JFrame.MAXIMIZED_BOTH);
 				mainWindow.setVisible(true);
 			}
@@ -135,9 +113,9 @@ public class GUIProjectEmpty implements UserInterface {
 					JOptionPane.showMessageDialog(mainWindow, "You have to choose before a Family Member ",
 							"Invalid action", JOptionPane.WARNING_MESSAGE);
 				else {
-					chosenAction = new ActionData(ActionType.HARVEST, color, servants, DevelopmentCardType.TERRITORY, 0,
-							servants);
 				if (waitingActions.availablePermits() == 0) {
+					chosenAction = new ActionData(ActionType.TAKE_CARD, color, servants, type, 0,
+							actionId);
 					waitingActions.release();
 					}
 				}
@@ -158,9 +136,10 @@ public class GUIProjectEmpty implements UserInterface {
 					JOptionPane.showMessageDialog(mainWindow, "You have to choose before a Family Member ",
 							"Invalid action", JOptionPane.WARNING_MESSAGE);
 				else {
-					chosenAction = new ActionData(ActionType.HARVEST, color, servants, DevelopmentCardType.TERRITORY, 0,
-							servants);
+					
 					if (waitingActions.availablePermits() == 0) {
+						chosenAction = new ActionData(ActionType.HARVEST, color, servants, DevelopmentCardType.TERRITORY, 0,
+								actionId);
 						waitingActions.release();
 					}
 				}
@@ -171,9 +150,10 @@ public class GUIProjectEmpty implements UserInterface {
 					JOptionPane.showMessageDialog(mainWindow, "You have to choose before a Family Member ",
 							"Invalid action", JOptionPane.WARNING_MESSAGE);
 				else {
-					chosenAction = new ActionData(ActionType.PRODUCTION, color, servants, DevelopmentCardType.BUILDING,
-							0, servants);
+					
 					if (waitingActions.availablePermits() == 0) {
+						chosenAction = new ActionData(ActionType.PRODUCTION, color, servants, DevelopmentCardType.BUILDING,
+								0, actionId);
 						waitingActions.release();
 					}
 				}
@@ -184,9 +164,10 @@ public class GUIProjectEmpty implements UserInterface {
 					JOptionPane.showMessageDialog(mainWindow, "You have to choose before a Family Member ",
 							"Invalid action", JOptionPane.WARNING_MESSAGE);
 				else {
-					chosenAction = new ActionData(ActionType.HARVEST, color, servants, DevelopmentCardType.TERRITORY, 1,
-							servants);
+					
 					if (waitingActions.availablePermits() == 0) {
+						chosenAction = new ActionData(ActionType.HARVEST, color, servants, DevelopmentCardType.TERRITORY, 1,
+								servants);
 						waitingActions.release();
 					}
 				}
@@ -197,9 +178,10 @@ public class GUIProjectEmpty implements UserInterface {
 					JOptionPane.showMessageDialog(mainWindow, "You have to choose before a Family Member ",
 							"Invalid action", JOptionPane.WARNING_MESSAGE);
 				else {
-					chosenAction = new ActionData(ActionType.PRODUCTION, color, servants, DevelopmentCardType.BUILDING,
-							1, servants);
+					
 					if (waitingActions.availablePermits() == 0) {
+						chosenAction = new ActionData(ActionType.PRODUCTION, color, servants, DevelopmentCardType.BUILDING,
+								1, actionId);
 						waitingActions.release();
 					}
 				}
@@ -217,8 +199,8 @@ public class GUIProjectEmpty implements UserInterface {
 				int servants = actionPanel.getChosenServants();
 				MembersColor color = actionPanel.getChosenColor();
 				if (color != null) {
-					chosenAction = new ActionData(ActionType.COUNCIL, color, servants, null, 0, actionId);
 					if (waitingActions.availablePermits() == 0) {
+						chosenAction = new ActionData(ActionType.COUNCIL, color, servants, null, 0, actionId);
 						waitingActions.release();
 					}
 				} else {
@@ -241,8 +223,8 @@ public class GUIProjectEmpty implements UserInterface {
 					int servants = actionPanel.getChosenServants();
 					MembersColor color = actionPanel.getChosenColor();
 					if (color != null) {
-						chosenAction = new ActionData(ActionType.MARKET, color, servants, null, space, actionId);
 						if (waitingActions.availablePermits() == 0) {
+							chosenAction = new ActionData(ActionType.MARKET, color, servants, null, space, actionId);
 							waitingActions.release();
 						}
 					} else
@@ -258,13 +240,9 @@ public class GUIProjectEmpty implements UserInterface {
 
 		this.numberOfPlayers = matchInfo.getPlayers().length;
 
-		SwingUtilities.invokeLater(new Runnable() {
 
-			@Override
-			public void run() {
-
-				mainWindow.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
-
+				JPanel contentPanel = new JPanel(new GridLayout(0,2));
+				mainWindow.setContentPane(contentPanel);
 				boardPanel = new BoardPanel((new File("")).getAbsolutePath().concat("/src/images/board2.jpg"),
 						matchInfo.getBlackDice(), matchInfo.getWhiteDice(), matchInfo.getOrangeDice());
 				boardPanel.setLayout(null);
@@ -283,6 +261,7 @@ public class GUIProjectEmpty implements UserInterface {
 				// left general panel setting with grid layout 2 rows 1
 				// column
 				rightPanel = new JPanel();
+				rightPanel.setOpaque(false);
 				mainWindow.getContentPane().add(rightPanel);
 				rightPanel.setLayout(new GridLayout(2, 0, 0, 0));
 
@@ -307,8 +286,7 @@ public class GUIProjectEmpty implements UserInterface {
 				setSpaces();
 				setUpRightPanel(matchInfo.getPlayers());
 				// mainWindow.pack();
-			}
-		});
+			
 
 	}
 
@@ -447,23 +425,30 @@ public class GUIProjectEmpty implements UserInterface {
 
 	@Override
 	public void updateView(MatchData match) {
-		if (this.updateCounter == 0)
-			firstUpdate(match);
-		else
-			update(match);
-		this.updateCounter++;
+		SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				if (updateCounter == 0)
+					firstUpdate(match);
+				else
+					update(match);
+				updateCounter++;
+				
+			}
+		});
 	}
 
 	@Override
 	public ActionData makeAction(int id) {
+		JOptionPane.showMessageDialog(mainWindow, "It's your turn!");
 		this.actionId = id;
-		waitingActions.drainPermits();
 		try {
 			waitingActions.acquire();
 			if (chosenAction != null) {
 				return chosenAction;
 			}
-			return new ActionData(ActionType.NULL, MembersColor.NEUTRAL, 0, null, 0, id);
+			else return new ActionData(ActionType.NULL, MembersColor.NEUTRAL, 0, null, 0, id);
 		} catch (InterruptedException e) {
 			return new ActionData(ActionType.NULL, MembersColor.NEUTRAL, 0, null, 0, id);
 		}
@@ -589,4 +574,7 @@ public class GUIProjectEmpty implements UserInterface {
 	public void setRules(boolean isAdvanced) {
 		this.isAdvanced = isAdvanced;
 	}
+	
+	
+
 }

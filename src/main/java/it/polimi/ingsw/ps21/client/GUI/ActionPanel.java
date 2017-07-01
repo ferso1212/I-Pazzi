@@ -1,13 +1,19 @@
 package it.polimi.ingsw.ps21.client.GUI;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SpringLayout.Constraints;
+import javax.swing.border.Border;
 
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.PlayerData;
@@ -24,11 +30,15 @@ public class ActionPanel extends JPanel{
 	public ActionPanel (MatchData matchInfo, PlayerColor playerId){
 		
 		this.playerId = playerId;
-		this.setLayout(new BorderLayout(0, 0));
-		
+		this.setLayout(new BorderLayout(5, 2));
+		Constraints borderConstraints = new Constraints();
 		roundInfo = new JLabel("This is the " + matchInfo.getRound() + " of the " + matchInfo.getPeriod() + "° period.");
-		this.add(roundInfo, BorderLayout.PAGE_START);
-		this.add(memberPanel, BorderLayout.LINE_START);
+		JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); // used to center label roundinfo
+		centerPanel.add(roundInfo);
+		this.add(centerPanel, BorderLayout.PAGE_START);
+		// LINE 
+		
+		//PAGE_END
 		servantsSlider = new ServantsSlider();
 		for(PlayerData p : matchInfo.getPlayers()){
 			if (p.getId() == this.playerId)
@@ -36,8 +46,17 @@ public class ActionPanel extends JPanel{
 		}
 		JPanel temp = new JPanel();
 		temp.setLayout(new GridBagLayout());
+		GridBagConstraints constraints= new GridBagConstraints();
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.anchor = GridBagConstraints.CENTER;
+		temp.add(memberPanel, constraints);
+
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.anchor = GridBagConstraints.EAST;
 		temp.add(new JLabel("Servants to add:"));
-		temp.add(servantsSlider);
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.anchor = GridBagConstraints.CENTER;
+		temp.add(servantsSlider, constraints);
 		this.add(temp, BorderLayout.PAGE_END);
 		this.setVisible(true);
 	}
