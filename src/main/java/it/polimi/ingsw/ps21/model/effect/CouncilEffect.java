@@ -8,11 +8,14 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class CouncilEffect extends Effect {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8926295798078835683L;
 	private int numberPrivileges;
 	public CouncilEffect(ImmProperties cost, int privileges) {
 		super(cost);
 		numberPrivileges = privileges;
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

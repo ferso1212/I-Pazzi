@@ -35,10 +35,9 @@ public class IncreaseDiceValuesEffect extends PermanentLeaderEffect {
 	public ExtraAction activate(AdvancedPlayer player) {
 		this.clonable = true;
 		this.activated = true;
-		// TODO
-		player.getFamily().getMember(MembersColor.ORANGE);
-		player.getFamily().getMember(MembersColor.WHITE);
-		player.getFamily().getMember(MembersColor.BLACK);
+		player.getFamily().getMember(MembersColor.ORANGE).setModifier(orangeValue);
+		player.getFamily().getMember(MembersColor.WHITE).setModifier(whiteValue);
+		player.getFamily().getMember(MembersColor.BLACK).setModifier(blackValue);
 		return new NullAction(player.getId());
 	}
 }

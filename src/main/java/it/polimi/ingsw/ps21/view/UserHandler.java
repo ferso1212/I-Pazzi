@@ -51,6 +51,7 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 		try {
 			choice.setChosen(connection.reqVaticanChoice());
 			choice.setVisited();
+			setChanged();
 			notifyObservers(new ExecutedChoice(this.playerId));
 		} catch (DisconnectedException e) {
 			LOGGER.log(Level.WARNING, "Current player is not connected.", e);
@@ -76,7 +77,6 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 
 	@Override
 	public void visit(CouncilChoice choice) {
-		// TODO need to pass possible privileges
 		try {
 			choice.setPrivilegesChosen(connection.reqPrivilegesChoice(choice.getNumberOfChoices(), choice.getPrivilegesValues()));
 			choice.setVisited();
@@ -293,8 +293,7 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 	private void visit(ExcommunicationMessage message) {
 		connection.sendMessage(message.getMessage());
 		message.setVisited();
-		setChanged();
-		notifyObservers(new ExecutedChoice(this.playerId));
+		
 	}
 
 	private void parseExtraAction(ExtraAction action) {

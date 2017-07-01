@@ -37,6 +37,7 @@ public class BoardPanel extends JPanel {
 			e.printStackTrace();
 		}
 		setDiceLabel(blackDice, whiteDice, orangeDice);
+		this.setOpaque(false);
 	}
 
 	public void setImage(BufferedImage img) {

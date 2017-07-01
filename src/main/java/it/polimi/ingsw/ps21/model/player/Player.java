@@ -197,7 +197,6 @@ public class Player {
 		this.modifiers=new ModifiersSet();
 		this.family=new Family(id);
 		this.excommunications = new ArrayList<>();
-		this.properties.getProperty(PropertiesId.FAITHPOINTS).setValue(10); //TODO to be removed, used for testing excommunications
 	}
 
 	/**
@@ -242,7 +241,6 @@ public class Player {
 	public ArrayList<Requirement> metCardRequirements(Card card) {
 		ArrayList<Requirement> output = new ArrayList<Requirement>();
 		for (RequirementAndCost req : card.getRequirements()) {
-			// TODO need to be fixed for RequirementAndCost
 			if (this.checkRequirement(req.getRequirement()))
 				output.add(req.getRequirement());
 		}
