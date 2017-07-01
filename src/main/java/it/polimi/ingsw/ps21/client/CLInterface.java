@@ -46,25 +46,17 @@ public class CLInterface implements UserInterface {
 	private boolean matchEnded = false;
 	private boolean advancedMatch;
 	private boolean matchStarted = false;
-	private int charcatersPrinted=0;
+	private int charcatersPrinted = 0;
 
 	public CLInterface() {
 		userInput = new Scanner(System.in);
 
 	}
 
-	public void setup(int chosenRules) {
-		if (chosenRules == 1)
-			advancedMatch = false;
-		else
-			advancedMatch = true;
-		printOutput("Waiting for match starting...");
-	}
-	
-	private void printOutput(String output){
+	private void printOutput(String output) {
 		System.out.println(output);
 		charcatersPrinted++;
-		
+
 	}
 
 	@Override
@@ -87,19 +79,20 @@ public class CLInterface implements UserInterface {
 	}
 
 	private void refreshOutput() {
-		while (charcatersPrinted > 0){
-		// TODO this doesn't works with eclipse console	System.out.print("\b");
+		while (charcatersPrinted > 0) {
+			// TODO this doesn't works with eclipse console
+			// System.out.print("\b");
 			System.out.println();
 			charcatersPrinted--;
 		}
-		
+
 	}
 
 	private void showMatchInfos() {
 		printOutput("------------\tMatch Status\t------------");
 		printOutput("Period: " + matchInfo.getPeriod() + "\tRound: " + matchInfo.getRound());
-		printOutput("\nBoard:\nDices:\tBlack = " + matchInfo.getBlackDice() + "\tWhite = "
-				+ matchInfo.getWhiteDice() + "\tOrange = " + matchInfo.getOrangeDice());
+		printOutput("\nBoard:\nDices:\tBlack = " + matchInfo.getBlackDice() + "\tWhite = " + matchInfo.getWhiteDice()
+				+ "\tOrange = " + matchInfo.getOrangeDice());
 		DevelopmentCard[][] cards = boardInfo.getCards();
 		for (int i = 0; i < 4; i++) {
 			printOutput("\nTower " + (i + 1) + "\n------------------------------------------------------------");
@@ -145,8 +138,8 @@ public class CLInterface implements UserInterface {
 		printOutput("----\t TILE BONUSES \t-----");
 		printOutput("HARVEST:\tDice Requirement =" + this.playerInfo.getTileHarvDiceReq() + ";\t" + "Bonus = "
 				+ this.playerInfo.getTileHarvBonus() + ";");
-		printOutput("PRODUCTION:\tDice Requirement = " + this.playerInfo.getTileProdDiceReq() + ";\t "
-				+ "Bonus = " + this.playerInfo.getTileProdBonus() + ";");
+		printOutput("PRODUCTION:\tDice Requirement = " + this.playerInfo.getTileProdDiceReq() + ";\t " + "Bonus = "
+				+ this.playerInfo.getTileProdBonus() + ";");
 
 	}
 
@@ -197,16 +190,18 @@ public class CLInterface implements UserInterface {
 	public boolean reqVaticanChoice() {
 		printOutput("You have to choose to support the Church:");
 		printOutput(
-				"Do you want to receive an excommunication(1) or not(2)? If you reject excommunication you will loose all your faith points");
+				"Do you want to support the vatican(1) or not(2)?");
 		int userChoice = userInput.nextInt();
 		while (userChoice != 1 && userChoice != 2) {
-			printOutput("God is watching you, please insert a valid choice!");
+			printOutput("Please insert a valid choice!");
+			printOutput(
+					"Do you want to support the vatican(1) or not(2)?");
 			userChoice = userInput.nextInt();
 		}
 		if (userChoice == 1)
-			return false;
-		else
 			return true;
+		else
+			return false;
 
 	}
 
@@ -254,11 +249,13 @@ public class CLInterface implements UserInterface {
 		printOutput("----------\t RESULT \t---------------");
 		for (PlayerColor color : result.keySet()) {
 			if (color.equals(playerID))
-				printOutput("You have totalized " + result.get(color) + "final points;");
+				printOutput("You have totalized " + result.get(color) + " final points;");
 			else
 				printOutput("Player " + color + " has totalized " + result.get(color) + " final points;");
 		}
-
+		printOutput("\nMatch ended. Press ENTER to quit.");
+		userInput.nextLine();
+		System.exit(0);
 	}
 
 	@Override
@@ -326,10 +323,10 @@ public class CLInterface implements UserInterface {
 		printOutput("It's your turn: which action do you want to do?");
 		printOutput(
 				"0)-No action;\n1)-Place a family member in a Tower Space;\n2)-Place a family member in Council palace\n"
-						+ "3)-Place a family member in a Work Space\n"
-						+ "4)-Place a family memeber in a Market Space");
+						+ "3)-Place a family member in a Work Space\n" + "4)-Place a family memeber in a Market Space");
 
-		if (advancedMatch) printOutput("5)-Activate a Leader Card\n");
+		if (advancedMatch)
+			printOutput("5)-Activate a Leader Card\n");
 		int actionChoice = userInput.nextInt();
 		while (actionChoice != 0 && actionChoice != 1 && actionChoice != 2 && actionChoice != 3 && actionChoice != 4
 				&& (!(advancedMatch) || actionChoice != 5)) {
@@ -386,9 +383,8 @@ public class CLInterface implements UserInterface {
 			ArrayList<Integer> possibleSpaces = new ArrayList<>();
 			for (int k = 0; k < 4; k++) {
 				if (!matchInfo.getBoard().getTowerSpaces()[k][cardType - 1].exists()) {
-					printOutput((k + 1) + ") " + matchInfo.getBoard().getCards()[k][cardType - 1]
-							+ "\nInstant bonus: " + matchInfo.getBoard().getTowerBonuses()[k][cardType - 1]
-							+ "\nFloor dice requirement: "
+					printOutput((k + 1) + ") " + matchInfo.getBoard().getCards()[k][cardType - 1] + "\nInstant bonus: "
+							+ matchInfo.getBoard().getTowerBonuses()[k][cardType - 1] + "\nFloor dice requirement: "
 							+ matchInfo.getBoard().getTowerRequirements()[k][cardType - 1] + "\n-----");
 					possibleSpaces.add(k + 1);
 				}
@@ -569,12 +565,13 @@ public class CLInterface implements UserInterface {
 			printOutput("\nWhich rules do you want to use? \n1 Standard \n2 Advanced");
 			chosenRules = userInput.nextInt();
 		}
-		if (chosenRules == 2){
-			this.advancedMatch=true;
-			return true;}
-		else{
-			this.advancedMatch=false;
-			return false;}
+		if (chosenRules == 2) {
+			this.advancedMatch = true;
+			return true;
+		} else {
+			this.advancedMatch = false;
+			return false;
+		}
 	}
 
 	@Override
@@ -594,11 +591,10 @@ public class CLInterface implements UserInterface {
 
 	public int chooseLeaderCardToActivate() {
 		try {
-			LeaderCard[] leaders= this.playerInfo.getLeaders();
+			LeaderCard[] leaders = this.playerInfo.getLeaders();
 			printOutput("Choose a leader card to activate: ");
-			for(int i=0; i<leaders.length; i++)
-			{
-				printOutput((i+1)+ ")- " + leaders[i].toString());
+			for (int i = 0; i < leaders.length; i++) {
+				printOutput((i + 1) + ")- " + leaders[i].toString());
 			}
 			int userChoice = userInput.nextInt();
 			while (userChoice < 1 || userChoice > leaders.length) {
@@ -611,14 +607,13 @@ public class CLInterface implements UserInterface {
 			LOGGER.log(Level.WARNING, "\nTried to get leader cards from standard player data", e);
 			return 0;
 		}
-		
-		
+
 	}
 
 	@Override
 	public void setRules(boolean isAdvanced) {
-		this.advancedMatch=isAdvanced;
-		
+		this.advancedMatch = isAdvanced;
+
 	}
 
 }

@@ -169,11 +169,13 @@ public class SocketClient {
 			{
 				boolean wantsAdvRules= ui.reqIfWantsAdvancedRules();
 				out.writeObject(new RulesChoiceResponseNetPacket(receivedPacket.getNum(), wantsAdvRules));
+				ui.showInfo("\nWaiting for match to start...");
 				break;
 			}
 			case MATCH_END:
 			{
 				ui.matchEnded(((MatchEndedNetPacket)receivedPacket).getData());
+				socket.close();
 				break;
 			}
 			case LEADER_CARD_CHOICE:

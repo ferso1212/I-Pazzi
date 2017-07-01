@@ -208,7 +208,10 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 					if (((String) arg).compareTo("Match Started") == 0) {
 						connection.matchStarted();
 
-					} else
+					} else if (((String) arg).compareTo("newRound") == 0) {
+						connection.sendMessage("\nNew round started");
+
+					}else
 						connection.sendMessage((String) arg);
 
 				} 
@@ -263,6 +266,11 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 							TileChoice message = (TileChoice)arg;
 							visit(message);
 						}
+						else if (arg instanceof VaticanChoice)
+						{
+							VaticanChoice message= (VaticanChoice)arg;
+							visit(message);
+						}
 					}
 				}
 			}
@@ -285,6 +293,8 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 	private void visit(ExcommunicationMessage message) {
 		connection.sendMessage(message.getMessage());
 		message.setVisited();
+		setChanged();
+		notifyObservers(new ExecutedChoice(this.playerId));
 	}
 
 	private void parseExtraAction(ExtraAction action) {

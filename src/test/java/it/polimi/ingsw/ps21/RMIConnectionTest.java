@@ -7,6 +7,7 @@ import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.Semaphore;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +36,7 @@ public class RMIConnectionTest {
 			advConnectionsQueue =  new ConcurrentLinkedQueue<Connection>();
 			ArrayList<String> names = new ArrayList<>();
 			ConcurrentHashMap<String, UserHandler> userHandlers = new ConcurrentHashMap<>();
-			rmiserver = new RMIConnectionAcceptor(connectionsQueue, advConnectionsQueue, names, userHandlers);
+			rmiserver = new RMIConnectionAcceptor(connectionsQueue, advConnectionsQueue, names, userHandlers, new Semaphore(0), new Semaphore(0));
 			testRegistry.rebind("RMIConnectionCreator", rmiserver);
 			System.out.println("Test setted");
 		} catch (RemoteException e) {

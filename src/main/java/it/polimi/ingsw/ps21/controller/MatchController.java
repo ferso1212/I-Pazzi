@@ -149,7 +149,8 @@ public class MatchController extends Observable implements Observer {
 			setChanged();
 			notifyObservers((AcceptedAction) returnMessage);
 			performAction();
-		} else {
+		} 
+		else {
 			setChanged();
 			notifyObservers(returnMessage);
 		} // request choice to the user or
@@ -294,6 +295,8 @@ public class MatchController extends Observable implements Observer {
 		this.timer.cancel();
 		this.timer.purge();
 		currentPlayer = match.getCurrentPlayer();
+		setChanged();
+		notifyObservers("newRound");
 		reqPlayerAction();
 	}
 

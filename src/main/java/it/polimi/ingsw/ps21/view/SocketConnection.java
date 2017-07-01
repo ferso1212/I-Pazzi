@@ -97,7 +97,7 @@ public class SocketConnection implements Connection{
 		
 	}
 
-	private NetPacket requestAndAwaitResponse(NetPacket packetToSend) throws IOException
+	private NetPacket requestAndAwaitResponse(NetPacket packetToSend) throws IOException, ClassNotFoundException
 	{
 		try {
 			out.writeObject(packetToSend);
@@ -111,7 +111,7 @@ public class SocketConnection implements Connection{
 			
 		} catch (ClassNotFoundException e) {
 			LOGGER.log(Level.WARNING, "Unable to parse received object due to ClassNotFound Exception", e);
-			return null;
+			throw e;
 		}
 	}
 	
@@ -120,8 +120,8 @@ public class SocketConnection implements Connection{
 		
 		try {
 			return ((CostChoiceResponseNetPacket)requestAndAwaitResponse(new CostChoiceRequestNetPacket(messageCounter, costs))).getChosen();
-		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unable to request cost choice to the remote client due to IOException", e);
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request cost choice to the remote client due to " + e.getMessage(), e);
 			throw new DisconnectedException();
 		}
 		
@@ -134,8 +134,8 @@ public class SocketConnection implements Connection{
 
 		try {
 			return ((VaticanChoiceResponseNetPacket)requestAndAwaitResponse(new VaticanChoiceRequestNetPacket(messageCounter))).supportsVatican();
-		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unable to request vatican choice to the remote client due to IOException", e);
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request vatican choice to the remote client due to " + e.getMessage(), e);
 			throw new DisconnectedException();
 		}
 	}
@@ -147,8 +147,8 @@ public class SocketConnection implements Connection{
 		
 		try {
 			return ((PrivilegesChoiceResponseNetPacket)requestAndAwaitResponse(new PrivilegesChoiceRequestNetPacket(this.messageCounter, number, choices))).getChosenPrivileges();
-		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unable to request privileges choice to the remote client due to IOException", e);
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request privileges choice to the remote client due to " + e.getMessage(), e);
 			throw new DisconnectedException();
 		}
 
@@ -164,7 +164,7 @@ public class SocketConnection implements Connection{
 			out.writeObject(new GenericStringNetPacket(this.messageCounter, mess));
 			messageCounter++;
 		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unable to send message to the remote client due to IOException", e);
+			LOGGER.log(Level.WARNING, "Unable to send message to the remote client due to " + e.getMessage(), e);
 		}
 		
 		
@@ -192,8 +192,8 @@ public class SocketConnection implements Connection{
 	public int reqExtraActionChoice(ExtraActionData[] actions) throws DisconnectedException{
 		try {
 			return ((ExtraActionChoiceResponseNetPacket)requestAndAwaitResponse(new ExtraActionChoiceRequestNetPacket(messageCounter, actions))).getChosen();
-		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unable to request action to the remote client due to IOException", e);
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request action to the remote client due to " + e.getMessage(), e);
 			throw new DisconnectedException();
 		}
 	}
@@ -204,8 +204,8 @@ public class SocketConnection implements Connection{
 		
 		try {
 			return ((ActionResponseNetPacket)requestAndAwaitResponse(new ActionRequestNetPacket(messageCounter, id))).getAction();
-		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unable to request action to the remote client due to IOException", e);
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request action to the remote client due to " + e.getMessage(), e);
 			throw new DisconnectedException();
 		}
 		
@@ -228,8 +228,8 @@ public class SocketConnection implements Connection{
 		try {
 			int chosen = ((EffectChoiceResponseNetPacket)requestAndAwaitResponse(new EffectChoiceRequestNetPacket(messageCounter, possibleEffects))).getChosen();
 			return possibleEffects[chosen];
-		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unable to request effect choice to the remote client due to IOException", e);
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request effect choice to the remote client due to " + e.getMessage(), e);
 			throw new DisconnectedException();
 		}
 	}
@@ -241,8 +241,8 @@ public class SocketConnection implements Connection{
 			String receivedName= ((NameResponseNetPacket)requestAndAwaitResponse(new NameRequestNetPacket(messageCounter))).getName();
 			this.name=receivedName;
 			return name;
-		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unable to request name to the remote client due to IOException", e);
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request name to the remote client due to " + e.getMessage(), e);
 			throw new DisconnectedException();
 		}
 	}
@@ -257,8 +257,8 @@ public class SocketConnection implements Connection{
 	
 		try {
 			return ((WorkChoiceResponseNetPacket)requestAndAwaitResponse(new WorkChoiceRequestNetPacket(messageCounter, message))).getChosen();
-		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unable to request work choice to the remote client due to IOException", e);
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request work choice to the remote client due to " + e.getMessage(), e);
 			throw new DisconnectedException();
 		}
 	}
@@ -275,8 +275,8 @@ public class SocketConnection implements Connection{
 	public boolean reqWantsAdvRules() throws DisconnectedException{
 		try {
 			return ((RulesChoiceResponseNetPacket)requestAndAwaitResponse(new RulesChoiceRequestNetPacket(messageCounter))).wantsAdvanced();
-		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unable to request rules choice to the remote client due to IOException", e);
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request rules choice to the remote client due to " + e.getMessage(), e);
 			throw new DisconnectedException();
 		}
 		
@@ -298,8 +298,8 @@ public class SocketConnection implements Connection{
 	public int reqLeaderCardChoice(LeaderCard[] choices) {
 		try {
 			return((LeaderChoiceResponseNetPacket)requestAndAwaitResponse(new LeaderChoiceRequestNetPacket(messageCounter, choices))).getChosen();
-		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unable to request leader card choice to the remote client due to IOException", e);
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request leader card choice to the remote client due to " + e.getMessage(), e);
 			return 0;
 		}
 	}
@@ -309,8 +309,8 @@ public class SocketConnection implements Connection{
 	public int reqPersonalTileChoice(PersonalBonusTile[] choices) {
 		try {
 			return ((TileChoiceResponseNetPacket)requestAndAwaitResponse(new TileChoiceRequestNetPacket(messageCounter, choices))).getChosen();
-		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unable to request personal bonus tile choice to the remote client due to IOException", e);
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request personal bonus tile choice to the remote client due to "+ e.getMessage(), e);
 			return 0;
 		}
 	}

@@ -197,6 +197,7 @@ public class Player {
 		this.modifiers=new ModifiersSet();
 		this.family=new Family(id);
 		this.excommunications = new ArrayList<>();
+		this.properties.getProperty(PropertiesId.FAITHPOINTS).setValue(10); //TODO to be removed, used for testing excommunications
 	}
 
 	/**

@@ -37,7 +37,7 @@ public class CardDiceExcommunication extends Excommunication{
 	@Override
 	public String toString()
 	{
-		return "Each time you pick a " + this.cardType.toString() + " the action value gets reduced by " +this.diceMalus + " units.";
+		return "When picking a " + this.cardType.toString() + " card, the relative action value gets reduced by " +this.diceMalus + " units.";
 	}
 
 	

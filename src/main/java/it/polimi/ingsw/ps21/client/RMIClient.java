@@ -65,7 +65,12 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	public boolean isConnected(){
 		return connected;
 	}
-
+	
+	public void start()
+	{
+		System.out.println("\nClient ready to receive datas from server.");
+	}
+	
 	@Override
 	public void receiveMessage(String string) throws RemoteException {
 		ui.showInfo(string);
@@ -136,12 +141,15 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 
 	@Override
 	public boolean reqRules() throws RemoteException {
-		return ui.reqIfWantsAdvancedRules();
+		boolean wantsAdvRules= ui.reqIfWantsAdvancedRules();
+		ui.showInfo("\nWaiting for match to start...");
+		return wantsAdvRules;
 	}
 
 	@Override
 	public void matchEnded(EndData data) throws RemoteException {
-		ui.matchEnded(data);		
+		connection.disconnect();
+		ui.matchEnded(data);
 	}
 
 	@Override

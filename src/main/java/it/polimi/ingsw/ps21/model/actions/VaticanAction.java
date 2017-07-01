@@ -27,20 +27,20 @@ public class VaticanAction extends Action {
 
 	public VaticanAction(PlayerColor playerId) {
 		super(playerId);
-		this.updateCounter = 1;
+		this.updateCounter = 2;
 	}
 
 	/**
 	 * When executed first time this method returns an excommunication message if the player doesn't have the possibility
 	 * to support the church, else it returns a vatican choice that will be notified to the UserHandler.
-	 * When executed second time if the player has choosen to support the church returns an AcceptedAction, if he has choosen
-	 * to not support the churc it returns an ExcommunicationMessage and if he has not visited the message it returns a Refused Action message
+	 * When executed second time if the player has chosen to support the church returns an AcceptedAction, if he has choosen
+	 * to not support the church it returns an ExcommunicationMessage and if he has not visited the message it returns a Refused Action message
 	 * 
 	 */
 	@Override
 	public Message update(Player player, Match match) {
 		switch (this.updateCounter) {
-		case 1: {
+		case 2: {
 			if (player.getProperties().getProperty(PropertiesId.FAITHPOINTS).getValue() >= match.getBoard()
 					.getExcommunicationRequirement(match.getPeriod())) {
 				this.updateCounter--;
@@ -51,17 +51,27 @@ public class VaticanAction extends Action {
 				this.vaticanChoice = new VaticanChoice(player.getId(),
 						match.getBoard().getExcommunications()[match.getPeriod() - 1]);
 				vaticanChoice.setChosen(false);
+				vaticanChoice.setVisited();
+				this.updateCounter=0;
 				return new ExcommunicationMessage(player.getId(), match.getBoard().getExcommunications()[match.getPeriod() - 1].toString());
 			}
 		}
 
-		case 0: {
+		case 1: {
+			this.updateCounter--;
 			if ((this.vaticanChoice.isVisited())) {
 				if (!this.vaticanChoice.getChosen())
 				return new ExcommunicationMessage(player.getId(), match.getBoard().getExcommunications()[match.getPeriod() - 1].toString());
-				else return new AcceptedAction(player.getId());
+				
 			} else
 				return new RefusedAction(player.getId());
+			
+		}
+		
+		case 0: {
+			//this case is reached the second time the update method is called on this action,  if the player has not enough faith points
+			//OR the second time the third method is called on this action
+			return new AcceptedAction(player.getId());
 		}
 
 		default:
@@ -73,8 +83,6 @@ public class VaticanAction extends Action {
 	public ExtraAction[] activate(Player player, Match match)
 			throws NotExecutableException, RequirementNotMetException, InsufficientPropsException {
 		
-		ArrayList<ExtraAction> extraActionList = new ArrayList<>();
-		
 		if(this.vaticanChoice.getChosen()) {
 		
 			if ((player instanceof AdvancedPlayer) && (((AdvancedPlayer)player).getAdvMod().hasVaticanSupportBonus())){
@@ -83,13 +91,12 @@ public class VaticanAction extends Action {
 			
 			player.getProperties().getProperty(PropertiesId.FAITHPOINTS).setValue(0);
 			 
-			extraActionList.add(new NullAction(player.getId()));
-			return extraActionList.toArray(new ExtraAction[0]);
+			return new ExtraAction[0];
+			
 		}else{
 			player.addExcommunication(match.getBoard().getExcommunications()[match.getPeriod() - 1]);
+			return new ExtraAction[0];
 			
-			extraActionList.add(new NullAction(player.getId()));
-			return extraActionList.toArray(new ExtraAction[0]);
 		}
 	}
 

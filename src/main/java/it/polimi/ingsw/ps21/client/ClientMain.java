@@ -65,21 +65,13 @@ public class ClientMain {
     	
 			if (chosenConnection==1) {
 				SocketClient client = new SocketClient(ui, parseChoice(chosenJoin)); 
-
-				
-					boolean matchStarted=client.start();
-					if (matchStarted){
-								
-										System.out.println("Do you want to play another match, fucking loser?\n(Y)es\n(N)o");
-											String response = in.nextLine();			
-							}
-								else {System.out.println("Failed to connect to server");
-								newMatch = false;
-								}
+				client.start();
+					
 			}
 			else{
 				try {
 					RMIClient rmiclient = new RMIClient(ui, "127.0.0.1", RMI_PORT, parseChoice(chosenJoin));
+					rmiclient.start();
 				} catch (RemoteException | NotBoundException e) {
 					System.out.println("Failed to connect to server through RMI.");
 					LOGGER.log(Level.WARNING, "RMI Connection failed", e);
