@@ -149,7 +149,12 @@ public class MatchController extends Observable implements Observer {
 			setChanged();
 			notifyObservers((AcceptedAction) returnMessage);
 			performAction();
-		} 
+		} else if(returnMessage instanceof ExcommunicationMessage && this.roundType==RoundType.VATICAN_ROUND) {
+			state = ActionState.ACCEPTED;
+			setChanged();
+			notifyObservers((ExcommunicationMessage) returnMessage);
+			performAction();
+		}
 		else {
 			setChanged();
 			notifyObservers(returnMessage);

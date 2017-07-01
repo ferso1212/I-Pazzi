@@ -242,7 +242,6 @@ public class Player {
 	public ArrayList<Requirement> metCardRequirements(Card card) {
 		ArrayList<Requirement> output = new ArrayList<Requirement>();
 		for (RequirementAndCost req : card.getRequirements()) {
-			// TODO need to be fixed for RequirementAndCost
 			if (this.checkRequirement(req.getRequirement()))
 				output.add(req.getRequirement());
 		}

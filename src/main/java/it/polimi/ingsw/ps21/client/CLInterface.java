@@ -206,9 +206,7 @@ public class CLInterface implements UserInterface {
 	}
 
 	@Override
-	public ImmProperties[] reqPrivileges(int number, ImmProperties[] privilegesValues) { // TODO
-																							// need
-																							// possible
+	public ImmProperties[] reqPrivileges(int number, ImmProperties[] privilegesValues) {
 		// choices of privileges
 		int avaiablePrivileges = number;
 		ArrayList<ImmProperties> choices = new ArrayList<>();
@@ -319,7 +317,6 @@ public class CLInterface implements UserInterface {
 
 	@Override
 	public ActionData makeAction(int id) {
-		// TODO define ActionData and how to parse it
 		printOutput("It's your turn: which action do you want to do?");
 		printOutput(
 				"0)-No action;\n1)-Place a family member in a Tower Space;\n2)-Place a family member in Council palace\n"
@@ -347,7 +344,7 @@ public class CLInterface implements UserInterface {
 			space = 0;
 			break;
 		}
-		case 1: // TODO Development Action setting
+		case 1: 
 		{
 			type = ActionType.TAKE_CARD;
 			familyMember = chooseColor();
