@@ -16,7 +16,7 @@ public class Lobby extends Thread{
 	private ConcurrentLinkedQueue<Connection> connectionsQueue;
 	private ConcurrentHashMap<String, UserHandler> playingUsers;
 	private ArrayList<String> names;
-	private final long TIMEOUT=3000; //TODO change
+	private final long TIMEOUT=MatchFactory.instance().makeTimeoutServer();
 	// the milliseconds that the server will
 	// wait once 2 players joined
 	private final static int MAX_PLAYERS_NUM = 4; // The match is created if the

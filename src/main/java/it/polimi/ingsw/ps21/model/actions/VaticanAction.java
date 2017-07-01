@@ -51,14 +51,14 @@ public class VaticanAction extends Action {
 				this.vaticanChoice = new VaticanChoice(player.getId(),
 						match.getBoard().getExcommunications()[match.getPeriod() - 1]);
 				vaticanChoice.setChosen(false);
-				return new ExcommunicationMessage(player.getId());
+				return new ExcommunicationMessage(player.getId(), match.getBoard().getExcommunications()[match.getPeriod() - 1].toString());
 			}
 		}
 
 		case 0: {
 			if ((this.vaticanChoice.isVisited())) {
 				if (!this.vaticanChoice.getChosen())
-				return new ExcommunicationMessage(player.getId());
+				return new ExcommunicationMessage(player.getId(), match.getBoard().getExcommunications()[match.getPeriod() - 1].toString());
 				else return new AcceptedAction(player.getId());
 			} else
 				return new RefusedAction(player.getId());
