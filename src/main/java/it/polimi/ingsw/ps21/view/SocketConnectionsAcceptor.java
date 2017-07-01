@@ -6,6 +6,7 @@ import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,8 +20,8 @@ public class SocketConnectionsAcceptor extends ConnectionsAcceptor implements Ru
 private ServerSocket serverSocket;
 
 	
-	public SocketConnectionsAcceptor(ConcurrentLinkedQueue<Connection> stdConnections, ConcurrentLinkedQueue<Connection> advConnections, ArrayList<String> names, ConcurrentHashMap<String, UserHandler> playingUsers) {
-		super(stdConnections, advConnections, names, playingUsers);
+	public SocketConnectionsAcceptor(ConcurrentLinkedQueue<Connection> stdConnections, ConcurrentLinkedQueue<Connection> advConnections, ArrayList<String> names, ConcurrentHashMap<String, UserHandler> playingUsers, Semaphore stdSem, Semaphore advSem) {
+		super(stdConnections, advConnections, names, playingUsers, stdSem, advSem);
 	}
 
 	@Override
@@ -37,7 +38,7 @@ private ServerSocket serverSocket;
 				Socket newSocket = serverSocket.accept();
 				System.out.println("\nNew inbound connection detected. Source IP address: " + newSocket.getInetAddress());
 
-			(new SocketConnectionAdder(newSocket, stdConnections, advConnections, names, playingUsers)).start();
+			(new SocketConnectionAdder(newSocket, stdConnections, advConnections, names, playingUsers, stdSem, advSem)).start();
 				
 				
 			} catch (IOException e) {

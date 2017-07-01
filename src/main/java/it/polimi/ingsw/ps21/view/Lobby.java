@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.Semaphore;
 
 import it.polimi.ingsw.ps21.controller.LobbyTimeoutTask;
 import it.polimi.ingsw.ps21.controller.MatchRunner;
@@ -29,9 +30,10 @@ public class Lobby extends Thread{
 	private boolean startedTimer = false;
 	private boolean isAdvanced;
 	private Timer timer;
+	private Semaphore sem;
 	
 	
-	public Lobby(boolean type, ArrayList<String> names, ConcurrentHashMap<String, UserHandler> playingUsers)
+	public Lobby(boolean type, ArrayList<String> names, ConcurrentHashMap<String, UserHandler> playingUsers, Semaphore sem)
 	{
 		//this.TIMEOUT= MatchFactory.instance().makeTimeoutServer();
 		this.timeoutExpired=false;
@@ -39,7 +41,7 @@ public class Lobby extends Thread{
 		this.isAdvanced=type;
 		this.names=names;
 		this.playingUsers=playingUsers;
-		
+		this.sem=sem;
 	}
 	
 	public void run(){
@@ -50,15 +52,25 @@ public class Lobby extends Thread{
 	while (true) {
 		this.timer = new Timer();
 		LobbyTimeoutTask expired;
-		expired=new LobbyTimeoutTask(chosenRules);
+		expired=new LobbyTimeoutTask(chosenRules, sem);
 		
 		while (connectionsQueue.size() < MAX_PLAYERS_NUM && !expired.isExpired()) {
+			
 			if (connectionsQueue.size() >= MIN_PLAYERS_NUM && !startedTimer) 
 			{//the counter starts when the second player joins the lobby
 
 				timer.schedule(expired, TIMEOUT);
 				startedTimer = true;
 				System.out.println("\n" + chosenRules+ " lobby timeout started");
+				
+			}
+			else
+			{
+				try {
+					sem.acquire();
+				} catch (InterruptedException e) {
+					throw new RuntimeException("Lobby thread interrupted");
+				}
 			}
 
 		}

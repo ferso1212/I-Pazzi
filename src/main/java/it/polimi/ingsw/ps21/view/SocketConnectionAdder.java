@@ -11,6 +11,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,15 +22,19 @@ public class SocketConnectionAdder extends Thread {
 	private ConcurrentLinkedQueue<Connection> advConnectionsQueue;
 	private ArrayList<String> names;
 	private ConcurrentHashMap<String, UserHandler> playingUsers;
+	protected Semaphore stdSem;
+	protected Semaphore advSem;
 
 	public SocketConnectionAdder(Socket socket, ConcurrentLinkedQueue<Connection> connectionsQueue,
-			ConcurrentLinkedQueue<Connection> advConnectionsQueue, ArrayList<String> names, ConcurrentHashMap<String, UserHandler> playingUsers) {
+			ConcurrentLinkedQueue<Connection> advConnectionsQueue, ArrayList<String> names, ConcurrentHashMap<String, UserHandler> playingUsers, Semaphore stdSem, Semaphore advSem) {
 		super();
 		this.socket = socket;
 		this.connectionsQueue = connectionsQueue;
 		this.advConnectionsQueue = advConnectionsQueue;
 		this.playingUsers=playingUsers;
 		this.names=names;
+		this.stdSem=stdSem;
+		this.advSem= advSem;
 	}
 
 	public void run() {
@@ -88,7 +93,7 @@ public class SocketConnectionAdder extends Thread {
 		if (!wantsAdvRules) {
 			synchronized (connectionsQueue) {
 				this.connectionsQueue.add(newConnection);
-
+				stdSem.release();
 				System.out.println("\n" + newConnection.getName()
 						+ "'s inbound connection added to the standard lobby in position " + connectionsQueue.size());
 			}
@@ -97,7 +102,7 @@ public class SocketConnectionAdder extends Thread {
 		else {
 			synchronized (advConnectionsQueue) {
 				this.advConnectionsQueue.add(newConnection);
-
+				advSem.release();
 				System.out.println("\n" + newConnection.getName()
 						+ "'s inbound connection added to the advanced lobby in position "
 						+ advConnectionsQueue.size());
