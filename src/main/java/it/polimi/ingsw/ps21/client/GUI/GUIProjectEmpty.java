@@ -114,7 +114,7 @@ public class GUIProjectEmpty implements UserInterface {
 							"Invalid action", JOptionPane.WARNING_MESSAGE);
 				else {
 				if (waitingActions.availablePermits() == 0) {
-					chosenAction = new ActionData(ActionType.TAKE_CARD, color, servants, type, 0,
+					chosenAction = new ActionData(ActionType.TAKE_CARD, color, servants, type, space,
 							actionId);
 					waitingActions.release();
 					}
