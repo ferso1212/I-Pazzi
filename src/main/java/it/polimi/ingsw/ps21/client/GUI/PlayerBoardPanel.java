@@ -5,17 +5,23 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.imageio.ImageReadParam;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
 import it.polimi.ingsw.ps21.controller.PlayerData;
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
+import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 
 public class PlayerBoardPanel extends JPanel{
@@ -25,6 +31,8 @@ public class PlayerBoardPanel extends JPanel{
 	private JLabel stones;
 	private JLabel servants;
 	private transient BufferedImage playerBoardImage; 
+	private JLabel[] territory;
+	private JLabel[] building;
 	private double resizeParam;
 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -105,6 +113,44 @@ public class PlayerBoardPanel extends JPanel{
 		woods.setText(Integer.toString(playerInfo.getProperties().get(PropertiesId.WOOD)));
 		stones.setText(Integer.toString(playerInfo.getProperties().get(PropertiesId.STONES)));
 		servants.setText(Integer.toString(playerInfo.getProperties().get(PropertiesId.SERVANTS)));
+		updateTerritory(playerInfo.getCards().get(DevelopmentCardType.TERRITORY));
+		updateBuilding(playerInfo.getCards().get(DevelopmentCardType.BUILDING));
+	}
+	
+	private void updateTerritory(ArrayList<DevelopmentCard> territoryCards){
+		int i=0;
+		for(DevelopmentCard c : territoryCards){
+			try {
+				BufferedImage cardImage = ImageIO.read(new File((new File("")).getAbsolutePath().concat("/src/images/DevelopmentCards/" + c.getName().replaceAll(" ", "") + ".png")));
+				JLabel territoryLabel = new JLabel();
+				territoryLabel.setIcon(new ImageIcon(cardImage.getScaledInstance(resize(90), resize(125), Image.SCALE_DEFAULT)));
+				territoryLabel.setToolTipText("<html><body><div><img src=\"file:src/images/DevelopmentCards/"+c.getName().replace(" ", "")+".png\"></div><div>"+ c.toString() + "</div></body></html> ");
+				this.add(territoryLabel);
+				territoryLabel.setBounds(resize(20) + i * resize(30), resize(225), resize(90), resize(125));
+				i++;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private void updateBuilding(ArrayList<DevelopmentCard> buildingCards){
+		int i=0;
+		for(DevelopmentCard c : buildingCards){
+			try {
+				BufferedImage cardImage = ImageIO.read(new File((new File("")).getAbsolutePath().concat("/src/images/DevelopmentCards/" + c.getName().replaceAll(" ", "") + ".png")));
+				JLabel buildingLabel = new JLabel();
+				buildingLabel.setIcon(new ImageIcon(cardImage.getScaledInstance(resize(90), resize(125), Image.SCALE_DEFAULT)));
+				buildingLabel.setToolTipText("<html><body><div><img src=\"file:src/images/DevelopmentCards/"+c.getName().replace(" ", "")+".png\"></div><div>"+ c.toString() + "</div></body></html> ");
+				this.add(buildingLabel);
+				buildingLabel.setBounds(resize(20) + i * resize(30), resize(40), resize(90), resize(125));
+				i++;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 
