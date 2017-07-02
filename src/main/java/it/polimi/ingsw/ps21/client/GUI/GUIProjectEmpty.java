@@ -489,8 +489,19 @@ public class GUIProjectEmpty implements UserInterface {
 
 	@Override
 	public int reqCostChoice(ArrayList<ImmProperties> costChoices) {
-		// TODO Auto-generated method stub
-		return 0;
+		Object choices[] = new Object[costChoices.size()];
+		for (int i = 0; i < costChoices.size(); i++) {
+			choices[i] = costChoices.get(i).toString();
+		}
+		String chosenCost = (String) JOptionPane.showInputDialog(mainWindow, "Which cost do you want to pay?",
+				"Choose Cost", JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+		int j;
+		for (j = 0; j < choices.length; j++) {
+			if (chosenCost.compareTo((String) choices[j]) == 0) {
+				break;
+			}
+		}
+		return j;
 	}
 
 	@Override
@@ -512,8 +523,19 @@ public class GUIProjectEmpty implements UserInterface {
 
 	@Override
 	public int chooseLeaderCard(LeaderCard[] possibleChoices) {
-		// TODO Auto-generated method stub
-		return 0;
+		Object choices[] = new Object[possibleChoices.length];
+		for (int i = 0; i < possibleChoices.length; i++) {
+			choices[i] = possibleChoices[i].toString();
+		}
+		String chosenLeader = (String) JOptionPane.showInputDialog(mainWindow, "Which leader card do you want to pick?",
+				"Pick a Leader", JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+		int j;
+		for (j = 0; j < choices.length; j++) {
+			if (chosenLeader.compareTo((String) choices[j]) == 0) {
+				break;
+			}
+		}
+		return j;
 	}
 
 	@Override
@@ -539,8 +561,24 @@ public class GUIProjectEmpty implements UserInterface {
 
 	@Override
 	public ImmProperties[] reqPrivileges(int number, ImmProperties[] privilegesValues) {
-		// TODO Auto-generated method stub
-		return null;
+		ImmProperties[] output= new ImmProperties[number];
+		Object choices[] = new Object[privilegesValues.length];
+		for (int i = 0; i < privilegesValues.length; i++) {
+			choices[i] = privilegesValues[i].toString();
+		}
+		for(int i=0; i<number; i++)
+		{
+			String chosenPrivilege = (String) JOptionPane.showInputDialog(mainWindow, "Which privilege do you want to take?",
+					"Choose a privilege", JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+			int j;
+			for (j = 0; j < choices.length; j++) {
+				if (chosenPrivilege.compareTo((String) choices[j]) == 0) {
+					break;
+				}
+			}
+			output[i]=privilegesValues[j];
+		}
+		return output;
 	}
 
 	@Override
