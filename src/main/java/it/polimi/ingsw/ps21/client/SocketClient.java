@@ -33,9 +33,9 @@ public class SocketClient {
 	public SocketClient(UserInterface ui, boolean joinNewMatch) {
 		try{
 		this.ui=ui;
-		System.out.println("\nTrying to connect to the server with TCP socket...");
+		ui.showInfo("\nTrying to connect to the server with TCP socket...");
 		socket = new Socket(SERVER_IP, PORT);
-		System.out.println("\nEstablished TCP connection to the server.");
+		ui.showInfo("\nEstablished TCP connection to the server.");
 		in = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
 		out = new ObjectOutputStream(socket.getOutputStream());
 		out.reset();
@@ -60,7 +60,7 @@ public class SocketClient {
 			
 			//StartInfoNetPacket initialInfos = new StartInfoNetPacket(0, chosenRules, name);
 			//out.writeObject(initialInfos);
-			System.out.println("\nClient ready to receive from server.");
+			ui.showInfo("\nClient ready to receive from server.");
 			NetPacket receivedPacket = (NetPacket)in.readObject();
 				parseSocketInput(receivedPacket);
 				while (socket.isConnected()) {
@@ -70,7 +70,7 @@ public class SocketClient {
 				socket.close();
 			
 			if (socket.isClosed()) {
-				System.out.println("Connection closed");
+				ui.showInfo("Connection closed");
 				
 			} else {
 				
