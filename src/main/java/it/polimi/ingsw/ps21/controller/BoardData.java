@@ -36,10 +36,10 @@ public class BoardData implements Serializable{
 	public BoardData(Board board)
 	{	//---COPIES THE CARDS IN THE TOWER SPACES
 		this.cards = new DevelopmentCard[4][4];
-		int towerIndex=0;
 		this.excommunications = board.getExcommunications();
 		this.towerSpaces=new FamilyMemberData[board.getTower(DevelopmentCardType.BUILDING).FLOORS_NUM][DevelopmentCardType.values().length];
 		this.towerBonuses=new ImmProperties[board.getTower(DevelopmentCardType.BUILDING).FLOORS_NUM][DevelopmentCardType.values().length];
+		int towerIndex=0;
 		this.towerRequirements = new int[board.getTower(DevelopmentCardType.BUILDING).FLOORS_NUM][DevelopmentCardType.values().length];
 		for(DevelopmentCardType cardType: DevelopmentCardType.values()) //cycles through the towers
 		{
