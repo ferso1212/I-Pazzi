@@ -218,7 +218,7 @@ public class GUIProjectEmpty implements UserInterface {
 		public void actionPerformed(ActionEvent e) {
 			for (int i = 0; i < marketButtons.length; i++) {
 				if (e.getSource().equals(marketButtons[i])) {
-					int space = i + 1;
+					int space = i;
 					int servants = actionPanel.getChosenServants();
 					MembersColor color = actionPanel.getChosenColor();
 					if (color != null) {
@@ -495,8 +495,19 @@ public class GUIProjectEmpty implements UserInterface {
 
 	@Override
 	public int reqEffectChoice(EffectSet[] effectChoice) {
-		// TODO Auto-generated method stub
-		return 0;
+		Object choices[] = new Object[effectChoice.length];
+		for (int i = 0; i < effectChoice.length; i++) {
+			choices[i] = effectChoice[i].toString();
+		}
+		String chosenEffect = (String) JOptionPane.showInputDialog(mainWindow, "Which effect do you want to activate?",
+				"Choose Effect", JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+		int j;
+		for (j = 0; j < choices.length; j++) {
+			if (chosenEffect.compareTo((String) choices[j]) == 0) {
+				break;
+			}
+		}
+		return j;
 	}
 
 	@Override

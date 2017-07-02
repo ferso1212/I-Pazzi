@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
@@ -29,27 +30,35 @@ public class PlayerTile extends JSplitPane{
 	//passare carte character e venture del giocatore
 	public PlayerTile(PlayerData infoPlayer){
 		
-		this.playerId = infoPlayer.getId();
+		SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				playerId = infoPlayer.getId();
+				
+				playerBoardPanel = new PlayerBoardPanel((new File("")).getAbsolutePath().concat("/src/images/Lorenzo_Punchboard_FRONT_compressed/punchboard_f_c_03_bis.jpg"), infoPlayer);
+				setLeftComponent(playerBoardPanel);
+				setDividerLocation((int)(playerBoardPanel.getPlayerBoardImage().getWidth() * (screenSize.getHeight() / 2) / (playerBoardPanel.getPlayerBoardImage().getHeight() )));
+				
+				characters.setBackground(new Color(0,127,255));
+				characters.setOpaque(true);
+				characters.setText("CHARACTERS");
+				ventures.setBackground(new Color(244,0,161));
+				ventures.setOpaque(true);
+				ventures.setText("VENTURES");
+				
+				charactersAndVentures.setLayout(new GridLayout(2, 1));
+				charactersAndVentures.add(characters);
+				charactersAndVentures.add(ventures);
+				charactersAndVentures.setVisible(true);
+				
+				setRightComponent(charactersAndVentures);
+				
+				setVisible(true);
+				
+			}
+		});
 		
-		playerBoardPanel = new PlayerBoardPanel((new File("")).getAbsolutePath().concat("/src/images/Lorenzo_Punchboard_FRONT_compressed/punchboard_f_c_03.jpg"), infoPlayer);
-		this.setLeftComponent(playerBoardPanel);
-		this.setDividerLocation((int)(playerBoardPanel.getPlayerBoardImage().getWidth() * (screenSize.getHeight() / 2) / (playerBoardPanel.getPlayerBoardImage().getHeight() )));
-		
-		characters.setBackground(new Color(0,127,255));
-		characters.setOpaque(true);
-		characters.setText("CHARACTERS");
-		ventures.setBackground(new Color(244,0,161));
-		ventures.setOpaque(true);
-		ventures.setText("VENTURES");
-		
-		charactersAndVentures.setLayout(new GridLayout(2, 1));
-		charactersAndVentures.add(characters);
-		charactersAndVentures.add(ventures);
-		charactersAndVentures.setVisible(true);
-		
-		this.setRightComponent(charactersAndVentures);
-		
-		this.setVisible(true);
 		
 		
 	}
