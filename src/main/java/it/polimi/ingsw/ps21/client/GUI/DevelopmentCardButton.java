@@ -32,10 +32,10 @@ public class DevelopmentCardButton extends JButton{
 			this.tower = DevelopmentCardType.TERRITORY;
 			break;
 		case 1:
-			this.tower = DevelopmentCardType.BUILDING;
+			this.tower = DevelopmentCardType.CHARACTER;
 			break;
 		case 2:
-			this.tower = DevelopmentCardType.CHARACTER;
+			this.tower = DevelopmentCardType.BUILDING;
 			break;
 		case 3:
 			this.tower = DevelopmentCardType.VENTURE;
