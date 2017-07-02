@@ -595,8 +595,20 @@ public class GUIProjectEmpty implements UserInterface {
 
 	@Override
 	public int reqWorkChoice(DevelopmentCard workCard) {
-		// TODO Auto-generated method stub
-		return 0;
+		int effectsNum= workCard.getPossibleEffects().length;
+		Object choices[] = new Object[effectsNum];
+		for (int i = 0; i < effectsNum; i++) {
+			choices[i] = workCard.getPossibleEffects()[i].toString();
+		}
+		String chosenEffect = (String) JOptionPane.showInputDialog(mainWindow, "Which of the effects of this card should be activated in the current work action?",
+				"Choose effect to activate", JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+		int j;
+		for (j = 0; j < choices.length; j++) {
+			if (chosenEffect.compareTo((String) choices[j]) == 0) {
+				break;
+			}
+		}
+		return j;
 	}
 
 	@Override
