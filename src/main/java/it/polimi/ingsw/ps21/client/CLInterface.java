@@ -166,19 +166,71 @@ public class CLInterface implements UserInterface {
 		return matchEnded;
 	}
 
+	/**
+	 * This method print message from server into a textual box
+	 */
 	@Override
 	public void showInfo(String info) {
-		printOutput("Message from server: " + info);
+		info = "Message from server: " + info;
+		StringBuilder temp = new StringBuilder();
+		for (int i=0; i<info.length() + 6; i++){
+			temp.append("-");
+		}
+		printOutput(temp.toString());
+		temp = new  StringBuilder();
+		temp.append("|  ");
+		temp.append(info);
+		temp.append("  |");
+		printOutput(temp.toString());
+		temp = new StringBuilder();
+		for (int i=0; i<info.length() + 6; i++){
+			temp.append("-");
+		}
+		printOutput(temp.toString());
+		printOutput("");
+		//printOutput("Message from server: " + info);
 	}
 
 	@Override
 	public void showMessage(AcceptedAction mess) {
-		printOutput(mess.getMessage());
+		
+		StringBuilder temp = new StringBuilder();
+		for (int i=0; i<mess.getMessage().length() + 6; i++){
+			temp.append("-");
+		}
+		printOutput(temp.toString());
+		temp = new  StringBuilder();
+		temp.append("|  ");
+		temp.append(mess.getMessage());
+		temp.append("  |");
+		printOutput(temp.toString());
+		temp = new StringBuilder();
+		for (int i=0; i<mess.getMessage().length() + 6; i++){
+			temp.append("-");
+		}
+		printOutput(temp.toString());
+		printOutput("");
 	}
 
 	@Override
 	public void showMessage(RefusedAction mess) {
-		printOutput("Your action has been refused: " + mess.getMessage());
+
+		StringBuilder temp = new StringBuilder();
+		for (int i=0; i<mess.getMessage().length() + 6; i++){
+			temp.append("-");
+		}
+		printOutput(temp.toString());
+		temp = new  StringBuilder();
+		temp.append("|  ");
+		temp.append(mess.getMessage());
+		temp.append("  |");
+		printOutput(temp.toString());
+		temp = new StringBuilder();
+		for (int i=0; i<mess.getMessage().length() + 6; i++){
+			temp.append("-");
+		}
+		printOutput(temp.toString());
+		printOutput("");
 	}
 
 	@Override
