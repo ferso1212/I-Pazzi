@@ -104,7 +104,7 @@ public class DevelopmentAction extends Action {
 	@Override
 	public ExtraAction[] activate(Player player, Match match) throws NotExecutableException, RequirementNotMetException, InsufficientPropsException{
 		
-		super.payServants(player, this.possibleServants, this.famMember.getColor());
+		super.payServants(player, this.possibleServants);
 		
 		SingleTowerSpace space = match.getBoard().getTower(this.tower).getTowerSpace(floor);
 

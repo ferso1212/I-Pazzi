@@ -130,7 +130,7 @@ public class WorkAction extends Action {
 	@Override
 	public ExtraAction[] activate(Player player, Match match) throws NotExecutableException, RequirementNotMetException, InsufficientPropsException {
 
-		super.payServants(player, this.possibleServants, this.famMember.getColor());
+		super.payServants(player, this.possibleServants);
 		
 		ArrayList<ExtraAction> activatedEffects = new ArrayList<ExtraAction>();
 

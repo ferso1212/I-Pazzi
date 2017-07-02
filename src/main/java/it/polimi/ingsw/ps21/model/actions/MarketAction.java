@@ -52,7 +52,7 @@ public class MarketAction extends Action{
 	@Override
 	public ExtraAction[] activate(Player player, Match match) throws NotExecutableException, RequirementNotMetException, InsufficientPropsException {
 		
-		super.payServants(player, possibleServants, this.famMember.getColor());
+		super.payServants(player, possibleServants);
 		
 		match.getBoard().placeMember(player, this.famMember, this.space);
 		

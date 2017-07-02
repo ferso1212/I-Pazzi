@@ -1503,8 +1503,8 @@
             </Requirement>
             <Cost>
                 <Properties>
-                    <Wood value="2" />
-                    <Stones value="2" />
+                    <Wood value="0" />
+                    <Stones value="0" />
                     <Servants value="0" />
                     <Coins value="4" />
                     <MilitaryPoints value="0" />

@@ -7,6 +7,7 @@ import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
+import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 
 public abstract class Action {
 	
@@ -27,8 +28,8 @@ public abstract class Action {
 		return playerId;
 	}
 	
-	protected void payServants(Player player, int numOfServants, MembersColor memberToIncrement){
-		player.getFamily().getMember(memberToIncrement).increaseValue(numOfServants);
+	protected void payServants(Player player, int numOfServants){
+		player.getProperties().getProperty(PropertiesId.SERVANTS).payValue(numOfServants);
 	}
 	
 	
