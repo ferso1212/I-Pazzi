@@ -1,7 +1,6 @@
 package it.polimi.ingsw.ps21.controller;
 
 import java.util.ArrayList;
-import java.util.EmptyStackException;
 import java.util.EnumMap;
 import java.util.Observable;
 import java.util.Observer;
@@ -9,7 +8,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.actions.CouncilAction;
 import it.polimi.ingsw.ps21.model.actions.DevelopmentAction;
