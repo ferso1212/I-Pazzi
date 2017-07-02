@@ -18,7 +18,7 @@ import it.polimi.ingsw.ps21.model.actions.LeaderChoiceAction;
 import it.polimi.ingsw.ps21.model.actions.MarketAction;
 import it.polimi.ingsw.ps21.model.actions.NotExecutableException;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
-import it.polimi.ingsw.ps21.model.actions.PlayLeaderCard;
+import it.polimi.ingsw.ps21.model.actions.PlayLeaderCardAction;
 import it.polimi.ingsw.ps21.model.actions.TileChoiceAction;
 import it.polimi.ingsw.ps21.model.actions.VaticanAction;
 import it.polimi.ingsw.ps21.model.actions.WorkAction;
@@ -484,7 +484,7 @@ public class MatchController extends Observable implements Observer {
 			break;
 		case PLAY_LEADERCARD:
 			LeaderCard cardToPlay= ((AdvancedPlayer)this.currentPlayer).getLeaders()[data.getSpace()];
-			parsedAction = new PlayLeaderCard(currentPlayer.getId(), cardToPlay);
+			parsedAction = new PlayLeaderCardAction(currentPlayer.getId(), cardToPlay);
 			break;
 		case PRODUCTION: {
 			WorkSpace workSpace;
