@@ -61,7 +61,7 @@ public class EffectSet implements Serializable {
 				temp.append(types[i] + " and ");
 			}
 			temp.append(types[i] + ";");
-			temp.append("     Description: ");
+			temp.append("\tDescription: ");
 			for(i=0; i<simultaneousEffects.length-1; i++){
 				temp.append(simultaneousEffects[i].getDesc() + " and ");
 			}
