@@ -39,8 +39,8 @@ public class BoardData implements Serializable{
 		this.excommunications = board.getExcommunications();
 		this.towerSpaces=new FamilyMemberData[board.getTower(DevelopmentCardType.BUILDING).FLOORS_NUM][DevelopmentCardType.values().length];
 		this.towerBonuses=new ImmProperties[board.getTower(DevelopmentCardType.BUILDING).FLOORS_NUM][DevelopmentCardType.values().length];
-		int towerIndex=0;
 		this.towerRequirements = new int[board.getTower(DevelopmentCardType.BUILDING).FLOORS_NUM][DevelopmentCardType.values().length];
+		int towerIndex=0;
 		for(DevelopmentCardType cardType: DevelopmentCardType.values()) //cycles through the towers
 		{
 			Tower tower=board.getTower(cardType);

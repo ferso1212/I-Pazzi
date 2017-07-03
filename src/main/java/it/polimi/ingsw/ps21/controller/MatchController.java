@@ -1,7 +1,6 @@
 package it.polimi.ingsw.ps21.controller;
 
 import java.util.ArrayList;
-import java.util.EmptyStackException;
 import java.util.EnumMap;
 import java.util.Observable;
 import java.util.Observer;
@@ -9,7 +8,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.actions.CouncilAction;
 import it.polimi.ingsw.ps21.model.actions.DevelopmentAction;
@@ -18,7 +16,7 @@ import it.polimi.ingsw.ps21.model.actions.LeaderChoiceAction;
 import it.polimi.ingsw.ps21.model.actions.MarketAction;
 import it.polimi.ingsw.ps21.model.actions.NotExecutableException;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
-import it.polimi.ingsw.ps21.model.actions.PlayLeaderCard;
+import it.polimi.ingsw.ps21.model.actions.PlayLeaderCardAction;
 import it.polimi.ingsw.ps21.model.actions.TileChoiceAction;
 import it.polimi.ingsw.ps21.model.actions.VaticanAction;
 import it.polimi.ingsw.ps21.model.actions.WorkAction;
@@ -484,7 +482,7 @@ public class MatchController extends Observable implements Observer {
 			break;
 		case PLAY_LEADERCARD:
 			LeaderCard cardToPlay= ((AdvancedPlayer)this.currentPlayer).getLeaders()[data.getSpace()];
-			parsedAction = new PlayLeaderCard(currentPlayer.getId(), cardToPlay);
+			parsedAction = new PlayLeaderCardAction(currentPlayer.getId(), cardToPlay);
 			break;
 		case PRODUCTION: {
 			WorkSpace workSpace;

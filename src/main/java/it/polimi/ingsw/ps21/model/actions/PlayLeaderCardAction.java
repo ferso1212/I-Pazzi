@@ -14,11 +14,11 @@ import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
 
-public class PlayLeaderCard extends Action{
+public class PlayLeaderCardAction extends Action{
 	
 	private LeaderCard cardToPlay;
 
-	public PlayLeaderCard(PlayerColor playerId, LeaderCard cardToPlay) {
+	public PlayLeaderCardAction(PlayerColor playerId, LeaderCard cardToPlay) {
 		super(playerId);
 		this.cardToPlay = cardToPlay;
 	}

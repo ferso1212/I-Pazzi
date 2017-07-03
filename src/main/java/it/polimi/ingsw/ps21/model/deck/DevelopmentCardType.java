@@ -1,6 +1,11 @@
 package it.polimi.ingsw.ps21.model.deck;
 import java.io.Serializable;
 
+/**
+ * TERRITORY("Territory"), CHARACTER("Character"), BUILDING("Building"), VENTURE("Venture");
+ * @author gullit
+ *
+ */
 public enum DevelopmentCardType implements Serializable{
 	TERRITORY("Territory"), CHARACTER("Character"), BUILDING("Building"), VENTURE("Venture");
 	

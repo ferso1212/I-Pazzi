@@ -47,7 +47,7 @@ public abstract class DevelopmentCard extends Card implements Serializable{
 	@Override
 	public String toString(){ 
 		StringBuilder temp = new StringBuilder();
-		temp.append("Card:\n-Name: " + this.name + "\tPeriod: " + this.cardEra + "\tType: " + this.getCardType());
+		temp.append("Card:\n-Name: " + this.name + "\t-Period: " + this.cardEra + "\t-Type: " + this.getCardType());
 		temp.append("\n-Possible Requirements and Costs: ");
 		int i=1;
 		for (RequirementAndCost r:possibleRequirement){

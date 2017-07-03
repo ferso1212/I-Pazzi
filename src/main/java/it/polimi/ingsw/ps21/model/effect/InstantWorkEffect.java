@@ -29,7 +29,7 @@ public class InstantWorkEffect extends InstantLeaderEffect {
 
 	@Override
 	public String getType() {
-		return "WorkEffectPermanentLeaderEffect";
+		return "Instant Work Leader Effect";
 	}
 
 	@Override

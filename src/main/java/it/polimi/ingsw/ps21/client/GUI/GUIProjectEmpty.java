@@ -118,10 +118,9 @@ public class GUIProjectEmpty implements UserInterface {
 					JOptionPane.showMessageDialog(mainWindow, "You have to choose before a Family Member ",
 							"Invalid action", JOptionPane.WARNING_MESSAGE);
 				else {
-				if (waitingActions.availablePermits() == 0) {
-					chosenAction = new ActionData(ActionType.TAKE_CARD, color, servants, type, space,
-							actionId);
-					waitingActions.release();
+					if (waitingActions.availablePermits() == 0) {
+						chosenAction = new ActionData(ActionType.TAKE_CARD, color, servants, type, space, actionId);
+						waitingActions.release();
 					}
 				}
 			}
@@ -141,10 +140,10 @@ public class GUIProjectEmpty implements UserInterface {
 					JOptionPane.showMessageDialog(mainWindow, "You have to choose before a Family Member ",
 							"Invalid action", JOptionPane.WARNING_MESSAGE);
 				else {
-					
+
 					if (waitingActions.availablePermits() == 0) {
-						chosenAction = new ActionData(ActionType.HARVEST, color, servants, DevelopmentCardType.TERRITORY, 0,
-								actionId);
+						chosenAction = new ActionData(ActionType.HARVEST, color, servants,
+								DevelopmentCardType.TERRITORY, 0, actionId);
 						waitingActions.release();
 					}
 				}
@@ -155,10 +154,10 @@ public class GUIProjectEmpty implements UserInterface {
 					JOptionPane.showMessageDialog(mainWindow, "You have to choose before a Family Member ",
 							"Invalid action", JOptionPane.WARNING_MESSAGE);
 				else {
-					
+
 					if (waitingActions.availablePermits() == 0) {
-						chosenAction = new ActionData(ActionType.PRODUCTION, color, servants, DevelopmentCardType.BUILDING,
-								0, actionId);
+						chosenAction = new ActionData(ActionType.PRODUCTION, color, servants,
+								DevelopmentCardType.BUILDING, 0, actionId);
 						waitingActions.release();
 					}
 				}
@@ -169,10 +168,10 @@ public class GUIProjectEmpty implements UserInterface {
 					JOptionPane.showMessageDialog(mainWindow, "You have to choose before a Family Member ",
 							"Invalid action", JOptionPane.WARNING_MESSAGE);
 				else {
-					
+
 					if (waitingActions.availablePermits() == 0) {
-						chosenAction = new ActionData(ActionType.HARVEST, color, servants, DevelopmentCardType.TERRITORY, 1,
-								servants);
+						chosenAction = new ActionData(ActionType.HARVEST, color, servants,
+								DevelopmentCardType.TERRITORY, 1, servants);
 						waitingActions.release();
 					}
 				}
@@ -183,10 +182,10 @@ public class GUIProjectEmpty implements UserInterface {
 					JOptionPane.showMessageDialog(mainWindow, "You have to choose before a Family Member ",
 							"Invalid action", JOptionPane.WARNING_MESSAGE);
 				else {
-					
+
 					if (waitingActions.availablePermits() == 0) {
-						chosenAction = new ActionData(ActionType.PRODUCTION, color, servants, DevelopmentCardType.BUILDING,
-								1, actionId);
+						chosenAction = new ActionData(ActionType.PRODUCTION, color, servants,
+								DevelopmentCardType.BUILDING, 1, actionId);
 						waitingActions.release();
 					}
 				}
@@ -245,61 +244,60 @@ public class GUIProjectEmpty implements UserInterface {
 
 		this.numberOfPlayers = matchInfo.getPlayers().length;
 
+		JPanel contentPanel = new JPanel(new GridLayout(0, 2));
+		mainWindow.setContentPane(contentPanel);
+		boardPanel = new BoardPanel((new File("")).getAbsolutePath().concat("/src/images/board2.jpg"),
+				matchInfo.getBlackDice(), matchInfo.getWhiteDice(), matchInfo.getOrangeDice());
+		boardPanel.setLayout(null);
+		mainWindow.getContentPane().add(boardPanel);
+		scaleFactor = boardPanel.getScaleFactor();
 
-				JPanel contentPanel = new JPanel(new GridLayout(0,2));
-				mainWindow.setContentPane(contentPanel);
-				boardPanel = new BoardPanel((new File("")).getAbsolutePath().concat("/src/images/board2.jpg"),
-						matchInfo.getBlackDice(), matchInfo.getWhiteDice(), matchInfo.getOrangeDice());
-				boardPanel.setLayout(null);
-				mainWindow.getContentPane().add(boardPanel);
-				scaleFactor = boardPanel.getScaleFactor();
+		for (int j = 0; j < 4; j++) {
+			for (int i = 0; i < 4; i++) {
+				developmentCards[i][j] = new DevelopmentCardButton(boardPanel.getScaleFactor(), i, j);
+				developmentCards[i][j].addActionListener(new TowerListener());
+				boardPanel.add(developmentCards[i][j]).setBounds(resize(615) + j * resize(970),
+						resize(3050) - resize(820) * i, resize(470), resize(720));
+			}
+		}
 
-				for (int j = 0; j < 4; j++) {
-					for (int i = 0; i < 4; i++) {
-						developmentCards[i][j] = new DevelopmentCardButton(boardPanel.getScaleFactor(), i, j);
-						developmentCards[i][j].addActionListener(new TowerListener());
-						boardPanel.add(developmentCards[i][j]).setBounds(resize(615) + j * resize(970),
-								resize(3050) - resize(820) * i, resize(470), resize(720));
-					}
-				}
-				
-				for (int j = 0; j < 4; j++) {
-					for (int i = 0; i < 4; i++) {
-						familyMembersOnBoard[i][j] = new MemberLabel(this.scaleFactor);
-						boardPanel.add(familyMembersOnBoard[i][j]).setBounds(1190 + j * resize(955), 3585 - i * resize(885), resize(200), resize(200));
-					}
-				}
+		for (int j = 0; j < 4; j++) {
+			for (int i = 0; i < 4; i++) {
+				familyMembersOnBoard[i][j] = new MemberLabel(this.scaleFactor);
+				boardPanel.add(familyMembersOnBoard[i][j]).setBounds(1190 + j * resize(955), 3585 - i * resize(885),
+						resize(200), resize(200));
+			}
+		}
 
-				// left general panel setting with grid layout 2 rows 1
-				// column
-				rightPanel = new JPanel();
-				rightPanel.setOpaque(false);
-				mainWindow.getContentPane().add(rightPanel);
-				rightPanel.setLayout(new GridLayout(2, 0, 0, 0));
+		// left general panel setting with grid layout 2 rows 1
+		// column
+		rightPanel = new JPanel();
+		rightPanel.setOpaque(false);
+		mainWindow.getContentPane().add(rightPanel);
+		rightPanel.setLayout(new GridLayout(2, 0, 0, 0));
 
-				// on the top of the left panel there is a split panel with
-				// personal
-				// board and personal bonus tile
-				splitPane = new JSplitPane();
-				rightPanel.add(splitPane);
+		// on the top of the left panel there is a split panel with
+		// personal
+		// board and personal bonus tile
+		splitPane = new JSplitPane();
+		rightPanel.add(splitPane);
 
-				// setting a tabbedPane in the right space of splitPane
-				tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-				splitPane.setRightComponent(tabbedPane);
+		// setting a tabbedPane in the right space of splitPane
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		splitPane.setRightComponent(tabbedPane);
 
-				// setting a panel with borderLayout in the splitPane
-				actionPanel = new ActionPanel(matchInfo, playerID);
-				rightPanel.add(actionPanel);
+		// setting a panel with borderLayout in the splitPane
+		actionPanel = new ActionPanel(matchInfo, playerID);
+		rightPanel.add(actionPanel);
 
-				mainWindow.setVisible(true);
+		mainWindow.setVisible(true);
 
-				placeDevelopmentCards(matchInfo.getBoard().getCards());
-				placeExcommunications(matchInfo.getBoard().getExcommunications());
-				placeBoardFamilyMembers(matchInfo.getBoard().getTowerSpaces());
-				setSpaces();
-				setUpRightPanel(matchInfo.getPlayers());
-				// mainWindow.pack();
-			
+		placeDevelopmentCards(matchInfo.getBoard().getCards());
+		placeExcommunications(matchInfo.getBoard().getExcommunications());
+		placeBoardFamilyMembers(matchInfo.getBoard().getTowerSpaces());
+		setSpaces();
+		setUpRightPanel(matchInfo.getPlayers());
+		// mainWindow.pack();
 
 	}
 
@@ -311,13 +309,31 @@ public class GUIProjectEmpty implements UserInterface {
 		for (int j = 0; j < 4; j++) {
 			for (int i = 0; i < 4; i++) {
 				if (cards[i][j] != null) {
-					this.developmentCards[i][j].update(cards[i][j].getName(), cards[i][j].toString());
+					String[] lines = cards[i][j].toString().split("\n");
+					StringBuilder description = new StringBuilder();
+					for (String l : lines) {
+						String[] splittedLine = l.split("\t");
+						for (int k = 0; k < splittedLine.length; k++) {
+							if (k != 0)
+								description.append("  ");
+							String[] splittedElement = splittedLine[k].split(":");
+							for (String e : splittedElement) {
+								if ((e.contains("-") || e.equals("-Description")) && !e.equals("Requirements"))
+									description.append("<b>" + e + ":</b> ");
+								else
+									description.append(e);
+							}
+
+						}
+						description.append("<br>");
+					}
+					this.developmentCards[i][j].update(cards[i][j].getName(), description.toString());
 				} else
 					this.developmentCards[i][j].hideButton();
 			}
 		}
 	}
-	
+
 	private void placeBoardFamilyMembers(FamilyMemberData[][] members) {
 		for (int j = 0; j < 4; j++) {
 			for (int i = 0; i < 4; i++) {
@@ -451,7 +467,7 @@ public class GUIProjectEmpty implements UserInterface {
 	@Override
 	public void updateView(MatchData match) {
 		SwingUtilities.invokeLater(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				if (updateCounter == 0)
@@ -459,7 +475,7 @@ public class GUIProjectEmpty implements UserInterface {
 				else
 					update(match);
 				updateCounter++;
-				
+
 			}
 		});
 	}
@@ -472,8 +488,8 @@ public class GUIProjectEmpty implements UserInterface {
 			waitingActions.acquire();
 			if (chosenAction != null) {
 				return chosenAction;
-			}
-			else return new ActionData(ActionType.NULL, MembersColor.NEUTRAL, 0, null, 0, id);
+			} else
+				return new ActionData(ActionType.NULL, MembersColor.NEUTRAL, 0, null, 0, id);
 		} catch (InterruptedException e) {
 			return new ActionData(ActionType.NULL, MembersColor.NEUTRAL, 0, null, 0, id);
 		}
@@ -489,16 +505,30 @@ public class GUIProjectEmpty implements UserInterface {
 	@Override
 	public boolean reqVaticanChoice() {
 		boolean choice;
-		Object choices[] = {"Yes", "No"};
-		int chosen =  JOptionPane.showOptionDialog(mainWindow, "Do you want to support the church?", "Vatican Choice", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, choices, choices[1]);
-		if (chosen == 0) return true;
-		else return false;
+		Object choices[] = { "Yes", "No" };
+		int chosen = JOptionPane.showOptionDialog(mainWindow, "Do you want to support the church?", "Vatican Choice",
+				JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, choices, choices[1]);
+		if (chosen == 0)
+			return true;
+		else
+			return false;
 	}
 
 	@Override
 	public int reqCostChoice(ArrayList<ImmProperties> costChoices) {
-		// TODO Auto-generated method stub
-		return 0;
+		Object choices[] = new Object[costChoices.size()];
+		for (int i = 0; i < costChoices.size(); i++) {
+			choices[i] = costChoices.get(i).toString();
+		}
+		String chosenCost = (String) JOptionPane.showInputDialog(mainWindow, "Which cost do you want to pay?",
+				"Choose Cost", JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+		int j;
+		for (j = 0; j < choices.length; j++) {
+			if (chosenCost.compareTo((String) choices[j]) == 0) {
+				break;
+			}
+		}
+		return j;
 	}
 
 	@Override
@@ -520,8 +550,19 @@ public class GUIProjectEmpty implements UserInterface {
 
 	@Override
 	public int chooseLeaderCard(LeaderCard[] possibleChoices) {
-		// TODO Auto-generated method stub
-		return 0;
+		Object choices[] = new Object[possibleChoices.length];
+		for (int i = 0; i < possibleChoices.length; i++) {
+			choices[i] = possibleChoices[i].toString();
+		}
+		String chosenLeader = (String) JOptionPane.showInputDialog(mainWindow, "Which leader card do you want to pick?",
+				"Pick a Leader", JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+		int j;
+		for (j = 0; j < choices.length; j++) {
+			if (chosenLeader.compareTo((String) choices[j]) == 0) {
+				break;
+			}
+		}
+		return j;
 	}
 
 	@Override
@@ -547,8 +588,24 @@ public class GUIProjectEmpty implements UserInterface {
 
 	@Override
 	public ImmProperties[] reqPrivileges(int number, ImmProperties[] privilegesValues) {
-		// TODO Auto-generated method stub
-		return null;
+		ImmProperties[] output = new ImmProperties[number];
+		Object choices[] = new Object[privilegesValues.length];
+		for (int i = 0; i < privilegesValues.length; i++) {
+			choices[i] = privilegesValues[i].toString();
+		}
+		for (int i = 0; i < number; i++) {
+			String chosenPrivilege = (String) JOptionPane.showInputDialog(mainWindow,
+					"Which privilege do you want to take?", "Choose a privilege", JOptionPane.PLAIN_MESSAGE, null,
+					choices, choices[0]);
+			int j;
+			for (j = 0; j < choices.length; j++) {
+				if (chosenPrivilege.compareTo((String) choices[j]) == 0) {
+					break;
+				}
+			}
+			output[i] = privilegesValues[j];
+		}
+		return output;
 	}
 
 	@Override
@@ -565,8 +622,21 @@ public class GUIProjectEmpty implements UserInterface {
 
 	@Override
 	public int reqWorkChoice(DevelopmentCard workCard) {
-		// TODO Auto-generated method stub
-		return 0;
+		int effectsNum = workCard.getPossibleEffects().length;
+		Object choices[] = new Object[effectsNum];
+		for (int i = 0; i < effectsNum; i++) {
+			choices[i] = workCard.getPossibleEffects()[i].toString();
+		}
+		String chosenEffect = (String) JOptionPane.showInputDialog(mainWindow,
+				"Which of the effects of this card should be activated in the current work action?",
+				"Choose effect to activate", JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+		int j;
+		for (j = 0; j < choices.length; j++) {
+			if (chosenEffect.compareTo((String) choices[j]) == 0) {
+				break;
+			}
+		}
+		return j;
 	}
 
 	@Override
@@ -611,7 +681,5 @@ public class GUIProjectEmpty implements UserInterface {
 	public void setRules(boolean isAdvanced) {
 		this.isAdvanced = isAdvanced;
 	}
-	
-	
 
 }

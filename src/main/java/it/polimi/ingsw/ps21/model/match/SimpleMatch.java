@@ -11,7 +11,7 @@ import java.util.Queue;
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.NotExecutableException;
-import it.polimi.ingsw.ps21.model.actions.PlayLeaderCard;
+import it.polimi.ingsw.ps21.model.actions.PlayLeaderCardAction;
 import it.polimi.ingsw.ps21.model.actions.VaticanAction;
 import it.polimi.ingsw.ps21.model.board.Board;
 import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
@@ -292,8 +292,8 @@ public class SimpleMatch extends Match {
 	@Override
 	public ExtraAction[] doAction(Action action) throws NotExecutableException, RequirementNotMetException,
 			InsufficientPropsException, VaticanRoundException {
-		if (action instanceof PlayLeaderCard)
-			throw new NotExecutableException();
+		/*if (action instanceof PlayLeaderCardAction)
+			throw new NotExecutableException();*/
 		if (!(round == RoundType.VATICAN_ROUND)) {
 			if ((!(action instanceof VaticanAction))) {
 				ExtraAction[] extraActionPool;

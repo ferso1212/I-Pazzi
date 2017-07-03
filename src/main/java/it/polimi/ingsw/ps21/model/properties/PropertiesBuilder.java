@@ -36,38 +36,27 @@ public class PropertiesBuilder {
 		int blue = 0;
 		int purple = 0;
 		
-		NodeList colors = cardNode.getElementsByTagName("Green");
+		NodeList colors = cardNode.getChildNodes();
 		while(i < colors.getLength()) {
-			if (colors.item(i).getNodeType() == Node.ELEMENT_NODE) break;
+			if (colors.item(i).getNodeType() == Node.ELEMENT_NODE) {
+				Element color = (Element) colors.item(i);
+				if (color.getNodeName() == "Green"){
+					green = Integer.parseInt(color.getAttributeNode("value").getNodeValue());
+				}
+				else	if (color.getNodeName() == "Blue"){
+					blue = Integer.parseInt(color.getAttributeNode("value").getNodeValue());
+					
+				}
+				else	if (color.getNodeName() == "Yellow"){
+					yellow = Integer.parseInt(color.getAttributeNode("value").getNodeValue());
+				}
+				else  if (color.getNodeName() == "Purple"){
+					purple = Integer.parseInt(color.getAttributeNode("value").getNodeValue());
+				}
+			}
 			i++;
 		}
-		Element subElement = (Element) colors.item(i); 
-		green = Integer.parseInt(subElement.getAttributeNode("value").getNodeValue());
-		
-		colors = cardNode.getElementsByTagName("Blue");
-		while(i < colors.getLength()) {
-			if (colors.item(i).getNodeType() == Node.ELEMENT_NODE) break;
-			i++;
-		}
-		subElement = (Element) colors.item(i); 
-		blue = Integer.parseInt(subElement.getAttributeNode("value").getNodeValue());
-
-		colors = cardNode.getElementsByTagName("Yellow");
-		while(i < colors.getLength()) {
-			if (colors.item(i).getNodeType() == Node.ELEMENT_NODE) break;
-			i++;
-		}
-		subElement = (Element) colors.item(i); 
-		yellow = Integer.parseInt(subElement.getAttributeNode("value").getNodeValue());
-		
-		colors = cardNode.getElementsByTagName("Purple");
-		while(i < colors.getLength()) {
-			if (colors.item(i).getNodeType() == Node.ELEMENT_NODE) break;
-			i++;
-		}
-		subElement = (Element) colors.item(i); 
-		purple = Integer.parseInt(subElement.getAttributeNode("value").getNodeValue());
-		return new CardsNumber(green, yellow, blue, purple);
+		return new CardsNumber(green, blue, yellow, purple);
 	}
 	
 	public static Requirement makeRequirement(Element req) throws XMLParseException { // Must be a Requirement Element
@@ -75,21 +64,19 @@ public class PropertiesBuilder {
 		else {
 			CardsNumber tempCardNum = new CardsNumber(0, 0, 0, 0); //Temporary values
 			ImmProperties props = new ImmProperties(0,0,0,0,0,0, 0); //Temporary Values
-			NodeList cardNumNodes = req.getElementsByTagName("CardsNumber");
-			for (int i= 0; i<cardNumNodes.getLength(); i++){
-				Node cardNode = cardNumNodes.item(i);
-				if (cardNode.getNodeType() == Node.ELEMENT_NODE){
-					tempCardNum = PropertiesBuilder.makeCardNums((Element) cardNode);
+			NodeList reqChilds = req.getChildNodes();
+			for (int i= 0; i<reqChilds.getLength(); i++){
+				if (reqChilds.item(i).getNodeType()== Node.ELEMENT_NODE){
+					if (reqChilds.item(i).getNodeName() == "CardsNumber"){
+						Node cardNode = reqChilds.item(i);
+							tempCardNum = PropertiesBuilder.makeCardNums((Element) cardNode);
+					}
+					else	if (reqChilds.item(i).getNodeName() == "Properties"){
+						Node propsNode = reqChilds.item(i);
+							props = PropertiesBuilder.makeImmProperites((Element) propsNode);
+						}
+					}	
 				}
-			}
-			
-			NodeList propsNodes = req.getElementsByTagName("Properties"); // Check on Child element with tag name properties (
-			for (int i= 0; i<propsNodes.getLength(); i++){
-				Node propsNode = propsNodes.item(i);
-				if (propsNode.getNodeType() == Node.ELEMENT_NODE){
-					props = PropertiesBuilder.makeImmProperites((Element) propsNode);
-				}
-			}
 			return new Requirement(tempCardNum, props);
 		}
 	}
