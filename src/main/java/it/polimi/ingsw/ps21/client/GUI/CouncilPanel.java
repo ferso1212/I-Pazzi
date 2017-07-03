@@ -27,7 +27,7 @@ public class CouncilPanel extends JPanel {
 
 		this.councilButton = new JButton();
 		this.setLayout(null);
-		this.setOpaque(true);
+		this.setOpaque(false);
 		this.scaleFactor = scaleFactor;
 		this.councilButton.setOpaque(false);
 		this.councilButton.setContentAreaFilled(false);
@@ -43,13 +43,14 @@ public class CouncilPanel extends JPanel {
 	}
 
 	public void update(FamilyMemberData[] occupants) {
-
+		
+		this.removeAll();
+		this.add(councilButton);
+		councilButton.setBounds(resize(110), resize(110), resize(1110), resize(215));
 		int i = 0;
 		for (FamilyMemberData f : occupants) {
 			if (f.getOwnerId() != null) {
 				JLabel memberLabel = new JLabel();
-				this.add(memberLabel);
-				memberLabel.setBounds(resize(75) + i * resize(125), resize(335), resize(125), resize(125));
 				try {
 					BufferedImage memberIcon = ImageIO.read(new File(new File("").getAbsolutePath()
 							.concat("/src/images/Lorenzo_Pedine/" + f.getOwnerId().toString().toLowerCase() + "_Player_"
@@ -60,8 +61,12 @@ public class CouncilPanel extends JPanel {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
 				memberLabel.setVisible(true);
 				memberLabel.setOpaque(true);
+				this.add(memberLabel);
+				memberLabel.setBounds(resize(75) + i * resize(125), resize(335), resize(125), resize(125));
+				i++;
 			}else{
 				break;
 			}

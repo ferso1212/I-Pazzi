@@ -27,6 +27,7 @@ import javax.swing.JOptionPane;
 
 import it.polimi.ingsw.ps21.client.UserInterface;
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
+import it.polimi.ingsw.ps21.controller.BoardData;
 import it.polimi.ingsw.ps21.controller.FamilyMemberData;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.PlayerData;
@@ -424,7 +425,7 @@ public class GUIProjectEmpty implements UserInterface {
 
 		// council space
 		councilPanel = new CouncilPanel(new CouncilListener(), this.scaleFactor);
-		boardPanel.add(councilPanel).setBounds(resize(2510), resize(3850), resize(1280), resize(580));
+		boardPanel.add(councilPanel).setBounds(resize(2510), resize(3750), resize(1280), resize(580));
 	}
 
 	private void setUpRightPanel(PlayerData[] playersInfo) {
@@ -449,7 +450,7 @@ public class GUIProjectEmpty implements UserInterface {
 
 	private void update(MatchData matchInfo) {
 		updateRightPanel(matchInfo.getPlayers());
-		updateSpaces();
+		updateSpaces(matchInfo.getBoard());
 		placeDevelopmentCards(matchInfo.getBoard().getCards());
 		placeExcommunications(matchInfo.getBoard().getExcommunications());
 		placeBoardFamilyMembers(matchInfo.getBoard().getTowerSpaces());
@@ -468,8 +469,19 @@ public class GUIProjectEmpty implements UserInterface {
 
 	}
 
-	private void updateSpaces() {
-
+	private void updateSpaces(BoardData boardInfo) {
+		councilPanel.update(boardInfo.getCouncilOccupants());
+		singleHarvest.update(boardInfo.getSingleHarvestSpace());
+		singleProduction.update(boardInfo.getSingleProductionSpace());
+		int i = 0;
+		for(MarketButton m : this.marketButtons){
+			m.update(boardInfo.getMarket()[i]);
+			i++;
+		}
+		if(this.numberOfPlayers > 2){
+			multipleHarvest.update(boardInfo.getMultipleHarvestSpace());
+			multipleProduction.update(boardInfo.getMultipleProductionSpace());
+		}
 	}
 
 	@Override
