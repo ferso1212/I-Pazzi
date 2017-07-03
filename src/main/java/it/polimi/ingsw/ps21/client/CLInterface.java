@@ -122,7 +122,6 @@ public class CLInterface implements UserInterface {
 		printOutput("-----------\tPICKED CARDS\t-----------");
 		for (DevelopmentCardType t : DevelopmentCardType.values()) {
 			if (this.playerInfo.getCards().containsKey(t))
-				;
 			{
 				printOutput("\t\t" + t + ":");
 				ArrayList<DevelopmentCard> typeCards = this.playerInfo.getCards().get(t);

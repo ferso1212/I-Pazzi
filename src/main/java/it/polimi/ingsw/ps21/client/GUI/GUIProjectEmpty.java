@@ -69,8 +69,8 @@ public class GUIProjectEmpty implements UserInterface {
 	private CouncilButton councilButton;
 	private WorkActionButton singleHarvest;
 	private WorkActionButton singleProduction;
-	private WorkActionButton multipleHarvest;
-	private WorkActionButton multipleProduction;
+	private MultipleWorkActionPanel multipleHarvest;
+	private MultipleWorkActionPanel multipleProduction;
 	private DevelopmentCardButton[][] developmentCards;
 	private MarketButton[] marketButtons;
 	private JLabel[][] familyMembersOnBoard;

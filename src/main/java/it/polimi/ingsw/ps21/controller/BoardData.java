@@ -29,6 +29,7 @@ public class BoardData implements Serializable{
 	private FamilyMemberData singleProductionSpace;
 	private FamilyMemberData[] multipleHarvestSpace;
 	private FamilyMemberData[] multipleProductionSpace;
+	private FamilyMemberData[] council;
 	private Map<DevelopmentCardType, int[]> cardsBonus;
 	private Excommunication[] excommunications;
 
@@ -66,6 +67,12 @@ public class BoardData implements Serializable{
 			marketPrivileges[i] = board.getMarketPlaces()[i].getNumberOfPrivileges();
 		}
 		
+		//copies member in council palace
+		this.council = new FamilyMemberData[board.getCouncilPalace().getOccupants().size()];
+		FamilyMember[] occupants = board.getCouncilPalace().getOccupants().toArray(new FamilyMember[0]);
+		for (int i=0; i< council.length; i++){
+			council[i] = new FamilyMemberData(occupants[i]);
+		}
 		//copies faith track bonuses
 		this.faithTrackBonus= new int[board.getTrackBonuses().getFaithTrackSize()];
 		for(int i=0; i<board.getTrackBonuses().getFaithTrackSize(); i++)
@@ -157,6 +164,10 @@ public class BoardData implements Serializable{
 	public Excommunication[] getExcommunications(){
 		return this.excommunications;
 		
+	}
+	
+	public FamilyMemberData[] getCouncilOccupants(){
+		return this.council;
 	}
 	
 }
