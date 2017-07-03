@@ -18,7 +18,7 @@ public class ClientMain {
 	private final static Logger LOGGER = Logger.getLogger(ClientMain.class.getName());
 	private final static int RMI_PORT = 5000;
 	private static UserInterface ui;
-	private static final String hostaddress;
+	private static String hostaddress;
 	
 	public static void main(String [] args)
 	{
@@ -68,7 +68,7 @@ public class ClientMain {
     	}
     	
 			if (chosenConnection==1) {
-				SocketClient client = new SocketClient(ui, parseChoice(chosenJoin)); 
+				SocketClient client = new SocketClient(ui, hostaddress, parseChoice(chosenJoin)); 
 				client.start();
 					
 			}
