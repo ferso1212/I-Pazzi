@@ -158,4 +158,9 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 		ui.setRules(isAdvanced);
 	}
 
+	@Override
+	public boolean testConnection() throws RemoteException {
+		return true;
+	}
+
 }
