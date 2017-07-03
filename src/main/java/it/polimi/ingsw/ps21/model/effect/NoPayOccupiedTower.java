@@ -7,7 +7,7 @@ import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.player.Player;
 
 /*
- * To be implemented
+ * 
  */
 public class NoPayOccupiedTower extends PermanentLeaderEffect {
 
@@ -24,7 +24,7 @@ public class NoPayOccupiedTower extends PermanentLeaderEffect {
 
 	@Override
 	public String getType() {
-		return new String(this.getClass().getName());
+		return "No Pay Occupied Tower Effect";
 	}
 
 	@Override
