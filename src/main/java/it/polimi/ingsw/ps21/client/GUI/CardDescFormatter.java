@@ -12,7 +12,7 @@ public abstract class CardDescFormatter {
 					description.append("  ");
 				String[] splittedElement = splittedLine[k].split(":");
 				for (String e : splittedElement) {
-					if ((e.contains("-") || e.equals("-Description")) && !e.equals("Requirements"))
+					if ((e.contains("-") || e.equals("-Description")) && !e.equals("-Requirements"))
 						description.append("<b>" + e + ":</b> ");
 					else
 						description.append(e);
