@@ -34,7 +34,8 @@ public abstract interface Connection{
 	
 	public ActionData reqAction(int id) throws DisconnectedException;
 
-
+	public boolean isConnected();
+	
 	public EffectSet reqEffectChoice(EffectSet[] possibleEffects) throws DisconnectedException;
 
 	public int reqWorkChoice(DevelopmentCard message) throws DisconnectedException;

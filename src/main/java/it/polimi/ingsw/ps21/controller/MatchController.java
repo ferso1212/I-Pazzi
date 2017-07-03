@@ -429,7 +429,8 @@ public class MatchController extends Observable implements Observer {
 				} else if (arg instanceof String) {
 					String s = (String) arg;
 					if ("playerDisconnected".equals(s)) {
-						nextPlayer();
+						if(!allDisconnected()) nextPlayer();
+						else System.out.println("\nAll players disconnected. Match will be terminated.");
 					}
 					else if("reconnection".equals(s))
 					{
@@ -554,6 +555,15 @@ public class MatchController extends Observable implements Observer {
 				nextPlayer();
 				
 			}}, actionTimeout);
+	}
+	
+	private boolean allDisconnected()
+	{
+		for(UserHandler user: handlersMap.values())
+		{
+			if(user.isConnected()) return false;
+		}
+		return true;
 	}
 
 }
