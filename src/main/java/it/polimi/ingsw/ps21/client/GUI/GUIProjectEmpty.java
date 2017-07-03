@@ -68,11 +68,11 @@ public class GUIProjectEmpty implements UserInterface {
 	private int updateCounter = 0;
 	private boolean isAdvanced;
 	private int playerTile;
-	private CouncilButton councilButton;
+	private CouncilPanel councilPanel;
 	private WorkActionButton singleHarvest;
 	private WorkActionButton singleProduction;
-	private WorkActionButton multipleHarvest;
-	private WorkActionButton multipleProduction;
+	private MultipleWorkActionPanel multipleHarvest;
+	private MultipleWorkActionPanel multipleProduction;
 	private DevelopmentCardButton[][] developmentCards;
 	private MarketButton[] marketButtons;
 	private JLabel[][] familyMembersOnBoard;
@@ -166,7 +166,7 @@ public class GUIProjectEmpty implements UserInterface {
 						waitingActions.release();
 					}
 				}
-			} else if (e.getSource().equals(multipleHarvest)) {
+			} else if (e.getSource().equals(multipleHarvest.getButton())) {
 				int servants = actionPanel.getChosenServants();
 				MembersColor color = actionPanel.getChosenColor();
 				if (color == null)
@@ -180,7 +180,7 @@ public class GUIProjectEmpty implements UserInterface {
 						waitingActions.release();
 					}
 				}
-			} else if (e.getSource().equals(multipleProduction)) {
+			} else if (e.getSource().equals(multipleProduction.getButton())) {
 				int servants = actionPanel.getChosenServants();
 				MembersColor color = actionPanel.getChosenColor();
 				if (color == null)
@@ -204,7 +204,7 @@ public class GUIProjectEmpty implements UserInterface {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource().equals(councilButton)) {
+			if (e.getSource().equals(councilPanel.getCouncilButton())) {
 				int servants = actionPanel.getChosenServants();
 				MembersColor color = actionPanel.getChosenColor();
 				if (color != null) {
@@ -343,6 +343,7 @@ public class GUIProjectEmpty implements UserInterface {
 					familyMembersOnBoard[i][j].setVisible(true);
 				} else
 					this.familyMembersOnBoard[i][j].setVisible(false);
+
 			}
 		}
 	}
@@ -368,13 +369,11 @@ public class GUIProjectEmpty implements UserInterface {
 
 		if (numberOfPlayers > 2) {
 
-			multipleProduction = new WorkActionButton(WorkType.PRODUCTION, false);
+			multipleProduction = new MultipleWorkActionPanel(new WorkListener());
 			boardPanel.add(multipleProduction).setBounds(resize(1100), resize(5485), resize(900), resize(415));
-			multipleProduction.addActionListener(new WorkListener());
 
-			multipleHarvest = new WorkActionButton(WorkType.HARVEST, false);
+			multipleHarvest = new MultipleWorkActionPanel(new WorkListener());
 			boardPanel.add(multipleHarvest).setBounds(resize(1100), resize(6020), resize(900), resize(415));
-			multipleHarvest.addActionListener(new WorkListener());
 		}
 
 		// market space
@@ -410,9 +409,8 @@ public class GUIProjectEmpty implements UserInterface {
 		}
 
 		// council space
-		councilButton = new CouncilButton();
-		boardPanel.add(councilButton).setBounds(resize(2515), resize(3780), resize(1280), resize(510));
-		councilButton.addActionListener(new CouncilListener());
+		councilPanel = new CouncilPanel(new CouncilListener(), this.scaleFactor);
+		boardPanel.add(councilPanel).setBounds(resize(2510), resize(3850), resize(1280), resize(580));
 	}
 
 	private void setUpRightPanel(PlayerData[] playersInfo) {

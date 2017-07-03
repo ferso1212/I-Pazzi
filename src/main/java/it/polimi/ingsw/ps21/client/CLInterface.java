@@ -109,6 +109,40 @@ public class CLInterface implements UserInterface {
 			}
 			printOutput("===================================================================");
 		}
+		printOutput("--------------------\t COUNCIL PALACE \t ---------------------");
+		StringBuilder council = new StringBuilder("Occupants: ");
+		for (FamilyMemberData f: matchInfo.getBoard().getCouncilOccupants()){
+			council.append("Player " + f.getOwnerId() + " with member " + f.getColor() );
+		}
+		printOutput(council.toString());
+		printOutput("===============================================================");
+		printOutput("----------------\t HARVEST SPACE \t---------------------");
+		printOutput("Single space: " +  matchInfo.getBoard().getSingleHarvestSpace().toString());
+		StringBuilder multipleSpace = new StringBuilder("Multiple space: ");
+		for (FamilyMemberData f: matchInfo.getBoard().getMultipleHarvestSpace()){
+			multipleSpace.append("Player " + f.getOwnerId() + " with member " + f.getColor());
+		}
+		printOutput(multipleSpace.toString());
+		printOutput("Dice Malus: 3");
+		printOutput("===============================================================");
+		printOutput("----------------\t PRODUCTION SPACE \t---------------------");
+		printOutput("Single space: " +  matchInfo.getBoard().getSingleHarvestSpace().toString());
+		 multipleSpace = new StringBuilder("Multiple space: ");
+		for (FamilyMemberData f: matchInfo.getBoard().getMultipleHarvestSpace()){
+			multipleSpace.append("Player " + f.getOwnerId() + " with member " + f.getColor());
+		}
+		printOutput(multipleSpace.toString());
+		printOutput("Dice Malus: 3");
+		printOutput("====================================================================");
+		printOutput("--------------------\t MARKET SPACES \t-----------------------------");
+		StringBuilder market = new StringBuilder();
+		for(int i=0; i<matchInfo.getBoard().getMarketBonuses().length; i++){
+			if (matchInfo.getBoard().getMarket()[i] !=null) market.append( (i+1) + ") " + matchInfo.getBoard().getMarket()[i].toString());
+			else market.append((i+1) + ") FREE");
+			market.append("\nBonus: " +  matchInfo.getBoard( ).getMarketBonuses()[i].toString() + "\tPrivileges: " + matchInfo.getBoard().getMarketPrivileges()[i]);
+		}
+		printOutput(market.toString());
+		printOutput("====================================================================");
 	}
 
 	private void showPlayerInfos() {
@@ -122,7 +156,6 @@ public class CLInterface implements UserInterface {
 		printOutput("-----------\tPICKED CARDS\t-----------");
 		for (DevelopmentCardType t : DevelopmentCardType.values()) {
 			if (this.playerInfo.getCards().containsKey(t))
-				;
 			{
 				printOutput("\t\t" + t + ":");
 				ArrayList<DevelopmentCard> typeCards = this.playerInfo.getCards().get(t);
