@@ -32,7 +32,6 @@ public class MemberBonus extends InstantLeaderEffect {
 
 	@Override
 	public String getDesc() {
-		// TODO Auto-generated method stub
 		return "This effect increase your neutral member value of " +  valueBonus;
 	}
 

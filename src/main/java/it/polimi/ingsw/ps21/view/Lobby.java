@@ -106,6 +106,7 @@ public class Lobby extends Thread{
 				{
 					names.removeAll(namesToRemove);
 				}
+				System.out.println("\nMatch terminated, these names have been removed: " + namesToRemove.toString());
 			}
 		};
 		matchRunner.start();

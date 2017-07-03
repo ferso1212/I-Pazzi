@@ -18,6 +18,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.concurrent.Semaphore;
 import java.util.logging.Logger;
 
@@ -69,8 +70,8 @@ public class GUIProjectEmpty implements UserInterface {
 	private CouncilPanel councilPanel;
 	private WorkActionButton singleHarvest;
 	private WorkActionButton singleProduction;
-	private WorkActionButton multipleHarvest;
-	private WorkActionButton multipleProduction;
+	private MultipleWorkActionPanel multipleHarvest;
+	private MultipleWorkActionPanel multipleProduction;
 	private DevelopmentCardButton[][] developmentCards;
 	private MarketButton[] marketButtons;
 	private JLabel[][] familyMembersOnBoard;
@@ -146,7 +147,7 @@ public class GUIProjectEmpty implements UserInterface {
 
 					if (waitingActions.availablePermits() == 0) {
 						chosenAction = new ActionData(ActionType.HARVEST, color, servants,
-								DevelopmentCardType.TERRITORY, 0, actionId);
+								DevelopmentCardType.TERRITORY, 1, actionId);
 						waitingActions.release();
 					}
 				}
@@ -160,11 +161,11 @@ public class GUIProjectEmpty implements UserInterface {
 
 					if (waitingActions.availablePermits() == 0) {
 						chosenAction = new ActionData(ActionType.PRODUCTION, color, servants,
-								DevelopmentCardType.BUILDING, 0, actionId);
+								DevelopmentCardType.BUILDING, 1, actionId);
 						waitingActions.release();
 					}
 				}
-			} else if (e.getSource().equals(multipleHarvest)) {
+			} else if (e.getSource().equals(multipleHarvest.getButton())) {
 				int servants = actionPanel.getChosenServants();
 				MembersColor color = actionPanel.getChosenColor();
 				if (color == null)
@@ -174,11 +175,11 @@ public class GUIProjectEmpty implements UserInterface {
 
 					if (waitingActions.availablePermits() == 0) {
 						chosenAction = new ActionData(ActionType.HARVEST, color, servants,
-								DevelopmentCardType.TERRITORY, 1, servants);
+								DevelopmentCardType.TERRITORY, 2, servants);
 						waitingActions.release();
 					}
 				}
-			} else if (e.getSource().equals(multipleProduction)) {
+			} else if (e.getSource().equals(multipleProduction.getButton())) {
 				int servants = actionPanel.getChosenServants();
 				MembersColor color = actionPanel.getChosenColor();
 				if (color == null)
@@ -188,7 +189,7 @@ public class GUIProjectEmpty implements UserInterface {
 
 					if (waitingActions.availablePermits() == 0) {
 						chosenAction = new ActionData(ActionType.PRODUCTION, color, servants,
-								DevelopmentCardType.BUILDING, 1, actionId);
+								DevelopmentCardType.BUILDING, 2, actionId);
 						waitingActions.release();
 					}
 				}
@@ -267,8 +268,8 @@ public class GUIProjectEmpty implements UserInterface {
 		for (int j = 0; j < 4; j++) {
 			for (int i = 0; i < 4; i++) {
 				familyMembersOnBoard[i][j] = new JLabel();
-				boardPanel.add(familyMembersOnBoard[i][j]).setBounds(resize(1190) + j * resize(955), resize(3300) - i * resize(800),
-						resize(200), resize(200));
+				boardPanel.add(familyMembersOnBoard[i][j]).setBounds(resize(1190) + j * resize(955),
+						resize(3300) - i * resize(800), resize(200), resize(200));
 				familyMembersOnBoard[i][j].setVisible(false);
 			}
 		}
@@ -343,15 +344,20 @@ public class GUIProjectEmpty implements UserInterface {
 			for (int i = 0; i < 4; i++) {
 				if (members[i][j].getOwnerId() != null) {
 					try {
-						BufferedImage image = ImageIO.read(new File(new File("").getAbsolutePath().concat("/src/images/Lorenzo_Pedine/" + members[i][j].getOwnerId().toString().toLowerCase() + "_Player_" + members[i][j].getColor().toString().toLowerCase() + ".png")));
-						familyMembersOnBoard[i][j].setIcon(new ImageIcon(image.getScaledInstance(resize(200), resize(200), Image.SCALE_SMOOTH)));
+						BufferedImage image = ImageIO.read(new File(new File("").getAbsolutePath()
+								.concat("/src/images/Lorenzo_Pedine/"
+										+ members[i][j].getOwnerId().toString().toLowerCase() + "_Player_"
+										+ members[i][j].getColor().toString().toLowerCase() + ".png")));
+						familyMembersOnBoard[i][j].setIcon(
+								new ImageIcon(image.getScaledInstance(resize(200), resize(200), Image.SCALE_SMOOTH)));
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					familyMembersOnBoard[i][j].setVisible(true);
 				} else
-				  this.familyMembersOnBoard[i][j].setVisible(false);;
+					this.familyMembersOnBoard[i][j].setVisible(false);
+				;
 			}
 		}
 	}
@@ -377,13 +383,11 @@ public class GUIProjectEmpty implements UserInterface {
 
 		if (numberOfPlayers > 2) {
 
-			multipleProduction = new WorkActionButton(WorkType.PRODUCTION, false);
+			multipleProduction = new MultipleWorkActionPanel(new WorkListener());
 			boardPanel.add(multipleProduction).setBounds(resize(1100), resize(5485), resize(900), resize(415));
-			multipleProduction.addActionListener(new WorkListener());
 
-			multipleHarvest = new WorkActionButton(WorkType.HARVEST, false);
+			multipleHarvest = new MultipleWorkActionPanel(new WorkListener());
 			boardPanel.add(multipleHarvest).setBounds(resize(1100), resize(6020), resize(900), resize(415));
-			multipleHarvest.addActionListener(new WorkListener());
 		}
 
 		// market space
@@ -470,7 +474,7 @@ public class GUIProjectEmpty implements UserInterface {
 
 	@Override
 	public void playMatch() {
-		// TODO Auto-generated method stub
+		// TODO implement this method
 
 	}
 
@@ -590,12 +594,6 @@ public class GUIProjectEmpty implements UserInterface {
 	}
 
 	@Override
-	public String nextInput() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public ImmProperties[] reqPrivileges(int number, ImmProperties[] privilegesValues) {
 		ImmProperties[] output = new ImmProperties[number];
 		Object choices[] = new Object[privilegesValues.length];
@@ -619,13 +617,28 @@ public class GUIProjectEmpty implements UserInterface {
 
 	@Override
 	public void matchEnded(EndData data) {
-		// TODO Auto-generated method stub
+		// TODO implement match end method in GUI
+		Map<PlayerColor, Integer> result = data.getPlayersFinalPoints();
+		if (data.getWinner() == playerID)
+		JOptionPane.showMessageDialog(mainWindow, "CONGRATULATIONS: You won!!!!!", "Match ended", JOptionPane.INFORMATION_MESSAGE);
+		else
+			
+		JOptionPane.showMessageDialog(mainWindow, "Player " + data.getWinner() + " won the match!", "Match ended", JOptionPane.INFORMATION_MESSAGE);
+		StringBuilder s = new StringBuilder();
+		for (PlayerColor color : result.keySet()) {
+			if (color.equals(playerID))
+				s.append("\nYou have totalized " + result.get(color) + " final points;");
+			else
+				s.append("\nPlayer " + color + " has totalized " + result.get(color) + " final points;");
+		}
+		JOptionPane.showMessageDialog(mainWindow, s.toString(), "Match results", JOptionPane.INFORMATION_MESSAGE);
+		System.exit(0);
 
 	}
 
 	@Override
 	public int reqExtraActionChoice(ExtraActionData[] actions) {
-		// TODO Auto-generated method stub
+		// implement extra action choice request in GUI
 		return 0;
 	}
 
@@ -686,6 +699,7 @@ public class GUIProjectEmpty implements UserInterface {
 		return j;
 	}
 
+	
 	@Override
 	public void setRules(boolean isAdvanced) {
 		this.isAdvanced = isAdvanced;

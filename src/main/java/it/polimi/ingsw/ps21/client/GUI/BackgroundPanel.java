@@ -7,12 +7,17 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import it.polimi.ingsw.ps21.controller.MatchController;
+
 public class BackgroundPanel extends JPanel {
 
+	private static final Logger LOGGER = Logger.getLogger(BackgroundPanel.class.getName());
 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	private String imagePath = (new File("").getAbsolutePath().concat("/src/images/background.jpg"));
 	
@@ -28,8 +33,7 @@ public class BackgroundPanel extends JPanel {
 					(int) screenSize.getWidth(),
 					this.getHeight(), BufferedImage.TYPE_INT_RGB), 0, 0, null);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.WARNING, "Unable to paint component due to IOException", e);
 		}
 	}
 
