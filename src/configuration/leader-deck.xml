@@ -17,8 +17,8 @@
         		        <CardsNumber>
         		            <Green value="0" />
         		            <Yellow value="0" />
-    		                <Blue value="0" />
-    		                <Purple value="5" />
+    		             	   <Blue value="0" />
+    		             	   <Purple value="5" />
     		            </CardsNumber>
   		          </Requirement>
 				<WorkType>
@@ -571,13 +571,9 @@
     		                <Purple value="0" />
     		            </CardsNumber>
   		          </Requirement>
-		</PrivilegesBonus>
-		
-		
+		</PrivilegesBonus>		
 	</InstantLeaderEffect>
 	</LeaderCard>
-
-	
 </LeaderDeck>
 
 

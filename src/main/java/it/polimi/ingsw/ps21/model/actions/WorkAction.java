@@ -145,6 +145,8 @@ public class WorkAction extends Action {
 		for (int i = 0; i < workMessage.getcardsToActivateWithoutChoice().length; i++) {
 			activatedEffects.addAll(workMessage.getcardsToActivateWithoutChoice()[i].getPossibleEffects()[0].activate(player));
 		}
+		
+		player.getProperties().increaseProperties(player.getPersonalBonusTile().getTileBonus(this.space.getWorkType(), this.actionValue));
 
 		return activatedEffects.toArray(new ExtraAction[0]);
 	}

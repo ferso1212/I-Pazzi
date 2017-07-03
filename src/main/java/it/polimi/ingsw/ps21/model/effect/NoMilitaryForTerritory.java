@@ -26,13 +26,13 @@ public class NoMilitaryForTerritory extends PermanentLeaderEffect {
 
 	@Override
 	public String getType() {
-		return new String(this.getClass().getName());
+		return "No Military For Territry Effect";
 	}
 
 
 	@Override
 	public String getDesc() {
-		return new String("You don't have to satisfy the Military Points requirement to pick a Territory Card");
+		return "You don't have to satisfy the Military Points requirement to pick a Territory Card";
 	}
 
 }

@@ -52,7 +52,10 @@ public class LeaderCard extends Card implements Serializable{
 	
 	public String toString(){
 		StringBuilder temp = new StringBuilder();
-		temp.append("Name = " + getName() +"\t Effect: " + leaderEffect.getType() + ": " + leaderEffect.getDesc() );
+		temp.append("Name = " + getName() +"\t Effect: " + leaderEffect.getType() + ": " + leaderEffect.getDesc());
+		for (Requirement r : leaderEffect.getRequirement()) {
+			temp.append("\n\tEffect Requirement: " + r.toString());
+		}
 		return temp.toString();
 	}
 	
