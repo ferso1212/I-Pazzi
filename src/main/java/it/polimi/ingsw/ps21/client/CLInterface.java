@@ -303,7 +303,7 @@ public class CLInterface implements UserInterface {
 
 	@Override
 	public int reqCostChoice(ArrayList<ImmProperties> costChoices) {
-		if (costChoices.size() == 0) {
+		if (costChoices.isEmpty()) {
 			printOutput("No costs to choose.");
 			return 0;
 		}
@@ -332,14 +332,14 @@ public class CLInterface implements UserInterface {
 			printOutput("You're activating this effect: " + effectChoice[0]);
 			return 0;
 		} else {
-			printOutput("Wich one of these effects do you want to activate?");
+			printOutput("Which one of these effects do you want to activate?");
 			for (int i = 0; i < effectChoice.length; i++) {
 				printOutput((i + 1) + "): " + effectChoice[i]);
 				printOutput("Cost" + effectChoice[i].getTotalCost() + ";");
 			}
 			int choosen = userInput.nextInt();
 			while (choosen < 1 || choosen > effectChoice.length) {
-				printOutput("Idiot, this choice is invalid! Please insert another choice: ");
+				printOutput("Invalid choice, please insert another choice: ");
 				choosen = userInput.nextInt();
 			}
 			return choosen - 1;
@@ -587,7 +587,7 @@ public class CLInterface implements UserInterface {
 		}
 		effectChosen = userInput.nextInt();
 		while (effectChosen < 0 || effectChosen > possibleEffects.length) {
-			printOutput("Fuck you! Insert a valid choice...");
+			printOutput("Invalid choice, please insert a valid choice...");
 			effectChosen = userInput.nextInt();
 		}
 		return effectChosen;

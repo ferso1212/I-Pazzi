@@ -132,7 +132,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 		try {
 			return client.reqExtraActionChoice(actions);
 		} catch (RemoteException e) {
-			LOGGER.log(Level.WARNING, "Error calling remote method for ExtraActionChoice, return default value");
+			LOGGER.log(Level.WARNING, "Error calling remote method for ExtraActionChoice, return default value", e);
 			connected=false;
 			throw new DisconnectedException();
 		}
@@ -144,7 +144,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 		try {
 			return client.actionRequest(id);
 		} catch (RemoteException e) {
-			LOGGER.log(Level.WARNING, "Error calling remote method actionRequest");
+			LOGGER.log(Level.WARNING, "Error calling remote method actionRequest", e);
 			connected=false;
 			throw new DisconnectedException();
 		}
@@ -240,7 +240,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 		try {
 			return client.reqLeaderChoice(choices);
 		} catch (RemoteException e) {
-			LOGGER.log(Level.WARNING, "Error requesting leader card choice on client, returning default value");
+			LOGGER.log(Level.WARNING, "Error requesting leader card choice on client, returning default value", e);
 			connected=false;
 			return 0;
 		}
@@ -252,7 +252,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 		try {
 			return client.reqPersonalTileChoice(choices);
 		} catch (RemoteException e) {
-			LOGGER.log(Level.WARNING, "Error requesting tile choice on client, returning default value");
+			LOGGER.log(Level.WARNING, "Error requesting tile choice on client, returning default value", e);
 			return 0;
 		}
 	}

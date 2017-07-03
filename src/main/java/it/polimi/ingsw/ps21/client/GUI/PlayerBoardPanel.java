@@ -149,7 +149,7 @@ public class PlayerBoardPanel extends JPanel{
 				BufferedImage cardImage = ImageIO.read(new File((new File("")).getAbsolutePath().concat("/src/images/DevelopmentCards/" + c.getName().replaceAll(" ", "") + ".png")));
 				JLabel territoryLabel = new JLabel();
 				territoryLabel.setIcon(new ImageIcon(cardImage.getScaledInstance(resize(90), resize(125), Image.SCALE_DEFAULT)));
-				territoryLabel.setToolTipText("<html><body><div><img src=\"file:src/images/DevelopmentCards/"+c.getName().replace(" ", "")+".png\"></div><div>"+ c.toString() + "</div></body></html> ");
+				territoryLabel.setToolTipText("<html><body><div><img src=\"file:src/images/DevelopmentCards/"+c.getName().replace(" ", "")+".png\"></div><div>"+ CardDescFormatter.format(c.toString()) + "</div></body></html> ");
 				this.add(territoryLabel);
 				territoryLabel.setBounds(resize(20) + i * resize(110), resize(225), resize(90), resize(125));
 				i++;
@@ -167,7 +167,7 @@ public class PlayerBoardPanel extends JPanel{
 				BufferedImage cardImage = ImageIO.read(new File((new File("")).getAbsolutePath().concat("/src/images/DevelopmentCards/" + c.getName().replaceAll(" ", "") + ".png")));
 				JLabel buildingLabel = new JLabel();
 				buildingLabel.setIcon(new ImageIcon(cardImage.getScaledInstance(resize(90), resize(125), Image.SCALE_DEFAULT)));
-				buildingLabel.setToolTipText("<html><body><div><img src=\"file:src/images/DevelopmentCards/"+c.getName().replace(" ", "")+".png\"></div><div>"+ c.toString() + "</div></body></html> ");
+				buildingLabel.setToolTipText("<html><body><div><img src=\"file:src/images/DevelopmentCards/"+c.getName().replace(" ", "")+".png\"></div><div>"+ CardDescFormatter.format(c.toString()) + "</div></body></html> ");
 				this.add(buildingLabel);
 				buildingLabel.setBounds(resize(20) + i * resize(110), resize(40), resize(90), resize(125));
 				i++;

@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JSplitPane;
@@ -268,8 +269,8 @@ public class GUIProjectEmpty implements UserInterface {
 		for (int j = 0; j < 4; j++) {
 			for (int i = 0; i < 4; i++) {
 				familyMembersOnBoard[i][j] = new JLabel();
-				boardPanel.add(familyMembersOnBoard[i][j]).setBounds(resize(1190) + j * resize(955), resize(3300) - i * resize(800),
-						resize(200), resize(200));
+				boardPanel.add(familyMembersOnBoard[i][j]).setBounds(resize(1190) + j * resize(955),
+						resize(3300) - i * resize(800), resize(200), resize(200));
 				familyMembersOnBoard[i][j].setVisible(false);
 			}
 		}
@@ -314,45 +315,34 @@ public class GUIProjectEmpty implements UserInterface {
 		for (int j = 0; j < 4; j++) {
 			for (int i = 0; i < 4; i++) {
 				if (cards[i][j] != null) {
-					String[] lines = cards[i][j].toString().split("\n");
-					StringBuilder description = new StringBuilder();
-					for (String l : lines) {
-						String[] splittedLine = l.split("\t");
-						for (int k = 0; k < splittedLine.length; k++) {
-							if (k != 0)
-								description.append("  ");
-							String[] splittedElement = splittedLine[k].split(":");
-							for (String e : splittedElement) {
-								if ((e.contains("-") || e.equals("-Description")) && !e.equals("Requirements"))
-									description.append("<b>" + e + ":</b> ");
-								else
-									description.append(e);
-							}
-
-						}
-						description.append("<br>");
-					}
-					this.developmentCards[i][j].update(cards[i][j].getName(), description.toString());
+					
+					this.developmentCards[i][j].update(cards[i][j].getName(), CardDescFormatter.format(cards[i][j].toString()));
+				
 				} else
 					this.developmentCards[i][j].hideButton();
 			}
 		}
 	}
 
+	
+
 	private void placeBoardFamilyMembers(FamilyMemberData[][] members) {
 		for (int j = 0; j < 4; j++) {
 			for (int i = 0; i < 4; i++) {
 				if (members[i][j].getOwnerId() != null) {
 					try {
-						BufferedImage image = ImageIO.read(new File(new File("").getAbsolutePath().concat("/src/images/Lorenzo_Pedine/" + members[i][j].getOwnerId().toString().toLowerCase() + "_Player_" + members[i][j].getColor().toString().toLowerCase() + ".png")));
-						familyMembersOnBoard[i][j].setIcon(new ImageIcon(image.getScaledInstance(resize(200), resize(200), Image.SCALE_SMOOTH)));
+						BufferedImage image = ImageIO.read(new File(new File("").getAbsolutePath()
+								.concat("/src/images/Lorenzo_Pedine/"
+										+ members[i][j].getOwnerId().toString().toLowerCase() + "_Player_"
+										+ members[i][j].getColor().toString().toLowerCase() + ".png")));
+						familyMembersOnBoard[i][j].setIcon(
+								new ImageIcon(image.getScaledInstance(resize(200), resize(200), Image.SCALE_SMOOTH)));
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						LOGGER.log(Level.SEVERE, "Unable to place family members due to IOException", e);
 					}
 					familyMembersOnBoard[i][j].setVisible(true);
 				} else
-				  this.familyMembersOnBoard[i][j].setVisible(false);;
+					this.familyMembersOnBoard[i][j].setVisible(false);
 			}
 		}
 	}
@@ -617,17 +607,21 @@ public class GUIProjectEmpty implements UserInterface {
 	public void matchEnded(EndData data) {
 		// TODO implement match end method in GUI
 		Map<PlayerColor, Integer> result = data.getPlayersFinalPoints();
-		if (data.getWinner() == playerID)
-		JOptionPane.showMessageDialog(mainWindow, "CONGRATULATIONS: You won!!!!!", "Match ended", JOptionPane.INFORMATION_MESSAGE);
-		else
-			
-		JOptionPane.showMessageDialog(mainWindow, "Player " + data.getWinner() + " won the match!", "Match ended", JOptionPane.INFORMATION_MESSAGE);
+		if (data.getWinner() == playerID) {
+			JOptionPane.showMessageDialog(mainWindow, "CONGRATULATIONS: You won!!!!!", "Match ended",
+					JOptionPane.INFORMATION_MESSAGE);
+		} else
+
+		{
+			JOptionPane.showMessageDialog(mainWindow, "Player " + data.getWinner() + " won the match!", "Match ended",
+					JOptionPane.INFORMATION_MESSAGE);
+		}
 		StringBuilder s = new StringBuilder();
-		for (PlayerColor color : result.keySet()) {
-			if (color.equals(playerID))
-				s.append("\nYou have totalized " + result.get(color) + " final points;");
+		for (Map.Entry<PlayerColor, Integer> player : result.entrySet()) {
+			if (player.getKey().equals(playerID))
+				s.append("\nYou have totalized " + player.getValue() + " final points;");
 			else
-				s.append("\nPlayer " + color + " has totalized " + result.get(color) + " final points;");
+				s.append("\nPlayer " + player.getKey() + " has totalized " + player.getValue() + " final points;");
 		}
 		JOptionPane.showMessageDialog(mainWindow, s.toString(), "Match results", JOptionPane.INFORMATION_MESSAGE);
 		System.exit(0);
@@ -697,7 +691,6 @@ public class GUIProjectEmpty implements UserInterface {
 		return j;
 	}
 
-	
 	@Override
 	public void setRules(boolean isAdvanced) {
 		this.isAdvanced = isAdvanced;
