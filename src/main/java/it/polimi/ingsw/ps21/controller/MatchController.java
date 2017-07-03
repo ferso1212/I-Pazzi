@@ -355,16 +355,6 @@ public class MatchController extends Observable implements Observer {
 		}
 	}
 
-	/*
-	 * public void roundLoop() { boolean isNewRound=false; while(!isNewRound)
-	 * {isNewRound=false; currentPlayer = match.getCurrentPlayer();
-	 * ActionRequest message = new ActionRequest(currentPlayer.getId());
-	 * setChanged(); notifyObservers(message); //asks userHandlers to visit the
-	 * message while (!message.isVisited()){wait for the message to be visited}
-	 * this.currentAction = message.getChoosenAction(); actionLoop();
-	 * isNewRound=match.setNextPlayer(); } }
-	 */
-
 	@Override
 	public void update(Observable source, Object arg) {
 		if (source != match && !handlersMap.containsValue(source)) {

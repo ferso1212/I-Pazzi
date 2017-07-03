@@ -200,13 +200,13 @@ public class Player {
 		this.excommunications = new ArrayList<>();
 		
 		//TODO to be removed:
-		this.properties.getProperty(PropertiesId.COINS).setValue(50);
+		/*this.properties.getProperty(PropertiesId.COINS).setValue(50);
 		this.properties.getProperty(PropertiesId.STONES).setValue(50);
 		this.properties.getProperty(PropertiesId.SERVANTS).setValue(50);
 		this.properties.getProperty(PropertiesId.WOOD).setValue(50);
 		this.properties.getProperty(PropertiesId.FAITHPOINTS).setValue(50);
 		this.properties.getProperty(PropertiesId.MILITARYPOINTS).setValue(50);
-		this.properties.getProperty(PropertiesId.VICTORYPOINTS).setValue(50);
+		this.properties.getProperty(PropertiesId.VICTORYPOINTS).setValue(50);*/
 	}
 
 	/**

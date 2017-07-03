@@ -47,7 +47,7 @@ public class DevelopmentAction extends Action {
 		switch (this.updateCounter) {
 		case 2: {
 			
-			if ((player.getProperties().getPayableRequirementsAndCosts(space.getCard().getCosts()).size() == 0) || ((match.getBoard().getTower(this.tower).isOccupied()) && (player.getProperties().getPayableRequirementsAndCosts(space.getCard().getOccupiedTowerCosts()).size() == 0) )) return new RefusedAction(player.getId(), "You can't pay any of possible costs");
+			if ((player.getProperties().getPayableRequirementsAndCosts(space.getCard().getCosts()).isEmpty()) || ((match.getBoard().getTower(this.tower).isOccupied()) && (player.getProperties().getPayableRequirementsAndCosts(space.getCard().getOccupiedTowerCosts()).size() == 0) )) return new RefusedAction(player.getId(), "You can't pay any of possible costs");
 			if(!(space.isOccupable(player, famMember))) return new RefusedAction(player.getId(), "You can't place this family member in this space");
 			if(!(player.checkCardRequirements(space.getCard()))) return new RefusedAction(player.getId(), "You don't meet card requirements");
 			if (!((player.getFamily().getMemberValueWithServants(this.possibleServants, this.famMember.getColor())) >= space.getDiceRequirement())) return new RefusedAction(player.getId(), "Dice value of family member isn't enough") ;
