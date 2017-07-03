@@ -442,10 +442,10 @@ public class CLInterface implements UserInterface {
 				tower = DevelopmentCardType.TERRITORY;
 				break;
 			case 2:
-				tower = DevelopmentCardType.BUILDING;
+				tower = DevelopmentCardType.CHARACTER;
 				break;
 			case 3:
-				tower = DevelopmentCardType.CHARACTER;
+				tower = DevelopmentCardType.BUILDING;
 				break;
 			case 4:
 				tower = DevelopmentCardType.VENTURE;
