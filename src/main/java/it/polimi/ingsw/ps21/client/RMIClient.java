@@ -52,15 +52,6 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 			connected = false;
 		}
 	}
-		/*try {
-			while(true){
-			this.wait(30);
-			ui.showInfo("Connection OK");
-			}
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			ui.showInfo("Awaked from interrupt");
-		}*/
 	
 	public boolean isConnected(){
 		return connected;

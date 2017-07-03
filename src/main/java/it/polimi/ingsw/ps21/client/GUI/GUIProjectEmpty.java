@@ -18,6 +18,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.concurrent.Semaphore;
 import java.util.logging.Logger;
 
@@ -146,7 +147,7 @@ public class GUIProjectEmpty implements UserInterface {
 
 					if (waitingActions.availablePermits() == 0) {
 						chosenAction = new ActionData(ActionType.HARVEST, color, servants,
-								DevelopmentCardType.TERRITORY, 0, actionId);
+								DevelopmentCardType.TERRITORY, 1, actionId);
 						waitingActions.release();
 					}
 				}
@@ -160,7 +161,7 @@ public class GUIProjectEmpty implements UserInterface {
 
 					if (waitingActions.availablePermits() == 0) {
 						chosenAction = new ActionData(ActionType.PRODUCTION, color, servants,
-								DevelopmentCardType.BUILDING, 0, actionId);
+								DevelopmentCardType.BUILDING, 1, actionId);
 						waitingActions.release();
 					}
 				}
@@ -174,7 +175,7 @@ public class GUIProjectEmpty implements UserInterface {
 
 					if (waitingActions.availablePermits() == 0) {
 						chosenAction = new ActionData(ActionType.HARVEST, color, servants,
-								DevelopmentCardType.TERRITORY, 1, servants);
+								DevelopmentCardType.TERRITORY, 2, servants);
 						waitingActions.release();
 					}
 				}
@@ -188,7 +189,7 @@ public class GUIProjectEmpty implements UserInterface {
 
 					if (waitingActions.availablePermits() == 0) {
 						chosenAction = new ActionData(ActionType.PRODUCTION, color, servants,
-								DevelopmentCardType.BUILDING, 1, actionId);
+								DevelopmentCardType.BUILDING, 2, actionId);
 						waitingActions.release();
 					}
 				}
@@ -474,7 +475,7 @@ public class GUIProjectEmpty implements UserInterface {
 
 	@Override
 	public void playMatch() {
-		// TODO Auto-generated method stub
+		// TODO implement this method
 
 	}
 
@@ -594,12 +595,6 @@ public class GUIProjectEmpty implements UserInterface {
 	}
 
 	@Override
-	public String nextInput() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public ImmProperties[] reqPrivileges(int number, ImmProperties[] privilegesValues) {
 		ImmProperties[] output = new ImmProperties[number];
 		Object choices[] = new Object[privilegesValues.length];
@@ -623,13 +618,28 @@ public class GUIProjectEmpty implements UserInterface {
 
 	@Override
 	public void matchEnded(EndData data) {
-		// TODO Auto-generated method stub
+		// TODO implement match end method in GUI
+		Map<PlayerColor, Integer> result = data.getPlayersFinalPoints();
+		if (data.getWinner() == playerID)
+		JOptionPane.showMessageDialog(mainWindow, "CONGRATULATIONS: You won!!!!!", "Match ended", JOptionPane.INFORMATION_MESSAGE);
+		else
+			
+		JOptionPane.showMessageDialog(mainWindow, "Player " + data.getWinner() + " won the match!", "Match ended", JOptionPane.INFORMATION_MESSAGE);
+		StringBuilder s = new StringBuilder();
+		for (PlayerColor color : result.keySet()) {
+			if (color.equals(playerID))
+				s.append("\nYou have totalized " + result.get(color) + " final points;");
+			else
+				s.append("\nPlayer " + color + " has totalized " + result.get(color) + " final points;");
+		}
+		JOptionPane.showMessageDialog(mainWindow, s.toString(), "Match results", JOptionPane.INFORMATION_MESSAGE);
+		System.exit(0);
 
 	}
 
 	@Override
 	public int reqExtraActionChoice(ExtraActionData[] actions) {
-		// TODO Auto-generated method stub
+		// implement extra action choice request in GUI
 		return 0;
 	}
 
@@ -690,6 +700,7 @@ public class GUIProjectEmpty implements UserInterface {
 		return j;
 	}
 
+	
 	@Override
 	public void setRules(boolean isAdvanced) {
 		this.isAdvanced = isAdvanced;

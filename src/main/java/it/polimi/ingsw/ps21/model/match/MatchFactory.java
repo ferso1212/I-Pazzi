@@ -568,7 +568,6 @@ public class MatchFactory {
 					result.put(t, reqs);
 				}
 			}
-			// TODO
 			cardAddingRequirement = result;
 		}
 		return cardAddingRequirement;
@@ -618,7 +617,6 @@ public class MatchFactory {
 				}
 				result = new TrackBonuses(faith, military);
 			}
-			// TODO
 			trackBonuses = result;
 		}
 		return trackBonuses;
@@ -720,7 +718,6 @@ public class MatchFactory {
 					result.put(t, bonuses);
 				}
 			}
-			// TODO
 			cardBonuses = result;
 		}
 		return cardBonuses;
@@ -784,7 +781,6 @@ public class MatchFactory {
 				for (DevelopmentCardType t : DevelopmentCardType.values()) 
 					result.put(t, properties);
 			}
-			// TODO
 			towersBonuses = result;
 		}
 		return towersBonuses;

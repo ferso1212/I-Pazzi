@@ -206,39 +206,39 @@ public class CLInterface implements UserInterface {
 	public void showInfo(String info) {
 		info = "Message from server: " + info;
 		StringBuilder temp = new StringBuilder();
-		for (int i=0; i<info.length() + 6; i++){
+		for (int i = 0; i < info.length() + 6; i++) {
 			temp.append("-");
 		}
 		printOutput(temp.toString());
-		temp = new  StringBuilder();
+		temp = new StringBuilder();
 		temp.append("|  ");
 		temp.append(info);
 		temp.append("  |");
 		printOutput(temp.toString());
 		temp = new StringBuilder();
-		for (int i=0; i<info.length() + 6; i++){
+		for (int i = 0; i < info.length() + 6; i++) {
 			temp.append("-");
 		}
 		printOutput(temp.toString());
 		printOutput("");
-		//printOutput("Message from server: " + info);
+		// printOutput("Message from server: " + info);
 	}
 
 	@Override
 	public void showMessage(AcceptedAction mess) {
-		
+
 		StringBuilder temp = new StringBuilder();
-		for (int i=0; i<mess.getMessage().length() + 6; i++){
+		for (int i = 0; i < mess.getMessage().length() + 6; i++) {
 			temp.append("-");
 		}
 		printOutput(temp.toString());
-		temp = new  StringBuilder();
+		temp = new StringBuilder();
 		temp.append("|  ");
 		temp.append(mess.getMessage());
 		temp.append("  |");
 		printOutput(temp.toString());
 		temp = new StringBuilder();
-		for (int i=0; i<mess.getMessage().length() + 6; i++){
+		for (int i = 0; i < mess.getMessage().length() + 6; i++) {
 			temp.append("-");
 		}
 		printOutput(temp.toString());
@@ -249,17 +249,17 @@ public class CLInterface implements UserInterface {
 	public void showMessage(RefusedAction mess) {
 
 		StringBuilder temp = new StringBuilder();
-		for (int i=0; i<mess.getMessage().length() + 6; i++){
+		for (int i = 0; i < mess.getMessage().length() + 6; i++) {
 			temp.append("-");
 		}
 		printOutput(temp.toString());
-		temp = new  StringBuilder();
+		temp = new StringBuilder();
 		temp.append("|  ");
 		temp.append(mess.getMessage());
 		temp.append("  |");
 		printOutput(temp.toString());
 		temp = new StringBuilder();
-		for (int i=0; i<mess.getMessage().length() + 6; i++){
+		for (int i = 0; i < mess.getMessage().length() + 6; i++) {
 			temp.append("-");
 		}
 		printOutput(temp.toString());
@@ -267,20 +267,13 @@ public class CLInterface implements UserInterface {
 	}
 
 	@Override
-	public String nextInput() {
-		return userInput.nextLine();
-	}
-
-	@Override
 	public boolean reqVaticanChoice() {
 		printOutput("You have to choose to support the Church:");
-		printOutput(
-				"Do you want to support the vatican(1) or not(2)?");
+		printOutput("Do you want to support the vatican(1) or not(2)?");
 		int userChoice = userInput.nextInt();
 		while (userChoice != 1 && userChoice != 2) {
 			printOutput("Please insert a valid choice!");
-			printOutput(
-					"Do you want to support the vatican(1) or not(2)?");
+			printOutput("Do you want to support the vatican(1) or not(2)?");
 			userChoice = userInput.nextInt();
 		}
 		if (userChoice == 1)
@@ -429,8 +422,7 @@ public class CLInterface implements UserInterface {
 			space = 0;
 			break;
 		}
-		case 1: 
-		{
+		case 1: {
 			type = ActionType.TAKE_CARD;
 			familyMember = chooseColor();
 			servants = chooseServants();
@@ -461,7 +453,7 @@ public class CLInterface implements UserInterface {
 			default: // This part of code should never be reached
 				tower = DevelopmentCardType.VENTURE;
 			}
-			// TODO choose floor;
+			// choose floor;
 			ArrayList<Integer> possibleSpaces = new ArrayList<>();
 			for (int k = 0; k < 4; k++) {
 				if (!matchInfo.getBoard().getTowerSpaces()[k][cardType - 1].exists()) {

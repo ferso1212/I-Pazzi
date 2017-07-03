@@ -26,7 +26,7 @@ import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
-public class UserHandler extends Observable implements Visitor, Runnable, Observer {
+public class UserHandler extends Observable implements Visitor, Observer {
 	private final static Logger LOGGER = Logger.getLogger(UserHandler.class.getName());
 	private PlayerColor playerId;
 	private Connection connection;
@@ -145,12 +145,6 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 			connection.sendMessage(message.getMessage());
 			message.setVisited();
 		
-	}
-
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-
 	}
 
 	public PlayerColor getPlayerId() {
@@ -296,9 +290,6 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 		
 	}
 
-	private void parseExtraAction(ExtraAction action) {
-		// TODO
-	}
 	
 	public String getName()
 	{

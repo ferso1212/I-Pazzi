@@ -44,8 +44,6 @@ public abstract interface UserInterface {
 	
 	public abstract void setID(PlayerColor id);
 
-	public abstract String nextInput();
-
 	public abstract ImmProperties[] reqPrivileges(int number, ImmProperties[] privilegesValues);
 	
 	public abstract void matchEnded(EndData data);

@@ -11,6 +11,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReadParam;
@@ -38,15 +40,16 @@ public class PlayerBoardPanel extends JPanel{
 	private JLabel[] building;
 	private double resizeParam;
 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	private static final transient Logger LOGGER = Logger.getLogger(PlayerBoardPanel.class.getName());
+
 
  	
  	public PlayerBoardPanel(String boardPath, PlayerData playerInfo){
- 		super(true);  //crea un JPanel con doubleBuffered true
+ 		super(true);  //creates a JPanel with doubleBuffered=true
  		try {
  			setImage(ImageIO.read(new File(boardPath)));
  		} catch (IOException e) {
- 			// TODO Auto-generated catch block
- 			e.printStackTrace();
+ 			LOGGER.log(Level.WARNING, "Unable to construct set PlayerBoardPanel's image due to IOException", e);
  		}
  		setProperties(playerInfo);
  	}
@@ -62,8 +65,8 @@ public class PlayerBoardPanel extends JPanel{
  		try {
 			g.drawImage(resizeImage(playerBoardImage, (int)(this.playerBoardImage.getWidth() * this.getHeight() / this.playerBoardImage.getHeight()), this.getHeight(), BufferedImage.TYPE_INT_RGB), 0, 0, null);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+ 			LOGGER.log(Level.WARNING, "Unable to paint PlayerBoardPanel's graphics due to IOException", e);
+
 		}
  	}
  	
@@ -151,8 +154,8 @@ public class PlayerBoardPanel extends JPanel{
 				territoryLabel.setBounds(resize(20) + i * resize(110), resize(225), resize(90), resize(125));
 				i++;
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+	 			LOGGER.log(Level.WARNING, "Unable to update Territory label due to IOException", e);
+
 			}
 		}
 	}
@@ -169,8 +172,8 @@ public class PlayerBoardPanel extends JPanel{
 				buildingLabel.setBounds(resize(20) + i * resize(110), resize(40), resize(90), resize(125));
 				i++;
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+	 			LOGGER.log(Level.WARNING, "Unable to update Building label due to IOException", e);
+
 			}
 		}
 	}

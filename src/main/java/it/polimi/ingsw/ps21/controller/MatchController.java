@@ -292,7 +292,6 @@ public class MatchController extends Observable implements Observer {
 	/**
 	 * Starts a new round
 	 */
-	// TODO: verificare se è round vatican
 	private void newRound() {
 		this.currentExtraActions.clear();
 		this.timer.cancel();
@@ -507,39 +506,6 @@ public class MatchController extends Observable implements Observer {
 		this.currentAction = parsedAction;
 	}
 
-	private void setupLeaderCards() {
-		
-		/*try {
-			this.numOfChosenLeaderCards=0;
-			LeaderDeck deck= MatchFactory.instance().makeLeaderDeck();
-			deck.shuffle();
-			for(UserHandler p: this.handlersMap.values())
-			{
-				ArrayList<LeaderCard> cardsChoices = new ArrayList<>();
-				for(int i=0; i<4; i++)
-				{
-					cardsChoices.add(deck.getCard());
-				}
-				this.unchosenLeaderCards.put(p.getPlayerId(), cardsChoices);
-				setChanged();
-				notifyObservers(new LeaderChoice(cardsChoices.toArray(new LeaderCard[0]), p.getPlayerId()));
-			}
-		} catch (EmptyStackException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (BuildingDeckException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		
-	}
-	
-	private void exchangeLeaderCards() {
-		if(this.numOfChosenLeaderCards<4)
-		{
-			
-		}
-	}
 	
 	private void startTimer()
 	{
