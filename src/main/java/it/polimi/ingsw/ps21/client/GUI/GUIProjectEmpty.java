@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps21.client.GUI;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -22,6 +23,7 @@ import javax.swing.JOptionPane;
 
 import it.polimi.ingsw.ps21.client.UserInterface;
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
+import it.polimi.ingsw.ps21.controller.FamilyMemberData;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
@@ -32,6 +34,7 @@ import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.excommunications.Excommunication;
+import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.PersonalBonusTile;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
@@ -67,6 +70,7 @@ public class GUIProjectEmpty implements UserInterface {
 	private WorkActionButton multipleProduction;
 	private DevelopmentCardButton[][] developmentCards;
 	private MarketButton[] marketButtons;
+	private MemberLabel[][] familyMembersOnBoard;
 	private PlayerColor playerID;
 	private Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
 	private Semaphore waitingActions;
@@ -78,6 +82,7 @@ public class GUIProjectEmpty implements UserInterface {
 	 */
 	public GUIProjectEmpty() {
 		this.developmentCards = new DevelopmentCardButton[4][4];
+		this.familyMembersOnBoard = new MemberLabel[4][4];
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -257,6 +262,13 @@ public class GUIProjectEmpty implements UserInterface {
 								resize(3050) - resize(820) * i, resize(470), resize(720));
 					}
 				}
+				
+				for (int j = 0; j < 4; j++) {
+					for (int i = 0; i < 4; i++) {
+						familyMembersOnBoard[i][j] = new MemberLabel(this.scaleFactor);
+						boardPanel.add(familyMembersOnBoard[i][j]).setBounds(1190 + j * resize(955), 3585 - i * resize(885), resize(200), resize(200));
+					}
+				}
 
 				// left general panel setting with grid layout 2 rows 1
 				// column
@@ -283,6 +295,7 @@ public class GUIProjectEmpty implements UserInterface {
 
 				placeDevelopmentCards(matchInfo.getBoard().getCards());
 				placeExcommunications(matchInfo.getBoard().getExcommunications());
+				placeBoardFamilyMembers(matchInfo.getBoard().getTowerSpaces());
 				setSpaces();
 				setUpRightPanel(matchInfo.getPlayers());
 				// mainWindow.pack();
@@ -304,6 +317,17 @@ public class GUIProjectEmpty implements UserInterface {
 			}
 		}
 	}
+	
+	private void placeBoardFamilyMembers(FamilyMemberData[][] members) {
+		for (int j = 0; j < 4; j++) {
+			for (int i = 0; i < 4; i++) {
+				if (members[i][j].getOwnerId() != null) {
+					this.familyMembersOnBoard[i][j].update(members[i][j].getOwnerId(), members[i][j].getColor());
+				} else
+					this.familyMembersOnBoard[i][j].hideMember();
+			}
+		}
+	}
 
 	private void placeExcommunications(Excommunication[] excommunications) {
 		for (int i = 0; i < 3; i++) {
@@ -316,22 +340,22 @@ public class GUIProjectEmpty implements UserInterface {
 	private void setSpaces() {
 		// work space
 
-		singleHarvest = new WorkActionButton(WorkType.HARVEST, true);
-		boardPanel.add(singleHarvest).setBounds(resize(545), resize(5485), resize(415), resize(415));
+		singleHarvest = new WorkActionButton(WorkType.PRODUCTION, true);
+		boardPanel.add(singleProduction).setBounds(resize(545), resize(5485), resize(415), resize(415));
 		singleHarvest.addActionListener(new WorkListener());
 
-		singleProduction = new WorkActionButton(WorkType.PRODUCTION, true);
-		boardPanel.add(singleProduction).setBounds(resize(545), resize(6020), resize(415), resize(415));
+		singleProduction = new WorkActionButton(WorkType.HARVEST, true);
+		boardPanel.add(singleHarvest).setBounds(resize(545), resize(6020), resize(415), resize(415));
 		singleProduction.addActionListener(new WorkListener());
 
 		if (numberOfPlayers > 2) {
 
-			multipleHarvest = new WorkActionButton(WorkType.HARVEST, false);
-			boardPanel.add(multipleHarvest).setBounds(resize(1100), resize(5485), resize(900), resize(415));
+			multipleHarvest = new WorkActionButton(WorkType.PRODUCTION, false);
+			boardPanel.add(multipleProduction).setBounds(resize(1100), resize(5485), resize(900), resize(415));
 			multipleHarvest.addActionListener(new WorkListener());
 
-			multipleProduction = new WorkActionButton(WorkType.PRODUCTION, false);
-			boardPanel.add(multipleProduction).setBounds(resize(1100), resize(6020), resize(900), resize(415));
+			multipleProduction = new WorkActionButton(WorkType.HARVEST, false);
+			boardPanel.add(multipleHarvest).setBounds(resize(1100), resize(6020), resize(900), resize(415));
 			multipleProduction.addActionListener(new WorkListener());
 		}
 
@@ -398,6 +422,7 @@ public class GUIProjectEmpty implements UserInterface {
 		updateSpaces();
 		placeDevelopmentCards(matchInfo.getBoard().getCards());
 		placeExcommunications(matchInfo.getBoard().getExcommunications());
+		placeBoardFamilyMembers(matchInfo.getBoard().getTowerSpaces());
 
 	}
 
