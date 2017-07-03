@@ -504,7 +504,6 @@ public class GUIProjectEmpty implements UserInterface {
 
 	@Override
 	public boolean reqVaticanChoice() {
-		boolean choice;
 		Object choices[] = { "Yes", "No" };
 		int chosen = JOptionPane.showOptionDialog(mainWindow, "Do you want to support the church?", "Vatican Choice",
 				JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, choices, choices[1]);

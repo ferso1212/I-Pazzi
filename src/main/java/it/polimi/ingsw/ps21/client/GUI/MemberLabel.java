@@ -21,9 +21,7 @@ public class MemberLabel extends JLabel {
 
 	public MemberLabel(double scaleFactor) {
 		this.scaleFactor = scaleFactor;
-		this.setBackground(Color.BLACK);
-		this.setOpaque(true);
-		this.setVisible(true);
+		
 	}
 
 	
@@ -31,10 +29,12 @@ public class MemberLabel extends JLabel {
 	public void update(PlayerColor player, MembersColor memberColor) {
 
 		try {
+			
 			this.memberIcon = ImageIO.read(new File((new File("")).getAbsolutePath()
-					.concat("/src/images/DevelopmentCards/Abbess.png")));
+					.concat("/src/images/Lorenzo_Pedine/blue_Player_orange.png")));
 			this.setIcon(new ImageIcon(memberIcon.getScaledInstance(resize(200), resize(200), Image.SCALE_SMOOTH)));
 			this.setVisible(true);
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
