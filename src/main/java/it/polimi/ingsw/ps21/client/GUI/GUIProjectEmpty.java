@@ -1,5 +1,7 @@
 package it.polimi.ingsw.ps21.client.GUI;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -8,6 +10,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.JTabbedPane;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -70,7 +73,7 @@ public class GUIProjectEmpty implements UserInterface {
 	private WorkActionButton multipleProduction;
 	private DevelopmentCardButton[][] developmentCards;
 	private MarketButton[] marketButtons;
-	private MemberLabel[][] familyMembersOnBoard;
+	private JLabel[][] familyMembersOnBoard;
 	private PlayerColor playerID;
 	private Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
 	private Semaphore waitingActions;
@@ -82,7 +85,7 @@ public class GUIProjectEmpty implements UserInterface {
 	 */
 	public GUIProjectEmpty() {
 		this.developmentCards = new DevelopmentCardButton[4][4];
-		this.familyMembersOnBoard = new MemberLabel[4][4];
+		this.familyMembersOnBoard = new JLabel[4][4];
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -263,9 +266,10 @@ public class GUIProjectEmpty implements UserInterface {
 
 		for (int j = 0; j < 4; j++) {
 			for (int i = 0; i < 4; i++) {
-				familyMembersOnBoard[i][j] = new MemberLabel(this.scaleFactor);
-				boardPanel.add(familyMembersOnBoard[i][j]).setBounds(1190 + j * resize(955), 3585 - i * resize(885),
+				familyMembersOnBoard[i][j] = new JLabel();
+				boardPanel.add(familyMembersOnBoard[i][j]).setBounds(resize(1190) + j * resize(955), resize(3300) - i * resize(800),
 						resize(200), resize(200));
+				familyMembersOnBoard[i][j].setVisible(false);
 			}
 		}
 
@@ -338,9 +342,16 @@ public class GUIProjectEmpty implements UserInterface {
 		for (int j = 0; j < 4; j++) {
 			for (int i = 0; i < 4; i++) {
 				if (members[i][j].getOwnerId() != null) {
-					this.familyMembersOnBoard[i][j].update(members[i][j].getOwnerId(), members[i][j].getColor());
+					try {
+						BufferedImage image = ImageIO.read(new File(new File("").getAbsolutePath().concat("/src/images/Lorenzo_Pedine/" + members[i][j].getOwnerId().toString().toLowerCase() + "_Player_" + members[i][j].getColor().toString().toLowerCase() + ".png")));
+						familyMembersOnBoard[i][j].setIcon(new ImageIcon(image.getScaledInstance(resize(200), resize(200), Image.SCALE_SMOOTH)));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					familyMembersOnBoard[i][j].setVisible(true);
 				} else
-					this.familyMembersOnBoard[i][j].hideMember();
+				  this.familyMembersOnBoard[i][j].setVisible(false);;
 			}
 		}
 	}
