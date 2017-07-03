@@ -66,7 +66,7 @@ public class GUIProjectEmpty implements UserInterface {
 	private int updateCounter = 0;
 	private boolean isAdvanced;
 	private int playerTile;
-	private CouncilButton councilButton;
+	private CouncilPanel councilPanel;
 	private WorkActionButton singleHarvest;
 	private WorkActionButton singleProduction;
 	private WorkActionButton multipleHarvest;
@@ -202,7 +202,7 @@ public class GUIProjectEmpty implements UserInterface {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource().equals(councilButton)) {
+			if (e.getSource().equals(councilPanel.getCouncilButton())) {
 				int servants = actionPanel.getChosenServants();
 				MembersColor color = actionPanel.getChosenColor();
 				if (color != null) {
@@ -419,9 +419,8 @@ public class GUIProjectEmpty implements UserInterface {
 		}
 
 		// council space
-		councilButton = new CouncilButton();
-		boardPanel.add(councilButton).setBounds(resize(2515), resize(3780), resize(1280), resize(510));
-		councilButton.addActionListener(new CouncilListener());
+		councilPanel = new CouncilPanel(new CouncilListener(), this.scaleFactor);
+		boardPanel.add(councilPanel).setBounds(resize(2510), resize(3850), resize(1280), resize(580));
 	}
 
 	private void setUpRightPanel(PlayerData[] playersInfo) {
