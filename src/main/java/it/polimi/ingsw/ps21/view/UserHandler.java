@@ -57,7 +57,7 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 			LOGGER.log(Level.WARNING, "Current player is not connected.", e);
 			choice.setChosen(false);
 			setChanged();
-			notifyObservers(new ExecutedChoice(this.playerId));
+			notifyObservers("playerDisconnected");
 		}
 	}
 
@@ -308,6 +308,11 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 	public void setConnection(Connection newConnection)
 	{
 		this.connection=newConnection;
+	}
+	
+	public boolean isConnected()
+	{
+		return this.connection.isConnected();
 	}
 	
 	public void notifyReconnection()

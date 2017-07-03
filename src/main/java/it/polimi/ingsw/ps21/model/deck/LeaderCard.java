@@ -31,8 +31,9 @@ public class LeaderCard extends Card implements Serializable{
 		return leaderEffect.isClonable();
 	}
 	
-	public void resetActivation(){
-		// TODO 
+	public void resetActivation() {
+		this.activated=false;
+		this.leaderEffect.resetActivation();
 	};
 	
 	public boolean isActivated()
@@ -42,8 +43,7 @@ public class LeaderCard extends Card implements Serializable{
 
 	@Override
 	public Card clone() {
-		// TODO Auto-generated method stub
-		return null;
+		return new LeaderCard(this.name, this.leaderEffect);
 	}
 	 
 	public Requirement[] getLeaderRequirements(){

@@ -389,7 +389,7 @@ public class GUIProjectEmpty implements UserInterface {
 
 	private void setUpRightPanel(PlayerData[] playersInfo) {
 
-		// setting prsonal bonus tile
+		// setting personal bonus tile
 		this.playerTiles = new PlayerTile[numberOfPlayers];
 		TilePanel personalBonusTile = new TilePanel(Integer.toString(this.playerTile));
 		splitPane.setLeftComponent(personalBonusTile);

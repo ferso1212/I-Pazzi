@@ -27,6 +27,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 	private String name;
 	private transient RMIClientInterface client;
 	private boolean newMatch;
+	private boolean connected;
 	int id;
 	
 	public RMIConnection(boolean wantsNewConnection, int id) throws RemoteException{
@@ -54,6 +55,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 	@Override
 	public void setClient(RMIClientInterface client) {
 		this.client = client;
+		connected=true;
 		sendMessage("Connected");
 	}
 
@@ -74,6 +76,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 			return client.setCost(costs);
 		} catch (RemoteException e) {
 			LOGGER.log(Level.WARNING, "Error calling remote method setCosts()", e);
+			connected=false;
 			throw new DisconnectedException();
 		}
 	}
@@ -85,6 +88,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 			return client.vaticanChoice();
 		} catch (RemoteException e) {
 			LOGGER.log(Level.WARNING, "Error calling remote method vaticanChoice", e);
+			connected=false;
 			throw new DisconnectedException();
 		}
 	}
@@ -96,6 +100,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 			return client.reqPrivileges(number, privilegesValues);
 		} catch (RemoteException e) {
 			LOGGER.log(Level.WARNING, "Error calling remote method reqPrivileges", e);
+			connected=false;
 			throw new DisconnectedException(); 
 		}
 	}
@@ -123,12 +128,13 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 
 
 	@Override
-	public int reqExtraActionChoice(ExtraActionData[] actions) {
+	public int reqExtraActionChoice(ExtraActionData[] actions) throws DisconnectedException{
 		try {
 			return client.reqExtraActionChoice(actions);
 		} catch (RemoteException e) {
-			LOGGER.log(Level.WARNING, "Error calling remote method for ExtraActionchoice, return default value");
-			return 0;
+			LOGGER.log(Level.WARNING, "Error calling remote method for ExtraActionChoice, return default value");
+			connected=false;
+			throw new DisconnectedException();
 		}
 	}
 
@@ -139,6 +145,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 			return client.actionRequest(id);
 		} catch (RemoteException e) {
 			LOGGER.log(Level.WARNING, "Error calling remote method actionRequest");
+			connected=false;
 			throw new DisconnectedException();
 		}
 	}
@@ -152,6 +159,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 		
 		} catch (RemoteException e){
 			LOGGER.log(Level.SEVERE, "Error updating remote client infos", e );
+			connected=false;
 			throw new DisconnectedException();
 		}
 		
@@ -165,6 +173,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 			chosen = possibleEffects[client.reqEffectChoice(possibleEffects)];
 		} catch (RemoteException e) {
 			LOGGER.log(Level.WARNING, "Error calling remote method reqEffectChoice", e);
+			connected=false;
 			throw new DisconnectedException();
 		}
 		return chosen;
@@ -177,6 +186,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 			return client.reqWorkChoice(workCard);
 		} catch (RemoteException e) {
 			LOGGER.log(Level.WARNING, "Error calling remote method reWorkChoice on client", e);
+			connected=false;
 			throw new DisconnectedException();
 		}
 		
@@ -231,6 +241,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 			return client.reqLeaderChoice(choices);
 		} catch (RemoteException e) {
 			LOGGER.log(Level.WARNING, "Error requesting leader card choice on client, returning default value");
+			connected=false;
 			return 0;
 		}
 	}
@@ -254,6 +265,12 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 		} catch (RemoteException e) {
 			LOGGER.log(Level.WARNING, "Error setting rules of match on client side", e);
 		}
+	}
+
+
+	@Override
+	public boolean isConnected() {
+		return this.connected;
 	}
 
 }
