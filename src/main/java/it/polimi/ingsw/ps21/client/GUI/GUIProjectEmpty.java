@@ -164,7 +164,7 @@ public class GUIProjectEmpty implements UserInterface {
 						waitingActions.release();
 					}
 				}
-			} else if (e.getSource().equals(multipleHarvest)) {
+			} else if (e.getSource().equals(multipleHarvest.getButton())) {
 				int servants = actionPanel.getChosenServants();
 				MembersColor color = actionPanel.getChosenColor();
 				if (color == null)
@@ -178,7 +178,7 @@ public class GUIProjectEmpty implements UserInterface {
 						waitingActions.release();
 					}
 				}
-			} else if (e.getSource().equals(multipleProduction)) {
+			} else if (e.getSource().equals(multipleProduction.getButton())) {
 				int servants = actionPanel.getChosenServants();
 				MembersColor color = actionPanel.getChosenColor();
 				if (color == null)
@@ -267,8 +267,8 @@ public class GUIProjectEmpty implements UserInterface {
 		for (int j = 0; j < 4; j++) {
 			for (int i = 0; i < 4; i++) {
 				familyMembersOnBoard[i][j] = new JLabel();
-				boardPanel.add(familyMembersOnBoard[i][j]).setBounds(resize(1190) + j * resize(955), resize(3300) - i * resize(800),
-						resize(200), resize(200));
+				boardPanel.add(familyMembersOnBoard[i][j]).setBounds(resize(1190) + j * resize(955),
+						resize(3300) - i * resize(800), resize(200), resize(200));
 				familyMembersOnBoard[i][j].setVisible(false);
 			}
 		}
@@ -343,15 +343,20 @@ public class GUIProjectEmpty implements UserInterface {
 			for (int i = 0; i < 4; i++) {
 				if (members[i][j].getOwnerId() != null) {
 					try {
-						BufferedImage image = ImageIO.read(new File(new File("").getAbsolutePath().concat("/src/images/Lorenzo_Pedine/" + members[i][j].getOwnerId().toString().toLowerCase() + "_Player_" + members[i][j].getColor().toString().toLowerCase() + ".png")));
-						familyMembersOnBoard[i][j].setIcon(new ImageIcon(image.getScaledInstance(resize(200), resize(200), Image.SCALE_SMOOTH)));
+						BufferedImage image = ImageIO.read(new File(new File("").getAbsolutePath()
+								.concat("/src/images/Lorenzo_Pedine/"
+										+ members[i][j].getOwnerId().toString().toLowerCase() + "_Player_"
+										+ members[i][j].getColor().toString().toLowerCase() + ".png")));
+						familyMembersOnBoard[i][j].setIcon(
+								new ImageIcon(image.getScaledInstance(resize(200), resize(200), Image.SCALE_SMOOTH)));
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					familyMembersOnBoard[i][j].setVisible(true);
 				} else
-				  this.familyMembersOnBoard[i][j].setVisible(false);;
+					this.familyMembersOnBoard[i][j].setVisible(false);
+				;
 			}
 		}
 	}
@@ -377,13 +382,11 @@ public class GUIProjectEmpty implements UserInterface {
 
 		if (numberOfPlayers > 2) {
 
-			multipleProduction = new WorkActionButton(WorkType.PRODUCTION, false);
+			multipleProduction = new MultipleWorkActionPanel(new WorkListener());
 			boardPanel.add(multipleProduction).setBounds(resize(1100), resize(5485), resize(900), resize(415));
-			multipleProduction.addActionListener(new WorkListener());
 
-			multipleHarvest = new WorkActionButton(WorkType.HARVEST, false);
+			multipleHarvest = new MultipleWorkActionPanel(new WorkListener());
 			boardPanel.add(multipleHarvest).setBounds(resize(1100), resize(6020), resize(900), resize(415));
-			multipleHarvest.addActionListener(new WorkListener());
 		}
 
 		// market space

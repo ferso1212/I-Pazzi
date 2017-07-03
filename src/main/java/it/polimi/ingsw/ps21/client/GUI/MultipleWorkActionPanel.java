@@ -51,4 +51,7 @@ public class MultipleWorkActionPanel extends JPanel {
 		add(marketButton);
 	}
 
+	public JButton getButton(){
+		return this.marketButton;
+	}
 }
