@@ -176,6 +176,19 @@ public class AdvancedMatch extends Match {
 		for (int i=0; i<3; i++)
 			for ( int j =0 ; j< newOrder.size(); j++) order.add(newOrder.get(j));
 		board.newSetBoard(period);
+		// Check firstDelay excommunication for every advanced player
+					AdvancedPlayer firstPlayer = order.get(currentPlayer);
+					do
+					{
+						if (order.get(currentPlayer).getModifiers().getActionMods().firstActionDelayed()){
+							AdvancedPlayer tempPlayer = order.remove(currentPlayer);
+							order.add(tempPlayer);
+						}
+						else{
+						currentPlayer++;
+						}
+					}while (firstPlayer != order.get(currentPlayer));
+					currentPlayer=0;
 		for (AdvancedPlayer p: players.values()){
 			p.getFamily().roundReset();
 		}
