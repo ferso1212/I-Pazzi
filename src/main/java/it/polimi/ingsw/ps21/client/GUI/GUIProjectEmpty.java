@@ -356,23 +356,23 @@ public class GUIProjectEmpty implements UserInterface {
 	private void setSpaces() {
 		// work space
 
-		singleHarvest = new WorkActionButton(WorkType.PRODUCTION, true);
+		singleProduction = new WorkActionButton(WorkType.PRODUCTION, true);
 		boardPanel.add(singleProduction).setBounds(resize(545), resize(5485), resize(415), resize(415));
-		singleHarvest.addActionListener(new WorkListener());
-
-		singleProduction = new WorkActionButton(WorkType.HARVEST, true);
-		boardPanel.add(singleHarvest).setBounds(resize(545), resize(6020), resize(415), resize(415));
 		singleProduction.addActionListener(new WorkListener());
+
+		singleHarvest = new WorkActionButton(WorkType.HARVEST, true);
+		boardPanel.add(singleHarvest).setBounds(resize(545), resize(6020), resize(415), resize(415));
+		singleHarvest.addActionListener(new WorkListener());
 
 		if (numberOfPlayers > 2) {
 
-			multipleHarvest = new WorkActionButton(WorkType.PRODUCTION, false);
+			multipleProduction = new WorkActionButton(WorkType.PRODUCTION, false);
 			boardPanel.add(multipleProduction).setBounds(resize(1100), resize(5485), resize(900), resize(415));
-			multipleHarvest.addActionListener(new WorkListener());
-
-			multipleProduction = new WorkActionButton(WorkType.HARVEST, false);
-			boardPanel.add(multipleHarvest).setBounds(resize(1100), resize(6020), resize(900), resize(415));
 			multipleProduction.addActionListener(new WorkListener());
+
+			multipleHarvest = new WorkActionButton(WorkType.HARVEST, false);
+			boardPanel.add(multipleHarvest).setBounds(resize(1100), resize(6020), resize(900), resize(415));
+			multipleHarvest.addActionListener(new WorkListener());
 		}
 
 		// market space

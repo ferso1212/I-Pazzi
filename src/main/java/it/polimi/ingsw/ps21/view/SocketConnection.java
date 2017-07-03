@@ -257,7 +257,7 @@ public class SocketConnection implements Connection{
 	}
 		
 	public boolean isConnected(){
-		return this.socket.isConnected();
+		return (this.socket.isConnected() && this.connected);
 	}
 
 
