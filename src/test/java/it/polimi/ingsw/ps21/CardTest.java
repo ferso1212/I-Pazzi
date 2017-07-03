@@ -44,10 +44,6 @@ public class CardTest {
 		// assert(checkExcommunicationCreation());
 	}
 
-	private boolean checkExcommunicationCreation() {
-		// TODO Auto-generated method stub
-		return true;
-	}
 
 	private boolean checkVentureCreation() {
 		VentureCard testVenture = new VentureCard("test", 2, testReq, testInstantEffect, testPermanentEffect1);

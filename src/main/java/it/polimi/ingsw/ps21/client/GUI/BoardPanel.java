@@ -9,6 +9,9 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,6 +23,7 @@ public class BoardPanel extends JPanel {
 	/**
 	 * 
 	 */
+	private static final Logger LOGGER = Logger.getLogger(BoardPanel.class.getName());
 	private static final long serialVersionUID = 1L;
 	private transient BufferedImage boardImage;
 	private JLabel orangeDiceLabel;
@@ -33,8 +37,7 @@ public class BoardPanel extends JPanel {
 		try {
 			setImage(ImageIO.read(new File(boardPath)));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.WARNING, "Unable to set panel image due to IOException", e);
 		}
 		setDiceLabel(blackDice, whiteDice, orangeDice);
 		this.setOpaque(false);
@@ -53,8 +56,7 @@ public class BoardPanel extends JPanel {
 					(int) (this.boardImage.getWidth() * screenSize.getHeight() / this.boardImage.getHeight()),
 					this.getHeight(), BufferedImage.TYPE_INT_RGB), 0, 0, null);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.WARNING, "Unable to draw panel image due to IOException", e);
 		}
 	}
 

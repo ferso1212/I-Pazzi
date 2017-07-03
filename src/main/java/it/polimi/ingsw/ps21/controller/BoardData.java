@@ -88,6 +88,7 @@ public class BoardData implements Serializable{
 		}
 		this.singleProductionSpace=new FamilyMemberData(board.getSingleWorkSpace(WorkType.PRODUCTION).getOccupant());
 		i=0;
+		this.multipleProductionSpace= new FamilyMemberData[board.getMultipleWorkSpace(WorkType.PRODUCTION).getOccupants().size()];
 		for(FamilyMember occupant: board.getMultipleWorkSpace(WorkType.PRODUCTION).getOccupants())
 		{
 			multipleProductionSpace[i]=new FamilyMemberData(occupant);
