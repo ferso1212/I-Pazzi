@@ -14,12 +14,7 @@ import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PersonalBonusTile;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.ActionData;
-import it.polimi.ingsw.ps21.view.LeaderChoiceRequestNetPacket;
-import it.polimi.ingsw.ps21.view.LeaderChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.view.MatchEndedNetPacket;
-import it.polimi.ingsw.ps21.view.RulesChoiceResponseNetPacket;
-import it.polimi.ingsw.ps21.view.WorkChoiceRequestNetPacket;
-import it.polimi.ingsw.ps21.view.WorkChoiceResponseNetPacket;
 
 public class SocketClient {
 	private static final int PORT = 7777;
@@ -193,6 +188,18 @@ public class SocketClient {
 			{
 				boolean adv= ((RulesNetPacket)receivedPacket).isAdvanced();
 				ui.setRules(adv);
+				break;
+			}
+			case DEV_CARD_CHOICE:
+			{
+				int chosen= ui.reqCardChoice(((DevCardChoiceRequestNetPacket)receivedPacket).getChoices());
+				out.writeObject(new DevCardChoiceResponseNetPacket(receivedPacket.getNum(), chosen));
+				break;
+			}
+			case SERVANTS_CHOICE:
+			{
+				int chosen=ui.reqNumberOfServants(((ServantsNumRequestNetPacket)receivedPacket).getMax());
+				out.writeObject(new ServantsNumResponseNetPacket(receivedPacket.getNum(), chosen));
 				break;
 			}
 			default:

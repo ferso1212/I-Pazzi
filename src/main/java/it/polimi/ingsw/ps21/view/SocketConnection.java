@@ -20,12 +20,16 @@ import it.polimi.ingsw.ps21.client.ChosenRulesNetPacket;
 import it.polimi.ingsw.ps21.client.ClientConnection;
 import it.polimi.ingsw.ps21.client.CostChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.CostChoiceResponseNetPacket;
+import it.polimi.ingsw.ps21.client.DevCardChoiceRequestNetPacket;
+import it.polimi.ingsw.ps21.client.DevCardChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.EffectChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.EffectChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.ExtraActionChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.ExtraActionChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.GenericStringNetPacket;
 import it.polimi.ingsw.ps21.client.InitNetPacket;
+import it.polimi.ingsw.ps21.client.LeaderChoiceRequestNetPacket;
+import it.polimi.ingsw.ps21.client.LeaderChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.MatchStartedNetPacket;
 import it.polimi.ingsw.ps21.client.NameRequestNetPacket;
 import it.polimi.ingsw.ps21.client.NameResponseNetPacket;
@@ -34,12 +38,18 @@ import it.polimi.ingsw.ps21.client.PacketType;
 import it.polimi.ingsw.ps21.client.PlayerIdNetPacket;
 import it.polimi.ingsw.ps21.client.PrivilegesChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.PrivilegesChoiceResponseNetPacket;
+import it.polimi.ingsw.ps21.client.RulesChoiceRequestNetPacket;
+import it.polimi.ingsw.ps21.client.RulesChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.RulesNetPacket;
+import it.polimi.ingsw.ps21.client.ServantsNumRequestNetPacket;
+import it.polimi.ingsw.ps21.client.ServantsNumResponseNetPacket;
 import it.polimi.ingsw.ps21.client.TileChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.TileChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.VaticanChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.VaticanChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.ViewUpdateRequestNetPacket;
+import it.polimi.ingsw.ps21.client.WorkChoiceRequestNetPacket;
+import it.polimi.ingsw.ps21.client.WorkChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.model.actions.ActionType;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
@@ -310,7 +320,6 @@ public class SocketConnection implements Connection{
 			return((LeaderChoiceResponseNetPacket)requestAndAwaitResponse(new LeaderChoiceRequestNetPacket(messageCounter, choices))).getChosen();
 		} catch (IOException | ClassNotFoundException e) {
 			LOGGER.log(Level.WARNING, "Unable to request leader card choice to the remote client due to " + e.getMessage(), e);
-			connected=false;
 			return 0;
 		}
 	}
@@ -322,7 +331,6 @@ public class SocketConnection implements Connection{
 			return ((TileChoiceResponseNetPacket)requestAndAwaitResponse(new TileChoiceRequestNetPacket(messageCounter, choices))).getChosen();
 		} catch (IOException | ClassNotFoundException e) {
 			LOGGER.log(Level.WARNING, "Unable to request personal bonus tile choice to the remote client due to "+ e.getMessage(), e);
-			connected=false;
 			return 0;
 		}
 	}
@@ -336,6 +344,29 @@ public class SocketConnection implements Connection{
 			LOGGER.log(Level.WARNING, "Unable to send rules to the remote client due to IOException", e);
 		}
 		
+	}
+
+
+	@Override
+	public int reqCardChoice(DevelopmentCard[] possibleChoices) throws DisconnectedException {
+		try {
+			return ((DevCardChoiceResponseNetPacket)requestAndAwaitResponse(new DevCardChoiceRequestNetPacket(messageCounter, possibleChoices))).getChosen();
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request card choice to the remote client due to "+ e.getMessage(), e);
+			connected=false;
+			throw new DisconnectedException();
+		}
+	}
+
+
+	@Override
+	public int chooseNumberOfServants(int max) {
+		try {
+			return ((ServantsNumResponseNetPacket)requestAndAwaitResponse(new ServantsNumRequestNetPacket(messageCounter, max))).getChosen();
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request servants choice to the remote client due to "+ e.getMessage(), e);
+			return 0;
+		}
 	}
 	
 

@@ -1,9 +1,6 @@
-package it.polimi.ingsw.ps21.view;
+package it.polimi.ingsw.ps21.client;
 
 import java.io.Serializable;
-
-import it.polimi.ingsw.ps21.client.NetPacket;
-import it.polimi.ingsw.ps21.client.PacketType;
 
 public class RulesChoiceRequestNetPacket extends NetPacket implements Serializable{
 
