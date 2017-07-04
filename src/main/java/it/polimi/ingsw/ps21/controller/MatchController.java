@@ -506,6 +506,8 @@ public class MatchController extends Observable implements Observer {
 
 			@Override
 			public void run() {
+				timer.cancel();
+				timer.purge();
 				setChanged();
 				notifyObservers(new TimeoutExpiredMessage(currentPlayer.getId()));
 				nextPlayer();
