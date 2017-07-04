@@ -159,9 +159,10 @@ public class AdvancedMatch extends Match {
 		oldOrder.add(order.get(i));
 	}
 	ArrayList<AdvancedPlayer> newOrder = new ArrayList<>();
+	order.clear();
 	for (FamilyMember f: temp){
 		AdvancedPlayer player = players.get(f.getOwnerId());
-		if (order.contains(player));
+		if (newOrder.contains(player));
 		else {	
 			newOrder.add(player);
 			oldOrder.remove(player);
@@ -170,7 +171,6 @@ public class AdvancedMatch extends Match {
 	for (AdvancedPlayer p: oldOrder){
 		newOrder.add(p);
 	}
-	order = new ArrayList<>();
 	for ( int j = 0 ; j < newOrder.size(); j++) order.add(newOrder.get(j));
 	if (round != RoundType.VATICAN_ROUND){
 		for (int i=0; i<3; i++)
@@ -178,17 +178,18 @@ public class AdvancedMatch extends Match {
 		board.newSetBoard(period);
 		// Check firstDelay excommunication for every advanced player
 					AdvancedPlayer firstPlayer = order.get(currentPlayer);
+					int i=0;
 					do
 					{
-						if (order.get(currentPlayer).getModifiers().getActionMods().firstActionDelayed()){
-							AdvancedPlayer tempPlayer = order.remove(currentPlayer);
-							order.add(tempPlayer);
+						if (order.get(i).getModifiers().getActionMods().firstActionDelayed()){
+							currentPlayer++;
+							order.add(order.get(i));
+							i++;
 						}
 						else{
-						currentPlayer++;
+						i++;
 						}
 					}while (firstPlayer != order.get(currentPlayer));
-					currentPlayer=0;
 		for (AdvancedPlayer p: players.values()){
 			p.getFamily().roundReset();
 		}

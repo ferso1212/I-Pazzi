@@ -109,12 +109,13 @@ public class SimpleMatch extends Match {
 		Queue<FamilyMember> temp = board.getCouncilPalace().getOccupants();
 		ArrayList<Player> oldOrder = new ArrayList<>();
 		for (int i = 0; i < players.values().size(); i++) {
-			oldOrder.add(order.get(i));
+			oldOrder.add(order.get(i)); // Evito eventuali scomuniche sulla prima azione
 		}
 		ArrayList<Player> newOrder = new ArrayList<>();
-		for (FamilyMember f : temp) {
-			Player player = players.get(f.getOwnerId());
-			if (order.contains(player));
+		order.clear();
+		while(!temp.isEmpty()) {
+			Player player = players.get(temp.poll().getOwnerId());
+			if (newOrder.contains(player));
 			else {
 				newOrder.add(player);
 				oldOrder.remove(player);
@@ -123,24 +124,25 @@ public class SimpleMatch extends Match {
 		for (Player p : oldOrder) {
 			newOrder.add(p);
 		}
-		order = new ArrayList<>();
 		for (int j = 0; j < newOrder.size(); j++)
 			order.add(newOrder.get(j));
 		if (round != RoundType.VATICAN_ROUND) {
 			for (int i = 0; i < 3; i++)
 				for (int j = 0; j < newOrder.size(); j++)
 					order.add(newOrder.get(j));
-			board.newSetBoard(++period);
+			board.newSetBoard(period);
 			// Check firstDelay excommunication for every player
 			Player firstPlayer = order.get(currentPlayer);
+			int i=0; 
 			do
 			{
-				if (order.get(currentPlayer).getModifiers().getActionMods().firstActionDelayed()){
-					Player tempPlayer = order.remove(currentPlayer);
-					order.add(tempPlayer);
+				if (order.get(i).getModifiers().getActionMods().firstActionDelayed()){
+					currentPlayer++;
+					order.add(order.get(i));
+					i++;
 				}
 				else{
-				currentPlayer++;
+				i++;
 				}
 			}while (firstPlayer != order.get(currentPlayer));
 			currentPlayer=0;
