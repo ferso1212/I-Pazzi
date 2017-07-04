@@ -279,7 +279,7 @@ public class GUInterface implements UserInterface {
 		// column
 		rightPanel = new JPanel();
 		rightPanel.setOpaque(false);
-		rightPanel.setPreferredSize(new Dimension(mainWindow.getWidth() - (int)boardPanel.getPreferredSize().getWidth() - 10, (int) boardPanel.getPreferredSize().getHeight()));
+		rightPanel.setPreferredSize(new Dimension(mainWindow.getRootPane().getWidth() - (int)boardPanel.getPreferredSize().getWidth() - 10, (int) boardPanel.getPreferredSize().getHeight()));
 		rightPanel.setLayout(new GridLayout(2, 0, 0, 0));
 
 		// on the top of the left panel there is a split panel with
