@@ -48,7 +48,7 @@ public abstract interface Connection{
 	
 	public void setRules(boolean isAdvanced);
 	
-	public int reqCardChoice(DevelopmentCard[] possibleChoices);
+	public int reqCardChoice(DevelopmentCard[] possibleChoices) throws DisconnectedException;
 	
 	public int chooseNumberOfServants(int max);// max is the player's number of servants.
 }

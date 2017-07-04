@@ -690,4 +690,33 @@ public class CLInterface implements UserInterface {
 
 	}
 
+	@Override
+	public int reqCardChoice(DevelopmentCard[] possibleChoices) {
+		showInfo("You have to choose a card to pick for the action PickAnotherCard");
+		printOutput("Which card do you want to pick");
+		int i =0; 
+		while(i<possibleChoices.length){
+			printOutput((i+1) + ") " + possibleChoices[i].toString());
+		}
+		int choice = userInput.nextInt(); 
+		while (choice < 1 || choice > possibleChoices.length){
+			printOutput("Invalid choice, please insert another one");
+			choice = userInput.nextInt();
+		}
+		return choice-1;
+	}
+
+	@Override
+	public int reqNumberOfServants(int max) {
+		showInfo("You have to choose a number of servants to use for extra action");
+		printOutput("Wich number of servants do you want to use");
+		int choice = userInput.nextInt();
+		while (choice<0 || choice >max){
+			printOutput("You have choosen an invalid number of message");
+			choice = userInput.nextInt();
+			
+		}
+		return choice;
+	}
+
 }

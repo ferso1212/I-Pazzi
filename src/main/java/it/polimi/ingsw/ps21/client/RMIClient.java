@@ -162,4 +162,14 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 		return true;
 	}
 
+	@Override
+	public int reqCardChoice(DevelopmentCard[] possibleChoices) throws RemoteException {
+		return ui.reqCardChoice(possibleChoices);
+	}
+
+	@Override
+	public int reqNumberOfServants(int max) throws RemoteException {
+		return ui.reqNumberOfServants(max);
+	}
+
 }

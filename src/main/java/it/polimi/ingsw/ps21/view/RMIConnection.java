@@ -265,6 +265,28 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 			return false;
 		}
 	}
+
+
+	@Override
+	public int reqCardChoice(DevelopmentCard[] possibleChoices) throws DisconnectedException {
+		try {
+			return client.reqCardChoice(possibleChoices);
+		} catch (RemoteException e) {
+			throw new DisconnectedException();
+		}
+	}
+
+
+	@Override
+	public int chooseNumberOfServants(int max) {
+		try {
+			return client.reqNumberOfServants(max);
+		} catch (RemoteException e) {
+			LOGGER.log(Level.WARNING, "Error calling remote method reqNumberOfServants, returning default message", e);
+			return 0;
+		}
+		
+	}
 	
 	
 

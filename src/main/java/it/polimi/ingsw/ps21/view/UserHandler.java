@@ -108,10 +108,14 @@ public class UserHandler extends Observable implements Visitor, Observer {
 	@Override
 	public void visit (PickAnotherCardMessage message){
 		try {
-			
-			message.setCardChosen(connection.reqCardChosen(message.getPossibleChoices()));
-		} catch (Exception e) {
-			// TODO: handle exception
+			message.setCardChosen(connection.reqCardChoice(message.getPossibleChoices()));
+			message.setVisited();
+			setChanged();
+			notifyObservers(new ExecutedChoice(this.playerId));
+		} catch (DisconnectedException e) {
+			LOGGER.log(Level.WARNING, "Error requesting card choice to client", e);
+			setChanged();
+			notifyObservers("playerDisconnected");
 		}
 	}
 
