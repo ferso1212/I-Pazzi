@@ -14,12 +14,12 @@ public class ServantsSlider extends JSlider{
 		this.setMinorTickSpacing(1);
 		this.setMajorTickSpacing(1);
 		this.setPaintLabels(true);
+		this.setPaintTicks(true);
 	}
 	
 	public void updateSlider (PlayerData playerInfo){
 		this.setMaximum(playerInfo.getPropertyValue(PropertiesId.SERVANTS));
 		this.setValue(0);
-		this.setPreferredSize(new Dimension(this.getMaximum() * 10, 30));
 	}
 
 }

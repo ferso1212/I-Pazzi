@@ -50,6 +50,8 @@ import it.polimi.ingsw.ps21.view.ExtraActionData;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
 
 public class GUInterface implements UserInterface {
 
@@ -246,8 +248,7 @@ public class GUInterface implements UserInterface {
 	private void firstUpdate(MatchData matchInfo) {
 
 		this.numberOfPlayers = matchInfo.getPlayers().length;
-
-		JPanel contentPanel = new JPanel(new GridLayout(0, 2));
+		JPanel contentPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 1));
 		contentPanel.setBackground(new Color(239, 220, 134));
 		mainWindow.setContentPane(contentPanel);
 		boardPanel = new BoardPanel((new File("")).getAbsolutePath().concat("/src/images/board2.jpg"),
@@ -255,7 +256,7 @@ public class GUInterface implements UserInterface {
 		boardPanel.setLayout(null);
 		mainWindow.getContentPane().add(boardPanel);
 		scaleFactor = boardPanel.getScaleFactor();
-
+		// contentPanel.setDividerLocation(boardPanel.getPreferredSize().getWidth());
 		for (int j = 0; j < 4; j++) {
 			for (int i = 0; i < 4; i++) {
 				developmentCards[i][j] = new DevelopmentCardButton(boardPanel.getScaleFactor(), i, j);
@@ -278,7 +279,7 @@ public class GUInterface implements UserInterface {
 		// column
 		rightPanel = new JPanel();
 		rightPanel.setOpaque(false);
-		mainWindow.getContentPane().add(rightPanel);
+		rightPanel.setPreferredSize(new Dimension(mainWindow.getWidth() - (int)boardPanel.getPreferredSize().getWidth() - 10, (int) boardPanel.getPreferredSize().getHeight()));
 		rightPanel.setLayout(new GridLayout(2, 0, 0, 0));
 
 		// on the top of the left panel there is a split panel with
@@ -297,7 +298,7 @@ public class GUInterface implements UserInterface {
 		actionPanel = new ActionPanel(matchInfo, playerID);
 		rightPanel.add(actionPanel);
 
-		mainWindow.setVisible(true);
+		
 
 		placeDevelopmentCards(matchInfo.getBoard().getCards());
 		placeExcommunications(matchInfo.getBoard().getExcommunications());
@@ -305,6 +306,8 @@ public class GUInterface implements UserInterface {
 		setSpaces();
 		setUpRightPanel(matchInfo.getPlayers());
 		// mainWindow.pack();
+		mainWindow.getContentPane().add(rightPanel);
+		mainWindow.setVisible(true);
 
 	}
 
@@ -495,6 +498,7 @@ public class GUInterface implements UserInterface {
 	@Override
 	public ActionData makeAction(int id) {
 		JOptionPane.showMessageDialog(mainWindow, "It's your turn!");
+		waitingActions.drainPermits();
 		this.actionId = id;
 		try {
 			waitingActions.acquire();

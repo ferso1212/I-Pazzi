@@ -40,19 +40,21 @@ public class PlayerTile extends JSplitPane{
 			public void run() {
 				playerId = infoPlayer.getId();
 				
-				playerBoardPanel = new PlayerBoardPanel((new File("")).getAbsolutePath().concat("/src/images/Lorenzo_Punchboard_FRONT_compressed/punchboard_f_c_03_bis.jpg"), infoPlayer);
-				setLeftComponent(playerBoardPanel);
-				setDividerLocation((int)(playerBoardPanel.getPlayerBoardImage().getWidth() * (screenSize.getHeight() / 2) / (playerBoardPanel.getPlayerBoardImage().getHeight() )));
+				
 				
 				try {
+					
 					BufferedImage blueimage = ImageIO.read(new File(new File("").getAbsolutePath()
 							.concat("/src/images/DevelopmentCards/back_blue.jpg")));
 					characters.setIcon(
-							new ImageIcon(blueimage.getScaledInstance(250, 400, Image.SCALE_SMOOTH)));
+							new ImageIcon(blueimage.getScaledInstance(  -1, (int)(getHeight()/2), Image.SCALE_SMOOTH)));
 					BufferedImage purpleimage = ImageIO.read(new File(new File("").getAbsolutePath()
 							.concat("/src/images/DevelopmentCards/back_purple.jpg")));
 					ventures.setIcon(
-							new ImageIcon(purpleimage.getScaledInstance(250, 400, Image.SCALE_SMOOTH)));
+							new ImageIcon(purpleimage.getScaledInstance(-1, (int)(getHeight()/2), Image.SCALE_SMOOTH)));
+					playerBoardPanel = new PlayerBoardPanel((new File("")).getAbsolutePath().concat("/src/images/Lorenzo_Punchboard_FRONT_compressed/punchboard_f_c_03_bis.jpg"), infoPlayer);
+					setLeftComponent(playerBoardPanel);
+					setDividerLocation(((getWidth() - ventures.getIcon().getIconWidth())));
 				} catch (IOException e) {
 					e.printStackTrace();
 					characters.setBackground(new Color(0,127,255));
@@ -61,6 +63,7 @@ public class PlayerTile extends JSplitPane{
 					ventures.setBackground(new Color(244,0,161));
 					ventures.setOpaque(true);
 					ventures.setText("VENTURES");
+					setDividerLocation(((getWidth() - ventures.getWidth())));
 				}
 				
 				

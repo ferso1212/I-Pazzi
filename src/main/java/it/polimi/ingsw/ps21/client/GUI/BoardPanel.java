@@ -36,6 +36,7 @@ public class BoardPanel extends JPanel {
 		super(true); // crea un JPanel con doubleBuffered true
 		try {
 			setImage(ImageIO.read(new File(boardPath)));
+			this.setPreferredSize(new Dimension(resize(boardImage.getWidth()), resize(boardImage.getHeight() - resize(2100))));
 		} catch (IOException e) {
 			LOGGER.log(Level.WARNING, "Unable to set panel image due to IOException", e);
 		}
