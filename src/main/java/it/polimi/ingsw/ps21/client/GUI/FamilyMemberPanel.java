@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.model.player.MembersColor;
+import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
 public class FamilyMemberPanel extends JPanel{
 	
@@ -18,17 +19,17 @@ public class FamilyMemberPanel extends JPanel{
 	private JButton neutralMember;
 	private MembersColor chosenMember = null;
 	
-	public FamilyMemberPanel(){
+	public FamilyMemberPanel(PlayerColor id){
 		
-		this.orangeMember = new FamilyMemberButton(new Color(255, 153, 0));
+		this.orangeMember = new FamilyMemberButton(id, MembersColor.ORANGE);
 		this.orangeMember.addActionListener(new FamilyListener());
-		this.whiteMember = new FamilyMemberButton(Color.WHITE);
+		this.whiteMember = new FamilyMemberButton(id, MembersColor.WHITE);
 		this.whiteMember.addActionListener(new FamilyListener());
-		this.blackMember = new FamilyMemberButton(Color.BLACK);
+		this.blackMember = new FamilyMemberButton(id, MembersColor.BLACK);
 		this.blackMember.addActionListener(new FamilyListener());
-		this.neutralMember = new FamilyMemberButton(new Color(240, 220, 130));
+		this.neutralMember = new FamilyMemberButton(id, MembersColor.NEUTRAL);
 		this.neutralMember.addActionListener(new FamilyListener());
-
+		this.setOpaque(false);
 		this.setLayout(new GridLayout(1, 4));
 		startFamilyMemberPanel();
 
@@ -71,20 +72,37 @@ public class FamilyMemberPanel extends JPanel{
 	public void update(PlayerData p) {
 		if (p.getFamilyMember(MembersColor.BLACK).isUsed()) {
 			this.blackMember.setEnabled(false);
+			this.blackMember.setVisible(false);
+			
 		}
-		else this.blackMember.setEnabled(true);
+		else{
+			 this.blackMember.setEnabled(true);
+			 this.blackMember.setVisible(true);
+		}
 		if (p.getFamilyMember(MembersColor.ORANGE).isUsed()) {
 			this.orangeMember.setEnabled(false);
+			this.orangeMember.setVisible(false);
 		}
-		else this.orangeMember.setEnabled(true);
+		else {
+			this.orangeMember.setEnabled(true);
+			this.orangeMember.setVisible(true);
+		}
 		if (p.getFamilyMember(MembersColor.WHITE).isUsed()) {
 			this.whiteMember.setEnabled(false);
+			this.whiteMember.setVisible(false);
 		}
-		else this.whiteMember.setEnabled(true);
+		else {
+			this.whiteMember.setEnabled(true);
+			this.whiteMember.setVisible(true);
+		}
 		if (p.getFamilyMember(MembersColor.NEUTRAL).isUsed()) {
 			this.neutralMember.setEnabled(false);
+			this.neutralMember.setVisible(false);
 		}
-		else this.neutralMember.setEnabled(true);
+		else{
+			this.neutralMember.setEnabled(true);
+			this.neutralMember.setVisible(true);
+		}
 		chosenMember = null;
 //		this.blackMember.revalidate();
 //		this.whiteMember.revalidate();

@@ -3,9 +3,13 @@ package it.polimi.ingsw.ps21.client.GUI;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -40,12 +44,25 @@ public class PlayerTile extends JSplitPane{
 				setLeftComponent(playerBoardPanel);
 				setDividerLocation((int)(playerBoardPanel.getPlayerBoardImage().getWidth() * (screenSize.getHeight() / 2) / (playerBoardPanel.getPlayerBoardImage().getHeight() )));
 				
-				characters.setBackground(new Color(0,127,255));
-				characters.setOpaque(true);
-				characters.setText("CHARACTERS");
-				ventures.setBackground(new Color(244,0,161));
-				ventures.setOpaque(true);
-				ventures.setText("VENTURES");
+				try {
+					BufferedImage blueimage = ImageIO.read(new File(new File("").getAbsolutePath()
+							.concat("/src/images/DevelopmentCards/back_blue.jpg")));
+					characters.setIcon(
+							new ImageIcon(blueimage.getScaledInstance(250, 400, Image.SCALE_SMOOTH)));
+					BufferedImage purpleimage = ImageIO.read(new File(new File("").getAbsolutePath()
+							.concat("/src/images/DevelopmentCards/back_purple.jpg")));
+					ventures.setIcon(
+							new ImageIcon(purpleimage.getScaledInstance(250, 400, Image.SCALE_SMOOTH)));
+				} catch (IOException e) {
+					e.printStackTrace();
+					characters.setBackground(new Color(0,127,255));
+					characters.setOpaque(true);
+					characters.setText("CHARACTERS");
+					ventures.setBackground(new Color(244,0,161));
+					ventures.setOpaque(true);
+					ventures.setText("VENTURES");
+				}
+				
 				
 				charactersAndVentures.setLayout(new GridLayout(2, 1));
 				charactersAndVentures.add(characters);

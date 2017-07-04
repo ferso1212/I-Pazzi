@@ -48,6 +48,7 @@ import it.polimi.ingsw.ps21.view.ActionData;
 import it.polimi.ingsw.ps21.view.EndData;
 import it.polimi.ingsw.ps21.view.ExtraActionData;
 
+import java.awt.Color;
 import java.awt.Dimension;
 
 public class GUInterface implements UserInterface {
@@ -247,6 +248,7 @@ public class GUInterface implements UserInterface {
 		this.numberOfPlayers = matchInfo.getPlayers().length;
 
 		JPanel contentPanel = new JPanel(new GridLayout(0, 2));
+		contentPanel.setBackground(new Color(239, 220, 134));
 		mainWindow.setContentPane(contentPanel);
 		boardPanel = new BoardPanel((new File("")).getAbsolutePath().concat("/src/images/board2.jpg"),
 				matchInfo.getBlackDice(), matchInfo.getWhiteDice(), matchInfo.getOrangeDice());
@@ -283,10 +285,12 @@ public class GUInterface implements UserInterface {
 		// personal
 		// board and personal bonus tile
 		splitPane = new JSplitPane();
+		splitPane.setOpaque(false);
 		rightPanel.add(splitPane);
 
 		// setting a tabbedPane in the right space of splitPane
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setOpaque(false);
 		splitPane.setRightComponent(tabbedPane);
 
 		// setting a panel with borderLayout in the splitPane

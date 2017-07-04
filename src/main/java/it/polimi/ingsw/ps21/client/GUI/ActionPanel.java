@@ -22,10 +22,11 @@ import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
 public class ActionPanel extends JPanel{
 	
-	private FamilyMemberPanel memberPanel = new FamilyMemberPanel();
+	private FamilyMemberPanel memberPanel;
 	private JLabel roundInfo;
 	private ServantsSlider servantsSlider;
 	private PlayerColor playerId;
+	private LeaderPanel leaderPanel;
 	
 	public ActionPanel (MatchData matchInfo, PlayerColor playerId){
 		
@@ -34,12 +35,16 @@ public class ActionPanel extends JPanel{
 		Constraints borderConstraints = new Constraints();
 		roundInfo = new JLabel("This is the " + matchInfo.getRound() + " of the " + matchInfo.getPeriod() + "° period.");
 
-		JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); // used to center label roundinfo
+		JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		centerPanel.setOpaque(false);// used to center label roundinfo
 		centerPanel.add(roundInfo);
 		this.add(centerPanel, BorderLayout.PAGE_START);
-		// LINE 
 		
+		// LINE 
+		leaderPanel = new LeaderPanel();
+		this.add(leaderPanel, BorderLayout.CENTER);
 		//PAGE_END
+		memberPanel = new FamilyMemberPanel(playerId);
 		servantsSlider = new ServantsSlider();
 		for(PlayerData p : matchInfo.getPlayers()){
 			if (p.getId() == this.playerId)
@@ -47,6 +52,7 @@ public class ActionPanel extends JPanel{
 		}
 		JPanel temp = new JPanel();
 		temp.setLayout(new GridBagLayout());
+		temp.setOpaque(false);
 		GridBagConstraints constraints= new GridBagConstraints();
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.anchor = GridBagConstraints.CENTER;
@@ -61,6 +67,7 @@ public class ActionPanel extends JPanel{
 		temp.add(servantsSlider, constraints);
 		this.add(temp, BorderLayout.PAGE_END);
 		this.setVisible(true);
+		this.setOpaque(false);
 	}
 	
 	public void updateActionPanel(MatchData matchInfo){
