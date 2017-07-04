@@ -440,7 +440,7 @@ public class GUInterface implements UserInterface {
 		placeDevelopmentCards(matchInfo.getBoard().getCards());
 		placeExcommunications(matchInfo.getBoard().getExcommunications());
 		placeBoardFamilyMembers(matchInfo.getBoard().getTowerSpaces());
-
+		actionPanel.updateActionPanel(matchInfo);
 	}
 
 	private void updateRightPanel(PlayerData[] players) {
@@ -718,6 +718,40 @@ public class GUInterface implements UserInterface {
 	@Override
 	public void setRules(boolean isAdvanced) {
 		this.isAdvanced = isAdvanced;
+	}
+
+	@Override
+	public int reqCardChoice(DevelopmentCard[] possibleChoices) {
+		int numberOfChoices = possibleChoices.length;
+		Object choices[] = new Object[numberOfChoices];
+		for (int i = 0; i < numberOfChoices; i++) {
+			choices[i] = possibleChoices[i].toString();
+		}
+		String chosenCard = (String) JOptionPane.showInputDialog(mainWindow,
+				"Which Development Card do you want to take with extra action?",
+				"Choose Development Card", JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+		int j;
+		for (j = 0; j < choices.length; j++) {
+			if (chosenCard.compareTo((String) choices[j]) == 0) {
+				break;
+			}
+		}
+		return j;
+	}
+
+	@Override
+	public int reqNumberOfServants(int max) {
+		int possibleServants = max ;
+		Object choices[] = new Object[max + 1];
+		for (int i = 0; i <= possibleServants; i++) {
+			choices[i] = Integer.toString(i);
+		}
+		String chosenNumberOfServants = (String) JOptionPane.showInputDialog(mainWindow,
+				"How many servants do you want to use to increment the value of the action?",
+				"Choose number of servants", JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+		int j;
+		j = Integer.parseInt(chosenNumberOfServants);
+		return j;
 	}
 
 }

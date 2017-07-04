@@ -17,6 +17,7 @@ public class ServantsSlider extends JSlider{
 	
 	public void updateSlider (PlayerData playerInfo){
 		this.setMaximum(playerInfo.getPropertyValue(PropertiesId.SERVANTS));
+		this.setValue(0);
 	}
 
 }

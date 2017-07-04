@@ -36,8 +36,10 @@ public class AdvSingleMarketSpace extends SingleMarketSpace{
 
 		if (this.occupant == null) {
 			this.occupant = member;
+			member.setUsed(true);
 		} else if ((((AdvancedPlayer) player).getAdvMod().canReoccupyPlaces()) && (this.otherOccupant == null)) {
 			this.otherOccupant = member;
+			member.setUsed(true);
 		} else
 			throw new NotOccupableException();
 	}

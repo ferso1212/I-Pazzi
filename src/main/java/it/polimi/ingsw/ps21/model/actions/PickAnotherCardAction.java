@@ -50,13 +50,13 @@ public class PickAnotherCardAction extends ExtraAction {
 		
 		switch (this.updateCounter) {
 		case 4:{
-			this.servantsMessage = new ServantsChoice(player.getId());
+			this.servantsMessage = new ServantsChoice(player.getId(), player.getProperties().getProperty(PropertiesId.SERVANTS).getValue());
 			this.updateCounter--;
 			return this.servantsMessage;
 		}
 		case 3:{
 			
-			if (!this.servantsMessage.isVisited() || player.getProperties().greaterOrEqual(new ImmProperties(new Property(PropertiesId.SERVANTS, this.servantsMessage.getNumberOfServants()))))
+			if (!this.servantsMessage.isVisited() || !player.getProperties().greaterOrEqual(new ImmProperties(new Property(PropertiesId.SERVANTS, this.servantsMessage.getNumberOfServants()))))
 				return new RefusedAction(player.getId(), "Invalid number of servants!");
 			
 			ArrayList<DevelopmentCard> cards = new ArrayList<DevelopmentCard>();

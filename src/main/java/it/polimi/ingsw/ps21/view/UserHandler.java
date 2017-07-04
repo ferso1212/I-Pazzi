@@ -343,7 +343,9 @@ public class UserHandler extends Observable implements Visitor, Observer {
 
 	@Override
 	public void visit(ServantsChoice message) {
-		// TODO Auto-generated method stub
-		
+		message.setNumberOfServants(connection.chooseNumberOfServants(message.getMaxServants()));
+		message.setVisited();
+		setChanged();
+		notifyObservers(new ExecutedChoice(this.playerId));
 	}
 }
