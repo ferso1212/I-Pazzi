@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 import javax.net.ssl.HostnameVerifier;
 
-import it.polimi.ingsw.ps21.client.GUI.GUIProjectEmpty;
+import it.polimi.ingsw.ps21.client.GUI.GUInterface;
 
 public class ClientMain {
 
@@ -63,7 +63,7 @@ public class ClientMain {
 			}
         if (chosenInterface==1) ui = new CLInterface();
     	else {
-    		ui = new GUIProjectEmpty();
+    		ui = new GUInterface();
 		}
     	}
     	

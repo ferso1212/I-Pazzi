@@ -17,8 +17,8 @@ public class PickAnotherCardMessage extends Message{
 		return cardChosen;
 	}
 
-	public void setCardChosen(DevelopmentCard cardChosen) {
-		this.cardChosen = cardChosen;
+	public void setCardChosen(int choice) {
+		this.cardChosen = possibleChoices[choice];
 	}
 
 	public DevelopmentCard[] getPossibleChoices() {

@@ -17,7 +17,9 @@ import it.polimi.ingsw.ps21.controller.LeaderChoice;
 import it.polimi.ingsw.ps21.controller.MatchController;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.Message;
+import it.polimi.ingsw.ps21.controller.PickAnotherCardMessage;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
+import it.polimi.ingsw.ps21.controller.ServantsChoice;
 import it.polimi.ingsw.ps21.controller.TileChoice;
 import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.controller.WorkMessage;
@@ -102,6 +104,16 @@ public class UserHandler extends Observable implements Visitor, Observer {
 			notifyObservers("playerDisconnected");
 		}
 		}
+	
+	@Override
+	public void visit (PickAnotherCardMessage message){
+		try {
+			
+			message.setCardChosen(connection.reqCardChosen(message.getPossibleChoices()));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 
 	@Override
 	public void visit(WorkMessage message) {
@@ -265,6 +277,16 @@ public class UserHandler extends Observable implements Visitor, Observer {
 							VaticanChoice message= (VaticanChoice)arg;
 							visit(message);
 						}
+						else if (arg instanceof PickAnotherCardMessage)
+						{
+							PickAnotherCardMessage message = (PickAnotherCardMessage)arg;
+							visit(message);
+						}
+						else if (arg instanceof ServantsChoice)
+						{
+							ServantsChoice message = (ServantsChoice)arg;
+							visit(message);
+						}
 					}
 				}
 			}
@@ -313,5 +335,11 @@ public class UserHandler extends Observable implements Visitor, Observer {
 		connection.sendMessage("\nReconnected to match");
 		notifyObservers("reconnection");
 		UpdateViewAfterReconnection();
+	}
+
+	@Override
+	public void visit(ServantsChoice message) {
+		// TODO Auto-generated method stub
+		
 	}
 }

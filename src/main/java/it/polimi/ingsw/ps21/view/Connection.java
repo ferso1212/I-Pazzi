@@ -47,4 +47,8 @@ public abstract interface Connection{
 	public int reqPersonalTileChoice(PersonalBonusTile[] choices);
 	
 	public void setRules(boolean isAdvanced);
+	
+	public int reqCardChoice(DevelopmentCard[] possibleChoices);
+	
+	public int chooseNumberOfServants(int max);// max is the player's number of servants.
 }

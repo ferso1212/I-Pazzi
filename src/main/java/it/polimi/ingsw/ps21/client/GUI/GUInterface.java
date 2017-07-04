@@ -54,9 +54,9 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-public class GUIProjectEmpty implements UserInterface {
+public class GUInterface implements UserInterface {
 
-	private static final Logger LOGGER = Logger.getLogger(GUIProjectEmpty.class.getSimpleName());
+	private static final Logger LOGGER = Logger.getLogger(GUInterface.class.getSimpleName());
 	private JFrame mainWindow;
 	private BoardPanel boardPanel;
 	private JPanel rightPanel;
@@ -86,7 +86,7 @@ public class GUIProjectEmpty implements UserInterface {
 	/**
 	 * Create the application.
 	 */
-	public GUIProjectEmpty() {
+	public GUInterface() {
 		this.developmentCards = new DevelopmentCardButton[4][4];
 		this.familyMembersOnBoard = new JLabel[4][4];
 
@@ -640,8 +640,22 @@ public class GUIProjectEmpty implements UserInterface {
 
 	@Override
 	public int reqExtraActionChoice(ExtraActionData[] actions) {
-		// implement extra action choice request in GUI
-		return 0;
+		int choice = 0;
+		Object choices[] = new Object[actions.length];
+		for (int i = 0; i < actions.length; i++) {
+			choices[i] = actions[i].getType() + ": " + actions[i].getDescription();
+		}
+			String chosenPrivilege = (String) JOptionPane.showInputDialog(mainWindow,
+					"Which extra action do you want to do?", "Choose an extra action", JOptionPane.PLAIN_MESSAGE, null,
+					choices, choices[0]);
+			int j;
+			for (j = 0; j < choices.length; j++) {
+				if (chosenPrivilege.compareTo((String) choices[j]) == 0) {
+					choice = j;
+					break;
+				}
+			}
+		return choice;
 	}
 
 	@Override
