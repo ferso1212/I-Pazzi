@@ -114,8 +114,7 @@ public class SimpleMatch extends Match {
 		ArrayList<Player> newOrder = new ArrayList<>();
 		for (FamilyMember f : temp) {
 			Player player = players.get(f.getOwnerId());
-			if (order.contains(player))
-				;
+			if (order.contains(player));
 			else {
 				newOrder.add(player);
 				oldOrder.remove(player);
@@ -132,6 +131,19 @@ public class SimpleMatch extends Match {
 				for (int j = 0; j < newOrder.size(); j++)
 					order.add(newOrder.get(j));
 			board.newSetBoard(++period);
+			// Check firstDelay excommunication for every player
+			Player firstPlayer = order.get(currentPlayer);
+			do
+			{
+				if (order.get(currentPlayer).getModifiers().getActionMods().firstActionDelayed()){
+					Player tempPlayer = order.remove(currentPlayer);
+					order.add(tempPlayer);
+				}
+				else{
+				currentPlayer++;
+				}
+			}while (firstPlayer != order.get(currentPlayer));
+			currentPlayer=0;
 			for (Player p : players.values()) {
 				p.getFamily().roundReset();
 			}

@@ -429,8 +429,8 @@ public class CLInterface implements UserInterface {
 			printOutput("Which type of card do you want to pick?");
 			int cardType = 1;
 			printOutput("1) Territory Card;");
-			printOutput("2) Building Card;");
-			printOutput("3) Character Card;");
+			printOutput("2) Character Card;");
+			printOutput("3) Building Card;");
 			printOutput("4) Venture Card;");
 			cardType = userInput.nextInt();
 			while (cardType < 1 || cardType > 4) {
@@ -442,10 +442,10 @@ public class CLInterface implements UserInterface {
 				tower = DevelopmentCardType.TERRITORY;
 				break;
 			case 2:
-				tower = DevelopmentCardType.BUILDING;
+				tower = DevelopmentCardType.CHARACTER;
 				break;
 			case 3:
-				tower = DevelopmentCardType.CHARACTER;
+				tower = DevelopmentCardType.BUILDING;
 				break;
 			case 4:
 				tower = DevelopmentCardType.VENTURE;
