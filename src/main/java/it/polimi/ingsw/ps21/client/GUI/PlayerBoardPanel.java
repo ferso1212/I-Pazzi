@@ -48,6 +48,7 @@ public class PlayerBoardPanel extends JPanel{
  		super(true);  //creates a JPanel with doubleBuffered=true
  		try {
  			setImage(ImageIO.read(new File(boardPath)));
+ 			this.setPreferredSize(new Dimension(resize(playerBoardImage.getWidth()), resize(playerBoardImage.getHeight())));
  		} catch (IOException e) {
  			LOGGER.log(Level.WARNING, "Unable to construct set PlayerBoardPanel's image due to IOException", e);
  		}

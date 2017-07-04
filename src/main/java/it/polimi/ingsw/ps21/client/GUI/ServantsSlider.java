@@ -14,6 +14,7 @@ public class ServantsSlider extends JSlider{
 		this.setMinorTickSpacing(1);
 		this.setMajorTickSpacing(1);
 		this.setPaintLabels(true);
+		this.setPaintTicks(true);
 	}
 	
 	public void updateSlider (PlayerData playerInfo){
