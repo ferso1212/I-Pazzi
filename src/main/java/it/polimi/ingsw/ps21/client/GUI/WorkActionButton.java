@@ -32,7 +32,7 @@ public class WorkActionButton extends JButton{
 	}
 	
 	public void update(FamilyMemberData occupant){
-		if (occupant == null){
+		if (occupant.getOwnerId() == null){
 			this.setIcon(null);
 		} else {
 			try {
