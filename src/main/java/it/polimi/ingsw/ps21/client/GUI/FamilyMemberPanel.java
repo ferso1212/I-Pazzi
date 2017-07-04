@@ -1,20 +1,13 @@
 package it.polimi.ingsw.ps21.client.GUI;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.text.StyleContext.SmallAttributeSet;
-
+import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.model.player.MembersColor;
 
 public class FamilyMemberPanel extends JPanel{
@@ -73,6 +66,30 @@ public class FamilyMemberPanel extends JPanel{
 	
 	public MembersColor getChosenColor(){
 		return this.chosenMember;
+	}
+
+	public void update(PlayerData p) {
+		if (p.getFamilyMember(MembersColor.BLACK).isUsed()) {
+			this.blackMember.setEnabled(false);
+		}
+		else this.blackMember.setEnabled(true);
+		if (p.getFamilyMember(MembersColor.ORANGE).isUsed()) {
+			this.orangeMember.setEnabled(false);
+		}
+		else this.orangeMember.setEnabled(true);
+		if (p.getFamilyMember(MembersColor.WHITE).isUsed()) {
+			this.whiteMember.setEnabled(false);
+		}
+		else this.whiteMember.setEnabled(true);
+		if (p.getFamilyMember(MembersColor.NEUTRAL).isUsed()) {
+			this.neutralMember.setEnabled(false);
+		}
+		else this.neutralMember.setEnabled(true);
+		chosenMember = null;
+//		this.blackMember.revalidate();
+//		this.whiteMember.revalidate();
+//		this.orangeMember.revalidate();
+//		this.neutralMember.revalidate();
 	}
 
 }

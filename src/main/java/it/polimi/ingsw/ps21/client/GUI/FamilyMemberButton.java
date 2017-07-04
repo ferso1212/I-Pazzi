@@ -14,7 +14,6 @@ public class FamilyMemberButton extends JButton {
 		super();
 		this.color = color;
 		this.setPreferredSize(new Dimension(100, 70));
-		this.isVisible();
 	}
 
 	@Override

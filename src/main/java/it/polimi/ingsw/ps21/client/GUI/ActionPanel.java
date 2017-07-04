@@ -66,8 +66,10 @@ public class ActionPanel extends JPanel{
 	public void updateActionPanel(MatchData matchInfo){
 		roundInfo.setText("This is the " + matchInfo.getRound() + " of the " + matchInfo.getPeriod() + "° period.");
 		for(PlayerData p : matchInfo.getPlayers()){
-			if (p.getId() == this.playerId)
+			if (p.getId() == this.playerId){
 				servantsSlider.updateSlider(p);
+				memberPanel.update(p);
+			}
 		}
 	}
 	
