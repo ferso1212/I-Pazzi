@@ -10,10 +10,12 @@ import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
 
-//Dovrebbe contenere al suo interno anche le informazioni sulla board e sui giocatori aggregati, ma non so se possono essere serializzati
-
 public class MatchData implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8013358517040401334L;
 	private int period;
 	private RoundType round;
 	private PlayerColor[] playersOrder;
