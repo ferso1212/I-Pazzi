@@ -33,8 +33,8 @@ public class TestGUInterface {
 	@Test
 	public void showInterface()
 	{
-		//testeGuInterface.updateView(new MatchData(testedMatch));
-		//testeGuInterface.makeAction(1);
+		testeGuInterface.updateView(new MatchData(testedMatch));
+		testeGuInterface.makeAction(1);
 		assert(true);
 		
 	}

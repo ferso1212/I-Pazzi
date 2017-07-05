@@ -251,7 +251,7 @@ public class GUInterface implements UserInterface {
 		JPanel contentPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 1));
 		contentPanel.setBackground(new Color(239, 220, 134));
 		mainWindow.setContentPane(contentPanel);
-		boardPanel = new BoardPanel((new File("")).getAbsolutePath().concat("/src/images/board2.jpg"),
+		boardPanel = new BoardPanel((new File("")).getAbsolutePath().concat("/src/images/board3.jpg"), mainWindow.getRootPane().getHeight(),
 				matchInfo.getBlackDice(), matchInfo.getWhiteDice(), matchInfo.getOrangeDice());
 		boardPanel.setLayout(null);
 		mainWindow.getContentPane().add(boardPanel);
