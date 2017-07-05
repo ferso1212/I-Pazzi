@@ -112,6 +112,7 @@ public class AdvancedMatch extends Match {
 			p.getFamily().getMember(MembersColor.ORANGE).setValue(orangeDice);
 			p.getFamily().getMember(MembersColor.BLACK).setValue(blackDice);
 			p.getFamily().getMember(MembersColor.WHITE).setValue(whiteDice);
+			p.getFamily().getMember(MembersColor.NEUTRAL).setValue(0);
 		}
 	}
 
@@ -175,7 +176,7 @@ public class AdvancedMatch extends Match {
 	if (round != RoundType.VATICAN_ROUND){
 		for (int i=0; i<3; i++)
 			for ( int j =0 ; j< newOrder.size(); j++) order.add(newOrder.get(j));
-		board.newSetBoard(period);
+			board.newSetBoard(period);
 		// Check firstDelay excommunication for every advanced player
 					AdvancedPlayer firstPlayer = order.get(currentPlayer);
 					int i=0;

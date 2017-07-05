@@ -87,6 +87,7 @@ public class SimpleMatch extends Match {
 			p.getFamily().getMember(MembersColor.ORANGE).setValue(orangeDice);
 			p.getFamily().getMember(MembersColor.WHITE).setValue(whiteDice);
 			p.getFamily().getMember(MembersColor.BLACK).setValue(blackDice);
+			p.getFamily().getMember(MembersColor.NEUTRAL).setValue(0);
 		}
 	}
 
