@@ -59,7 +59,7 @@ public class CouncilAction extends Action{
 	
 	
 	@Override
-	public ExtraAction[] activate(Player player, Match match) throws NotExecutableException, RequirementNotMetException, InsufficientPropsException {
+	public ExtraAction[] activate(Player player, Match match) throws RequirementNotMetException, InsufficientPropsException {
 		
 		super.payServants(player, this.possibleServants);
 		

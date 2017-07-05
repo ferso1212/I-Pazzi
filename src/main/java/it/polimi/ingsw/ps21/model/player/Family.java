@@ -45,7 +45,7 @@ public class Family {
 		return true;}
 	}
 	
-	/** Resets all the Family members' values to 0.
+	/** Resets all the Family members' values to 0 and sets their state to NOT USED.
 	 *  This method uses FamilyMember.setValue() to reset the value of the members, hence the value of the fixed members is not resetted.
 	 */
 	public void roundReset()

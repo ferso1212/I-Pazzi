@@ -36,7 +36,7 @@ public class LeaderChoiceAction extends Action{
 	}
 
 	@Override
-	public ExtraAction[] activate(Player player, Match match) throws NotExecutableException, RequirementNotMetException, InsufficientPropsException {
+	public ExtraAction[] activate(Player player, Match match) throws RequirementNotMetException, InsufficientPropsException {
 		AdvancedPlayer aPlayer= (AdvancedPlayer)player;
 		aPlayer.addLeaderCard(this.message.getChosenCard());
 		ExtraAction[] toReturn= new ExtraAction[1];

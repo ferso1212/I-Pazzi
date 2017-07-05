@@ -26,59 +26,61 @@ public class SocketConnectionAdder extends Thread {
 	protected Semaphore advSem;
 
 	public SocketConnectionAdder(Socket socket, ConcurrentLinkedQueue<Connection> connectionsQueue,
-			ConcurrentLinkedQueue<Connection> advConnectionsQueue, ArrayList<String> names, ConcurrentHashMap<String, UserHandler> playingUsers, Semaphore stdSem, Semaphore advSem) {
+			ConcurrentLinkedQueue<Connection> advConnectionsQueue, ArrayList<String> names,
+			ConcurrentHashMap<String, UserHandler> playingUsers, Semaphore stdSem, Semaphore advSem) {
 		super();
 		this.socket = socket;
 		this.connectionsQueue = connectionsQueue;
 		this.advConnectionsQueue = advConnectionsQueue;
-		this.playingUsers=playingUsers;
-		this.names=names;
-		this.stdSem=stdSem;
-		this.advSem= advSem;
+		this.playingUsers = playingUsers;
+		this.names = names;
+		this.stdSem = stdSem;
+		this.advSem = advSem;
 	}
 
 	public void run() {
 		SocketConnection newInboundConnection = new SocketConnection(socket);
 
 		String name;
-		try{
-			if(newInboundConnection.wantsNewMatch())
-			{	
-			boolean alreadyExists;
-			
-				do
-				{
+		try {
+			if (newInboundConnection.wantsNewMatch()) {
+				boolean alreadyExists;
+
+				do {
 					name = newInboundConnection.reqName();
+					if (name == null) {
+						System.out.println("Connection interrupted because player canceled on name insertion");
+						return;
+					}
 					synchronized (names) {
 						alreadyExists = names.contains(name);
-						if (!alreadyExists) names.add(name);
+						if (!alreadyExists)
+							names.add(name);
 					}
-					if(alreadyExists) newInboundConnection.sendMessage("This name already exists. Please choose another name. ");
-					else addConnectionToQueue(newInboundConnection);
-				}while(alreadyExists && newInboundConnection.isConnected());
-				
-			}
-			else
-			{
+					if (alreadyExists)
+						newInboundConnection.sendMessage("This name already exists. Please choose another name. ");
+					else
+						addConnectionToQueue(newInboundConnection);
+				} while (alreadyExists && newInboundConnection.isConnected());
+
+			} else {
 				boolean existsInMatches;
-				do
-				{
+				do {
 					name = newInboundConnection.reqName();
-					synchronized(playingUsers)
-					{
-						existsInMatches=playingUsers.containsKey(name);
+					synchronized (playingUsers) {
+						existsInMatches = playingUsers.containsKey(name);
 					}
-					if(!existsInMatches) newInboundConnection.sendMessage("Name not found.");
-				}while(!existsInMatches && newInboundConnection.isConnected());
-				if(existsInMatches) rejoin(newInboundConnection);
+					if (!existsInMatches)
+						newInboundConnection.sendMessage("Name not found.");
+				} while (!existsInMatches && newInboundConnection.isConnected());
+				if (existsInMatches)
+					rejoin(newInboundConnection);
 			}
-		
-			}catch(DisconnectedException e)
-			{
-				LOGGER.log(Level.WARNING, "User disconnected while requesting his name", e);
-				return;
-			}
-		
+
+		} catch (DisconnectedException e) {
+			LOGGER.log(Level.WARNING, "User disconnected while requesting his name", e);
+			return;
+		}
 
 	}
 
@@ -109,10 +111,9 @@ public class SocketConnectionAdder extends Thread {
 			}
 		}
 	}
-	
-	private void rejoin(SocketConnection newConnection)
-	{
-		UserHandler user= playingUsers.get(newConnection.getName());
+
+	private void rejoin(SocketConnection newConnection) {
+		UserHandler user = playingUsers.get(newConnection.getName());
 		user.setConnection(newConnection);
 		user.notifyReconnection();
 	}
