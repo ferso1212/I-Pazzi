@@ -56,6 +56,7 @@ public class LeaderCard extends Card implements Serializable{
 		for (Requirement r : leaderEffect.getRequirement()) {
 			temp.append("\n\tEffect Requirement: " + r.toString());
 		}
+		temp.append("\nIs activated: " + this.activated);
 		return temp.toString();
 	}
 	
