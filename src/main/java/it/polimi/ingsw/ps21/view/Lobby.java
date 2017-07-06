@@ -69,7 +69,7 @@ public class Lobby extends Thread{
 				try {
 					sem.acquire();
 				} catch (InterruptedException e) {
-					throw new RuntimeException("Lobby thread interrupted");
+					Thread.currentThread().interrupt();
 				}
 			}
 
