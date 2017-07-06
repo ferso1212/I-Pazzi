@@ -162,7 +162,7 @@ public class TestMatches {
 		while(round!=RoundType.VATICAN_ROUND){
 			round = testedAdvancedMatch.setNextPlayer();
 		}
-	while (round == RoundType.VATICAN_ROUND){
+	while (round == RoundType.VATICAN_ROUND && !testedAdvancedMatch.isEnded()){
 		player = testedAdvancedMatch.getCurrentPlayer();
 		VaticanAction action = new VaticanAction(player.getId());
 		Message message = action.update(player, testedAdvancedMatch);
