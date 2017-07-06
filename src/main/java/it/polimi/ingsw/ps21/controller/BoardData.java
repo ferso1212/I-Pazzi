@@ -29,6 +29,7 @@ public class BoardData implements Serializable{
 	private FamilyMemberData singleProductionSpace;
 	private FamilyMemberData[] multipleHarvestSpace;
 	private FamilyMemberData[] multipleProductionSpace;
+	private FamilyMemberData[] council;
 	private Map<DevelopmentCardType, int[]> cardsBonus;
 	private Excommunication[] excommunications;
 
@@ -36,11 +37,11 @@ public class BoardData implements Serializable{
 	public BoardData(Board board)
 	{	//---COPIES THE CARDS IN THE TOWER SPACES
 		this.cards = new DevelopmentCard[4][4];
-		int towerIndex=0;
 		this.excommunications = board.getExcommunications();
 		this.towerSpaces=new FamilyMemberData[board.getTower(DevelopmentCardType.BUILDING).FLOORS_NUM][DevelopmentCardType.values().length];
 		this.towerBonuses=new ImmProperties[board.getTower(DevelopmentCardType.BUILDING).FLOORS_NUM][DevelopmentCardType.values().length];
 		this.towerRequirements = new int[board.getTower(DevelopmentCardType.BUILDING).FLOORS_NUM][DevelopmentCardType.values().length];
+		int towerIndex=0;
 		for(DevelopmentCardType cardType: DevelopmentCardType.values()) //cycles through the towers
 		{
 			Tower tower=board.getTower(cardType);
@@ -66,6 +67,12 @@ public class BoardData implements Serializable{
 			marketPrivileges[i] = board.getMarketPlaces()[i].getNumberOfPrivileges();
 		}
 		
+		//copies member in council palace
+		this.council = new FamilyMemberData[board.getCouncilPalace().getOccupants().size()];
+		FamilyMember[] occupants = board.getCouncilPalace().getOccupants().toArray(new FamilyMember[0]);
+		for (int i=0; i< council.length; i++){
+			council[i] = new FamilyMemberData(occupants[i]);
+		}
 		//copies faith track bonuses
 		this.faithTrackBonus= new int[board.getTrackBonuses().getFaithTrackSize()];
 		for(int i=0; i<board.getTrackBonuses().getFaithTrackSize(); i++)
@@ -88,6 +95,7 @@ public class BoardData implements Serializable{
 		}
 		this.singleProductionSpace=new FamilyMemberData(board.getSingleWorkSpace(WorkType.PRODUCTION).getOccupant());
 		i=0;
+		this.multipleProductionSpace= new FamilyMemberData[board.getMultipleWorkSpace(WorkType.PRODUCTION).getOccupants().size()];
 		for(FamilyMember occupant: board.getMultipleWorkSpace(WorkType.PRODUCTION).getOccupants())
 		{
 			multipleProductionSpace[i]=new FamilyMemberData(occupant);
@@ -157,6 +165,10 @@ public class BoardData implements Serializable{
 	public Excommunication[] getExcommunications(){
 		return this.excommunications;
 		
+	}
+	
+	public FamilyMemberData[] getCouncilOccupants(){
+		return this.council;
 	}
 	
 }

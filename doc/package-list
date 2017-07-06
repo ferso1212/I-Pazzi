@@ -1,2 +1,14 @@
 it.polimi.ingsw.ps21
+it.polimi.ingsw.ps21.client
+it.polimi.ingsw.ps21.client.GUI
+it.polimi.ingsw.ps21.controller
+it.polimi.ingsw.ps21.model.actions
+it.polimi.ingsw.ps21.model.board
 it.polimi.ingsw.ps21.model.deck
+it.polimi.ingsw.ps21.model.effect
+it.polimi.ingsw.ps21.model.excommunications
+it.polimi.ingsw.ps21.model.match
+it.polimi.ingsw.ps21.model.player
+it.polimi.ingsw.ps21.model.properties
+it.polimi.ingsw.ps21.view
+org.eclipse.wb.swing

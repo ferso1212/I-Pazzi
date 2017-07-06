@@ -752,8 +752,8 @@
                 <Stones value="0" />
                 <Servants value="0" />
                 <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="1" />
+                <MilitaryPoints value="1" />
+                <VictoryPoints value="0" />
                 <FaithPoints value="0" />
             </Properties>
             <Properties>
@@ -761,8 +761,8 @@
                 <Stones value="0" />
                 <Servants value="0" />
                 <Coins value="0" />
-                <MilitaryPoints value="0" />
-                <VictoryPoints value="2" />
+                <MilitaryPoints value="2" />
+                <VictoryPoints value="0" />
                 <FaithPoints value="0" />
             </Properties>
         </BuildingTower>

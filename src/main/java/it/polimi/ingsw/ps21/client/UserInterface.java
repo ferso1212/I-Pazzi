@@ -44,8 +44,6 @@ public abstract interface UserInterface {
 	
 	public abstract void setID(PlayerColor id);
 
-	public abstract String nextInput();
-
 	public abstract ImmProperties[] reqPrivileges(int number, ImmProperties[] privilegesValues);
 	
 	public abstract void matchEnded(EndData data);
@@ -61,4 +59,8 @@ public abstract interface UserInterface {
 	public int chooseTile(PersonalBonusTile[] possibilities);
 
 	public void setRules(boolean isAdvanced);
+	
+	public int reqCardChoice(DevelopmentCard[] possibleChoices);
+	
+	public int reqNumberOfServants(int max); //max is the player's number of servants
 }

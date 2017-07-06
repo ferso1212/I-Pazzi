@@ -45,7 +45,7 @@ public class ActionData implements Serializable{
 	public DevelopmentCardType getTower() {
 		return tower;
 	}
-
+	
 	public int getSpace() {
 		return space;
 	}

@@ -20,12 +20,16 @@ import it.polimi.ingsw.ps21.client.ChosenRulesNetPacket;
 import it.polimi.ingsw.ps21.client.ClientConnection;
 import it.polimi.ingsw.ps21.client.CostChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.CostChoiceResponseNetPacket;
+import it.polimi.ingsw.ps21.client.DevCardChoiceRequestNetPacket;
+import it.polimi.ingsw.ps21.client.DevCardChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.EffectChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.EffectChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.ExtraActionChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.ExtraActionChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.GenericStringNetPacket;
 import it.polimi.ingsw.ps21.client.InitNetPacket;
+import it.polimi.ingsw.ps21.client.LeaderChoiceRequestNetPacket;
+import it.polimi.ingsw.ps21.client.LeaderChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.MatchStartedNetPacket;
 import it.polimi.ingsw.ps21.client.NameRequestNetPacket;
 import it.polimi.ingsw.ps21.client.NameResponseNetPacket;
@@ -34,12 +38,18 @@ import it.polimi.ingsw.ps21.client.PacketType;
 import it.polimi.ingsw.ps21.client.PlayerIdNetPacket;
 import it.polimi.ingsw.ps21.client.PrivilegesChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.PrivilegesChoiceResponseNetPacket;
+import it.polimi.ingsw.ps21.client.RulesChoiceRequestNetPacket;
+import it.polimi.ingsw.ps21.client.RulesChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.RulesNetPacket;
+import it.polimi.ingsw.ps21.client.ServantsNumRequestNetPacket;
+import it.polimi.ingsw.ps21.client.ServantsNumResponseNetPacket;
 import it.polimi.ingsw.ps21.client.TileChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.TileChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.VaticanChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.VaticanChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.ViewUpdateRequestNetPacket;
+import it.polimi.ingsw.ps21.client.WorkChoiceRequestNetPacket;
+import it.polimi.ingsw.ps21.client.WorkChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.model.actions.ActionType;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
@@ -97,7 +107,7 @@ public class SocketConnection implements Connection{
 		
 	}
 
-	private NetPacket requestAndAwaitResponse(NetPacket packetToSend) throws IOException
+	private NetPacket requestAndAwaitResponse(NetPacket packetToSend) throws IOException, ClassNotFoundException
 	{
 		try {
 			out.writeObject(packetToSend);
@@ -111,7 +121,7 @@ public class SocketConnection implements Connection{
 			
 		} catch (ClassNotFoundException e) {
 			LOGGER.log(Level.WARNING, "Unable to parse received object due to ClassNotFound Exception", e);
-			return null;
+			throw e;
 		}
 	}
 	
@@ -120,8 +130,9 @@ public class SocketConnection implements Connection{
 		
 		try {
 			return ((CostChoiceResponseNetPacket)requestAndAwaitResponse(new CostChoiceRequestNetPacket(messageCounter, costs))).getChosen();
-		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unable to request cost choice to the remote client due to IOException", e);
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request cost choice to the remote client due to " + e.getMessage(), e);
+			connected=false;
 			throw new DisconnectedException();
 		}
 		
@@ -134,8 +145,9 @@ public class SocketConnection implements Connection{
 
 		try {
 			return ((VaticanChoiceResponseNetPacket)requestAndAwaitResponse(new VaticanChoiceRequestNetPacket(messageCounter))).supportsVatican();
-		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unable to request vatican choice to the remote client due to IOException", e);
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request vatican choice to the remote client due to " + e.getMessage(), e);
+			connected=false;
 			throw new DisconnectedException();
 		}
 	}
@@ -147,8 +159,9 @@ public class SocketConnection implements Connection{
 		
 		try {
 			return ((PrivilegesChoiceResponseNetPacket)requestAndAwaitResponse(new PrivilegesChoiceRequestNetPacket(this.messageCounter, number, choices))).getChosenPrivileges();
-		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unable to request privileges choice to the remote client due to IOException", e);
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request privileges choice to the remote client due to " + e.getMessage(), e);
+			connected=false;
 			throw new DisconnectedException();
 		}
 
@@ -164,7 +177,8 @@ public class SocketConnection implements Connection{
 			out.writeObject(new GenericStringNetPacket(this.messageCounter, mess));
 			messageCounter++;
 		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unable to send message to the remote client due to IOException", e);
+			connected=false;
+			LOGGER.log(Level.WARNING, "Unable to send message to the remote client due to " + e.getMessage(), e);
 		}
 		
 		
@@ -182,6 +196,7 @@ public class SocketConnection implements Connection{
 		try {
 			out.writeObject(new MatchStartedNetPacket(this.messageCounter));
 		} catch (IOException e) {
+			connected=false;
 			LOGGER.log(Level.WARNING, "Unable to send message to the remote client due to IOException", e);
 		}
 		
@@ -192,8 +207,9 @@ public class SocketConnection implements Connection{
 	public int reqExtraActionChoice(ExtraActionData[] actions) throws DisconnectedException{
 		try {
 			return ((ExtraActionChoiceResponseNetPacket)requestAndAwaitResponse(new ExtraActionChoiceRequestNetPacket(messageCounter, actions))).getChosen();
-		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unable to request action to the remote client due to IOException", e);
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request action to the remote client due to " + e.getMessage(), e);
+			connected=false;
 			throw new DisconnectedException();
 		}
 	}
@@ -204,8 +220,9 @@ public class SocketConnection implements Connection{
 		
 		try {
 			return ((ActionResponseNetPacket)requestAndAwaitResponse(new ActionRequestNetPacket(messageCounter, id))).getAction();
-		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unable to request action to the remote client due to IOException", e);
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request action to the remote client due to " + e.getMessage(), e);
+			connected=false;
 			throw new DisconnectedException();
 		}
 		
@@ -228,8 +245,9 @@ public class SocketConnection implements Connection{
 		try {
 			int chosen = ((EffectChoiceResponseNetPacket)requestAndAwaitResponse(new EffectChoiceRequestNetPacket(messageCounter, possibleEffects))).getChosen();
 			return possibleEffects[chosen];
-		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unable to request effect choice to the remote client due to IOException", e);
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request effect choice to the remote client due to " + e.getMessage(), e);
+			connected=false;
 			throw new DisconnectedException();
 		}
 	}
@@ -241,14 +259,15 @@ public class SocketConnection implements Connection{
 			String receivedName= ((NameResponseNetPacket)requestAndAwaitResponse(new NameRequestNetPacket(messageCounter))).getName();
 			this.name=receivedName;
 			return name;
-		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unable to request name to the remote client due to IOException", e);
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request name to the remote client due to " + e.getMessage(), e);
+			connected=false;
 			throw new DisconnectedException();
 		}
 	}
 		
 	public boolean isConnected(){
-		return this.socket.isConnected();
+		return (this.socket.isConnected() && this.connected);
 	}
 
 
@@ -257,8 +276,8 @@ public class SocketConnection implements Connection{
 	
 		try {
 			return ((WorkChoiceResponseNetPacket)requestAndAwaitResponse(new WorkChoiceRequestNetPacket(messageCounter, message))).getChosen();
-		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unable to request work choice to the remote client due to IOException", e);
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request work choice to the remote client due to " + e.getMessage(), e);
 			throw new DisconnectedException();
 		}
 	}
@@ -275,8 +294,9 @@ public class SocketConnection implements Connection{
 	public boolean reqWantsAdvRules() throws DisconnectedException{
 		try {
 			return ((RulesChoiceResponseNetPacket)requestAndAwaitResponse(new RulesChoiceRequestNetPacket(messageCounter))).wantsAdvanced();
-		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unable to request rules choice to the remote client due to IOException", e);
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request rules choice to the remote client due to " + e.getMessage(), e);
+			connected=false;
 			throw new DisconnectedException();
 		}
 		
@@ -298,8 +318,8 @@ public class SocketConnection implements Connection{
 	public int reqLeaderCardChoice(LeaderCard[] choices) {
 		try {
 			return((LeaderChoiceResponseNetPacket)requestAndAwaitResponse(new LeaderChoiceRequestNetPacket(messageCounter, choices))).getChosen();
-		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unable to request leader card choice to the remote client due to IOException", e);
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request leader card choice to the remote client due to " + e.getMessage(), e);
 			return 0;
 		}
 	}
@@ -309,8 +329,8 @@ public class SocketConnection implements Connection{
 	public int reqPersonalTileChoice(PersonalBonusTile[] choices) {
 		try {
 			return ((TileChoiceResponseNetPacket)requestAndAwaitResponse(new TileChoiceRequestNetPacket(messageCounter, choices))).getChosen();
-		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unable to request personal bonus tile choice to the remote client due to IOException", e);
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request personal bonus tile choice to the remote client due to "+ e.getMessage(), e);
 			return 0;
 		}
 	}
@@ -324,6 +344,29 @@ public class SocketConnection implements Connection{
 			LOGGER.log(Level.WARNING, "Unable to send rules to the remote client due to IOException", e);
 		}
 		
+	}
+
+
+	@Override
+	public int reqCardChoice(DevelopmentCard[] possibleChoices) throws DisconnectedException {
+		try {
+			return ((DevCardChoiceResponseNetPacket)requestAndAwaitResponse(new DevCardChoiceRequestNetPacket(messageCounter, possibleChoices))).getChosen();
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request card choice to the remote client due to "+ e.getMessage(), e);
+			connected=false;
+			throw new DisconnectedException();
+		}
+	}
+
+
+	@Override
+	public int chooseNumberOfServants(int max) {
+		try {
+			return ((ServantsNumResponseNetPacket)requestAndAwaitResponse(new ServantsNumRequestNetPacket(messageCounter, max))).getChosen();
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request servants choice to the remote client due to "+ e.getMessage(), e);
+			return 0;
+		}
 	}
 	
 

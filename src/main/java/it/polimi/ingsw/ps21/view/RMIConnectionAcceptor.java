@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,16 +23,20 @@ public class RMIConnectionAcceptor extends UnicastRemoteObject implements RMICon
 	private ConcurrentHashMap<String, UserHandler> playingUsers;
 	private HashMap<Integer, RMIConnection> connectionsMap;
 	private int interfaceCounter;
+	private Semaphore stdSem;
+	private Semaphore advSem;
 
 	public RMIConnectionAcceptor(ConcurrentLinkedQueue<Connection> connectionsQueue,
 			ConcurrentLinkedQueue<Connection> advConnectionsQueue, ArrayList<String> names,
-			ConcurrentHashMap<String, UserHandler> playingUsers) throws RemoteException {
+			ConcurrentHashMap<String, UserHandler> playingUsers, Semaphore stdSem, Semaphore advSem) throws RemoteException {
 		this.connectionsQueue = connectionsQueue;
 		this.advConnectionsQueue = advConnectionsQueue;
 		this.playingUsers = playingUsers;
 		this.usedNames = names;
 		this.interfaceCounter=0;
 		this.connectionsMap=new HashMap<>();
+		this.stdSem=stdSem;
+		this.advSem= advSem;
 		
 	}
 
@@ -79,6 +84,10 @@ public class RMIConnectionAcceptor extends UnicastRemoteObject implements RMICon
 					boolean usedName;
 					do {
 						name = unsettedConnection.reqName();
+						if (name == null) {
+							System.out.println("\nConnection interrupted because player canceled on name insertion");
+							return;
+						}
 						synchronized (usedNames) {
 							usedName = usedNames.contains(name);
 							if (!usedName)
@@ -114,6 +123,7 @@ public class RMIConnectionAcceptor extends UnicastRemoteObject implements RMICon
 			synchronized (connectionsQueue) {
 				this.connectionsQueue.add(newConnection);
 				connections.add(newConnection);
+				stdSem.release();
 				System.out.println("\n" + newConnection.getName()
 						+ "'s inbound connection added to the standard lobby in position " + connectionsQueue.size());
 			}
@@ -123,6 +133,7 @@ public class RMIConnectionAcceptor extends UnicastRemoteObject implements RMICon
 			synchronized (advConnectionsQueue) {
 				this.advConnectionsQueue.add(newConnection);
 				connections.add(newConnection);
+				advSem.release();
 				System.out.println("\n" + newConnection.getName()
 						+ "'s inbound connection added to the advanced lobby in position "
 						+ advConnectionsQueue.size());

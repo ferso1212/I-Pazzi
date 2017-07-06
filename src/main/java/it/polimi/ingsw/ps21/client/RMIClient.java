@@ -36,12 +36,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	private transient RMIConnectionInterface connection = null;
 	private transient UserInterface ui;
 	public boolean connected = false;
-	private String username;
-	private final String SERVER_HOSTNAME = "127.0.0.1"; 
+	private String username; 
 	
 	public RMIClient( UserInterface ui, String hostname, int port, boolean newMatch) throws RemoteException, NotBoundException{
 		this.ui = ui;
-		serverRegistry = LocateRegistry.getRegistry(SERVER_HOSTNAME, port);
+		serverRegistry = LocateRegistry.getRegistry(hostname, port);
 		RMIConnectionCreator connectionService = (RMIConnectionCreator) serverRegistry.lookup("RMIConnectionCreator");
 	   	connection = connectionService.getNewConnection(newMatch);	
 		connection.setClient((RMIClientInterface) this); 
@@ -52,20 +51,16 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 			connected = false;
 		}
 	}
-		/*try {
-			while(true){
-			this.wait(30);
-			ui.showInfo("Connection OK");
-			}
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			ui.showInfo("Awaked from interrupt");
-		}*/
 	
 	public boolean isConnected(){
 		return connected;
 	}
-
+	
+	public void start()
+	{
+		System.out.println("\nClient ready to receive datas from server.");
+	}
+	
 	@Override
 	public void receiveMessage(String string) throws RemoteException {
 		ui.showInfo(string);
@@ -136,12 +131,15 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 
 	@Override
 	public boolean reqRules() throws RemoteException {
-		return ui.reqIfWantsAdvancedRules();
+		boolean wantsAdvRules= ui.reqIfWantsAdvancedRules();
+		ui.showInfo("\nWaiting for match to start...");
+		return wantsAdvRules;
 	}
 
 	@Override
 	public void matchEnded(EndData data) throws RemoteException {
-		ui.matchEnded(data);		
+		connection.disconnect();
+		ui.matchEnded(data);
 	}
 
 	@Override
@@ -157,6 +155,21 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	@Override
 	public void setRules(boolean isAdvanced) throws RemoteException {
 		ui.setRules(isAdvanced);
+	}
+
+	@Override
+	public boolean testConnection() throws RemoteException {
+		return true;
+	}
+
+	@Override
+	public int reqCardChoice(DevelopmentCard[] possibleChoices) throws RemoteException {
+		return ui.reqCardChoice(possibleChoices);
+	}
+
+	@Override
+	public int reqNumberOfServants(int max) throws RemoteException {
+		return ui.reqNumberOfServants(max);
 	}
 
 }

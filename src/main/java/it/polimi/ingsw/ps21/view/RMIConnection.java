@@ -123,12 +123,12 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 
 
 	@Override
-	public int reqExtraActionChoice(ExtraActionData[] actions) {
+	public int reqExtraActionChoice(ExtraActionData[] actions) throws DisconnectedException{
 		try {
 			return client.reqExtraActionChoice(actions);
 		} catch (RemoteException e) {
-			LOGGER.log(Level.WARNING, "Error calling remote method for ExtraActionchoice, return default value");
-			return 0;
+			LOGGER.log(Level.WARNING, "Error calling remote method for ExtraActionChoice, return default value", e);
+			throw new DisconnectedException();
 		}
 	}
 
@@ -138,7 +138,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 		try {
 			return client.actionRequest(id);
 		} catch (RemoteException e) {
-			LOGGER.log(Level.WARNING, "Error calling remote method actionRequest");
+			LOGGER.log(Level.WARNING, "Error calling remote method actionRequest", e);
 			throw new DisconnectedException();
 		}
 	}
@@ -230,7 +230,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 		try {
 			return client.reqLeaderChoice(choices);
 		} catch (RemoteException e) {
-			LOGGER.log(Level.WARNING, "Error requesting leader card choice on client, returning default value");
+			LOGGER.log(Level.WARNING, "Error requesting leader card choice on client, returning default value", e);
 			return 0;
 		}
 	}
@@ -241,7 +241,7 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 		try {
 			return client.reqPersonalTileChoice(choices);
 		} catch (RemoteException e) {
-			LOGGER.log(Level.WARNING, "Error requesting tile choice on client, returning default value");
+			LOGGER.log(Level.WARNING, "Error requesting tile choice on client, returning default value", e);
 			return 0;
 		}
 	}
@@ -255,5 +255,39 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 			LOGGER.log(Level.WARNING, "Error setting rules of match on client side", e);
 		}
 	}
+
+
+	@Override
+	public boolean isConnected() {
+		try {
+			return client.testConnection();
+		} catch (RemoteException e) {
+			return false;
+		}
+	}
+
+
+	@Override
+	public int reqCardChoice(DevelopmentCard[] possibleChoices) throws DisconnectedException {
+		try {
+			return client.reqCardChoice(possibleChoices);
+		} catch (RemoteException e) {
+			throw new DisconnectedException();
+		}
+	}
+
+
+	@Override
+	public int chooseNumberOfServants(int max) {
+		try {
+			return client.reqNumberOfServants(max);
+		} catch (RemoteException e) {
+			LOGGER.log(Level.WARNING, "Error calling remote method reqNumberOfServants, returning default message", e);
+			return 0;
+		}
+		
+	}
+	
+	
 
 }

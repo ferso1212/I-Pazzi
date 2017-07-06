@@ -50,6 +50,8 @@ public abstract class Match extends Observable {
 	protected boolean ended = false;
 	protected int currentPlayer;
 	protected EndData statistics;
+	protected static final int NUM_OF_PERIODS = 3;
+
 	
 	public Match(){
 	}
@@ -68,9 +70,9 @@ public abstract class Match extends Observable {
 
 	public void throwDices(){
 		Random generator = new Random();
-		orangeDice = (int) generator.nextInt(5) + 1;
-		blackDice = (int) generator.nextInt(5) + 1;
-		whiteDice = (int) generator.nextInt(5) + 1;
+		orangeDice = (int) generator.nextInt(6) + 1;
+		blackDice = (int) generator.nextInt(6) + 1;
+		whiteDice = (int) generator.nextInt(6) + 1;
 	}
 
 	

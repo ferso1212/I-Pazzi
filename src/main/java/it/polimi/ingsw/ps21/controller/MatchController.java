@@ -1,7 +1,6 @@
 package it.polimi.ingsw.ps21.controller;
 
 import java.util.ArrayList;
-import java.util.EmptyStackException;
 import java.util.EnumMap;
 import java.util.Observable;
 import java.util.Observer;
@@ -9,7 +8,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.actions.CouncilAction;
 import it.polimi.ingsw.ps21.model.actions.DevelopmentAction;
@@ -18,16 +16,14 @@ import it.polimi.ingsw.ps21.model.actions.LeaderChoiceAction;
 import it.polimi.ingsw.ps21.model.actions.MarketAction;
 import it.polimi.ingsw.ps21.model.actions.NotExecutableException;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
-import it.polimi.ingsw.ps21.model.actions.PlayLeaderCard;
+import it.polimi.ingsw.ps21.model.actions.PlayLeaderCardAction;
 import it.polimi.ingsw.ps21.model.actions.TileChoiceAction;
 import it.polimi.ingsw.ps21.model.actions.VaticanAction;
 import it.polimi.ingsw.ps21.model.actions.WorkAction;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.board.WorkSpace;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
-import it.polimi.ingsw.ps21.model.deck.LeaderDeck;
 import it.polimi.ingsw.ps21.model.match.AdvancedMatch;
-import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
 import it.polimi.ingsw.ps21.model.match.RoundType;
@@ -35,12 +31,9 @@ import it.polimi.ingsw.ps21.model.match.VaticanRoundException;
 import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
-import it.polimi.ingsw.ps21.model.player.MembersColor;
-import it.polimi.ingsw.ps21.model.player.PersonalBonusTile;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
-import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.view.ActionData;
 import it.polimi.ingsw.ps21.view.EndData;
 import it.polimi.ingsw.ps21.view.ExtraActionData;
@@ -68,6 +61,7 @@ public class MatchController extends Observable implements Observer {
 	private int actionTimeout;
 	private EnumMap<PlayerColor, ArrayList<LeaderCard>> unchosenLeaderCards;
 	int numOfChosenLeaderCards;
+	private boolean playingLeaderStage;
 
 	private static enum ActionState {
 		ACCEPTED, REFUSED, AWAITING_CHOICES, TIMEOUT_EXPIRED,
@@ -100,14 +94,10 @@ public class MatchController extends Observable implements Observer {
 			this.addObserver(handler);
 			handler.addObserver(this);
 		}
-		//this.timer = new ActionTimer(5000);
-		//this.timer = new ActionTimer(MatchFactory.instance().makeTimeoutRound());
 		
-		//this.timer.addObserver(this);
-		//timerThread = new Thread(this.timer);
+		this.timer=new Timer();
 		this.currentExtraActions = new ArrayList<>();
 		this.actionCounter = 0;
-		this.timer=new Timer();
 		this.actionTimeout=MatchFactory.instance().makeTimeoutRound();
 		this.numOfChosenLeaderCards=0;
 		startMatch();
@@ -145,11 +135,18 @@ public class MatchController extends Observable implements Observer {
 			notifyObservers((RefusedAction) returnMessage);
 			reqPlayerAction();
 		} else if (returnMessage instanceof AcceptedAction) {
+			if(this.currentAction instanceof PlayLeaderCardAction) this.playingLeaderStage=true;
 			state = ActionState.ACCEPTED;
 			setChanged();
 			notifyObservers((AcceptedAction) returnMessage);
 			performAction();
-		} else {
+		} else if(returnMessage instanceof ExcommunicationMessage && this.roundType==RoundType.VATICAN_ROUND) {
+			state = ActionState.ACCEPTED;
+			setChanged();
+			notifyObservers((ExcommunicationMessage) returnMessage);
+			performAction();
+		}
+		else {
 			setChanged();
 			notifyObservers(returnMessage);
 		} // request choice to the user or
@@ -205,7 +202,9 @@ public class MatchController extends Observable implements Observer {
 			if (currentExtraActions.isEmpty()) {
 				setChanged();
 				notifyObservers(new CompletedActionMessage(currentPlayer.getId()));
-				nextPlayer();
+			
+				if(this.playingLeaderStage) reqPlayerAction();
+				else nextPlayer();
 			} else {
 				reqExtraAction();
 			}
@@ -286,14 +285,16 @@ public class MatchController extends Observable implements Observer {
 	}
 
 	/**
-	 * Starts a new round
+	 * Starts a new round.
+	 * To be safe, it clears the extra actions queue and cancels the action timer.
 	 */
-	// TODO: verificare se è round vatican
 	private void newRound() {
 		this.currentExtraActions.clear();
 		this.timer.cancel();
 		this.timer.purge();
 		currentPlayer = match.getCurrentPlayer();
+		setChanged();
+		notifyObservers("newRound");
 		reqPlayerAction();
 	}
 
@@ -302,6 +303,7 @@ public class MatchController extends Observable implements Observer {
 	 * Vatican Report, the requested action will be a Vatican Action.
 	 */
 	private void reqPlayerAction() {
+		this.playingLeaderStage=false;
 		if (roundType == RoundType.INITIAL_ROUND || roundType== RoundType.FINAL_ROUND) {
 			startTimer();
 			ActionRequest req = new ActionRequest(currentPlayer.getId(), ++this.actionCounter);
@@ -332,11 +334,12 @@ public class MatchController extends Observable implements Observer {
 	}
 	/**
 	 * Clears the extra actions queue and moves the game to the next player. If
-	 * there are no moves left in the current round, a new round is started. In
-	 * every case, a new action is requested to the next player.
+	 * there are no moves left in the current round, a new round is started, otherwise
+	 *  a new action is requested to the next player.
 	 */
 	private void nextPlayer() {
 		this.currentExtraActions.clear();
+		this.playingLeaderStage=false;
 		this.timer.cancel();
 		this.timer.purge();
 		RoundType oldRoundType = this.roundType;
@@ -350,16 +353,9 @@ public class MatchController extends Observable implements Observer {
 		}
 	}
 
-	/*
-	 * public void roundLoop() { boolean isNewRound=false; while(!isNewRound)
-	 * {isNewRound=false; currentPlayer = match.getCurrentPlayer();
-	 * ActionRequest message = new ActionRequest(currentPlayer.getId());
-	 * setChanged(); notifyObservers(message); //asks userHandlers to visit the
-	 * message while (!message.isVisited()){wait for the message to be visited}
-	 * this.currentAction = message.getChoosenAction(); actionLoop();
-	 * isNewRound=match.setNextPlayer(); } }
+	/**Reacts to notifies from UserHandlers and Match.
+	 * 
 	 */
-
 	@Override
 	public void update(Observable source, Object arg) {
 		if (source != match && !handlersMap.containsValue(source)) {
@@ -423,7 +419,8 @@ public class MatchController extends Observable implements Observer {
 				} else if (arg instanceof String) {
 					String s = (String) arg;
 					if ("playerDisconnected".equals(s)) {
-						nextPlayer();
+						if(!allDisconnected()) nextPlayer();
+						else System.out.println("\nAll players disconnected. Match will be terminated.");
 					}
 					else if("reconnection".equals(s))
 					{
@@ -476,7 +473,7 @@ public class MatchController extends Observable implements Observer {
 			break;
 		case PLAY_LEADERCARD:
 			LeaderCard cardToPlay= ((AdvancedPlayer)this.currentPlayer).getLeaders()[data.getSpace()];
-			parsedAction = new PlayLeaderCard(currentPlayer.getId(), cardToPlay);
+			parsedAction = new PlayLeaderCardAction(currentPlayer.getId(), cardToPlay);
 			break;
 		case PRODUCTION: {
 			WorkSpace workSpace;
@@ -500,54 +497,32 @@ public class MatchController extends Observable implements Observer {
 		this.currentAction = parsedAction;
 	}
 
-	private void setupLeaderCards() {
-		
-		/*try {
-			this.numOfChosenLeaderCards=0;
-			LeaderDeck deck= MatchFactory.instance().makeLeaderDeck();
-			deck.shuffle();
-			for(UserHandler p: this.handlersMap.values())
-			{
-				ArrayList<LeaderCard> cardsChoices = new ArrayList<>();
-				for(int i=0; i<4; i++)
-				{
-					cardsChoices.add(deck.getCard());
-				}
-				this.unchosenLeaderCards.put(p.getPlayerId(), cardsChoices);
-				setChanged();
-				notifyObservers(new LeaderChoice(cardsChoices.toArray(new LeaderCard[0]), p.getPlayerId()));
-			}
-		} catch (EmptyStackException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (BuildingDeckException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		
-	}
-	
-	private void exchangeLeaderCards() {
-		if(this.numOfChosenLeaderCards<4)
-		{
-			
-		}
-	}
 	
 	private void startTimer()
 	{
 		this.timer.cancel();
 		this.timer.purge();
 		this.timer=new Timer();
-		timer.schedule(new TimerTask() {
+		this.timer.schedule(new TimerTask() {
 
 			@Override
 			public void run() {
+				timer.cancel();
+				timer.purge();
 				setChanged();
 				notifyObservers(new TimeoutExpiredMessage(currentPlayer.getId()));
 				nextPlayer();
 				
 			}}, actionTimeout);
+	}
+	
+	private boolean allDisconnected()
+	{
+		for(UserHandler user: handlersMap.values())
+		{
+			if(user.isConnected()) return false;
+		}
+		return true;
 	}
 
 }

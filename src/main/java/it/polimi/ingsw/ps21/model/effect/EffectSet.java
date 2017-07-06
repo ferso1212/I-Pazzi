@@ -9,12 +9,21 @@ import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 
+/**
+ * This class aggregates effects that have to be activated at the same time
+ * @author gullit
+ *
+ */
 public class EffectSet implements Serializable {
 	
 	private Effect[] simultaneousEffects;
 	
 	public EffectSet(Effect ...effects){
-		if (effects.length == 0 || effects == null) {
+		if (effects == null){
+		simultaneousEffects = new Effect[1];
+		simultaneousEffects[0] = new NullEffect();
+		}
+		else	if (effects.length == 0) {
 			simultaneousEffects = new Effect[1];
 			simultaneousEffects[0] = new NullEffect();
 		}
@@ -61,7 +70,7 @@ public class EffectSet implements Serializable {
 				temp.append(types[i] + " and ");
 			}
 			temp.append(types[i] + ";");
-			temp.append("     Description: ");
+			temp.append("\tDescription: ");
 			for(i=0; i<simultaneousEffects.length-1; i++){
 				temp.append(simultaneousEffects[i].getDesc() + " and ");
 			}

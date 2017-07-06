@@ -9,6 +9,7 @@ import it.polimi.ingsw.ps21.controller.Message;
 import it.polimi.ingsw.ps21.controller.NoActivablePermanentEffectMessage;
 import it.polimi.ingsw.ps21.controller.PickAnotherCardMessage;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
+import it.polimi.ingsw.ps21.controller.ServantsChoice;
 import it.polimi.ingsw.ps21.model.board.SingleTowerSpace;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
@@ -17,6 +18,9 @@ import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
+import it.polimi.ingsw.ps21.model.properties.ImmProperties;
+import it.polimi.ingsw.ps21.model.properties.PropertiesId;
+import it.polimi.ingsw.ps21.model.properties.Property;
 import it.polimi.ingsw.ps21.view.ExtraActionData;
 
 public class PickAnotherCardAction extends ExtraAction {
@@ -25,6 +29,7 @@ public class PickAnotherCardAction extends ExtraAction {
 	private DevelopmentCardType types[];
 	private PickAnotherCardMessage message;
 	private CostChoice costMessage;
+	private ServantsChoice servantsMessage;
 	private EffectChoice effectMessage;
 	private ArrayList<ExtraAction> extraActionFromInstantEffect = new ArrayList<ExtraAction>();
 	private ArrayList<ExtraAction> extraActionFromPermanentEffect = new ArrayList<ExtraAction>();
@@ -36,7 +41,7 @@ public class PickAnotherCardAction extends ExtraAction {
 			this.types = cardTypes;
 		else
 			this.types = DevelopmentCardType.values();
-		this.updateCounter = 3;
+		this.updateCounter = 4;
 		this.data = new ExtraActionData(this);
 	}
 
@@ -44,12 +49,20 @@ public class PickAnotherCardAction extends ExtraAction {
 	public Message update(Player player, Match match) {
 		
 		switch (this.updateCounter) {
+		case 4:{
+			this.servantsMessage = new ServantsChoice(player.getId(), player.getProperties().getProperty(PropertiesId.SERVANTS).getValue());
+			this.updateCounter--;
+			return this.servantsMessage;
+		}
 		case 3:{
+			
+			if (!this.servantsMessage.isVisited() || !player.getProperties().greaterOrEqual(new ImmProperties(new Property(PropertiesId.SERVANTS, this.servantsMessage.getNumberOfServants()))))
+				return new RefusedAction(player.getId(), "Invalid number of servants!");
 			
 			ArrayList<DevelopmentCard> cards = new ArrayList<DevelopmentCard>();
 			for (DevelopmentCardType t : this.types){
 				for (SingleTowerSpace s : match.getBoard().getTower(t).getTower()){
-					if((this.diceReq >= s.getDiceRequirement()) && (s.getCard()!=null) && (player.checkCardRequirements(s.getCard())) && (player.getProperties().getPayableRequirementsAndCosts(s.getCard().getCosts()).size() > 0)){
+					if((this.diceReq + this.servantsMessage.getNumberOfServants() >= s.getDiceRequirement()) && (s.getCard()!=null) && (player.checkCardRequirements(s.getCard())) && (player.getProperties().getPayableRequirementsAndCosts(s.getCard().getCosts()).size() > 0)){
 						cards.add(s.getCard());
 					}
 				}
@@ -58,7 +71,7 @@ public class PickAnotherCardAction extends ExtraAction {
 				this.message = new PickAnotherCardMessage(player.getId(), cards.toArray(new DevelopmentCard[0]));
 				this.updateCounter--;
 				return this.message;
-			} else return new RefusedAction(player.getId());
+			} else return new RefusedAction(player.getId(), "There aren't card you can pick!");
 		}
 		
 		case 2:{
@@ -115,7 +128,9 @@ public class PickAnotherCardAction extends ExtraAction {
 
 	@Override
 	public ExtraAction[] activate(Player player, Match match) throws NotExecutableException, RequirementNotMetException, InsufficientPropsException{
-
+		
+		player.getProperties().payProperties(new ImmProperties(new Property(PropertiesId.SERVANTS, this.servantsMessage.getNumberOfServants())));
+		
 		SingleTowerSpace selectedSpace = new SingleTowerSpace();
 		for (DevelopmentCardType t : this.types) {
 			for (SingleTowerSpace s : match.getBoard().getTower(t).getTower()) {

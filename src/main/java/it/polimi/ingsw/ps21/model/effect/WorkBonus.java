@@ -19,7 +19,6 @@ public class WorkBonus extends InstantLeaderEffect {
 		super(reqs);
 		this.type = type;
 		this.value = value;
-		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public ExtraAction activate(AdvancedPlayer player) {

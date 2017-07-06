@@ -25,6 +25,7 @@ public class ExtraWorkAction extends ExtraAction {
 		this.valueOfAction = valueOfAction;
 		this.workType = workType;
 		this.updateCounter = 1;
+		
 	}
 
 	@Override

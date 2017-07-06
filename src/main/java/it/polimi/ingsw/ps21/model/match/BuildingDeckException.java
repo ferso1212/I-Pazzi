@@ -3,7 +3,6 @@ package it.polimi.ingsw.ps21.model.match;
 public class BuildingDeckException extends Exception {
 
 	public BuildingDeckException(String string) {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

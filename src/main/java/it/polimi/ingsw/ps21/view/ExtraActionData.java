@@ -42,6 +42,7 @@ public class ExtraActionData implements Serializable {
 		this.message = "Null Action: nothing to do";
 
 	}
+	
 	public ExtraActionType getType(){
 		return this.type;
 	}

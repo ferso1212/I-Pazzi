@@ -21,6 +21,7 @@ public class RefusedAction extends Message{
 	@Override
 	public String getMessage()
 	{
-		return message + "\t" + problem;
+		if (problem != null) return message + "\t" + problem;
+		else return message;
 	}
 }

@@ -34,7 +34,8 @@ public abstract interface Connection{
 	
 	public ActionData reqAction(int id) throws DisconnectedException;
 
-
+	public boolean isConnected();
+	
 	public EffectSet reqEffectChoice(EffectSet[] possibleEffects) throws DisconnectedException;
 
 	public int reqWorkChoice(DevelopmentCard message) throws DisconnectedException;
@@ -46,4 +47,8 @@ public abstract interface Connection{
 	public int reqPersonalTileChoice(PersonalBonusTile[] choices);
 	
 	public void setRules(boolean isAdvanced);
+	
+	public int reqCardChoice(DevelopmentCard[] possibleChoices) throws DisconnectedException;
+	
+	public int chooseNumberOfServants(int max);// max is the player's number of servants.
 }

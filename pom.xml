@@ -7,6 +7,7 @@
     <properties>
         <sonar.host.url> http://localhost:9000/ </sonar.host.url>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<server.hostaddress> 127.0.0.1</server.hostaddress>
         <sonar.language>java</sonar.language>
         <sonar.host.url> http://localhost:9000/ </sonar.host.url>
     </properties>

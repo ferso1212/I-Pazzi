@@ -33,8 +33,8 @@ public class VaticanAction extends Action {
 	/**
 	 * When executed first time this method returns an excommunication message if the player doesn't have the possibility
 	 * to support the church, else it returns a vatican choice that will be notified to the UserHandler.
-	 * When executed second time if the player has choosen to support the church returns an AcceptedAction, if he has choosen
-	 * to not support the churc it returns an ExcommunicationMessage and if he has not visited the message it returns a Refused Action message
+	 * When executed second time if the player has chosen to support the church returns an AcceptedAction, if he has choosen
+	 * to not support the church it returns an ExcommunicationMessage and if he has not visited the message it returns a Refused Action message
 	 * 
 	 */
 	@Override
@@ -50,6 +50,7 @@ public class VaticanAction extends Action {
 			} else{
 				this.vaticanChoice = new VaticanChoice(player.getId(),
 						match.getBoard().getExcommunications()[match.getPeriod() - 1]);
+				this.updateCounter--;
 				vaticanChoice.setChosen(false);
 				return new ExcommunicationMessage(player.getId(), match.getBoard().getExcommunications()[match.getPeriod() - 1].toString());
 			}

@@ -17,7 +17,9 @@ import it.polimi.ingsw.ps21.controller.LeaderChoice;
 import it.polimi.ingsw.ps21.controller.MatchController;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.Message;
+import it.polimi.ingsw.ps21.controller.PickAnotherCardMessage;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
+import it.polimi.ingsw.ps21.controller.ServantsChoice;
 import it.polimi.ingsw.ps21.controller.TileChoice;
 import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.controller.WorkMessage;
@@ -26,7 +28,7 @@ import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
-public class UserHandler extends Observable implements Visitor, Runnable, Observer {
+public class UserHandler extends Observable implements Visitor, Observer {
 	private final static Logger LOGGER = Logger.getLogger(UserHandler.class.getName());
 	private PlayerColor playerId;
 	private Connection connection;
@@ -51,12 +53,13 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 		try {
 			choice.setChosen(connection.reqVaticanChoice());
 			choice.setVisited();
+			setChanged();
 			notifyObservers(new ExecutedChoice(this.playerId));
 		} catch (DisconnectedException e) {
 			LOGGER.log(Level.WARNING, "Current player is not connected.", e);
 			choice.setChosen(false);
 			setChanged();
-			notifyObservers(new ExecutedChoice(this.playerId));
+			notifyObservers("playerDisconnected");
 		}
 	}
 
@@ -76,7 +79,6 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 
 	@Override
 	public void visit(CouncilChoice choice) {
-		// TODO need to pass possible privileges
 		try {
 			choice.setPrivilegesChosen(connection.reqPrivilegesChoice(choice.getNumberOfChoices(), choice.getPrivilegesValues()));
 			choice.setVisited();
@@ -102,6 +104,20 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 			notifyObservers("playerDisconnected");
 		}
 		}
+	
+	@Override
+	public void visit (PickAnotherCardMessage message){
+		try {
+			message.setCardChosen(connection.reqCardChoice(message.getPossibleChoices()));
+			message.setVisited();
+			setChanged();
+			notifyObservers(new ExecutedChoice(this.playerId));
+		} catch (DisconnectedException e) {
+			LOGGER.log(Level.WARNING, "Error requesting card choice to client", e);
+			setChanged();
+			notifyObservers("playerDisconnected");
+		}
+	}
 
 	@Override
 	public void visit(WorkMessage message) {
@@ -145,12 +161,6 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 			connection.sendMessage(message.getMessage());
 			message.setVisited();
 		
-	}
-
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-
 	}
 
 	public PlayerColor getPlayerId() {
@@ -208,7 +218,10 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 					if (((String) arg).compareTo("Match Started") == 0) {
 						connection.matchStarted();
 
-					} else
+					} else if (((String) arg).compareTo("newRound") == 0) {
+						connection.sendMessage("\nNew round started");
+
+					}else
 						connection.sendMessage((String) arg);
 
 				} 
@@ -263,6 +276,21 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 							TileChoice message = (TileChoice)arg;
 							visit(message);
 						}
+						else if (arg instanceof VaticanChoice)
+						{
+							VaticanChoice message= (VaticanChoice)arg;
+							visit(message);
+						}
+						else if (arg instanceof PickAnotherCardMessage)
+						{
+							PickAnotherCardMessage message = (PickAnotherCardMessage)arg;
+							visit(message);
+						}
+						else if (arg instanceof ServantsChoice)
+						{
+							ServantsChoice message = (ServantsChoice)arg;
+							visit(message);
+						}
 					}
 				}
 			}
@@ -285,11 +313,9 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 	private void visit(ExcommunicationMessage message) {
 		connection.sendMessage(message.getMessage());
 		message.setVisited();
+		
 	}
 
-	private void parseExtraAction(ExtraAction action) {
-		// TODO
-	}
 	
 	public String getName()
 	{
@@ -301,6 +327,11 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 		this.connection=newConnection;
 	}
 	
+	public boolean isConnected()
+	{
+		return this.connection.isConnected();
+	}
+	
 	public void notifyReconnection()
 	{
 		connection.setRules(isAdvanced);
@@ -308,5 +339,13 @@ public class UserHandler extends Observable implements Visitor, Runnable, Observ
 		connection.sendMessage("\nReconnected to match");
 		notifyObservers("reconnection");
 		UpdateViewAfterReconnection();
+	}
+
+	@Override
+	public void visit(ServantsChoice message) {
+		message.setNumberOfServants(connection.chooseNumberOfServants(message.getMaxServants()));
+		message.setVisited();
+		setChanged();
+		notifyObservers(new ExecutedChoice(this.playerId));
 	}
 }

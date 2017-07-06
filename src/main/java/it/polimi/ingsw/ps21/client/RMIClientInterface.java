@@ -53,4 +53,10 @@ public interface RMIClientInterface extends Remote {
 	public int reqPersonalTileChoice(PersonalBonusTile[] object) throws RemoteException;
 	
 	public void setRules(boolean isAdvanced) throws RemoteException;
+	
+	public boolean testConnection() throws RemoteException;
+	
+	public int reqCardChoice(DevelopmentCard[] possibleChoices) throws RemoteException;
+	
+	public int reqNumberOfServants(int max)throws RemoteException;
 }

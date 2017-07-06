@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.Semaphore;
 
 import it.polimi.ingsw.ps21.view.Connection;
 import it.polimi.ingsw.ps21.view.UserHandler;
@@ -20,14 +21,18 @@ public class ConnectionsAcceptor {
 	protected boolean acceptingConnections;
 	protected ArrayList<String> names;
 	protected ConcurrentHashMap<String, UserHandler> playingUsers;
+	protected Semaphore stdSem;
+	protected Semaphore advSem;
 	
-	public ConnectionsAcceptor(ConcurrentLinkedQueue<Connection> stdConnections, ConcurrentLinkedQueue<Connection> advConnections, ArrayList<String> names, ConcurrentHashMap<String, UserHandler> playingUsers)
+	public ConnectionsAcceptor(ConcurrentLinkedQueue<Connection> stdConnections, ConcurrentLinkedQueue<Connection> advConnections, ArrayList<String> names, ConcurrentHashMap<String, UserHandler> playingUsers, Semaphore stdSem, Semaphore advSem)
 	{
 		this.acceptingConnections=true;
 		this.stdConnections=stdConnections;
 		this.advConnections=advConnections;
 		this.names=names;
 		this.playingUsers=playingUsers;
+		this.stdSem=stdSem;
+		this.advSem= advSem;
 	}
 	
 }

@@ -376,6 +376,7 @@ public class MatchFactory {
 							int black = Integer.parseInt(excommunicationType.getAttribute("blackValue"));
 							int orange = Integer.parseInt(excommunicationType.getAttribute("orangeValue"));
 							excommunications.addCard(new DiceExcommunication(id, period, white, orange, black));
+							break;
 						}
 						case "FinalCardVPointsExcommunication":
 						{
@@ -385,8 +386,9 @@ public class MatchFactory {
 							else if (excommunicationType.getElementsByTagName("Blue").getLength() > 0) cardType = DevelopmentCardType.CHARACTER;
 							else cardType = DevelopmentCardType.VENTURE;
 							excommunications.addCard(new FinalCardVPointsExcommunication(id, period, cardType));
-						}
 							break;
+						}
+							
 						case "FinalVPointsExcommunication":
 						{
 							int victoryPointsReductionDivisor = Integer.parseInt(excommunicationType.getAttribute("victoryDivisor"));
@@ -395,8 +397,9 @@ public class MatchFactory {
 							int vPointsReductionBuildingStoneDivisor = Integer.parseInt(excommunicationType.getAttribute("buildingStonesDivisor"));
 							int vPointsReductionResDivisor = Integer.parseInt(excommunicationType.getAttribute("resDivisor"));
 							excommunications.addCard(new FinalVPointsExcommunication(id, period, victoryPointsReductionDivisor, militaryDivisorVPointsReduction, vPointsReductionBuildingWoodDivisor, vPointsReductionBuildingStoneDivisor, vPointsReductionResDivisor));
-						}
 							break;
+						}
+							
 						case "ServantsValueExcommunication":
 						{
 							int value = Integer.parseInt(excommunicationType.getAttribute("servantsValue"));
@@ -463,7 +466,6 @@ public class MatchFactory {
 				bonuses.add(new ImmProperties(new Property(PropertiesId.MILITARYPOINTS, 2))); // 2
 				bonuses.add(new ImmProperties(new Property(PropertiesId.FAITHPOINTS, 2)));
 			}
-			// TODO
 			privileges = bonuses.toArray(new ImmProperties[0]);
 			return privileges;
 		} else
@@ -510,7 +512,6 @@ public class MatchFactory {
 																										// 1
 																										// stone
 			}
-			// TODO
 			initialProperties = bonuses.toArray(new ImmProperties[0]);
 		}
 		return initialProperties;
@@ -570,7 +571,6 @@ public class MatchFactory {
 					result.put(t, reqs);
 				}
 			}
-			// TODO
 			cardAddingRequirement = result;
 		}
 		return cardAddingRequirement;
@@ -620,7 +620,6 @@ public class MatchFactory {
 				}
 				result = new TrackBonuses(faith, military);
 			}
-			// TODO
 			trackBonuses = result;
 		}
 		return trackBonuses;
@@ -722,7 +721,6 @@ public class MatchFactory {
 					result.put(t, bonuses);
 				}
 			}
-			// TODO
 			cardBonuses = result;
 		}
 		return cardBonuses;
@@ -786,7 +784,6 @@ public class MatchFactory {
 				for (DevelopmentCardType t : DevelopmentCardType.values()) 
 					result.put(t, properties);
 			}
-			// TODO
 			towersBonuses = result;
 		}
 		return towersBonuses;

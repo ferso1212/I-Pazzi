@@ -7,7 +7,9 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import it.polimi.ingsw.ps21.client.GUI.GUIProjectEmpty;
+import javax.net.ssl.HostnameVerifier;
+
+import it.polimi.ingsw.ps21.client.GUI.GUInterface;
 
 public class ClientMain {
 
@@ -16,9 +18,11 @@ public class ClientMain {
 	private final static Logger LOGGER = Logger.getLogger(ClientMain.class.getName());
 	private final static int RMI_PORT = 5000;
 	private static UserInterface ui;
+	private static String hostaddress;
 	
 	public static void main(String [] args)
 	{
+		hostaddress =  System.getProperty("server.hostname");
 		System.out.println("\nClient application started.");
     	Scanner in = new Scanner(System.in);
     	
@@ -59,27 +63,19 @@ public class ClientMain {
 			}
         if (chosenInterface==1) ui = new CLInterface();
     	else {
-    		ui = new GUIProjectEmpty();
+    		ui = new GUInterface();
 		}
     	}
     	
 			if (chosenConnection==1) {
-				SocketClient client = new SocketClient(ui, parseChoice(chosenJoin)); 
-
-				
-					boolean matchStarted=client.start();
-					if (matchStarted){
-								
-										System.out.println("Do you want to play another match, fucking loser?\n(Y)es\n(N)o");
-											String response = in.nextLine();			
-							}
-								else {System.out.println("Failed to connect to server");
-								newMatch = false;
-								}
+				SocketClient client = new SocketClient(ui, hostaddress, parseChoice(chosenJoin)); 
+				client.start();
+					
 			}
 			else{
 				try {
-					RMIClient rmiclient = new RMIClient(ui, "127.0.0.1", RMI_PORT, parseChoice(chosenJoin));
+					RMIClient rmiclient = new RMIClient(ui, hostaddress, RMI_PORT, parseChoice(chosenJoin));
+					rmiclient.start();
 				} catch (RemoteException | NotBoundException e) {
 					System.out.println("Failed to connect to server through RMI.");
 					LOGGER.log(Level.WARNING, "RMI Connection failed", e);

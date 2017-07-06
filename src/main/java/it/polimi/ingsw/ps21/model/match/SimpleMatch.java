@@ -11,7 +11,7 @@ import java.util.Queue;
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.NotExecutableException;
-import it.polimi.ingsw.ps21.model.actions.PlayLeaderCard;
+import it.polimi.ingsw.ps21.model.actions.PlayLeaderCardAction;
 import it.polimi.ingsw.ps21.model.actions.VaticanAction;
 import it.polimi.ingsw.ps21.model.board.Board;
 import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
@@ -31,7 +31,6 @@ public class SimpleMatch extends Match {
 	private EnumMap<PlayerColor, Player> players;
 	private ArrayList<Player> order;
 	private ArrayList<ExtraAction> extraActions;
-	private static final int NUM_OF_PERIODS=1;
 
 	public SimpleMatch(PlayerColor... colors) throws InvalidIDException, BuildingDeckException {
 		super();
@@ -85,8 +84,9 @@ public class SimpleMatch extends Match {
 		super.throwDices();
 		for (Player p : players.values()) {
 			p.getFamily().getMember(MembersColor.ORANGE).setValue(orangeDice);
-			p.getFamily().getMember(MembersColor.WHITE).setValue(blackDice);
-			p.getFamily().getMember(MembersColor.BLACK).setValue(whiteDice);
+			p.getFamily().getMember(MembersColor.WHITE).setValue(whiteDice);
+			p.getFamily().getMember(MembersColor.BLACK).setValue(blackDice);
+			p.getFamily().getMember(MembersColor.NEUTRAL).setValue(0);
 		}
 	}
 
@@ -97,11 +97,10 @@ public class SimpleMatch extends Match {
 		} else if (round == RoundType.FINAL_ROUND)
 			round = RoundType.VATICAN_ROUND;
 		else if (round == RoundType.VATICAN_ROUND) {
-			if (period < NUM_OF_PERIODS){
+			if (period < NUM_OF_PERIODS) {
 				round = RoundType.INITIAL_ROUND;
 				period++;
-			}
-			else {
+			} else {
 				round = RoundType.MATCH_ENDED;
 				endMatch();
 				return;
@@ -110,13 +109,13 @@ public class SimpleMatch extends Match {
 		Queue<FamilyMember> temp = board.getCouncilPalace().getOccupants();
 		ArrayList<Player> oldOrder = new ArrayList<>();
 		for (int i = 0; i < players.values().size(); i++) {
-			oldOrder.add(order.get(i));
+			oldOrder.add(order.get(i)); // Evito eventuali scomuniche sulla prima azione
 		}
 		ArrayList<Player> newOrder = new ArrayList<>();
-		for (FamilyMember f : temp) {
-			Player player = players.get(f.getOwnerId());
-			if (order.contains(player))
-				;
+		order.clear();
+		while(!temp.isEmpty()) {
+			Player player = players.get(temp.poll().getOwnerId());
+			if (newOrder.contains(player));
 			else {
 				newOrder.add(player);
 				oldOrder.remove(player);
@@ -125,14 +124,28 @@ public class SimpleMatch extends Match {
 		for (Player p : oldOrder) {
 			newOrder.add(p);
 		}
-		order = new ArrayList<>();
 		for (int j = 0; j < newOrder.size(); j++)
 			order.add(newOrder.get(j));
 		if (round != RoundType.VATICAN_ROUND) {
 			for (int i = 0; i < 3; i++)
 				for (int j = 0; j < newOrder.size(); j++)
 					order.add(newOrder.get(j));
-			board.newSetBoard(++period);
+			board.newSetBoard(period);
+			// Check firstDelay excommunication for every player
+			Player firstPlayer = order.get(currentPlayer);
+			int i=0; 
+			do
+			{
+				if (order.get(i).getModifiers().getActionMods().firstActionDelayed()){
+					currentPlayer++;
+					order.add(order.get(i));
+					i++;
+				}
+				else{
+				i++;
+				}
+			}while (firstPlayer != order.get(currentPlayer));
+			currentPlayer=0;
 			for (Player p : players.values()) {
 				p.getFamily().roundReset();
 			}
@@ -161,8 +174,8 @@ public class SimpleMatch extends Match {
 	private Map<PlayerColor, Integer> calculateWinner(Map<Player, Integer> militaryBonus) {
 		Map<PlayerColor, Integer> result = new HashMap<>();
 		for (Player p : players.values()) {
-			result.put(p.getId(), p.getFinalVictoryPoints(board.getTrackBonuses(), board.getCardBonus(),
-						militaryBonus.get(p)));
+			result.put(p.getId(),
+					p.getFinalVictoryPoints(board.getTrackBonuses(), board.getCardBonus(), militaryBonus.get(p)));
 		}
 		return result;
 	}
@@ -180,85 +193,89 @@ public class SimpleMatch extends Match {
 	private Map<Player, Integer> calculateMilitaryWinner() {
 		Map<Player, Integer> result = new HashMap<>();
 		Player winners[] = new Player[players.values().size()];
-		int firstnumber = 0; // numero di giocatori con il massimo dei punti militari
-		int max=0;
-		int secondValue=0;
+		int firstnumber = 0; // numero di giocatori con il massimo dei punti
+								// militari
+		int max = 0;
+		int secondValue = 0;
 		int secondNumber = 0; // numero di giocatori in seconda posizione
-		for (Player p: players.values()){
-			if (p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue() >= max){
-				if (p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue() == max){
+		for (Player p : players.values()) {
+			if (p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue() >= max) {
+				if (p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue() == max) {
 					firstnumber++;
-				}
-				else {
+				} else {
 					secondNumber = firstnumber;
 					firstnumber = 1;
 				}
 				max = p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue();
-				
+
 				if (winners[0] == null)
-					winners[0]=p;
+					winners[0] = p;
 				else {
 					Player temp1 = winners[0];
 					winners[0] = p;
-					int i=1;
-					for (i=1; i<winners.length -1 ; i++){
+					int i = 1;
+					for (i = 1; i < winners.length - 1; i++) {
 						if (winners[i] == null) {
-							winners[i]=temp1;
+							winners[i] = temp1;
 							temp1 = null;
+						} else {
+							Player temp2 = winners[i];
+							winners[i] = temp1;
+							temp1 = temp2;
 						}
-						else {Player temp2 = winners[i];
+					}
+					if (temp1 != null)
 						winners[i] = temp1;
-						temp1 = temp2;}
-					}
-					if (temp1!= null) winners[i] = temp1;
 				}
-				
-			}
-				else {
-					if (p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue() >= secondValue){
-						if (p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue() == secondValue){
-							secondNumber++;
-						}
-						else secondNumber = 1;
-						secondValue = p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue();
-						if (winners[firstnumber] == null)
-							winners[firstnumber]=p;
-						else {
-							Player temp1 = winners[firstnumber];
-							winners[firstnumber] = p;
-							int i=firstnumber+1;
-							for (i=firstnumber+1; i<winners.length -1 ; i++){
-								if (winners[i] == null) {
-									winners[i]=temp1;
-									temp1 = null;
-								}
-								else {Player temp2 = winners[i];
-								winners[i] = temp1;
-								temp1 = temp2;}
-							}
-							if (temp1!= null) winners[i] = temp1;
-						}
-				}
+
+			} else {
+				if (p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue() >= secondValue) {
+					if (p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue() == secondValue) {
+						secondNumber++;
+					} else
+						secondNumber = 1;
+					secondValue = p.getProperties().getProperty(PropertiesId.MILITARYPOINTS).getValue();
+					if (winners[firstnumber] == null)
+						winners[firstnumber] = p;
 					else {
-						int i=0;
-						while (winners[i]!= null && i<winners.length){
-							i++;
+						Player temp1 = winners[firstnumber];
+						winners[firstnumber] = p;
+						int i = firstnumber + 1;
+						for (i = firstnumber + 1; i < winners.length - 1; i++) {
+							if (winners[i] == null) {
+								winners[i] = temp1;
+								temp1 = null;
+							} else {
+								Player temp2 = winners[i];
+								winners[i] = temp1;
+								temp1 = temp2;
+							}
 						}
-						if (i < winners.length) winners[i] = p;
+						if (temp1 != null)
+							winners[i] = temp1;
 					}
+				} else {
+					int i = 0;
+					while (winners[i] != null && i < winners.length) {
+						i++;
+					}
+					if (i < winners.length)
+						winners[i] = p;
 				}
 			}
-		for (int i=0; i< winners.length; i++){
-			if (i <= firstnumber -1) result.put(winners[i], 1);
-			else  if (i < firstnumber + secondNumber){
-				if (firstnumber == 1){
-					result.put(winners[i], 2);
-				}
-				else result.put(winners[i], 3);
-			}
-			else result.put(winners[i], 3);
 		}
-		
+		for (int i = 0; i < winners.length; i++) {
+			if (i <= firstnumber - 1)
+				result.put(winners[i], 1);
+			else if (i < firstnumber + secondNumber) {
+				if (firstnumber == 1) {
+					result.put(winners[i], 2);
+				} else
+					result.put(winners[i], 3);
+			} else
+				result.put(winners[i], 3);
+		}
+
 		return result;
 	}
 
@@ -289,8 +306,8 @@ public class SimpleMatch extends Match {
 	@Override
 	public ExtraAction[] doAction(Action action) throws NotExecutableException, RequirementNotMetException,
 			InsufficientPropsException, VaticanRoundException {
-		if (action instanceof PlayLeaderCard)
-			throw new NotExecutableException();
+		/*if (action instanceof PlayLeaderCardAction)
+			throw new NotExecutableException();*/
 		if (!(round == RoundType.VATICAN_ROUND)) {
 			if ((!(action instanceof VaticanAction))) {
 				ExtraAction[] extraActionPool;

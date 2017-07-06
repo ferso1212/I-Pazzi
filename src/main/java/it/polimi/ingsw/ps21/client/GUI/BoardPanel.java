@@ -9,6 +9,9 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,28 +23,29 @@ public class BoardPanel extends JPanel {
 	/**
 	 * 
 	 */
+	private static final Logger LOGGER = Logger.getLogger(BoardPanel.class.getName());
 	private static final long serialVersionUID = 1L;
 	private transient BufferedImage boardImage;
 	private JLabel orangeDiceLabel;
 	private JLabel blackDiceLabel;
 	private JLabel whiteDiceLabel;
-	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	private double scaleFactor;
 
-	public BoardPanel(String boardPath, int blackDice, int whiteDice, int orangeDice) {
+	public BoardPanel(String boardPath, int containerHeight, int blackDice, int whiteDice, int orangeDice) {
 		super(true); // crea un JPanel con doubleBuffered true
 		try {
-			setImage(ImageIO.read(new File(boardPath)));
+			setImage(ImageIO.read(new File(boardPath)), containerHeight);
+			this.setPreferredSize(new Dimension(resize(boardImage.getWidth()), resize(boardImage.getHeight())));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.WARNING, "Unable to set panel image due to IOException", e);
 		}
 		setDiceLabel(blackDice, whiteDice, orangeDice);
+		this.setOpaque(false);
 	}
 
-	public void setImage(BufferedImage img) {
+	public void setImage(BufferedImage img, int containerHeight) {
 		this.boardImage = img;
-		this.scaleFactor = screenSize.getHeight() / this.boardImage.getHeight();
+		this.scaleFactor = (double)(containerHeight) / (double)(this.boardImage.getHeight());
 	}
 
 	@Override
@@ -49,11 +53,10 @@ public class BoardPanel extends JPanel {
 		super.paintComponent(g);
 		try {
 			g.drawImage(resizeImage(boardImage,
-					(int) (this.boardImage.getWidth() * screenSize.getHeight() / this.boardImage.getHeight()),
+					(int) (this.boardImage.getWidth() * this.scaleFactor),
 					this.getHeight(), BufferedImage.TYPE_INT_RGB), 0, 0, null);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.WARNING, "Unable to draw panel image due to IOException", e);
 		}
 	}
 
@@ -92,8 +95,14 @@ public class BoardPanel extends JPanel {
 		blackDiceLabel.setHorizontalAlignment(JLabel.CENTER);
 
 		
-		this.add(orangeDiceLabel).setBounds(resize(2910), resize(6200), resize(130), resize(130));
-		this.add(whiteDiceLabel).setBounds(resize(3365), resize(6200), resize(130), resize(130));
-		this.add(blackDiceLabel).setBounds(resize(3810), resize(6200), resize(130), resize(130));
+		this.add(blackDiceLabel).setBounds(resize(2470), resize(6270), resize(130), resize(130));
+		this.add(whiteDiceLabel).setBounds(resize(2915), resize(6270), resize(130), resize(130));
+		this.add(orangeDiceLabel).setBounds(resize(3360), resize(6270), resize(130), resize(130));
+	}
+	
+	public void updateDiceLabels(int blackDice, int whiteDice, int orangeDice){
+		orangeDiceLabel.setText(Integer.toString(orangeDice));
+		whiteDiceLabel.setText(Integer.toString(whiteDice));
+		blackDiceLabel.setText(Integer.toString(blackDice));
 	}
 }

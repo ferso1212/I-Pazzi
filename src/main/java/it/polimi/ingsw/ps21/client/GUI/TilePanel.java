@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -16,14 +18,16 @@ public class TilePanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private transient BufferedImage tileImage;
+	private static final transient Logger LOGGER = Logger.getLogger(TilePanel.class.getName());
+
 
 	public TilePanel(String tileNumber) {
-		super(true); // crea un JPanel con doubleBuffered true
+		super(true); // creates a JPanel with doubleBuffered=true
 		try {
 			setImage(ImageIO.read(new File((new File("")).getAbsolutePath().concat("/src/images/ExcommunicationAndTile/Tile").concat(tileNumber).concat(".png"))));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+ 			LOGGER.log(Level.WARNING, "Unable to construct Tile Panel due to IOException", e);
+
 		}
 	}
 
@@ -37,8 +41,8 @@ public class TilePanel extends JPanel {
  		try {
 			g.drawImage(resizeImage(tileImage, (int)(this.tileImage.getWidth() * this.getHeight() / this.tileImage.getHeight()), this.getHeight(), BufferedImage.TYPE_INT_RGB), 0, 0, null);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+ 			LOGGER.log(Level.WARNING, "Unable to paint Tile Panel's graphics due to IOException", e);
+
 		}
  	}
  	

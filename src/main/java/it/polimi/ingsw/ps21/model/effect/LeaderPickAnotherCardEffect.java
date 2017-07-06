@@ -28,7 +28,6 @@ public class LeaderPickAnotherCardEffect extends InstantLeaderEffect {
 
 	@Override
 	public String getType() {
-		// TODO Auto-generated method stub
 		return "Pick Another Card Leader Effect";
 	}
 

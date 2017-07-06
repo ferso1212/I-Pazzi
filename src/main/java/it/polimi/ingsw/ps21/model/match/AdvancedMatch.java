@@ -112,6 +112,7 @@ public class AdvancedMatch extends Match {
 			p.getFamily().getMember(MembersColor.ORANGE).setValue(orangeDice);
 			p.getFamily().getMember(MembersColor.BLACK).setValue(blackDice);
 			p.getFamily().getMember(MembersColor.WHITE).setValue(whiteDice);
+			p.getFamily().getMember(MembersColor.NEUTRAL).setValue(0);
 		}
 	}
 
@@ -143,7 +144,7 @@ public class AdvancedMatch extends Match {
 	else if (round == RoundType.INITIAL_ROUND) round = RoundType.FINAL_ROUND;
 	else if (round == RoundType.FINAL_ROUND) round = RoundType.VATICAN_ROUND;
 	else if (round == RoundType.VATICAN_ROUND){ 
-		if (period <3) {
+		if (period <NUM_OF_PERIODS) {
 			round = RoundType.INITIAL_ROUND;
 			period++;
 		}
@@ -152,16 +153,17 @@ public class AdvancedMatch extends Match {
 			return;
 		}
 	}
-	currentPlayer = 1;
+	currentPlayer = 0;
 	Queue<FamilyMember> temp = board.getCouncilPalace().getOccupants();
 	ArrayList<AdvancedPlayer> oldOrder = new ArrayList<>();
 	for (int i=0; i< players.values().size(); i++){
 		oldOrder.add(order.get(i));
 	}
 	ArrayList<AdvancedPlayer> newOrder = new ArrayList<>();
+	order.clear();
 	for (FamilyMember f: temp){
 		AdvancedPlayer player = players.get(f.getOwnerId());
-		if (order.contains(player));
+		if (newOrder.contains(player));
 		else {	
 			newOrder.add(player);
 			oldOrder.remove(player);
@@ -170,12 +172,26 @@ public class AdvancedMatch extends Match {
 	for (AdvancedPlayer p: oldOrder){
 		newOrder.add(p);
 	}
-	order = new ArrayList<>();
 	for ( int j = 0 ; j < newOrder.size(); j++) order.add(newOrder.get(j));
 	if (round != RoundType.VATICAN_ROUND){
-		for (int i=0; i<3; i++)
+		for (int i=0; i<3; i++) {
 			for ( int j =0 ; j< newOrder.size(); j++) order.add(newOrder.get(j));
-		board.newSetBoard(period);
+		}
+			board.newSetBoard(period);
+		// Check firstDelay excommunication for every advanced player
+					AdvancedPlayer firstPlayer = order.get(currentPlayer);
+					int i=0;
+					do
+					{
+						if (order.get(i).getModifiers().getActionMods().firstActionDelayed()){
+							currentPlayer++;
+							order.add(order.get(i));
+							i++;
+						}
+						else{
+						i++;
+						}
+					}while (firstPlayer != order.get(currentPlayer));
 		for (AdvancedPlayer p: players.values()){
 			p.getFamily().roundReset();
 		}

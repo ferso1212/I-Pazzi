@@ -11,6 +11,7 @@ import it.polimi.ingsw.ps21.model.board.TrackBonuses;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.IllegalCardTypeException;
+import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.deck.TerritoryCard;
 import it.polimi.ingsw.ps21.model.excommunications.Excommunication;
@@ -197,6 +198,15 @@ public class Player {
 		this.modifiers=new ModifiersSet();
 		this.family=new Family(id);
 		this.excommunications = new ArrayList<>();
+		
+		/*//TODO to be removed:
+		this.properties.getProperty(PropertiesId.COINS).setValue(50);
+		this.properties.getProperty(PropertiesId.STONES).setValue(50);
+		this.properties.getProperty(PropertiesId.SERVANTS).setValue(50);
+		this.properties.getProperty(PropertiesId.WOOD).setValue(50);
+		this.properties.getProperty(PropertiesId.FAITHPOINTS).setValue(50);
+		this.properties.getProperty(PropertiesId.MILITARYPOINTS).setValue(50);
+		this.properties.getProperty(PropertiesId.VICTORYPOINTS).setValue(50);*/
 	}
 
 	/**
@@ -241,7 +251,6 @@ public class Player {
 	public ArrayList<Requirement> metCardRequirements(Card card) {
 		ArrayList<Requirement> output = new ArrayList<Requirement>();
 		for (RequirementAndCost req : card.getRequirements()) {
-			// TODO need to be fixed for RequirementAndCost
 			if (this.checkRequirement(req.getRequirement()))
 				output.add(req.getRequirement());
 		}
@@ -250,15 +259,29 @@ public class Player {
 
 	/**
 	 * Checks the card's requirements in OR and returns TRUE if at least one of
-	 * them is met by the player.
+	 * them is met by the player. To be used to check if the player can take a Development card.
 	 * 
 	 * @param card
 	 * @return TRUE if the player has enough points/resources to acquire the
 	 *         card
 	 */
-	public boolean checkCardRequirements(Card card) {
+	public boolean checkCardRequirements(DevelopmentCard card) {
 		for (RequirementAndCost req : card.getRequirements()) {
 			if (this.checkRequirement(req.getRequirement())) return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Checks the requirements of the card's effects in OR and returns TRUE if at least one of
+	 * them is met by the player. To be used to check if the player can activate a Leader card.
+	 * 
+	 * @param card
+	 * @return TRUE if the player has enough points/resources to acquire activate the Leader
+	 */
+	public boolean checkCardRequirements(LeaderCard card) {
+		for (Requirement req : card.getLeaderRequirements()) {
+			if (this.checkRequirement(req)) return true;
 		}
 		return false;
 	}

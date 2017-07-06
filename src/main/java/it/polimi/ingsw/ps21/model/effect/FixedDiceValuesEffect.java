@@ -35,10 +35,9 @@ public class FixedDiceValuesEffect extends PermanentLeaderEffect {
 	public ExtraAction activate(AdvancedPlayer player) {
 		this.clonable = true;
 		this.activated = true;
-		// TODO
 		player.getFamily().getMember(MembersColor.ORANGE).setModifier(orangeValue);
-		player.getFamily().getMember(MembersColor.WHITE).setModifier(orangeValue);
-		player.getFamily().getMember(MembersColor.BLACK).setModifier(orangeValue);
+		player.getFamily().getMember(MembersColor.WHITE).setModifier(whiteValue);
+		player.getFamily().getMember(MembersColor.BLACK).setModifier(blackValue);
 		return new NullAction(player.getId());
 	}
 

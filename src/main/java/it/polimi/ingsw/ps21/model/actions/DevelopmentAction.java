@@ -46,11 +46,10 @@ public class DevelopmentAction extends Action {
 
 		switch (this.updateCounter) {
 		case 2: {
-			
-			if ((player.getProperties().getPayableRequirementsAndCosts(space.getCard().getCosts()).size() == 0) || ((match.getBoard().getTower(this.tower).isOccupied()) && (player.getProperties().getPayableRequirementsAndCosts(space.getCard().getOccupiedTowerCosts()).size() == 0) )) return new RefusedAction(player.getId(), "You can't pay any of possible costs");
+			if ((player.getProperties().getPayableRequirementsAndCosts(space.getCard().getCosts()).isEmpty()) || ((match.getBoard().getTower(this.tower).isOccupied()) && (player.getProperties().getPayableRequirementsAndCosts(space.getCard().getOccupiedTowerCosts()).isEmpty()) )) return new RefusedAction(player.getId(), "You can't pay any of possible costs");
 			if(!(space.isOccupable(player, famMember))) return new RefusedAction(player.getId(), "You can't place this family member in this space");
 			if(!(player.checkCardRequirements(space.getCard()))) return new RefusedAction(player.getId(), "You don't meet card requirements");
-			if (!((player.getFamily().getMemberValueWithServants(this.possibleServants, this.famMember.getColor())) >= space.getDiceRequirement())) return new RefusedAction(player.getId(), "Dice value of family member isn't enough") ;
+			if (!((player.getFamily().getMemberValueWithServants(this.possibleServants, this.famMember.getColor())) + player.getModifiers().getDiceMods().getDiceMod(tower).getValue() >= space.getDiceRequirement())) return new RefusedAction(player.getId(), "Dice value of family member isn't enough") ;
 			if (!(!famMember.isUsed())) return new RefusedAction(player.getId(), "This family member is already used");
 			if (!(player.checkRequirement(player.getDeck().getAddingCardRequirement(space.getCard())))) return new RefusedAction(player.getId(), "You don't meet requirement for adding this card");
 			
@@ -84,7 +83,7 @@ public class DevelopmentAction extends Action {
 					if (this.costMessage.getChosen() != null){
 						this.updateCounter--;
 						return new AcceptedAction(player.getId());
-					} else return new RefusedAction(player.getId(), "You don't have choosen a cost");
+					} else return new RefusedAction(player.getId(), "You heven't chosen a cost");
 					
 				}
 			}
@@ -93,7 +92,7 @@ public class DevelopmentAction extends Action {
 		{
 			if (this.effectMessage.getEffectChosen() != null)
 				return new AcceptedAction(player.getId());
-			else return new RefusedAction(player.getId(), "You don't have choosen an effect");
+			else return new RefusedAction(player.getId(), "You haven't chosen an effect");
 		}
 
 		default:
@@ -104,7 +103,7 @@ public class DevelopmentAction extends Action {
 	@Override
 	public ExtraAction[] activate(Player player, Match match) throws NotExecutableException, RequirementNotMetException, InsufficientPropsException{
 		
-		super.payServants(player, this.possibleServants, this.famMember.getColor());
+		super.payServants(player, this.possibleServants);
 		
 		SingleTowerSpace space = match.getBoard().getTower(this.tower).getTowerSpace(floor);
 

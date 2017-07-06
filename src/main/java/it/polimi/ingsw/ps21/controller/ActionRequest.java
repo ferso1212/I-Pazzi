@@ -11,7 +11,6 @@ public class ActionRequest extends Message{
 	public ActionRequest(PlayerColor dest, int id) {
 		super(dest);
 		this.id=id;
-		// TODO Auto-generated constructor stub
 	}
 
 	public Action getChoosenAction() {

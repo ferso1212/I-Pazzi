@@ -56,7 +56,7 @@ public class WorkAction extends Action {
 						&& ((famMember.getColor() == MembersColor.WHITE) || (famMember.getColor() == MembersColor.BLACK)
 								|| (famMember.getColor() == MembersColor.ORANGE))
 						&& !((this.checkOccupant(match, famMember, space) == MembersColor.NEUTRAL) || (this.checkOccupant(match, famMember, space) == null))) {
-					//refuse action because in the other space there is a coloured member
+					//refuse action because in the other space there is a colored member
 					return new RefusedAction(player.getId(), "You can't place a coloured member in this space because you have another colored member in the other space.");
 				}
 				try {
@@ -130,7 +130,7 @@ public class WorkAction extends Action {
 	@Override
 	public ExtraAction[] activate(Player player, Match match) throws NotExecutableException, RequirementNotMetException, InsufficientPropsException {
 
-		super.payServants(player, this.possibleServants, this.famMember.getColor());
+		super.payServants(player, this.possibleServants);
 		
 		ArrayList<ExtraAction> activatedEffects = new ArrayList<ExtraAction>();
 
@@ -145,6 +145,8 @@ public class WorkAction extends Action {
 		for (int i = 0; i < workMessage.getcardsToActivateWithoutChoice().length; i++) {
 			activatedEffects.addAll(workMessage.getcardsToActivateWithoutChoice()[i].getPossibleEffects()[0].activate(player));
 		}
+		
+		player.getProperties().increaseProperties(player.getPersonalBonusTile().getTileBonus(this.space.getWorkType(), this.actionValue));
 
 		return activatedEffects.toArray(new ExtraAction[0]);
 	}

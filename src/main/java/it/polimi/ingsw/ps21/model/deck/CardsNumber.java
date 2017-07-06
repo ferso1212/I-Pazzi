@@ -6,6 +6,12 @@ import java.util.EnumMap;
 public class CardsNumber implements Serializable {
 	private EnumMap<DevelopmentCardType, Integer> cardsNums;
 
+
+/**
+ * TERRITORY("Territory"), CHARACTER("Character"), BUILDING("Building"), VENTURE("Venture");
+ * @author gullit
+ *
+ */
 	public CardsNumber(int... values) {
 		cardsNums = new EnumMap<>(DevelopmentCardType.class);
 		int i = 0, val = 0;
@@ -15,6 +21,7 @@ public class CardsNumber implements Serializable {
 			else
 				val = 0;
 			cardsNums.put(cardType, val);
+			i++;
 		}
 	}
 
