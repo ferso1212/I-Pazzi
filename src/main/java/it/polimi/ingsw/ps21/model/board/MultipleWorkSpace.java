@@ -21,7 +21,7 @@ public class MultipleWorkSpace extends WorkSpace{
 
 	@Override
 	public boolean isOccupable(Player player, FamilyMember member) {
-		if (!(occupants.contains(member)) && !(this.containPlayer(player)) && (member.getValue() - this.diceMalus >= this.diceRequirement)){
+		if (!(occupants.contains(member)) && !(this.containPlayer(player))){
 			return true;
 		}
 		return false;

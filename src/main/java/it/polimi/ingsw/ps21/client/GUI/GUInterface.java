@@ -81,7 +81,7 @@ public class GUInterface implements UserInterface {
 	private Semaphore waitingActions;
 	private ActionData chosenAction = null;
 	private int actionId;
-
+	private int playerPosition;
 	/**
 	 * Create the application.
 	 */
@@ -244,6 +244,23 @@ public class GUInterface implements UserInterface {
 		}
 
 	}
+	
+	private class LeaderListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			LeaderCardButton[] possibleLeaders = actionPanel.getLeaderPanel().getLeadersButtons();
+			for (int i =0; i< possibleLeaders.length; i++){
+			if (e.getSource().equals(possibleLeaders[i])){
+				if (waitingActions.availablePermits() == 0) {
+					chosenAction = new ActionData(ActionType.PLAY_LEADERCARD, null, 0, null, i, actionId);
+					waitingActions.release();
+				}
+			}
+			}
+		}
+		
+	}
 
 	private void firstUpdate(MatchData matchInfo) {
 
@@ -298,20 +315,29 @@ public class GUInterface implements UserInterface {
 		splitPane.setRightComponent(tabbedPane);
 
 		// setting a panel with borderLayout in the splitPane
-		actionPanel = new ActionPanel(matchInfo, playerID);
+		if(this.isAdvanced){
+			actionPanel = new ActionPanel(matchInfo, playerID, mainWindow.getRootPane().getSize(), new LeaderListener());
+		}else{
+			actionPanel = new ActionPanel(matchInfo, playerID, mainWindow.getRootPane().getSize());
+		}
 		rightPanel.add(actionPanel);
 
+
+		mainWindow.getContentPane().add(rightPanel);
+		//mainWindow.pack();
 		setSpaces();
 		setUpRightPanel(matchInfo.getPlayers());
-
-		// mainWindow.pack();
-		mainWindow.getContentPane().add(rightPanel);
+		setActionPanel();
 		mainWindow.setVisible(true);
 
 	}
 
 	private int resize(int originalSize) {
 		return (int) (originalSize * this.scaleFactor);
+	}
+	
+	private void setActionPanel(){
+		actionPanel.setActionPanel();
 	}
 
 	private void placeDevelopmentCards(DevelopmentCard[][] cards) {
@@ -432,7 +458,9 @@ public class GUInterface implements UserInterface {
 			playerTiles[i] = new PlayerTile(playersInfo[i], (int) (((double) mainWindow.getRootPane().getHeight() / 2)
 					- (0.5 / 9) * ((double) mainWindow.getRootPane().getHeight() / 2)), this.isAdvanced);
 			if (playersInfo[i].getId() == playerID)
-				tabbedPane.insertTab("Your Tile", null, playerTiles[i], null, i);
+				{tabbedPane.insertTab("Your Tile", null, playerTiles[i], null, i);
+				this.playerPosition=i;}
+				
 			else
 				tabbedPane.insertTab("Player " + playersInfo[i].getId(), null, playerTiles[i], null, i);
 
@@ -447,6 +475,8 @@ public class GUInterface implements UserInterface {
 		placeExcommunications(matchInfo.getBoard().getExcommunications());
 		placeBoardFamilyMembers(matchInfo.getBoard().getTowerSpaces());
 		actionPanel.updateActionPanel(matchInfo);
+		boardPanel.updateDiceLabels(matchInfo.getBlackDice(), matchInfo.getWhiteDice(), matchInfo.getOrangeDice());
+		tabbedPane.setSelectedIndex(playerPosition);
 	}
 
 	private void updateRightPanel(PlayerData[] players) {
