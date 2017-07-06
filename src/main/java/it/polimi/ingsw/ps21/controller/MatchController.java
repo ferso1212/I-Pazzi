@@ -61,6 +61,7 @@ public class MatchController extends Observable implements Observer {
 	private int actionTimeout;
 	private EnumMap<PlayerColor, ArrayList<LeaderCard>> unchosenLeaderCards;
 	int numOfChosenLeaderCards;
+	private boolean playingLeaderStage;
 
 	private static enum ActionState {
 		ACCEPTED, REFUSED, AWAITING_CHOICES, TIMEOUT_EXPIRED,
@@ -134,6 +135,7 @@ public class MatchController extends Observable implements Observer {
 			notifyObservers((RefusedAction) returnMessage);
 			reqPlayerAction();
 		} else if (returnMessage instanceof AcceptedAction) {
+			if(this.currentAction instanceof PlayLeaderCardAction) this.playingLeaderStage=true;
 			state = ActionState.ACCEPTED;
 			setChanged();
 			notifyObservers((AcceptedAction) returnMessage);
@@ -201,7 +203,7 @@ public class MatchController extends Observable implements Observer {
 				setChanged();
 				notifyObservers(new CompletedActionMessage(currentPlayer.getId()));
 			
-				if(this.currentAction instanceof PlayLeaderCardAction) reqPlayerAction();
+				if(this.playingLeaderStage) reqPlayerAction();
 				else nextPlayer();
 			} else {
 				reqExtraAction();
@@ -301,6 +303,7 @@ public class MatchController extends Observable implements Observer {
 	 * Vatican Report, the requested action will be a Vatican Action.
 	 */
 	private void reqPlayerAction() {
+		this.playingLeaderStage=false;
 		if (roundType == RoundType.INITIAL_ROUND || roundType== RoundType.FINAL_ROUND) {
 			startTimer();
 			ActionRequest req = new ActionRequest(currentPlayer.getId(), ++this.actionCounter);
@@ -336,6 +339,7 @@ public class MatchController extends Observable implements Observer {
 	 */
 	private void nextPlayer() {
 		this.currentExtraActions.clear();
+		this.playingLeaderStage=false;
 		this.timer.cancel();
 		this.timer.purge();
 		RoundType oldRoundType = this.roundType;

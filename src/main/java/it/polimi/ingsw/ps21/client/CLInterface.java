@@ -173,6 +173,19 @@ public class CLInterface implements UserInterface {
 				+ this.playerInfo.getTileHarvBonus() + ";");
 		printOutput("PRODUCTION:\tDice Requirement = " + this.playerInfo.getTileProdDiceReq() + ";\t " + "Bonus = "
 				+ this.playerInfo.getTileProdBonus() + ";");
+		if(advancedMatch) {
+			try {
+				printOutput("---------\t LEADER CARDS \t-------------");
+				int i=1;
+				for(LeaderCard c : playerInfo.getLeaders())
+				{
+					printOutput("\n-------\n" +i + ") "+ c.toString());
+					i++;
+				}
+			} catch (NotAdvancedPlayerException e1) {
+				LOGGER.log(Level.SEVERE, "This player is not advanced.", e1);
+			}
+		}
 
 	}
 
