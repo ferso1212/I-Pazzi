@@ -96,11 +96,54 @@ public class TestMatches {
 	 assert(checkInvalidMatchCreation());
 	 assert(checkThrowDices(testedSimpleMatch));
 	 assert(checkThrowDices(testedAdvancedMatch));
-	 assert(checkPlayerLoop());
+	 assert(checkPlayerLoop(testedSimpleMatch));
+	 assert(checkPlayerLoop(testedAdvancedMatch));
+	 assert(checkNotStandardPlayerLoop(testedSimpleMatch));
+	 assert(checkNotStandardPlayerLoop(testedAdvancedMatch));
 	 assert(checkCopingMatch());
 	
 	}
 	
+	/**
+	 * This method check the order for new Round Creation when players have Delay First Action Modifier true
+	 * @param testedMatch
+	 * @return true if the order creation is ok, false otherwise
+	 */
+	
+	private boolean checkNotStandardPlayerLoop(Match testedMatch) {
+		testedMatch.getPlayers().forEach( p -> p.getModifiers().getActionMods().setDelayFirstAction(true));
+		try {
+			testedMatch.getBoard().getCouncilPalace().occupy(testedMatch.getCurrentPlayer(), testedMatch.getCurrentPlayer().getFamily().getMember(MembersColor.BLACK));
+		} catch (NotOccupableException e) {
+			e.printStackTrace();
+		}
+		Player currentPlayer = testedMatch.getCurrentPlayer();
+		testedMatch.setNextPlayer();
+		if (currentPlayer == testedMatch.getCurrentPlayer()) return false;
+		currentPlayer = testedMatch.getCurrentPlayer();
+		testedMatch.setNextPlayer();
+		try {
+			testedMatch.getBoard().getCouncilPalace().occupy(testedMatch.getCurrentPlayer(), testedMatch.getCurrentPlayer().getFamily().getMember(MembersColor.BLACK));
+		} catch (NotOccupableException e) {
+			e.printStackTrace();
+		}
+		if (currentPlayer == testedMatch.getCurrentPlayer()) return false;
+		currentPlayer = testedMatch.getCurrentPlayer();
+		testedMatch.setNextPlayer();
+		try {
+			testedMatch.getBoard().getCouncilPalace().occupy(testedMatch.getCurrentPlayer(), testedMatch.getCurrentPlayer().getFamily().getMember(MembersColor.BLACK));
+		} catch (NotOccupableException e) {
+			e.printStackTrace();
+		}
+		
+		while(testedMatch.getRound()!= RoundType.FINAL_ROUND){
+			if (currentPlayer == testedMatch.getCurrentPlayer()) return false;
+			currentPlayer = testedMatch.getCurrentPlayer();
+			testedMatch.setNextPlayer();
+		}
+		return true;
+	}
+
 	@Test
 	public void vaticanTest(){
 		assert(checkVaticanRound());
@@ -239,6 +282,12 @@ public class TestMatches {
 		}
 	}
 
+	/**
+	 * This method is used to compare two different matches
+	 * @param match1
+	 * @param match2
+	 * @return true if match1 and match2 have both same dices, same player order and same round, false otherwise
+	 */
 	private boolean compareMatch(Match match1, Match match2) {
 		if (match1.getBlackDice() != match2.getBlackDice()) return false;
 		if (match1.getOrangeDice() != match2.getOrangeDice()) return false;
@@ -255,37 +304,37 @@ public class TestMatches {
 		
 	}
 
-	private boolean checkPlayerLoop() {
+	private boolean checkPlayerLoop(Match testedMatch) {
 		try {
-			testedSimpleMatch.getBoard().getCouncilPalace().occupy(testedSimpleMatch.getCurrentPlayer(), testedSimpleMatch.getCurrentPlayer().getFamily().getMember(MembersColor.BLACK));
+			testedMatch.getBoard().getCouncilPalace().occupy(testedMatch.getCurrentPlayer(), testedMatch.getCurrentPlayer().getFamily().getMember(MembersColor.BLACK));
 		} catch (NotOccupableException e) {
 			e.printStackTrace();
 		}
-		Player currentPlayer = testedSimpleMatch.getCurrentPlayer();
-		testedSimpleMatch.setNextPlayer();
-		if (currentPlayer == testedSimpleMatch.getCurrentPlayer()) return false;
-		currentPlayer = testedSimpleMatch.getCurrentPlayer();
-		testedSimpleMatch.setNextPlayer();
+		Player currentPlayer = testedMatch.getCurrentPlayer();
+		testedMatch.setNextPlayer();
+		if (currentPlayer == testedMatch.getCurrentPlayer()) return false;
+		currentPlayer = testedMatch.getCurrentPlayer();
+		testedMatch.setNextPlayer();
 		try {
-			testedSimpleMatch.getBoard().getCouncilPalace().occupy(testedSimpleMatch.getCurrentPlayer(), testedSimpleMatch.getCurrentPlayer().getFamily().getMember(MembersColor.BLACK));
+			testedMatch.getBoard().getCouncilPalace().occupy(testedMatch.getCurrentPlayer(), testedMatch.getCurrentPlayer().getFamily().getMember(MembersColor.BLACK));
 		} catch (NotOccupableException e) {
 			e.printStackTrace();
 		}
-		if (currentPlayer == testedSimpleMatch.getCurrentPlayer()) return false;
-		currentPlayer = testedSimpleMatch.getCurrentPlayer();
-		testedSimpleMatch.setNextPlayer();
+		if (currentPlayer == testedMatch.getCurrentPlayer()) return false;
+		currentPlayer = testedMatch.getCurrentPlayer();
+		testedMatch.setNextPlayer();
 		try {
-			testedSimpleMatch.getBoard().getCouncilPalace().occupy(testedSimpleMatch.getCurrentPlayer(), testedSimpleMatch.getCurrentPlayer().getFamily().getMember(MembersColor.BLACK));
+			testedMatch.getBoard().getCouncilPalace().occupy(testedMatch.getCurrentPlayer(), testedMatch.getCurrentPlayer().getFamily().getMember(MembersColor.BLACK));
 		} catch (NotOccupableException e) {
 			e.printStackTrace();
 		}
 		
 		for (int i=0; i<13; i++){
-			if (currentPlayer == testedSimpleMatch.getCurrentPlayer()) return false;
-			currentPlayer = testedSimpleMatch.getCurrentPlayer();
-			testedSimpleMatch.setNextPlayer();
+			if (currentPlayer == testedMatch.getCurrentPlayer()) return false;
+			currentPlayer = testedMatch.getCurrentPlayer();
+			testedMatch.setNextPlayer();
 		}
-		if (testedSimpleMatch.getRound() != RoundType.FINAL_ROUND) return false;
+		if (testedMatch.getRound() != RoundType.FINAL_ROUND) return false;
 		return true;
 	}
 
