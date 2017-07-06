@@ -261,6 +261,20 @@ public class GUInterface implements UserInterface {
 		}
 		
 	}
+	
+	private class NullListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource().equals(actionPanel.getNullButton())){
+				if (waitingActions.availablePermits() == 0) {
+					chosenAction = new ActionData(ActionType.NULL, null, 0, null, 0, actionId);
+					waitingActions.release();
+				}
+			}
+			
+		}
+	}
 
 	private void firstUpdate(MatchData matchInfo) {
 
@@ -316,9 +330,9 @@ public class GUInterface implements UserInterface {
 
 		// setting a panel with borderLayout in the splitPane
 		if(this.isAdvanced){
-			actionPanel = new ActionPanel(matchInfo, playerID, mainWindow.getRootPane().getSize(), new LeaderListener());
+			actionPanel = new ActionPanel(matchInfo, playerID, mainWindow.getRootPane().getSize(),new NullListener(), new LeaderListener());
 		}else{
-			actionPanel = new ActionPanel(matchInfo, playerID, mainWindow.getRootPane().getSize());
+			actionPanel = new ActionPanel(matchInfo, playerID, mainWindow.getRootPane().getSize(), new NullListener());
 		}
 		rightPanel.add(actionPanel);
 
