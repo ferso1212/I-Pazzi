@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -20,6 +22,7 @@ public class CouncilPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = Logger.getLogger(CouncilPanel.class.getSimpleName());
 	private JButton councilButton;
 	private double scaleFactor;
 
@@ -58,8 +61,8 @@ public class CouncilPanel extends JPanel {
 					memberLabel.setIcon(
 							new ImageIcon(memberIcon.getScaledInstance(resize(125), resize(125), Image.SCALE_SMOOTH)));
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					LOGGER.log(Level.SEVERE, "Unable to find pawn image.", e);
+					memberLabel.setToolTipText("This is the " + f.getColor().toString().toLowerCase() + "member.");
 				}
 				
 				memberLabel.setVisible(true);
