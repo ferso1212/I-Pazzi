@@ -65,7 +65,6 @@ public class DevelopmentCardButton extends JButton{
 			int height = (int)(754 * scaleFactor);
 			this.cardImage = ImageIO.read(new File((new File("")).getAbsolutePath().concat("/src/images/DevelopmentCards/").concat(name.replace(" ","")).concat(".png")));
 			this.setIcon(new ImageIcon(cardImage.getScaledInstance(width, height, Image.SCALE_DEFAULT)));
-			//this.setToolTipText("<html><body><div style='display: inline;'><img style='display: inline;' src=\"file:src/images/DevelopmentCards/"+name.replace(" ", "")+".png\"></div><div style='display: inline;'>"+ description + "</div></body></html> ");
 			this.setToolTipText("<html><body><table><tr><td><img style='display: inline;' src=\"file:src/images/DevelopmentCards/"+name.replace(" ", "")+".png\"></td>"+"<td>"+ description + "</td></tr></table></body></html> ");
 			
 		} catch (IOException e) {
