@@ -54,8 +54,8 @@ public class PersonalBonusTile implements Serializable{
 	public String toString()
 	{
 		StringBuilder b= new StringBuilder();
-		b.append("Production \tRequirement: "+ prodDiceReq + "\tBonus: " + prodBonus.toString());
-		b.append("\n Harvest \tRequirement: "+ harvDiceReq + "\tBonus: " + harvBonus.toString());
+		b.append("Production \tDice value required to activate: "+ prodDiceReq + ";" + "\tBonus: " + prodBonus.toString());
+		b.append("\n Harvest \tDice value required to activate: "+ harvDiceReq + ";" +"\tBonus: " + harvBonus.toString());
 		return b.toString();
 	}
 	

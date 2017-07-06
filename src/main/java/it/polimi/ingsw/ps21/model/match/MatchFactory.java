@@ -376,6 +376,7 @@ public class MatchFactory {
 							int black = Integer.parseInt(excommunicationType.getAttribute("blackValue"));
 							int orange = Integer.parseInt(excommunicationType.getAttribute("orangeValue"));
 							excommunications.addCard(new DiceExcommunication(id, period, white, orange, black));
+							break;
 						}
 						case "FinalCardVPointsExcommunication":
 						{
@@ -385,8 +386,9 @@ public class MatchFactory {
 							else if (excommunicationType.getElementsByTagName("Blue").getLength() > 0) cardType = DevelopmentCardType.CHARACTER;
 							else cardType = DevelopmentCardType.VENTURE;
 							excommunications.addCard(new FinalCardVPointsExcommunication(id, period, cardType));
-						}
 							break;
+						}
+							
 						case "FinalVPointsExcommunication":
 						{
 							int victoryPointsReductionDivisor = Integer.parseInt(excommunicationType.getAttribute("victoryDivisor"));
@@ -395,8 +397,9 @@ public class MatchFactory {
 							int vPointsReductionBuildingStoneDivisor = Integer.parseInt(excommunicationType.getAttribute("buildingStonesDivisor"));
 							int vPointsReductionResDivisor = Integer.parseInt(excommunicationType.getAttribute("resDivisor"));
 							excommunications.addCard(new FinalVPointsExcommunication(id, period, victoryPointsReductionDivisor, militaryDivisorVPointsReduction, vPointsReductionBuildingWoodDivisor, vPointsReductionBuildingStoneDivisor, vPointsReductionResDivisor));
-						}
 							break;
+						}
+							
 						case "ServantsValueExcommunication":
 						{
 							int value = Integer.parseInt(excommunicationType.getAttribute("servantsValue"));

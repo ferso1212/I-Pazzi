@@ -33,7 +33,7 @@ public class TestGUInterface {
 		}
 	}
 	
-	@Test
+	//@Test
 	public void showInterface()
 	{
 		

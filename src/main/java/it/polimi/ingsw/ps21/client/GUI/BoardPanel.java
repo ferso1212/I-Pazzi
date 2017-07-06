@@ -99,4 +99,10 @@ public class BoardPanel extends JPanel {
 		this.add(whiteDiceLabel).setBounds(resize(2915), resize(6270), resize(130), resize(130));
 		this.add(orangeDiceLabel).setBounds(resize(3360), resize(6270), resize(130), resize(130));
 	}
+	
+	public void updateDiceLabels(int blackDice, int whiteDice, int orangeDice){
+		orangeDiceLabel.setText(Integer.toString(orangeDice));
+		whiteDiceLabel.setText(Integer.toString(whiteDice));
+		blackDiceLabel.setText(Integer.toString(blackDice));
+	}
 }
