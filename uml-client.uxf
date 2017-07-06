@@ -1,350 +1,450 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.2">
-  <zoom_level>4</zoom_level>
+  <zoom_level>10</zoom_level>
   <element>
-    <id>UMLPackage</id>
+    <id>UMLClass</id>
     <coordinates>
-      <x>464</x>
+      <x>800</x>
       <y>0</y>
-      <w>408</w>
-      <h>296</h>
+      <w>100</w>
+      <h>70</h>
     </coordinates>
-    <panel_attributes>Controller
---
-bg=green
-layer=-1</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLPackage</id>
-    <coordinates>
-      <x>0</x>
-      <y>12</y>
-      <w>452</w>
-      <h>492</h>
-    </coordinates>
-    <panel_attributes>Model
---
-bg=red
-layer=-1</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLPackage</id>
-    <coordinates>
-      <x>892</x>
-      <y>24</y>
-      <w>408</w>
-      <h>712</h>
-    </coordinates>
-    <panel_attributes>View
---
-bg=cyan
-layer=-1</panel_attributes>
+    <panel_attributes>ClientMain</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>572</x>
-      <y>28</y>
-      <w>260</w>
-      <h>140</h>
+      <x>580</x>
+      <y>120</y>
+      <w>170</w>
+      <h>130</h>
     </coordinates>
-    <panel_attributes>CommandParser</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1008</x>
-      <y>116</y>
-      <w>196</w>
-      <h>108</h>
-    </coordinates>
-    <panel_attributes>UserInterface
---
+    <panel_attributes>SocketClient
 
---
-+ void showStatus()
-+ String getCommand():
+bg=green
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>112</x>
-      <y>156</y>
-      <w>228</w>
-      <h>64</h>
+      <x>0</x>
+      <y>70</y>
+      <w>570</w>
+      <h>170</h>
     </coordinates>
-    <panel_attributes>ModelHandler 
-// Serve a gestire la comunicazione con il viewHandler del server tramite
-network
+    <panel_attributes>RMICLient
 --
-
++ RMIClient(ui :UserInterface, hostname :String, int :Port, newMatch :boolean)
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLInterface</id>
+    <coordinates>
+      <x>790</x>
+      <y>330</y>
+      <w>600</w>
+      <h>410</h>
+    </coordinates>
+    <panel_attributes>UserInterface
 --
-
-- sendInput()
-- getInput()</panel_attributes>
++ playMatch() :void
++ updateView(match :MatchData) :void
++ makeAction(int id) :ActionData
++ showInfo(String name) void
++ reqVaticanChoice() :boolean
++ reqCostChoice(costChoices ArrayList&lt;ImmProperties&gt;) :int
++ reqEffectChoice(effectChoice EffectSet[]) :int
++ chooseLeaderCard(possibleChoices LeaderCard[]) :int
++ showMessage(mess :AcceptedAction) :void
++ showMessage(mess :RefusedAction) :void
++ setID( id :PlayerColor) :void
++ reqPrivileges(number :int, privilegesValues :ImmProperties[] ) :ImmProperties[]
++ matchEnded(data :EndData ) :void
++ reqExtraActionChoice(actions :ExtraActionData[]) :int
++ reqWorkChoice(workCard :DevelopmentCard) :int
++ reqName() :String
++ reqIfWantsAdvancedRules() :boolean
++ chooseTile(possibilities :PersonalBonusTile[]) :int
++ setRules(isAdvanced :boolean) :void
++ reqCardChoice(possibleChoices :DevelopmentCard[]) :int
++ reqNumberOfServants( max :int) :int</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>48</x>
-      <y>340</y>
-      <w>176</w>
-      <h>64</h>
+      <x>980</x>
+      <y>110</y>
+      <w>100</w>
+      <h>110</h>
     </coordinates>
-    <panel_attributes>SocketHandler</panel_attributes>
+    <panel_attributes>CLInterface
+--
+
+
+bg=gray</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>256</x>
-      <y>344</y>
-      <w>176</w>
-      <h>64</h>
+      <x>1230</x>
+      <y>170</y>
+      <w>340</w>
+      <h>190</h>
     </coordinates>
-    <panel_attributes>RMI Handler</panel_attributes>
+    <panel_attributes>GUInterface
+--
+- mainWindow :JFrame
+bg=yellow</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>160</x>
-      <y>216</y>
-      <w>56</w>
-      <h>132</h>
+      <x>1040</x>
+      <y>210</y>
+      <w>70</w>
+      <h>150</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>120.0;10.0;10.0;310.0</additional_attributes>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>50.0;130.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1090</x>
+      <y>170</y>
+      <w>160</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;180.0;140.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>890</x>
+      <y>20</y>
+      <w>120</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+creates</panel_attributes>
+    <additional_attributes>90.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>890</x>
+      <y>0</y>
+      <w>400</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+creates</panel_attributes>
+    <additional_attributes>360.0;170.0;300.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>540</x>
+      <y>230</y>
+      <w>560</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+uses</panel_attributes>
+    <additional_attributes>540.0;120.0;10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>740</x>
+      <y>160</y>
+      <w>360</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+uses</panel_attributes>
+    <additional_attributes>340.0;180.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>650</x>
+      <y>40</y>
+      <w>170</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+creates</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0;150.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>10</y>
+      <w>500</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+creates</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0;480.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLInterface</id>
+    <coordinates>
+      <x>0</x>
+      <y>290</y>
+      <w>580</w>
+      <h>410</h>
+    </coordinates>
+    <panel_attributes>RMIClientInterface
+--
++ receiveMessage(message :String)	 :void
++ setCost(cost : ArrayList&lt;ImmProperties&gt; ) :int 	
++ vaticanChoice() :boolean 
++ reqPrivileges(int number, ImmProperties[] privilegesValues) :ImmProperties[]
++ setId(id :PlayerColor) :void
++ notifyMatchStarted() :void
++ sendName() :String 	
++ actionRequest(id :int) :ActionData
++ reqExtraActionChoice(actions :ExtraActionData[] ) :int
++ updateMatch( match :MatchData) :void
++ reqEffectChoice(possibleEffects :EffectSet[]) :int
++ reqWorkChoice(workCard DevelopmentCard) :int
++ reqName() .String	
++ reqRules() :boolean
++ matchEnded( data :EndData) :void
++ reqLeaderChoice(choices :LeaderCard[]) :int
++ reqPersonalTileChoice(object PersonalBonusTile[]) :int
++ setRules(isAdvanced :boolean ) :void
++ testConnection() :boolean 
++ reqCardChoice(possibleChoices DevelopmentCard[] ) int
++ reqNumberOfServants(max :int) :int</panel_attributes>
+    <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>280</x>
-      <y>216</y>
-      <w>32</w>
-      <h>136</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;60.0;320.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>952</x>
-      <y>312</y>
-      <w>116</w>
-      <h>76</h>
-    </coordinates>
-    <panel_attributes>CLIInterface</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1124</x>
-      <y>340</y>
-      <w>148</w>
-      <h>72</h>
-    </coordinates>
-    <panel_attributes>SwingInterface</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1120</x>
-      <y>220</y>
-      <w>76</w>
-      <h>128</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;170.0;300.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1000</x>
-      <y>220</y>
-      <w>48</w>
-      <h>100</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>100.0;10.0;10.0;230.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLNote</id>
-    <coordinates>
-      <x>592</x>
-      <y>380</y>
-      <w>108</w>
-      <h>44</h>
-    </coordinates>
-    <panel_attributes>Potrebbe essere superfluo
-e far comunicare direttamente
-interfaccia e Matchandler</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>596</x>
-      <y>292</y>
-      <w>36</w>
-      <h>96</h>
+      <y>230</y>
+      <w>30</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>70.0;10.0;10.0;220.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>336</x>
-      <y>64</y>
-      <w>244</w>
-      <h>104</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;240.0;590.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>336</x>
-      <y>204</y>
-      <w>680</w>
-      <h>12</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>1680.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>828</x>
-      <y>100</y>
-      <w>188</w>
-      <h>88</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>450.0;200.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>828</x>
-      <y>108</y>
-      <w>188</w>
-      <h>92</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;450.0;210.0</additional_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>920</x>
-      <y>524</y>
-      <w>168</w>
+      <x>1640</x>
+      <y>100</y>
+      <w>160</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>ActionPanel</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1850</x>
+      <y>200</y>
+      <w>220</w>
       <h>100</h>
     </coordinates>
-    <panel_attributes>CLIView
+    <panel_attributes>BoardPanel
 --
-# inputStream: InputStream
-# printStream :PrintStream
---
-+ reqStartParam(): void 
-//request name, color, etc
-
-+ printPlayerBoard :void
-+ reqUserAction(): Action
-+ reqUserAction(type: A): A
-+ printBoard(): void
-+ updateBoard(board : BoardView)
-+ updatePlayerBoard(pboard : PlayerBoardView)</panel_attributes>
+- blackDice :JLabel
+- whiteDice :JLabel
+- orangeDice :JLabel
+- img :BufferedImage</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1136</x>
-      <y>452</y>
-      <w>132</w>
-      <h>88</h>
+      <x>1860</x>
+      <y>310</y>
+      <w>140</w>
+      <h>70</h>
     </coordinates>
-    <panel_attributes>UIView
+    <panel_attributes>PlayerBoardPanel
 --
-
---
-+ reqStartParam(): void
-+ printPlayerBoard :void
-+ reqUserAction(): void
-+ reqUserAction(type: ActionType): void
-+ printBoard(): void
-+ updateBoard(BoardView: board)
-+ updatePlayerBoard(pboard : PlayerBoardView)</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1136</x>
-      <y>572</y>
-      <w>132</w>
-      <h>56</h>
-    </coordinates>
-    <panel_attributes>AdvUIView
---
---
-+ printPlayerBoard :void
-+ reqUserAction(): void
-+ reqUserAction(type: ActionType): void
-+ printBoard(): void</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>956</x>
-      <y>660</y>
-      <w>132</w>
-      <h>56</h>
-    </coordinates>
-    <panel_attributes>AdvCLIView
---
---
-+ printPlayerBoard :void
-+ reqUserAction(): void
-+ reqUserAction(type: ActionType): void
-+ printBoard(): void</panel_attributes>
+- img :BufferedImage</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1012</x>
-      <y>620</y>
-      <w>12</w>
-      <h>48</h>
+      <x>1560</x>
+      <y>240</y>
+      <w>320</w>
+      <h>140</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;300.0;120.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1192</x>
-      <y>536</y>
-      <w>12</w>
-      <h>44</h>
+      <x>1560</x>
+      <y>210</y>
+      <w>310</w>
+      <h>40</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;290.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1560</x>
+      <y>150</y>
+      <w>100</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;30.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1770</x>
+      <y>470</y>
+      <w>220</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>DevelopmentCardButton</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1560</x>
+      <y>320</y>
+      <w>230</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;210.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1550</x>
+      <y>10</y>
+      <w>220</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>LeaderPanel</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1390</x>
+      <y>20</y>
+      <w>180</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;150.0;160.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1960</x>
+      <y>110</y>
+      <w>160</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>FamilyMemberPanel</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1790</x>
+      <y>130</y>
+      <w>190</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+</panel_attributes>
+    <additional_attributes>10.0;30.0;170.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1980</x>
+      <y>10</y>
+      <w>220</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>LeaderButton</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1760</x>
+      <y>30</y>
+      <w>240</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;220.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1860</x>
+      <y>390</y>
+      <w>140</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>PlayerTile</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1560</x>
+      <y>280</y>
+      <w>320</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;300.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2110</x>
+      <y>130</y>
+      <w>90</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=3</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2180</x>
+      <y>110</y>
+      <w>160</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>FamilyMemberButton</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>

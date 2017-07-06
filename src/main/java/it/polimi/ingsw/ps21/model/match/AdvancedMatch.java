@@ -174,8 +174,9 @@ public class AdvancedMatch extends Match {
 	}
 	for ( int j = 0 ; j < newOrder.size(); j++) order.add(newOrder.get(j));
 	if (round != RoundType.VATICAN_ROUND){
-		for (int i=0; i<3; i++)
+		for (int i=0; i<3; i++) {
 			for ( int j =0 ; j< newOrder.size(); j++) order.add(newOrder.get(j));
+		}
 			board.newSetBoard(period);
 		// Check firstDelay excommunication for every advanced player
 					AdvancedPlayer firstPlayer = order.get(currentPlayer);

@@ -23,9 +23,7 @@ import it.polimi.ingsw.ps21.model.actions.WorkAction;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.board.WorkSpace;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
-import it.polimi.ingsw.ps21.model.deck.LeaderDeck;
 import it.polimi.ingsw.ps21.model.match.AdvancedMatch;
-import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.match.MatchFactory;
 import it.polimi.ingsw.ps21.model.match.RoundType;
@@ -33,12 +31,9 @@ import it.polimi.ingsw.ps21.model.match.VaticanRoundException;
 import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
-import it.polimi.ingsw.ps21.model.player.MembersColor;
-import it.polimi.ingsw.ps21.model.player.PersonalBonusTile;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
-import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.view.ActionData;
 import it.polimi.ingsw.ps21.view.EndData;
 import it.polimi.ingsw.ps21.view.ExtraActionData;
@@ -98,14 +93,10 @@ public class MatchController extends Observable implements Observer {
 			this.addObserver(handler);
 			handler.addObserver(this);
 		}
-		//this.timer = new ActionTimer(5000);
-		//this.timer = new ActionTimer(MatchFactory.instance().makeTimeoutRound());
 		
-		//this.timer.addObserver(this);
-		//timerThread = new Thread(this.timer);
+		this.timer=new Timer();
 		this.currentExtraActions = new ArrayList<>();
 		this.actionCounter = 0;
-		this.timer=new Timer();
 		this.actionTimeout=MatchFactory.instance().makeTimeoutRound();
 		this.numOfChosenLeaderCards=0;
 		startMatch();
@@ -209,7 +200,9 @@ public class MatchController extends Observable implements Observer {
 			if (currentExtraActions.isEmpty()) {
 				setChanged();
 				notifyObservers(new CompletedActionMessage(currentPlayer.getId()));
-				nextPlayer();
+			
+				if(this.currentAction instanceof PlayLeaderCardAction) reqPlayerAction();
+				else nextPlayer();
 			} else {
 				reqExtraAction();
 			}
@@ -290,7 +283,8 @@ public class MatchController extends Observable implements Observer {
 	}
 
 	/**
-	 * Starts a new round
+	 * Starts a new round.
+	 * To be safe, it clears the extra actions queue and cancels the action timer.
 	 */
 	private void newRound() {
 		this.currentExtraActions.clear();
@@ -337,8 +331,8 @@ public class MatchController extends Observable implements Observer {
 	}
 	/**
 	 * Clears the extra actions queue and moves the game to the next player. If
-	 * there are no moves left in the current round, a new round is started. In
-	 * every case, a new action is requested to the next player.
+	 * there are no moves left in the current round, a new round is started, otherwise
+	 *  a new action is requested to the next player.
 	 */
 	private void nextPlayer() {
 		this.currentExtraActions.clear();
@@ -355,6 +349,9 @@ public class MatchController extends Observable implements Observer {
 		}
 	}
 
+	/**Reacts to notifies from UserHandlers and Match.
+	 * 
+	 */
 	@Override
 	public void update(Observable source, Object arg) {
 		if (source != match && !handlersMap.containsValue(source)) {
@@ -502,7 +499,7 @@ public class MatchController extends Observable implements Observer {
 		this.timer.cancel();
 		this.timer.purge();
 		this.timer=new Timer();
-		timer.schedule(new TimerTask() {
+		this.timer.schedule(new TimerTask() {
 
 			@Override
 			public void run() {
