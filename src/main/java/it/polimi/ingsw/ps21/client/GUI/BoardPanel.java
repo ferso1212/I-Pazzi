@@ -95,8 +95,8 @@ public class BoardPanel extends JPanel {
 		blackDiceLabel.setHorizontalAlignment(JLabel.CENTER);
 
 		
-		this.add(blackDiceLabel).setBounds(resize(2910), resize(6200), resize(130), resize(130));
-		this.add(whiteDiceLabel).setBounds(resize(3365), resize(6200), resize(130), resize(130));
-		this.add(orangeDiceLabel).setBounds(resize(3810), resize(6200), resize(130), resize(130));
+		this.add(blackDiceLabel).setBounds(resize(2470), resize(6270), resize(130), resize(130));
+		this.add(whiteDiceLabel).setBounds(resize(2915), resize(6270), resize(130), resize(130));
+		this.add(orangeDiceLabel).setBounds(resize(3360), resize(6270), resize(130), resize(130));
 	}
 }

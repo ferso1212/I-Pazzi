@@ -11,6 +11,7 @@ public class LeaderPanel extends JPanel {
 	
 	public LeaderPanel(){
 		this.setVisible(true);
+		this.setOpaque(false);
 	}
 	
 	public void update(LeaderCard cards[]){

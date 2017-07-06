@@ -9,6 +9,7 @@ import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
 import it.polimi.ingsw.ps21.model.match.InvalidIDException;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.match.SimpleMatch;
+import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
 public class TestGUInterface {
@@ -21,7 +22,9 @@ public class TestGUInterface {
 	@Before
 	public void setUp(){
 		try {
+			
 			testedMatch = new SimpleMatch(validPlayers);
+			testedMatch.getPlayers().toArray(new Player[0])[0].addExcommunication(testedMatch.getBoard().getExcommunications()[0]);
 			testeGuInterface.setID(validPlayers[0]);
 			testeGuInterface.setRules(false);
 		} catch (InvalidIDException | BuildingDeckException e) {
@@ -33,6 +36,9 @@ public class TestGUInterface {
 	@Test
 	public void showInterface()
 	{
+		
+		testeGuInterface.updateView(new MatchData(testedMatch));
+		testeGuInterface.makeAction(1);
 		testeGuInterface.updateView(new MatchData(testedMatch));
 		testeGuInterface.makeAction(1);
 		assert(true);

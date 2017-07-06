@@ -251,8 +251,9 @@ public class GUInterface implements UserInterface {
 		JPanel contentPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 1));
 		contentPanel.setBackground(new Color(239, 220, 134));
 		mainWindow.setContentPane(contentPanel);
-		boardPanel = new BoardPanel((new File("")).getAbsolutePath().concat("/src/images/board3.jpg"), mainWindow.getRootPane().getHeight(),
-				matchInfo.getBlackDice(), matchInfo.getWhiteDice(), matchInfo.getOrangeDice());
+		boardPanel = new BoardPanel((new File("")).getAbsolutePath().concat("/src/images/board3.jpg"),
+				mainWindow.getRootPane().getHeight(), matchInfo.getBlackDice(), matchInfo.getWhiteDice(),
+				matchInfo.getOrangeDice());
 		boardPanel.setLayout(null);
 		mainWindow.getContentPane().add(boardPanel);
 		scaleFactor = boardPanel.getScaleFactor();
@@ -261,16 +262,16 @@ public class GUInterface implements UserInterface {
 			for (int i = 0; i < 4; i++) {
 				developmentCards[i][j] = new DevelopmentCardButton(boardPanel.getScaleFactor(), i, j);
 				developmentCards[i][j].addActionListener(new TowerListener());
-				boardPanel.add(developmentCards[i][j]).setBounds(resize(615) + j * resize(970),
-						resize(3050) - resize(820) * i, resize(470), resize(720));
+				boardPanel.add(developmentCards[i][j]).setBounds(resize(180) + j * resize(955),
+						resize(2900) - resize(885) * i, resize(470), resize(720));
 			}
 		}
 
 		for (int j = 0; j < 4; j++) {
 			for (int i = 0; i < 4; i++) {
 				familyMembersOnBoard[i][j] = new JLabel();
-				boardPanel.add(familyMembersOnBoard[i][j]).setBounds(resize(1190) + j * resize(955),
-						resize(3300) - i * resize(800), resize(200), resize(200));
+				boardPanel.add(familyMembersOnBoard[i][j]).setBounds(resize(775) + j * resize(970),
+						resize(3195) - i * resize(915), resize(200), resize(200));
 				familyMembersOnBoard[i][j].setVisible(false);
 			}
 		}
@@ -279,7 +280,9 @@ public class GUInterface implements UserInterface {
 		// column
 		rightPanel = new JPanel();
 		rightPanel.setOpaque(false);
-		rightPanel.setPreferredSize(new Dimension(mainWindow.getRootPane().getWidth() - (int)boardPanel.getPreferredSize().getWidth() - 10, (int) boardPanel.getPreferredSize().getHeight()));
+		rightPanel.setPreferredSize(
+				new Dimension(mainWindow.getRootPane().getWidth() - (int) boardPanel.getPreferredSize().getWidth() - 10,
+						(int) boardPanel.getPreferredSize().getHeight()));
 		rightPanel.setLayout(new GridLayout(2, 0, 0, 0));
 
 		// on the top of the left panel there is a split panel with
@@ -298,13 +301,9 @@ public class GUInterface implements UserInterface {
 		actionPanel = new ActionPanel(matchInfo, playerID);
 		rightPanel.add(actionPanel);
 
-		
-
-		placeDevelopmentCards(matchInfo.getBoard().getCards());
-		placeExcommunications(matchInfo.getBoard().getExcommunications());
-		placeBoardFamilyMembers(matchInfo.getBoard().getTowerSpaces());
 		setSpaces();
 		setUpRightPanel(matchInfo.getPlayers());
+
 		// mainWindow.pack();
 		mainWindow.getContentPane().add(rightPanel);
 		mainWindow.setVisible(true);
@@ -319,16 +318,15 @@ public class GUInterface implements UserInterface {
 		for (int j = 0; j < 4; j++) {
 			for (int i = 0; i < 4; i++) {
 				if (cards[i][j] != null) {
-					
-					this.developmentCards[i][j].update(cards[i][j].getName(), CardDescFormatter.format(cards[i][j].toString()));
-				
+
+					this.developmentCards[i][j].update(cards[i][j].getName(),
+							CardDescFormatter.format(cards[i][j].toString()));
+
 				} else
 					this.developmentCards[i][j].hideButton();
 			}
 		}
 	}
-
-	
 
 	private void placeBoardFamilyMembers(FamilyMemberData[][] members) {
 		for (int j = 0; j < 4; j++) {
@@ -356,7 +354,11 @@ public class GUInterface implements UserInterface {
 		for (int i = 0; i < 3; i++) {
 			ExcommunicationLabel excomCard = new ExcommunicationLabel(excommunications[i].getId(),
 					boardPanel.getScaleFactor());
-			boardPanel.add(excomCard).setBounds(resize(1180) + resize(380) * i, resize(4100), resize(400), resize(715));
+			if (i != 1) {
+				boardPanel.add(excomCard).setBounds(resize(770) + resize(360) * i, resize(4100), resize(400), resize(715));
+			} else {
+				boardPanel.add(excomCard).setBounds(resize(770) + resize(360) * i, resize(4100) + resize(90), resize(400), resize(715));
+			}
 		}
 	}
 
@@ -364,31 +366,31 @@ public class GUInterface implements UserInterface {
 		// work space
 
 		singleProduction = new WorkActionButton(WorkType.PRODUCTION, true);
-		boardPanel.add(singleProduction).setBounds(resize(545), resize(5485), resize(415), resize(415));
+		boardPanel.add(singleProduction).setBounds(resize(100), resize(5485), resize(415), resize(415));
 		singleProduction.addActionListener(new WorkListener());
 
 		singleHarvest = new WorkActionButton(WorkType.HARVEST, true);
-		boardPanel.add(singleHarvest).setBounds(resize(545), resize(6020), resize(415), resize(415));
+		boardPanel.add(singleHarvest).setBounds(resize(100), resize(6020), resize(415), resize(415));
 		singleHarvest.addActionListener(new WorkListener());
 
 		if (numberOfPlayers > 2) {
 
 			multipleProduction = new MultipleWorkActionPanel(new WorkListener());
-			boardPanel.add(multipleProduction).setBounds(resize(1100), resize(5485), resize(900), resize(415));
+			boardPanel.add(multipleProduction).setBounds(resize(650), resize(5485), resize(900), resize(415));
 
 			multipleHarvest = new MultipleWorkActionPanel(new WorkListener());
-			boardPanel.add(multipleHarvest).setBounds(resize(1100), resize(6020), resize(900), resize(415));
+			boardPanel.add(multipleHarvest).setBounds(resize(650), resize(6020), resize(900), resize(415));
 		}
 
 		// market space
 		if (numberOfPlayers < 4) {
 			this.marketButtons = new MarketButton[2];
 			marketButtons[0] = new MarketButton(1);
-			boardPanel.add(marketButtons[0]).setBounds(resize(2860), resize(5380), resize(415), resize(415));
+			boardPanel.add(marketButtons[0]).setBounds(resize(2410), resize(5380), resize(415), resize(415));
 			marketButtons[0].addActionListener(new MarketListener());
 
 			marketButtons[1] = new MarketButton(2);
-			boardPanel.add(marketButtons[1]).setBounds(resize(3300), resize(5380), resize(415), resize(415));
+			boardPanel.add(marketButtons[1]).setBounds(resize(2850), resize(5380), resize(415), resize(415));
 			marketButtons[1].addActionListener(new MarketListener());
 		}
 
@@ -396,25 +398,25 @@ public class GUInterface implements UserInterface {
 			this.marketButtons = new MarketButton[4];
 
 			marketButtons[0] = new MarketButton(1);
-			boardPanel.add(marketButtons[0]).setBounds(resize(2860), resize(5380), resize(415), resize(415));
+			boardPanel.add(marketButtons[0]).setBounds(resize(2410), resize(5380), resize(415), resize(415));
 			marketButtons[0].addActionListener(new MarketListener());
 
 			marketButtons[1] = new MarketButton(2);
-			boardPanel.add(marketButtons[1]).setBounds(resize(3300), resize(5380), resize(415), resize(415));
+			boardPanel.add(marketButtons[1]).setBounds(resize(2850), resize(5380), resize(415), resize(415));
 			marketButtons[1].addActionListener(new MarketListener());
 
 			marketButtons[2] = new MarketButton(3);
-			boardPanel.add(marketButtons[2]).setBounds(resize(3730), resize(5500), resize(415), resize(415));
+			boardPanel.add(marketButtons[2]).setBounds(resize(3280), resize(5500), resize(415), resize(415));
 			marketButtons[2].addActionListener(new MarketListener());
 
 			marketButtons[3] = new MarketButton(4);
-			boardPanel.add(marketButtons[3]).setBounds(resize(4050), resize(5800), resize(415), resize(415));
+			boardPanel.add(marketButtons[3]).setBounds(resize(3600), resize(5800), resize(415), resize(415));
 			marketButtons[3].addActionListener(new MarketListener());
 		}
 
 		// council space
 		councilPanel = new CouncilPanel(new CouncilListener(), this.scaleFactor);
-		boardPanel.add(councilPanel).setBounds(resize(2510), resize(3750), resize(1280), resize(580));
+		boardPanel.add(councilPanel).setBounds(resize(2060), resize(3700), resize(1280), resize(580));
 	}
 
 	private void setUpRightPanel(PlayerData[] playersInfo) {
@@ -427,7 +429,8 @@ public class GUInterface implements UserInterface {
 				* (screenDimension.getHeight() / 2) / personalBonusTile.getTileImage().getHeight()));
 
 		for (int i = 0; i < numberOfPlayers; i++) {
-			playerTiles[i] = new PlayerTile(playersInfo[i]);
+			playerTiles[i] = new PlayerTile(playersInfo[i], (int) (((double) mainWindow.getRootPane().getHeight() / 2)
+					- (0.5 / 9) * ((double) mainWindow.getRootPane().getHeight() / 2)), this.isAdvanced);
 			if (playersInfo[i].getId() == playerID)
 				tabbedPane.insertTab("Your Tile", null, playerTiles[i], null, i);
 			else
@@ -451,7 +454,7 @@ public class GUInterface implements UserInterface {
 			PlayerTile currentPlayerTile = playerTiles[i];
 			for (int j = 0; j < players.length; j++) {
 				if (currentPlayerTile.getPlayerId() == players[j].getId()) {
-					currentPlayerTile.updateCharactersAndVentures(players[j]);
+					currentPlayerTile.update(players[j]);
 				}
 			}
 		}
@@ -463,11 +466,11 @@ public class GUInterface implements UserInterface {
 		singleHarvest.update(boardInfo.getSingleHarvestSpace());
 		singleProduction.update(boardInfo.getSingleProductionSpace());
 		int i = 0;
-		for(MarketButton m : this.marketButtons){
+		for (MarketButton m : this.marketButtons) {
 			m.update(boardInfo.getMarket()[i]);
 			i++;
 		}
-		if(this.numberOfPlayers > 2){
+		if (this.numberOfPlayers > 2) {
 			multipleHarvest.update(boardInfo.getMultipleHarvestSpace());
 			multipleProduction.update(boardInfo.getMultipleProductionSpace());
 		}
@@ -487,8 +490,8 @@ public class GUInterface implements UserInterface {
 			public void run() {
 				if (updateCounter == 0)
 					firstUpdate(match);
-				else
-					update(match);
+
+				update(match);
 				updateCounter++;
 
 			}
@@ -537,6 +540,10 @@ public class GUInterface implements UserInterface {
 		}
 		String chosenCost = (String) JOptionPane.showInputDialog(mainWindow, "Which cost do you want to pay?",
 				"Choose Cost", JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+		if (chosenCost == null) {
+			JOptionPane.showMessageDialog(mainWindow, "Since you are lazy, we have made the choice for you!");
+			return 0;
+		}
 		int j;
 		for (j = 0; j < choices.length; j++) {
 			if (chosenCost.compareTo((String) choices[j]) == 0) {
@@ -554,6 +561,10 @@ public class GUInterface implements UserInterface {
 		}
 		String chosenEffect = (String) JOptionPane.showInputDialog(mainWindow, "Which effect do you want to activate?",
 				"Choose Effect", JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+		if (chosenEffect == null) {
+			JOptionPane.showMessageDialog(mainWindow, "Since you are lazy, we have made the choice for you!");
+			return 0;
+		}
 		int j;
 		for (j = 0; j < choices.length; j++) {
 			if (chosenEffect.compareTo((String) choices[j]) == 0) {
@@ -571,6 +582,10 @@ public class GUInterface implements UserInterface {
 		}
 		String chosenLeader = (String) JOptionPane.showInputDialog(mainWindow, "Which leader card do you want to pick?",
 				"Pick a Leader", JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+		if (chosenLeader == null) {
+			JOptionPane.showMessageDialog(mainWindow, "Since you are lazy, we have made the choice for you!");
+			return 0;
+		}
 		int j;
 		for (j = 0; j < choices.length; j++) {
 			if (chosenLeader.compareTo((String) choices[j]) == 0) {
@@ -597,6 +612,7 @@ public class GUInterface implements UserInterface {
 
 	@Override
 	public ImmProperties[] reqPrivileges(int number, ImmProperties[] privilegesValues) {
+		int defaultValue = 0;
 		ImmProperties[] output = new ImmProperties[number];
 		Object choices[] = new Object[privilegesValues.length];
 		for (int i = 0; i < privilegesValues.length; i++) {
@@ -606,13 +622,19 @@ public class GUInterface implements UserInterface {
 			String chosenPrivilege = (String) JOptionPane.showInputDialog(mainWindow,
 					"Which privilege do you want to take?", "Choose a privilege", JOptionPane.PLAIN_MESSAGE, null,
 					choices, choices[0]);
-			int j;
-			for (j = 0; j < choices.length; j++) {
-				if (chosenPrivilege.compareTo((String) choices[j]) == 0) {
-					break;
+			if (chosenPrivilege == null) {
+				JOptionPane.showMessageDialog(mainWindow, "Since you are lazy, we have made the choice for you!");
+				output[i] = privilegesValues[defaultValue];
+				defaultValue++;
+			} else {
+				int j;
+				for (j = 0; j < choices.length; j++) {
+					if (chosenPrivilege.compareTo((String) choices[j]) == 0) {
+						break;
+					}
 				}
+				output[i] = privilegesValues[j];
 			}
-			output[i] = privilegesValues[j];
 		}
 		return output;
 	}
@@ -649,16 +671,20 @@ public class GUInterface implements UserInterface {
 		for (int i = 0; i < actions.length; i++) {
 			choices[i] = actions[i].getType() + ": " + actions[i].getDescription();
 		}
-			String chosenPrivilege = (String) JOptionPane.showInputDialog(mainWindow,
-					"Which extra action do you want to do?", "Choose an extra action", JOptionPane.PLAIN_MESSAGE, null,
-					choices, choices[0]);
-			int j;
-			for (j = 0; j < choices.length; j++) {
-				if (chosenPrivilege.compareTo((String) choices[j]) == 0) {
-					choice = j;
-					break;
-				}
+		String chosenExtraAction = (String) JOptionPane.showInputDialog(mainWindow,
+				"Which extra action do you want to do?", "Choose an extra action", JOptionPane.PLAIN_MESSAGE, null,
+				choices, choices[0]);
+		if (chosenExtraAction == null) {
+			JOptionPane.showMessageDialog(mainWindow, "Since you are lazy, we have made the choice for you!");
+			return 0;
+		}
+		int j;
+		for (j = 0; j < choices.length; j++) {
+			if (chosenExtraAction.compareTo((String) choices[j]) == 0) {
+				choice = j;
+				break;
 			}
+		}
 		return choice;
 	}
 
@@ -672,6 +698,10 @@ public class GUInterface implements UserInterface {
 		String chosenEffect = (String) JOptionPane.showInputDialog(mainWindow,
 				"Which of the effects of this card should be activated in the current work action?",
 				"Choose effect to activate", JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+		if (chosenEffect == null) {
+			JOptionPane.showMessageDialog(mainWindow, "Since you are lazy, we have made the choice for you!");
+			return 0;
+		}
 		int j;
 		for (j = 0; j < choices.length; j++) {
 			if (chosenEffect.compareTo((String) choices[j]) == 0) {
@@ -684,6 +714,10 @@ public class GUInterface implements UserInterface {
 	@Override
 	public String reqName() {
 		String name = JOptionPane.showInputDialog(mainWindow, "Insert your name", JOptionPane.PLAIN_MESSAGE);
+		if (name == null) {
+			JOptionPane.showMessageDialog(mainWindow, "Match Aborted!");
+			System.exit(0);
+		}
 		return name;
 	}
 
@@ -709,6 +743,10 @@ public class GUInterface implements UserInterface {
 		}
 		String chosenTile = (String) JOptionPane.showInputDialog(mainWindow, "Which tile do you want to use?",
 				"Choose Tile", JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+		if (chosenTile == null) {
+			JOptionPane.showMessageDialog(mainWindow, "Since you are lazy, we have made the choice for you!");
+			return 0;
+		}
 		int j;
 		for (j = 0; j < choices.length; j++) {
 			if (chosenTile.compareTo((String) choices[j]) == 0) {
@@ -732,8 +770,8 @@ public class GUInterface implements UserInterface {
 			choices[i] = possibleChoices[i].toString();
 		}
 		String chosenCard = (String) JOptionPane.showInputDialog(mainWindow,
-				"Which Development Card do you want to take with extra action?",
-				"Choose Development Card", JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+				"Which Development Card do you want to take with extra action?", "Choose Development Card",
+				JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
 		int j;
 		for (j = 0; j < choices.length; j++) {
 			if (chosenCard.compareTo((String) choices[j]) == 0) {
@@ -745,7 +783,7 @@ public class GUInterface implements UserInterface {
 
 	@Override
 	public int reqNumberOfServants(int max) {
-		int possibleServants = max ;
+		int possibleServants = max;
 		Object choices[] = new Object[max + 1];
 		for (int i = 0; i <= possibleServants; i++) {
 			choices[i] = Integer.toString(i);
