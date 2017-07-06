@@ -144,7 +144,7 @@ public class AdvancedMatch extends Match {
 	else if (round == RoundType.INITIAL_ROUND) round = RoundType.FINAL_ROUND;
 	else if (round == RoundType.FINAL_ROUND) round = RoundType.VATICAN_ROUND;
 	else if (round == RoundType.VATICAN_ROUND){ 
-		if (period <3) {
+		if (period <NUM_OF_PERIODS) {
 			round = RoundType.INITIAL_ROUND;
 			period++;
 		}
