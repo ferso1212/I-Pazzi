@@ -97,7 +97,7 @@ public class SocketConnectionAdder extends Thread {
 				this.connectionsQueue.add(newConnection);
 				stdSem.release();
 				System.out.println("\n" + newConnection.getName()
-						+ "'s inbound connection added to the standard lobby in position " + connectionsQueue.size());
+						+ "'s inbound connection added to the standard lobby");
 			}
 		}
 
@@ -106,8 +106,7 @@ public class SocketConnectionAdder extends Thread {
 				this.advConnectionsQueue.add(newConnection);
 				advSem.release();
 				System.out.println("\n" + newConnection.getName()
-						+ "'s inbound connection added to the advanced lobby in position "
-						+ advConnectionsQueue.size());
+						+ "'s inbound connection added to the advanced lobby");
 			}
 		}
 	}

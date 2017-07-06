@@ -12,7 +12,7 @@ import javax.swing.JButton;
 
 public class LeaderCardButton extends JButton {
 	
-	private BufferedImage leaderImage;
+	private transient BufferedImage leaderImage;
 	private double scaleFactor;
 	
 	public LeaderCardButton(){
