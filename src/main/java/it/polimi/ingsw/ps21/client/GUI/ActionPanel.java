@@ -34,12 +34,15 @@ public class ActionPanel extends JPanel {
 	private PlayerColor playerId;
 	private LeaderPanel leaderPanel;
 	private boolean isAdvanced;
+	private NullActionButton nullActionButton;
 
-	public ActionPanel(MatchData matchInfo, PlayerColor playerId, Dimension mainFrameDimension) {
+	public ActionPanel(MatchData matchInfo, PlayerColor playerId, Dimension mainFrameDimension,
+			ActionListener nullActionListener) {
 
 		this.playerId = playerId;
 		this.isAdvanced = false;
-		this.setPreferredSize(new Dimension((int)(mainFrameDimension.getWidth()/2), (int)(mainFrameDimension.getHeight()/2)));
+		this.setPreferredSize(
+				new Dimension((int) (mainFrameDimension.getWidth() / 2), (int) (mainFrameDimension.getHeight() / 2)));
 		this.setLayout(new BorderLayout(5, 2));
 		roundInfo = new JLabel(
 				"This is the " + matchInfo.getRound() + " of the " + matchInfo.getPeriod() + "° period.");
@@ -60,6 +63,11 @@ public class ActionPanel extends JPanel {
 		temp.setLayout(new GridBagLayout());
 		temp.setOpaque(false);
 		GridBagConstraints constraints = new GridBagConstraints();
+		nullActionButton = new NullActionButton(playerId);
+		nullActionButton.addActionListener(nullActionListener);
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.anchor = GridBagConstraints.WEST;
+		temp.add(nullActionButton, constraints);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.anchor = GridBagConstraints.CENTER;
 		temp.add(memberPanel, constraints);
@@ -75,12 +83,14 @@ public class ActionPanel extends JPanel {
 		this.setVisible(true);
 		this.setOpaque(false);
 	}
-	
-	public ActionPanel(MatchData matchInfo, PlayerColor playerId, Dimension mainFrameDimension, ActionListener leaderListener) {
+
+	public ActionPanel(MatchData matchInfo, PlayerColor playerId, Dimension mainFrameDimension,
+			ActionListener nullActionListener, ActionListener leaderListener) {
 
 		this.playerId = playerId;
 		this.isAdvanced = true;
-		this.setPreferredSize(new Dimension((int)(mainFrameDimension.getWidth()/2), (int)(mainFrameDimension.getHeight()/2)));
+		this.setPreferredSize(
+				new Dimension((int) (mainFrameDimension.getWidth() / 2), (int) (mainFrameDimension.getHeight() / 2)));
 		this.setLayout(new BorderLayout(5, 2));
 		roundInfo = new JLabel(
 				"This is the " + matchInfo.getRound() + " of the " + matchInfo.getPeriod() + "° period.");
@@ -91,9 +101,9 @@ public class ActionPanel extends JPanel {
 		this.add(centerPanel, BorderLayout.PAGE_START);
 
 		// LINE
-			leaderPanel = new LeaderPanel(this.getPreferredSize(), leaderListener);
-			this.add(leaderPanel, BorderLayout.CENTER);
-			
+		leaderPanel = new LeaderPanel(this.getPreferredSize(), leaderListener);
+		this.add(leaderPanel, BorderLayout.CENTER);
+
 		// PAGE_END
 		memberPanel = new FamilyMemberPanel(playerId);
 		servantsSlider = new ServantsSlider();
@@ -105,6 +115,13 @@ public class ActionPanel extends JPanel {
 		temp.setLayout(new GridBagLayout());
 		temp.setOpaque(false);
 		GridBagConstraints constraints = new GridBagConstraints();
+
+		nullActionButton = new NullActionButton(playerId);
+		nullActionButton.addActionListener(nullActionListener);
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.anchor = GridBagConstraints.WEST;
+		temp.add(nullActionButton, constraints);
+
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.anchor = GridBagConstraints.CENTER;
 		temp.add(memberPanel, constraints);
@@ -114,7 +131,7 @@ public class ActionPanel extends JPanel {
 
 		temp.add(new JLabel("Servants to add:"));
 		constraints.fill = GridBagConstraints.HORIZONTAL;
-		constraints.anchor = GridBagConstraints.CENTER;
+		constraints.anchor = GridBagConstraints.EAST;
 		temp.add(servantsSlider, constraints);
 		this.add(temp, BorderLayout.PAGE_END);
 		this.setVisible(true);
@@ -127,7 +144,7 @@ public class ActionPanel extends JPanel {
 			if (p.getId() == this.playerId) {
 				servantsSlider.updateSlider(p);
 				memberPanel.update(p);
-				
+
 				if (this.isAdvanced) {
 					try {
 						leaderPanel.update(p.getLeaders());
@@ -147,15 +164,21 @@ public class ActionPanel extends JPanel {
 	public int getChosenServants() {
 		return servantsSlider.getValue();
 	}
-	
-	public void setActionPanel(){
-		for (int i=0; i<4; i++){
-			leaderPanel.setButtons();
+
+	public void setActionPanel() {
+		if (isAdvanced) {
+			for (int i = 0; i < 4; i++) {
+				leaderPanel.setButtons();
+			}
 		}
 	}
-	
-	public LeaderPanel getLeaderPanel(){
+
+	public LeaderPanel getLeaderPanel() {
 		return this.leaderPanel;
+	}
+
+	public NullActionButton getNullButton() {
+		return this.nullActionButton;
 	}
 
 }
