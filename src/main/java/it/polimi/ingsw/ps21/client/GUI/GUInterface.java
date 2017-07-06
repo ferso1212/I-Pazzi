@@ -554,7 +554,7 @@ public class GUInterface implements UserInterface {
 			} else
 				return new ActionData(ActionType.NULL, MembersColor.NEUTRAL, 0, null, 0, id);
 		} catch (InterruptedException e) {
-			Thread.currentThread().interrupted();
+			Thread.currentThread().interrupt();
 			return new ActionData(ActionType.NULL, MembersColor.NEUTRAL, 0, null, 0, id);
 		}
 	}
