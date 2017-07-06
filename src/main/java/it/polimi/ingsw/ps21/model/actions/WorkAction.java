@@ -56,7 +56,7 @@ public class WorkAction extends Action {
 						&& ((famMember.getColor() == MembersColor.WHITE) || (famMember.getColor() == MembersColor.BLACK)
 								|| (famMember.getColor() == MembersColor.ORANGE))
 						&& !((this.checkOccupant(match, famMember, space) == MembersColor.NEUTRAL) || (this.checkOccupant(match, famMember, space) == null))) {
-					//refuse action because in the other space there is a coloured member
+					//refuse action because in the other space there is a colored member
 					return new RefusedAction(player.getId(), "You can't place a coloured member in this space because you have another colored member in the other space.");
 				}
 				try {

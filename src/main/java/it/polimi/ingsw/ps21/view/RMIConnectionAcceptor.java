@@ -84,6 +84,10 @@ public class RMIConnectionAcceptor extends UnicastRemoteObject implements RMICon
 					boolean usedName;
 					do {
 						name = unsettedConnection.reqName();
+						if (name == null) {
+							System.out.println("\nConnection interrupted because player canceled on name insertion");
+							return;
+						}
 						synchronized (usedNames) {
 							usedName = usedNames.contains(name);
 							if (!usedName)
