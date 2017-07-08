@@ -114,13 +114,12 @@ public class WorkAction extends Action {
 				return null;
 			}
 		} else if (space == match.getBoard().getMultipleWorkSpace(WorkType.HARVEST)) {
-			if (famMember.getOwnerId() == match.getBoard().getSingleWorkSpace(WorkType.HARVEST).getOccupant()
-					.getOwnerId())
+			if ((match.getBoard().getSingleWorkSpace(WorkType.HARVEST).getOccupant() != null)&&(famMember.getOwnerId() == match.getBoard().getSingleWorkSpace(WorkType.HARVEST).getOccupant()
+					.getOwnerId()))
 				return match.getBoard().getSingleWorkSpace(WorkType.HARVEST).getOccupant().getColor();
 			return null;
 		} else if (space == match.getBoard().getMultipleWorkSpace(WorkType.PRODUCTION)) {
-			if (famMember.getOwnerId() == match.getBoard().getSingleWorkSpace(WorkType.PRODUCTION).getOccupant()
-					.getOwnerId())
+			if ((match.getBoard().getSingleWorkSpace(WorkType.PRODUCTION).getOccupant() != null) && (famMember.getOwnerId() == match.getBoard().getSingleWorkSpace(WorkType.PRODUCTION).getOccupant().getOwnerId()))
 				return match.getBoard().getSingleWorkSpace(WorkType.PRODUCTION).getOccupant().getColor();
 			return null;
 		}

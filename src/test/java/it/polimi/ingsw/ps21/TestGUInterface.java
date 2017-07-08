@@ -16,7 +16,7 @@ public class TestGUInterface {
 
 	
 	GUInterface testeGuInterface = new GUInterface();
-	private PlayerColor validPlayers[] = {PlayerColor.BLUE, PlayerColor.RED, PlayerColor.YELLOW};
+	private PlayerColor validPlayers[] = {PlayerColor.BLUE, PlayerColor.RED, PlayerColor.GREEN};
 	private Match testedMatch;
 	
 	@Before
@@ -33,7 +33,7 @@ public class TestGUInterface {
 		}
 	}
 	
-	//@Test
+	@Test
 	public void showInterface()
 	{
 		

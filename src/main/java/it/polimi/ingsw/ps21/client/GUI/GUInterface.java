@@ -68,11 +68,11 @@ public class GUInterface implements UserInterface {
 	private int updateCounter = 0;
 	private boolean isAdvanced;
 	private int playerTile;
-	private CouncilPanel councilPanel;
+	private MultipleSpacePanel councilPanel;
 	private WorkActionButton singleHarvest;
 	private WorkActionButton singleProduction;
-	private MultipleWorkActionPanel multipleHarvest;
-	private MultipleWorkActionPanel multipleProduction;
+	private MultipleSpacePanel multipleHarvest;
+	private MultipleSpacePanel multipleProduction;
 	private DevelopmentCardButton[][] developmentCards;
 	private MarketButton[] marketButtons;
 	private JLabel[][] familyMembersOnBoard;
@@ -166,7 +166,7 @@ public class GUInterface implements UserInterface {
 						waitingActions.release();
 					}
 				}
-			} else if (e.getSource().equals(multipleHarvest.getButton())) {
+			} else if (e.getSource().equals(multipleHarvest.getSpaceButton())) {
 				int servants = actionPanel.getChosenServants();
 				MembersColor color = actionPanel.getChosenColor();
 				if (color == null)
@@ -176,11 +176,11 @@ public class GUInterface implements UserInterface {
 
 					if (waitingActions.availablePermits() == 0) {
 						chosenAction = new ActionData(ActionType.HARVEST, color, servants,
-								DevelopmentCardType.TERRITORY, 2, servants);
+								DevelopmentCardType.TERRITORY, 2, actionId);
 						waitingActions.release();
 					}
 				}
-			} else if (e.getSource().equals(multipleProduction.getButton())) {
+			} else if (e.getSource().equals(multipleProduction.getSpaceButton())) {
 				int servants = actionPanel.getChosenServants();
 				MembersColor color = actionPanel.getChosenColor();
 				if (color == null)
@@ -204,7 +204,7 @@ public class GUInterface implements UserInterface {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource().equals(councilPanel.getCouncilButton())) {
+			if (e.getSource().equals(councilPanel.getSpaceButton())) {
 				int servants = actionPanel.getChosenServants();
 				MembersColor color = actionPanel.getChosenColor();
 				if (color != null) {
@@ -415,11 +415,29 @@ public class GUInterface implements UserInterface {
 
 		if (numberOfPlayers > 2) {
 
-			multipleProduction = new MultipleWorkActionPanel(new WorkListener());
-			boardPanel.add(multipleProduction).setBounds(resize(650), resize(5485), resize(900), resize(415));
+			multipleProduction = new MultipleSpacePanel(new WorkListener(), this.scaleFactor);
+			boardPanel.add(multipleProduction).setBounds(resize(733), resize(5599), resize(822), resize(278));
 
-			multipleHarvest = new MultipleWorkActionPanel(new WorkListener());
-			boardPanel.add(multipleHarvest).setBounds(resize(650), resize(6020), resize(900), resize(415));
+			multipleHarvest = new MultipleSpacePanel(new WorkListener(), this.scaleFactor);
+			boardPanel.add(multipleHarvest).setBounds(resize(733), resize(6174), resize(822), resize(278));
+		}else{
+			JLabel harvestSpaceCover = new JLabel();
+			JLabel productionSpaceCover = new JLabel();
+			
+			try {
+				BufferedImage harvestCover = ImageIO.read(new File((new File("")).getAbsolutePath().concat("/src/images/Space_Covers/HarvestMultipleCover.png")));
+				harvestSpaceCover.setIcon(new ImageIcon(harvestCover.getScaledInstance(resize(harvestCover.getWidth()), resize(harvestCover.getHeight()), Image.SCALE_DEFAULT)));
+				boardPanel.add(harvestSpaceCover).setBounds(resize(545), resize(6007), resize(harvestCover.getWidth()), resize(harvestCover.getHeight()));
+				
+				BufferedImage productionCover = ImageIO.read(new File((new File("")).getAbsolutePath().concat("/src/images/Space_Covers/ProductionMultipleCover.png")));
+				productionSpaceCover.setIcon(new ImageIcon(productionCover.getScaledInstance(resize(productionCover.getWidth()), resize(productionCover.getHeight()), Image.SCALE_DEFAULT)));
+				boardPanel.add(productionSpaceCover).setBounds(resize(552), resize(5446), resize(productionCover.getWidth()), resize(productionCover.getHeight()));
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 
 		// market space
@@ -432,6 +450,21 @@ public class GUInterface implements UserInterface {
 			marketButtons[1] = new MarketButton(2);
 			boardPanel.add(marketButtons[1]).setBounds(resize(2850), resize(5380), resize(415), resize(415));
 			marketButtons[1].addActionListener(new MarketListener());
+			
+			JLabel firstMarketCover = new JLabel();
+			JLabel secondMarketCover = new JLabel();
+			try {
+				BufferedImage firstCover = ImageIO.read(new File((new File("")).getAbsolutePath().concat("/src/images/Space_Covers/Military_CoinsCoverMarket.png")));
+				firstMarketCover.setIcon(new ImageIcon(firstCover.getScaledInstance(resize(firstCover.getWidth()), resize(firstCover.getHeight()), Image.SCALE_DEFAULT)));
+				boardPanel.add(firstMarketCover).setBounds(resize(3215), resize(5440), resize(firstCover.getWidth()), resize(firstCover.getHeight()));
+				
+				BufferedImage secondCover = ImageIO.read(new File((new File("")).getAbsolutePath().concat("/src/images/Space_Covers/PrivilegeMarketCover.png")));
+				secondMarketCover.setIcon(new ImageIcon(secondCover.getScaledInstance(resize(firstCover.getWidth()), resize(firstCover.getHeight()), Image.SCALE_DEFAULT)));
+				boardPanel.add(secondMarketCover).setBounds(resize(3541), resize(5760), resize(firstCover.getWidth()), resize(firstCover.getHeight()));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		else {
@@ -455,8 +488,8 @@ public class GUInterface implements UserInterface {
 		}
 
 		// council space
-		councilPanel = new CouncilPanel(new CouncilListener(), this.scaleFactor);
-		boardPanel.add(councilPanel).setBounds(resize(2060), resize(3700), resize(1280), resize(580));
+		councilPanel = new MultipleSpacePanel(new CouncilListener(), this.scaleFactor);
+		boardPanel.add(councilPanel).setBounds(resize(2200), resize(3800), resize(1050), resize(350));
 	}
 
 	private void setUpRightPanel(PlayerData[] playersInfo) {
