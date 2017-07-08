@@ -83,6 +83,7 @@ public class GUInterface implements UserInterface {
 	private ActionData chosenAction = null;
 	private int actionId;
 	private int playerPosition;
+
 	/**
 	 * Create the application.
 	 */
@@ -245,35 +246,35 @@ public class GUInterface implements UserInterface {
 		}
 
 	}
-	
-	private class LeaderListener implements ActionListener{
+
+	private class LeaderListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			LeaderCardButton[] possibleLeaders = actionPanel.getLeaderPanel().getLeadersButtons();
-			for (int i =0; i< possibleLeaders.length; i++){
-			if (e.getSource().equals(possibleLeaders[i])){
-				if (waitingActions.availablePermits() == 0) {
-					chosenAction = new ActionData(ActionType.PLAY_LEADERCARD, null, 0, null, i, actionId);
-					waitingActions.release();
+			for (int i = 0; i < possibleLeaders.length; i++) {
+				if (e.getSource().equals(possibleLeaders[i])) {
+					if (waitingActions.availablePermits() == 0) {
+						chosenAction = new ActionData(ActionType.PLAY_LEADERCARD, null, 0, null, i, actionId);
+						waitingActions.release();
+					}
 				}
 			}
-			}
 		}
-		
+
 	}
-	
-	private class NullListener implements ActionListener{
+
+	private class NullListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource().equals(actionPanel.getNullButton())){
+			if (e.getSource().equals(actionPanel.getNullButton())) {
 				if (waitingActions.availablePermits() == 0) {
 					chosenAction = new ActionData(ActionType.NULL, null, 0, null, 0, actionId);
 					waitingActions.release();
 				}
 			}
-			
+
 		}
 	}
 
@@ -330,16 +331,16 @@ public class GUInterface implements UserInterface {
 		splitPane.setRightComponent(tabbedPane);
 
 		// setting a panel with borderLayout in the splitPane
-		if(this.isAdvanced){
-			actionPanel = new ActionPanel(matchInfo, playerID, mainWindow.getRootPane().getSize(),new NullListener(), new LeaderListener());
-		}else{
+		if (this.isAdvanced) {
+			actionPanel = new ActionPanel(matchInfo, playerID, mainWindow.getRootPane().getSize(), new NullListener(),
+					new LeaderListener());
+		} else {
 			actionPanel = new ActionPanel(matchInfo, playerID, mainWindow.getRootPane().getSize(), new NullListener());
 		}
 		rightPanel.add(actionPanel);
 
-
 		mainWindow.getContentPane().add(rightPanel);
-		//mainWindow.pack();
+		// mainWindow.pack();
 		setSpaces();
 		setUpRightPanel(matchInfo.getPlayers());
 		setActionPanel();
@@ -350,8 +351,8 @@ public class GUInterface implements UserInterface {
 	private int resize(int originalSize) {
 		return (int) (originalSize * this.scaleFactor);
 	}
-	
-	private void setActionPanel(){
+
+	private void setActionPanel() {
 		actionPanel.setActionPanel();
 	}
 
@@ -396,9 +397,11 @@ public class GUInterface implements UserInterface {
 			ExcommunicationLabel excomCard = new ExcommunicationLabel(excommunications[i].getId(),
 					boardPanel.getScaleFactor());
 			if (i != 1) {
-				boardPanel.add(excomCard).setBounds(resize(770) + resize(360) * i, resize(4100), resize(400), resize(715));
+				boardPanel.add(excomCard).setBounds(resize(770) + resize(360) * i, resize(4100), resize(400),
+						resize(715));
 			} else {
-				boardPanel.add(excomCard).setBounds(resize(770) + resize(360) * i, resize(4100) + resize(90), resize(400), resize(715));
+				boardPanel.add(excomCard).setBounds(resize(770) + resize(360) * i, resize(4100) + resize(90),
+						resize(400), resize(715));
 			}
 		}
 	}
@@ -421,24 +424,31 @@ public class GUInterface implements UserInterface {
 
 			multipleHarvest = new MultipleSpacePanel(new WorkListener(), this.scaleFactor);
 			boardPanel.add(multipleHarvest).setBounds(resize(733), resize(6174), resize(822), resize(278));
-		}else{
+		} else {
 			JLabel harvestSpaceCover = new JLabel();
 			JLabel productionSpaceCover = new JLabel();
-			
+
 			try {
-				BufferedImage harvestCover = ImageIO.read(new File((new File("")).getAbsolutePath().concat("/src/images/Space_Covers/HarvestMultipleCover.png")));
-				harvestSpaceCover.setIcon(new ImageIcon(harvestCover.getScaledInstance(resize(harvestCover.getWidth()), resize(harvestCover.getHeight()), Image.SCALE_DEFAULT)));
-				boardPanel.add(harvestSpaceCover).setBounds(resize(545), resize(6007), resize(harvestCover.getWidth()), resize(harvestCover.getHeight()));
-				
-				BufferedImage productionCover = ImageIO.read(new File((new File("")).getAbsolutePath().concat("/src/images/Space_Covers/ProductionMultipleCover.png")));
-				productionSpaceCover.setIcon(new ImageIcon(productionCover.getScaledInstance(resize(productionCover.getWidth()), resize(productionCover.getHeight()), Image.SCALE_DEFAULT)));
-				boardPanel.add(productionSpaceCover).setBounds(resize(552), resize(5446), resize(productionCover.getWidth()), resize(productionCover.getHeight()));
+				BufferedImage harvestCover = ImageIO.read(new File(
+						(new File("")).getAbsolutePath().concat("/src/images/Space_Covers/HarvestMultipleCover.png")));
+				harvestSpaceCover.setIcon(new ImageIcon(harvestCover.getScaledInstance(resize(harvestCover.getWidth()),
+						resize(harvestCover.getHeight()), Image.SCALE_DEFAULT)));
+				boardPanel.add(harvestSpaceCover).setBounds(resize(545), resize(6007), resize(harvestCover.getWidth()),
+						resize(harvestCover.getHeight()));
+
+				BufferedImage productionCover = ImageIO.read(new File((new File("")).getAbsolutePath()
+						.concat("/src/images/Space_Covers/ProductionMultipleCover.png")));
+				productionSpaceCover
+						.setIcon(new ImageIcon(productionCover.getScaledInstance(resize(productionCover.getWidth()),
+								resize(productionCover.getHeight()), Image.SCALE_DEFAULT)));
+				boardPanel.add(productionSpaceCover).setBounds(resize(552), resize(5446),
+						resize(productionCover.getWidth()), resize(productionCover.getHeight()));
 
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		}
 
 		// market space
@@ -451,17 +461,23 @@ public class GUInterface implements UserInterface {
 			marketButtons[1] = new MarketButton(2);
 			boardPanel.add(marketButtons[1]).setBounds(resize(2850), resize(5380), resize(415), resize(415));
 			marketButtons[1].addActionListener(new MarketListener());
-			
+
 			JLabel firstMarketCover = new JLabel();
 			JLabel secondMarketCover = new JLabel();
 			try {
-				BufferedImage firstCover = ImageIO.read(new File((new File("")).getAbsolutePath().concat("/src/images/Space_Covers/Military_CoinsCoverMarket.png")));
-				firstMarketCover.setIcon(new ImageIcon(firstCover.getScaledInstance(resize(firstCover.getWidth()), resize(firstCover.getHeight()), Image.SCALE_DEFAULT)));
-				boardPanel.add(firstMarketCover).setBounds(resize(3215), resize(5440), resize(firstCover.getWidth()), resize(firstCover.getHeight()));
-				
-				BufferedImage secondCover = ImageIO.read(new File((new File("")).getAbsolutePath().concat("/src/images/Space_Covers/PrivilegeMarketCover.png")));
-				secondMarketCover.setIcon(new ImageIcon(secondCover.getScaledInstance(resize(firstCover.getWidth()), resize(firstCover.getHeight()), Image.SCALE_DEFAULT)));
-				boardPanel.add(secondMarketCover).setBounds(resize(3541), resize(5760), resize(firstCover.getWidth()), resize(firstCover.getHeight()));
+				BufferedImage firstCover = ImageIO.read(new File((new File("")).getAbsolutePath()
+						.concat("/src/images/Space_Covers/Military_CoinsCoverMarket.png")));
+				firstMarketCover.setIcon(new ImageIcon(firstCover.getScaledInstance(resize(firstCover.getWidth()),
+						resize(firstCover.getHeight()), Image.SCALE_DEFAULT)));
+				boardPanel.add(firstMarketCover).setBounds(resize(3215), resize(5440), resize(firstCover.getWidth()),
+						resize(firstCover.getHeight()));
+
+				BufferedImage secondCover = ImageIO.read(new File(
+						(new File("")).getAbsolutePath().concat("/src/images/Space_Covers/PrivilegeMarketCover.png")));
+				secondMarketCover.setIcon(new ImageIcon(secondCover.getScaledInstance(resize(firstCover.getWidth()),
+						resize(firstCover.getHeight()), Image.SCALE_DEFAULT)));
+				boardPanel.add(secondMarketCover).setBounds(resize(3541), resize(5760), resize(firstCover.getWidth()),
+						resize(firstCover.getHeight()));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -505,10 +521,11 @@ public class GUInterface implements UserInterface {
 		for (int i = 0; i < numberOfPlayers; i++) {
 			playerTiles[i] = new PlayerTile(playersInfo[i], (int) (((double) mainWindow.getRootPane().getHeight() / 2)
 					- (0.5 / 9) * ((double) mainWindow.getRootPane().getHeight() / 2)), this.isAdvanced);
-			if (playersInfo[i].getId() == playerID)
-				{tabbedPane.insertTab("Your Tile", null, playerTiles[i], null, i);
-				this.playerPosition=i;}
-				
+			if (playersInfo[i].getId() == playerID) {
+				tabbedPane.insertTab("Your Tile", null, playerTiles[i], null, i);
+				this.playerPosition = i;
+			}
+
 			else
 				tabbedPane.insertTab("Player " + playersInfo[i].getId(), null, playerTiles[i], null, i);
 
@@ -541,7 +558,7 @@ public class GUInterface implements UserInterface {
 
 	private void updateSpaces(BoardData boardInfo) {
 		councilPanel.update(boardInfo.getCouncilOccupants());
-		singleHarvest.update(boardInfo.getSingleHarvestSpace()); 
+		singleHarvest.update(boardInfo.getSingleHarvestSpace());
 		singleProduction.update(boardInfo.getSingleProductionSpace());
 		int i = 0;
 		for (MarketButton m : this.marketButtons) {
@@ -552,108 +569,145 @@ public class GUInterface implements UserInterface {
 			multipleHarvest.update(boardInfo.getMultipleHarvestSpace());
 			multipleProduction.update(boardInfo.getMultipleProductionSpace());
 		}
-		if(this.isAdvanced){
-			if(boardInfo.getSingleProductionSpaceOtherOccupant() != null){
+		
+		if (this.isAdvanced) {
+			if (boardInfo.getSingleProductionSpaceOtherOccupant().getOwnerId() != null) {
 				JLabel secondProductionOccupant = new JLabel();
 				BufferedImage secondPawnProduction;
 				try {
 					secondPawnProduction = ImageIO.read(new File(new File("").getAbsolutePath()
-							.concat("/src/images/Lorenzo_Pedine/" + boardInfo.getSingleProductionSpaceOtherOccupant().getOwnerId().toString().toLowerCase() + "_Player_"
-									+ boardInfo.getSingleProductionSpaceOtherOccupant().getColor().toString().toLowerCase() + ".png")));
-					secondProductionOccupant.setIcon(new ImageIcon(secondPawnProduction.getScaledInstance(-1, singleProduction.getHeight()/2, Image.SCALE_SMOOTH)));
-					boardPanel.add(secondProductionOccupant).setBounds(resize(515), resize(5692), -1, singleProduction.getHeight()/2);
+							.concat("/src/images/Lorenzo_Pedine/"
+									+ boardInfo.getSingleProductionSpaceOtherOccupant().getOwnerId().toString()
+											.toLowerCase()
+									+ "_Player_" + boardInfo.getSingleProductionSpaceOtherOccupant().getColor()
+											.toString().toLowerCase()
+									+ ".png")));
+					secondProductionOccupant.setIcon(new ImageIcon(secondPawnProduction.getScaledInstance(-1,
+							singleProduction.getHeight() / 2, Image.SCALE_SMOOTH)));
+					boardPanel.add(secondProductionOccupant).setBounds(resize(515), resize(5692), resize(200),
+							resize(200));
+					secondProductionOccupant.setOpaque(true);
+					secondProductionOccupant.setVisible(true);
 				} catch (IOException e) {
-					secondProductionOccupant.setToolTipText(boardInfo.getSingleProductionSpaceOtherOccupant().getColor().toString() + "member of " + boardInfo.getSingleProductionSpaceOtherOccupant().getOwnerId().toString() +" player");
+					secondProductionOccupant.setToolTipText(
+							boardInfo.getSingleProductionSpaceOtherOccupant().getColor().toString() + "member of "
+									+ boardInfo.getSingleProductionSpaceOtherOccupant().getOwnerId().toString()
+									+ " player");
 				}
-				
+
 			}
-			if(boardInfo.getSingleHarvestSpaceOtherOccupant() != null){
+			if (boardInfo.getSingleHarvestSpaceOtherOccupant().getOwnerId() != null) {
 				JLabel secondHarvestOccupant = new JLabel();
 				BufferedImage secondPawnHarvest;
 				try {
 					secondPawnHarvest = ImageIO.read(new File(new File("").getAbsolutePath()
-							.concat("/src/images/Lorenzo_Pedine/" + boardInfo.getSingleHarvestSpaceOtherOccupant().getOwnerId().toString().toLowerCase() + "_Player_"
-									+ boardInfo.getSingleHarvestSpaceOtherOccupant().getColor().toString().toLowerCase() + ".png")));
-					secondHarvestOccupant.setIcon(new ImageIcon(secondPawnHarvest.getScaledInstance(-1, singleHarvest.getHeight()/2, Image.SCALE_SMOOTH)));
-					boardPanel.add(secondHarvestOccupant).setBounds(resize(515), resize(6227), -1, singleHarvest.getHeight()/2);
+							.concat("/src/images/Lorenzo_Pedine/"
+									+ boardInfo.getSingleHarvestSpaceOtherOccupant().getOwnerId().toString()
+											.toLowerCase()
+									+ "_Player_"
+									+ boardInfo.getSingleHarvestSpaceOtherOccupant().getColor().toString().toLowerCase()
+									+ ".png")));
+					secondHarvestOccupant.setIcon(new ImageIcon(secondPawnHarvest.getScaledInstance(-1,
+							singleHarvest.getHeight() / 2, Image.SCALE_SMOOTH)));
+					boardPanel.add(secondHarvestOccupant).setBounds(resize(515), resize(6227), resize(200),
+							resize(200));
 				} catch (IOException e) {
-					secondHarvestOccupant.setToolTipText(boardInfo.getSingleHarvestSpaceOtherOccupant().getColor().toString() + "member of " + boardInfo.getSingleHarvestSpaceOtherOccupant().getOwnerId().toString() +" player");
+					secondHarvestOccupant.setToolTipText(
+							boardInfo.getSingleHarvestSpaceOtherOccupant().getColor().toString() + "member of "
+									+ boardInfo.getSingleHarvestSpaceOtherOccupant().getOwnerId().toString()
+									+ " player");
 				}
-				
-			}
-			for(int k=0; k<this.numberOfPlayers; k++){
-				switch (k) {
-				case 0:
-					if (boardInfo.getMarket()[0].getSecondOccupant() != null){
-						JLabel secondMarketOccupant = new JLabel();
-						BufferedImage secondPawnMarket;
-						try {
-							secondPawnMarket = ImageIO.read(new File(new File("").getAbsolutePath()
-									.concat("/src/images/Lorenzo_Pedine/" + boardInfo.getMarket()[0].getSecondOccupant().getOwnerId().toString().toLowerCase() + "_Player_"
-											+ boardInfo.getMarket()[0].getSecondOccupant().getColor().toString().toLowerCase() + ".png")));
-							secondMarketOccupant.setIcon(new ImageIcon(secondPawnMarket.getScaledInstance(-1, marketButtons[0].getHeight()/2, Image.SCALE_SMOOTH)));
-							boardPanel.add(secondMarketOccupant).setBounds(resize(2825), resize(5380), -1, marketButtons[0].getHeight()/2);
-						} catch (IOException e) {
-							secondMarketOccupant.setToolTipText(boardInfo.getMarket()[0].getSecondOccupant().getColor().toString() + "member of " + boardInfo.getMarket()[0].getSecondOccupant().getOwnerId().toString() +" player");
-						}
-					}
-					
-					break;
-				
-				case 1:
-					if (boardInfo.getMarket()[1].getSecondOccupant() != null){
-						JLabel secondMarketOccupant = new JLabel();
-						BufferedImage secondPawnMarket;
-						try {
-							secondPawnMarket = ImageIO.read(new File(new File("").getAbsolutePath()
-									.concat("/src/images/Lorenzo_Pedine/" + boardInfo.getMarket()[1].getSecondOccupant().getOwnerId().toString().toLowerCase() + "_Player_"
-											+ boardInfo.getMarket()[1].getSecondOccupant().getColor().toString().toLowerCase() + ".png")));
-							secondMarketOccupant.setIcon(new ImageIcon(secondPawnMarket.getScaledInstance(-1, marketButtons[1].getHeight()/2, Image.SCALE_SMOOTH)));
-							boardPanel.add(secondMarketOccupant).setBounds(resize(3265), resize(5380), -1, marketButtons[1].getHeight()/2);
-						} catch (IOException e) {
-							secondMarketOccupant.setToolTipText(boardInfo.getMarket()[1].getSecondOccupant().getColor().toString() + "member of " + boardInfo.getMarket()[1].getSecondOccupant().getOwnerId().toString() +" player");
-						}
-					}
-					
-					break;
-				
-				case 2:
-					if (boardInfo.getMarket()[2].getSecondOccupant() != null){
-						JLabel secondMarketOccupant = new JLabel();
-						BufferedImage secondPawnMarket;
-						try {
-							secondPawnMarket = ImageIO.read(new File(new File("").getAbsolutePath()
-									.concat("/src/images/Lorenzo_Pedine/" + boardInfo.getMarket()[2].getSecondOccupant().getOwnerId().toString().toLowerCase() + "_Player_"
-											+ boardInfo.getMarket()[2].getSecondOccupant().getColor().toString().toLowerCase() + ".png")));
-							secondMarketOccupant.setIcon(new ImageIcon(secondPawnMarket.getScaledInstance(-1, marketButtons[2].getHeight()/2, Image.SCALE_SMOOTH)));
-							boardPanel.add(secondMarketOccupant).setBounds(resize(3695), resize(5500), -1, marketButtons[2].getHeight()/2);
-						} catch (IOException e) {
-							secondMarketOccupant.setToolTipText(boardInfo.getMarket()[2].getSecondOccupant().getColor().toString() + "member of " + boardInfo.getMarket()[2].getSecondOccupant().getOwnerId().toString() +" player");
-						}
-					}
-					
-					break;
-					
-				case 3:
-					if (boardInfo.getMarket()[3].getSecondOccupant() != null){
-						JLabel secondMarketOccupant = new JLabel();
-						BufferedImage secondPawnMarket;
-						try {
-							secondPawnMarket = ImageIO.read(new File(new File("").getAbsolutePath()
-									.concat("/src/images/Lorenzo_Pedine/" + boardInfo.getMarket()[3].getSecondOccupant().getOwnerId().toString().toLowerCase() + "_Player_"
-											+ boardInfo.getMarket()[3].getSecondOccupant().getColor().toString().toLowerCase() + ".png")));
-							secondMarketOccupant.setIcon(new ImageIcon(secondPawnMarket.getScaledInstance(-1, marketButtons[3].getHeight()/2, Image.SCALE_SMOOTH)));
-							boardPanel.add(secondMarketOccupant).setBounds(resize(4015), resize(5800), -1, marketButtons[3].getHeight()/2);
-						} catch (IOException e) {
-							secondMarketOccupant.setToolTipText(boardInfo.getMarket()[3].getSecondOccupant().getColor().toString() + "member of " + boardInfo.getMarket()[3].getSecondOccupant().getOwnerId().toString() +" player");
-						}
-					}
-					
-					break;
 
-				default:
-					break;
+			}
+
+			if (boardInfo.getMarket()[0].getSecondOccupant().getOwnerId() != null) {
+				JLabel secondMarketOccupant = new JLabel();
+				BufferedImage secondPawnMarket;
+				try {
+					secondPawnMarket = ImageIO.read(new File(new File("").getAbsolutePath()
+							.concat("/src/images/Lorenzo_Pedine/"
+									+ boardInfo.getMarket()[0].getSecondOccupant().getOwnerId().toString().toLowerCase()
+									+ "_Player_"
+									+ boardInfo.getMarket()[0].getSecondOccupant().getColor().toString().toLowerCase()
+									+ ".png")));
+					secondMarketOccupant.setIcon(new ImageIcon(secondPawnMarket.getScaledInstance(-1,
+							marketButtons[0].getHeight() / 2, Image.SCALE_SMOOTH)));
+					boardPanel.add(secondMarketOccupant).setBounds(resize(2825), resize(5380), resize(200),
+							resize(200));
+				} catch (IOException e) {
+					secondMarketOccupant.setToolTipText(
+							boardInfo.getMarket()[0].getSecondOccupant().getColor().toString() + "member of "
+									+ boardInfo.getMarket()[0].getSecondOccupant().getOwnerId().toString() + " player");
 				}
+			}
+
+			if (boardInfo.getMarket()[1].getSecondOccupant().getOwnerId() != null) {
+				JLabel secondMarketOccupant = new JLabel();
+				BufferedImage secondPawnMarket;
+				try {
+					secondPawnMarket = ImageIO.read(new File(new File("").getAbsolutePath()
+							.concat("/src/images/Lorenzo_Pedine/"
+									+ boardInfo.getMarket()[1].getSecondOccupant().getOwnerId().toString().toLowerCase()
+									+ "_Player_"
+									+ boardInfo.getMarket()[1].getSecondOccupant().getColor().toString().toLowerCase()
+									+ ".png")));
+					secondMarketOccupant.setIcon(new ImageIcon(secondPawnMarket.getScaledInstance(-1,
+							marketButtons[1].getHeight() / 2, Image.SCALE_SMOOTH)));
+					boardPanel.add(secondMarketOccupant).setBounds(resize(3265), resize(5380), resize(200),
+							resize(200));
+				} catch (IOException e) {
+					secondMarketOccupant.setToolTipText(
+							boardInfo.getMarket()[1].getSecondOccupant().getColor().toString() + "member of "
+									+ boardInfo.getMarket()[1].getSecondOccupant().getOwnerId().toString() + " player");
+				}
+			}
+			if (this.numberOfPlayers == 4) {
+				if (boardInfo.getMarket()[2].getSecondOccupant().getOwnerId() != null) {
+					JLabel secondMarketOccupant = new JLabel();
+					BufferedImage secondPawnMarket;
+					try {
+						secondPawnMarket = ImageIO.read(new File(new File("").getAbsolutePath()
+								.concat("/src/images/Lorenzo_Pedine/"
+										+ boardInfo.getMarket()[2].getSecondOccupant().getOwnerId().toString()
+												.toLowerCase()
+										+ "_Player_" + boardInfo.getMarket()[2].getSecondOccupant().getColor()
+												.toString().toLowerCase()
+										+ ".png")));
+						secondMarketOccupant.setIcon(new ImageIcon(secondPawnMarket.getScaledInstance(-1,
+								marketButtons[2].getHeight() / 2, Image.SCALE_SMOOTH)));
+						boardPanel.add(secondMarketOccupant).setBounds(resize(3695), resize(5500), resize(200),
+								resize(200));
+					} catch (IOException e) {
+						secondMarketOccupant.setToolTipText(
+								boardInfo.getMarket()[2].getSecondOccupant().getColor().toString() + "member of "
+										+ boardInfo.getMarket()[2].getSecondOccupant().getOwnerId().toString()
+										+ " player");
+					}
+				}
+
+				if (boardInfo.getMarket()[3].getSecondOccupant().getOwnerId() != null) {
+					JLabel secondMarketOccupant = new JLabel();
+					BufferedImage secondPawnMarket;
+					try {
+						secondPawnMarket = ImageIO.read(new File(new File("").getAbsolutePath()
+								.concat("/src/images/Lorenzo_Pedine/"
+										+ boardInfo.getMarket()[3].getSecondOccupant().getOwnerId().toString()
+												.toLowerCase()
+										+ "_Player_" + boardInfo.getMarket()[3].getSecondOccupant().getColor()
+												.toString().toLowerCase()
+										+ ".png")));
+						secondMarketOccupant.setIcon(new ImageIcon(secondPawnMarket.getScaledInstance(-1,
+								marketButtons[3].getHeight() / 2, Image.SCALE_SMOOTH)));
+						boardPanel.add(secondMarketOccupant).setBounds(resize(4015), resize(5800), resize(200),
+								resize(200));
+					} catch (IOException e) {
+						secondMarketOccupant.setToolTipText(
+								boardInfo.getMarket()[3].getSecondOccupant().getColor().toString() + "member of "
+										+ boardInfo.getMarket()[3].getSecondOccupant().getOwnerId().toString()
+										+ " player");
+					}
+				}
+
 			}
 		}
 	}
