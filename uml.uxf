@@ -477,7 +477,7 @@ m2=0...</panel_attributes>
     <coordinates>
       <x>1692</x>
       <y>2508</y>
-      <w>210</w>
+      <w>204</w>
       <h>300</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -490,7 +490,7 @@ m2=1...2</panel_attributes>
     <coordinates>
       <x>1974</x>
       <y>2580</y>
-      <w>702</w>
+      <w>696</w>
       <h>282</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -587,7 +587,7 @@ m2=1
     <coordinates>
       <x>1794</x>
       <y>2292</y>
-      <w>42</w>
+      <w>36</w>
       <h>54</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
@@ -1730,7 +1730,7 @@ observes</panel_attributes>
     <id>UMLPackage</id>
     <coordinates>
       <x>5004</x>
-      <y>426</y>
+      <y>420</y>
       <w>942</w>
       <h>1530</h>
     </coordinates>
@@ -2424,7 +2424,7 @@ m2=1..n</panel_attributes>
     <coordinates>
       <x>438</x>
       <y>2112</y>
-      <w>96</w>
+      <w>90</w>
       <h>186</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
@@ -2611,7 +2611,7 @@ bg=magenta</panel_attributes>
     <coordinates>
       <x>1572</x>
       <y>144</y>
-      <w>1650</w>
+      <w>1524</w>
       <h>654</h>
     </coordinates>
     <panel_attributes>actions
@@ -2840,37 +2840,49 @@ layer=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5412</x>
+      <x>5388</x>
       <y>1104</y>
       <w>258</w>
-      <h>198</h>
+      <h>300</h>
     </coordinates>
     <panel_attributes>BoardData
 --
-cards :DevelopmentCard[4][4]
-towerSpaces :FamilyMemberData[4][4]
-towerBonuses :ImmProperties[4][4]
-councilPalace :FamilyMemberData[]
-market :FamilyMemberData[4]
-faithTrackBonus :ImmProperties[15]
-militaryBonus :ImmProperties[2]
-singleHarvestSpace :FamilyMemberData
-singleProductionSpace :FamilyMemberData
-multipleProductionSpaces :FamilyMemberData[4]
-multipleHarvestSpaces :FamilyMemberData[4]
-bonusCards :EnumMap&lt;DelopmentCardType, int[]&gt;
-orangeDice :int
-whiteDice :int
-blackDice :int
-
---</panel_attributes>
+- cards :DevelopmentCard[4][4]
+- towerSpaces :FamilyMemberData[4][4]
+- towerBonuses :ImmProperties[4][4]
+- towerRequirements: int[][]
+- council :FamilyMemberData[]
+- market :MarketOccupants[]
+- marketBonuses: ImmProperties[]
+- marketPrivileges: int[]
+- faithTrackBonuses :ImmProperties[]
+- militaryBonus :ImmProperties[]
+- singleHarvestSpaceOccupant :FamilyMemberData
+- singleProductionSpaceOccupant :FamilyMemberData
+- singleHarvestSpaceOtherOccupant :FamilyMemberData
+- singleProductionSpaceOtherOccupant :FamilyMemberData
+- multipleProductionSpaces :FamilyMemberData[4]
+- multipleHarvestSpaces :FamilyMemberData[4]
+- cardsBonus :EnumMap&lt;DelopmentCardType, int[]&gt;
+- excommunications : Excommunication[]
+--
++ getCards(): DevelopmentCard[][]
++ getTowerSpaces(): FamilyMemberData[][]
++ getTowerBonuses(): ImmProperties[][]
++ getMarket(): FamilyMemberData[]
++ getFaithTrackBonus(): int[]
++ getMilitaryBonuses(): int[]
++ getSingleHarvestSpace(): FamilyMember
++ getSingleProductionSpace(): FamilyMember
++ getSingleHarvestSpaceOtherOccupant(): FamilyMember
++ getSingleProductionSpaceOtherOccupant(): FamilyMember</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>5712</x>
-      <y>1260</y>
+      <y>1308</y>
       <w>228</w>
       <h>114</h>
     </coordinates>
@@ -2906,14 +2918,24 @@ order :int[]
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5472</x>
-      <y>1416</y>
+      <x>5514</x>
+      <y>1530</y>
       <w>156</w>
-      <h>78</h>
+      <h>126</h>
     </coordinates>
     <panel_attributes>FamilyMemberData
 --
-playerId :</panel_attributes>
+- color: MembersColor
+- value: int
+- used: boolean
+- exists: boolean
+- ownerId: PlayerColor
+--
++ getColor(): MembersColor
++ getValue(): int
++ isUsed(): boolean
++ exists(): boolean
++ toString(): String</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -3255,9 +3277,9 @@ layer=1</panel_attributes>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>4422</x>
+      <x>4434</x>
       <y>1392</y>
-      <w>120</w>
+      <w>96</w>
       <h>54</h>
     </coordinates>
     <panel_attributes>Visitable
@@ -3268,10 +3290,10 @@ layer=1</panel_attributes>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>5778</x>
+      <x>5790</x>
       <y>516</y>
-      <w>156</w>
-      <h>114</h>
+      <w>132</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>Visitor
 --
@@ -3309,22 +3331,6 @@ layer=1</panel_attributes>
 --
 + activate()
 layer=1</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>5490</x>
-      <y>1530</y>
-      <w>180</w>
-      <h>108</h>
-    </coordinates>
-    <panel_attributes>EffectData
---
-
-- reqs: Requirement[]
-- type: String
-- description: String</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -3490,7 +3496,7 @@ layer=1</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>4626</x>
-      <y>1728</y>
+      <y>1710</y>
       <w>198</w>
       <h>42</h>
     </coordinates>
@@ -3506,10 +3512,10 @@ layer=1</panel_attributes>
       <x>4572</x>
       <y>1578</y>
       <w>168</w>
-      <h>162</h>
+      <h>144</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;260.0;250.0</additional_attributes>
+    <additional_attributes>10.0;10.0;260.0;220.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -3592,10 +3598,10 @@ layer=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4650</x>
-      <y>1428</y>
+      <x>4704</x>
+      <y>1482</y>
       <w>198</w>
-      <h>90</h>
+      <h>78</h>
     </coordinates>
     <panel_attributes>WorkMessage
 --
@@ -3612,12 +3618,12 @@ layer=1</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>4572</x>
-      <y>1512</y>
-      <w>174</w>
-      <h>54</h>
+      <y>1524</y>
+      <w>144</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;70.0;270.0;10.0</additional_attributes>
+    <additional_attributes>10.0;50.0;220.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -3658,31 +3664,6 @@ bg=cyan</panel_attributes>
 fg=black
 bg=cyan</panel_attributes>
     <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>5718</x>
-      <y>1410</y>
-      <w>186</w>
-      <h>48</h>
-    </coordinates>
-    <panel_attributes>AdvPlayerData
---
-- leaderCards: ArrayList&lt;LeaderCard&gt;
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>5820</x>
-      <y>1368</y>
-      <w>18</w>
-      <h>54</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -3840,10 +3821,10 @@ layer=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5208</x>
-      <y>690</y>
-      <w>60</w>
-      <h>18</h>
+      <x>5118</x>
+      <y>624</y>
+      <w>294</w>
+      <h>84</h>
     </coordinates>
     <panel_attributes>Server
 --
@@ -3943,22 +3924,22 @@ layer=1</panel_attributes>
     <coordinates>
       <x>5160</x>
       <y>702</y>
-      <w>84</w>
+      <w>66</w>
       <h>60</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>120.0;10.0;10.0;80.0</additional_attributes>
+    <additional_attributes>90.0;10.0;10.0;80.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5250</x>
+      <x>5280</x>
       <y>702</y>
-      <w>60</w>
+      <w>30</w>
       <h>60</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;80.0;80.0</additional_attributes>
+    <additional_attributes>10.0;10.0;30.0;80.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -3974,13 +3955,13 @@ layer=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5262</x>
-      <y>690</y>
-      <w>444</w>
-      <h>18</h>
+      <x>5406</x>
+      <y>624</y>
+      <w>300</w>
+      <h>84</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;720.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;480.0;120.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -4107,13 +4088,13 @@ layer=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5544</x>
-      <y>1356</y>
-      <w>180</w>
-      <h>72</h>
+      <x>5586</x>
+      <y>1404</y>
+      <w>138</w>
+      <h>138</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>280.0;10.0;10.0;100.0</additional_attributes>
+    <additional_attributes>210.0;10.0;10.0;210.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -4179,8 +4160,8 @@ creates</panel_attributes>
     <id>UMLInterface</id>
     <coordinates>
       <x>5406</x>
-      <y>582</y>
-      <w>192</w>
+      <y>924</y>
+      <w>168</w>
       <h>84</h>
     </coordinates>
     <panel_attributes>RMIConnectionInterface
@@ -4195,12 +4176,12 @@ creates</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>5484</x>
-      <y>654</y>
+      <y>882</y>
       <w>18</w>
-      <h>156</h>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;240.0</additional_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -4329,5 +4310,133 @@ layer=1</panel_attributes>
 
 layer=1</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4128</x>
+      <y>1398</y>
+      <w>198</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>ActionRequest
+--
+- chosenAction: Action
+- id: int
+--
++ getChosenAction(): Action
++ setChosenAction(a: Action): void
++ getId(): int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4320</x>
+      <y>1446</y>
+      <w>114</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>170.0;150.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5640</x>
+      <y>1200</y>
+      <w>84</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>120.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5826</x>
+      <y>1230</y>
+      <w>18</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4704</x>
+      <y>1422</y>
+      <w>198</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>CompletedActionMessage
+--
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4560</x>
+      <y>1446</y>
+      <w>156</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;150.0;240.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5118</x>
+      <y>474</y>
+      <w>294</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>Lobby
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5256</x>
+      <y>534</y>
+      <w>18</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5502</x>
+      <y>468</y>
+      <w>96</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>LobbyTimeoutTask
+--
+- timeoutExpired: boolean
+- lobbyType: String
+- sem: Semaphore
+--
++ isExpired(): boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5406</x>
+      <y>522</y>
+      <w>108</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;160.0;10.0</additional_attributes>
   </element>
 </diagram>

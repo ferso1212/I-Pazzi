@@ -10,18 +10,29 @@ import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import it.polimi.ingsw.ps21.controller.ConnectionsAcceptor;
 
-
-public class SocketConnectionsAcceptor extends ConnectionsAcceptor implements Runnable {
+public class SocketConnectionsAcceptor implements Runnable {
 	private final static Logger LOGGER = Logger.getLogger(SocketConnectionsAcceptor.class.getName());
 
 	private static final int PORT = 7777; // TODO choose correct port
 private ServerSocket serverSocket;
+private ConcurrentLinkedQueue<Connection> stdConnections;
+private ConcurrentLinkedQueue<Connection> advConnections;
+private boolean acceptingConnections;
+private ArrayList<String> names;
+private ConcurrentHashMap<String, UserHandler> playingUsers;
+private Semaphore stdSem;
+private Semaphore advSem;
 
 	
 	public SocketConnectionsAcceptor(ConcurrentLinkedQueue<Connection> stdConnections, ConcurrentLinkedQueue<Connection> advConnections, ArrayList<String> names, ConcurrentHashMap<String, UserHandler> playingUsers, Semaphore stdSem, Semaphore advSem) {
-		super(stdConnections, advConnections, names, playingUsers, stdSem, advSem);
+		this.acceptingConnections=true;
+		this.stdConnections=stdConnections;
+		this.advConnections=advConnections;
+		this.names=names;
+		this.playingUsers=playingUsers;
+		this.stdSem=stdSem;
+		this.advSem= advSem;
 	}
 
 	@Override
