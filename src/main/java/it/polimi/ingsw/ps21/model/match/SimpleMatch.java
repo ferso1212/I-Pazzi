@@ -26,6 +26,14 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.view.EndData;
 
+
+/**
+ * This class implements a standard match with standard Players
+ * These match can only have round of type INITIAL_ROUND, FINAL_ROUND, VATICAN_ROUND and ENDED_MATCH
+ * 
+ * @author gullit
+ *
+ */
 public class SimpleMatch extends Match {
 
 	private EnumMap<PlayerColor, Player> players;
