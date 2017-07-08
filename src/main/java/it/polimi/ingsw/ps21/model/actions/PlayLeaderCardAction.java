@@ -43,6 +43,7 @@ public class PlayLeaderCardAction extends Action{
 						}
 					}
 				}
+				if (activatedCards.size()==0) return new RefusedAction(player.getId(), "There isn't any Leader Card to be copied");
 				message = new LeaderCopyMessage(player.getId(), activatedCards.toArray(new LeaderCard[0]));
 				updateCounter--;
 				return message;

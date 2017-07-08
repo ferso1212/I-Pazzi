@@ -10,6 +10,7 @@ import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.controller.ServantsChoice;
 import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.controller.WorkMessage;
+import it.polimi.ingsw.ps21.model.actions.LeaderCopyMessage;
 
 public abstract interface Visitor {
 
@@ -34,4 +35,6 @@ public abstract interface Visitor {
 	public abstract void visit(LeaderChoice message);
 	
 	public abstract void visit (ServantsChoice message);
+	
+	public abstract void visit (LeaderCopyMessage message);
 }

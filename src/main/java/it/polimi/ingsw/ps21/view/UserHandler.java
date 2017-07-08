@@ -24,6 +24,7 @@ import it.polimi.ingsw.ps21.controller.TileChoice;
 import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.controller.WorkMessage;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
+import it.polimi.ingsw.ps21.model.actions.LeaderCopyMessage;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
@@ -162,6 +163,21 @@ public class UserHandler extends Observable implements Visitor, Observer {
 			message.setVisited();
 		
 	}
+	
+	@Override
+	public void visit(LeaderCopyMessage message){
+		try {
+			int choice = connection.reqLorenzoIlMagnificoChoice(message.getPossibilities());
+			message.setChosenCard(message.getPossibilities()[choice]);
+			message.setVisited();
+			setChanged();
+			notifyObservers(new ExecutedChoice(this.playerId));
+		} catch (DisconnectedException e) {
+			LOGGER.log(Level.WARNING, "Current player is not connected.", e);
+			setChanged();
+			notifyObservers("playerDisconnected");
+		}
+	}
 
 	public PlayerColor getPlayerId() {
 		return playerId;
@@ -289,6 +305,10 @@ public class UserHandler extends Observable implements Visitor, Observer {
 						else if (arg instanceof ServantsChoice)
 						{
 							ServantsChoice message = (ServantsChoice)arg;
+							visit(message);
+						}
+						else if (arg instanceof LeaderCopyMessage){
+							LeaderCopyMessage message = (LeaderCopyMessage) arg;
 							visit(message);
 						}
 					}

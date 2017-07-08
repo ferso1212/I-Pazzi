@@ -172,4 +172,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 		return ui.reqNumberOfServants(max);
 	}
 
+	@Override
+	public int reqLorenzoIlMagnificoChoice(LeaderCard[] possibilities) throws RemoteException {
+		return ui.reqLorenzoIlMagnificoChoice(possibilities);
+	}
+	
+	
+
 }
