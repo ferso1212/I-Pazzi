@@ -30,6 +30,7 @@ import it.polimi.ingsw.ps21.client.UserInterface;
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
 import it.polimi.ingsw.ps21.controller.BoardData;
 import it.polimi.ingsw.ps21.controller.FamilyMemberData;
+import it.polimi.ingsw.ps21.controller.MarketOccupants;
 import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
@@ -540,16 +541,120 @@ public class GUInterface implements UserInterface {
 
 	private void updateSpaces(BoardData boardInfo) {
 		councilPanel.update(boardInfo.getCouncilOccupants());
-		singleHarvest.update(boardInfo.getSingleHarvestSpace());
+		singleHarvest.update(boardInfo.getSingleHarvestSpace()); 
 		singleProduction.update(boardInfo.getSingleProductionSpace());
 		int i = 0;
 		for (MarketButton m : this.marketButtons) {
-			m.update(boardInfo.getMarket()[i]);
+			m.update(boardInfo.getMarket()[i].getFirstOccupant());
 			i++;
 		}
 		if (this.numberOfPlayers > 2) {
 			multipleHarvest.update(boardInfo.getMultipleHarvestSpace());
 			multipleProduction.update(boardInfo.getMultipleProductionSpace());
+		}
+		if(this.isAdvanced){
+			if(boardInfo.getSingleProductionSpaceOtherOccupant() != null){
+				JLabel secondProductionOccupant = new JLabel();
+				BufferedImage secondPawnProduction;
+				try {
+					secondPawnProduction = ImageIO.read(new File(new File("").getAbsolutePath()
+							.concat("/src/images/Lorenzo_Pedine/" + boardInfo.getSingleProductionSpaceOtherOccupant().getOwnerId().toString().toLowerCase() + "_Player_"
+									+ boardInfo.getSingleProductionSpaceOtherOccupant().getColor().toString().toLowerCase() + ".png")));
+					secondProductionOccupant.setIcon(new ImageIcon(secondPawnProduction.getScaledInstance(-1, singleProduction.getHeight()/2, Image.SCALE_SMOOTH)));
+					boardPanel.add(secondProductionOccupant).setBounds(resize(515), resize(5692), -1, singleProduction.getHeight()/2);
+				} catch (IOException e) {
+					secondProductionOccupant.setToolTipText(boardInfo.getSingleProductionSpaceOtherOccupant().getColor().toString() + "member of " + boardInfo.getSingleProductionSpaceOtherOccupant().getOwnerId().toString() +" player");
+				}
+				
+			}
+			if(boardInfo.getSingleHarvestSpaceOtherOccupant() != null){
+				JLabel secondHarvestOccupant = new JLabel();
+				BufferedImage secondPawnHarvest;
+				try {
+					secondPawnHarvest = ImageIO.read(new File(new File("").getAbsolutePath()
+							.concat("/src/images/Lorenzo_Pedine/" + boardInfo.getSingleHarvestSpaceOtherOccupant().getOwnerId().toString().toLowerCase() + "_Player_"
+									+ boardInfo.getSingleHarvestSpaceOtherOccupant().getColor().toString().toLowerCase() + ".png")));
+					secondHarvestOccupant.setIcon(new ImageIcon(secondPawnHarvest.getScaledInstance(-1, singleHarvest.getHeight()/2, Image.SCALE_SMOOTH)));
+					boardPanel.add(secondHarvestOccupant).setBounds(resize(515), resize(6227), -1, singleHarvest.getHeight()/2);
+				} catch (IOException e) {
+					secondHarvestOccupant.setToolTipText(boardInfo.getSingleHarvestSpaceOtherOccupant().getColor().toString() + "member of " + boardInfo.getSingleHarvestSpaceOtherOccupant().getOwnerId().toString() +" player");
+				}
+				
+			}
+			for(int k=0; k<this.numberOfPlayers; k++){
+				switch (k) {
+				case 0:
+					if (boardInfo.getMarket()[0].getSecondOccupant() != null){
+						JLabel secondMarketOccupant = new JLabel();
+						BufferedImage secondPawnMarket;
+						try {
+							secondPawnMarket = ImageIO.read(new File(new File("").getAbsolutePath()
+									.concat("/src/images/Lorenzo_Pedine/" + boardInfo.getMarket()[0].getSecondOccupant().getOwnerId().toString().toLowerCase() + "_Player_"
+											+ boardInfo.getMarket()[0].getSecondOccupant().getColor().toString().toLowerCase() + ".png")));
+							secondMarketOccupant.setIcon(new ImageIcon(secondPawnMarket.getScaledInstance(-1, marketButtons[0].getHeight()/2, Image.SCALE_SMOOTH)));
+							boardPanel.add(secondMarketOccupant).setBounds(resize(2825), resize(5380), -1, marketButtons[0].getHeight()/2);
+						} catch (IOException e) {
+							secondMarketOccupant.setToolTipText(boardInfo.getMarket()[0].getSecondOccupant().getColor().toString() + "member of " + boardInfo.getMarket()[0].getSecondOccupant().getOwnerId().toString() +" player");
+						}
+					}
+					
+					break;
+				
+				case 1:
+					if (boardInfo.getMarket()[1].getSecondOccupant() != null){
+						JLabel secondMarketOccupant = new JLabel();
+						BufferedImage secondPawnMarket;
+						try {
+							secondPawnMarket = ImageIO.read(new File(new File("").getAbsolutePath()
+									.concat("/src/images/Lorenzo_Pedine/" + boardInfo.getMarket()[1].getSecondOccupant().getOwnerId().toString().toLowerCase() + "_Player_"
+											+ boardInfo.getMarket()[1].getSecondOccupant().getColor().toString().toLowerCase() + ".png")));
+							secondMarketOccupant.setIcon(new ImageIcon(secondPawnMarket.getScaledInstance(-1, marketButtons[1].getHeight()/2, Image.SCALE_SMOOTH)));
+							boardPanel.add(secondMarketOccupant).setBounds(resize(3265), resize(5380), -1, marketButtons[1].getHeight()/2);
+						} catch (IOException e) {
+							secondMarketOccupant.setToolTipText(boardInfo.getMarket()[1].getSecondOccupant().getColor().toString() + "member of " + boardInfo.getMarket()[1].getSecondOccupant().getOwnerId().toString() +" player");
+						}
+					}
+					
+					break;
+				
+				case 2:
+					if (boardInfo.getMarket()[2].getSecondOccupant() != null){
+						JLabel secondMarketOccupant = new JLabel();
+						BufferedImage secondPawnMarket;
+						try {
+							secondPawnMarket = ImageIO.read(new File(new File("").getAbsolutePath()
+									.concat("/src/images/Lorenzo_Pedine/" + boardInfo.getMarket()[2].getSecondOccupant().getOwnerId().toString().toLowerCase() + "_Player_"
+											+ boardInfo.getMarket()[2].getSecondOccupant().getColor().toString().toLowerCase() + ".png")));
+							secondMarketOccupant.setIcon(new ImageIcon(secondPawnMarket.getScaledInstance(-1, marketButtons[2].getHeight()/2, Image.SCALE_SMOOTH)));
+							boardPanel.add(secondMarketOccupant).setBounds(resize(3695), resize(5500), -1, marketButtons[2].getHeight()/2);
+						} catch (IOException e) {
+							secondMarketOccupant.setToolTipText(boardInfo.getMarket()[2].getSecondOccupant().getColor().toString() + "member of " + boardInfo.getMarket()[2].getSecondOccupant().getOwnerId().toString() +" player");
+						}
+					}
+					
+					break;
+					
+				case 3:
+					if (boardInfo.getMarket()[3].getSecondOccupant() != null){
+						JLabel secondMarketOccupant = new JLabel();
+						BufferedImage secondPawnMarket;
+						try {
+							secondPawnMarket = ImageIO.read(new File(new File("").getAbsolutePath()
+									.concat("/src/images/Lorenzo_Pedine/" + boardInfo.getMarket()[3].getSecondOccupant().getOwnerId().toString().toLowerCase() + "_Player_"
+											+ boardInfo.getMarket()[3].getSecondOccupant().getColor().toString().toLowerCase() + ".png")));
+							secondMarketOccupant.setIcon(new ImageIcon(secondPawnMarket.getScaledInstance(-1, marketButtons[3].getHeight()/2, Image.SCALE_SMOOTH)));
+							boardPanel.add(secondMarketOccupant).setBounds(resize(4015), resize(5800), -1, marketButtons[3].getHeight()/2);
+						} catch (IOException e) {
+							secondMarketOccupant.setToolTipText(boardInfo.getMarket()[3].getSecondOccupant().getColor().toString() + "member of " + boardInfo.getMarket()[3].getSecondOccupant().getOwnerId().toString() +" player");
+						}
+					}
+					
+					break;
+
+				default:
+					break;
+				}
+			}
 		}
 	}
 
