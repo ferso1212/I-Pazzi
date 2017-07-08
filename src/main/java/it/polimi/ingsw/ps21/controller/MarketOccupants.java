@@ -1,6 +1,8 @@
 package it.polimi.ingsw.ps21.controller;
 
-public class MarketOccupants {
+import java.io.Serializable;
+
+public class MarketOccupants implements Serializable{
 	private FamilyMemberData firstOccupant;
 	private FamilyMemberData secondOccupant;
 	
