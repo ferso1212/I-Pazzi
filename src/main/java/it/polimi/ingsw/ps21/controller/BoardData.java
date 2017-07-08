@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Queue;
 
 import it.polimi.ingsw.ps21.model.actions.WorkType;
+import it.polimi.ingsw.ps21.model.board.AdvSingleMarketSpace;
+import it.polimi.ingsw.ps21.model.board.AdvSingleWorkSpace;
 import it.polimi.ingsw.ps21.model.board.Board;
 import it.polimi.ingsw.ps21.model.board.Tower;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
@@ -20,13 +22,15 @@ public class BoardData implements Serializable{
 	private FamilyMemberData[][] towerSpaces;
 	private int[][] towerRequirements;
 	private ImmProperties[][] towerBonuses;
-	private FamilyMemberData[] market;
+	private MarketOccupants[] marketOccupants;
 	private ImmProperties[] marketBonuses;
 	private int[] marketPrivileges;
 	private int[] faithTrackBonus;
 	private int[] militaryBonuses;
-	private FamilyMemberData singleHarvestSpace;
-	private FamilyMemberData singleProductionSpace;
+	private FamilyMemberData singleHarvestSpaceOccupant;
+	private FamilyMemberData singleProductionSpaceOccupant;
+	private FamilyMemberData singleHarvestSpaceOtherOccupant;
+	private FamilyMemberData singleProductionSpaceOtherOccupant;
 	private FamilyMemberData[] multipleHarvestSpace;
 	private FamilyMemberData[] multipleProductionSpace;
 	private FamilyMemberData[] council;
@@ -57,12 +61,13 @@ public class BoardData implements Serializable{
 		//---
 		
 		//copies market places
-		market= new FamilyMemberData[board.getMarketPlaces().length];
+		marketOccupants= new MarketOccupants[board.getMarketPlaces().length];
 		marketBonuses = new ImmProperties[board.getMarketPlaces().length];
 		marketPrivileges = new int[board.getMarketPlaces().length];
 		for(int i=0; i<board.getMarketPlaces().length; i++)
 		{
-			market[i]=new FamilyMemberData(board.getMarketSpace(i).getOccupant());
+			if(board.isAdvanced()) marketOccupants[i]=new MarketOccupants(new FamilyMemberData(board.getMarketSpace(i).getOccupant()), new FamilyMemberData(((AdvSingleMarketSpace)board.getMarketSpace(i)).getOtherOccupant()));
+			else marketOccupants[i]=new MarketOccupants(new FamilyMemberData(board.getMarketSpace(i).getOccupant()), null);
 			marketBonuses[i] = board.getMarketPlaces()[i].getInstantBonus();
 			marketPrivileges[i] = board.getMarketPlaces()[i].getNumberOfPrivileges();
 		}
@@ -84,18 +89,25 @@ public class BoardData implements Serializable{
 		this.militaryBonuses=board.getTrackBonuses().getMilitaryBonuses();
 		
 		//copies harvest and production spaces
-		this.singleHarvestSpace=new FamilyMemberData(board.getSingleWorkSpace(WorkType.HARVEST).getOccupant());
-		this.singleProductionSpace=new FamilyMemberData(board.getSingleWorkSpace(WorkType.PRODUCTION).getOccupant());
-		int i=0;
+		if(board.isAdvanced())
+		{
+			this.singleHarvestSpaceOtherOccupant=new FamilyMemberData(((AdvSingleWorkSpace)board.getSingleWorkSpace(WorkType.HARVEST)).getOtherOccupant());
+			this.singleProductionSpaceOtherOccupant=new FamilyMemberData(((AdvSingleWorkSpace)board.getSingleWorkSpace(WorkType.PRODUCTION)).getOtherOccupant());
+
+		}
+		this.singleHarvestSpaceOccupant=new FamilyMemberData(board.getSingleWorkSpace(WorkType.HARVEST).getOccupant());
+		this.singleProductionSpaceOccupant=new FamilyMemberData(board.getSingleWorkSpace(WorkType.PRODUCTION).getOccupant());
+		
 		this.multipleHarvestSpace= new FamilyMemberData[board.getMultipleWorkSpace(WorkType.HARVEST).getOccupants().size()];
+		int i=0;
 		for(FamilyMember occupant: board.getMultipleWorkSpace(WorkType.HARVEST).getOccupants())
 		{
 			multipleHarvestSpace[i]=new FamilyMemberData(occupant);
 			i++;
 		}
-		this.singleProductionSpace=new FamilyMemberData(board.getSingleWorkSpace(WorkType.PRODUCTION).getOccupant());
-		i=0;
+		
 		this.multipleProductionSpace= new FamilyMemberData[board.getMultipleWorkSpace(WorkType.PRODUCTION).getOccupants().size()];
+		i=0;
 		for(FamilyMember occupant: board.getMultipleWorkSpace(WorkType.PRODUCTION).getOccupants())
 		{
 			multipleProductionSpace[i]=new FamilyMemberData(occupant);
@@ -117,8 +129,8 @@ public class BoardData implements Serializable{
 		return towerBonuses;
 	}
 
-	public FamilyMemberData[] getMarket() {
-		return market;
+	public MarketOccupants[] getMarket() {
+		return marketOccupants;
 	}
 
 	public int[] getFaithTrackBonus() {
@@ -130,11 +142,19 @@ public class BoardData implements Serializable{
 	}
 
 	public FamilyMemberData getSingleHarvestSpace() {
-		return singleHarvestSpace;
+		return singleHarvestSpaceOccupant;
 	}
 
 	public FamilyMemberData getSingleProductionSpace() {
-		return singleProductionSpace;
+		return singleProductionSpaceOccupant;
+	}
+	
+	public FamilyMemberData getSingleHarvestSpaceOtherOccupant() {
+		return singleHarvestSpaceOtherOccupant;
+	}
+
+	public FamilyMemberData getSingleProductionSpaceOtherOccupant() {
+		return singleProductionSpaceOtherOccupant;
 	}
 
 	public FamilyMemberData[] getMultipleHarvestSpace() {

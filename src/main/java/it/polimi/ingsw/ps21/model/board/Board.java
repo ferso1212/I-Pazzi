@@ -33,10 +33,12 @@ public class Board {
 	private ImmProperties[] possibleValuesPrivileges;
 	private Excommunication[] excommunications;
 	private int[] excommunicationRequirements;
+	private boolean advanced;
 	
 
 	public Board(int playerNumber, boolean isAdvanced)throws BuildingDeckException {
 
+		this.advanced=isAdvanced;
 		MatchFactory file = MatchFactory.instance();
 		this.towers = new EnumMap<>(DevelopmentCardType.class);
 		this.councilPalace = new CouncilPalace(1, file.makeCouncilBonuses(), 0, file.makeCouncilPrivileges());
@@ -250,6 +252,10 @@ public class Board {
 
 	public EnumMap<DevelopmentCardType, Tower> getTowers() {
 		return towers;
+	}
+
+	public boolean isAdvanced() {
+		return advanced;
 	}
 	
 	

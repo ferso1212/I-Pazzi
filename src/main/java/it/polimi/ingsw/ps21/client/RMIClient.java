@@ -35,7 +35,7 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	private transient Registry serverRegistry;
 	private transient RMIConnectionInterface connection = null;
 	private transient UserInterface ui;
-	public boolean connected = false;
+	private boolean connected = false;
 	private String username; 
 	
 	public RMIClient( UserInterface ui, String hostname, int port, boolean newMatch) throws RemoteException, NotBoundException{
