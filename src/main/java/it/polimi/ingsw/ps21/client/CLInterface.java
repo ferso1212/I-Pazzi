@@ -30,8 +30,8 @@ import it.polimi.ingsw.ps21.view.EndData;
 import it.polimi.ingsw.ps21.view.ExtraActionData;
 
 /**
- * This interface show information about the match in text form. Player can
- * interact with match using keyboard.
+ * This interface show information about the match in text form.
+ *  Player can interact with match using keyboard.
  * 
  * @author gullit
  *
@@ -117,7 +117,10 @@ public class CLInterface implements UserInterface {
 		printOutput(council.toString());
 		printOutput("===============================================================");
 		printOutput("----------------\t HARVEST SPACE \t---------------------");
-		printOutput("Single space: " +  matchInfo.getBoard().getSingleHarvestSpace().toString());
+		if (matchInfo.getBoard().getSingleHarvestSpace()!=null) printOutput("Single space: " +  matchInfo.getBoard().getSingleHarvestSpace().toString());
+		else printOutput("Single space: FREE"); 
+		if (advancedMatch && matchInfo.getBoard().getSingleHarvestSpaceOtherOccupant() != null)
+		printOutput("\tOther occupant " +  matchInfo.getBoard().getSingleHarvestSpaceOtherOccupant().toString());
 		StringBuilder multipleSpace = new StringBuilder("Multiple space: ");
 		for (FamilyMemberData f: matchInfo.getBoard().getMultipleHarvestSpace()){
 			multipleSpace.append("Player " + f.getOwnerId() + " with member " + f.getColor());
@@ -126,9 +129,11 @@ public class CLInterface implements UserInterface {
 		printOutput("Dice Malus: 3");
 		printOutput("===============================================================");
 		printOutput("----------------\t PRODUCTION SPACE \t---------------------");
-		printOutput("Single space: " +  matchInfo.getBoard().getSingleHarvestSpace().toString());
+		if (matchInfo.getBoard().getSingleProductionSpace()!=null) printOutput("Single space: " +  matchInfo.getBoard().getSingleProductionSpace().toString());
+		else printOutput("Single space: FREE"); 
+		if (advancedMatch && matchInfo.getBoard().getSingleProductionSpaceOtherOccupant() != null) printOutput("\tOther occupant " + matchInfo.getBoard().getSingleProductionSpaceOtherOccupant().toString());
 		 multipleSpace = new StringBuilder("Multiple space: ");
-		for (FamilyMemberData f: matchInfo.getBoard().getMultipleHarvestSpace()){
+		for (FamilyMemberData f: matchInfo.getBoard().getMultipleProductionSpace()){
 			multipleSpace.append("Player " + f.getOwnerId() + " with member " + f.getColor());
 		}
 		printOutput(multipleSpace.toString());
@@ -137,7 +142,10 @@ public class CLInterface implements UserInterface {
 		printOutput("--------------------\t MARKET SPACES \t-----------------------------");
 		StringBuilder market = new StringBuilder();
 		for(int i=0; i<matchInfo.getBoard().getMarketBonuses().length; i++){
-			if (matchInfo.getBoard().getMarket()[i] !=null) market.append( (i+1) + ") " + matchInfo.getBoard().getMarket()[i].toString());
+			if (matchInfo.getBoard().getMarket()[i].getFirstOccupant() !=null) {
+				market.append( (i+1) + ") " + matchInfo.getBoard().getMarket()[i].getFirstOccupant().toString());
+				if (advancedMatch && matchInfo.getBoard().getMarket()[i].getSecondOccupant()!=null) market.append("\n\tOther Occupant: " +  matchInfo.getBoard().getMarket()[i].getSecondOccupant().toString());
+			}
 			else market.append((i+1) + ") FREE");
 			market.append("\nBonus: " +  matchInfo.getBoard( ).getMarketBonuses()[i].toString() + "\tPrivileges: " + matchInfo.getBoard().getMarketPrivileges()[i]);
 		}
