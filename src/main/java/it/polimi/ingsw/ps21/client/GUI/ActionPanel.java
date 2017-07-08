@@ -19,11 +19,11 @@ import javax.swing.JPanel;
 import javax.swing.SpringLayout.Constraints;
 import javax.swing.border.Border;
 
-import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.NotAdvancedPlayerException;
-import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
+import it.polimi.ingsw.ps21.view.MatchData;
+import it.polimi.ingsw.ps21.view.PlayerData;
 
 public class ActionPanel extends JPanel {
 

@@ -38,6 +38,7 @@ import it.polimi.ingsw.ps21.view.ActionData;
 import it.polimi.ingsw.ps21.view.EndData;
 import it.polimi.ingsw.ps21.view.ExtraActionData;
 import it.polimi.ingsw.ps21.view.ExtraActionRequest;
+import it.polimi.ingsw.ps21.view.MatchData;
 import it.polimi.ingsw.ps21.view.TimeoutExpiredMessage;
 import it.polimi.ingsw.ps21.view.UserHandler;
 
@@ -59,7 +60,7 @@ public class MatchController extends Observable implements Observer {
 	private ArrayList<ExtraAction> currentExtraActions;
 	private int actionCounter;
 	private int actionTimeout;
-	private EnumMap<PlayerColor, ArrayList<LeaderCard>> unchosenLeaderCards;
+	//private EnumMap<PlayerColor, ArrayList<LeaderCard>> unchosenLeaderCards;
 	int numOfChosenLeaderCards;
 	private boolean playingLeaderStage;
 
@@ -230,33 +231,6 @@ public class MatchController extends Observable implements Observer {
 		}
 	}
 
-	/*
-	 * private void performExtraAction() {
-	 * 
-	 * try { ExtraAction[] poolExtraAction = match.doAction(currentAction); for
-	 * (ExtraAction a : poolExtraAction) { if (!(a instanceof NullAction))
-	 * currentExtraActions.add(a); } if (currentExtraActions.isEmpty()) {
-	 * setChanged(); notifyObservers(new
-	 * CompletedActionMessage(currentPlayer.getId())); nextPlayer(); } else {
-	 * reqExtraAction(); } } catch (NotExecutableException e) {
-	 * LOGGER.log(Level.INFO , "Action not executable", e); notifyObservers(new
-	 * RefusedAction(currentPlayer.getId(), "Action not executable"));
-	 * nextPlayer(); } catch (RequirementNotMetException e) {
-	 * LOGGER.log(Level.WARNING ,
-	 * "Player doesn't met the requirements for this action", e);
-	 * notifyObservers(new RefusedAction(currentPlayer.getId(),
-	 * "Player doesn't met the requirements for this action")); nextPlayer(); }
-	 * catch (InsufficientPropsException e) { LOGGER.log(Level.INFO ,
-	 * "Player doesn't have enough properties to execute this action", e);
-	 * notifyObservers(new RefusedAction(currentPlayer.getId(),
-	 * "Player doesn't have enough properties to execute this action"));
-	 * nextPlayer(); } catch (VaticanRoundException e) {
-	 * LOGGER.log(Level.SEVERE,
-	 * "Match is in Vatican State, so cannot execute this type of action", e);
-	 * notifyObservers(new RefusedAction(currentPlayer.getId(),
-	 * "Match is in Vatican State, so cannot execute this type of action"));
-	 * nextPlayer(); } }
-	 */
 
 	/**
 	 * Notifies the UserHandler with the available extra actions

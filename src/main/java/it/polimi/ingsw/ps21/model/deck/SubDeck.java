@@ -14,7 +14,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import it.polimi.ingsw.ps21.controller.PlayerData;
+import it.polimi.ingsw.ps21.view.PlayerData;
 
 public class SubDeck<T extends DevelopmentCard> {
 	private final static Logger LOGGER = Logger.getLogger(SubDeck.class.getName());

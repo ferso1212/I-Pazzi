@@ -4,8 +4,8 @@ import java.awt.Dimension;
 
 import javax.swing.JSlider;
 
-import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
+import it.polimi.ingsw.ps21.view.PlayerData;
 
 public class ServantsSlider extends JSlider{
 	

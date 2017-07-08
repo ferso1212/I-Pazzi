@@ -28,10 +28,6 @@ import javax.swing.JOptionPane;
 
 import it.polimi.ingsw.ps21.client.UserInterface;
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
-import it.polimi.ingsw.ps21.controller.BoardData;
-import it.polimi.ingsw.ps21.controller.FamilyMemberData;
-import it.polimi.ingsw.ps21.controller.MatchData;
-import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.model.actions.ActionType;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
@@ -45,8 +41,12 @@ import it.polimi.ingsw.ps21.model.player.PersonalBonusTile;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.ActionData;
+import it.polimi.ingsw.ps21.view.BoardData;
 import it.polimi.ingsw.ps21.view.EndData;
 import it.polimi.ingsw.ps21.view.ExtraActionData;
+import it.polimi.ingsw.ps21.view.FamilyMemberData;
+import it.polimi.ingsw.ps21.view.MatchData;
+import it.polimi.ingsw.ps21.view.PlayerData;
 
 import java.awt.Color;
 import java.awt.Dimension;

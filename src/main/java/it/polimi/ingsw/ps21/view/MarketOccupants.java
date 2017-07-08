@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps21.controller;
+package it.polimi.ingsw.ps21.view;
 
 public class MarketOccupants {
 	private FamilyMemberData firstOccupant;

@@ -2,7 +2,7 @@ package it.polimi.ingsw.ps21.client;
 
 import java.io.Serializable;
 
-import it.polimi.ingsw.ps21.controller.MatchData;
+import it.polimi.ingsw.ps21.view.MatchData;
 
 public class ViewUpdateRequestNetPacket extends NetPacket implements Serializable{
 	/**
