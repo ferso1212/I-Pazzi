@@ -7,6 +7,7 @@ import it.polimi.ingsw.ps21.controller.Message;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.model.board.NotOccupableException;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
+import it.polimi.ingsw.ps21.model.effect.LorenzoIlMagnificoEffect;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.Player;
@@ -17,17 +18,44 @@ import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
 public class PlayLeaderCardAction extends Action{
 	
 	private LeaderCard cardToPlay;
+	private int updateCounter;
+	private LeaderCopyMessage message;
 
 	public PlayLeaderCardAction(PlayerColor playerId, LeaderCard cardToPlay) {
 		super(playerId);
 		this.cardToPlay = cardToPlay;
+		updateCounter = 1;
 	}
 
 	@Override
 	public Message update(Player player, Match match) {
-		if ((player.checkCardRequirements(this.cardToPlay)) && (!this.cardToPlay.getEffect().isActivated())){
+		switch(updateCounter) {
+		
+		case 1: if ((player.checkCardRequirements(this.cardToPlay)) && (!this.cardToPlay.getEffect().isActivated())){
+			
+			if (cardToPlay.getEffect() instanceof LorenzoIlMagnificoEffect){
+				ArrayList<LeaderCard> activatedCards = new ArrayList<>();
+				Player players[] = match.getPlayers().toArray(new Player[0]);
+				for (int i=0; i< players.length; i++){
+					if (players[i].getId() != player.getId()) { AdvancedPlayer current = (AdvancedPlayer) players[i];
+					for (int j=0; j< current.getLeaders().length; j++){
+						if (current.getLeaders()[j].isClonable()) activatedCards.add(current.getLeaders()[j]);
+						}
+					}
+				}
+				message = new LeaderCopyMessage(player.getId(), activatedCards.toArray(new LeaderCard[0]));
+				updateCounter--;
+				return message;
+			}
 			return new AcceptedAction(player.getId());
-		}return new RefusedAction(player.getId());
+		}
+		 return new RefusedAction(player.getId());
+		case 0: { // leader choosen 
+			if (message.isVisited() && message.getChosenCard()!=null) return new AcceptedAction(player.getId());
+			else return new RefusedAction(player.getId());
+		}
+		default : return new RefusedAction(player.getId());
+		}
 	}
 
 	@Override
