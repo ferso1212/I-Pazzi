@@ -29,6 +29,14 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.view.EndData;
 
+/**
+ * This class implements an Advanced MAtch with Advanced Players
+ * First round of this match is LEADER_CHOICES and users have to choose their leader card. When this round finishes match start TILE_CHOICE round 
+ * and each player has to choose his own player tile.
+ * After these 2 initial rounds advanced match will only have round of type INITIAL_ROUND, FINAL_ROUND, VATICAN_ROUND and ENDED_ROUND.
+ * @author gullit
+ *
+ */
 public class AdvancedMatch extends Match {
 
 	private EnumMap<PlayerColor, AdvancedPlayer> players;
