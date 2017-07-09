@@ -24,9 +24,9 @@ public class SocketClient {
 	public SocketClient(UserInterface ui, String hostaddress, boolean joinNewMatch) {
 		try{
 		this.ui=ui;
-		ui.showInfo("\nTrying to connect to the server with TCP socket...");
+		ui.showInfo("Trying to connect to the server with TCP socket...");
 		socket = new Socket(hostaddress, PORT);
-		ui.showInfo("\nEstablished TCP connection to the server.");
+		ui.showInfo("Established TCP connection to the server.");
 		in = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
 		out = new ObjectOutputStream(socket.getOutputStream());
 		out.reset();

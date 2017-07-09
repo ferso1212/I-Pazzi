@@ -120,8 +120,8 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 	}
 
 	@Override
-	public int reqWorkChoice(DevelopmentCard workCard) throws RemoteException {
-		return ui.reqWorkChoice(workCard);
+	public int reqWorkChoice(DevelopmentCard workCard, boolean costs) throws RemoteException {
+		return ui.reqWorkChoice(workCard, costs);
 	}
 
 	@Override

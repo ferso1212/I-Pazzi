@@ -96,7 +96,7 @@ public class CLInterface implements UserInterface {
 			printOutput("\nTower " + (i + 1) + "\n------------------------------------------------------------");
 			for (int j = 0; j < 4; j++) {
 				printOutput("\nFloor " + (j + 1) + ":");
-				printOutput("Dice Requirement: " + matchInfo.getBoard().getTowerRequirements()[j][i] + ":");
+				printOutput("Floor Requirement: " + matchInfo.getBoard().getTowerRequirements()[j][i] + ":");
 				DevelopmentCard card = cards[j][i];
 				if (card != null)
 					printOutput(card.toString());
@@ -628,11 +628,12 @@ public class CLInterface implements UserInterface {
 	}
 
 	@Override
-	public int reqWorkChoice(DevelopmentCard workCard) {
+	public int reqWorkChoice(DevelopmentCard workCard, boolean cost) {
 		int effectChosen = 0;
 		printOutput("Which effect do you want to activate on this card?");
 		printOutput("Card: " + workCard.getName());
-		printOutput("Possible choices:\n-0)Don't activate any effect;");
+		printOutput("Possible choices:");
+		if (!cost) printOutput("0)Don't activate any effect;");
 		EffectSet possibleEffects[] = workCard.getPossibleEffects();
 		for (int i = 0; i < possibleEffects.length; i++) {
 			printOutput("-" + (i + 1) + ") " + possibleEffects[i].toString());

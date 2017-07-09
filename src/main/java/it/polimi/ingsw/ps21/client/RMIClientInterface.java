@@ -40,7 +40,7 @@ public interface RMIClientInterface extends Remote {
 
 	public int reqEffectChoice(EffectSet[] possibleEffects) throws RemoteException;
 
-	public int reqWorkChoice(DevelopmentCard workCard) throws RemoteException;
+	public int reqWorkChoice(DevelopmentCard workCard, boolean costs) throws RemoteException;
 
 	public String reqName() throws RemoteException;
 	

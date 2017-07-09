@@ -171,14 +171,13 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 
 
 	@Override
-	public int reqWorkChoice(DevelopmentCard workCard) throws DisconnectedException{
+	public int reqWorkChoice(DevelopmentCard workCard, boolean costs) throws DisconnectedException{
 		try {
-			return client.reqWorkChoice(workCard);
+			return client.reqWorkChoice(workCard, costs);
 		} catch (RemoteException e) {
 			LOGGER.log(Level.WARNING, "Error calling remote method reWorkChoice on client", e);
 			throw new DisconnectedException();
 		}
-		
 		
 		
 	}
