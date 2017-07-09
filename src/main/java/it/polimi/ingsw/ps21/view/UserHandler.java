@@ -217,9 +217,9 @@ public class UserHandler extends Observable implements Visitor, Observer {
 						return;
 					else {
 						this.timeoutExpired = false;
-						ActionData newAction = connection.reqAction(req.getId());
+						ActionData newAction = connection.reqAction(req.getActionId());
 						if (timeoutExpired)
-							connection.sendMessage("\nAction timeout expired");
+							connection.sendMessage("Action timeout expired");
 						else {
 							setChanged();
 							notifyObservers(newAction);
