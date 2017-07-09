@@ -198,7 +198,7 @@ public class MatchController extends Observable implements Observer {
 			for (ExtraAction a : poolExtraAction) {
 				if (!(a instanceof NullAction))
 					{currentExtraActions.add(a);
-					a.setMainActionId(actionCounter);}
+					}
 			}
 			if (currentExtraActions.isEmpty()) {
 				setChanged();
@@ -284,7 +284,7 @@ public class MatchController extends Observable implements Observer {
 			setChanged();
 			notifyObservers(req);
 		} else if (roundType==RoundType.VATICAN_ROUND){
-			this.currentAction = new VaticanAction(currentPlayer.getId());
+			this.currentAction = new VaticanAction(currentPlayer.getId(), actionCounter);
 			this.state = ActionState.AWAITING_CHOICES;
 			getActionChoices();
 		}
@@ -293,14 +293,14 @@ public class MatchController extends Observable implements Observer {
 			//startTimer();
 			AdvancedMatch m= (AdvancedMatch)this.match;
 			LeaderChoice message= new LeaderChoice(m.getLeaderPossibilities(), this.currentPlayer.getId(), actionCounter);
-			this.currentAction=new LeaderChoiceAction(this.currentPlayer.getId(), message);
+			this.currentAction=new LeaderChoiceAction(this.currentPlayer.getId(), message, actionCounter);
 			this.state=ActionState.AWAITING_CHOICES;
 			getActionChoices();
 		}
 		else if (roundType == RoundType.TILE_CHOICE){
 			AdvancedMatch m= (AdvancedMatch)this.match;
 			TileChoice message = new TileChoice(currentPlayer.getId(), m.getPossibleTiles(), actionCounter);
-			this.currentAction = new TileChoiceAction(this.currentPlayer.getId(), message);
+			this.currentAction = new TileChoiceAction(this.currentPlayer.getId(), message, actionCounter);
 			this.state = ActionState.AWAITING_CHOICES;
 			getActionChoices();
 			
@@ -443,7 +443,8 @@ public class MatchController extends Observable implements Observer {
 					data.getServants(), chosenMember, actionCounter);
 			break;
 		case NULL:
-			parsedAction = new NullAction(currentPlayer.getId(), actionCounter);
+			parsedAction = new NullAction(currentPlayer.getId());
+			((NullAction)parsedAction).setActionId(actionCounter);
 			break;
 		case PLAY_LEADERCARD:
 			LeaderCard cardToPlay= ((AdvancedPlayer)this.currentPlayer).getLeaders()[data.getSpace()];
@@ -465,7 +466,9 @@ public class MatchController extends Observable implements Observer {
 			break;
 		default:
 			LOGGER.log(Level.INFO, "Invalid ActionData type, generated a default new Action");
-			parsedAction = new NullAction(currentPlayer.getId(), actionCounter);
+			parsedAction = new NullAction(currentPlayer.getId());
+			((NullAction)parsedAction).setActionId(actionCounter);
+
 			break;
 		}
 		this.currentAction = parsedAction;

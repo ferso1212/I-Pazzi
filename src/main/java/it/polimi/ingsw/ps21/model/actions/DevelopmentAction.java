@@ -137,6 +137,10 @@ public class DevelopmentAction extends Action {
 		
 		this.extraActionFromInstantEffect.addAll(extraActionFromPermanentEffect);
 		
+		for (ExtraAction a : extraActionFromInstantEffect)
+		{
+			a.setActionId(actionId);
+		}
 		return this.extraActionFromInstantEffect.toArray(new ExtraAction[0]);
 		}
 

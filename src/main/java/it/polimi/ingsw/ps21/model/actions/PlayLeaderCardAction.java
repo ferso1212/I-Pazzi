@@ -72,6 +72,10 @@ public class PlayLeaderCardAction extends Action {
 
 		ArrayList<ExtraAction> returnAction = new ArrayList<ExtraAction>();
 		returnAction.add(this.cardToPlay.getEffect().activate((AdvancedPlayer) player));
+		for(ExtraAction a: returnAction)
+		{
+			a.setActionId(actionId);
+		}
 		return returnAction.toArray(new ExtraAction[0]);
 	}
 }

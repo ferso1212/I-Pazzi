@@ -146,7 +146,10 @@ public class WorkAction extends Action {
 		}
 		
 		player.getProperties().increaseProperties(player.getPersonalBonusTile().getTileBonus(this.space.getWorkType(), this.actionValue));
-
+		for(ExtraAction a: activatedEffects)
+		{
+			a.setActionId(actionId);
+		}
 		return activatedEffects.toArray(new ExtraAction[0]);
 	}
 

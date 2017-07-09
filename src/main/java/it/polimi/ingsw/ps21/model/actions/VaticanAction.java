@@ -90,6 +90,10 @@ public class VaticanAction extends Action {
 			player.addExcommunication(match.getBoard().getExcommunications()[match.getPeriod() - 1]);
 			
 			extraActionList.add(new NullAction(player.getId()));
+			for(ExtraAction a : extraActionList)
+			{
+				a.setActionId(actionId);
+			}
 			return extraActionList.toArray(new ExtraAction[0]);
 		}
 	}

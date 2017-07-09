@@ -39,6 +39,7 @@ public class LeaderChoiceAction extends Action{
 		aPlayer.addLeaderCard(this.message.getChosenCard());
 		ExtraAction[] toReturn= new ExtraAction[1];
 		toReturn[0]= new NullAction(player.getId());
+		toReturn[0].setActionId(actionId);
 		return toReturn;
 	}
 	

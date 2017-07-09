@@ -73,6 +73,7 @@ public class CouncilAction extends Action{
 		
 		ExtraAction[] returnActions = new ExtraAction[1];
 		returnActions[0] = new NullAction(player.getId());
+		returnActions[0].setActionId(actionId);
 		return returnActions;
 	}
 

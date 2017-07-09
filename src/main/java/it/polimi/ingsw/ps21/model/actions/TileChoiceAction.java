@@ -38,6 +38,7 @@ public class TileChoiceAction extends Action {
 		AdvancedPlayer aPlayer= (AdvancedPlayer)player;
 		ExtraAction[] toReturn= new ExtraAction[1];
 		toReturn[0]= new NullAction(player.getId());
+		toReturn[0].setActionId(actionId);
 		aPlayer.setPersonalBonusTile(choice);
 		return toReturn;
 	}

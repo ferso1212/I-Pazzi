@@ -60,6 +60,11 @@ public class MarketAction extends Action{
 		if(this.space.getNumberOfPrivileges() > 0){
 			returnActions[0] = new TakePrivilegesAction(player.getId(), space.getNumberOfPrivileges());
 		}
+		
+		for(ExtraAction a : returnActions)
+		{
+			a.setActionId(actionId);
+		}
 		return returnActions;
 	}
 	
