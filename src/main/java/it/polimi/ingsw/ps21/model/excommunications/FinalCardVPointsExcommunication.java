@@ -10,6 +10,10 @@ import it.polimi.ingsw.ps21.model.player.Player;
  */
 public class FinalCardVPointsExcommunication extends Excommunication{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2865802909255863882L;
 	private DevelopmentCardType cardType;
 
 	/**Activates the excommunication: its effects are stored in the player's Final Excommunications modifier.
