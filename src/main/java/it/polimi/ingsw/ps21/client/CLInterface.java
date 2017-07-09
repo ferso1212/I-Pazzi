@@ -102,7 +102,7 @@ public class CLInterface implements UserInterface {
 					printOutput(card.toString());
 				else
 					printOutput("Empty Floor");
-				printOutput("Family Member: " + (boardInfo.getTowerSpaces()[i][j]).toString());
+				printOutput("Family Member: " + (boardInfo.getTowerSpaces()[j][i]).toString());
 				printOutput("------------------------------------------------------------");
 			}
 			printOutput("===================================================================");
@@ -141,11 +141,12 @@ public class CLInterface implements UserInterface {
 		StringBuilder market = new StringBuilder();
 		for(int i=0; i<matchInfo.getBoard().getMarketBonuses().length; i++){
 			if (matchInfo.getBoard().getMarket()[i].getFirstOccupant() !=null) {
-				market.append( (i+1) + ") " + matchInfo.getBoard().getMarket()[i].getFirstOccupant().toString());
+				market.append((i+1) + ") " + matchInfo.getBoard().getMarket()[i].getFirstOccupant().toString());
 				if (advancedMatch && matchInfo.getBoard().getMarket()[i].getSecondOccupant()!=null) market.append("\n\tOther Occupant: " +  matchInfo.getBoard().getMarket()[i].getSecondOccupant().toString());
 			}
 			else market.append((i+1) + ") FREE");
 			market.append("\nBonus: " +  matchInfo.getBoard( ).getMarketBonuses()[i].toString() + "\tPrivileges: " + matchInfo.getBoard().getMarketPrivileges()[i]);
+			market.append("\n");
 		}
 		printOutput(market.toString());
 		printOutput("====================================================================");

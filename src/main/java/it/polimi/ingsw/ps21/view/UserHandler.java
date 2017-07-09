@@ -180,7 +180,11 @@ public class UserHandler extends Observable implements Visitor, Observer {
 	
 	public void updateViewAfterReconnection()
 	{
-		try {if(this.matchStatus!=null)	connection.remoteUpdate(this.matchStatus);
+		try {if(this.matchStatus!=null){	
+			connection.setID(playerId);
+			connection.remoteUpdate(this.matchStatus);
+		
+		}
 		} catch (DisconnectedException e) {
 			LOGGER.log(Level.WARNING, "Player that had reconnected is now disconnected.", e);
 		}
