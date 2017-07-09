@@ -1,8 +1,6 @@
 package it.polimi.ingsw.ps21.client.GUI;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -17,6 +15,11 @@ import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
 public class FamilyMemberButton extends JButton {
 
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public FamilyMemberButton(PlayerColor id, MembersColor color) {
 		super();

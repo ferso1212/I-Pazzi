@@ -13,6 +13,10 @@ import it.polimi.ingsw.ps21.view.FamilyMemberData;
 
 public class MarketButton extends JButton{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int spaceNumber;
 	
 	public MarketButton(int spaceNumber){

@@ -2,7 +2,6 @@ package it.polimi.ingsw.ps21.client.GUI;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -15,10 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
-import javax.imageio.ImageReadParam;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
@@ -28,6 +25,10 @@ import it.polimi.ingsw.ps21.view.PlayerData;
 
 public class PlayerBoardPanel extends JPanel{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JLabel coins;
 	private JLabel woods;
 	private JLabel stones;
@@ -36,8 +37,6 @@ public class PlayerBoardPanel extends JPanel{
 	private JLabel militaryPoints;
 	private JLabel faithPoints;
 	private transient BufferedImage playerBoardImage; 
-	private JLabel[] territory;
-	private JLabel[] building;
 	private double resizeParam;
 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	private static final transient Logger LOGGER = Logger.getLogger(PlayerBoardPanel.class.getName());

@@ -1,6 +1,5 @@
 package it.polimi.ingsw.ps21.client.GUI;
 
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +13,10 @@ import it.polimi.ingsw.ps21.view.PlayerData;
 
 public class FamilyMemberPanel extends JPanel{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JButton orangeMember;
 	private JButton whiteMember;
 	private JButton blackMember;

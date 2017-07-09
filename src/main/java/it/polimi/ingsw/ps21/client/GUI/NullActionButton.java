@@ -14,6 +14,11 @@ import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
 public class NullActionButton extends JButton {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public NullActionButton(PlayerColor playerId) {
 		super();
 		BufferedImage image;

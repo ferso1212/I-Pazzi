@@ -1,23 +1,16 @@
 package it.polimi.ingsw.ps21.client.GUI;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SpringLayout.Constraints;
-import javax.swing.border.Border;
 
 import it.polimi.ingsw.ps21.controller.NotAdvancedPlayerException;
 import it.polimi.ingsw.ps21.model.player.MembersColor;
@@ -27,6 +20,10 @@ import it.polimi.ingsw.ps21.view.PlayerData;
 
 public class ActionPanel extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7551327098728821261L;
 	private static final Logger LOGGER = Logger.getLogger(ActionPanel.class.getSimpleName());
 	private FamilyMemberPanel memberPanel;
 	private JLabel roundInfo;
