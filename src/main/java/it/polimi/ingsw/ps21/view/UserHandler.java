@@ -119,12 +119,18 @@ public class UserHandler extends Observable implements Visitor, Observer {
 	public void visit(WorkMessage message) {
 		try {
 			connection.sendMessage(message.getMessage());
-			DevelopmentCard cardPossibilities[] = message.getChoices();
+			DevelopmentCard cardPossibilities[] = message.getcardsToActivateWithoutChoice();
 			int choices[] = new int[cardPossibilities.length];
 			for (int i=0; i<choices.length; i++){
-				choices[i] = connection.reqWorkChoice(cardPossibilities[i]);
+				choices[i] = connection.reqWorkChoice(cardPossibilities[i], false);
 			}
-			message.setChosenCardsAndEffects(choices);
+			message.setChosenCardsWithoutCost(choices);
+			cardPossibilities = message.getCardsWithCost();
+			choices = new int[cardPossibilities.length];
+			for (int i=0; i<choices.length; i++){
+				choices[i] = connection.reqWorkChoice(cardPossibilities[i], true);
+			}
+			message.setChosenCardsWithCost(choices);
 			message.setVisited();
 			setChanged();
 			notifyObservers(new ExecutedChoice(this.playerId, message.getActionId()));

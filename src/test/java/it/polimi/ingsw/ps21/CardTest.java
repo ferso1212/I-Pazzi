@@ -1,16 +1,12 @@
 package it.polimi.ingsw.ps21;
 
-import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import it.polimi.ingsw.ps21.controller.UnchosenException;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.deck.BuildingCard;
 import it.polimi.ingsw.ps21.model.deck.CardsNumber;
 import it.polimi.ingsw.ps21.model.deck.CharacterCard;
-import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.deck.RequirementAndCost;

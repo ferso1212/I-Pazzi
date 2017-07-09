@@ -34,7 +34,7 @@ public abstract interface Connection{
 	
 	public EffectSet reqEffectChoice(EffectSet[] possibleEffects) throws DisconnectedException;
 
-	public int reqWorkChoice(DevelopmentCard message) throws DisconnectedException;
+	public int reqWorkChoice(DevelopmentCard message, boolean costs) throws DisconnectedException;
 
 	public void matchEnded(EndData data);
 	

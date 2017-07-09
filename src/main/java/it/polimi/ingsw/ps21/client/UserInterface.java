@@ -47,7 +47,7 @@ public abstract interface UserInterface {
 
 	public abstract int reqExtraActionChoice(ExtraActionData[] actions);
 
-	public int reqWorkChoice(DevelopmentCard workCard);
+	public int reqWorkChoice(DevelopmentCard workCard, boolean costs);
 
 	public String reqName();
 	

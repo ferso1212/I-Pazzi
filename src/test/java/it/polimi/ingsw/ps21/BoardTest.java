@@ -1,11 +1,8 @@
 package it.polimi.ingsw.ps21;
 
-import java.lang.reflect.Member;
 import java.util.logging.Logger;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import it.polimi.ingsw.ps21.model.board.Board;
 import it.polimi.ingsw.ps21.model.board.NotOccupableException;
 import it.polimi.ingsw.ps21.model.board.Tower;

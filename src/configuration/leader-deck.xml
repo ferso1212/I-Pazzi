@@ -1,580 +1,577 @@
 <?xml version="1.0" ?>
 <!DOCTYPE LeaderDeck SYSTEM "leader-deck-schema.dtd">
 <LeaderDeck>
-	<LeaderCard name="Francesco Sforza">
-		<InstantLeaderEffect>
-			<InstantWorkEffect diceValue="1">
-			<Requirement>
-        		        <Properties>
-        		            <Wood value="0" />
-        		            <Stones value="0" />
-        		            <Servants value="0" />
-        		            <Coins value="0" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="0" />
-        		            <FaithPoints value="0" />
-        		        </Properties>
-        		        <CardsNumber>
-        		            <Green value="0" />
-        		            <Yellow value="0" />
-    		             	   <Blue value="0" />
-    		             	   <Purple value="5" />
-    		            </CardsNumber>
-  		          </Requirement>
-				<WorkType>
-					<Harvest/>
-				</WorkType>
-			</InstantWorkEffect>
-		</InstantLeaderEffect>
-	</LeaderCard>
-	<LeaderCard name="Lucrezia Borgia">
-	<PermanentLeaderEffect>
-			<IncreaseDiceValues whiteValue="2" blackValue="2" orangeValue="2">
-			<Requirement>
-        		        <Properties>
-        		            <Wood value="0" />
-        		            <Stones value="0" />
-        		            <Servants value="0" />
-        		            <Coins value="0" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="0" />
-        		            <FaithPoints value="0" />
-        		        </Properties>
-        		        <CardsNumber>
-        		            <Green value="6" />
-        		            <Yellow value="0" />
-    		                <Blue value="0" />
-    		                <Purple value="0" />
-    		            </CardsNumber>
-  		          </Requirement>
-			<Requirement>
-        		        <Properties>
-        		            <Wood value="0" />
-        		            <Stones value="0" />
-        		            <Servants value="0" />
-        		            <Coins value="0" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="0" />
-        		            <FaithPoints value="0" />
-        		        </Properties>
-        		        <CardsNumber>
-        		            <Green value="0" />
-        		            <Yellow value="6" />
-    		                <Blue value="0" />
-    		                <Purple value="0" />
-    		            </CardsNumber>
-  		          </Requirement>
-			<Requirement>
-        		        <Properties>
-        		            <Wood value="0" />
-        		            <Stones value="0" />
-        		            <Servants value="0" />
-        		            <Coins value="0" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="0" />
-        		            <FaithPoints value="0" />
-        		        </Properties>
-        		        <CardsNumber>
-        		            <Green value="0" />
-        		            <Yellow value="0" />
-    		                <Blue value="6" />
-    		                <Purple value="0" />
-    		            </CardsNumber>
-  		          </Requirement>
-			<Requirement>
-        		        <Properties>
-        		            <Wood value="0" />
-        		            <Stones value="0" />
-        		            <Servants value="0" />
-        		            <Coins value="0" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="0" />
-        		            <FaithPoints value="0" />
-        		        </Properties>
-        		        <CardsNumber>
-        		            <Green value="0" />
-        		            <Yellow value="0" />
-    		                <Blue value="0" />
-    		                <Purple value="6" />
-    		            </CardsNumber>
-  		          </Requirement>
-			</IncreaseDiceValues>			
-		</PermanentLeaderEffect>
-	</LeaderCard>
-	<LeaderCard name="Sisto IV">
-	<PermanentLeaderEffect>
-		<ChurchSupport>
-		<Requirement>
-        		        <Properties>
-        		            <Wood value="6" />
-        		            <Stones value="6" />
-        		            <Servants value="6" />
-        		            <Coins value="6" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="0" />
-        		            <FaithPoints value="0" />
-        		        </Properties>
-        		        <CardsNumber>
-        		            <Green value="0" />
-        		            <Yellow value="0" />
-    		                <Blue value="0" />
-    		                <Purple value="0" />
-    		            </CardsNumber>
-  		          </Requirement>		
-		</ChurchSupport>
-	</PermanentLeaderEffect>
-	</LeaderCard>
-	<LeaderCard name="Federico da Montefeltro">
-	<InstantLeaderEffect>
-		<LeaderPickAnotherCard>
-			<Requirement>
-        		        <Properties>
-        		            <Wood value="0" />
-        		            <Stones value="0" />
-        		            <Servants value="0" />
-        		            <Coins value="0" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="0" />
-        		            <FaithPoints value="0" />
-        		        </Properties>
-        		        <CardsNumber>
-        		            <Green value="5" />
-        		            <Yellow value="0" />
-    		                <Blue value="0" />
-    		                <Purple value="0" />
-    		            </CardsNumber>
-  		          </Requirement>
-		</LeaderPickAnotherCard>
-	</InstantLeaderEffect>
-	</LeaderCard>
-	<LeaderCard name="Bartolomeo Colleoni">
-	<InstantLeaderEffect>
-	<PropertiesBonus>
-			<Requirement>
-        		        <Properties>
-        		            <Wood value="0" />
-        		            <Stones value="0" />
-        		            <Servants value="0" />
-        		            <Coins value="0" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="0" />
-        		            <FaithPoints value="0" />
-        		        </Properties>
-        		        <CardsNumber>
-        		            <Green value="4" />
-        		            <Yellow value="0" />
-    		                <Blue value="0" />
-    		                <Purple value="2" />
-    		            </CardsNumber>
-  		          </Requirement>
-			<Properties>
-        		            <Wood value="0" />
-        		            <Stones value="0" />
-        		            <Servants value="0" />
-        		            <Coins value="0" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="4" />
-        		            <FaithPoints value="0" />
-        		 </Properties>
-		</PropertiesBonus>
-	</InstantLeaderEffect>
-	</LeaderCard>
-	<LeaderCard name="Michelangelo Buonarroti">
-	<InstantLeaderEffect>
-	<PropertiesBonus>
-			<Requirement>
-        		        <Properties>
-        		            <Wood value="0" />
-        		            <Stones value="10" />
-        		            <Servants value="0" />
-        		            <Coins value="0" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="0" />
-        		            <FaithPoints value="0" />
-        		        </Properties>
-        		        <CardsNumber>
-        		            <Green value="0" />
-        		            <Yellow value="0" />
-    		                <Blue value="0" />
-    		                <Purple value="0" />
-    		            </CardsNumber>
-  		          </Requirement>
-			<Properties>
-        		            <Wood value="0" />
-        		            <Stones value="0" />
-        		            <Servants value="0" />
-        		            <Coins value="3" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="0" />
-        		            <FaithPoints value="0" />
-        		 </Properties>
-	</PropertiesBonus>
-	</InstantLeaderEffect>
-	</LeaderCard>
-	<LeaderCard name="Cosimo De Medici">
-	<InstantLeaderEffect>
-	<PropertiesBonus>
-			<Requirement>
-        		        <Properties>
-        		            <Wood value="0" />
-        		            <Stones value="0" />
-        		            <Servants value="0" />
-        		            <Coins value="0" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="0" />
-        		            <FaithPoints value="0" />
-        		        </Properties>
-        		        <CardsNumber>
-        		            <Green value="0" />
-        		            <Yellow value="4" />
-    		                <Blue value="2" />
-    		                <Purple value="0" />
-    		            </CardsNumber>
-  		          </Requirement>
-			<Properties>
-        		            <Wood value="0" />
-        		            <Stones value="0" />
-        		            <Servants value="3" />
-        		            <Coins value="0" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="1" />
-        		            <FaithPoints value="0" />
-        		 </Properties>
-		</PropertiesBonus>
-	</InstantLeaderEffect>
-	</LeaderCard>
-	<LeaderCard name="Sandro Botticelli">
-	<InstantLeaderEffect>
-	<PropertiesBonus>
-			<Requirement>
-        		        <Properties>
-        		            <Wood value="10" />
-        		            <Stones value="0" />
-        		            <Servants value="0" />
-        		            <Coins value="0" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="0" />
-        		            <FaithPoints value="0" />
-        		        </Properties>
-        		        <CardsNumber>
-        		            <Green value="0" />
-        		            <Yellow value="0" />
-    		                <Blue value="0" />
-    		                <Purple value="0" />
-    		            </CardsNumber>
-  		          </Requirement>
-			<Properties>
-        		            <Wood value="0" />
-        		            <Stones value="0" />
-        		            <Servants value="0" />
-        		            <Coins value="0" />
-        		            <MilitaryPoints value="2" />
-        		            <VictoryPoints value="1" />
-        		            <FaithPoints value="0" />
-        		 </Properties>
-		</PropertiesBonus>
-	</InstantLeaderEffect>
-	</LeaderCard>
-	<LeaderCard name="Giovanni Dalle Bande Nere">
-	<InstantLeaderEffect>
-		<PropertiesBonus>
-			<Requirement>
-        		        <Properties>
-        		            <Wood value="0" />
-        		            <Stones value="0" />
-        		            <Servants value="0" />
-        		            <Coins value="0" />
-        		            <MilitaryPoints value="12" />
-        		            <VictoryPoints value="0" />
-        		            <FaithPoints value="0" />
-        		        </Properties>
-        		        <CardsNumber>
-        		            <Green value="0" />
-        		            <Yellow value="0" />
-    		                <Blue value="0" />
-    		                <Purple value="0" />
-    		            </CardsNumber>
-  		          </Requirement>
-			<Properties>
-        		            <Wood value="1" />
-        		            <Stones value="1" />
-        		            <Servants value="0" />
-        		            <Coins value="1" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="0" />
-        		            <FaithPoints value="0" />
-        		 </Properties>
-		</PropertiesBonus>
-	</InstantLeaderEffect>
-	</LeaderCard>
-	<LeaderCard name="Santa Rita">
-	<PermanentLeaderEffect>
-		<DoubleResources>
-			<Requirement>
-        		        <Properties>
-        		            <Wood value="0" />
-        		            <Stones value="0" />
-        		            <Servants value="0" />
-        		            <Coins value="0" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="0" />
-        		            <FaithPoints value="8" />
-        		        </Properties>
-        		        <CardsNumber>
-        		            <Green value="0" />
-        		            <Yellow value="0" />
-    		                <Blue value="0" />
-    		                <Purple value="0" />
-    		            </CardsNumber>
-  		          </Requirement>
-		</DoubleResources>
-		
-		
-	</PermanentLeaderEffect>
-	</LeaderCard>
-	<LeaderCard name="Ludovico Ariosto">
-	<PermanentLeaderEffect>
-		<OccupiedSpace> 
-		<Requirement>
-        		        <Properties>
-        		            <Wood value="0" />
-        		            <Stones value="0" />
-        		            <Servants value="0" />
-        		            <Coins value="0" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="0" />
-        		            <FaithPoints value="0" />
-        		        </Properties>
-        		        <CardsNumber>
-        		            <Green value="0" />
-        		            <Yellow value="0" />
-    		                <Blue value="5" />
-    		                <Purple value="0" />
-    		            </CardsNumber>
-  		          </Requirement>
-		</OccupiedSpace>
-	</PermanentLeaderEffect>
-	</LeaderCard>
-	<LeaderCard name="Sigismondo Malatesta">
-	<PermanentLeaderEffect>
-		<MemberBonus value="3">
-			<Requirement>
-        		        <Properties>
-        		            <Wood value="0" />
-        		            <Stones value="0" />
-        		            <Servants value="0" />
-        		            <Coins value="0" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="35" />
-        		            <FaithPoints value="0" />
-        		        </Properties>
-        		        <CardsNumber>
-        		            <Green value="0" />
-        		            <Yellow value="0" />
-    		                <Blue value="0" />
-    		                <Purple value="0" />
-    		            </CardsNumber>
-  		          </Requirement>
-		</MemberBonus>		
-	</PermanentLeaderEffect>
-	</LeaderCard>
-	<LeaderCard name="Lorenzo De Medici">
-	<PermanentLeaderEffect>
-		<LorenzoIlMagnifico>
-			<Requirement>
-        		        <Properties>
-        		            <Wood value="0" />
-        		            <Stones value="0" />
-        		            <Servants value="0" />
-        		            <Coins value="0" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="35" />
-        		            <FaithPoints value="0" />
-        		        </Properties>
-        		        <CardsNumber>
-        		            <Green value="0" />
-        		            <Yellow value="0" />
-    		                <Blue value="0" />
-    		                <Purple value="0" />
-    		            </CardsNumber>
-  		          </Requirement>
-		</LorenzoIlMagnifico>
-	</PermanentLeaderEffect>
-	</LeaderCard>
-	<LeaderCard name="Cesare Borgia">
-	<PermanentLeaderEffect>
-		<NoMilitaryForTerritory>
-			<Requirement>
-        		        <Properties>
-        		            <Wood value="0" />
-        		            <Stones value="0" />
-        		            <Servants value="0" />
-        		            <Coins value="12" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="0" />
-        		            <FaithPoints value="2" />
-        		        </Properties>
-        		        <CardsNumber>
-        		            <Green value="0" />
-        		            <Yellow value="3" />
-    		                <Blue value="0" />
-    		                <Purple value="0" />
-    		            </CardsNumber>
-  		          </Requirement>
-		</NoMilitaryForTerritory>
-	</PermanentLeaderEffect>
-	</LeaderCard>
-	<LeaderCard name="Filippo Brunelleschi">
-	<PermanentLeaderEffect>
-		<NoPayOccupiedTower> 
-			<Requirement>
-        		        <Properties>
-        		            <Wood value="0" />
-        		            <Stones value="0" />
-        		            <Servants value="0" />
-        		            <Coins value="0" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="0" />
-        		            <FaithPoints value="0" />
-        		        </Properties>
-        		        <CardsNumber>
-        		            <Green value="0" />
-        		            <Yellow value="5" />
-    		                <Blue value="0" />
-    		                <Purple value="0" />
-    		            </CardsNumber>
-  		          </Requirement>
-		</NoPayOccupiedTower>
-	</PermanentLeaderEffect>
-	</LeaderCard>
-	<LeaderCard name="Leonardo da Vinci">
-	<InstantLeaderEffect>
-		<InstantWorkEffect diceValue="0">
-			<Requirement>
-        		        <Properties>
-        		            <Wood value="0" />
-        		            <Stones value="0" />
-        		            <Servants value="0" />
-        		            <Coins value="0" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="0" />
-        		            <FaithPoints value="0" />
-        		        </Properties>
-        		        <CardsNumber>
-        		            <Green value="2" />
-        		            <Yellow value="0" />
-    		                <Blue value="4" />
-    		                <Purple value="0" />
-    		            </CardsNumber>
-  		          </Requirement>
-				<WorkType>
-					<Harvest/>
-				</WorkType>
-		</InstantWorkEffect>		
-	</InstantLeaderEffect>
-	</LeaderCard>
-	<LeaderCard name="Girolamo Savonarola">
-	<InstantLeaderEffect>
-		<PropertiesBonus>
-			<Requirement>
-        		        <Properties>
-        		            <Wood value="0" />
-        		            <Stones value="0" />
-        		            <Servants value="0" />
-        		            <Coins value="18" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="0" />
-        		            <FaithPoints value="0" />
-        		        </Properties>
-        		        <CardsNumber>
-        		            <Green value="0" />
-        		            <Yellow value="0" />
-    		                <Blue value="0" />
-    		                <Purple value="0" />
-    		            </CardsNumber>
-  		          </Requirement>
-			<Properties>
-        		            <Wood value="0" />
-        		            <Stones value="0" />
-        		            <Servants value="0" />
-        		            <Coins value="0" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="0" />
-        		            <FaithPoints value="1" />
-        		 </Properties>
-		</PropertiesBonus>
-	</InstantLeaderEffect>
-	</LeaderCard>
-	<LeaderCard name="Pico della Mirandola">
-	<PermanentLeaderEffect>
-		<DiscountLeaderEffect>
-			<Requirement>
-        		        <Properties>
-        		            <Wood value="0" />
-        		            <Stones value="0" />
-        		            <Servants value="15" />
-        		            <Coins value="0" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="0" />
-        		            <FaithPoints value="0" />
-        		        </Properties>
-        		        <CardsNumber>
-        		            <Green value="2" />
-        		            <Yellow value="2" />
-    		                <Blue value="2" />
-    		                <Purple value="2" />
-    		            </CardsNumber>
-  		          </Requirement>
-		</DiscountLeaderEffect>
-	</PermanentLeaderEffect>
-	</LeaderCard>
-	<LeaderCard name="Ludovico il Moro">
-	<PermanentLeaderEffect>
-		<FixedDiceValues whiteValue="5" orangeValue="5" blackValue="5">
-			<Requirement>
-        		        <Properties>
-        		            <Wood value="0" />
-        		            <Stones value="0" />
-        		            <Servants value="15" />
-        		            <Coins value="0" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="0" />
-        		            <FaithPoints value="0" />
-        		        </Properties>
-        		        <CardsNumber>
-        		            <Green value="2" />
-        		            <Yellow value="2" />
-    		                <Blue value="2" />
-    		                <Purple value="2" />
-    		            </CardsNumber>
-  		          </Requirement>
-		</FixedDiceValues>
-	</PermanentLeaderEffect>
-	</LeaderCard>
-	<LeaderCard name="Ludovico III Gonzaga">
-	<InstantLeaderEffect>
-		<PrivilegesBonus number = "1">
-			<Requirement>
-        		        <Properties>
-        		            <Wood value="0" />
-        		            <Stones value="0" />
-        		            <Servants value="15" />
-        		            <Coins value="0" />
-        		            <MilitaryPoints value="0" />
-        		            <VictoryPoints value="0" />
-        		            <FaithPoints value="0" />
-        		        </Properties>
-        		        <CardsNumber>
-        		            <Green value="0" />
-        		            <Yellow value="0" />
-    		                <Blue value="0" />
-    		                <Purple value="0" />
-    		            </CardsNumber>
-  		          </Requirement>
-		</PrivilegesBonus>		
-	</InstantLeaderEffect>
-	</LeaderCard>
+    <LeaderCard name="Francesco Sforza">
+        <InstantLeaderEffect>
+            <InstantWorkEffect diceValue="1">
+                <Requirement>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                    <CardsNumber>
+                        <Green value="0" />
+                        <Yellow value="0" />
+                        <Blue value="0" />
+                        <Purple value="5" />
+                    </CardsNumber>
+                </Requirement>
+                <WorkType>
+                    <Harvest/>
+                </WorkType>
+            </InstantWorkEffect>
+        </InstantLeaderEffect>
+    </LeaderCard>
+    <LeaderCard name="Lucrezia Borgia">
+        <PermanentLeaderEffect>
+            <IncreaseDiceValues whiteValue="2" blackValue="2" orangeValue="2">
+                <Requirement>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                    <CardsNumber>
+                        <Green value="6" />
+                        <Yellow value="0" />
+                        <Blue value="0" />
+                        <Purple value="0" />
+                    </CardsNumber>
+                </Requirement>
+                <Requirement>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                    <CardsNumber>
+                        <Green value="0" />
+                        <Yellow value="6" />
+                        <Blue value="0" />
+                        <Purple value="0" />
+                    </CardsNumber>
+                </Requirement>
+                <Requirement>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                    <CardsNumber>
+                        <Green value="0" />
+                        <Yellow value="0" />
+                        <Blue value="6" />
+                        <Purple value="0" />
+                    </CardsNumber>
+                </Requirement>
+                <Requirement>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                    <CardsNumber>
+                        <Green value="0" />
+                        <Yellow value="0" />
+                        <Blue value="0" />
+                        <Purple value="6" />
+                    </CardsNumber>
+                </Requirement>
+            </IncreaseDiceValues>
+        </PermanentLeaderEffect>
+    </LeaderCard>
+    <LeaderCard name="Sisto IV">
+        <PermanentLeaderEffect>
+            <ChurchSupport>
+                <Requirement>
+                    <Properties>
+                        <Wood value="6" />
+                        <Stones value="6" />
+                        <Servants value="6" />
+                        <Coins value="6" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                    <CardsNumber>
+                        <Green value="0" />
+                        <Yellow value="0" />
+                        <Blue value="0" />
+                        <Purple value="0" />
+                    </CardsNumber>
+                </Requirement>
+            </ChurchSupport>
+        </PermanentLeaderEffect>
+    </LeaderCard>
+    <LeaderCard name="Federico da Montefeltro">
+        <InstantLeaderEffect>
+            <LeaderPickAnotherCard>
+                <Requirement>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                    <CardsNumber>
+                        <Green value="5" />
+                        <Yellow value="0" />
+                        <Blue value="0" />
+                        <Purple value="0" />
+                    </CardsNumber>
+                </Requirement>
+            </LeaderPickAnotherCard>
+        </InstantLeaderEffect>
+    </LeaderCard>
+    <LeaderCard name="Bartolomeo Colleoni">
+        <InstantLeaderEffect>
+            <PropertiesBonus>
+                <Requirement>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                    <CardsNumber>
+                        <Green value="4" />
+                        <Yellow value="0" />
+                        <Blue value="0" />
+                        <Purple value="2" />
+                    </CardsNumber>
+                </Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="4" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </PropertiesBonus>
+        </InstantLeaderEffect>
+    </LeaderCard>
+    <LeaderCard name="Michelangelo Buonarroti">
+        <InstantLeaderEffect>
+            <PropertiesBonus>
+                <Requirement>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="10" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                    <CardsNumber>
+                        <Green value="0" />
+                        <Yellow value="0" />
+                        <Blue value="0" />
+                        <Purple value="0" />
+                    </CardsNumber>
+                </Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="3" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </PropertiesBonus>
+        </InstantLeaderEffect>
+    </LeaderCard>
+    <LeaderCard name="Cosimo De Medici">
+        <InstantLeaderEffect>
+            <PropertiesBonus>
+                <Requirement>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                    <CardsNumber>
+                        <Green value="0" />
+                        <Yellow value="4" />
+                        <Blue value="2" />
+                        <Purple value="0" />
+                    </CardsNumber>
+                </Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="3" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="1" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </PropertiesBonus>
+        </InstantLeaderEffect>
+    </LeaderCard>
+    <LeaderCard name="Sandro Botticelli">
+        <InstantLeaderEffect>
+            <PropertiesBonus>
+                <Requirement>
+                    <Properties>
+                        <Wood value="10" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                    <CardsNumber>
+                        <Green value="0" />
+                        <Yellow value="0" />
+                        <Blue value="0" />
+                        <Purple value="0" />
+                    </CardsNumber>
+                </Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="2" />
+                    <VictoryPoints value="1" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </PropertiesBonus>
+        </InstantLeaderEffect>
+    </LeaderCard>
+    <LeaderCard name="Giovanni Dalle Bande Nere">
+        <InstantLeaderEffect>
+            <PropertiesBonus>
+                <Requirement>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="12" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                    <CardsNumber>
+                        <Green value="0" />
+                        <Yellow value="0" />
+                        <Blue value="0" />
+                        <Purple value="0" />
+                    </CardsNumber>
+                </Requirement>
+                <Properties>
+                    <Wood value="1" />
+                    <Stones value="1" />
+                    <Servants value="0" />
+                    <Coins value="1" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="0" />
+                </Properties>
+            </PropertiesBonus>
+        </InstantLeaderEffect>
+    </LeaderCard>
+    <LeaderCard name="Santa Rita">
+        <PermanentLeaderEffect>
+            <DoubleResources>
+                <Requirement>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="8" />
+                    </Properties>
+                    <CardsNumber>
+                        <Green value="0" />
+                        <Yellow value="0" />
+                        <Blue value="0" />
+                        <Purple value="0" />
+                    </CardsNumber>
+                </Requirement>
+            </DoubleResources>
+
+
+        </PermanentLeaderEffect>
+    </LeaderCard>
+    <LeaderCard name="Ludovico Ariosto">
+        <PermanentLeaderEffect>
+            <OccupiedSpace>
+                <Requirement>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                    <CardsNumber>
+                        <Green value="0" />
+                        <Yellow value="0" />
+                        <Blue value="5" />
+                        <Purple value="0" />
+                    </CardsNumber>
+                </Requirement>
+            </OccupiedSpace>
+        </PermanentLeaderEffect>
+    </LeaderCard>
+    <LeaderCard name="Sigismondo Malatesta">
+        <PermanentLeaderEffect>
+            <MemberBonus value="3">
+                <Requirement>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="7" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="3" />
+                    </Properties>
+                    <CardsNumber>
+                        <Green value="0" />
+                        <Yellow value="0" />
+                        <Blue value="0" />
+                        <Purple value="0" />
+                    </CardsNumber>
+                </Requirement>
+            </MemberBonus>
+        </PermanentLeaderEffect>
+    </LeaderCard>
+    <LeaderCard name="Lorenzo De Medici">
+        <PermanentLeaderEffect>
+            <LorenzoIlMagnifico>
+                <Requirement>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="35" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                    <CardsNumber>
+                        <Green value="0" />
+                        <Yellow value="0" />
+                        <Blue value="0" />
+                        <Purple value="0" />
+                    </CardsNumber>
+                </Requirement>
+            </LorenzoIlMagnifico>
+        </PermanentLeaderEffect>
+    </LeaderCard>
+    <LeaderCard name="Cesare Borgia">
+        <PermanentLeaderEffect>
+            <NoMilitaryForTerritory>
+                <Requirement>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="12" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="2" />
+                    </Properties>
+                    <CardsNumber>
+                        <Green value="0" />
+                        <Yellow value="3" />
+                        <Blue value="0" />
+                        <Purple value="0" />
+                    </CardsNumber>
+                </Requirement>
+            </NoMilitaryForTerritory>
+        </PermanentLeaderEffect>
+    </LeaderCard>
+    <LeaderCard name="Filippo Brunelleschi">
+        <PermanentLeaderEffect>
+            <NoPayOccupiedTower>
+                <Requirement>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                    <CardsNumber>
+                        <Green value="0" />
+                        <Yellow value="5" />
+                        <Blue value="0" />
+                        <Purple value="0" />
+                    </CardsNumber>
+                </Requirement>
+            </NoPayOccupiedTower>
+        </PermanentLeaderEffect>
+    </LeaderCard>
+    <LeaderCard name="Leonardo da Vinci">
+        <InstantLeaderEffect>
+            <InstantWorkEffect diceValue="0">
+                <Requirement>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                    <CardsNumber>
+                        <Green value="2" />
+                        <Yellow value="0" />
+                        <Blue value="4" />
+                        <Purple value="0" />
+                    </CardsNumber>
+                </Requirement>
+                <WorkType>
+                    <Harvest/>
+                </WorkType>
+            </InstantWorkEffect>
+        </InstantLeaderEffect>
+    </LeaderCard>
+    <LeaderCard name="Girolamo Savonarola">
+        <InstantLeaderEffect>
+            <PropertiesBonus>
+                <Requirement>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="0" />
+                        <Coins value="18" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                    <CardsNumber>
+                        <Green value="0" />
+                        <Yellow value="0" />
+                        <Blue value="0" />
+                        <Purple value="0" />
+                    </CardsNumber>
+                </Requirement>
+                <Properties>
+                    <Wood value="0" />
+                    <Stones value="0" />
+                    <Servants value="0" />
+                    <Coins value="0" />
+                    <MilitaryPoints value="0" />
+                    <VictoryPoints value="0" />
+                    <FaithPoints value="1" />
+                </Properties>
+            </PropertiesBonus>
+        </InstantLeaderEffect>
+    </LeaderCard>
+    <LeaderCard name="Pico della Mirandola">
+        <PermanentLeaderEffect>
+            <DiscountLeaderEffect>
+                <Requirement>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="15" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                    <CardsNumber>
+                        <Green value="2" />
+                        <Yellow value="2" />
+                        <Blue value="2" />
+                        <Purple value="2" />
+                    </CardsNumber>
+                </Requirement>
+            </DiscountLeaderEffect>
+        </PermanentLeaderEffect>
+    </LeaderCard>
+    <LeaderCard name="Ludovico il Moro">
+        <PermanentLeaderEffect>
+            <FixedDiceValues whiteValue="5" orangeValue="5" blackValue="5">
+                <Requirement>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="15" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                    <CardsNumber>
+                        <Green value="2" />
+                        <Yellow value="2" />
+                        <Blue value="2" />
+                        <Purple value="2" />
+                    </CardsNumber>
+                </Requirement>
+            </FixedDiceValues>
+        </PermanentLeaderEffect>
+    </LeaderCard>
+    <LeaderCard name="Ludovico III Gonzaga">
+        <InstantLeaderEffect>
+            <PrivilegesBonus number="1">
+                <Requirement>
+                    <Properties>
+                        <Wood value="0" />
+                        <Stones value="0" />
+                        <Servants value="15" />
+                        <Coins value="0" />
+                        <MilitaryPoints value="0" />
+                        <VictoryPoints value="0" />
+                        <FaithPoints value="0" />
+                    </Properties>
+                    <CardsNumber>
+                        <Green value="0" />
+                        <Yellow value="0" />
+                        <Blue value="0" />
+                        <Purple value="0" />
+                    </CardsNumber>
+                </Requirement>
+            </PrivilegesBonus>
+        </InstantLeaderEffect>
+    </LeaderCard>
 </LeaderDeck>
-
-
-
