@@ -13,9 +13,11 @@ public abstract class Action {
 	protected PlayerColor playerId;
 	protected int updateCounter;
 	protected int possibleServants;
+	protected int actionId;
 	
-	public Action(PlayerColor playerId) {
+	public Action(PlayerColor playerId, int actionId) {
 		super();
+		this.actionId = actionId;
 		this.playerId = playerId;
 	}
 
@@ -31,5 +33,7 @@ public abstract class Action {
 		player.getProperties().getProperty(PropertiesId.SERVANTS).payValue(numOfServants);
 	}
 	
-	
+	public int getActionId(){
+		return this.actionId;
+	}
 }

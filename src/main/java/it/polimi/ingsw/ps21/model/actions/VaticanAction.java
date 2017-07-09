@@ -25,8 +25,8 @@ public class VaticanAction extends Action {
 
 	private VaticanChoice vaticanChoice;
 
-	public VaticanAction(PlayerColor playerId) {
-		super(playerId);
+	public VaticanAction(PlayerColor playerId, int actionId) {
+		super(playerId, actionId);
 		this.updateCounter = 1;
 	}
 
@@ -45,28 +45,28 @@ public class VaticanAction extends Action {
 					.getExcommunicationRequirement(match.getPeriod())) {
 				this.updateCounter--;
 				this.vaticanChoice = new VaticanChoice(player.getId(),
-						match.getBoard().getExcommunications()[match.getPeriod() - 1]);
+						match.getBoard().getExcommunications()[match.getPeriod() - 1], this.actionId);
 				return this.vaticanChoice;
 			} else{
 				this.vaticanChoice = new VaticanChoice(player.getId(),
-						match.getBoard().getExcommunications()[match.getPeriod() - 1]);
+						match.getBoard().getExcommunications()[match.getPeriod() - 1], this.actionId);
 				this.updateCounter--;
 				vaticanChoice.setChosen(false);
-				return new ExcommunicationMessage(player.getId(), match.getBoard().getExcommunications()[match.getPeriod() - 1].toString());
+				return new ExcommunicationMessage(player.getId(), match.getBoard().getExcommunications()[match.getPeriod() - 1].toString(), this.actionId);
 			}
 		}
 
 		case 0: {
 			if ((this.vaticanChoice.isVisited())) {
 				if (!this.vaticanChoice.getChosen())
-				return new ExcommunicationMessage(player.getId(), match.getBoard().getExcommunications()[match.getPeriod() - 1].toString());
-				else return new AcceptedAction(player.getId());
+				return new ExcommunicationMessage(player.getId(), match.getBoard().getExcommunications()[match.getPeriod() - 1].toString(), this.actionId);
+				else return new AcceptedAction(player.getId(), this.actionId);
 			} else
-				return new RefusedAction(player.getId());
+				return new RefusedAction(player.getId(), this.actionId);
 		}
 
 		default:
-			return new RefusedAction(player.getId());
+			return new RefusedAction(player.getId(), this.actionId);
 		}
 	}
 

@@ -20,8 +20,8 @@ public class PlayLeaderCardAction extends Action {
 	private int updateCounter;
 	private LeaderCopyMessage message;
 
-	public PlayLeaderCardAction(PlayerColor playerId, LeaderCard cardToPlay) {
-		super(playerId);
+	public PlayLeaderCardAction(PlayerColor playerId, LeaderCard cardToPlay, int actionId) {
+		super(playerId, actionId);
 		this.cardToPlay = cardToPlay;
 		updateCounter = 1;
 	}
@@ -46,22 +46,22 @@ public class PlayLeaderCardAction extends Action {
 						}
 					}
 					if (activatedCards.size() == 0)
-						return new RefusedAction(player.getId(), "There isn't any Leader Card to be copied");
-					message = new LeaderCopyMessage(player.getId(), activatedCards.toArray(new LeaderCard[0]));
+						return new RefusedAction(player.getId(), "There isn't any Leader Card to be copied", this.actionId);
+					message = new LeaderCopyMessage(player.getId(), activatedCards.toArray(new LeaderCard[0]), this.actionId);
 					updateCounter--;
 					return message;
 				}
-				return new AcceptedAction(player.getId());
+				return new AcceptedAction(player.getId(), this.actionId);
 			}
-			return new RefusedAction(player.getId());
+			return new RefusedAction(player.getId(), this.actionId);
 		case 0: { // leader choosen
 			if (message.isVisited() && message.getChosenCard() != null)
-				return new AcceptedAction(player.getId());
+				return new AcceptedAction(player.getId(), this.actionId);
 			else
-				return new RefusedAction(player.getId());
+				return new RefusedAction(player.getId(), this.actionId);
 		}
 		default:
-			return new RefusedAction(player.getId());
+			return new RefusedAction(player.getId(), this.actionId);
 		}
 
 	}

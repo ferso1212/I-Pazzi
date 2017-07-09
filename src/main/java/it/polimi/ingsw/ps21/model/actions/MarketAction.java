@@ -17,8 +17,8 @@ public class MarketAction extends Action{
 	private FamilyMember famMember;
 	private int updateCounter = 0;
 	
-	public MarketAction(PlayerColor playerId, SingleMarketSpace space, int possibleServants, FamilyMember famMember) {
-		super(playerId);
+	public MarketAction(PlayerColor playerId, SingleMarketSpace space, int possibleServants, FamilyMember famMember, int  actionId) {
+		super(playerId, actionId);
 		this.space = space;
 		this.famMember = famMember;
 		this.possibleServants = possibleServants;
@@ -31,18 +31,18 @@ public class MarketAction extends Action{
 		case 0:
 		{
 			if (player.getModifiers().getActionMods().marketActionForbidden()){
-				return new RefusedAction(player.getId(), "You can't place a family member in a market space because you have an excommunication!");
+				return new RefusedAction(player.getId(), "You can't place a family member in a market space because you have an excommunication!", this.actionId);
 			}
 			
-			if (!(((player.getFamily().getMemberValueWithServants(this.possibleServants, this.famMember.getColor())) >= space.getDiceRequirement()))) return new RefusedAction(player.getId(), "Dice value of member isn't enough");
-			if (!(space.isOccupable(player, famMember))) return new RefusedAction(player.getId(), "You can't use this family member in this place");
-			if (!(!famMember.isUsed())) return new RefusedAction(player.getId(), "This family member is already used");
-			return new AcceptedAction(player.getId());
+			if (!(((player.getFamily().getMemberValueWithServants(this.possibleServants, this.famMember.getColor())) >= space.getDiceRequirement()))) return new RefusedAction(player.getId(), "Dice value of member isn't enough", this.actionId);
+			if (!(space.isOccupable(player, famMember))) return new RefusedAction(player.getId(), "You can't use this family member in this place", this.actionId);
+			if (!(!famMember.isUsed())) return new RefusedAction(player.getId(), "This family member is already used", this.actionId);
+			return new AcceptedAction(player.getId(), this.actionId);
 		}
 		
 
 		default:
-			return new RefusedAction(player.getId(),  "Unhandled case");
+			return new RefusedAction(player.getId(),  "Unhandled case", this.actionId);
 		}
 	}
 

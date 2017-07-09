@@ -8,8 +8,8 @@ public class LeaderCopyMessage extends Message {
 
 	private LeaderCard[] possibilities;
 	private LeaderCard chosen; 
-	public LeaderCopyMessage(PlayerColor dest, LeaderCard[] possibilities) {
-		super(dest);
+	public LeaderCopyMessage(PlayerColor dest, LeaderCard[] possibilities, int actionId) {
+		super(dest, actionId);
 		this.possibilities = possibilities;
 		
 	}

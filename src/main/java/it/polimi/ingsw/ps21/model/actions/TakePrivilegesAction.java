@@ -30,7 +30,7 @@ public class TakePrivilegesAction extends ExtraAction {
 		switch (this.updateCounter) {
 		case 1:
 		{
-			this.councilChoice = new CouncilChoice(player.getId(), numberOfPrivileges);
+			this.councilChoice = new CouncilChoice(player.getId(), numberOfPrivileges, this.actionId);
 			this.updateCounter--;
 			return councilChoice;
 		}
@@ -38,12 +38,12 @@ public class TakePrivilegesAction extends ExtraAction {
 		case 0:
 		{
 			if (this.councilChoice.getPrivilegesChosen().length == this.numberOfPrivileges)
-				return new AcceptedAction(player.getId());
-			return new RefusedAction(player.getId());
+				return new AcceptedAction(player.getId(), this.actionId);
+			return new RefusedAction(player.getId(), this.actionId);
 		}
 
 		default:
-			return new RefusedAction(player.getId());
+			return new RefusedAction(player.getId(), this.actionId);
 		}
 	}
 

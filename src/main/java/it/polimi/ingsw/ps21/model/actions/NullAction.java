@@ -19,7 +19,7 @@ public class NullAction extends ExtraAction {
 	@Override
 	public Message update(Player player, Match match) {
 		
-		return new AcceptedAction(player.getId());
+		return new AcceptedAction(player.getId(), this.actionId);
 	}
 
 	@Override

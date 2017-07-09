@@ -45,12 +45,12 @@ public class ExtraWorkAction extends ExtraAction {
 				}
 
 				if (cardWithCost.size() == 0)
-					return new AcceptedAction(player.getId());
+					return new AcceptedAction(player.getId(), this.actionId);
 
-				this.workMessage = new WorkMessage(player.getId(), cardWithCost.toArray(new DevelopmentCard[0]), cardWithoutCost.toArray(new DevelopmentCard[0]));
+				this.workMessage = new WorkMessage(player.getId(), cardWithCost.toArray(new DevelopmentCard[0]), cardWithoutCost.toArray(new DevelopmentCard[0]), this.actionId);
 
 			} catch (IllegalCardTypeException e) {
-				return new RefusedAction(player.getId());
+				return new RefusedAction(player.getId(), this.actionId);
 			}
 			this.updateCounter--;
 			return this.workMessage;
@@ -65,12 +65,12 @@ public class ExtraWorkAction extends ExtraAction {
 				}
 			}
 			if (player.checkProperties(totalCost))
-				return new AcceptedAction(player.getId());
-			else return new RefusedAction(player.getId(), "You don't have enough properties");
+				return new AcceptedAction(player.getId(), this.actionId);
+			else return new RefusedAction(player.getId(), "You don't have enough properties", this.actionId);
 		}
 
 		default:
-			return new RefusedAction(player.getId(), "Unhandled case");
+			return new RefusedAction(player.getId(), "Unhandled case", this.actionId);
 		}
 	}
 

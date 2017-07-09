@@ -27,8 +27,8 @@ public class WorkAction extends Action {
 	private int actionValue;
 	private WorkMessage workMessage;
 
-	public WorkAction(PlayerColor playerId, WorkSpace space, FamilyMember famMember, int possibleServants) {
-		super(playerId);
+	public WorkAction(PlayerColor playerId, WorkSpace space, FamilyMember famMember, int possibleServants, int actionId) {
+		super(playerId, actionId);
 		this.space = space;
 		this.famMember = famMember;
 		this.possibleServants = possibleServants;
@@ -48,16 +48,16 @@ public class WorkAction extends Action {
 		switch (this.updateCounter) {
 		
 		case 1: {
-			if (!space.isOccupable(player, famMember))  return new RefusedAction(player.getId(), "Action refused: this space is already occupied");
+			if (!space.isOccupable(player, famMember))  return new RefusedAction(player.getId(), "Action refused: this space is already occupied", this.actionId);
 					//&& (!famMember.isUsed()) && (this.actionValue >= space.getDiceRequirement())) 
-			if(famMember.isUsed()) return new RefusedAction(player.getId(), "Action refused: you have already used this member!");
-			if((this.actionValue < space.getDiceRequirement()))		return new RefusedAction(player.getId(), "Action refused: unsufficient dice value.");
+			if(famMember.isUsed()) return new RefusedAction(player.getId(), "Action refused: you have already used this member!", this.actionId);
+			if((this.actionValue < space.getDiceRequirement()))		return new RefusedAction(player.getId(), "Action refused: unsufficient dice value.", this.actionId);
 			if (((match.getNumberPlayers() == 3) || (match.getNumberPlayers() == 4))
 						&& ((famMember.getColor() == MembersColor.WHITE) || (famMember.getColor() == MembersColor.BLACK)
 								|| (famMember.getColor() == MembersColor.ORANGE))
 						&& !((this.checkOccupant(match, famMember, space) == MembersColor.NEUTRAL) || (this.checkOccupant(match, famMember, space) == null))) {
 					//refuse action because in the other space there is a colored member
-					return new RefusedAction(player.getId(), "You can't place a coloured member in this space because you have another colored member in the other space.");
+					return new RefusedAction(player.getId(), "You can't place a coloured member in this space because you have another colored member in the other space.", this.actionId);
 				}
 				try {
 					ArrayList<DevelopmentCard> cardWithCost = new ArrayList<DevelopmentCard>();
@@ -72,9 +72,9 @@ public class WorkAction extends Action {
 					}
 
 					this.workMessage = new WorkMessage(player.getId(),
-							cardWithCost.toArray(new DevelopmentCard[0]), cardWithoutCost.toArray(new DevelopmentCard[0]));
+							cardWithCost.toArray(new DevelopmentCard[0]), cardWithoutCost.toArray(new DevelopmentCard[0]), this.actionId);
 				} catch (IllegalCardTypeException e) {
-					return new RefusedAction(player.getId());
+					return new RefusedAction(player.getId(), this.actionId);
 				}
 				this.updateCounter--;
 				return this.workMessage;
@@ -90,12 +90,12 @@ public class WorkAction extends Action {
 				}
 			}
 			if (player.checkProperties(totalCost))
-				return new AcceptedAction(player.getId());
-			else return new RefusedAction(player.getId(), "You don't have enough properties");
+				return new AcceptedAction(player.getId(), this.actionId);
+			else return new RefusedAction(player.getId(), "You don't have enough properties", this.actionId);
 		}
 
 		default:{
-			return new RefusedAction(player.getId());
+			return new RefusedAction(player.getId(), this.actionId);
 		}
 		}
 	}

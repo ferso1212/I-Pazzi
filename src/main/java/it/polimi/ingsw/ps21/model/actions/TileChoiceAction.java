@@ -16,8 +16,8 @@ public class TileChoiceAction extends Action {
 	private TileChoice message;
 	private int updateCounter;
 	
-	public TileChoiceAction(PlayerColor dest, TileChoice message) {
-		super(dest);
+	public TileChoiceAction(PlayerColor dest, TileChoice message, int actionId) {
+		super(dest, actionId);
 		this.message = message;
 		updateCounter = 1;
 	}
@@ -28,7 +28,7 @@ public class TileChoiceAction extends Action {
 			this.updateCounter--;
 			return this.message;
 		}
-		else return new AcceptedAction(this.playerId);
+		else return new AcceptedAction(this.playerId, this.actionId);
 	}
 
 	@Override

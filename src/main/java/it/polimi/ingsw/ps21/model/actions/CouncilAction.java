@@ -20,8 +20,8 @@ public class CouncilAction extends Action{
 	private FamilyMember famMember;
 	private CouncilChoice councilChoice;
 		
-	public CouncilAction(PlayerColor playerId, FamilyMember famMember, int possibleServants) {
-		super(playerId);
+	public CouncilAction(PlayerColor playerId, FamilyMember famMember, int possibleServants, int actionId) {
+		super(playerId, actionId);
 		this.famMember = famMember;
 		this.possibleServants = possibleServants;
 		this.updateCounter = 1;
@@ -35,24 +35,24 @@ public class CouncilAction extends Action{
 		{
 			this.council = match.getBoard().getCouncilPalace();
 			if((this.famMember.getColor() == MembersColor.NEUTRAL)){
-				return new RefusedAction(player.getId(), "You can't place the Neutral member in the council palace!");
+				return new RefusedAction(player.getId(), "You can't place the Neutral member in the council palace!", actionId);
 			}
 			
 			if (((this.famMember.getValue() + possibleServants) >= this.council.getDiceRequirement()) && (!famMember.isUsed())){
-				this.councilChoice = new CouncilChoice(player.getId(), council.getCouncilPrivileges());
+				this.councilChoice = new CouncilChoice(player.getId(), council.getCouncilPrivileges(), actionId);
 				this.updateCounter--;
 				return this.councilChoice;
-			} else return new RefusedAction(player.getId());
+			} else return new RefusedAction(player.getId(), actionId);
 		}
 		
 		case 0:
 		{
-			return new AcceptedAction(player.getId());
+			return new AcceptedAction(player.getId(), actionId);
 		}
 
 
 		default:
-			return new RefusedAction(player.getId());
+			return new RefusedAction(player.getId(), actionId);
 		}
 		
 	}

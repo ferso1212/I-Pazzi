@@ -30,8 +30,8 @@ public class DevelopmentAction extends Action {
 	private ArrayList<ExtraAction> extraActionFromInstantEffect = new ArrayList<ExtraAction>();
 	private ArrayList<ExtraAction> extraActionFromPermanentEffect = new ArrayList<ExtraAction>();
 
-	public DevelopmentAction(PlayerColor playerId, FamilyMember famMember, int possibleServants, DevelopmentCardType tower, int floor) {
-		super(playerId);
+	public DevelopmentAction(PlayerColor playerId, FamilyMember famMember, int possibleServants, DevelopmentCardType tower, int floor, int actionId) {
+		super(playerId, actionId);
 		this.famMember = famMember;
 		this.possibleServants = possibleServants;
 		this.tower = tower;
@@ -46,17 +46,17 @@ public class DevelopmentAction extends Action {
 
 		switch (this.updateCounter) {
 		case 2: {
-			if ((player.getProperties().getPayableRequirementsAndCosts(space.getCard().getCosts()).isEmpty()) || ((match.getBoard().getTower(this.tower).isOccupied()) && (player.getProperties().getPayableRequirementsAndCosts(space.getCard().getOccupiedTowerCosts()).isEmpty()) )) return new RefusedAction(player.getId(), "You can't pay any of possible costs");
-			if(!(space.isOccupable(player, famMember))) return new RefusedAction(player.getId(), "You can't place this family member in this space");
-			if(!(player.checkCardRequirements(space.getCard()))) return new RefusedAction(player.getId(), "You don't meet card requirements");
-			if (!((player.getFamily().getMemberValueWithServants(this.possibleServants, this.famMember.getColor())) + player.getModifiers().getDiceMods().getDiceMod(tower).getValue() >= space.getDiceRequirement())) return new RefusedAction(player.getId(), "Dice value of family member isn't enough") ;
-			if (!(!famMember.isUsed())) return new RefusedAction(player.getId(), "This family member is already used");
-			if (!(player.checkRequirement(player.getDeck().getAddingCardRequirement(space.getCard())))) return new RefusedAction(player.getId(), "You don't meet requirement for adding this card");
+			if ((player.getProperties().getPayableRequirementsAndCosts(space.getCard().getCosts()).isEmpty()) || ((match.getBoard().getTower(this.tower).isOccupied()) && (player.getProperties().getPayableRequirementsAndCosts(space.getCard().getOccupiedTowerCosts()).isEmpty()) )) return new RefusedAction(player.getId(), "You can't pay any of possible costs", actionId);
+			if(!(space.isOccupable(player, famMember))) return new RefusedAction(player.getId(), "You can't place this family member in this space", actionId);
+			if(!(player.checkCardRequirements(space.getCard()))) return new RefusedAction(player.getId(), "You don't meet card requirements", actionId);
+			if (!((player.getFamily().getMemberValueWithServants(this.possibleServants, this.famMember.getColor())) + player.getModifiers().getDiceMods().getDiceMod(tower).getValue() >= space.getDiceRequirement())) return new RefusedAction(player.getId(), "Dice value of family member isn't enough", actionId) ;
+			if (!(!famMember.isUsed())) return new RefusedAction(player.getId(), "This family member is already used", actionId);
+			if (!(player.checkRequirement(player.getDeck().getAddingCardRequirement(space.getCard())))) return new RefusedAction(player.getId(), "You don't meet requirement for adding this card", actionId);
 			
 		    if (!(match.getBoard().getTower(this.tower).isOccupied()))
-					this.costMessage = new CostChoice(player.getId(), player.getProperties().getPayableRequirementsAndCosts(space.getCard().getCosts()));
+					this.costMessage = new CostChoice(player.getId(), player.getProperties().getPayableRequirementsAndCosts(space.getCard().getCosts()), actionId);
 			else if ((match.getBoard().getTower(this.tower).isOccupied())){
-					this.costMessage = new CostChoice(player.getId(), player.getProperties().getPayableRequirementsAndCosts(space.getCard().getOccupiedTowerCosts()));
+					this.costMessage = new CostChoice(player.getId(), player.getProperties().getPayableRequirementsAndCosts(space.getCard().getOccupiedTowerCosts()), actionId);
 			}
 				this.updateCounter--;
 				return this.costMessage;
@@ -72,18 +72,18 @@ public class DevelopmentAction extends Action {
 						}
 					}
 					if (activableEffects.size() != 0) {
-						this.effectMessage = new EffectChoice(player.getId(), activableEffects.toArray(new EffectSet[0]));
+						this.effectMessage = new EffectChoice(player.getId(), activableEffects.toArray(new EffectSet[0]), actionId);
 						this.updateCounter--;
 						return this.effectMessage;
 					} else{
 						this.updateCounter--;
-						return new NoActivablePermanentEffectMessage(player.getId());
+						return new NoActivablePermanentEffectMessage(player.getId(), actionId);
 					}
 				} else {
 					if (this.costMessage.getChosen() != null){
 						this.updateCounter--;
-						return new AcceptedAction(player.getId());
-					} else return new RefusedAction(player.getId(), "You heven't chosen a cost");
+						return new AcceptedAction(player.getId(), actionId);
+					} else return new RefusedAction(player.getId(), "You heven't chosen a cost", actionId);
 					
 				}
 			}
@@ -91,12 +91,12 @@ public class DevelopmentAction extends Action {
 		case 0:
 		{
 			if (this.effectMessage.getEffectChosen() != null)
-				return new AcceptedAction(player.getId());
-			else return new RefusedAction(player.getId(), "You haven't chosen an effect");
+				return new AcceptedAction(player.getId(), actionId);
+			else return new RefusedAction(player.getId(), "You haven't chosen an effect", actionId);
 		}
 
 		default:
-			return new RefusedAction(player.getId(), "Unhandled case");
+			return new RefusedAction(player.getId(), "Unhandled case", actionId);
 		}
 	}
 

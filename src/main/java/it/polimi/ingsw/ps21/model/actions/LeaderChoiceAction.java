@@ -14,8 +14,8 @@ import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
 public class LeaderChoiceAction extends Action{
 	private LeaderChoice message;
 
-	public LeaderChoiceAction(PlayerColor playerId, LeaderChoice mess) {
-		super(playerId);
+	public LeaderChoiceAction(PlayerColor playerId, LeaderChoice mess, int actionId) {
+		super(playerId, actionId);
 		this.updateCounter=1;
 		this.message=mess;
 		
@@ -30,7 +30,7 @@ public class LeaderChoiceAction extends Action{
 			this.updateCounter--;
 			return this.message;
 		}
-		else return new AcceptedAction(player.getId());
+		else return new AcceptedAction(player.getId(), actionId);
 	}
 
 	@Override
@@ -42,6 +42,6 @@ public class LeaderChoiceAction extends Action{
 		return toReturn;
 	}
 	
-	
+
 
 }

@@ -50,14 +50,14 @@ public class PickAnotherCardAction extends ExtraAction {
 		
 		switch (this.updateCounter) {
 		case 4:{
-			this.servantsMessage = new ServantsChoice(player.getId(), player.getProperties().getProperty(PropertiesId.SERVANTS).getValue());
+			this.servantsMessage = new ServantsChoice(player.getId(), player.getProperties().getProperty(PropertiesId.SERVANTS).getValue(), this.actionId);
 			this.updateCounter--;
 			return this.servantsMessage;
 		}
 		case 3:{
 			
 			if (!this.servantsMessage.isVisited() || !player.getProperties().greaterOrEqual(new ImmProperties(new Property(PropertiesId.SERVANTS, this.servantsMessage.getNumberOfServants()))))
-				return new RefusedAction(player.getId(), "Invalid number of servants!");
+				return new RefusedAction(player.getId(), "Invalid number of servants!", this.actionId);
 			
 			ArrayList<DevelopmentCard> cards = new ArrayList<DevelopmentCard>();
 			for (DevelopmentCardType t : this.types){
@@ -68,19 +68,19 @@ public class PickAnotherCardAction extends ExtraAction {
 				}
 			}
 			if(cards.size() > 0){
-				this.message = new PickAnotherCardMessage(player.getId(), cards.toArray(new DevelopmentCard[0]));
+				this.message = new PickAnotherCardMessage(player.getId(), cards.toArray(new DevelopmentCard[0]), this.actionId);
 				this.updateCounter--;
 				return this.message;
-			} else return new RefusedAction(player.getId(), "There aren't card you can pick!");
+			} else return new RefusedAction(player.getId(), "There aren't card you can pick!", this.actionId);
 		}
 		
 		case 2:{
 			if (this.message.getCardChosen() != null){
-				this.costMessage = new CostChoice(player.getId(), player.getProperties().getPayableRequirementsAndCosts(this.message.getCardChosen().getCosts()));
+				this.costMessage = new CostChoice(player.getId(), player.getProperties().getPayableRequirementsAndCosts(this.message.getCardChosen().getCosts()), this.actionId);
 				this.updateCounter--;
 				return this.costMessage;
 		}
-			else return new RefusedAction(player.getId());
+			else return new RefusedAction(player.getId(), this.actionId);
 		}
 		
 		case 1:{
@@ -95,32 +95,32 @@ public class PickAnotherCardAction extends ExtraAction {
 					}
 				}
 				if (activableEffects.size() != 0) {
-					this.effectMessage = new EffectChoice(player.getId(), activableEffects.toArray(new EffectSet[0]));
+					this.effectMessage = new EffectChoice(player.getId(), activableEffects.toArray(new EffectSet[0]), this.actionId);
 					this.updateCounter--;
 					return this.effectMessage;
 				} else{
 					this.updateCounter--;
-					return new NoActivablePermanentEffectMessage(player.getId());
+					return new NoActivablePermanentEffectMessage(player.getId(), this.actionId);
 				}
 			} else {
 				if (this.costMessage.getChosen() != null){
 					this.updateCounter--;
-					return new AcceptedAction(player.getId());
-				} else return new RefusedAction(player.getId());
+					return new AcceptedAction(player.getId(), this.actionId);
+				} else return new RefusedAction(player.getId(), this.actionId);
 				
 			}
 		}
 		
 		case 0:{
 			if(this.costMessage.getChosen() != null){
-				return new AcceptedAction(player.getId());
+				return new AcceptedAction(player.getId(), this.actionId);
 			}	
-			return new RefusedAction(player.getId());
+			return new RefusedAction(player.getId(), this.actionId);
 		}
 			
 
 		default:
-			return new RefusedAction(player.getId());
+			return new RefusedAction(player.getId(), this.actionId);
 		}
 		
 
