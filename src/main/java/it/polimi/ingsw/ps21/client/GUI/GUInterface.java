@@ -18,6 +18,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
@@ -28,11 +29,6 @@ import javax.swing.JOptionPane;
 
 import it.polimi.ingsw.ps21.client.UserInterface;
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
-import it.polimi.ingsw.ps21.controller.BoardData;
-import it.polimi.ingsw.ps21.controller.FamilyMemberData;
-import it.polimi.ingsw.ps21.controller.MarketOccupants;
-import it.polimi.ingsw.ps21.controller.MatchData;
-import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.model.actions.ActionType;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
@@ -46,8 +42,12 @@ import it.polimi.ingsw.ps21.model.player.PersonalBonusTile;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.ActionData;
+import it.polimi.ingsw.ps21.view.BoardData;
 import it.polimi.ingsw.ps21.view.EndData;
 import it.polimi.ingsw.ps21.view.ExtraActionData;
+import it.polimi.ingsw.ps21.view.FamilyMemberData;
+import it.polimi.ingsw.ps21.view.MatchData;
+import it.polimi.ingsw.ps21.view.PlayerData;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -851,26 +851,31 @@ public class GUInterface implements UserInterface {
 	public ImmProperties[] reqPrivileges(int number, ImmProperties[] privilegesValues) {
 		int defaultValue = 0;
 		ImmProperties[] output = new ImmProperties[number];
-		Object choices[] = new Object[privilegesValues.length];
+		//Object choices[] = new Object[privilegesValues.length];
+		//for (int i = 0; i < privilegesValues.length; i++) {
+			//choices[i] = privilegesValues[i].toString();
+		//}
+		ArrayList<String>choices = new ArrayList<String>();
 		for (int i = 0; i < privilegesValues.length; i++) {
-			choices[i] = privilegesValues[i].toString();
+			choices.add(privilegesValues[i].toString());
 		}
 		for (int i = 0; i < number; i++) {
 			String chosenPrivilege = (String) JOptionPane.showInputDialog(mainWindow,
 					"Which privilege do you want to take?", "Choose a privilege", JOptionPane.PLAIN_MESSAGE, null,
-					choices, choices[0]);
+					choices.toArray(new String[0]), choices.get(0));
 			if (chosenPrivilege == null) {
 				JOptionPane.showMessageDialog(mainWindow, "Since you are lazy, we have made the choice for you!");
 				output[i] = privilegesValues[defaultValue];
 				defaultValue++;
 			} else {
 				int j;
-				for (j = 0; j < choices.length; j++) {
-					if (chosenPrivilege.compareTo((String) choices[j]) == 0) {
+				for (j = 0; j < privilegesValues.length; j++) {
+					if (chosenPrivilege.compareTo((String) privilegesValues[j].toString()) == 0) {
 						break;
 					}
 				}
 				output[i] = privilegesValues[j];
+				choices.remove(privilegesValues[j].toString());
 			}
 		}
 		return output;

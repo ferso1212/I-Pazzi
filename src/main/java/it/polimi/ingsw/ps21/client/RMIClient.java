@@ -7,7 +7,6 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
@@ -17,6 +16,7 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.ActionData;
 import it.polimi.ingsw.ps21.view.EndData;
 import it.polimi.ingsw.ps21.view.ExtraActionData;
+import it.polimi.ingsw.ps21.view.MatchData;
 import it.polimi.ingsw.ps21.view.RMIConnectionCreator;
 import it.polimi.ingsw.ps21.view.RMIConnectionInterface;
 

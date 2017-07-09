@@ -7,7 +7,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps21.client.RMIClientInterface;
-import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;

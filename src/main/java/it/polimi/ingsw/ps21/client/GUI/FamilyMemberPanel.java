@@ -7,9 +7,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import it.polimi.ingsw.ps21.controller.PlayerData;
+
 import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
+import it.polimi.ingsw.ps21.view.PlayerData;
 
 public class FamilyMemberPanel extends JPanel{
 	

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps21.controller;
+package it.polimi.ingsw.ps21.view;
 
 import java.io.Serializable;
 import java.util.EnumMap;

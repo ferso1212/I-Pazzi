@@ -9,12 +9,11 @@ import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PersonalBonusTile;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.view.ActionData;
-import it.polimi.ingsw.ps21.view.MatchEndedNetPacket;
+import it.polimi.ingsw.ps21.view.MatchData;
 
 public class SocketClient {
 	private static final int PORT = 7777;

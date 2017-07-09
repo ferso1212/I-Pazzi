@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import it.polimi.ingsw.ps21.controller.PlayerData;
+import it.polimi.ingsw.ps21.view.PlayerData;
 
 /**This class is used to store immutable resource and points values.
 *For example, it is used to store card effects on resources and points.

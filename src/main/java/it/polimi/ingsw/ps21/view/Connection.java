@@ -2,7 +2,6 @@ package it.polimi.ingsw.ps21.view;
 
 import java.util.ArrayList;
 
-import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.WorkMessage;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;

@@ -11,7 +11,6 @@ import org.junit.Test;
 
 import it.polimi.ingsw.ps21.client.GUI.GUInterface;
 import it.polimi.ingsw.ps21.controller.LeaderChoice;
-import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.TileChoice;
 import it.polimi.ingsw.ps21.model.actions.Action;
 import it.polimi.ingsw.ps21.model.actions.LeaderChoiceAction;
@@ -33,6 +32,8 @@ import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
+import it.polimi.ingsw.ps21.view.MatchData;
+
 
 public class TestGUInterface {
 

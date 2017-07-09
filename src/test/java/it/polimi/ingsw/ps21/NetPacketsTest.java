@@ -28,7 +28,6 @@ import it.polimi.ingsw.ps21.client.RulesChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.VaticanChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.VaticanChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.ViewUpdateRequestNetPacket;
-import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.model.actions.ActionType;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
@@ -46,6 +45,7 @@ import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.view.ActionData;
 import it.polimi.ingsw.ps21.view.ExtraActionData;
 import it.polimi.ingsw.ps21.view.ExtraActionType;
+import it.polimi.ingsw.ps21.view.MatchData;
 
 public class NetPacketsTest {
 

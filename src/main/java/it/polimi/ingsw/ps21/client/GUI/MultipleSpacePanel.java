@@ -14,7 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import it.polimi.ingsw.ps21.controller.FamilyMemberData;
+import it.polimi.ingsw.ps21.view.FamilyMemberData;
 
 public class MultipleSpacePanel extends JPanel {
 

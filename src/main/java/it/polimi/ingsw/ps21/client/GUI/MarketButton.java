@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-import it.polimi.ingsw.ps21.controller.FamilyMemberData;
+import it.polimi.ingsw.ps21.view.FamilyMemberData;
 
 public class MarketButton extends JButton{
 	

@@ -15,7 +15,6 @@ import it.polimi.ingsw.ps21.controller.ExcommunicationMessage;
 import it.polimi.ingsw.ps21.controller.ExecutedChoice;
 import it.polimi.ingsw.ps21.controller.LeaderChoice;
 import it.polimi.ingsw.ps21.controller.MatchController;
-import it.polimi.ingsw.ps21.controller.MatchData;
 import it.polimi.ingsw.ps21.controller.Message;
 import it.polimi.ingsw.ps21.controller.PickAnotherCardMessage;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
@@ -167,7 +166,7 @@ public class UserHandler extends Observable implements Visitor, Observer {
 		return playerId;
 	}
 	
-	public void UpdateViewAfterReconnection()
+	public void updateViewAfterReconnection()
 	{
 		try {if(this.matchStatus!=null)	connection.remoteUpdate(this.matchStatus);
 		} catch (DisconnectedException e) {
@@ -338,7 +337,7 @@ public class UserHandler extends Observable implements Visitor, Observer {
 		setChanged();
 		connection.sendMessage("\nReconnected to match");
 		notifyObservers("reconnection");
-		UpdateViewAfterReconnection();
+		updateViewAfterReconnection();
 	}
 
 	@Override

@@ -11,8 +11,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-import it.polimi.ingsw.ps21.controller.FamilyMemberData;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
+import it.polimi.ingsw.ps21.view.FamilyMemberData;
 
 public class WorkActionButton extends JButton{
 	

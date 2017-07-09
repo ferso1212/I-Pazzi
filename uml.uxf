@@ -1672,36 +1672,40 @@ PLAY_LEADERCARD</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>4272</x>
-      <y>1158</y>
-      <w>456</w>
+      <y>1116</y>
+      <w>426</w>
       <h>156</h>
     </coordinates>
     <panel_attributes>MatchController
 --
-- viewMap :Map&lt;Player, ViewHandler&gt;
+- handlersMap :Map&lt;PlayerColor, UserHandler&gt;
 - currentPlayer: Player
-- matchState: match
+- match: match
+- matchEnded: boolean
+- currentAction: Action
+- currentExtraActions: ArrayList&lt;ExtraAction&gt;
+- actionCounter: int
+- actionTimeout: int
+- numOfChosenLeaderCards: int
+- playingLeaderStage: boolean
 --
-+ gameLoop(): void
-+ update(source: Observable, arg: Object): void
-//source argoment is used to verify that the method is called by the view, bi it's not used further.
-+ getUserChoice(choices: Choice): void
-
++ startMatch(): void
++ update(): void
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>4722</x>
-      <y>750</y>
-      <w>1086</w>
-      <h>522</h>
+      <x>4692</x>
+      <y>912</y>
+      <w>1482</w>
+      <h>324</h>
     </coordinates>
     <panel_attributes>lt=&lt;-&gt;
 m2=1
 m1=2..4</panel_attributes>
-    <additional_attributes>1770.0;10.0;1770.0;410.0;10.0;850.0</additional_attributes>
+    <additional_attributes>2430.0;10.0;2430.0;300.0;950.0;290.0;10.0;510.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -1709,10 +1713,10 @@ m1=2..4</panel_attributes>
       <x>3522</x>
       <y>1068</y>
       <w>762</w>
-      <h>192</h>
+      <h>150</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;1250.0;300.0</additional_attributes>
+    <additional_attributes>10.0;10.0;1250.0;230.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -1720,18 +1724,18 @@ m1=2..4</panel_attributes>
       <x>3522</x>
       <y>1056</y>
       <w>762</w>
-      <h>174</h>
+      <h>132</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 observes</panel_attributes>
-    <additional_attributes>1250.0;270.0;10.0;10.0</additional_attributes>
+    <additional_attributes>1250.0;200.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>5004</x>
-      <y>420</y>
-      <w>942</w>
+      <x>4986</x>
+      <y>414</y>
+      <w>1428</w>
       <h>1530</h>
     </coordinates>
     <panel_attributes>View
@@ -1770,7 +1774,7 @@ layer=-1</panel_attributes>
 # refused :RefusedMessage
 --
 + isLegal(player :Player, match :Match):boolean
-+ Execute(player: Player, match: Match): ExtraAction[]</panel_attributes>
++ activate(player: Player, match: Match): ExtraAction[]</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -1785,45 +1789,37 @@ layer=-1</panel_attributes>
 --
 - space: WorkSpace
 - familyMember :FamilyMember
-- chosenEffects: int
+- actionValue: int
 - workMessage :WorkMessage
 --
 + WorkAction(member: FamilyMember, space: WorkSpace)
-+ isLegal():boolean
-+ execute(): void
-//Controllare se un giocatore ha già
-//un familiare in uno dei due spazi produzione
-//(singolo o multiplo) se così fosse può 
-//piazzare solo il familiare neutro
-//Se ho piazzat oper primo il familiare nautro 
-//posso piazzare un altro familiare colorato</panel_attributes>
++ update(player: Player, match: Match): Message
++ activate(player: Player, match: Match): ExtraAction[]
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>1656</x>
-      <y>516</y>
+      <y>492</y>
       <w>324</w>
-      <h>96</h>
+      <h>120</h>
     </coordinates>
     <panel_attributes>DevelopmentAction
 --
 - space: SingleTowerSpace
-- familyMember :FamilyMember
+- famMember :FamilyMember
 - cost :CostChoice
 - effect :EffectChoice
+- int floor
+- extraActionFromInstantEffect: ArrayList&lt;ExtraAction&gt;
+- extraActionFromPermanentEffect: ArrayList&lt;ExtraAction&gt;
 --
-+ isLegal():Message
-+ execute(): ExtraAction[]
-//Controllare che il player possa prendere 
-//i bonus dallo spazio development perchè
-//potrebbe aver preso il personaggio che
-//glielo impedisce
++ update(player: Player, match: Match): Message
++ activate(player: Player, match: Match): ExtraAction[]
 
-//Quando in una partita advanced si attiva un PropEffect
-//se player.getAdvMod().acquiresDoubleResources==TRUE
-//l'effetto va chiamato 2 volte</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -1852,11 +1848,10 @@ layer=-1</panel_attributes>
 --
 - space: MarketSpace
 - familyMember :FamilyMember
-- councilChoice :CouncilChoice
 --
 + MarketAction(member: FamilyMember, space: MarketSpace)
-+ isLegal():boolean
-+ Execute(): void</panel_attributes>
++ update(player: Player, match: Match): Message
++ activate(player: Player, match: Match): ExtraAction[]</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -1871,12 +1866,11 @@ layer=-1</panel_attributes>
 --
 -space: CouncilPalace
 -familyMember :FamilyMember
+- councilChoice: CouncilChoice
 --
 + CouncilAction(member: FamilyMember, space: CouncilSpace)
-+ isLegal():boolean
-+ Execute(): void
-
-//verificare che non sia familiare neutro</panel_attributes>
++ update(player: Player, match: Match): Message
++ activate(player: Player, match: Match): ExtraAction[]</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -1885,10 +1879,10 @@ layer=-1</panel_attributes>
       <x>1788</x>
       <y>426</y>
       <w>312</w>
-      <h>102</h>
+      <h>78</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>500.0;10.0;10.0;150.0</additional_attributes>
+    <additional_attributes>500.0;10.0;10.0;110.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -1926,18 +1920,18 @@ layer=-1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1812</x>
-      <y>180</y>
+      <x>1836</x>
+      <y>138</y>
       <w>246</w>
       <h>78</h>
     </coordinates>
-    <panel_attributes>PlayLeaderCard
+    <panel_attributes>PlayLeaderCardAction
 --
 - card: LeaderCard
 --
 + PlayLeaderCard(card: LeaderCard)
-+ isLegal():boolean
-+ execute(): void</panel_attributes>
++ update(player: Player, match: Match): Message
++ activate(player: Player, match: Match): ExtraAction[]</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -1948,14 +1942,13 @@ layer=-1</panel_attributes>
       <w>246</w>
       <h>84</h>
     </coordinates>
-    <panel_attributes>ChooseLeaderCard
+    <panel_attributes>LeaderChoiceAction
 --
-- cards: LeaderCard[]
 - leaderChoice :LeaderChoice
 --
 + ChooseLeaderCard(cards: LeaderCard[])
-+ isLegal():boolean
-+ execute(): void</panel_attributes>
++ update(player: Player, match: Match): Message
++ activate(player: Player, match: Match): ExtraAction[]</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -1979,13 +1972,13 @@ layer=-1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2052</x>
-      <y>228</y>
-      <w>48</w>
-      <h>156</h>
+      <x>2046</x>
+      <y>210</y>
+      <w>60</w>
+      <h>150</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>60.0;240.0;10.0;10.0</additional_attributes>
+    <additional_attributes>80.0;230.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -2173,40 +2166,38 @@ m2=4</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5694</x>
-      <y>654</y>
-      <w>150</w>
-      <h>102</h>
+      <x>6078</x>
+      <y>672</y>
+      <w>270</w>
+      <h>246</h>
     </coordinates>
     <panel_attributes>UserHandler
 --
-
+- playerId: PlayerColor
+- connection: Connection
+- name: String
+- timeoutExpired: boolean
+- isAdvanced: boolean
+- matchStatus: MatchData
 --
-playRound
-+ choose(choices: Choosable) </panel_attributes>
++ visit(choice: VaticanChoice): void
++ visit(choice: CostChoice): void
++ visit(choice: CouncilChoice): void
++ visit(choice: EffectChoice): void
++ visit(choice: PickAnotherCardMessage): void
++ visit(choice: WorkMessage): void
++ visit(choice: LeaderChoice): void
++ visit(choice: AcceptedAction): void
++ visit(choice: RefusedAction): void
++ visit(choice: TileChoice): void
++ visit(choice: ExcommunicaionMessagr): void
++ visit(choice: ServantsChoice): void
++ getPlayerId(): PlayerColor
++ notifyReconnection(): void
++ update(Observable o, Object arg): void
++ setConnection(newConnection: Connection): void
++ isConnected: boolean</panel_attributes>
     <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>5838</x>
-      <y>792</y>
-      <w>102</w>
-      <h>18</h>
-    </coordinates>
-    <panel_attributes>RoundTimerTask</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>5796</x>
-      <y>750</y>
-      <w>90</w>
-      <h>54</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;130.0;70.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -2610,9 +2601,9 @@ bg=magenta</panel_attributes>
     <id>UMLPackage</id>
     <coordinates>
       <x>1572</x>
-      <y>144</y>
+      <y>102</y>
       <w>1524</w>
-      <h>654</h>
+      <h>696</h>
     </coordinates>
     <panel_attributes>actions
 --
@@ -2881,36 +2872,64 @@ layer=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5712</x>
-      <y>1308</y>
-      <w>228</w>
-      <h>114</h>
+      <x>5688</x>
+      <y>1314</y>
+      <w>282</w>
+      <h>240</h>
     </coordinates>
     <panel_attributes>PlayerData
 --
 - id :PlayerColor
 - properties :EnumMap&lt;PropertiesId,Integer&gt;
-- tileHarvBonus: ImmProeprties
+- tileHarvBonus: ImmProperties
 - tileHarvDiceReq: int
 - tileProdBonus: int
 - tileProdDiceReq: int
 - cards: EnumMap&lt;DevelopmentCardType, ArrayList&lt;DevelopmentCard&gt;&gt;
-
---</panel_attributes>
+- family: EnumMap&lt;MembersColor, FamilyMemberData&gt;
+- excommunications: Excommunication[]
+- leaders: LeaderCard[]
+--
++ getId() :PlayerColor
++ getProperties() :EnumMap&lt;PropertiesId,Integer&gt;
++ getTileHarvBonus(): ImmProperties
++ getTileHarvDiceReq(): int
++ getTileProdBonus(): int
++ getTileProdDiceReq(): int
++ getCards(): EnumMap&lt;DevelopmentCardType, ArrayList&lt;DevelopmentCard&gt;&gt;
++ getFamily(): EnumMap&lt;MembersColor, FamilyMemberData&gt;
++ getExcommunications(): Excommunication[]
+- getLeaders(): LeaderCard[]
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>5712</x>
-      <y>1134</y>
+      <y>1098</y>
       <w>228</w>
-      <h>102</h>
+      <h>180</h>
     </coordinates>
     <panel_attributes>MatchData
 --
-era :int
-order :int[]
+- period: int
+- round: RoundType
+- playersOrder: PlayerColor[]
+- board: BoardData
+- players: PlayerData[]
+- orangeDice: int
+- whiteDice: int
+- blackDice: int
+--
++ getPeriod(): int
++ getRound(): RoundType
++ getPlayersOrder(): PlayerColor[]
++ getBoard(): BoardData
++ getPlayers(): PlayerData[]
++ getOrangeDice(): int
++ getWhiteDice(): int
++ getBlackDice(): int
 
 --</panel_attributes>
     <additional_attributes/>
@@ -2966,8 +2985,8 @@ layer=0</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5700</x>
-      <y>1530</y>
+      <x>5706</x>
+      <y>1608</y>
       <w>198</w>
       <h>72</h>
     </coordinates>
@@ -3207,8 +3226,8 @@ layer=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4068</x>
-      <y>1734</y>
+      <x>4014</x>
+      <y>1668</y>
       <w>198</w>
       <h>102</h>
     </coordinates>
@@ -3225,8 +3244,8 @@ layer=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4044</x>
-      <y>1602</y>
+      <x>4026</x>
+      <y>1548</y>
       <w>156</w>
       <h>102</h>
     </coordinates>
@@ -3261,8 +3280,8 @@ layer=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4062</x>
-      <y>1494</y>
+      <x>4050</x>
+      <y>1470</y>
       <w>198</w>
       <h>66</h>
     </coordinates>
@@ -3290,8 +3309,8 @@ layer=1</panel_attributes>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>5790</x>
-      <y>516</y>
+      <x>6102</x>
+      <y>432</y>
       <w>132</w>
       <h>108</h>
     </coordinates>
@@ -3309,13 +3328,13 @@ layer=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5766</x>
-      <y>522</y>
-      <w>96</w>
+      <x>6192</x>
+      <y>540</y>
+      <w>18</w>
       <h>144</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>140.0;10.0;10.0;10.0;10.0;220.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;220.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -3338,11 +3357,11 @@ layer=1</panel_attributes>
     <coordinates>
       <x>2112</x>
       <y>0</y>
-      <w>3666</w>
-      <h>666</h>
+      <w>4212</w>
+      <h>684</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;580.0;10.0;10.0;6090.0;10.0;6090.0;1090.0</additional_attributes>
+    <additional_attributes>10.0;580.0;10.0;10.0;6090.0;10.0;7000.0;660.0;7000.0;1120.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -3427,35 +3446,35 @@ layer=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>4254</x>
-      <y>1524</y>
-      <w>138</w>
-      <h>42</h>
+      <x>4242</x>
+      <y>1500</y>
+      <w>150</w>
+      <h>66</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>210.0;50.0;10.0;10.0</additional_attributes>
+    <additional_attributes>230.0;90.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>4194</x>
-      <y>1596</y>
-      <w>198</w>
-      <h>42</h>
+      <x>4176</x>
+      <y>1566</y>
+      <w>216</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>310.0;10.0;10.0;50.0</additional_attributes>
+    <additional_attributes>340.0;60.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>4236</x>
+      <x>4182</x>
       <y>1602</y>
-      <w>174</w>
-      <h>144</h>
+      <w>228</w>
+      <h>78</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>270.0;10.0;10.0;220.0</additional_attributes>
+    <additional_attributes>360.0;10.0;10.0;110.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -3471,8 +3490,8 @@ layer=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4512</x>
-      <y>1788</y>
+      <x>4434</x>
+      <y>1866</y>
       <w>198</w>
       <h>42</h>
     </coordinates>
@@ -3486,17 +3505,17 @@ layer=1</panel_attributes>
     <coordinates>
       <x>4482</x>
       <y>1602</y>
-      <w>126</w>
-      <h>198</h>
+      <w>48</w>
+      <h>276</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;190.0;310.0</additional_attributes>
+    <additional_attributes>10.0;10.0;60.0;440.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4626</x>
-      <y>1710</y>
+      <x>4710</x>
+      <y>1680</y>
       <w>198</w>
       <h>42</h>
     </coordinates>
@@ -3511,11 +3530,11 @@ layer=1</panel_attributes>
     <coordinates>
       <x>4572</x>
       <y>1578</y>
-      <w>168</w>
-      <h>144</h>
+      <w>150</w>
+      <h>114</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;260.0;220.0</additional_attributes>
+    <additional_attributes>10.0;10.0;230.0;170.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -3568,8 +3587,8 @@ layer=1</panel_attributes>
 --
 
 --
-+ isLegal():boolean
-+ execute(): void</panel_attributes>
++ update(player: Player, match: Match): Message
++ activate(player: Player, match: Match): ExtraAction[]</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -3586,13 +3605,18 @@ layer=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4284</x>
-      <y>876</y>
+      <x>4272</x>
+      <y>966</y>
       <w>456</w>
-      <h>156</h>
+      <h>78</h>
     </coordinates>
     <panel_attributes>MatchRunner
---</panel_attributes>
+--
+- playerHandlers: UserHandler[]
+- controller: MatchController
+- isAdvanced: boolean
+--
++run()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -3676,11 +3700,11 @@ bg=cyan</panel_attributes>
     <panel_attributes>LeaderChoice
 --
 - choices :ArrayList&lt;LeaderCard&gt;
-- choosenCard :LeaderCard
+- choosenCard :int
 --
 + getChoices() :ArrayList&lt;LeaderCard&gt;
-+ getChoosenCard() :LeaderCard
-+ setChoosenCard() :void
++ getChosenCard() :int
++ setChosenCard(chosen: int) :void
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -3699,26 +3723,34 @@ bg=cyan</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>2844</x>
-      <y>276</y>
-      <w>180</w>
-      <h>72</h>
+      <y>258</y>
+      <w>228</w>
+      <h>114</h>
     </coordinates>
     <panel_attributes>PickAnotherCardAction
 --
-- diceVale : int
-- cardType : DevelopmentCardType[]</panel_attributes>
+-  diceReq: int
+-  types[]: DevelopmentCardType
+-  message: PickAnotherCardMessage
+-  costMessage: CostChoice
+-  servantsMessage: ServantsChoice
+-  effectMessage: EffectChoice
+-  extraActionFromInstantEffect: ArrayList&lt;ExtraAction&gt;
+-  extraActionFromPermanentEffect: ArrayList&lt;ExtraAction&gt;
+--
++ activate(player: Player, match: Match): ExtraAction[]</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>2718</x>
-      <y>276</y>
+      <y>258</y>
       <w>138</w>
-      <h>54</h>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;70.0;210.0;10.0</additional_attributes>
+    <additional_attributes>10.0;100.0;210.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -3802,177 +3834,224 @@ layer=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1656</x>
-      <y>294</y>
+      <x>1782</x>
+      <y>240</y>
       <w>246</w>
       <h>78</h>
     </coordinates>
     <panel_attributes>VaticanAction
 --
-- vaticanSupport :Boolean
+- vaticanChoice : VaticanChoice
 --
-+ isLegal():boolean
-//ritorna sempre true
-+ execute(): void
-//non fa nulla
-+ getVaticanSupport() :Boolean</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>5118</x>
-      <y>624</y>
-      <w>294</w>
-      <h>84</h>
-    </coordinates>
-    <panel_attributes>Server
---
++ update(player: Player, match: Match): Message
++ activate(player: Player, match: Match): ExtraAction[]
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5106</x>
-      <y>750</y>
-      <w>132</w>
-      <h>18</h>
+      <x>5010</x>
+      <y>624</y>
+      <w>318</w>
+      <h>114</h>
     </coordinates>
-    <panel_attributes>SocketConnectionAcceptor</panel_attributes>
+    <panel_attributes>Server
+--
+- connectionsQueue: ConcurrentLinkedQueue&lt;Connection&gt;
+-  advConnectionsQueue: ConcurrentLinkedQueue&lt;Connection&gt;
+-  usedNames: ArrayList&lt;String&gt;
+-  playingUsers: ConcurrentHashMap&lt;String, UserHandler&gt;
+-  stdSem: Semaphore
+-  advSem: Semaphore
+--
++ run(): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5250</x>
-      <y>750</y>
-      <w>108</w>
-      <h>18</h>
+      <x>5022</x>
+      <y>762</y>
+      <w>306</w>
+      <h>126</h>
     </coordinates>
-    <panel_attributes>RMIConnectionAcceptor</panel_attributes>
+    <panel_attributes>SocketConnectionAcceptor
+--
+- connectionsQueue: ConcurrentLinkedQueue&lt;Connection&gt;
+-  advConnectionsQueue: ConcurrentLinkedQueue&lt;Connection&gt;
+-  usedNames: ArrayList&lt;String&gt;
+-  playingUsers: ConcurrentHashMap&lt;String, UserHandler&gt;
+-  stdSem: Semaphore
+-  advSem: Semaphore
+- acceptingConnections: boolean
+- serverSocket: ServerSocket
+--
++ run(): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5100</x>
-      <y>882</y>
-      <w>120</w>
-      <h>18</h>
+      <x>5334</x>
+      <y>720</y>
+      <w>330</w>
+      <h>156</h>
     </coordinates>
-    <panel_attributes>SocketConnectionAdder</panel_attributes>
+    <panel_attributes>RMIConnectionAcceptor
+--
+- registry: Registry
+- connectionsQueue: ConcurrentLinkedQueue&lt;Connection&gt;
+-  advConnectionsQueue: ConcurrentLinkedQueue&lt;Connection&gt;
+-  connections: ArrayList&lt;RMIConnection&gt;
+-  usedNames: ArrayList&lt;String&gt;
+-  playingUsers: ConcurrentHashMap&lt;String, UserHandler&gt;
+-  connectionsMap: HashMap&lt;Integer, RMIConnection&gt;
+-  interfaceCounter: int
+-  stdSem: Semaphore
+-  advSem: Semaphore
+--
++ getNewConnection(boolean wantsNewConnection): RMIConnectionInterface
++ rejoinConnection(RMIConnectionInterface newConnection, String oldName): boolean
++ setupConnection(RMIConnectionInterface connection): void
++ run(): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5382</x>
-      <y>798</y>
+      <x>5028</x>
+      <y>930</y>
+      <w>300</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>SocketConnectionAdder
+--
+- connectionsQueue: ConcurrentLinkedQueue&lt;Connection&gt;
+-  advConnectionsQueue: ConcurrentLinkedQueue&lt;Connection&gt;
+-  usedNames: ArrayList&lt;String&gt;
+-  playingUsers: ConcurrentHashMap&lt;String, UserHandler&gt;
+-  stdSem: Semaphore
+-  advSem: Semaphore
+- acceptingConnections: boolean
+- socket: sSocket
+--
++ run()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5652</x>
+      <y>906</y>
       <w>210</w>
-      <h>90</h>
+      <h>60</h>
     </coordinates>
-    <panel_attributes>RMIConnection</panel_attributes>
+    <panel_attributes>RMIConnection
+--
+- name: String
+- client: RMIClientInterface
+- newMatch: boolean
+- id: int</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5610</x>
-      <y>804</y>
-      <w>102</w>
-      <h>18</h>
+      <x>5910</x>
+      <y>930</y>
+      <w>174</w>
+      <h>102</h>
     </coordinates>
-    <panel_attributes>SocketConnection</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>5580</x>
-      <y>738</y>
-      <w>66</w>
-      <h>18</h>
-    </coordinates>
-    <panel_attributes>Connection</panel_attributes>
+    <panel_attributes>SocketConnection
+--
+- socket: Socket
+- name: String
+- out: ObjectOutputStream
+- in: ObjectInputStream
+- connected: boolean
+- newMatch: boolean
+- messageCounter: int
+--
++ wantsNewMatch(): boolean</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5544</x>
-      <y>750</y>
+      <x>5814</x>
+      <y>858</y>
+      <w>36</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>40.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5946</x>
+      <y>858</y>
+      <w>24</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;20.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5088</x>
+      <y>732</y>
+      <w>18</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5322</x>
+      <y>672</y>
       <w>72</w>
       <h>60</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>100.0;10.0;10.0;80.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>5604</x>
-      <y>750</y>
-      <w>66</w>
-      <h>66</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;90.0;90.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>5160</x>
-      <y>702</y>
-      <w>66</w>
-      <h>60</h>
-    </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>90.0;10.0;10.0;80.0</additional_attributes>
+    <additional_attributes>10.0;10.0;100.0;80.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5280</x>
-      <y>702</y>
-      <w>30</w>
-      <h>60</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;30.0;80.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>5160</x>
-      <y>762</y>
+      <x>5088</x>
+      <y>882</y>
       <w>18</w>
-      <h>132</h>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;200.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5406</x>
-      <y>624</y>
-      <w>300</w>
-      <h>84</h>
+      <x>5310</x>
+      <y>570</y>
+      <w>822</w>
+      <h>114</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;480.0;120.0</additional_attributes>
+    <additional_attributes>10.0;90.0;130.0;10.0;1350.0;30.0;1350.0;170.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5640</x>
-      <y>738</y>
-      <w>66</w>
-      <h>18</h>
+      <x>5880</x>
+      <y>642</y>
+      <w>228</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>360.0;50.0;360.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -4089,12 +4168,12 @@ layer=1</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>5586</x>
-      <y>1404</y>
-      <w>138</w>
-      <h>138</h>
+      <y>1410</y>
+      <w>114</w>
+      <h>132</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>210.0;10.0;10.0;210.0</additional_attributes>
+    <additional_attributes>170.0;10.0;10.0;200.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -4147,20 +4226,20 @@ layer=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5346</x>
-      <y>762</y>
+      <x>5658</x>
+      <y>864</y>
       <w>66</w>
-      <h>48</h>
+      <h>54</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 creates</panel_attributes>
-    <additional_attributes>90.0;60.0;10.0;10.0</additional_attributes>
+    <additional_attributes>90.0;70.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>5406</x>
-      <y>924</y>
+      <x>5676</x>
+      <y>990</y>
       <w>168</w>
       <h>84</h>
     </coordinates>
@@ -4175,13 +4254,13 @@ creates</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5484</x>
-      <y>882</y>
+      <x>5754</x>
+      <y>960</y>
       <w>18</w>
-      <h>60</h>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -4189,15 +4268,18 @@ creates</panel_attributes>
       <x>5676</x>
       <y>1722</y>
       <w>198</w>
-      <h>72</h>
+      <h>96</h>
     </coordinates>
     <panel_attributes>ExtraActionData
 --
-- type: ActionType
-- familyMember: MemberColor
-- servants: int
-- tower: DevelopmentCardType
-- space: int</panel_attributes>
+- type: ExtraActionType
+- actionId: int
+- message: String
+--
++ getType(): ExtraActionType
++ getDescription(): String
++ getActionId(): int
++ setActionId(int actionId): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -4206,11 +4288,15 @@ creates</panel_attributes>
       <x>2796</x>
       <y>390</y>
       <w>168</w>
-      <h>60</h>
+      <h>66</h>
     </coordinates>
     <panel_attributes>TakePrivilegesAction
 --
-- numberOfPrivileges : int</panel_attributes>
+- numberOfPrivileges : int
+- councilChoice: CouncilChoice
+--
++ update(player: Player, match: Match): Message
++ activate(player: Player, match: Match): ExtraAction[]</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -4314,8 +4400,8 @@ layer=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4128</x>
-      <y>1398</y>
+      <x>4158</x>
+      <y>1380</y>
       <w>198</w>
       <h>78</h>
     </coordinates>
@@ -4332,13 +4418,13 @@ layer=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>4320</x>
-      <y>1446</y>
-      <w>114</w>
-      <h>102</h>
+      <x>4350</x>
+      <y>1428</y>
+      <w>84</w>
+      <h>120</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>170.0;150.0;10.0;10.0</additional_attributes>
+    <additional_attributes>120.0;180.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -4354,13 +4440,13 @@ layer=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5826</x>
-      <y>1230</y>
+      <x>5856</x>
+      <y>1272</y>
       <w>18</w>
-      <h>90</h>
+      <h>54</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -4390,33 +4476,45 @@ layer=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5118</x>
-      <y>474</y>
+      <x>5046</x>
+      <y>456</y>
       <w>294</w>
-      <h>66</h>
+      <h>144</h>
     </coordinates>
     <panel_attributes>Lobby
 --
-</panel_attributes>
+- connectionsQueue: ConcurrentLinkedQueue&lt;Connection&gt;
+- playingUsers: ConcurrentHashMap&lt;String, UserHandler&gt;
+- names: ArrayList&lt;String&gt;
+- TIMEOUT: long
+- MAX_PLAYERS_NUM: int
+- MIN_PLAYERS_NUM: int
+- timeoutExpired: boolean
+- startedTimer: boolean
+- isAdvanced: boolean
+- timer: Timer
+- sem: Semaphore
+--
++ run(): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5256</x>
-      <y>534</y>
+      <x>5184</x>
+      <y>594</y>
       <w>18</w>
-      <h>102</h>
+      <h>42</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>5502</x>
       <y>468</y>
-      <w>96</w>
+      <w>114</w>
       <h>72</h>
     </coordinates>
     <panel_attributes>LobbyTimeoutTask
@@ -4431,12 +4529,384 @@ layer=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5406</x>
-      <y>522</y>
+      <x>5334</x>
+      <y>504</y>
+      <w>180</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;280.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5100</x>
+      <y>1224</y>
+      <w>198</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>MarketOccupants
+--
+- firstOccupant: FamilyMemberData
+- secondOccupant: FamilyMemberData
+--
++ getFirstOccupant(): FamilyMemberData
++ getSecondOccupant(): FamilyMemberData</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5292</x>
+      <y>1260</y>
       <w>108</w>
       <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;160.0;10.0</additional_attributes>
+    <additional_attributes>160.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLInterface</id>
+    <coordinates>
+      <x>5712</x>
+      <y>636</y>
+      <w>336</w>
+      <h>228</h>
+    </coordinates>
+    <panel_attributes>Connection
+--
++ matchStarted(): void
++ sendMessage(): String
++ getName(): String
++ remoteUpdate(match: MatchData): void
++ reqCostChoice(costs: ArrayList&lt;ImmProperties&gt;): void
++ reqVaticanChoice(): boolean
++ reqPrivilegesChoice(number: int, privilegesValues: ImmProperties[]): ImmProperties[]
++ setID(player: PlayerColor): void
++ reqExtraActionChoice(actions: ExtraActionData[]): int
++ reqAction(int id): ActionData
++ isConnected(): boolean
++ reqEffectChoice(possibleEffects: EffectSet[]): EffectSet
++ reqWorkChoice(message: DevelopmentCard): int
++ matchEnded(data: EndData): void
++ reqLeaderCardChoice(choices: LeaderCard[]): int
++ reqPersonalTileChoice(choices: PersonalBonusTile[])
++ setRules(isAdvanced: boolean): void
++ reqCardChoice(possibleChoices: DevelopmentCard[]) : int
++ chooseNumberOfServants(max: int): int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5232</x>
+      <y>1488</y>
+      <w>216</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>EndData
+--
+- playersFinalPoints: Map&lt;PlayerColor, Integer&gt;
+- winner: PlayerColor
+--
+
++ getPlayersFinalPoints(): Map&lt;PlaterColor, Integer&gt;
++ getWinner(): PlayerColor </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4704</x>
+      <y>1374</y>
+      <w>198</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>ExtraActionRequest
+--
+- possibleActions: ExtraActionData[]
+--
++ getPossibilities(): extraActionData[]
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4524</x>
+      <y>1392</y>
+      <w>192</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;240.0;300.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2418</x>
+      <y>3372</y>
+      <w>162</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+ExtraActionType
+--
+TAKE_PRIVILEGES
+PICK_ANOTHER_CARD
+NULL_ACTION</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLInterface</id>
+    <coordinates>
+      <x>5358</x>
+      <y>972</y>
+      <w>288</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>RMIConnectionCreator
+--
++ getNewConnection(wanysNewMatch: boolean): RMIConnectionInterface
++ </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5496</x>
+      <y>870</y>
+      <w>18</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;180.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4200</x>
+      <y>1320</y>
+      <w>198</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>ExcommunicationMessage
+--
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4362</x>
+      <y>1356</y>
+      <w>96</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>140.0;300.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4716</x>
+      <y>1794</y>
+      <w>198</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>NoActivablePermanentEffectMessage
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4536</x>
+      <y>1602</y>
+      <w>192</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;230.0;320.0;300.0;330.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4500</x>
+      <y>1038</y>
+      <w>18</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4710</x>
+      <y>1740</y>
+      <w>198</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>ExecutedChoice
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4686</x>
+      <y>1860</y>
+      <w>174</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>PickAnotherCardMessage
+--
+- possibleChoices: DevelopmendCard[]
+- cardChosen: DevelopmentCard</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4506</x>
+      <y>1602</y>
+      <w>192</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;300.0;430.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4050</x>
+      <y>1806</y>
+      <w>198</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>ServantsChoice
+--
+- numOfServants: int
+- maxServants: int
+--
++ getNumberOfServants(): int
++ setNumberOfServants(num: int): void
++ getMaxServants(): int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4212</x>
+      <y>1602</y>
+      <w>210</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>330.0;10.0;10.0;340.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4704</x>
+      <y>1284</y>
+      <w>198</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>TileChoice
+--
+- choices :ArrayList&lt;PersonalBonusTile&gt;
+- chosen :int
+--
++ getChoices() :ArrayList&lt;PersonalBonusTile&gt;
++ getChosen() :int
++ setChosen(chosen: int) :void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4500</x>
+      <y>1320</y>
+      <w>216</w>
+      <h>228</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;360.0;340.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2574</x>
+      <y>132</y>
+      <w>294</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>ExtraWorkAction
+--
+- valueOfAction: int
+- workType: WorkType
+- workMessage: WorkMessage
+--
+
++ update(player: Player, match: Match): Message
++ activate(player: Player, match: Match): ExtraAction[]
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2670</x>
+      <y>228</y>
+      <w>24</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;90.0;20.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1710</x>
+      <y>336</y>
+      <w>246</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>TileChoiceAction
+--
+- message : TileChoice
+--
++ update(player: Player, match: Match): Message
++ activate(player: Player, match: Match): ExtraAction[]
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1950</x>
+      <y>360</y>
+      <w>150</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>230.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2016</x>
+      <y>312</y>
+      <w>84</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>120.0;110.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>

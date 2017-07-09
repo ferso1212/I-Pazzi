@@ -21,12 +21,12 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 import it.polimi.ingsw.ps21.controller.NotAdvancedPlayerException;
-import it.polimi.ingsw.ps21.controller.PlayerData;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.excommunications.Excommunication;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
+import it.polimi.ingsw.ps21.view.PlayerData;
 
 public class PlayerTile extends JSplitPane {
 

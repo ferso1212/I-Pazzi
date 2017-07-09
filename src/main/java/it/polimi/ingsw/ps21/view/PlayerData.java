@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ps21.controller;
+package it.polimi.ingsw.ps21.view;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -6,6 +6,7 @@ import java.util.EnumMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import it.polimi.ingsw.ps21.controller.NotAdvancedPlayerException;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;

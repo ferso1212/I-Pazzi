@@ -16,7 +16,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import it.polimi.ingsw.ps21.controller.MatchData;
+import it.polimi.ingsw.ps21.view.MatchData;
 
 public class BoardPanel extends JPanel {
 

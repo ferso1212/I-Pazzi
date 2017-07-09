@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import it.polimi.ingsw.ps21.controller.PlayerData;
+import it.polimi.ingsw.ps21.view.PlayerData;
 
 
 public class Deck{
