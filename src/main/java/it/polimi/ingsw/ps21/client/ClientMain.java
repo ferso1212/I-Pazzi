@@ -22,6 +22,7 @@ public class ClientMain {
 	
 	public static void main(String [] args)
 	{
+
 		//hostaddress =  System.getProperty("server.hostaddress");
 		hostaddress = "192.168.0.105";
 		System.out.println("\nClient application started.");

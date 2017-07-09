@@ -9,6 +9,11 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class NullLeaderEffect extends LeaderEffect {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 679607764881833644L;
+
 	public NullLeaderEffect() {
 		super(new Requirement(new CardsNumber(0), new ImmProperties(0)));
 	}

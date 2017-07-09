@@ -9,6 +9,10 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class WorkDiceEffect extends Effect {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4574524938534003800L;
 	private int diceValue;
 	private WorkType type;
 	

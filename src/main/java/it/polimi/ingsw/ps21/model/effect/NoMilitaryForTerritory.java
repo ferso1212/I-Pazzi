@@ -13,6 +13,12 @@ import it.polimi.ingsw.ps21.model.player.Player;
 
 public class NoMilitaryForTerritory extends PermanentLeaderEffect {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5716674298143695477L;
+
+
 	public NoMilitaryForTerritory(Requirement requirements[]) {
 		super(requirements);
 	}

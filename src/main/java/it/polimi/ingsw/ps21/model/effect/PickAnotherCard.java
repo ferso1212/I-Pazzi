@@ -11,6 +11,10 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class PickAnotherCard extends Effect {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5473595752354703590L;
 	private int diceReq;
 	private DevelopmentCardType[] types;
 	

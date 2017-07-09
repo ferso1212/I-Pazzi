@@ -12,6 +12,10 @@ import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 
 public class MultiplierEffect extends Effect {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1220248292513614400L;
 	private ImmProperties bonusProperties;
 	private MultiplierType secondFactorType;
 	

@@ -15,6 +15,11 @@ import java.util.logging.Logger;
  */
 public class PropertiesSet implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1441464541295646561L;
+
 	private final static Logger LOGGER = Logger.getLogger(PropertiesSet.class.getName());
 	
 	// maps each of the possible id values to the corresponding property
