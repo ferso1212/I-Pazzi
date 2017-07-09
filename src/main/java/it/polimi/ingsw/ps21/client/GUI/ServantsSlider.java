@@ -1,6 +1,5 @@
 package it.polimi.ingsw.ps21.client.GUI;
 
-import java.awt.Dimension;
 
 import javax.swing.JSlider;
 
@@ -9,6 +8,11 @@ import it.polimi.ingsw.ps21.view.PlayerData;
 
 public class ServantsSlider extends JSlider{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public ServantsSlider (){
 		super(JSlider.HORIZONTAL, 0, 1, 0);
 		this.setMinorTickSpacing(1);

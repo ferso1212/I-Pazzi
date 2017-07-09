@@ -1,23 +1,15 @@
 package it.polimi.ingsw.ps21.view;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import it.polimi.ingsw.ps21.client.ActionRequestNetPacket;
 import it.polimi.ingsw.ps21.client.ActionResponseNetPacket;
-import it.polimi.ingsw.ps21.client.ChosenRulesNetPacket;
-import it.polimi.ingsw.ps21.client.ClientConnection;
 import it.polimi.ingsw.ps21.client.CostChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.CostChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.DevCardChoiceRequestNetPacket;
@@ -51,10 +43,8 @@ import it.polimi.ingsw.ps21.client.VaticanChoiceResponseNetPacket;
 import it.polimi.ingsw.ps21.client.ViewUpdateRequestNetPacket;
 import it.polimi.ingsw.ps21.client.WorkChoiceRequestNetPacket;
 import it.polimi.ingsw.ps21.client.WorkChoiceResponseNetPacket;
-import it.polimi.ingsw.ps21.model.actions.ActionType;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
-import it.polimi.ingsw.ps21.model.deck.RequirementAndCost;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.player.PersonalBonusTile;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;

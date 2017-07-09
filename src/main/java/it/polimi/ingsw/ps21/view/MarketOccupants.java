@@ -3,6 +3,10 @@ package it.polimi.ingsw.ps21.view;
 import java.io.Serializable;
 
 public class MarketOccupants implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -511205066628072488L;
 	private FamilyMemberData firstOccupant;
 	private FamilyMemberData secondOccupant;
 	

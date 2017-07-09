@@ -9,19 +9,20 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.view.FamilyMemberData;
 
 public class WorkActionButton extends JButton{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private WorkType type;
-	private boolean singleSpace;
 	
 	public WorkActionButton (WorkType type, boolean singleSpace){
 		this.type = type;
-		this.singleSpace = singleSpace;
 		this.setOpaque(false);
 		this.setContentAreaFilled(false);
 		this.setBorderPainted(true);

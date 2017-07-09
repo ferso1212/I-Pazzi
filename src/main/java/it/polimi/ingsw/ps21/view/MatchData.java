@@ -1,9 +1,6 @@
 package it.polimi.ingsw.ps21.view;
 
 import java.io.Serializable;
-import java.util.Collection;
-
-import it.polimi.ingsw.ps21.model.match.AdvancedMatch;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.match.RoundType;
 import it.polimi.ingsw.ps21.model.player.Player;

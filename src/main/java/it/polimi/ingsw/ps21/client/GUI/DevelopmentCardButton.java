@@ -2,22 +2,23 @@ package it.polimi.ingsw.ps21.client.GUI;
 
 import java.awt.Container;
 import java.awt.Image;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 
 public class DevelopmentCardButton extends JButton{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final Logger LOGGER = Logger.getLogger(DevelopmentCardButton.class.getSimpleName());
 	private transient Image cardImage;
 

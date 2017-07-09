@@ -1,6 +1,5 @@
 package it.polimi.ingsw.ps21.client.GUI;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 
@@ -10,6 +9,10 @@ import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 
 public class LeaderPanel extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private LeaderCardButton[] leaders = new LeaderCardButton[4];
 	
 	public LeaderPanel(Dimension actionPanelDimension, ActionListener leaderListener){

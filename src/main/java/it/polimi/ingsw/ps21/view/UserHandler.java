@@ -4,7 +4,6 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
 import it.polimi.ingsw.ps21.controller.ActionRequest;
 import it.polimi.ingsw.ps21.controller.CompletedActionMessage;
@@ -22,7 +21,6 @@ import it.polimi.ingsw.ps21.controller.ServantsChoice;
 import it.polimi.ingsw.ps21.controller.TileChoice;
 import it.polimi.ingsw.ps21.controller.VaticanChoice;
 import it.polimi.ingsw.ps21.controller.WorkMessage;
-import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.LeaderCopyMessage;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
@@ -32,7 +30,6 @@ public class UserHandler extends Observable implements Visitor, Observer {
 	private final static Logger LOGGER = Logger.getLogger(UserHandler.class.getName());
 	private PlayerColor playerId;
 	private Connection connection;
-	private String name;
 	private boolean timeoutExpired;
 	private boolean isAdvanced;
 	private MatchData matchStatus;
@@ -41,7 +38,6 @@ public class UserHandler extends Observable implements Visitor, Observer {
 		super();
 		this.playerId = playerId;
 		this.connection = connection;
-		this.name = this.connection.getName();
 		// this.connection.sendMessage(this.name + "'s UserHandler created.");
 		this.connection.setID(this.playerId);
 		this.timeoutExpired = false;

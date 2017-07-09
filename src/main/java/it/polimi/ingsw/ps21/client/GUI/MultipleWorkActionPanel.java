@@ -16,6 +16,10 @@ import it.polimi.ingsw.ps21.view.FamilyMemberData;
 
 public class MultipleWorkActionPanel extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JButton marketButton;
 	private JLabel occupants[];
 	

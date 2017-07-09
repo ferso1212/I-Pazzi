@@ -1,7 +1,6 @@
 package it.polimi.ingsw.ps21.view;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Timer;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -23,8 +22,6 @@ public class Lobby extends Thread{
 													// reached or if the timeout
 													// expires.
 	private final static int MIN_PLAYERS_NUM = 2;
-	
-	private boolean timeoutExpired;
 	private boolean startedTimer = false;
 	private boolean isAdvanced;
 	private Timer timer;
@@ -33,8 +30,6 @@ public class Lobby extends Thread{
 	
 	public Lobby(boolean type, ArrayList<String> names, ConcurrentHashMap<String, UserHandler> playingUsers, Semaphore sem)
 	{
-		//this.TIMEOUT= MatchFactory.instance().makeTimeoutServer();
-		this.timeoutExpired=false;
 		this.connectionsQueue= new ConcurrentLinkedQueue<>();
 		this.isAdvanced=type;
 		this.names=names;
@@ -75,7 +70,6 @@ public class Lobby extends Thread{
 		timer.cancel();
 		if (connectionsQueue.size() >= MAX_PLAYERS_NUM)
 			System.out.println("\nThere are enough connections in the queue to fulfill a match.");
-		timeoutExpired = false;
 		this.timer.cancel();
 		// Creates UserHandlers for each connection and and a new
 		// MatchRunner with those UserHandlers

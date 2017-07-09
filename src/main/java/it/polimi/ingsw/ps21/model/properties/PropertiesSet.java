@@ -2,10 +2,7 @@ package it.polimi.ingsw.ps21.model.properties;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.EnumMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 /**Set of properties.
@@ -19,8 +16,6 @@ public class PropertiesSet implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1441464541295646561L;
-
-	private final static Logger LOGGER = Logger.getLogger(PropertiesSet.class.getName());
 	
 	// maps each of the possible id values to the corresponding property
 	private EnumMap<PropertiesId, Property> propertiesMap;

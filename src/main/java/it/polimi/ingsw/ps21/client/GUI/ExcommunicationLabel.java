@@ -8,11 +8,14 @@ import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 
 public class ExcommunicationLabel extends JLabel{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private transient Image excomImage;
 	private static final transient Logger LOGGER = Logger.getLogger(ExcommunicationLabel.class.getName());
 	

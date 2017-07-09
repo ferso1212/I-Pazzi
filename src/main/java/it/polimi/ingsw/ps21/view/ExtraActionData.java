@@ -1,13 +1,10 @@
 package it.polimi.ingsw.ps21.view;
 
 import java.io.Serializable;
-
-import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
 import it.polimi.ingsw.ps21.model.actions.PickAnotherCardAction;
 import it.polimi.ingsw.ps21.model.actions.TakePrivilegesAction;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
-import it.polimi.ingsw.ps21.model.effect.PickAnotherCard;
 
 public class ExtraActionData implements Serializable {
 	

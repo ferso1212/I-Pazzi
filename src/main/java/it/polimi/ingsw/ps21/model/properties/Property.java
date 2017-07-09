@@ -1,10 +1,7 @@
 package it.polimi.ingsw.ps21.model.properties;
 
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import it.polimi.ingsw.ps21.view.PlayerData;
 
 /**Used to store datas of resources and points. 
  * The following datas are stored for each property: 
@@ -20,7 +17,6 @@ public class Property implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 7201850553473648610L;
-	private final static Logger LOGGER = Logger.getLogger(Property.class.getName());
 	private PropertiesId id;
 	private int value;
 	private int paymentModifier;
