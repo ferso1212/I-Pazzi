@@ -1062,7 +1062,7 @@ public class GUInterface implements UserInterface {
 		int numberOfChoices = possibilities.length;
 		Object choices[] = new Object[numberOfChoices];
 		for (int i = 0; i < numberOfChoices; i++) {
-			choices[i] = possibilities[i].toString();
+			choices[i] = possibilities[i].getName().concat(" : " + possibilities[i].getEffect().getDesc());
 		}
 		String chosenLeaderCard = (String) JOptionPane.showInputDialog(mainWindow,
 				"Wich Leader Card effect do you want to copy?", "Choose Leader Card", JOptionPane.PLAIN_MESSAGE, null,
