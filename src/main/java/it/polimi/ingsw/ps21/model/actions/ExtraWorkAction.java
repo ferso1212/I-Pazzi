@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
 import it.polimi.ingsw.ps21.controller.Message;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
+import it.polimi.ingsw.ps21.controller.ServantsChoice;
 import it.polimi.ingsw.ps21.controller.WorkMessage;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.IllegalCardTypeException;
@@ -13,25 +14,34 @@ import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
+import it.polimi.ingsw.ps21.model.properties.PropertiesId;
+import it.polimi.ingsw.ps21.view.ExtraActionData;
 
 public class ExtraWorkAction extends ExtraAction {
 
 	private int valueOfAction;
 	private WorkType workType;
 	private WorkMessage workMessage;
+	private ServantsChoice servantsMessage;
 
 	public ExtraWorkAction(PlayerColor playerId, int valueOfAction, WorkType workType) {
 		super(playerId);
 		this.valueOfAction = valueOfAction;
 		this.workType = workType;
-		this.updateCounter = 1;
+		this.updateCounter = 2;
+		this.data=new ExtraActionData(this);
 		
 	}
 
 	@Override
 	public Message update(Player player, Match match) {
 		switch (this.updateCounter) {
+		case 2: {this.servantsMessage = new ServantsChoice(player.getId(), player.getProperties().getProperty(PropertiesId.SERVANTS).getValue(), this.actionId);
+		this.updateCounter--;
+		return this.servantsMessage;}
 		case 1: {
+			if (!servantsMessage.isVisited()) return new RefusedAction(playerId, actionId);
+			this.valueOfAction+=servantsMessage.getNumberOfServants();
 			try {
 				ArrayList<DevelopmentCard> cardWithCost = new ArrayList<DevelopmentCard>();
 				ArrayList<DevelopmentCard> cardWithoutCost = new ArrayList<DevelopmentCard>();
@@ -76,7 +86,7 @@ public class ExtraWorkAction extends ExtraAction {
 
 	@Override
 	public ExtraAction[] activate(Player player, Match match){
-		
+	player.getProperties().getProperty(PropertiesId.SERVANTS).payValue(servantsMessage.getNumberOfServants());
 	ArrayList<ExtraAction> activatedEffects = new ArrayList<ExtraAction>();
 
 	for (int i = 0; i < workMessage.getChosenCardsWithCost().length; i++) {
@@ -92,5 +102,15 @@ public class ExtraWorkAction extends ExtraAction {
 
 	return activatedEffects.toArray(new ExtraAction[0]);
 	}
+
+	public int getValueOfAction() {
+		return valueOfAction;
+	}
+
+	public WorkType getWorkType() {
+		return workType;
+	}
+	
+	
 
 }

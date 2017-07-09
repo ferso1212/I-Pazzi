@@ -1,6 +1,8 @@
 package it.polimi.ingsw.ps21.view;
 
 import java.io.Serializable;
+
+import it.polimi.ingsw.ps21.model.actions.ExtraWorkAction;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
 import it.polimi.ingsw.ps21.model.actions.PickAnotherCardAction;
 import it.polimi.ingsw.ps21.model.actions.TakePrivilegesAction;
@@ -42,7 +44,8 @@ public class ExtraActionData implements Serializable {
 	
 	public ExtraActionData(ExtraWorkAction action)
 	{
-		
+		this.type=ExtraActionType.WORK;
+		this.message=action.getWorkType() + " action with value: " + action.getValueOfAction();
 	}
 	
 	public ExtraActionType getType(){

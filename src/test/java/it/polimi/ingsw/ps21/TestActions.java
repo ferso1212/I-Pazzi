@@ -248,6 +248,10 @@ public class TestActions {
 		try {
 			ExtraWorkAction a2 = new ExtraWorkAction(PlayerColor.BLUE, 8, WorkType.HARVEST);
 			Message mess = a2.update(this.match.getCurrentPlayer(), match);
+			if(!(mess instanceof ServantsChoice)) fail();
+			((ServantsChoice)mess).setNumberOfServants(2);
+			mess.setVisited();
+			mess = a2.update(this.match.getCurrentPlayer(), match);
 			if (!(mess instanceof AcceptedAction))
 				fail();
 
@@ -258,12 +262,15 @@ public class TestActions {
 
 			ExtraWorkAction a = new ExtraWorkAction(PlayerColor.BLUE, 8, WorkType.HARVEST);
 			mess = a.update(this.match.getCurrentPlayer(), match);
-			if (!(mess instanceof WorkMessage))
-				fail();
+			if(!(mess instanceof ServantsChoice)) fail();
+			((ServantsChoice)mess).setNumberOfServants(2);
+			mess.setVisited();
+			mess = a.update(this.match.getCurrentPlayer(), match);
+			if (!(mess instanceof WorkMessage)) fail();
 			WorkMessage workMess = (WorkMessage) mess;
 			workMess.setChosenCardsWithCost(new int[1]);
 			workMess.setChosenCardsWithoutCost(new int[1]);
-
+			mess.setVisited();
 			mess = a.update(this.match.getCurrentPlayer(), match);
 			if (!(mess instanceof AcceptedAction))
 				fail();
