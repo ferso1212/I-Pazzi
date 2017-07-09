@@ -13,10 +13,13 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import it.polimi.ingsw.ps21.controller.MatchController;
 
 public class BackgroundPanel extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final Logger LOGGER = Logger.getLogger(BackgroundPanel.class.getName());
 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	private String imagePath = (new File("").getAbsolutePath().concat("/src/images/background.jpg"));
@@ -27,8 +30,6 @@ public class BackgroundPanel extends JPanel {
 		try {
 			
 			BufferedImage backgorundImage = ImageIO.read(new File(imagePath));
-			int scaleH = (int) (backgorundImage.getHeight() /  screenSize.getHeight());
-			int scaleW = (int) (backgorundImage.getWidth() /  screenSize.getWidth());
 			g.drawImage(resizeImage(backgorundImage,
 					(int) screenSize.getWidth(),
 					this.getHeight(), BufferedImage.TYPE_INT_RGB), 0, 0, null);

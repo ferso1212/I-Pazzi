@@ -1,6 +1,10 @@
 package it.polimi.ingsw.ps21.client;
 
 public class DevCardChoiceResponseNetPacket extends NetPacket{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2406975429488876721L;
 	int chosen;
 
 	public DevCardChoiceResponseNetPacket(int messNum, int chosen) {

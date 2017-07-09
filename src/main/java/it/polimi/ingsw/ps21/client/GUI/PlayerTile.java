@@ -1,11 +1,9 @@
 package it.polimi.ingsw.ps21.client.GUI;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -17,19 +15,20 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 
 import it.polimi.ingsw.ps21.controller.NotAdvancedPlayerException;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
-import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.excommunications.Excommunication;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.view.PlayerData;
 
 public class PlayerTile extends JSplitPane {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private PlayerBoardPanel playerBoardPanel;
 	private JPanel charactersAndVentures = new JPanel();
 	private JLabel characters = new JLabel();

@@ -2,8 +2,6 @@ package it.polimi.ingsw.ps21.client;
 
 import java.io.Serializable;
 
-import it.polimi.ingsw.ps21.model.effect.EffectSet;
-
 public class EffectChoiceResponseNetPacket extends NetPacket implements Serializable{
 	/**
 	 * 

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps21.model.deck;
 
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
@@ -65,6 +66,7 @@ public class Deck{
 		case VENTURE:
 			return purpleCards.getCard(era);
 		default:
+			LOGGER.log(Level.WARNING, "Invalid era as input for getCard");
 			throw new IllegalCardException();
 		}
 	}
