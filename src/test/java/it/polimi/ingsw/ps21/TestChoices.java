@@ -25,8 +25,8 @@ public class TestChoices{
 	public void setUp(){
 			EffectSet testset[] = new EffectSet[2];
 			testset[0] = new EffectSet(new PropEffect(new ImmProperties(0), new ImmProperties(3,0,1)), new CouncilEffect(new ImmProperties(0), 2));
-			testedEffectChoice = new EffectChoice(PlayerColor.BLUE, testset);
-			testedVaticanChoice = new VaticanChoice(PlayerColor.BLUE, new VenturePointsExcommunication(2, 3));
+			testedEffectChoice = new EffectChoice(PlayerColor.BLUE, testset, 0);
+			testedVaticanChoice = new VaticanChoice(PlayerColor.BLUE, new VenturePointsExcommunication(2, 3), 0);
 			// TODO add other choices
 	}
 	

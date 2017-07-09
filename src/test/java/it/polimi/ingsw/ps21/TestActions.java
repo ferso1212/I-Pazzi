@@ -87,21 +87,21 @@ public class TestActions {
 		p.getFamily().getMember(MembersColor.NEUTRAL).setValue(6);
 		{
 			CouncilAction af = new CouncilAction(match.getCurrentPlayer().getId(),
-					match.getCurrentPlayer().getFamily().getMember(MembersColor.NEUTRAL), 4);
+					match.getCurrentPlayer().getFamily().getMember(MembersColor.NEUTRAL), 4, 0);
 			Message failMess = af.update(match.getCurrentPlayer(), match);
 			if (!(failMess instanceof RefusedAction))
 				fail();
 
 			this.match.getCurrentPlayer().getFamily().getMember(MembersColor.ORANGE).setValue(0);
 			af = new CouncilAction(match.getCurrentPlayer().getId(),
-					match.getCurrentPlayer().getFamily().getMember(MembersColor.ORANGE), 0);
+					match.getCurrentPlayer().getFamily().getMember(MembersColor.ORANGE), 0, 0);
 			failMess = af.update(match.getCurrentPlayer(), match);
 			if (!(failMess instanceof RefusedAction))
 				fail();
 
 			this.match.getCurrentPlayer().getFamily().getMember(MembersColor.BLACK).setValue(5);
 			CouncilAction a = new CouncilAction(match.getCurrentPlayer().getId(),
-					match.getCurrentPlayer().getFamily().getMember(MembersColor.BLACK), 4);
+					match.getCurrentPlayer().getFamily().getMember(MembersColor.BLACK), 4, 0);
 			Message mess = a.update(match.getCurrentPlayer(), match);
 			if (mess instanceof RefusedAction)
 				fail();
@@ -127,7 +127,7 @@ public class TestActions {
 		
 		setAllPlayerProperties(0, p);
 		DevelopmentAction af = new DevelopmentAction(p.getId(), p.getFamily().getMember(MembersColor.NEUTRAL), 0,
-				DevelopmentCardType.BUILDING, 3);
+				DevelopmentCardType.BUILDING, 3, 0);
 		if (!(af.update(p, match) instanceof RefusedAction))
 			fail();
 
@@ -147,7 +147,7 @@ public class TestActions {
 		// occupied tower and he hasn't enough coins to pay the malus
 		setAllPlayerProperties(2, p);
 		DevelopmentAction af2 = new DevelopmentAction(p.getId(), p.getFamily().getMember(MembersColor.ORANGE), 5,
-				DevelopmentCardType.BUILDING, 2);
+				DevelopmentCardType.BUILDING, 2, 0);
 		if (!(af2.update(p, match) instanceof RefusedAction))
 			fail();
 
@@ -158,7 +158,7 @@ public class TestActions {
 				new EffectSet(new PropEffect(new ImmProperties(0), new ImmProperties(1))));
 		match.getBoard().getTower(DevelopmentCardType.CHARACTER).getTowerSpace(1).setCard(testCard);
 		af2 = new DevelopmentAction(p.getId(), p.getFamily().getMember(MembersColor.BLACK), 5,
-				DevelopmentCardType.CHARACTER, 1);
+				DevelopmentCardType.CHARACTER, 1, 0);
 		if (!(af2.update(p, match) instanceof RefusedAction))
 			fail();
 
@@ -171,7 +171,7 @@ public class TestActions {
 				new EffectSet(new PropEffect(new ImmProperties(0), new ImmProperties(1))));
 		match.getBoard().getTower(DevelopmentCardType.CHARACTER).getTowerSpace(1).setCard(testCard);
 		af2 = new DevelopmentAction(p.getId(), p.getFamily().getMember(MembersColor.BLACK), 0,
-				DevelopmentCardType.CHARACTER, 1);
+				DevelopmentCardType.CHARACTER, 1, 0);
 		if (!(af2.update(p, match) instanceof RefusedAction))
 			fail();
 
@@ -179,7 +179,7 @@ public class TestActions {
 		p.getFamily().getMember(MembersColor.BLACK).setValue(10);
 		p.getFamily().getMember(MembersColor.BLACK).setUsed(true);
 		af2 = new DevelopmentAction(p.getId(), p.getFamily().getMember(MembersColor.BLACK), 0,
-				DevelopmentCardType.CHARACTER, 1);
+				DevelopmentCardType.CHARACTER, 1, 0);
 		if (!(af2.update(p, match) instanceof RefusedAction))
 			fail();
 
@@ -198,13 +198,13 @@ public class TestActions {
 			fail();
 		}
 		DevelopmentAction a = new DevelopmentAction(p.getId(), p.getFamily().getMember(MembersColor.BLACK), 5,
-				DevelopmentCardType.CHARACTER, 1);
+				DevelopmentCardType.CHARACTER, 1, 0);
 		if (!(a.update(p, match) instanceof CostChoice))
 			fail();
 
 		match.getBoard().getTower(DevelopmentCardType.CHARACTER).getTowerSpace(3).reset();
 		a = new DevelopmentAction(p.getId(), p.getFamily().getMember(MembersColor.BLACK), 5,
-				DevelopmentCardType.CHARACTER, 1);
+				DevelopmentCardType.CHARACTER, 1, 0);
 		Message mess = a.update(p, match);
 		if (!(mess instanceof CostChoice))
 			fail();
@@ -231,7 +231,7 @@ public class TestActions {
 				new EffectSet(new PropEffect(new ImmProperties(0), new ImmProperties(1))));
 		match.getBoard().getTower(DevelopmentCardType.TERRITORY).getTowerSpace(2).setCard(testCard);
 		DevelopmentAction a2 = new DevelopmentAction(p.getId(), p.getFamily().getMember(MembersColor.ORANGE), 5,
-				DevelopmentCardType.TERRITORY, 2);
+				DevelopmentCardType.TERRITORY, 2, 0);
 		mess = a2.update(p, match);
 		if (!(mess instanceof CostChoice))
 			fail();
@@ -279,13 +279,13 @@ public class TestActions {
 		// tests if the action is refused when family member is not enough
 		this.match.getCurrentPlayer().getFamily().getMember(MembersColor.BLACK).setValue(0);
 		MarketAction a = new MarketAction(match.getCurrentPlayer().getId(), match.getBoard().getMarketSpace(0), 0,
-				match.getCurrentPlayer().getFamily().getMember(MembersColor.BLACK));
+				match.getCurrentPlayer().getFamily().getMember(MembersColor.BLACK), 0);
 		if (!(a.update(match.getCurrentPlayer(), match) instanceof RefusedAction))
 			fail();
 
 		// tests if the action is accepted when everything is ok
 		a = new MarketAction(match.getCurrentPlayer().getId(), match.getBoard().getMarketSpace(0), 7,
-				match.getCurrentPlayer().getFamily().getMember(MembersColor.BLACK));
+				match.getCurrentPlayer().getFamily().getMember(MembersColor.BLACK), 0);
 		if (!(a.update(match.getCurrentPlayer(), match) instanceof AcceptedAction))
 			fail();
 		try {
@@ -305,7 +305,7 @@ public class TestActions {
 	@Test
 	public void testVaticanAction() {
 		// tests when player chooses to support vatican
-		VaticanAction a = new VaticanAction(p.getId());
+		VaticanAction a = new VaticanAction(p.getId(), 0);
 		setAllPlayerProperties(15, p);
 		Message mess = a.update(p, match);
 		if (!(mess instanceof VaticanChoice))
@@ -322,7 +322,7 @@ public class TestActions {
 		}
 
 		// tests when player chooses to take the excommunication
-		a = new VaticanAction(p.getId());
+		a = new VaticanAction(p.getId(), 0);
 		setAllPlayerProperties(15, p);
 		mess = a.update(p, match);
 		if (!(mess instanceof VaticanChoice))
@@ -339,7 +339,7 @@ public class TestActions {
 		}
 
 		// test if the action is refused when the message is not visited
-		a = new VaticanAction(p.getId());
+		a = new VaticanAction(p.getId(), 0);
 		setAllPlayerProperties(15, p);
 		mess = a.update(p, match);
 		if (!(mess instanceof VaticanChoice))
@@ -416,7 +416,7 @@ public class TestActions {
 		p.getFamily().roundReset();
 		p.getFamily().getMember(MembersColor.BLACK).setUsed(true);
 		p.getFamily().getMember(MembersColor.BLACK).setValue(10);
-		WorkAction swa = new WorkAction(p.getId(), match.getBoard().getSingleWorkSpace(WorkType.HARVEST), p.getFamily().getMember(MembersColor.BLACK), 3);
+		WorkAction swa = new WorkAction(p.getId(), match.getBoard().getSingleWorkSpace(WorkType.HARVEST), p.getFamily().getMember(MembersColor.BLACK), 3, 0);
 		Message mess= swa.update(p, match);
 		if (!(mess instanceof RefusedAction)) fail();
 		
@@ -428,7 +428,7 @@ public class TestActions {
 		} catch (NotOccupableException e) {
 			fail();
 		}
-		swa = new WorkAction(p.getId(), match.getBoard().getSingleWorkSpace(WorkType.HARVEST), p.getFamily().getMember(MembersColor.BLACK), 3);
+		swa = new WorkAction(p.getId(), match.getBoard().getSingleWorkSpace(WorkType.HARVEST), p.getFamily().getMember(MembersColor.BLACK), 3, 0);
 		mess= swa.update(p, match);
 		if (!(mess instanceof RefusedAction)) fail();
 		
@@ -436,7 +436,7 @@ public class TestActions {
 		p.getFamily().roundReset();
 		p.getFamily().getMember(MembersColor.BLACK).setValue(10);
 		match.getBoard().getSingleWorkSpace(WorkType.HARVEST).reset();
-		swa = new WorkAction(p.getId(), match.getBoard().getSingleWorkSpace(WorkType.HARVEST), p.getFamily().getMember(MembersColor.BLACK), 3);
+		swa = new WorkAction(p.getId(), match.getBoard().getSingleWorkSpace(WorkType.HARVEST), p.getFamily().getMember(MembersColor.BLACK), 3, 0);
 		mess=swa.update(p, match);
 		if (!(mess instanceof WorkMessage)) fail();
 		int[] choices={0};
@@ -457,7 +457,7 @@ public class TestActions {
 			this.match=new SimpleMatch(PlayerColor.RED, PlayerColor.BLUE, PlayerColor.GREEN, PlayerColor.YELLOW);
 			match.getBoard().getMultipleWorkSpace(WorkType.HARVEST).occupy(p, p.getFamily().getMember(MembersColor.ORANGE));
 			match.getBoard().getSingleWorkSpace(WorkType.HARVEST).reset();
-			swa = new WorkAction(p.getId(), match.getBoard().getSingleWorkSpace(WorkType.HARVEST), p.getFamily().getMember(MembersColor.BLACK), 3);
+			swa = new WorkAction(p.getId(), match.getBoard().getSingleWorkSpace(WorkType.HARVEST), p.getFamily().getMember(MembersColor.BLACK), 3, 0);
 			mess=swa.update(p, match);
 			if (!(mess instanceof RefusedAction)) fail();
 			
@@ -466,7 +466,7 @@ public class TestActions {
 			this.match=new SimpleMatch(PlayerColor.RED, PlayerColor.BLUE, PlayerColor.GREEN, PlayerColor.YELLOW);
 			match.getBoard().getMultipleWorkSpace(WorkType.PRODUCTION).occupy(p, p.getFamily().getMember(MembersColor.ORANGE));
 			match.getBoard().getSingleWorkSpace(WorkType.PRODUCTION).reset();
-			swa = new WorkAction(p.getId(), match.getBoard().getSingleWorkSpace(WorkType.PRODUCTION), p.getFamily().getMember(MembersColor.BLACK), 3);
+			swa = new WorkAction(p.getId(), match.getBoard().getSingleWorkSpace(WorkType.PRODUCTION), p.getFamily().getMember(MembersColor.BLACK), 3, 0);
 			mess=swa.update(p, match);
 			if (!(mess instanceof RefusedAction)) fail();
 			
@@ -476,7 +476,7 @@ public class TestActions {
 			match.getBoard().getSingleWorkSpace(WorkType.PRODUCTION).reset();
 			match.getBoard().getSingleWorkSpace(WorkType.PRODUCTION).occupy(p, p.getFamily().getMember(MembersColor.ORANGE));
 			match.getBoard().getMultipleWorkSpace(WorkType.PRODUCTION).reset();
-			swa = new WorkAction(p.getId(), match.getBoard().getMultipleWorkSpace(WorkType.PRODUCTION), p.getFamily().getMember(MembersColor.BLACK), 3);
+			swa = new WorkAction(p.getId(), match.getBoard().getMultipleWorkSpace(WorkType.PRODUCTION), p.getFamily().getMember(MembersColor.BLACK), 3, 0);
 			mess=swa.update(p, match);
 			if (!(mess instanceof RefusedAction)) fail();
 			
@@ -486,7 +486,7 @@ public class TestActions {
 			match.getBoard().getSingleWorkSpace(WorkType.HARVEST).reset();
 			match.getBoard().getSingleWorkSpace(WorkType.HARVEST).occupy(p, p.getFamily().getMember(MembersColor.ORANGE));
 			match.getBoard().getMultipleWorkSpace(WorkType.HARVEST).reset();
-			swa = new WorkAction(p.getId(), match.getBoard().getMultipleWorkSpace(WorkType.HARVEST), p.getFamily().getMember(MembersColor.BLACK), 3);
+			swa = new WorkAction(p.getId(), match.getBoard().getMultipleWorkSpace(WorkType.HARVEST), p.getFamily().getMember(MembersColor.BLACK), 3, 0);
 			mess=swa.update(p, match);
 			if (!(mess instanceof RefusedAction)) fail();
 		} catch (InvalidIDException | BuildingDeckException e) {
@@ -533,7 +533,7 @@ public class TestActions {
 		setAllPlayerProperties(20, ap);
 		Requirement[] reqs= {new Requirement(new CardsNumber(0), new ImmProperties(0))};
 		LeaderCard card= new LeaderCard("leader", new DiscountLeaderEffect(reqs));
-		PlayLeaderCardAction a = new PlayLeaderCardAction(ap.getId(), card);
+		PlayLeaderCardAction a = new PlayLeaderCardAction(ap.getId(), card, 0);
 		if(!(a.update(ap, advM) instanceof AcceptedAction)) fail();
 		try {
 			a.activate(ap, advM);
@@ -566,8 +566,8 @@ public class TestActions {
 			Player ap= advM.getCurrentPlayer();
 			ArrayList<PersonalBonusTile> tiles= new ArrayList<>();
 			tiles.add(new PersonalBonusTile(1, new ImmProperties(1), 1, new ImmProperties(1), 1));
-			TileChoice choiceMess= new TileChoice(ap.getId(), tiles);
-			TileChoiceAction a = new TileChoiceAction(ap.getId(), choiceMess);
+			TileChoice choiceMess= new TileChoice(ap.getId(), tiles, 0);
+			TileChoiceAction a = new TileChoiceAction(ap.getId(), choiceMess, 0);
 			Message mess= a.update(ap, match);
 			if (!(mess instanceof TileChoice)) fail();
 			((TileChoice)mess).setChosen(0);
