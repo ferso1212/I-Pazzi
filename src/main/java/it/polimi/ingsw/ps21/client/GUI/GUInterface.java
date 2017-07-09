@@ -18,6 +18,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
@@ -659,26 +660,31 @@ public class GUInterface implements UserInterface {
 	public ImmProperties[] reqPrivileges(int number, ImmProperties[] privilegesValues) {
 		int defaultValue = 0;
 		ImmProperties[] output = new ImmProperties[number];
-		Object choices[] = new Object[privilegesValues.length];
+		//Object choices[] = new Object[privilegesValues.length];
+		//for (int i = 0; i < privilegesValues.length; i++) {
+			//choices[i] = privilegesValues[i].toString();
+		//}
+		ArrayList<String>choices = new ArrayList<String>();
 		for (int i = 0; i < privilegesValues.length; i++) {
-			choices[i] = privilegesValues[i].toString();
+			choices.add(privilegesValues[i].toString());
 		}
 		for (int i = 0; i < number; i++) {
 			String chosenPrivilege = (String) JOptionPane.showInputDialog(mainWindow,
 					"Which privilege do you want to take?", "Choose a privilege", JOptionPane.PLAIN_MESSAGE, null,
-					choices, choices[0]);
+					choices.toArray(new String[0]), choices.get(0));
 			if (chosenPrivilege == null) {
 				JOptionPane.showMessageDialog(mainWindow, "Since you are lazy, we have made the choice for you!");
 				output[i] = privilegesValues[defaultValue];
 				defaultValue++;
 			} else {
 				int j;
-				for (j = 0; j < choices.length; j++) {
-					if (chosenPrivilege.compareTo((String) choices[j]) == 0) {
+				for (j = 0; j < privilegesValues.length; j++) {
+					if (chosenPrivilege.compareTo((String) privilegesValues[j].toString()) == 0) {
 						break;
 					}
 				}
 				output[i] = privilegesValues[j];
+				choices.remove(privilegesValues[j].toString());
 			}
 		}
 		return output;
