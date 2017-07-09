@@ -45,11 +45,6 @@ public class RMIConnectionTest {
 		}
 	}
 	
-	@Test
-	public void test() {
-		assert(true);
-		// TODO execute only for test with user input assert(checkConnection());
-	}
 
 	private boolean checkConnection() {
 		CLInterface testui = new CLInterface();
