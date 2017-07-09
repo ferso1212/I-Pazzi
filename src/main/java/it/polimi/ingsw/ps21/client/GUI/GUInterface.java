@@ -544,7 +544,7 @@ public class GUInterface implements UserInterface {
 		singleProduction.update(boardInfo.getSingleProductionSpace());
 		int i = 0;
 		for (MarketButton m : this.marketButtons) {
-			m.update(boardInfo.getMarket()[i]);
+			m.update(boardInfo.getMarket()[i].getFirstOccupant());
 			i++;
 		}
 		if (this.numberOfPlayers > 2) {
@@ -871,6 +871,25 @@ public class GUInterface implements UserInterface {
 				"Choose number of servants", JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
 		int j;
 		j = Integer.parseInt(chosenNumberOfServants);
+		return j;
+	}
+
+	@Override
+	public int reqLorenzoIlMagnificoChoice(LeaderCard[] possibilities) {
+		int numberOfChoices = possibilities.length;
+		Object choices[] = new Object[numberOfChoices];
+		for (int i = 0; i < numberOfChoices; i++) {
+			choices[i] = possibilities[i].toString();
+		}
+		String chosenLeaderCard = (String) JOptionPane.showInputDialog(mainWindow,
+				"Wich Leader Card effect do you want to copy?", "Choose Leader Card",
+				JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+		int j;
+		for (j = 0; j < choices.length; j++) {
+			if (chosenLeaderCard.compareTo((String) choices[j]) == 0) {
+				break;
+			}
+		}
 		return j;
 	}
 
