@@ -146,7 +146,8 @@ public class SocketClient {
 			}
 			case WORK_CHOICE:
 			{
-				int chosen= ui.reqWorkChoice(((WorkChoiceRequestNetPacket)receivedPacket).getCard());
+				WorkChoiceRequestNetPacket req= (WorkChoiceRequestNetPacket)receivedPacket;
+				int chosen= ui.reqWorkChoice(req.getCard(), req.haveCost());
 				out.writeObject(new WorkChoiceResponseNetPacket(receivedPacket.getNum(), chosen));
 				break;
 			}

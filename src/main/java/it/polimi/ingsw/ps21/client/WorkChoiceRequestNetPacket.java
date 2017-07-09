@@ -10,15 +10,22 @@ public class WorkChoiceRequestNetPacket extends NetPacket implements Serializabl
 	 */
 	private static final long serialVersionUID = -5196268695638069707L;
 	private DevelopmentCard card;
+	private boolean cost;
 
 	public DevelopmentCard getCard() {
 		return card;
 	}
+	
+	public boolean haveCost() {
+		return cost;
+	}
 
-	public WorkChoiceRequestNetPacket(int messNum, DevelopmentCard card) {
+
+	public WorkChoiceRequestNetPacket(int messNum, DevelopmentCard card, boolean cost) {
 		super(messNum);
 		this.card = card;
 		this.type=PacketType.WORK_CHOICE;
+		this.cost=cost;
 	}
 	
 	
