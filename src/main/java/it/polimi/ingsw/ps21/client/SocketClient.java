@@ -51,7 +51,7 @@ public class SocketClient {
 			
 			//StartInfoNetPacket initialInfos = new StartInfoNetPacket(0, chosenRules, name);
 			//out.writeObject(initialInfos);
-			ui.showInfo("\nClient ready to receive from server.");
+			ui.showInfo("Client ready to receive from server.");
 			NetPacket receivedPacket = (NetPacket)in.readObject();
 				parseSocketInput(receivedPacket);
 				while (socket.isConnected()) {
@@ -161,7 +161,7 @@ public class SocketClient {
 			{
 				boolean wantsAdvRules= ui.reqIfWantsAdvancedRules();
 				out.writeObject(new RulesChoiceResponseNetPacket(receivedPacket.getNum(), wantsAdvRules));
-				ui.showInfo("\nWaiting for match to start...");
+				ui.showInfo("Waiting for match to start...");
 				break;
 			}
 			case MATCH_END:
