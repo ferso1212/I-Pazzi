@@ -51,7 +51,6 @@ import it.polimi.ingsw.ps21.view.PlayerData;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
 
 public class GUInterface implements UserInterface {
 
