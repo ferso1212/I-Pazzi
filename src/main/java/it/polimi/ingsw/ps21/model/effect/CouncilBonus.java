@@ -25,6 +25,8 @@ public class CouncilBonus extends InstantLeaderEffect {
 	
 	@Override
 	public ExtraAction activate(AdvancedPlayer player) {
+		this.clonable=true;
+		this.activated=true;
 		return new TakePrivilegesAction(player.getId(), bonuses);
 	}
 

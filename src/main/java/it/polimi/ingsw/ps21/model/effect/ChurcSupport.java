@@ -21,6 +21,8 @@ public class ChurcSupport extends PermanentLeaderEffect {
 
 	@Override
 	public ExtraAction activate(AdvancedPlayer player) {
+		this.clonable=true;
+		this.activated=true;
 		player.getAdvMod().setVaticanSupportBonus(true);
 		return new NullAction(player.getId());
 	}

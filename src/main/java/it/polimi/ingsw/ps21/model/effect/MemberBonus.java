@@ -25,6 +25,8 @@ public class MemberBonus extends InstantLeaderEffect {
 	}
 	@Override
 	public ExtraAction activate(AdvancedPlayer player) {
+		this.clonable=true;
+		this.activated=true;
 		player.getFamily().getMember(MembersColor.NEUTRAL).increaseModifier(valueBonus);
 		return new NullAction(player.getId());
 	}

@@ -26,6 +26,8 @@ public class InstantWorkEffect extends InstantLeaderEffect {
 
 	@Override
 	public ExtraAction activate(AdvancedPlayer player) {
+		this.clonable=true;
+		this.activated=true;
 		return new ExtraWorkAction(player.getId(), 0, type);
 
 	}

@@ -26,6 +26,8 @@ public class NoMilitaryForTerritory extends PermanentLeaderEffect {
 
 	@Override
 	public ExtraAction activate(AdvancedPlayer player) {
+		this.clonable=true;
+		this.activated=true;
 		player.getDeck().setNoAddingRequirement(DevelopmentCardType.TERRITORY);
 		return new NullAction(player.getId());
 	}

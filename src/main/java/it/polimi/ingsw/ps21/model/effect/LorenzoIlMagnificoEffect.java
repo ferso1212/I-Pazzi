@@ -23,6 +23,8 @@ public class LorenzoIlMagnificoEffect extends PermanentLeaderEffect {
 	
 	@Override
 	public ExtraAction activate(AdvancedPlayer player) {
+		this.clonable=true;
+		this.activated=true;
 		chosenLeaderCopy.getEffect().activate(player);
 		return new NullAction(player.getId());
 	}

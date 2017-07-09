@@ -34,6 +34,8 @@ public class DiscountLeaderEffect extends PermanentLeaderEffect {
 	}
 	@Override
 	public ExtraAction activate(AdvancedPlayer player) {
+		this.clonable=true;
+		this.activated=true;
 	 DiscountsSet modifier = player.getModifiers().getDiscountsMods();
 	 for (DevelopmentCardType d: types) {
 		modifier.getDiscount(d).getPropertiesDisc().increaseProperties(discount);

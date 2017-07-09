@@ -200,6 +200,7 @@ public class AdvancedMatch extends Match {
 					}while (firstPlayer != order.get(currentPlayer));
 		for (AdvancedPlayer p: players.values()){
 			p.getFamily().roundReset();
+			p.resetLeaderCards();
 		}
 		throwDices();
 	}

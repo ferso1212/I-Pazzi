@@ -22,6 +22,8 @@ public class OccupiedSpaceEffect extends PermanentLeaderEffect{
 
 	@Override
 	public ExtraAction activate(AdvancedPlayer player) {
+		this.clonable=true;
+		this.activated=true;
 		player.getAdvMod().setNoPayOccupiedTower(true);
 		return new NullAction(player.getId());
 	}

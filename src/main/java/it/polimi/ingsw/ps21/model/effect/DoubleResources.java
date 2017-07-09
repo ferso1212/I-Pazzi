@@ -21,6 +21,8 @@ public class DoubleResources extends PermanentLeaderEffect {
 
 	@Override
 	public ExtraAction activate(AdvancedPlayer player) {
+		this.clonable=true;
+		this.activated=true;
 		player.getAdvMod().setDoubleResources(true);
 		return new NullAction(player.getId());
 	}

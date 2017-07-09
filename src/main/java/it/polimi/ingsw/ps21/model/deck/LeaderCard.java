@@ -9,8 +9,6 @@ public class LeaderCard extends Card implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1178768088913198746L;
-
-	private boolean activated = false;
 	
 	protected LeaderEffect leaderEffect;
 	
@@ -30,13 +28,12 @@ public class LeaderCard extends Card implements Serializable{
 	}
 	
 	public void resetActivation() {
-		this.activated=false;
 		this.leaderEffect.resetActivation();
 	};
 	
 	public boolean isActivated()
 	{
-		return this.activated;
+		return this.leaderEffect.isActivated();
 	}
 
 	@Override
@@ -54,7 +51,7 @@ public class LeaderCard extends Card implements Serializable{
 		for (Requirement r : leaderEffect.getRequirement()) {
 			temp.append("\n\tEffect Requirement: " + r.toString());
 		}
-		temp.append("\nIs activated: " + this.activated);
+		temp.append("\nIs activated: " + this.isActivated());
 		return temp.toString();
 	}
 	

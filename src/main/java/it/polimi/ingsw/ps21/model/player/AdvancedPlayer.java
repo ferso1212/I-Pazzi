@@ -88,4 +88,9 @@ public class AdvancedPlayer extends Player {
 	{
 		return this.leaderCards.toArray(new LeaderCard[0]);
 	}
+	
+	public void resetLeaderCards()
+	{
+		for(LeaderCard c: this.leaderCards) c.resetActivation();
+	}
 }

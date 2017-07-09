@@ -24,6 +24,8 @@ public class PropertiesBonus extends InstantLeaderEffect {
 
 	@Override
 	public ExtraAction activate(AdvancedPlayer player) {
+		this.clonable=true;
+		this.activated=true;
 		player.getProperties().increaseProperties(bonus);
 		return new NullAction(player.getId());
 	}

@@ -27,6 +27,8 @@ public class LeaderPickAnotherCardEffect extends InstantLeaderEffect {
 	
 	@Override
 	public ExtraAction activate(AdvancedPlayer player) {
+		this.clonable=true;
+		this.activated=true;
 		return new PickAnotherCardAction(player, diceReq, types);
 	}
 

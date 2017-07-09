@@ -25,6 +25,8 @@ public class WorkBonus extends InstantLeaderEffect {
 	}
 	@Override
 	public ExtraAction activate(AdvancedPlayer player) {
+		this.clonable=true;
+		this.activated=true;
 		WorkModifier modifier = player.getModifiers().getWorkMods();
 		if (type == WorkType.HARVEST) modifier.setHarvestModifier(modifier.getHarvMod() + value);
 		else modifier.setProductionModifier(modifier.getHarvMod() + value);
