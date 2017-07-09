@@ -2,9 +2,6 @@ package it.polimi.ingsw.ps21.model.deck;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 import it.polimi.ingsw.ps21.model.excommunications.Excommunication;
 
 /**

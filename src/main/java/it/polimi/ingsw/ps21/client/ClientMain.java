@@ -12,7 +12,6 @@ import it.polimi.ingsw.ps21.client.GUI.GUInterface;
 
 public class ClientMain {
 
-	private static boolean newMatch = true;
 	private final static Logger LOGGER = Logger.getLogger(ClientMain.class.getName());
 	private final static int RMI_PORT = 5000;
 	private static UserInterface ui;
@@ -21,7 +20,6 @@ public class ClientMain {
 	public static void main(String [] args)
 	{
 
-		//hostaddress =  System.getProperty("server.hostaddress");
 		hostaddress = "192.168.0.105";
 		System.out.println("\nClient application started.");
     	Scanner in = new Scanner(System.in);
@@ -79,9 +77,9 @@ public class ClientMain {
 				} catch (RemoteException | NotBoundException e) {
 					System.out.println("Failed to connect to server through RMI.");
 					LOGGER.log(Level.WARNING, "RMI Connection failed", e);
-					newMatch = false;
 				}
 			}
+			in.close();
 		}
 	
 	/**

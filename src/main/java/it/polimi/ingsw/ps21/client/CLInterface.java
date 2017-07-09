@@ -7,7 +7,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
-import it.polimi.ingsw.ps21.controller.MatchController;
 import it.polimi.ingsw.ps21.controller.NotAdvancedPlayerException;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.model.actions.ActionType;
@@ -45,7 +44,6 @@ public class CLInterface implements UserInterface {
 	private MatchData matchInfo;
 	private boolean matchEnded = false;
 	private boolean advancedMatch;
-	private boolean matchStarted = false;
 	private int charcatersPrinted = 0;
 
 	public CLInterface() {
@@ -606,7 +604,6 @@ public class CLInterface implements UserInterface {
 
 	@Override
 	public void playMatch() {
-		this.matchStarted = true;
 		printOutput("Match started!");
 	}
 

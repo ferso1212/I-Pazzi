@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
-import it.polimi.ingsw.ps21.model.deck.RequirementAndCost;
 
 /**
  * Used to store the status of each player in an advanced match. It stores the following datas of a

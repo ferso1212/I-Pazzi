@@ -1,8 +1,6 @@
 package it.polimi.ingsw.ps21.model.deck;
 
 import java.io.Serializable;
-import java.io.ObjectInputStream.GetField;
-
 import it.polimi.ingsw.ps21.model.effect.LeaderEffect;
 
 public class LeaderCard extends Card implements Serializable{

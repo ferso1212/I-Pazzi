@@ -55,7 +55,6 @@ public class MatchController extends Observable implements Observer {
 	private EnumMap<PlayerColor, UserHandler> handlersMap;
 	private Player currentPlayer;
 	private Match match;
-	private boolean matchEnded = false;
 	private Action currentAction;
 	private ArrayList<ExtraAction> currentExtraActions;
 	private int actionCounter;

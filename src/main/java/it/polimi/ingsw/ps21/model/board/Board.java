@@ -41,7 +41,7 @@ public class Board {
 		this.advanced=isAdvanced;
 		MatchFactory file = MatchFactory.instance();
 		this.towers = new EnumMap<>(DevelopmentCardType.class);
-		this.councilPalace = new CouncilPalace(1, file.makeCouncilBonuses(), 0, file.makeCouncilPrivileges());
+		this.councilPalace = new CouncilPalace(1, file.makeCouncilBonuses(), file.makeCouncilPrivileges());
 		this.developmentDeck = file.makeDeck();
 		developmentDeck.shuffle();
 		this.cardBonus = file.makeCardBonus();

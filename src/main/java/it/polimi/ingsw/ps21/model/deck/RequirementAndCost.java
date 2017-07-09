@@ -1,8 +1,6 @@
 package it.polimi.ingsw.ps21.model.deck;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class RequirementAndCost implements Serializable{

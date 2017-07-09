@@ -3,7 +3,6 @@ package it.polimi.ingsw.ps21.controller;
 import java.util.ArrayList;
 
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
-import it.polimi.ingsw.ps21.model.player.PlayerProperties;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class CostChoice extends Message {

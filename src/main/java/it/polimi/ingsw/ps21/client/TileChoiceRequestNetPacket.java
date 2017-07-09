@@ -1,8 +1,6 @@
 package it.polimi.ingsw.ps21.client;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-
 import it.polimi.ingsw.ps21.model.player.PersonalBonusTile;
 
 public class TileChoiceRequestNetPacket extends NetPacket implements Serializable{
