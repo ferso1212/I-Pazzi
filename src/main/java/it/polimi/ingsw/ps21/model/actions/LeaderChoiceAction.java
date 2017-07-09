@@ -1,11 +1,9 @@
 package it.polimi.ingsw.ps21.model.actions;
 
-import java.util.ArrayList;
 
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
 import it.polimi.ingsw.ps21.controller.LeaderChoice;
 import it.polimi.ingsw.ps21.controller.Message;
-import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;

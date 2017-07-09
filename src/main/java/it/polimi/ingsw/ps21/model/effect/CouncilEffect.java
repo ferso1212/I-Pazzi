@@ -1,6 +1,5 @@
 package it.polimi.ingsw.ps21.model.effect;
 
-import it.polimi.ingsw.ps21.model.actions.CouncilAction;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.TakePrivilegesAction;
 import it.polimi.ingsw.ps21.model.player.Player;

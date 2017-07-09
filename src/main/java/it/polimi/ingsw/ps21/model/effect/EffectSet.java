@@ -2,12 +2,10 @@ package it.polimi.ingsw.ps21.model.effect;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
-import it.polimi.ingsw.ps21.controller.UnchosenException;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
-import it.polimi.ingsw.ps21.model.properties.PropertiesId;
+
 
 /**
  * This class aggregates effects that have to be activated at the same time
@@ -16,6 +14,10 @@ import it.polimi.ingsw.ps21.model.properties.PropertiesId;
  */
 public class EffectSet implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7941260074490052885L;
 	private Effect[] simultaneousEffects;
 	
 	public EffectSet(Effect ...effects){

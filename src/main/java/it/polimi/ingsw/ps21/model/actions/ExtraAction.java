@@ -1,7 +1,5 @@
 package it.polimi.ingsw.ps21.model.actions;
 
-import java.io.Serializable;
-
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.view.ExtraActionData;
 

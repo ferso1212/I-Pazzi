@@ -1,7 +1,6 @@
 package it.polimi.ingsw.ps21.model.deck;
 
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
-import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 /**
  * Implementation of Building Card that is a WorkCard and so it has a dice requirement for WorkAction
@@ -10,6 +9,10 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
  */
 
 public class BuildingCard extends DevelopmentCard{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5516927106001929371L;
 	private int diceRequirement; 
 	
 	public BuildingCard(String name, int era, RequirementAndCost[] reqs, int diceReq, EffectSet instant, EffectSet... permanent){

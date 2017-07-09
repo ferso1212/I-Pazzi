@@ -3,7 +3,6 @@ package it.polimi.ingsw.ps21.model.actions;
 import it.polimi.ingsw.ps21.controller.Message;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
-import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;

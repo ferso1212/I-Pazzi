@@ -4,13 +4,16 @@ import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
-import it.polimi.ingsw.ps21.model.player.Player;
-import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 /*
  * To be implemented
  */
 public class DoubleResources extends PermanentLeaderEffect {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7685865961979310072L;
 
 	public DoubleResources(Requirement reqs[]) {
 		super(reqs);

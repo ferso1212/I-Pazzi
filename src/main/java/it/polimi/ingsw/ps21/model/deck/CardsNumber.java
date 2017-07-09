@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.EnumMap;
 
 public class CardsNumber implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2256983333710826042L;
 	private EnumMap<DevelopmentCardType, Integer> cardsNums;
 
 

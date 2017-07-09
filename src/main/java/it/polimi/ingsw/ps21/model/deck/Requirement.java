@@ -5,6 +5,10 @@ import java.io.Serializable;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class Requirement implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5844689299069254646L;
 	protected CardsNumber cardsNumber;
 	protected ImmProperties properties;
 	

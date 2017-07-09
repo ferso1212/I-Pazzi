@@ -14,6 +14,11 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
  */
 public class BlockTowerEffect extends Effect {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8257329189345119528L;
+
 	public BlockTowerEffect(){
 		super(new ImmProperties(0,0,0,0,0,0,0));
 	}

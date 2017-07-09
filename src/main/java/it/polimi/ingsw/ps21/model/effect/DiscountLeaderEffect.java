@@ -7,16 +7,18 @@ import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
-import it.polimi.ingsw.ps21.model.deck.TooManyArgumentException;
 import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.player.DiscountsSet;
-import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.model.properties.Property;
 
 public class DiscountLeaderEffect extends PermanentLeaderEffect {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -329311093571852419L;
 	private ImmProperties discount;
 	private Set<DevelopmentCardType> types;
 	

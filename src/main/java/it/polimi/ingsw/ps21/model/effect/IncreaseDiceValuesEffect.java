@@ -12,6 +12,10 @@ public class IncreaseDiceValuesEffect extends PermanentLeaderEffect {
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = -7075476616454372670L;
+	/**
+	 * 
+	 */
 	private int whiteValue;
 	private int blackValue;
 	private int orangeValue;

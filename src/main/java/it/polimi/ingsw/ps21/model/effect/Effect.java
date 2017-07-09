@@ -10,6 +10,10 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public abstract class Effect implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8691732869073719230L;
 	protected ImmProperties cost;
 	
 	

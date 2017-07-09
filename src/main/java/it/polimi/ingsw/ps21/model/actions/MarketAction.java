@@ -1,10 +1,8 @@
 package it.polimi.ingsw.ps21.model.actions;
 
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
-import it.polimi.ingsw.ps21.controller.CouncilChoice;
 import it.polimi.ingsw.ps21.controller.Message;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
-import it.polimi.ingsw.ps21.model.board.NotOccupableException;
 import it.polimi.ingsw.ps21.model.board.SingleMarketSpace;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
@@ -12,7 +10,6 @@ import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 import it.polimi.ingsw.ps21.model.player.RequirementNotMetException;
-import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class MarketAction extends Action{
 	

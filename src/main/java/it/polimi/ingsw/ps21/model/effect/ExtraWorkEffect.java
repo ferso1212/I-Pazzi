@@ -8,6 +8,10 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class ExtraWorkEffect extends Effect {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5126312262461054005L;
 	private int diceValue;
 	private WorkType type;
 	public ExtraWorkEffect(int diceValue, WorkType type) {

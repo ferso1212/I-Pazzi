@@ -1,7 +1,6 @@
 package it.polimi.ingsw.ps21.model.deck;
 
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
-import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 /**
  * Implementation of Venture card
@@ -9,6 +8,11 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
  *
  */
 public class VentureCard extends DevelopmentCard { 
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7269325729516376824L;
 
 	public VentureCard(String name, int era, RequirementAndCost reqs[], EffectSet ins, EffectSet perm) {
 		super(name, era, reqs, ins, perm);

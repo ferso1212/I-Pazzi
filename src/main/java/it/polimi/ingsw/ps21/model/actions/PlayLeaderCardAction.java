@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
 import it.polimi.ingsw.ps21.controller.Message;
 import it.polimi.ingsw.ps21.controller.RefusedAction;
-import it.polimi.ingsw.ps21.model.board.NotOccupableException;
 import it.polimi.ingsw.ps21.model.deck.LeaderCard;
 import it.polimi.ingsw.ps21.model.effect.LorenzoIlMagnificoEffect;
 import it.polimi.ingsw.ps21.model.match.Match;

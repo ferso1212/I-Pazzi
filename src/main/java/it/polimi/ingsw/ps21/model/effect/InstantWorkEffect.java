@@ -13,6 +13,10 @@ import it.polimi.ingsw.ps21.model.player.Player;
  */
 public class InstantWorkEffect extends InstantLeaderEffect {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9044020793604777794L;
 	private WorkType type;
 	private int diceValue;
 	public InstantWorkEffect(Requirement reqs[], WorkType type, int diceValue) {

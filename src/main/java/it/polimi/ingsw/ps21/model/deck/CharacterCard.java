@@ -1,9 +1,13 @@
 package it.polimi.ingsw.ps21.model.deck;
 
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
-import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class CharacterCard extends DevelopmentCard {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1775216900129099992L;
 
 	public CharacterCard(String name, int era, RequirementAndCost reqs[], EffectSet ins,
 			EffectSet...perms) {

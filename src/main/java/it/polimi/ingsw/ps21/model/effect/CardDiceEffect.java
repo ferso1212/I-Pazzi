@@ -5,7 +5,6 @@ import java.util.Set;
 
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
-import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.TooManyArgumentException;
 import it.polimi.ingsw.ps21.model.player.Player;
@@ -13,6 +12,10 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class CardDiceEffect extends Effect {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4358702211817855889L;
 	private int cardDiceValue;
 	private Set<DevelopmentCardType> types;
 

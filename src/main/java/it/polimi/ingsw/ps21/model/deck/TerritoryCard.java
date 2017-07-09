@@ -10,6 +10,10 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
  */
 
 public class TerritoryCard extends DevelopmentCard {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5942135420471048702L;
 	private int diceReq;
 	
 	public TerritoryCard(String name, int era,int dicereq, EffectSet instantEffect, EffectSet... perms ){

@@ -8,6 +8,10 @@ import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 
 public class LeaderPickAnotherCardEffect extends InstantLeaderEffect {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1747004586256614431L;
 	private DevelopmentCardType types[];
 	private int diceReq;
 	public LeaderPickAnotherCardEffect(Requirement reqs[]) {

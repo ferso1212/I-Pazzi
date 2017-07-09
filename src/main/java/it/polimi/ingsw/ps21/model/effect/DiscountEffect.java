@@ -3,12 +3,11 @@ package it.polimi.ingsw.ps21.model.effect;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.print.attribute.HashAttributeSet;
+
 
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
-import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.deck.TooManyArgumentException;
 import it.polimi.ingsw.ps21.model.player.DiscountsSet;
 import it.polimi.ingsw.ps21.model.player.Player;
