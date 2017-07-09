@@ -173,7 +173,10 @@ public class SocketClient {
 			}
 			case LEADER_CARD_CHOICE:
 			{
-				int chosen=ui.chooseLeaderCard(((LeaderChoiceRequestNetPacket)receivedPacket).getChoices());
+				LeaderChoiceRequestNetPacket req= (LeaderChoiceRequestNetPacket)receivedPacket;
+				int chosen;
+				if(req.isInitialChoice()) chosen=ui.chooseLeaderCard(req.getChoices());
+				else chosen=ui.reqLorenzoIlMagnificoChoice(req.getChoices());
 				out.writeObject(new LeaderChoiceResponseNetPacket(receivedPacket.getNum(), chosen));
 				break;
 			}

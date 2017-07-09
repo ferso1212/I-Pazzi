@@ -317,7 +317,7 @@ public class SocketConnection implements Connection{
 	@Override
 	public int reqLeaderCardChoice(LeaderCard[] choices) {
 		try {
-			return((LeaderChoiceResponseNetPacket)requestAndAwaitResponse(new LeaderChoiceRequestNetPacket(messageCounter, choices))).getChosen();
+			return((LeaderChoiceResponseNetPacket)requestAndAwaitResponse(new LeaderChoiceRequestNetPacket(messageCounter, choices, true))).getChosen();
 		} catch (IOException | ClassNotFoundException e) {
 			LOGGER.log(Level.WARNING, "Unable to request leader card choice to the remote client due to " + e.getMessage(), e);
 			return 0;
@@ -373,7 +373,7 @@ public class SocketConnection implements Connection{
 	@Override
 	public int reqLorenzoIlMagnificoChoice(LeaderCard[] possibilities) throws DisconnectedException {
 		try {
-			return((LeaderChoiceResponseNetPacket)requestAndAwaitResponse(new LeaderChoiceRequestNetPacket(messageCounter, possibilities))).getChosen();
+			return((LeaderChoiceResponseNetPacket)requestAndAwaitResponse(new LeaderChoiceRequestNetPacket(messageCounter, possibilities, false))).getChosen();
 		} catch (IOException | ClassNotFoundException e) {
 			LOGGER.log(Level.WARNING, "Unable to request leader card choice to the remote client due to " + e.getMessage(), e);
 			return 0;
