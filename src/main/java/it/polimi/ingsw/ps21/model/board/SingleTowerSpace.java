@@ -1,7 +1,6 @@
 package it.polimi.ingsw.ps21.model.board;
 
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
-import it.polimi.ingsw.ps21.model.deck.RequirementAndCost;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;

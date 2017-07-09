@@ -2,7 +2,6 @@ package it.polimi.ingsw.ps21.client;
 
 import java.io.Serializable;
 
-import it.polimi.ingsw.ps21.view.ActionData;
 import it.polimi.ingsw.ps21.view.ExtraActionData;
 
 public class ExtraActionChoiceRequestNetPacket extends NetPacket implements Serializable{
