@@ -28,16 +28,17 @@ public class RMIConnectionAcceptor extends UnicastRemoteObject implements RMICon
 
 	public RMIConnectionAcceptor(ConcurrentLinkedQueue<Connection> connectionsQueue,
 			ConcurrentLinkedQueue<Connection> advConnectionsQueue, ArrayList<String> names,
-			ConcurrentHashMap<String, UserHandler> playingUsers, Semaphore stdSem, Semaphore advSem) throws RemoteException {
+			ConcurrentHashMap<String, UserHandler> playingUsers, Semaphore stdSem, Semaphore advSem)
+			throws RemoteException {
 		this.connectionsQueue = connectionsQueue;
 		this.advConnectionsQueue = advConnectionsQueue;
 		this.playingUsers = playingUsers;
 		this.usedNames = names;
-		this.interfaceCounter=0;
-		this.connectionsMap=new HashMap<>();
-		this.stdSem=stdSem;
-		this.advSem= advSem;
-		
+		this.interfaceCounter = 0;
+		this.connectionsMap = new HashMap<>();
+		this.stdSem = stdSem;
+		this.advSem = advSem;
+
 	}
 
 	@Override
@@ -74,47 +75,56 @@ public class RMIConnectionAcceptor extends UnicastRemoteObject implements RMICon
 		}
 	}
 
-	public synchronized void setupConnection(RMIConnectionInterface connection) throws RemoteException {
-			int value=connection.getId();
-			if(!connectionsMap.containsKey(value)) return;
-			try {
-				RMIConnection unsettedConnection = this.connectionsMap.get(connection.getId());
-				if (unsettedConnection.wantsNewMatch()) {
-					String name;
-					boolean usedName;
-					do {
-						name = unsettedConnection.reqName();
-						if (name == null) {
-							System.out.println("\nConnection interrupted because player canceled on name insertion");
-							return;
-						}
-						synchronized (usedNames) {
-							usedName = usedNames.contains(name);
-							if (!usedName)
-								usedNames.add(name);
-						}
-						if (usedName)
-							unsettedConnection.sendMessage("Already taken name, please choice another one: ");
-					} while (usedName);
-					boolean rules = unsettedConnection.reqWantsAdvRules();
-					addConnectionToQueue(rules, unsettedConnection);
-					
-				} else {
-					String name;
-					boolean usedName;
-					do {
-						name = unsettedConnection.reqName();
-						synchronized (playingUsers) {
-							usedName = playingUsers.containsKey(name);
-						}							
-					} while (!usedName);
-					playingUsers.get(name).setConnection(unsettedConnection);
-					
+	public void setupConnection(RMIConnectionInterface connection) throws RemoteException {
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				int value;
+				try {
+					value = connection.getId();
+				if (!connectionsMap.containsKey(value))
+					return;
+					RMIConnection unsettedConnection = connectionsMap.get(connection.getId());
+					if (unsettedConnection.wantsNewMatch()) {
+						String name;
+						boolean usedName;
+						do {
+							name = unsettedConnection.reqName();
+							if (name == null) {
+								System.out
+										.println("\nConnection interrupted because player canceled on name insertion");
+								return;
+							}
+							synchronized (usedNames) {
+								usedName = usedNames.contains(name);
+								if (!usedName)
+									usedNames.add(name);
+							}
+							if (usedName)
+								unsettedConnection.sendMessage("Already taken name, please choice another one: ");
+						} while (usedName);
+						boolean rules = unsettedConnection.reqWantsAdvRules();
+						addConnectionToQueue(rules, unsettedConnection);
+
+					} else {
+						String name;
+						boolean usedName;
+						do {
+							name = unsettedConnection.reqName();
+							synchronized (playingUsers) {
+								usedName = playingUsers.containsKey(name);
+							}
+						} while (!usedName);
+						playingUsers.get(name).setConnection(unsettedConnection);
+
+					}
+				} catch (RemoteException e) {
+					LOGGER.log(Level.SEVERE, "Error in new connection setup, removing unsetted connection", e);
+
 				}
-			} catch (RemoteException e) {
-				LOGGER.log(Level.SEVERE, "Error in new connection setup, removing unsetted connection", e);
-				
 			}
+		});
 
 	}
 
