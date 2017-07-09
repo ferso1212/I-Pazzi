@@ -511,7 +511,7 @@ public class GUInterface implements UserInterface {
 		singleProduction.update(boardInfo.getSingleProductionSpace());
 		int i = 0;
 		for (MarketButton m : this.marketButtons) {
-			m.update(boardInfo.getMarket()[i]);
+			m.update(boardInfo.getMarket()[i].getFirstOccupant());
 			i++;
 		}
 		if (this.numberOfPlayers > 2) {
