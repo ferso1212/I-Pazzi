@@ -50,7 +50,7 @@ public class UserHandler extends Observable implements Visitor, Observer {
 			choice.setChosen(connection.reqVaticanChoice());
 			choice.setVisited();
 			setChanged();
-			notifyObservers(new ExecutedChoice(this.playerId));
+			notifyObservers(new ExecutedChoice(this.playerId, choice.getActionId()));
 		} catch (DisconnectedException e) {
 			LOGGER.log(Level.WARNING, "Current player is not connected.", e);
 			choice.setChosen(false);
@@ -65,7 +65,7 @@ public class UserHandler extends Observable implements Visitor, Observer {
 			choice.setChosen(connection.reqCostChoice(choice.getChoices()));
 			choice.setVisited();
 			setChanged();
-			notifyObservers(new ExecutedChoice(this.playerId));
+			notifyObservers(new ExecutedChoice(this.playerId, choice.getActionId()));
 		} catch (DisconnectedException e) {
 			LOGGER.log(Level.WARNING, "Current player is not connected.", e);
 			setChanged();
@@ -79,7 +79,7 @@ public class UserHandler extends Observable implements Visitor, Observer {
 			choice.setPrivilegesChosen(connection.reqPrivilegesChoice(choice.getNumberOfChoices(), choice.getPrivilegesValues()));
 			choice.setVisited();
 			setChanged();
-			notifyObservers(new ExecutedChoice(this.playerId));
+			notifyObservers(new ExecutedChoice(this.playerId,choice.getActionId()));
 		} catch (DisconnectedException e) {
 			LOGGER.log(Level.WARNING, "Current player is not connected.", e);
 			setChanged();
@@ -93,7 +93,7 @@ public class UserHandler extends Observable implements Visitor, Observer {
 			choice.setEffectChosen(connection.reqEffectChoice(choice.getPossibleEffects()));
 			choice.isVisited();
 			setChanged();
-			notifyObservers(new ExecutedChoice(this.playerId));
+			notifyObservers(new ExecutedChoice(this.playerId, choice.getActionId()));
 		} catch (DisconnectedException e) {
 			LOGGER.log(Level.WARNING, "Current player is not connected.", e);
 			setChanged();
@@ -107,7 +107,7 @@ public class UserHandler extends Observable implements Visitor, Observer {
 			message.setCardChosen(connection.reqCardChoice(message.getPossibleChoices()));
 			message.setVisited();
 			setChanged();
-			notifyObservers(new ExecutedChoice(this.playerId));
+			notifyObservers(new ExecutedChoice(this.playerId, message.getActionId()));
 		} catch (DisconnectedException e) {
 			LOGGER.log(Level.WARNING, "Error requesting card choice to client", e);
 			setChanged();
@@ -127,7 +127,7 @@ public class UserHandler extends Observable implements Visitor, Observer {
 			message.setChosenCardsAndEffects(choices);
 			message.setVisited();
 			setChanged();
-			notifyObservers(new ExecutedChoice(this.playerId));
+			notifyObservers(new ExecutedChoice(this.playerId, message.getActionId()));
 		} catch (DisconnectedException e) {
 			LOGGER.log(Level.WARNING, "Current player is not connected.", e);
 			setChanged();
@@ -142,7 +142,7 @@ public class UserHandler extends Observable implements Visitor, Observer {
 		message.setChosenCard(chosenLeader);
 		message.setVisited();
 		setChanged();
-		notifyObservers(new ExecutedChoice(this.playerId));
+		notifyObservers(new ExecutedChoice(this.playerId, message.getActionId()));
 	}
 
 	@Override
@@ -166,7 +166,7 @@ public class UserHandler extends Observable implements Visitor, Observer {
 			message.setChosenCard(message.getPossibilities()[choice]);
 			message.setVisited();
 			setChanged();
-			notifyObservers(new ExecutedChoice(this.playerId));
+			notifyObservers(new ExecutedChoice(this.playerId, message.getActionId()));
 		} catch (DisconnectedException e) {
 			LOGGER.log(Level.WARNING, "Current player is not connected.", e);
 			setChanged();
@@ -325,7 +325,7 @@ public class UserHandler extends Observable implements Visitor, Observer {
 		message.setChosen(chosenTile);
 		message.setVisited();
 		setChanged();
-		notifyObservers(new ExecutedChoice(this.playerId));
+		notifyObservers(new ExecutedChoice(this.playerId, message.getActionId()));
 		
 	}
 
@@ -365,6 +365,6 @@ public class UserHandler extends Observable implements Visitor, Observer {
 		message.setNumberOfServants(connection.chooseNumberOfServants(message.getMaxServants()));
 		message.setVisited();
 		setChanged();
-		notifyObservers(new ExecutedChoice(this.playerId));
+		notifyObservers(new ExecutedChoice(this.playerId, message.getActionId()));
 	}
 }
