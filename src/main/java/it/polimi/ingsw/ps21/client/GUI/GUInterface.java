@@ -931,20 +931,21 @@ public class GUInterface implements UserInterface {
 	@Override
 	public int reqWorkChoice(DevelopmentCard workCard) {
 		int effectsNum = workCard.getPossibleEffects().length;
-		Object choices[] = new Object[effectsNum];
+		Object choices[] = new Object[effectsNum + 1];
+		choices[0] = "Don't activate this effect."; 
 		for (int i = 0; i < effectsNum; i++) {
-			choices[i] = workCard.getPossibleEffects()[i].toString();
+			choices[i + 1] = workCard.getPossibleEffects()[i].toString();
 		}
 		String chosenEffect = (String) JOptionPane.showInputDialog(mainWindow,
 				"Which of the effects of this card should be activated in the current work action?",
 				"Choose effect to activate", JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
 		if (chosenEffect == null) {
-			JOptionPane.showMessageDialog(mainWindow, "Since you are lazy, we have made the choice for you!");
+			JOptionPane.showMessageDialog(mainWindow, "Effect not activated.");
 			return 0;
 		}
 		int j;
 		for (j = 0; j < choices.length; j++) {
-			if (chosenEffect.compareTo((String) choices[j]) == 0) {
+			if (chosenEffect.compareTo((String) choices[j]) == j) {
 				break;
 			}
 		}
