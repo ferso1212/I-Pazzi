@@ -368,6 +368,17 @@ public class SocketConnection implements Connection{
 			return 0;
 		}
 	}
+
+
+	@Override
+	public int reqLorenzoIlMagnificoChoice(LeaderCard[] possibilities) throws DisconnectedException {
+		try {
+			return((LeaderChoiceResponseNetPacket)requestAndAwaitResponse(new LeaderChoiceRequestNetPacket(messageCounter, possibilities))).getChosen();
+		} catch (IOException | ClassNotFoundException e) {
+			LOGGER.log(Level.WARNING, "Unable to request leader card choice to the remote client due to " + e.getMessage(), e);
+			return 0;
+		}
+	}
 	
 
 	
