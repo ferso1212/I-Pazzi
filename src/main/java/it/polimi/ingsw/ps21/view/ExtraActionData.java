@@ -30,7 +30,7 @@ public class ExtraActionData implements Serializable {
 	}
 
 	public ExtraActionData(TakePrivilegesAction action){
-		this.type = ExtraActionType.PICK_ANOTHER_CARD;
+		this.type = ExtraActionType.TAKE_PRIVILEGES;
 		this.message = "Take Privileges: Choose " + action.getNumberOfPrivileges() + " different privileges";
 	
 	}
