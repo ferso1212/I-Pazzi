@@ -9,8 +9,8 @@ public class VaticanChoice extends Message{
 	private Excommunication excommunication;
 
 
-	public VaticanChoice(PlayerColor destination, Excommunication excommunication) {
-		super(destination);
+	public VaticanChoice(PlayerColor destination, Excommunication excommunication, int id) {
+		super(destination, id);
 		this.message = "You have to choose to support or not the church (don't do it, Satan is beatiful)";
 		this.excommunication = excommunication;
 	}

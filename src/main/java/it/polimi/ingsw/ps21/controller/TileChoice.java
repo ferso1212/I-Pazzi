@@ -17,8 +17,8 @@ public class TileChoice extends Message {
 	private ArrayList<PersonalBonusTile> possibleChoices;
 	private int chosen;
 	
-	public TileChoice(PlayerColor dest, ArrayList<PersonalBonusTile> possibilities) {
-		super(dest);
+	public TileChoice(PlayerColor dest, ArrayList<PersonalBonusTile> possibilities, int id) {
+		super(dest, id);
 		this.possibleChoices = possibilities; 
 		chosen = 0;
 	}

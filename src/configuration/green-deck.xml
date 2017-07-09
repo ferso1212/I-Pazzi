@@ -1494,22 +1494,22 @@
                     <Cost>
                         <Properties>
                             <Wood value="0" />
-                            <Stones value="1" />
+                            <Stones value="0" />
                             <Servants value="0" />
                             <Coins value="0" />
                             <MilitaryPoints value="0" />
                             <VictoryPoints value="0" />
-                            <FaithPoints value="1" />
+                            <FaithPoints value="0" />
                         </Properties>
                     </Cost>
                     <Properties>
                         <Wood value="0" />
-                        <Stones value="0" />
+                        <Stones value="1" />
                         <Servants value="0" />
                         <Coins value="0" />
                         <MilitaryPoints value="0" />
                         <VictoryPoints value="0" />
-                        <FaithPoints value="0" />
+                        <FaithPoints value="1" />
                     </Properties>
                 </PropEffect>
             </EffectSet>

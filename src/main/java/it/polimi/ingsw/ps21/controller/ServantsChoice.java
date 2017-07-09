@@ -7,8 +7,8 @@ public class ServantsChoice extends Message {
 	private int numberOfServants = 0;
 	private int maxServants;
 	
-	public ServantsChoice(PlayerColor player, int max){
-		super(player);
+	public ServantsChoice(PlayerColor player, int max, int id){
+		super(player, id);
 		this.message = "How many servants do you want to use?";
 		this.maxServants = max;
 	}

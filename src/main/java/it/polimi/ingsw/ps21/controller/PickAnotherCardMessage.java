@@ -8,8 +8,8 @@ public class PickAnotherCardMessage extends Message{
 	private DevelopmentCard[] possibleChoices;
 	private DevelopmentCard cardChosen;
 
-	public PickAnotherCardMessage(PlayerColor dest, DevelopmentCard[] possibleChoices) {
-		super(dest);
+	public PickAnotherCardMessage(PlayerColor dest, DevelopmentCard[] possibleChoices, int id) {
+		super(dest, id);
 		this.possibleChoices = possibleChoices;
 	}
 

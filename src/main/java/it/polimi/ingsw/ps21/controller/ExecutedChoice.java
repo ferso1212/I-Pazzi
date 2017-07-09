@@ -4,8 +4,8 @@ import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
 public class ExecutedChoice extends Message {
 
-	public ExecutedChoice(PlayerColor dest) {
-		super(dest);
+	public ExecutedChoice(PlayerColor dest, int id) {
+		super(dest, id);
 	}
 
 }

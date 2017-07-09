@@ -13,8 +13,8 @@ public class LeaderChoice extends Message{
 	
 	
 
-	public LeaderChoice(ArrayList<LeaderCard> choices, PlayerColor destination) {
-		super(destination);
+	public LeaderChoice(ArrayList<LeaderCard> choices, PlayerColor destination, int id) {
+		super(destination, id);
 		this.choices = choices;
 	}
 

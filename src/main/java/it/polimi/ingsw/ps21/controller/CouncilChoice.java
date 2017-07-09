@@ -13,8 +13,8 @@ public class CouncilChoice extends Message {
 	private ImmProperties[] privilegesChosen;
 	private ImmProperties[] privilegesValues;
 	
-	public CouncilChoice(PlayerColor destination, int numberOfPrivileges) {
-		super(destination);
+	public CouncilChoice(PlayerColor destination, int numberOfPrivileges, int id) {
+		super(destination, id);
 		this.message="You have to choose a Council Privilege";
 		this.numberOfChoices = numberOfPrivileges;
 		this.privilegesChosen = new ImmProperties[numberOfChoices];

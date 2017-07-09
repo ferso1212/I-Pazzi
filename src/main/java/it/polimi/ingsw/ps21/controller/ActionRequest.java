@@ -6,11 +6,11 @@ import it.polimi.ingsw.ps21.model.player.PlayerColor;
 public class ActionRequest extends Message{
 	
 	private Action choosenAction;
-	private int id;
+	
 
 	public ActionRequest(PlayerColor dest, int id) {
-		super(dest);
-		this.id=id;
+		super(dest, id);
+		
 	}
 
 	public Action getChoosenAction() {

@@ -77,7 +77,7 @@ public class Property implements Serializable{
 	 */
 	public boolean payValue(int num)
 	{
-		if(num<0) return false; //this method can't be used to add values
+		if(num<0) return true; //this method can't be used to add values
 		int modifiedNum = num + this.paymentModifier; //adds the modifier value to the value that should be payed
 		if(this.value<modifiedNum) return false; 
 		this.value-=modifiedNum;

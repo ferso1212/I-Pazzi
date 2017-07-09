@@ -145,11 +145,11 @@ public class EffectBuilder {
 		case "DiscountEffect": {
 			ArrayList<DevelopmentCardType> types = new ArrayList<>();
 			Element propNode = (Element) node.getElementsByTagName("Properties").item(0);
-			if (node.getElementsByTagName("Blue").getLength() != 0)
+			if (node.getElementsByTagName("Green").getLength() != 0)
 				types.add(DevelopmentCardType.TERRITORY);
 			if (node.getElementsByTagName("Yellow").getLength() != 0)
 				types.add(DevelopmentCardType.BUILDING);
-			if (node.getElementsByTagName("Green").getLength() != 0)
+			if (node.getElementsByTagName("Blue").getLength() != 0)
 				types.add(DevelopmentCardType.CHARACTER);
 			if (node.getElementsByTagName("Purple").getLength() != 0)
 				types.add(DevelopmentCardType.VENTURE);
@@ -165,9 +165,9 @@ public class EffectBuilder {
 			int diceReq = Integer.parseInt(node.getAttribute("diceValue"));
 			if (node.getElementsByTagName("Green").getLength() != 0)
 				types.add(DevelopmentCardType.TERRITORY);
-			if (node.getElementsByTagName("Blue").getLength() != 0)
-				types.add(DevelopmentCardType.BUILDING);
 			if (node.getElementsByTagName("Yellow").getLength() != 0)
+				types.add(DevelopmentCardType.BUILDING);
+			if (node.getElementsByTagName("Blue").getLength() != 0)
 				types.add(DevelopmentCardType.CHARACTER);
 			if (node.getElementsByTagName("Purple").getLength() != 0)
 				types.add(DevelopmentCardType.VENTURE);
@@ -181,9 +181,9 @@ public class EffectBuilder {
 			int diceValue = Integer.parseInt(node.getAttribute("diceValue"));
 			if (node.getElementsByTagName("Green").getLength() != 0)
 				types.add(DevelopmentCardType.TERRITORY);
-			if (node.getElementsByTagName("Blue").getLength() != 0)
-				types.add(DevelopmentCardType.BUILDING);
 			if (node.getElementsByTagName("Yellow").getLength() != 0)
+				types.add(DevelopmentCardType.BUILDING);
+			if (node.getElementsByTagName("Blue").getLength() != 0)
 				types.add(DevelopmentCardType.CHARACTER);
 			if (node.getElementsByTagName("Purple").getLength() != 0)
 				types.add(DevelopmentCardType.VENTURE);
@@ -207,7 +207,7 @@ public class EffectBuilder {
 		case "MultiplierEffect": {
 			ImmProperties cost = PropertiesBuilder.makeCost((Element) node.getElementsByTagName("Cost").item(0));
 			ImmProperties bonus = PropertiesBuilder
-					.makeImmProperites((Element) node.getElementsByTagName("Properties").item(0));
+					.makeImmProperites((Element) node.getElementsByTagName("Properties").item(1));
 			MultiplierType type;
 			int value;
 			Element multiplierType = (Element) node.getElementsByTagName("MultiplierType").item(0);

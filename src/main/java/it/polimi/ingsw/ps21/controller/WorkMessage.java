@@ -10,8 +10,8 @@ public class WorkMessage extends Message {
 	private DevelopmentCard[] cardsToActivateWithoutChoice;
 
 
-	public WorkMessage(PlayerColor destination, DevelopmentCard[] choices, DevelopmentCard[] cardsToActivateWithoutChoice) {
-		super(destination);
+	public WorkMessage(PlayerColor destination, DevelopmentCard[] choices, DevelopmentCard[] cardsToActivateWithoutChoice, int id) {
+		super(destination, id);
 		this.message="You have to choose which cards to to activate.";
 		this.choices = choices;
 		this.cardsToActivateWithoutChoice = cardsToActivateWithoutChoice;

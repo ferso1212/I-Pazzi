@@ -8,8 +8,8 @@ public class EffectChoice extends Message{
 	private EffectSet[] possibleEffects;
 	private EffectSet effectChosen;
 	
-	public EffectChoice(PlayerColor dest, EffectSet[] possibleEffects) {
-		super(dest);
+	public EffectChoice(PlayerColor dest, EffectSet[] possibleEffects, int id) {
+		super(dest, id);
 		this.possibleEffects = possibleEffects;
 	}
 

@@ -7,13 +7,13 @@ public class RefusedAction extends Message{
 	
 	private String problem;
 
-	public RefusedAction(PlayerColor dest) {
-		super(dest);
+	public RefusedAction(PlayerColor dest, int id) {
+		super(dest, id);
 		this.message = "You can't do this action!";
 	}
 	
-	public RefusedAction(PlayerColor dest, String problem){
-		super(dest);
+	public RefusedAction(PlayerColor dest, String problem, int id){
+		super(dest, id);
 		this.message = "You can't do this action!";
 		this.problem = problem;
 	}
