@@ -59,9 +59,9 @@ public class ExtraWorkAction extends ExtraAction {
 		case 0:
 		{
 			ImmProperties totalCost = new ImmProperties(0);
-			for (int i=0 ; i < this.workMessage.getChosenCardsAndEffects().length; i++){
-				if (this.workMessage.getChosenCardsAndEffects()[i] != 0){
-					totalCost = totalCost.sum(this.workMessage.getChoices()[i].getPossibleEffects()[this.workMessage.getChosenCardsAndEffects()[i]-1].getTotalCost());
+			for (int i=0 ; i < this.workMessage.getChosenCardsWithCost().length; i++){
+				if (this.workMessage.getChosenCardsWithCost()[i] != 0){
+					totalCost = totalCost.sum(this.workMessage.getCardsWithCost()[i].getPossibleEffects()[this.workMessage.getChosenCardsWithCost()[i]-1].getTotalCost());
 				}
 			}
 			if (player.checkProperties(totalCost))
@@ -79,14 +79,15 @@ public class ExtraWorkAction extends ExtraAction {
 		
 	ArrayList<ExtraAction> activatedEffects = new ArrayList<ExtraAction>();
 
-	for (int i = 0; i < workMessage.getChosenCardsAndEffects().length; i++) {
-		if (workMessage.getChosenCardsAndEffects()[i] != 0) {
-			activatedEffects.addAll(workMessage.getChoices()[i].getPossibleEffects()[workMessage.getChosenCardsAndEffects()[i] - 1].activate(player));
+	for (int i = 0; i < workMessage.getChosenCardsWithCost().length; i++) {
+		if (workMessage.getChosenCardsWithCost()[i] != 0) {
+			activatedEffects.addAll(workMessage.getCardsWithCost()[i].getPossibleEffects()[workMessage.getChosenCardsWithCost()[i] - 1].activate(player));
 		}
 	}
 	
 	for (int i = 0; i < workMessage.getcardsToActivateWithoutChoice().length; i++) {
-		activatedEffects.addAll(workMessage.getcardsToActivateWithoutChoice()[i].getPossibleEffects()[0].activate(player));
+		if (workMessage.getChosenCardsWithCost()[i] != 0)
+		activatedEffects.addAll(workMessage.getcardsToActivateWithoutChoice()[i].getPossibleEffects()[workMessage.getChosenCardsWithoutCost()[i] -1 ].activate(player));
 	}
 
 	return activatedEffects.toArray(new ExtraAction[0]);

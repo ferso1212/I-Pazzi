@@ -261,7 +261,9 @@ public class TestActions {
 			if (!(mess instanceof WorkMessage))
 				fail();
 			WorkMessage workMess = (WorkMessage) mess;
-			workMess.setChosenCardsAndEffects(new int[1]);
+			workMess.setChosenCardsWithCost(new int[1]);
+			workMess.setChosenCardsWithoutCost(new int[1]);
+
 			mess = a.update(this.match.getCurrentPlayer(), match);
 			if (!(mess instanceof AcceptedAction))
 				fail();
@@ -439,8 +441,11 @@ public class TestActions {
 		swa = new WorkAction(p.getId(), match.getBoard().getSingleWorkSpace(WorkType.HARVEST), p.getFamily().getMember(MembersColor.BLACK), 3, 0);
 		mess=swa.update(p, match);
 		if (!(mess instanceof WorkMessage)) fail();
-		int[] choices={0};
-		((WorkMessage)mess).setChosenCardsAndEffects(choices);
+		int[] choices=new int[((WorkMessage)mess).getCardsWithCost().length];
+		((WorkMessage)mess).setChosenCardsWithCost(choices);
+		choices= new int[((WorkMessage)mess).getcardsToActivateWithoutChoice().length];
+		for (int i=0; i< choices.length; i++) choices[i]=1;
+		((WorkMessage)mess).setChosenCardsWithoutCost(choices);
 		mess.setVisited();
 		mess=swa.update(p, match);
 		if (!(mess instanceof AcceptedAction)) fail();

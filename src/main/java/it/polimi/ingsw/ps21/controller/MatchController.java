@@ -170,7 +170,9 @@ public class MatchController extends Observable implements Observer {
 		if (state == ActionState.AWAITING_CHOICES) {
 			Message returnMessage = currentAction.update(this.currentPlayer, this.match);
 			if (returnMessage instanceof RefusedAction)
-				state = ActionState.REFUSED;
+				{state = ActionState.REFUSED;
+				reqExtraAction();}
+				
 			else if (returnMessage instanceof AcceptedAction) {
 				state = ActionState.ACCEPTED;
 			}
