@@ -1,11 +1,7 @@
 package it.polimi.ingsw.ps21.view;
 
 import java.io.Serializable;
-import java.util.EnumMap;
-import java.util.LinkedList;
 import java.util.Map;
-import java.util.Queue;
-
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.board.AdvSingleMarketSpace;
 import it.polimi.ingsw.ps21.model.board.AdvSingleWorkSpace;
@@ -46,9 +42,9 @@ public class BoardData implements Serializable{
 	{	//---COPIES THE CARDS IN THE TOWER SPACES
 		this.cards = new DevelopmentCard[4][4];
 		this.excommunications = board.getExcommunications();
-		this.towerSpaces=new FamilyMemberData[board.getTower(DevelopmentCardType.BUILDING).FLOORS_NUM][DevelopmentCardType.values().length];
-		this.towerBonuses=new ImmProperties[board.getTower(DevelopmentCardType.BUILDING).FLOORS_NUM][DevelopmentCardType.values().length];
-		this.towerRequirements = new int[board.getTower(DevelopmentCardType.BUILDING).FLOORS_NUM][DevelopmentCardType.values().length];
+		this.towerSpaces=new FamilyMemberData[Tower.FLOORS_NUM][DevelopmentCardType.values().length];
+		this.towerBonuses=new ImmProperties[Tower.FLOORS_NUM][DevelopmentCardType.values().length];
+		this.towerRequirements = new int[Tower.FLOORS_NUM][DevelopmentCardType.values().length];
 		int towerIndex=0;
 		for(DevelopmentCardType cardType: DevelopmentCardType.values()) //cycles through the towers
 		{

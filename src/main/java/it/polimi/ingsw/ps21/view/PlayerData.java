@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import it.polimi.ingsw.ps21.controller.NotAdvancedPlayerException;
 import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
@@ -17,10 +16,8 @@ import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
-import it.polimi.ingsw.ps21.model.player.PlayerProperties;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 import it.polimi.ingsw.ps21.model.properties.PropertiesId;
-import it.polimi.ingsw.ps21.model.properties.Property;
 
 public class PlayerData implements Serializable {
 	/**

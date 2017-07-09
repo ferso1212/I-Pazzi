@@ -4,7 +4,6 @@ import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
 import it.polimi.ingsw.ps21.model.deck.Requirement;
 import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
-import it.polimi.ingsw.ps21.model.player.Player;
 
 /*
  * To be implemented

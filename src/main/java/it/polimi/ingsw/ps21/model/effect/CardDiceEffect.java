@@ -56,7 +56,7 @@ public class CardDiceEffect extends Effect {
 		StringBuilder output= new StringBuilder("Increase the action value by " + this.cardDiceValue + " units when a ");
 		for(DevelopmentCardType type: types)
 		{output.append(type.toString() + " card ");
-		if(type.ordinal()<type.values().length -1 ) output.append("or a ");
+		if(type.ordinal()<DevelopmentCardType.values().length -1 ) output.append("or a ");
 		}
 		output.append(" is picked from a tower space.");
 		return output.toString();
