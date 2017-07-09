@@ -9,6 +9,10 @@ import it.polimi.ingsw.ps21.model.properties.PropertiesId;
  *
  */
 public class PropAdditionExcommunication extends Excommunication{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5568929491155101600L;
 	private ImmProperties additionMalus;
 
 	/**Activates the excommunication: its effects are stored in the player's properties.

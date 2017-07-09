@@ -8,6 +8,10 @@ import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
  *
  */
 public class CardDiceExcommunication extends Excommunication{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6383862084635157711L;
 	private DevelopmentCardType cardType;
 	private int diceMalus; //if it's a malus, this value must be positive!
 

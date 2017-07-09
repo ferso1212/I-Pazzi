@@ -9,6 +9,10 @@ import it.polimi.ingsw.ps21.model.player.Player;
  */
 public class DiceExcommunication extends Excommunication {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4617431756922309770L;
 	private int whiteDiceMalus;
 	private int orangeDiceMalus;
 	private int blackDiceMalus;

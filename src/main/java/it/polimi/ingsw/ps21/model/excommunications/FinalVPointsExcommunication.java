@@ -13,6 +13,10 @@ import it.polimi.ingsw.ps21.model.player.Player;
  *
  */
 public class FinalVPointsExcommunication extends Excommunication{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2499846525757517800L;
 	private int victoryPointsReductionDivisor;
 	private int militaryDivisorVPointsReduction;
 	private int vPointsReductionBuildingWoodDivisor;

@@ -8,6 +8,10 @@ import it.polimi.ingsw.ps21.model.player.Player;
  *
  */
 public class WorkExcommunication extends Excommunication{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5245414283360228551L;
 	private WorkType workType;
 	private int malus;
 	

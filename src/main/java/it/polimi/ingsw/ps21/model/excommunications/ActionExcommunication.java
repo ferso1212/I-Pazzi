@@ -8,6 +8,10 @@ import it.polimi.ingsw.ps21.model.player.Player;
  */
 public class ActionExcommunication extends Excommunication{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4281245256904085406L;
 	private boolean delayFirstAction;
 	private boolean noMarketAction;
 	
