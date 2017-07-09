@@ -744,7 +744,7 @@ public class CLInterface implements UserInterface {
 		showInfo("LORENZO EFFECT : You have to choose which card you want to copy");
 		printOutput("Activated Cards of other player");
 		for (int i=0; i<possibilities.length; i++){
-			printOutput( (i + 1) + ") " + possibilities.toString());
+			printOutput( (i + 1) + ") " + possibilities[i].getName() + ": " + possibilities[i].getEffect().getDesc());
 		}
 		int choice = userInput.nextInt();
 		while (choice<1 || choice >possibilities.length){
