@@ -63,4 +63,6 @@ public abstract interface UserInterface {
 	public int reqCardChoice(DevelopmentCard[] possibleChoices);
 	
 	public int reqNumberOfServants(int max); //max is the player's number of servants
+	
+	public int reqLorenzoIlMagnificoChoice(LeaderCard[] possibilities);
 }

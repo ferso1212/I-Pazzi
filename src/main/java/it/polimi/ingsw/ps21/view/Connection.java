@@ -50,4 +50,6 @@ public abstract interface Connection{
 	public int reqCardChoice(DevelopmentCard[] possibleChoices) throws DisconnectedException;
 	
 	public int chooseNumberOfServants(int max);// max is the player's number of servants.
+	
+	public int reqLorenzoIlMagnificoChoice(LeaderCard[] possibilities) throws DisconnectedException;
 }

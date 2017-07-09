@@ -740,4 +740,20 @@ public class CLInterface implements UserInterface {
 		return choice;
 	}
 
+	@Override
+	public int reqLorenzoIlMagnificoChoice(LeaderCard[] possibilities) {
+		showInfo("LORENZO EFFECT : You have to choose which card you want to copy");
+		printOutput("Activated Cards of other player");
+		for (int i=0; i<possibilities.length; i++){
+			printOutput( (i + 1) + ") " + possibilities.toString());
+		}
+		int choice = userInput.nextInt();
+		while (choice<1 || choice >possibilities.length){
+			printOutput("You have choosen an invalid card of message, please choose another card");
+			choice = userInput.nextInt();
+		}
+		return choice -1;
+		
+	}
+
 }

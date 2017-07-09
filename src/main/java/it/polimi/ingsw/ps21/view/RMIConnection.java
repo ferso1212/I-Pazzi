@@ -286,6 +286,16 @@ public class RMIConnection extends UnicastRemoteObject implements RMIConnectionI
 		}
 		
 	}
+
+
+	@Override
+	public int reqLorenzoIlMagnificoChoice(LeaderCard[] possibilities) throws DisconnectedException {
+		try {
+			return client.reqLorenzoIlMagnificoChoice(possibilities);
+		} catch (RemoteException e) {
+			throw new DisconnectedException();
+		}
+	}
 	
 	
 

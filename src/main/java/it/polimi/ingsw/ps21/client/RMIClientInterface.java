@@ -59,4 +59,6 @@ public interface RMIClientInterface extends Remote {
 	public int reqCardChoice(DevelopmentCard[] possibleChoices) throws RemoteException;
 	
 	public int reqNumberOfServants(int max)throws RemoteException;
+	
+	public int reqLorenzoIlMagnificoChoice(LeaderCard[] possibilities) throws RemoteException;
 }
