@@ -262,10 +262,10 @@ public class SocketConnection implements Connection{
 
 
 	@Override
-	public int reqWorkChoice(DevelopmentCard message) throws DisconnectedException {
+	public int reqWorkChoice(DevelopmentCard message, boolean cost) throws DisconnectedException {
 	
 		try {
-			return ((WorkChoiceResponseNetPacket)requestAndAwaitResponse(new WorkChoiceRequestNetPacket(messageCounter, message))).getChosen();
+			return ((WorkChoiceResponseNetPacket)requestAndAwaitResponse(new WorkChoiceRequestNetPacket(messageCounter, message, cost))).getChosen();
 		} catch (IOException | ClassNotFoundException e) {
 			LOGGER.log(Level.WARNING, "Unable to request work choice to the remote client due to " + e.getMessage(), e);
 			throw new DisconnectedException();
