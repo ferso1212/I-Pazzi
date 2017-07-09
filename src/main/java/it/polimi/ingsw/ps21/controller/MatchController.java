@@ -425,7 +425,7 @@ public class MatchController extends Observable implements Observer {
 		FamilyMember chosenMember = currentPlayer.getFamily().getMember(data.getFamilyMember());
 		switch (data.getType()) {
 		case COUNCIL:
-			parsedAction = new CouncilAction(currentPlayer.getId(), chosenMember, data.getServants());
+			parsedAction = new CouncilAction(currentPlayer.getId(), chosenMember, data.getServants(), actionCounter);
 			break;
 		case HARVEST: {
 			WorkSpace workSpace;
@@ -434,20 +434,20 @@ public class MatchController extends Observable implements Observer {
 			else
 				workSpace = match.getBoard().getMultipleWorkSpace(WorkType.HARVEST);
 			parsedAction = new WorkAction(currentPlayer.getId(), workSpace,
-					chosenMember, data.getServants());
+					chosenMember, data.getServants(), actionCounter);
 		}
 
 			break;
 		case MARKET:
 			parsedAction = new MarketAction(currentPlayer.getId(), match.getBoard().getMarketSpace(data.getSpace()),
-					data.getServants(), chosenMember);
+					data.getServants(), chosenMember, actionCounter);
 			break;
 		case NULL:
-			parsedAction = new NullAction(currentPlayer.getId());
+			parsedAction = new NullAction(currentPlayer.getId(), actionCounter);
 			break;
 		case PLAY_LEADERCARD:
 			LeaderCard cardToPlay= ((AdvancedPlayer)this.currentPlayer).getLeaders()[data.getSpace()];
-			parsedAction = new PlayLeaderCardAction(currentPlayer.getId(), cardToPlay);
+			parsedAction = new PlayLeaderCardAction(currentPlayer.getId(), cardToPlay, actionCounter);
 			break;
 		case PRODUCTION: {
 			WorkSpace workSpace;
@@ -456,16 +456,16 @@ public class MatchController extends Observable implements Observer {
 			else
 				workSpace = match.getBoard().getMultipleWorkSpace(WorkType.PRODUCTION);
 			parsedAction = new WorkAction(currentPlayer.getId(), workSpace,
-					currentPlayer.getFamily().getMember(data.getFamilyMember()), data.getServants());
+					currentPlayer.getFamily().getMember(data.getFamilyMember()), data.getServants(), actionCounter);
 		}
 			break;
 		case TAKE_CARD: {
-			parsedAction = new DevelopmentAction(currentPlayer.getId(), chosenMember, data.getServants(), data.getTower(), data.getSpace());
+			parsedAction = new DevelopmentAction(currentPlayer.getId(), chosenMember, data.getServants(), data.getTower(), data.getSpace(), actionCounter);
 		}
 			break;
 		default:
 			LOGGER.log(Level.INFO, "Invalid ActionData type, generated a default new Action");
-			parsedAction = new NullAction(currentPlayer.getId());
+			parsedAction = new NullAction(currentPlayer.getId(), actionCounter);
 			break;
 		}
 		this.currentAction = parsedAction;
