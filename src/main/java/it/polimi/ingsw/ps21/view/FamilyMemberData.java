@@ -7,6 +7,10 @@ import it.polimi.ingsw.ps21.model.player.MembersColor;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
 
 public class FamilyMemberData implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5515471363627537763L;
 	private MembersColor color;
 	private int value;
 	private boolean used;

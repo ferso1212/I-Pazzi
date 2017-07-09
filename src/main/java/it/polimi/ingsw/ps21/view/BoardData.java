@@ -18,6 +18,10 @@ import it.polimi.ingsw.ps21.model.excommunications.Excommunication;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 
 public class BoardData implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9077012683389221907L;
 	private DevelopmentCard[][] cards;
 	private FamilyMemberData[][] towerSpaces;
 	private int[][] towerRequirements;
