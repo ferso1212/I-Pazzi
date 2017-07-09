@@ -127,8 +127,8 @@ public class MatchController extends Observable implements Observer {
 	 * to be performed, so the choice is requested to the player.
 	 */
 	private void getActionChoices() {
-
 		Message returnMessage = currentAction.update(this.currentPlayer, this.match);
+		if(returnMessage.getActionId()!=actionCounter) return;
 		if (returnMessage instanceof RefusedAction) {
 			state = ActionState.REFUSED;
 			setChanged();
@@ -197,11 +197,12 @@ public class MatchController extends Observable implements Observer {
 			currentExtraActions = new ArrayList<>();
 			for (ExtraAction a : poolExtraAction) {
 				if (!(a instanceof NullAction))
-					currentExtraActions.add(a);
+					{currentExtraActions.add(a);
+					a.setMainActionId(actionCounter);}
 			}
 			if (currentExtraActions.isEmpty()) {
 				setChanged();
-				notifyObservers(new CompletedActionMessage(currentPlayer.getId()));
+				notifyObservers(new CompletedActionMessage(currentPlayer.getId(), actionCounter));
 			
 				if(this.playingLeaderStage) reqPlayerAction();
 				else nextPlayer();
@@ -210,22 +211,22 @@ public class MatchController extends Observable implements Observer {
 			}
 		} catch (NotExecutableException e) {
 			LOGGER.log(Level.INFO, "Action not executable", e);
-			notifyObservers(new RefusedAction(currentPlayer.getId(), "Action not executable"));
+			notifyObservers(new RefusedAction(currentPlayer.getId(), "Action not executable",actionCounter));
 			nextPlayer();
 		} catch (RequirementNotMetException e) {
 			LOGGER.log(Level.WARNING, "Player doesn't met the requirements for this action", e);
 			notifyObservers(
-					new RefusedAction(currentPlayer.getId(), "Player doesn't met the requirements for this action"));
+					new RefusedAction(currentPlayer.getId(), "Player doesn't met the requirements for this action", actionCounter));
 			nextPlayer();
 		} catch (InsufficientPropsException e) {
 			LOGGER.log(Level.INFO, "Player doesn't have enough properties to execute this action", e);
 			notifyObservers(new RefusedAction(currentPlayer.getId(),
-					"Player doesn't have enough properties to execute this action"));
+					"Player doesn't have enough properties to execute this action", actionCounter));
 			nextPlayer();
 		} catch (VaticanRoundException e) {
 			LOGGER.log(Level.SEVERE, "Match is in Vatican State, so cannot execute this type of action", e);
 			notifyObservers(new RefusedAction(currentPlayer.getId(),
-					"Match is in Vatican State, so cannot execute this type of action"));
+					"Match is in Vatican State, so cannot execute this type of action", actionCounter));
 			nextPlayer();
 		}
 	}
@@ -246,14 +247,14 @@ public class MatchController extends Observable implements Observer {
 		}
 		if (extraDatas.isEmpty()) {
 
-			notifyObservers(new Message(this.currentPlayer.getId()));
+			notifyObservers(new Message(this.currentPlayer.getId(), actionCounter));
 			nextPlayer();
 		}
 
 		else {
 			setChanged();
 			notifyObservers(
-					new ExtraActionRequest(this.currentPlayer.getId(), extraDatas.toArray(new ExtraActionData[0])));
+					new ExtraActionRequest(this.currentPlayer.getId(), extraDatas.toArray(new ExtraActionData[0]), actionCounter));
 		}
 	}
 
@@ -291,14 +292,14 @@ public class MatchController extends Observable implements Observer {
 		{
 			//startTimer();
 			AdvancedMatch m= (AdvancedMatch)this.match;
-			LeaderChoice message= new LeaderChoice(m.getLeaderPossibilities(), this.currentPlayer.getId());
+			LeaderChoice message= new LeaderChoice(m.getLeaderPossibilities(), this.currentPlayer.getId(), actionCounter);
 			this.currentAction=new LeaderChoiceAction(this.currentPlayer.getId(), message);
 			this.state=ActionState.AWAITING_CHOICES;
 			getActionChoices();
 		}
 		else if (roundType == RoundType.TILE_CHOICE){
 			AdvancedMatch m= (AdvancedMatch)this.match;
-			TileChoice message = new TileChoice(currentPlayer.getId(), m.getPossibleTiles());
+			TileChoice message = new TileChoice(currentPlayer.getId(), m.getPossibleTiles(), actionCounter);
 			this.currentAction = new TileChoiceAction(this.currentPlayer.getId(), message);
 			this.state = ActionState.AWAITING_CHOICES;
 			getActionChoices();
@@ -375,7 +376,7 @@ public class MatchController extends Observable implements Observer {
 					} else {
 						setChanged();
 						notifyObservers(
-								new RefusedAction(currentPlayer.getId(), "Your chosen extra action doesn't exist"));
+								new RefusedAction(currentPlayer.getId(), "Your chosen extra action doesn't exist", actionCounter));
 						reqExtraAction();
 
 					}
@@ -483,7 +484,7 @@ public class MatchController extends Observable implements Observer {
 				timer.cancel();
 				timer.purge();
 				setChanged();
-				notifyObservers(new TimeoutExpiredMessage(currentPlayer.getId()));
+				notifyObservers(new TimeoutExpiredMessage(currentPlayer.getId(), actionCounter));
 				nextPlayer();
 				
 			}}, actionTimeout);
