@@ -53,8 +53,8 @@ public class TestMatches {
 			while (testedAdvancedMatch.getRound() != RoundType.INITIAL_ROUND){
 			Player player = testedAdvancedMatch.getCurrentPlayer();
 			if (testedAdvancedMatch.getRound() == RoundType.LEADER_ROUND){
-				LeaderChoice mess = new LeaderChoice(testedAdvancedMatch.getLeaderPossibilities(), player.getId());
-				Action leaderAction = new LeaderChoiceAction(player.getId(), mess);
+				LeaderChoice mess = new LeaderChoice(testedAdvancedMatch.getLeaderPossibilities(), player.getId(), 0);
+				Action leaderAction = new LeaderChoiceAction(player.getId(), mess, 0);
 				mess.setChosenCard(0);
 				mess.setVisited();
 				try {
@@ -66,8 +66,8 @@ public class TestMatches {
 				}
 			}
 			if (testedAdvancedMatch.getRound() == RoundType.TILE_CHOICE){
-				TileChoice mess2 = new TileChoice(player.getId(), testedAdvancedMatch.getPossibleTiles()); 
-				Action tileAction = new TileChoiceAction(player.getId(), mess2);
+				TileChoice mess2 = new TileChoice(player.getId(), testedAdvancedMatch.getPossibleTiles(), 0); 
+				Action tileAction = new TileChoiceAction(player.getId(), mess2, 0);
 				mess2.setChosen(0);
 				mess2.setVisited();
 				try {
@@ -164,7 +164,7 @@ public class TestMatches {
 		}
 	while (round == RoundType.VATICAN_ROUND && !testedAdvancedMatch.isEnded()){
 		player = testedAdvancedMatch.getCurrentPlayer();
-		VaticanAction action = new VaticanAction(player.getId());
+		VaticanAction action = new VaticanAction(player.getId(), 0);
 		Message message = action.update(player, testedAdvancedMatch);
 		while (! (message instanceof ExcommunicationMessage) ){
 			if (message instanceof RefusedAction) return false;
@@ -215,7 +215,7 @@ public class TestMatches {
 		}
 	while (round == RoundType.VATICAN_ROUND){
 		Player player = testedSimpleMatch.getCurrentPlayer();
-		VaticanAction action = new VaticanAction(player.getId());
+		VaticanAction action = new VaticanAction(player.getId(), 0);
 		Message message = action.update(player, testedSimpleMatch);
 		while (! (message instanceof ExcommunicationMessage) ){
 			if (message instanceof RefusedAction) return false;

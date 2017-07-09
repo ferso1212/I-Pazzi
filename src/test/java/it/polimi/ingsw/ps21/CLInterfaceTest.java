@@ -55,8 +55,8 @@ public class CLInterfaceTest {
 
 	private boolean checkShowInfo() {
 		testCli.showInfo("Testing interface");
-		testCli.showMessage(new AcceptedAction(PlayerColor.BLUE));
-		testCli.showMessage(new RefusedAction(PlayerColor.BLUE));
+		testCli.showMessage(new AcceptedAction(PlayerColor.BLUE, 0));
+		testCli.showMessage(new RefusedAction(PlayerColor.BLUE, 0));
 		testCli.updateView(new MatchData(testMatch));
 		return true;
 	}
@@ -65,7 +65,7 @@ public class CLInterfaceTest {
 		// Testa un'unica scelta
 		ArrayList<ImmProperties> testCosts = new ArrayList<>();
 		testCosts.add(new ImmProperties(0,1));
-		CostChoice testChoice = new CostChoice(PlayerColor.BLUE, testCosts);
+		CostChoice testChoice = new CostChoice(PlayerColor.BLUE, testCosts, 0);
 		testChoice.setChosen(testCli.reqCostChoice(testChoice.getChoices()));
 		if (testChoice.getChosen() != testChoice.getChoices().get(0)) return false;
 		return true;
