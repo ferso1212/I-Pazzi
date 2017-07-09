@@ -56,7 +56,8 @@ public class PlayLeaderCardAction extends Action {
 			return new RefusedAction(player.getId(), this.actionId);
 		case 0: { // leader choosen
 			if (message.isVisited() && message.getChosenCard() != null)
-				return new AcceptedAction(player.getId(), this.actionId);
+				{((LorenzoIlMagnificoEffect)cardToPlay.getEffect()).setChoose(message.getChosenCard());
+				return new AcceptedAction(player.getId(), this.actionId);}
 			else
 				return new RefusedAction(player.getId(), this.actionId);
 		}

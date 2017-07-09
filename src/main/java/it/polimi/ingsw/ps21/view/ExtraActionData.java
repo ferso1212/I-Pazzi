@@ -40,6 +40,11 @@ public class ExtraActionData implements Serializable {
 
 	}
 	
+	public ExtraActionData(ExtraWorkAction action)
+	{
+		
+	}
+	
 	public ExtraActionType getType(){
 		return this.type;
 	}

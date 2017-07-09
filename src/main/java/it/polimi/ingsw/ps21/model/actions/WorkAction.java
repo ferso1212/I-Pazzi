@@ -65,9 +65,8 @@ public class WorkAction extends Action {
 
 					for (DevelopmentCard c : player.getActivableWorks(this.actionValue, this.space.getWorkType())) {
 						for (EffectSet e : c.getPossibleEffects()){
-							if (e.getTotalCost().isNull())
-								cardWithoutCost.add(c);
-							cardWithCost.add(c);
+							if (e.getTotalCost().isNull()) cardWithoutCost.add(c);
+							else cardWithCost.add(c);
 						}
 					}
 
