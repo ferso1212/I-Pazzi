@@ -13,6 +13,10 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
  */
 public class PropertiesBonus extends InstantLeaderEffect {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -35292649495692343L;
 	private ImmProperties bonus;
 	public PropertiesBonus(Requirement reqs[], ImmProperties bonus) {
 		super(reqs);

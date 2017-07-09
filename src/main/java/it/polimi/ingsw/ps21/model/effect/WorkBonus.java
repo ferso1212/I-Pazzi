@@ -12,6 +12,10 @@ import it.polimi.ingsw.ps21.model.player.WorkModifier;
  */
 public class WorkBonus extends InstantLeaderEffect {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 228328698349112514L;
 	private WorkType type;
 	private int value;
 	

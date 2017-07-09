@@ -8,6 +8,10 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class PropEffect extends Effect {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -998102579744108732L;
 	private ImmProperties bonus;
 	
 	public PropEffect(ImmProperties cost, ImmProperties bonus) {

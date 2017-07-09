@@ -13,6 +13,11 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
  * To be Implemented
  */
 public class LorenzoIlMagnificoEffect extends PermanentLeaderEffect {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 90083515942042488L;
+
 	public LorenzoIlMagnificoEffect(Requirement reqs[]) {
 		super(reqs);
 	}

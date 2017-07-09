@@ -14,6 +14,11 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
  */
 public class NullEffect extends Effect {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2815907921669518763L;
+
 	public NullEffect() {
 		super(new ImmProperties(0));
 	}

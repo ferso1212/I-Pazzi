@@ -7,6 +7,10 @@ import it.polimi.ingsw.ps21.model.properties.ImmProperties;
 
 public class PrivilegeEffect extends Effect{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7922759253820298215L;
 	private int numberOfPrivileges;
 
 	public PrivilegeEffect(int numberOfPrivileges) {

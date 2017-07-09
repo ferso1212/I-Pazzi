@@ -13,6 +13,10 @@ import it.polimi.ingsw.ps21.model.player.Player;
 
 public class MemberBonus extends InstantLeaderEffect {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5455657945308338307L;
 	private int valueBonus;
 	
 	public MemberBonus(Requirement reqs[], int value){
