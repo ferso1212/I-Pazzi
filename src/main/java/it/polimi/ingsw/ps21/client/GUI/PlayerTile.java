@@ -223,21 +223,21 @@ public class PlayerTile extends JSplitPane {
 									+ playerData.getLeaders()[1].getName().replaceAll(" ", "") + ".jpg")));
 					leader2.setIcon(new ImageIcon(
 							leader2Image.getScaledInstance(-1, (int) (getHeight() / 4), Image.SCALE_SMOOTH)));
-					leader2.setToolTipText("<html><body><div><img width='100' height='308' src=\"file:src/images/Lorenzo_Leaders_compressed/" + playerData.getLeaders()[1].getName().replaceAll(" ", "") + ".jpg\"></div></body></html>");
+					leader2.setToolTipText("<html><body><div><img width='200' height='308' src=\"file:src/images/Lorenzo_Leaders_compressed/" + playerData.getLeaders()[1].getName().replaceAll(" ", "") + ".jpg\"></div></body></html>");
 
 					BufferedImage leader3Image = ImageIO.read(
 							new File(new File("").getAbsolutePath().concat("/src/images/Lorenzo_Leaders_compressed/"
 									+ playerData.getLeaders()[2].getName().replaceAll(" ", "") + ".jpg")));
 					leader3.setIcon(new ImageIcon(
 							leader3Image.getScaledInstance(-1, (int) (getHeight() / 4), Image.SCALE_SMOOTH)));
-					leader3.setToolTipText("<html><body><div><img width='100' height='308' src=\"file:src/images/Lorenzo_Leaders_compressed/" + playerData.getLeaders()[2].getName().replaceAll(" ", "") + ".jpg\"></div></body></html>");
+					leader3.setToolTipText("<html><body><div><img width='200' height='308' src=\"file:src/images/Lorenzo_Leaders_compressed/" + playerData.getLeaders()[2].getName().replaceAll(" ", "") + ".jpg\"></div></body></html>");
 
 					BufferedImage leader4Image = ImageIO.read(
 							new File(new File("").getAbsolutePath().concat("/src/images/Lorenzo_Leaders_compressed/"
 									+ playerData.getLeaders()[3].getName().replaceAll(" ", "") + ".jpg")));
 					leader4.setIcon(new ImageIcon(
 							leader4Image.getScaledInstance(-1, (int) (getHeight() / 4), Image.SCALE_SMOOTH)));
-					leader4.setToolTipText("<html><body><div><img width='100' height='308' src=\"file:src/images/Lorenzo_Leaders_compressed/" + playerData.getLeaders()[3].getName().replaceAll(" ", "") + ".jpg\"></div></body></html>");
+					leader4.setToolTipText("<html><body><div><img width='200' height='308' src=\"file:src/images/Lorenzo_Leaders_compressed/" + playerData.getLeaders()[3].getName().replaceAll(" ", "") + ".jpg\"></div></body></html>");
 
 				} catch (IOException i) {
 					leader1.setToolTipText(playerData.getLeaders()[0].toString());
