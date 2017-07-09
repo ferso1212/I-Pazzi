@@ -567,7 +567,7 @@ public class GUInterface implements UserInterface {
 			multipleHarvest.update(boardInfo.getMultipleHarvestSpace());
 			multipleProduction.update(boardInfo.getMultipleProductionSpace());
 		}
-		
+
 		if (this.isAdvanced) {
 			if (boardInfo.getSingleProductionSpaceOtherOccupant().getOwnerId() != null) {
 				JLabel secondProductionOccupant = new JLabel();
@@ -849,11 +849,11 @@ public class GUInterface implements UserInterface {
 	public ImmProperties[] reqPrivileges(int number, ImmProperties[] privilegesValues) {
 		int defaultValue = 0;
 		ImmProperties[] output = new ImmProperties[number];
-		//Object choices[] = new Object[privilegesValues.length];
-		//for (int i = 0; i < privilegesValues.length; i++) {
-			//choices[i] = privilegesValues[i].toString();
-		//}
-		ArrayList<String>choices = new ArrayList<String>();
+		// Object choices[] = new Object[privilegesValues.length];
+		// for (int i = 0; i < privilegesValues.length; i++) {
+		// choices[i] = privilegesValues[i].toString();
+		// }
+		ArrayList<String> choices = new ArrayList<String>();
 		for (int i = 0; i < privilegesValues.length; i++) {
 			choices.add(privilegesValues[i].toString());
 		}
@@ -929,27 +929,47 @@ public class GUInterface implements UserInterface {
 	}
 
 	@Override
-	public int reqWorkChoice(DevelopmentCard workCard) {
+	public int reqWorkChoice(DevelopmentCard workCard, boolean costs) {
 		int effectsNum = workCard.getPossibleEffects().length;
-		Object choices[] = new Object[effectsNum + 1];
-		choices[0] = "Don't activate this effect."; 
-		for (int i = 0; i < effectsNum; i++) {
-			choices[i + 1] = workCard.getPossibleEffects()[i].toString();
-		}
-		String chosenEffect = (String) JOptionPane.showInputDialog(mainWindow,
-				"Which of the effects of this card should be activated in the current work action?",
-				"Choose effect to activate", JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
-		if (chosenEffect == null) {
-			JOptionPane.showMessageDialog(mainWindow, "Effect not activated.");
-			return 0;
-		}
-		int j;
-		for (j = 0; j < choices.length; j++) {
-			if (chosenEffect.compareTo((String) choices[j]) == j) {
-				break;
+		if (costs) {
+			Object choices[] = new Object[effectsNum + 1];
+			choices[0] = "Don't activate this effect.";
+			for (int i = 0; i < effectsNum; i++) {
+				choices[i + 1] = workCard.getPossibleEffects()[i].toString();
 			}
+			String chosenEffect = (String) JOptionPane.showInputDialog(mainWindow,
+					"Which of the effects of this card should be activated in the current work action?",
+					"Choose effect to activate", JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+			if (chosenEffect == null) {
+				JOptionPane.showMessageDialog(mainWindow, "Effect not activated.");
+				return 0;
+			}
+			int j;
+			for (j = 0; j < choices.length; j++) {
+				if (chosenEffect.compareTo((String) choices[j]) == j) {
+					break;
+				}
+			}
+			return j;
+		}else{
+			Object choices[] = new Object[effectsNum];
+			for (int i = 0; i < effectsNum; i++) {
+				choices[i] = workCard.getPossibleEffects()[i].toString();
+			}
+			String chosenEffect = (String) JOptionPane.showInputDialog(mainWindow,
+					"Which of the effects of this card should be activated in the current work action?",
+					"Choose effect to activate", JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+			if (chosenEffect == null) {
+				return 1;
+			}
+			int j;
+			for (j = 0; j < choices.length; j++) {
+				if (chosenEffect.compareTo((String) choices[j]) == j) {
+					break;
+				}
+			}
+			return j+1;
 		}
-		return j;
 	}
 
 	@Override
@@ -1045,8 +1065,8 @@ public class GUInterface implements UserInterface {
 			choices[i] = possibilities[i].toString();
 		}
 		String chosenLeaderCard = (String) JOptionPane.showInputDialog(mainWindow,
-				"Wich Leader Card effect do you want to copy?", "Choose Leader Card",
-				JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+				"Wich Leader Card effect do you want to copy?", "Choose Leader Card", JOptionPane.PLAIN_MESSAGE, null,
+				choices, choices[0]);
 		int j;
 		for (j = 0; j < choices.length; j++) {
 			if (chosenLeaderCard.compareTo((String) choices[j]) == 0) {
