@@ -23,6 +23,10 @@ import it.polimi.ingsw.ps21.model.properties.PropertiesId;
 import it.polimi.ingsw.ps21.model.properties.Property;
 
 public class PlayerData implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4622238377629330057L;
 	private final static Logger LOGGER = Logger.getLogger(PlayerData.class.getName());
 	private PlayerColor id;
 	private EnumMap<PropertiesId, Integer> properties;
