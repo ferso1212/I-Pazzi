@@ -21,10 +21,6 @@ public class ActionRequest extends Message{
 		this.choosenAction = choosenAction;
 	}
 
-	public int getId() {
-		return id;
-	}
-	
 	
 
 }

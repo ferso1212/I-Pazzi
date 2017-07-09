@@ -8,7 +8,9 @@ public abstract class ExtraAction extends Action{
 	protected ExtraActionData data;
 
 	public ExtraAction(PlayerColor playerId) {
+
 		super(playerId, 0);
+
 	}
 	
 	public ExtraActionData getData(){
@@ -19,4 +21,9 @@ public abstract class ExtraAction extends Action{
 		this.actionId = actionId;
 	}
 
+	public void setMainActionId(int actionId) {
+		this.actionId = actionId;
+	}
+
+	
 }
