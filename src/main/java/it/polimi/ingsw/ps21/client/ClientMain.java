@@ -7,14 +7,12 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.net.ssl.HostnameVerifier;
 
 import it.polimi.ingsw.ps21.client.GUI.GUInterface;
 
 public class ClientMain {
 
 	private static boolean newMatch = true;
-	private static boolean CLI = true;
 	private final static Logger LOGGER = Logger.getLogger(ClientMain.class.getName());
 	private final static int RMI_PORT = 5000;
 	private static UserInterface ui;
