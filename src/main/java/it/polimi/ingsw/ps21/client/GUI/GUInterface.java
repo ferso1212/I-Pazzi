@@ -630,7 +630,7 @@ public class GUInterface implements UserInterface {
 									+ ".png")));
 					secondMarketOccupant.setIcon(new ImageIcon(secondPawnMarket.getScaledInstance(-1,
 							marketButtons[0].getHeight() / 2, Image.SCALE_SMOOTH)));
-					boardPanel.add(secondMarketOccupant).setBounds(resize(2825), resize(5380), resize(200),
+					boardPanel.add(secondMarketOccupant).setBounds(resize(2410), resize(5180), resize(200),
 							resize(200));
 				} catch (IOException e) {
 					secondMarketOccupant.setToolTipText(
@@ -651,7 +651,7 @@ public class GUInterface implements UserInterface {
 									+ ".png")));
 					secondMarketOccupant.setIcon(new ImageIcon(secondPawnMarket.getScaledInstance(-1,
 							marketButtons[1].getHeight() / 2, Image.SCALE_SMOOTH)));
-					boardPanel.add(secondMarketOccupant).setBounds(resize(3265), resize(5380), resize(200),
+					boardPanel.add(secondMarketOccupant).setBounds(resize(2850), resize(5180), resize(200),
 							resize(200));
 				} catch (IOException e) {
 					secondMarketOccupant.setToolTipText(
@@ -946,11 +946,12 @@ public class GUInterface implements UserInterface {
 			}
 			int j;
 			for (j = 0; j < choices.length; j++) {
-				if (chosenEffect.compareTo((String) choices[j]) == j) {
-					break;
+				if (chosenEffect.compareTo((String) choices[j]) == 0) {
+					return j;
 				}
+				
 			}
-			return j;
+			return 0;
 		}else{
 			Object choices[] = new Object[effectsNum];
 			for (int i = 0; i < effectsNum; i++) {
@@ -964,11 +965,13 @@ public class GUInterface implements UserInterface {
 			}
 			int j;
 			for (j = 0; j < choices.length; j++) {
-				if (chosenEffect.compareTo((String) choices[j]) == j) {
-					break;
+				if (chosenEffect.compareTo((String) choices[j]) == 0) {
+					return j+1;
 				}
+				
 			}
-			return j+1;
+			return 0;
+			
 		}
 	}
 

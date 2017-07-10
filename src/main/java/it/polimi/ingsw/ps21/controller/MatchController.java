@@ -6,6 +6,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.CountDownLatch;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import it.polimi.ingsw.ps21.model.actions.Action;
@@ -50,7 +51,7 @@ import it.polimi.ingsw.ps21.view.UserHandler;
  * @author fabri
  * @author daniele
  */
-public class MatchController extends Observable implements Observer {
+public class MatchController extends Observable implements Observer, Runnable {
 	private static final Logger LOGGER = Logger.getLogger(MatchController.class.getName());
 	private EnumMap<PlayerColor, UserHandler> handlersMap;
 	private Player currentPlayer;
@@ -66,7 +67,7 @@ public class MatchController extends Observable implements Observer {
 	private static enum ActionState {
 		ACCEPTED, REFUSED, AWAITING_CHOICES, TIMEOUT_EXPIRED,
 	}
-
+	private CountDownLatch runnerLatch;
 	private ActionState state;
 	private RoundType roundType;
 	//private ActionTimer timer;
@@ -84,7 +85,7 @@ public class MatchController extends Observable implements Observer {
 	 * @param handlers
 	 *            the UserHandlers the controller will communicate with.
 	 */
-	public MatchController(Match match, UserHandler... handlers) {
+	public MatchController(Match match, CountDownLatch latch, UserHandler... handlers) {
 		super();
 		this.match = match;
 		handlersMap = new EnumMap<>(PlayerColor.class);
@@ -94,7 +95,7 @@ public class MatchController extends Observable implements Observer {
 			this.addObserver(handler);
 			handler.addObserver(this);
 		}
-		
+		this.runnerLatch=latch;
 		this.timer=new Timer();
 		this.currentExtraActions = new ArrayList<>();
 		this.actionCounter = 0;
@@ -106,7 +107,8 @@ public class MatchController extends Observable implements Observer {
 	 * Starts a new match. This method performs 2 actions: notifies the
 	 * UserHandlers with the datas of the new match and starts a new round.
 	 */
-	public void startMatch() {
+	@Override
+	public void run() {
 		setChanged();
 		if(this.match.hasChanged()) notifyObservers(new MatchData(match));
 		this.roundType = match.getRound();
@@ -354,6 +356,7 @@ public class MatchController extends Observable implements Observer {
 				this.timer.purge();
 				setChanged();
 				notifyObservers((EndData)arg);
+				runnerLatch.countDown();
 			}
 		}
 		if (source instanceof UserHandler) {
@@ -395,7 +398,9 @@ public class MatchController extends Observable implements Observer {
 					String s = (String) arg;
 					if ("playerDisconnected".equals(s)) {
 						if(!allDisconnected()) nextPlayer();
-						else System.out.println("\nAll players disconnected. Match will be terminated.");
+						else {System.out.println("\nAll players disconnected. Match will be terminated.");
+						runnerLatch.countDown();
+						}
 					}
 					else if("reconnection".equals(s))
 					{

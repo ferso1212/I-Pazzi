@@ -56,11 +56,12 @@ public class ExtraWorkAction extends ExtraAction {
 						if (!e.getTotalCost().isNull() && !costFound) {
 							costFound = true;
 						}
-						if (costFound)
-							cardWithCost.add(c);
-						else
-							cardWithoutCost.add(c);
+						
 					}
+					if (costFound)
+						cardWithCost.add(c);
+					else
+						cardWithoutCost.add(c);
 				}
 
 				this.workMessage = new WorkMessage(player.getId(), cardWithCost.toArray(new DevelopmentCard[0]),
