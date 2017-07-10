@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -20,6 +21,7 @@ public class MultipleWorkActionPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = Logger.getLogger(MultipleWorkActionPanel.class.getSimpleName());
 	private JButton marketButton;
 	private JLabel occupants[];
 	
@@ -48,8 +50,9 @@ public class MultipleWorkActionPanel extends JPanel {
 				add(occupants[i]);
 				occupants[i].setVisible(true);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				occupants[i].setToolTipText("Player: " + members[i].getOwnerId().toString().toLowerCase() + "family member color :"
+								+ members[i].getColor().toString().toLowerCase());
+
 			}
 		}
 		add(marketButton);

@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.GridLayout;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -11,6 +14,8 @@ import javax.swing.ImageIcon;
 public class LorenzoIlMagnifico {
 
 	private JFrame frame;
+	private static final Logger LOGGER = Logger.getLogger(LorenzoIlMagnifico.class.getSimpleName());
+
 
 	/**
 	 * Launch the application.
@@ -22,7 +27,7 @@ public class LorenzoIlMagnifico {
 					LorenzoIlMagnifico window = new LorenzoIlMagnifico();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					LOGGER.log(Level.SEVERE, "Error.", e);
 				}
 			}
 		});

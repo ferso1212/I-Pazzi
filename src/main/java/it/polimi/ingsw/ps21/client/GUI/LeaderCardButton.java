@@ -5,6 +5,8 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -16,6 +18,7 @@ public class LeaderCardButton extends JButton {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = Logger.getLogger(LeaderCardButton.class.getSimpleName());
 	private transient BufferedImage leaderImage;
 	private double scaleFactor;
 	
@@ -30,8 +33,7 @@ public class LeaderCardButton extends JButton {
 			this.setIcon(new ImageIcon(backLeaderImage.getScaledInstance((int)(backLeaderImage.getWidth()*scaleFactor), (int)(backLeaderImage.getHeight()*scaleFactor), Image.SCALE_SMOOTH)));
 			this.setSize(new Dimension((int)(backLeaderImage.getWidth()*scaleFactor), (int)(backLeaderImage.getHeight()*scaleFactor)));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Unable to find Leader back Image.", e);
 		}
 		
 		this.setVisible(true);
@@ -43,8 +45,7 @@ public class LeaderCardButton extends JButton {
 			this.setIcon(new ImageIcon(this.leaderImage.getScaledInstance((int)(this.leaderImage.getWidth()*scaleFactor), (int)(this.leaderImage.getHeight()*scaleFactor), Image.SCALE_SMOOTH)));
 			this.setToolTipText(description);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			this.setToolTipText(description);
 		}
 		this.setVisible(true);
 	}

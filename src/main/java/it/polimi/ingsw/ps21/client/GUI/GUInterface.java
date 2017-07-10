@@ -443,8 +443,7 @@ public class GUInterface implements UserInterface {
 						resize(productionCover.getWidth()), resize(productionCover.getHeight()));
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOGGER.log(Level.SEVERE, "Unable to find MultipleWorkSpaces covers.", e);
 			}
 
 		}
@@ -477,8 +476,7 @@ public class GUInterface implements UserInterface {
 				boardPanel.add(secondMarketCover).setBounds(resize(3541), resize(5760), resize(firstCover.getWidth()),
 						resize(firstCover.getHeight()));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOGGER.log(Level.SEVERE, "Unable to find MarketSpaces covers.", e);
 			}
 		}
 
@@ -881,7 +879,6 @@ public class GUInterface implements UserInterface {
 
 	@Override
 	public void matchEnded(EndData data) {
-		// TODO implement match end method in GUI
 		Map<PlayerColor, Integer> result = data.getPlayersFinalPoints();
 		if (data.getWinner() == playerID) {
 			JOptionPane.showMessageDialog(mainWindow, "CONGRATULATIONS: You won!!!!!", "Match ended",
