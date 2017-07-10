@@ -69,9 +69,10 @@ public class WorkAction extends Action {
 							if (!e.getTotalCost().isNull() && !costFound) {
 								costFound=true;	
 							}
-							if (costFound) cardWithCost.add(c);
-							else cardWithoutCost.add(c);
+							
 						}
+						if (costFound) cardWithCost.add(c);
+						else cardWithoutCost.add(c);
 					}
 
 					this.workMessage = new WorkMessage(player.getId(),

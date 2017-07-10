@@ -1,6 +1,7 @@
 package it.polimi.ingsw.ps21.controller;
 
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import it.polimi.ingsw.ps21.model.match.AdvancedMatch;
@@ -23,6 +24,7 @@ public class MatchRunner {
 
 	
 	public ArrayList<String> run() {
+		CountDownLatch latch= new CountDownLatch(1);
 		try {
 			Match match;
 			PlayerColor[] playersIds= new PlayerColor[playerHandlers.length];
@@ -33,8 +35,8 @@ public class MatchRunner {
 			if(isAdvanced) match= new AdvancedMatch(playersIds);
 			else  match = new SimpleMatch(playersIds);
 			
-			MatchController controller= new MatchController(match, playerHandlers);
-			controller.startMatch();
+			MatchController controller= new MatchController(match, latch, playerHandlers);
+			(new Thread(controller)).start();
 			
 			
 		} catch (InvalidIDException e) {
@@ -43,7 +45,12 @@ public class MatchRunner {
 		} catch (BuildingDeckException e) {
 			LOGGER.log(Level.SEVERE, "Unable to create Match" , e);
 		}
-		
+		try {
+			latch.await();
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+
+		}
 		ArrayList<String> namesToRemove= new ArrayList<>();
 		for(UserHandler user: playerHandlers)
 		{

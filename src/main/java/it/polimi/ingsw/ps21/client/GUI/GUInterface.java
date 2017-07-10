@@ -946,11 +946,12 @@ public class GUInterface implements UserInterface {
 			}
 			int j;
 			for (j = 0; j < choices.length; j++) {
-				if (chosenEffect.compareTo((String) choices[j]) == j) {
-					break;
+				if (chosenEffect.compareTo((String) choices[j]) == 0) {
+					return j;
 				}
+				
 			}
-			return j;
+			return 0;
 		}else{
 			Object choices[] = new Object[effectsNum];
 			for (int i = 0; i < effectsNum; i++) {
@@ -964,11 +965,13 @@ public class GUInterface implements UserInterface {
 			}
 			int j;
 			for (j = 0; j < choices.length; j++) {
-				if (chosenEffect.compareTo((String) choices[j]) == j) {
-					break;
+				if (chosenEffect.compareTo((String) choices[j]) == 0) {
+					return j+1;
 				}
+				
 			}
-			return j+1;
+			return 0;
+			
 		}
 	}
 
