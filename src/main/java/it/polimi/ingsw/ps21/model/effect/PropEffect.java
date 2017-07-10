@@ -30,6 +30,7 @@ public class PropEffect extends Effect {
 	}
 	@Override
 	public ExtraAction activate(Player player) {
+		player.getProperties().payProperties(cost);
 		player.getProperties().increaseProperties(bonus);
 		return new NullAction(player.getId());
 	}

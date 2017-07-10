@@ -76,6 +76,7 @@ public class MultiplierEffect extends Effect {
 	
 	@Override
 	public ExtraAction activate(Player player){
+		player.getProperties().payProperties(cost);
 		ImmProperties bonus = calculateBonus(player);
 		player.getProperties().increaseProperties(bonus);
 		return new NullAction(player.getId());

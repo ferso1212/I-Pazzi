@@ -19,6 +19,7 @@ public class CouncilEffect extends Effect {
 
 	@Override
 	public ExtraAction activate(Player player) {
+			player.getProperties().payProperties(cost);
 		 return new TakePrivilegesAction(player.getId(), numberPrivileges);
 	}
 
