@@ -176,8 +176,9 @@ public class TestMatches {
 			message = action.update(player, testedAdvancedMatch);
 		}
 		try {
-			action.activate(player, testedAdvancedMatch);
-		} catch (NotExecutableException | RequirementNotMetException | InsufficientPropsException e) {
+			//action.activate(player, testedAdvancedMatch);
+			testedAdvancedMatch.doAction(action);
+		} catch (NotExecutableException | RequirementNotMetException | InsufficientPropsException | VaticanRoundException e) {
 			LOGGER.log(Level.WARNING, "Error executing vatican action");
 			return false;
 			}
@@ -227,8 +228,8 @@ public class TestMatches {
 			message = action.update(player, testedSimpleMatch);
 		}
 		try {
-			action.activate(player, testedSimpleMatch);
-		} catch (NotExecutableException | RequirementNotMetException | InsufficientPropsException e) {
+			testedSimpleMatch.doAction(action);
+		} catch (NotExecutableException | RequirementNotMetException | InsufficientPropsException | VaticanRoundException e) {
 			LOGGER.log(Level.WARNING, "Error executing vatican action");
 			return false;
 			}
