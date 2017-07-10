@@ -16,7 +16,6 @@ import it.polimi.ingsw.ps21.model.effect.CouncilBonus;
 import it.polimi.ingsw.ps21.model.effect.MultiplierEffect;
 import it.polimi.ingsw.ps21.model.effect.NullLeaderEffect;
 import it.polimi.ingsw.ps21.model.effect.WorkBonus;
-import it.polimi.ingsw.ps21.model.match.AdvancedMatch;
 import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.player.PlayerColor;
@@ -70,8 +69,15 @@ public class TestEffects {
 	@Test
 	public void multiplierEffect()
 	{
-		MultiplierEffect eff = new MultiplierEffect(new ImmProperties(1), new ImmProperties(0, 1), MultiplierType.STONE, 2);
+		int i=1;
+		for(MultiplierType type: MultiplierType.values())
+		{
+		MultiplierEffect eff = new MultiplierEffect(new ImmProperties(1), new ImmProperties(0, 1), type, 2);
 		eff.activate(stdPl);
-		assertEquals(30, stdPl.getProperties().getProperty(PropertiesId.WOOD).getValue());
+		if(type!=MultiplierType.GREEN_CARD && type!=MultiplierType.BLUE_CARD && type!=MultiplierType.YELLOW_CARD && type!=MultiplierType.PURPLE_CARD)
+		{assertEquals(10+ 20*i, stdPl.getProperties().getProperty(PropertiesId.WOOD).getValue());
+		i++;}
+		else assert(true);
+		}
 	}
 }
