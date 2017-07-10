@@ -104,7 +104,7 @@ public class TestGUInterface {
 		
 	}
 
-	@Test
+	//@Test
 	public void showInterface() {
 
 		testeGuInterface.updateView(new MatchData(testedAdvancedMatch));
