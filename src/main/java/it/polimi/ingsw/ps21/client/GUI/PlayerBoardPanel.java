@@ -41,7 +41,6 @@ public class PlayerBoardPanel extends JPanel{
 	private static final transient Logger LOGGER = Logger.getLogger(PlayerBoardPanel.class.getName());
 	private int preferredHeight;
 	private Image resizedImage;
-	private int backgroundWidth;
 
 
  	
@@ -67,7 +66,6 @@ public class PlayerBoardPanel extends JPanel{
  		super.paintComponent(g);
  		try {
  			this.resizedImage = resizeImage(playerBoardImage, (int)(this.playerBoardImage.getWidth() * this.getHeight() / this.playerBoardImage.getHeight()), this.getHeight(), BufferedImage.TYPE_INT_RGB);
- 			this.backgroundWidth = ((BufferedImage)this.resizedImage).getWidth();
 			g.drawImage(resizedImage, 0, 0, null);
 		} catch (IOException e) {
  			LOGGER.log(Level.WARNING, "Unable to paint PlayerBoardPanel's graphics due to IOException", e);
@@ -182,10 +180,5 @@ public class PlayerBoardPanel extends JPanel{
 			}
 		}
 	}
-	
-	public int getBackGroundWidth(){
-		return this.backgroundWidth;
-	}
-
 
 }
