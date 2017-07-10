@@ -630,7 +630,7 @@ public class GUInterface implements UserInterface {
 									+ ".png")));
 					secondMarketOccupant.setIcon(new ImageIcon(secondPawnMarket.getScaledInstance(-1,
 							marketButtons[0].getHeight() / 2, Image.SCALE_SMOOTH)));
-					boardPanel.add(secondMarketOccupant).setBounds(resize(2825), resize(5380), resize(200),
+					boardPanel.add(secondMarketOccupant).setBounds(resize(2410), resize(5180), resize(200),
 							resize(200));
 				} catch (IOException e) {
 					secondMarketOccupant.setToolTipText(
@@ -651,7 +651,7 @@ public class GUInterface implements UserInterface {
 									+ ".png")));
 					secondMarketOccupant.setIcon(new ImageIcon(secondPawnMarket.getScaledInstance(-1,
 							marketButtons[1].getHeight() / 2, Image.SCALE_SMOOTH)));
-					boardPanel.add(secondMarketOccupant).setBounds(resize(3265), resize(5380), resize(200),
+					boardPanel.add(secondMarketOccupant).setBounds(resize(2850), resize(5180), resize(200),
 							resize(200));
 				} catch (IOException e) {
 					secondMarketOccupant.setToolTipText(
