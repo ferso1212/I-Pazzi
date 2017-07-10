@@ -3,6 +3,8 @@ package it.polimi.ingsw.ps21;
 import java.util.logging.Logger;
 import org.junit.Before;
 import org.junit.Test;
+
+import it.polimi.ingsw.ps21.model.actions.WorkType;
 import it.polimi.ingsw.ps21.model.board.Board;
 import it.polimi.ingsw.ps21.model.board.NotOccupableException;
 import it.polimi.ingsw.ps21.model.board.Tower;
@@ -49,6 +51,7 @@ public class BoardTest {
 		assert (checkTowerSpace());
 		assert (checkCouncil());
 		assert(checkMarketSpace());
+		assert(checkWorkSpaces());
 	}
 
 	private boolean checkMarketSpace() {
@@ -162,7 +165,7 @@ public class BoardTest {
 				}
 			}
 			for (Tower t : advancedTest.getTowers().values()) {
-				for (int i = 0; i < t.FLOORS_NUM; i++) {
+				for (int i = 0; i < Tower.FLOORS_NUM; i++) {
 					try {
 						FamilyMember testMember = advancedPlayer.getFamily().getMember(color);
 						testMember.setUsed(false);
@@ -193,6 +196,24 @@ public class BoardTest {
 			return false;
 		}
 
+	}
+	
+	private boolean checkWorkSpaces()
+	{
+		FamilyMember mem= advancedPlayer.getFamily().getMember(MembersColor.BLACK);
+		mem.increaseValue(10);
+		try {
+			if(advancedTest.getSingleWorkSpace(WorkType.HARVEST).isOccupable(advancedPlayer, mem)){
+			advancedTest.getSingleWorkSpace(WorkType.HARVEST).occupy(advancedPlayer, mem);}
+			
+			mem.setUsed(false);
+			if(advancedTest.getSingleWorkSpace(WorkType.PRODUCTION).isOccupable(advancedPlayer, mem)){
+				advancedTest.getSingleWorkSpace(WorkType.PRODUCTION).occupy(advancedPlayer, mem);}
+
+		} catch (NotOccupableException e) {
+			return false;
+		}
+		return true;
 	}
 
 }
