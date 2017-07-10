@@ -76,7 +76,7 @@ public class PlayerTile extends JSplitPane {
 					playerBoardPanel = new PlayerBoardPanel(
 							(new File("")).getAbsolutePath()
 									.concat("/src/images/Lorenzo_Punchboard_FRONT_compressed/punchboard_f_c_03_bis.jpg"),
-							infoPlayer);
+							infoPlayer, preferredHeight);
 
 					if (isAdvanced) {
 						BufferedImage leaderBackImage = ImageIO.read(new File(new File("").getAbsolutePath()
@@ -92,14 +92,9 @@ public class PlayerTile extends JSplitPane {
 					}
 
 					setLeftComponent(playerBoardPanel);
-
-					if (!isAdvanced) {
-						setDividerLocation(((getWidth() - ventures.getIcon().getIconWidth()
-								- excomm1.getIcon().getIconWidth() - 10)));
-					} else {
-						setDividerLocation(((getWidth() - ventures.getIcon().getIconWidth()
-								- excomm1.getIcon().getIconWidth() - 20 - leader1.getIcon().getIconWidth())));
-					}
+					
+					setDividerLocation((int)((double)14*(double)preferredHeight/(double)8.5));
+					
 
 				} catch (IOException e) {
 					e.printStackTrace();
