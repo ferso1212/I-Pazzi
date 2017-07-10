@@ -33,7 +33,8 @@ public class MatchRunner {
 			if(isAdvanced) match= new AdvancedMatch(playersIds);
 			else  match = new SimpleMatch(playersIds);
 			
-			new MatchController(match, playerHandlers);
+			MatchController controller= new MatchController(match, playerHandlers);
+			controller.startMatch();
 			
 			
 		} catch (InvalidIDException e) {

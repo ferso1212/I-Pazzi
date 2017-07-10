@@ -1,6 +1,5 @@
 package it.polimi.ingsw.ps21.client;
 
-import java.io.ObjectInputStream.GetField;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.InputMismatchException;

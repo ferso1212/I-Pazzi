@@ -100,7 +100,6 @@ public class MatchController extends Observable implements Observer {
 		this.actionCounter = 0;
 		this.actionTimeout=MatchFactory.instance().makeTimeoutRound();
 		this.numOfChosenLeaderCards=0;
-		startMatch();
 	}
 
 	/**
