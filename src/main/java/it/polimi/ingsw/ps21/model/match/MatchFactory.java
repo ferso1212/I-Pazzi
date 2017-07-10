@@ -994,7 +994,6 @@ public class MatchFactory {
 			try {
 				File servFile = new File(serverPath);
 				configuration = builder.parse(servFile);
-				Element board = configuration.getDocumentElement();
 				Element serverAddr = (Element) configuration.getElementsByTagName("ServerAddress").item(0);
 				result = serverAddr.getAttribute("value");
 			} catch (SAXException | IOException | NullPointerException e) {

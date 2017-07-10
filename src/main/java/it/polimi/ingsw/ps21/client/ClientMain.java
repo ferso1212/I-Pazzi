@@ -80,7 +80,7 @@ public class ClientMain {
 					LOGGER.log(Level.WARNING, "RMI Connection failed", e);
 				}
 			}
-			in.close();
+			//in.close();
 		}
 	
 	/**

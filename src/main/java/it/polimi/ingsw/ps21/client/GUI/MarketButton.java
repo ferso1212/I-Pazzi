@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -47,6 +46,7 @@ public class MarketButton extends JButton{
 				this.setIcon(
 						new ImageIcon(memberIcon.getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_SMOOTH)));
 			} catch (IOException e) {
+				LOGGER.log(Level.INFO, "Player icon not found", e);
 				this.setToolTipText("Player: " + occupant.getOwnerId().toString().toLowerCase() + "family member color :"
 								+ occupant.getColor().toString().toLowerCase());
 			}

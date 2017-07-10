@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
@@ -50,6 +51,7 @@ public class MultipleWorkActionPanel extends JPanel {
 				add(occupants[i]);
 				occupants[i].setVisible(true);
 			} catch (IOException e) {
+				LOGGER.log(Level.INFO, "Player icon not found", e);
 				occupants[i].setToolTipText("Player: " + members[i].getOwnerId().toString().toLowerCase() + "family member color :"
 								+ members[i].getColor().toString().toLowerCase());
 
