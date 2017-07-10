@@ -117,8 +117,9 @@ public class CLInterface implements UserInterface {
 		printOutput("----------------\t HARVEST SPACE \t---------------------");
 		if (matchInfo.getBoard().getSingleHarvestSpace()!=null) printOutput("Single space: " +  matchInfo.getBoard().getSingleHarvestSpace().toString());
 		else printOutput("Single space: FREE"); 
-		if (advancedMatch && matchInfo.getBoard().getSingleHarvestSpaceOtherOccupant() != null)
-		printOutput("\tOther occupant " +  matchInfo.getBoard().getSingleHarvestSpaceOtherOccupant().toString());
+		if (advancedMatch && matchInfo.getBoard().getSingleHarvestSpaceOtherOccupant() != null){
+			printOutput("\tOther occupant " +  matchInfo.getBoard().getSingleHarvestSpaceOtherOccupant().toString());
+		}
 		StringBuilder multipleSpace = new StringBuilder("Multiple space: ");
 		for (FamilyMemberData f: matchInfo.getBoard().getMultipleHarvestSpace()){
 			multipleSpace.append("Player " + f.getOwnerId() + " with member " + f.getColor());
