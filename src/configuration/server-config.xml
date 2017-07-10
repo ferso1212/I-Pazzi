@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <!DOCTYPE ServerConfiguration SYSTEM "server-schema.dtd" >
 <ServerConfiguration>
-    <ServerAddress  value="192.168.1.8"/> 
+    <ServerAddress  value="127.0.0.1"/> 
    <TimeoutLobby value="20000" />
     <TimeoutRound value="300000" />
 </ServerConfiguration>
