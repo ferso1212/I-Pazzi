@@ -242,7 +242,7 @@ public class TestMatches {
 		PlayerColor oldOrder[]= testedSimpleMatch.getOrderQueue();
 		testedSimpleMatch.nextRound();
 		PlayerColor newOrder[] = testedSimpleMatch.getOrderQueue();
-		if (!(testedSimpleMatch.getRound()!=RoundType.VATICAN_ROUND) || oldOrder.length != newOrder.length) return false; // vatican round implies different size
+		 if (!(testedSimpleMatch.getRound()!=RoundType.VATICAN_ROUND) || oldOrder.length != newOrder.length) return false; // vatican round implies different size
 		for (int i=0; i<oldOrder.length; i++)
 		{
 			if (oldOrder[i]!=newOrder[i]) return false;

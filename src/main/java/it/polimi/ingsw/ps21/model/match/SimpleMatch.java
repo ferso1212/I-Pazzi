@@ -58,7 +58,7 @@ public class SimpleMatch extends Match {
 		for (int j = 0; j < 4; j++)
 			for (int i = 0; i < tempPlayer.size(); i++){
 				order.add(tempPlayer.get(i));
-				if(j==0) realOrder.add(tempPlayer.get(0));
+				if(j==0) realOrder.add(tempPlayer.get(i));
 			}
 		currentPlayer = 0;
 		period = 1;

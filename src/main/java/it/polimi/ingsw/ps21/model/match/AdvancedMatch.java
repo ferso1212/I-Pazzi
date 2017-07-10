@@ -82,6 +82,7 @@ public class AdvancedMatch extends Match {
 			players.put(colors[i], new AdvancedPlayer(colors[i], new PlayerProperties(0)));
 			players.get(colors[i]).getProperties().increaseProperties(initialProperties[i]);
 			order.add(players.get(colors[i]));
+			realOrder.add(players.get(colors[i]));
 		}
 		currentPlayer=0;
 		period = 0;
