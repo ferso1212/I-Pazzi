@@ -40,7 +40,7 @@ public class PlayerBoardPanel extends JPanel{
 	private double resizeParam;
 	private static final transient Logger LOGGER = Logger.getLogger(PlayerBoardPanel.class.getName());
 	private int preferredHeight;
-	private Image resizedImage;
+	private transient Image resizedImage;
 
 
  	
@@ -58,7 +58,7 @@ public class PlayerBoardPanel extends JPanel{
  	
  	public void setImage(BufferedImage img){
  		this.playerBoardImage = img;
- 		this.resizeParam = this.playerBoardImage.getHeight() / this.preferredHeight;
+ 		this.resizeParam = this.playerBoardImage.getHeight() / (double)this.preferredHeight;
  	}
  	
  	@Override
