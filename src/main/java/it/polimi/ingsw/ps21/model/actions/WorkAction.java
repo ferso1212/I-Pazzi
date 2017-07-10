@@ -66,9 +66,8 @@ public class WorkAction extends Action {
 					for (DevelopmentCard c : player.getActivableWorks(this.actionValue, this.space.getWorkType())) {
 						boolean costFound = false;
 						for (EffectSet e : c.getPossibleEffects()){
-							if (!e.getTotalCost().isNull()) {
+							if (!e.getTotalCost().isNull() && !costFound) {
 								costFound=true;	
-								break;
 							}
 							if (costFound) cardWithCost.add(c);
 							else cardWithoutCost.add(c);
@@ -138,7 +137,8 @@ public class WorkAction extends Action {
 		ArrayList<ExtraAction> activatedEffects = new ArrayList<ExtraAction>();
 
 		match.getBoard().placeMember(player, this.famMember, this.space);
-
+		
+		
 		for (int i = 0; i < workMessage.getChosenCardsWithCost().length; i++) {
 			if (workMessage.getChosenCardsWithCost()[i] != 0) {
 				activatedEffects.addAll(workMessage.getCardsWithCost()[i].getPossibleEffects()[workMessage.getChosenCardsWithCost()[i] - 1].activate(player));

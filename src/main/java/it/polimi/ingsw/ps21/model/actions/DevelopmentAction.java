@@ -11,6 +11,7 @@ import it.polimi.ingsw.ps21.controller.RefusedAction;
 import it.polimi.ingsw.ps21.model.board.SingleTowerSpace;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCard;
 import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
+import it.polimi.ingsw.ps21.model.deck.IllegalCardTypeException;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.match.Match;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
@@ -46,8 +47,14 @@ public class DevelopmentAction extends Action {
 
 		switch (this.updateCounter) {
 		case 2: {
+			
 			if ((player.getProperties().getPayableRequirementsAndCosts(space.getCard().getCosts()).isEmpty()) || ((match.getBoard().getTower(this.tower).isOccupied()) && (player.getProperties().getPayableRequirementsAndCosts(space.getCard().getOccupiedTowerCosts()).isEmpty()) )) return new RefusedAction(player.getId(), "You can't pay any of possible costs", actionId);
 			if(!(space.isOccupable(player, famMember))) return new RefusedAction(player.getId(), "You can't place this family member in this space", actionId);
+			try {
+				if(player.getDeck().getCards(space.getCard().getCardType()).size()>=6) return new RefusedAction(player.getId(), "You have the max number of "+ space.getCard().getCardType().toString() +" cards", actionId);
+			} catch (IllegalCardTypeException e) {
+				return new RefusedAction(player.getId(), "Illegal Card Type", actionId);
+			}
 			if(!(player.checkCardRequirements(space.getCard()))) return new RefusedAction(player.getId(), "You don't meet card requirements", actionId);
 			if (!((player.getFamily().getMemberValueWithServants(this.possibleServants, this.famMember.getColor())) + player.getModifiers().getDiceMods().getDiceMod(tower).getValue() >= space.getDiceRequirement())) return new RefusedAction(player.getId(), "Dice value of family member isn't enough", actionId) ;
 			if (!(!famMember.isUsed())) return new RefusedAction(player.getId(), "This family member is already used", actionId);
