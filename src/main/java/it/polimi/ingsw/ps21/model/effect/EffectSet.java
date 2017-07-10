@@ -75,7 +75,7 @@ public class EffectSet implements Serializable {
 			temp.append("Effects costs: ");
 			temp.append(getTotalCost().toString());
 			int i=0;
-			temp.append("\tDescription: ");
+			temp.append("\t  Description: ");
 			for(i=0; i<simultaneousEffects.length-1; i++){
 				temp.append(simultaneousEffects[i].getDesc() + " and ");
 			}
