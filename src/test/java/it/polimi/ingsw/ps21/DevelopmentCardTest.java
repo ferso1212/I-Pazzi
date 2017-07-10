@@ -20,6 +20,9 @@ public class DevelopmentCardTest {
 			Deck cards= MatchFactory.instance().makeDeck();
 			DevelopmentCard c= cards.getCard(1, DevelopmentCardType.VENTURE);
 			System.out.println(c.toString());
+			System.out.println(c.getPossibleEffects()[0].toString());
+			c=cards.getCard(1, DevelopmentCardType.TERRITORY);
+			assert(c.getCosts()[0].getCosts().isNull());
 		} catch (BuildingDeckException e) {
 			fail();
 		} catch (IllegalCardException e) {

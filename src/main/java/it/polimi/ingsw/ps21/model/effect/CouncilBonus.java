@@ -37,7 +37,7 @@ public class CouncilBonus extends InstantLeaderEffect {
 
 	@Override
 	public String getDesc() {
-		return "You hace to choose " + bonuses +  " privileges";
+		return "You have to choose " + bonuses +  " privileges";
 	}
 
 }
