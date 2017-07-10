@@ -2,8 +2,11 @@ package it.polimi.ingsw.ps21.model.effect;
 
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
+import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.player.Player;
 import it.polimi.ingsw.ps21.model.properties.ImmProperties;
+import it.polimi.ingsw.ps21.model.properties.PropertiesId;
+import it.polimi.ingsw.ps21.model.properties.Property;
 
 public class PropEffect extends Effect {
 
@@ -31,7 +34,24 @@ public class PropEffect extends Effect {
 	@Override
 	public ExtraAction activate(Player player) {
 		player.getProperties().payProperties(cost);
-		player.getProperties().increaseProperties(bonus);
+		ImmProperties toAdd= new ImmProperties(0);
+		toAdd=toAdd.sum(bonus);
+		if(player instanceof AdvancedPlayer)
+		{
+			if(((AdvancedPlayer)player).getAdvMod().acquiresDoubleResources())
+			{
+				toAdd=toAdd.sum(new ImmProperties(new Property(PropertiesId.COINS, bonus.getPropertyValue(PropertiesId.COINS)),
+						new Property(PropertiesId.WOOD, bonus.getPropertyValue(PropertiesId.WOOD)),
+						new Property(PropertiesId.STONES, bonus.getPropertyValue(PropertiesId.STONES))
+						,new Property(PropertiesId.SERVANTS, bonus.getPropertyValue(PropertiesId.SERVANTS))));
+				
+
+
+
+			}
+		}
+		player.getProperties().increaseProperties(toAdd);
+		
 		return new NullAction(player.getId());
 	}
 

@@ -14,6 +14,7 @@ import it.polimi.ingsw.ps21.model.deck.DevelopmentCardType;
 import it.polimi.ingsw.ps21.model.deck.IllegalCardTypeException;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.match.Match;
+import it.polimi.ingsw.ps21.model.player.AdvancedPlayer;
 import it.polimi.ingsw.ps21.model.player.FamilyMember;
 import it.polimi.ingsw.ps21.model.player.InsufficientPropsException;
 import it.polimi.ingsw.ps21.model.player.Player;
@@ -60,7 +61,7 @@ public class DevelopmentAction extends Action {
 			if (!(!famMember.isUsed())) return new RefusedAction(player.getId(), "This family member is already used", actionId);
 			if (!(player.checkRequirement(player.getDeck().getAddingCardRequirement(space.getCard())))) return new RefusedAction(player.getId(), "You don't meet requirement for adding this card", actionId);
 			
-		    if (!(match.getBoard().getTower(this.tower).isOccupied()))
+		    if ((!(match.getBoard().getTower(this.tower).isOccupied())) || ((player instanceof AdvancedPlayer) && ((AdvancedPlayer)player).getAdvMod().notPaysOccupiedTower()))
 					this.costMessage = new CostChoice(player.getId(), player.getProperties().getPayableRequirementsAndCosts(space.getCard().getCosts()), actionId);
 			else if ((match.getBoard().getTower(this.tower).isOccupied())){
 					this.costMessage = new CostChoice(player.getId(), player.getProperties().getPayableRequirementsAndCosts(space.getCard().getOccupiedTowerCosts()), actionId);

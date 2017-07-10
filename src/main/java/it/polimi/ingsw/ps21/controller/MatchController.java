@@ -197,7 +197,7 @@ public class MatchController extends Observable implements Observer, Runnable {
 		try {
 			ExtraAction[] poolExtraAction = match.doAction(currentAction);
 			
-			currentExtraActions = new ArrayList<>();
+			//currentExtraActions = new ArrayList<>();
 			for (ExtraAction a : poolExtraAction) {
 				if (!(a instanceof NullAction))
 					{currentExtraActions.add(a);
@@ -281,6 +281,7 @@ public class MatchController extends Observable implements Observer, Runnable {
 	 */
 	private void reqPlayerAction() {
 		this.playingLeaderStage=false;
+		this.currentExtraActions.clear();
 		if (roundType == RoundType.INITIAL_ROUND || roundType== RoundType.FINAL_ROUND) {
 			startTimer();
 			ActionRequest req = new ActionRequest(currentPlayer.getId(), ++this.actionCounter);

@@ -145,7 +145,7 @@ public class TestExcommunications {
 		WorkExcommunication e= new WorkExcommunication(9, 1, WorkType.HARVEST, 2);
 		e.activate(player);
 		System.out.println(e.toString());
-		assertEquals(2, player.getModifiers().getWorkMods().getHarvMod());
+		assertEquals(-2, player.getModifiers().getWorkMods().getHarvMod());
 	}
 
 }

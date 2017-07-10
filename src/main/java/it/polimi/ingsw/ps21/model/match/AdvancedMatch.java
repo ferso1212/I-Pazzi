@@ -39,10 +39,12 @@ public class AdvancedMatch extends Match {
 
 	private EnumMap<PlayerColor, AdvancedPlayer> players;
 	private ArrayList<AdvancedPlayer> order;
+	private ArrayList<AdvancedPlayer> realOrder;
 	private ArrayList<ExtraAction> extraActions;
 	private ArrayList<ArrayList<LeaderCard>> possibleChoices;
 	private LeaderDeck leaderCards;
 	private ArrayList<PersonalBonusTile> possibleAdvTiles;
+	
 	
 	public AdvancedMatch(AdvancedMatch advancedMatch) {
 		this.blackDice = advancedMatch.blackDice;
@@ -65,6 +67,7 @@ public class AdvancedMatch extends Match {
 		ImmProperties[] initialProperties = builder.makeInitialProperties();
 		players = new EnumMap<>(PlayerColor.class);
 		order = new ArrayList<>();
+		realOrder = new ArrayList<>();
 		board = new Board(colors.length, true);
 		board.getDeck().shuffle();
 		this.leaderCards=builder.makeLeaderDeck();
@@ -79,6 +82,7 @@ public class AdvancedMatch extends Match {
 			players.put(colors[i], new AdvancedPlayer(colors[i], new PlayerProperties(0)));
 			players.get(colors[i]).getProperties().increaseProperties(initialProperties[i]);
 			order.add(players.get(colors[i]));
+			realOrder.add(players.get(colors[i]));
 		}
 		currentPlayer=0;
 		period = 0;
@@ -163,10 +167,11 @@ public class AdvancedMatch extends Match {
 	Queue<FamilyMember> temp = board.getCouncilPalace().getOccupants();
 	ArrayList<AdvancedPlayer> oldOrder = new ArrayList<>();
 	for (int i=0; i< players.values().size(); i++){
-		oldOrder.add(order.get(i));
+		oldOrder.add(realOrder.get(i));
 	}
 	ArrayList<AdvancedPlayer> newOrder = new ArrayList<>();
 	order.clear();
+	realOrder.clear();
 	for (FamilyMember f: temp){
 		AdvancedPlayer player = players.get(f.getOwnerId());
 		if (newOrder.contains(player));
@@ -178,7 +183,10 @@ public class AdvancedMatch extends Match {
 	for (AdvancedPlayer p: oldOrder){
 		newOrder.add(p);
 	}
-	for ( int j = 0 ; j < newOrder.size(); j++) order.add(newOrder.get(j));
+	for ( int j = 0 ; j < newOrder.size(); j++) {
+		order.add(newOrder.get(j));
+		realOrder.add(newOrder.get(j));
+	}
 	if (round != RoundType.VATICAN_ROUND){
 		for (int i=0; i<3; i++) {
 			for ( int j =0 ; j< newOrder.size(); j++) order.add(newOrder.get(j));

@@ -38,7 +38,7 @@ public abstract class Match extends Observable {
 	protected boolean ended = false;
 	protected int currentPlayer;
 	protected EndData statistics;
-	protected static final int NUM_OF_PERIODS = 2;
+	protected static final int NUM_OF_PERIODS = 3;
 
 	
 	public Match(){
