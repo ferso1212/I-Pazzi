@@ -65,13 +65,16 @@ public class EffectSet implements Serializable {
 		
 		public String toString(){
 			StringBuilder temp = new StringBuilder();
-			temp.append("Effect types: ");
+			/*temp.append("Effect types: ");
 			String[] types = getTypes();
 			int i=0;
 			for (i=0; i<types.length-1; i++){
 				temp.append(types[i] + " and ");
 			}
-			temp.append(types[i] + ";");
+			temp.append(types[i] + ";");*/
+			temp.append("Effects costs: ");
+			temp.append(getTotalCost().toString());
+			int i=0;
 			temp.append("\tDescription: ");
 			for(i=0; i<simultaneousEffects.length-1; i++){
 				temp.append(simultaneousEffects[i].getDesc() + " and ");

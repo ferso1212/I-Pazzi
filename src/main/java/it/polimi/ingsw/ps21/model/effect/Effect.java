@@ -34,6 +34,11 @@ public abstract class Effect implements Serializable{
 	public abstract String getType();
 	public abstract String getDesc();
 	
+	public String getCostDesc()
+	{
+		return cost.toString();
+	}
+	
 	
 	
 }
