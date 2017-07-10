@@ -718,6 +718,7 @@ public class CLInterface implements UserInterface {
 		int i =0; 
 		while(i<possibleChoices.length){
 			printOutput((i+1) + ") " + possibleChoices[i].toString());
+			i++;
 		}
 		int choice = userInput.nextInt(); 
 		while (choice < 1 || choice > possibleChoices.length){
