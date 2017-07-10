@@ -79,7 +79,7 @@ public class MatchFactory {
 	private LeaderDeck leaderDeck = null;
 	private PersonalBonusTile simpleTile = null;
 	private PersonalBonusTile[] advancedTiles = null;
-
+	private String serverAddress = null;
 
 /**
 	 * @throws ParserConfigurationException if it fails to create DocumentBuilder for parsing xml files
@@ -986,6 +986,26 @@ public class MatchFactory {
 			}
 			return advancedTiles;
 		}
+	
+	public String getServerAddress(){
+		if (serverAddress==null){	
+			Document configuration;
+			String result = "127.0.0.1"; // IN caso di errore permette di usare il server in locale
+			try {
+				File servFile = new File(serverPath);
+				configuration = builder.parse(servFile);
+				Element board = configuration.getDocumentElement();
+				Element serverAddr = (Element) configuration.getElementsByTagName("ServerAddress").item(0);
+				result = serverAddr.getAttribute("value");
+			} catch (SAXException | IOException | NullPointerException e) {
+				LOGGER.log(Level.WARNING, "Error reading server address from file, returning default value", e);
+				result = "127.0.0.1";			
+			}
+			serverAddress= result;
+		}
+			return serverAddress;
+		
+	}
 	
 
 }

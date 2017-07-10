@@ -1,5 +1,6 @@
 package it.polimi.ingsw.ps21.client;
 
+import java.io.ObjectInputStream.GetField;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.InputMismatchException;
@@ -9,6 +10,7 @@ import java.util.logging.Logger;
 
 
 import it.polimi.ingsw.ps21.client.GUI.GUInterface;
+import it.polimi.ingsw.ps21.model.match.MatchFactory;
 
 public class ClientMain {
 
@@ -20,7 +22,7 @@ public class ClientMain {
 	public static void main(String [] args)
 	{
 
-		hostaddress = "192.168.1.6";
+        hostaddress = MatchFactory.instance().getServerAddress();
 		System.out.println("\nClient application started.");
     	Scanner in = new Scanner(System.in);
     	
