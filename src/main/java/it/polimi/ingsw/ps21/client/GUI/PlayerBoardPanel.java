@@ -38,13 +38,16 @@ public class PlayerBoardPanel extends JPanel{
 	private JLabel faithPoints;
 	private transient BufferedImage playerBoardImage; 
 	private double resizeParam;
-	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	private static final transient Logger LOGGER = Logger.getLogger(PlayerBoardPanel.class.getName());
+	private int preferredHeight;
+	private Image resizedImage;
+	private int backgroundWidth;
 
 
  	
- 	public PlayerBoardPanel(String boardPath, PlayerData playerInfo){
+ 	public PlayerBoardPanel(String boardPath, PlayerData playerInfo, int preferredHeight){
  		super(true);  //creates a JPanel with doubleBuffered=true
+ 		this.preferredHeight = preferredHeight;
  		try {
  			setImage(ImageIO.read(new File(boardPath)));
  			this.setPreferredSize(new Dimension(resize(playerBoardImage.getWidth()), resize(playerBoardImage.getHeight())));
@@ -56,14 +59,16 @@ public class PlayerBoardPanel extends JPanel{
  	
  	public void setImage(BufferedImage img){
  		this.playerBoardImage = img;
- 		this.resizeParam = this.playerBoardImage.getHeight() / (screenSize.getHeight() / 2);
+ 		this.resizeParam = this.playerBoardImage.getHeight() / this.preferredHeight;
  	}
  	
  	@Override
  	public void paintComponent(Graphics g){
  		super.paintComponent(g);
  		try {
-			g.drawImage(resizeImage(playerBoardImage, (int)(this.playerBoardImage.getWidth() * this.getHeight() / this.playerBoardImage.getHeight()), this.getHeight(), BufferedImage.TYPE_INT_RGB), 0, 0, null);
+ 			this.resizedImage = resizeImage(playerBoardImage, (int)(this.playerBoardImage.getWidth() * this.getHeight() / this.playerBoardImage.getHeight()), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+ 			this.backgroundWidth = ((BufferedImage)this.resizedImage).getWidth();
+			g.drawImage(resizedImage, 0, 0, null);
 		} catch (IOException e) {
  			LOGGER.log(Level.WARNING, "Unable to paint PlayerBoardPanel's graphics due to IOException", e);
 
@@ -117,13 +122,13 @@ public class PlayerBoardPanel extends JPanel{
 		victoryPoints.setHorizontalAlignment(JLabel.CENTER);
 		
 		
-		this.add(coins).setBounds(resize(60), resize(405), resize(25), resize(25));
-		this.add(woods).setBounds(resize(170), resize(405), resize(25), resize(25));
-		this.add(stones).setBounds(resize(275), resize(405), resize(25), resize(25));
-		this.add(servants).setBounds(resize(375), resize(405), resize(25), resize(25));
-		this.add(faithPoints).setBounds(resize(745), resize(110), resize(25), resize(25));
-		this.add(militaryPoints).setBounds(resize(750), resize(240), resize(25), resize(25));
-		this.add(victoryPoints).setBounds(resize(750), resize(400), resize(25), resize(25));
+		this.add(coins).setBounds(resize(50), resize(385), resize(25), resize(25));
+		this.add(woods).setBounds(resize(160), resize(385), resize(25), resize(25));
+		this.add(stones).setBounds(resize(265), resize(385), resize(25), resize(25));
+		this.add(servants).setBounds(resize(365), resize(385), resize(25), resize(25));
+		this.add(faithPoints).setBounds(resize(700), resize(100), resize(25), resize(25));
+		this.add(militaryPoints).setBounds(resize(700), resize(220), resize(25), resize(25));
+		this.add(victoryPoints).setBounds(resize(700), resize(370), resize(25), resize(25));
 	}
 	
 	private int resize(int originalSize){
@@ -151,7 +156,7 @@ public class PlayerBoardPanel extends JPanel{
 				territoryLabel.setIcon(new ImageIcon(cardImage.getScaledInstance(resize(90), resize(125), Image.SCALE_DEFAULT)));
 				territoryLabel.setToolTipText("<html><body><table><tr><td><img style='display: inline;' src=\"file:src/images/DevelopmentCards/"+c.getName().replace(" ", "")+".png\"></td>"+"<td>"+ CardDescFormatter.format(c.toString()) + "</td></tr></table></body></html> ");
 				this.add(territoryLabel);
-				territoryLabel.setBounds(resize(20) + i * resize(110), resize(225), resize(90), resize(125));
+				territoryLabel.setBounds(resize(20) + i * resize(85), resize(225), resize(90), resize(125));
 				i++;
 			} catch (IOException e) {
 	 			LOGGER.log(Level.WARNING, "Unable to update Territory label due to IOException", e);
@@ -169,13 +174,17 @@ public class PlayerBoardPanel extends JPanel{
 				buildingLabel.setIcon(new ImageIcon(cardImage.getScaledInstance(resize(90), resize(125), Image.SCALE_DEFAULT)));
 				buildingLabel.setToolTipText("<html><body><table><tr><td><img style='display: inline;' src=\"file:src/images/DevelopmentCards/"+c.getName().replace(" ", "")+".png\"></td>"+"<td>"+ CardDescFormatter.format(c.toString()) + "</td></tr></table></body></html> ");
 				this.add(buildingLabel);
-				buildingLabel.setBounds(resize(20) + i * resize(110), resize(40), resize(90), resize(125));
+				buildingLabel.setBounds(resize(20) + i * resize(85), resize(40), resize(90), resize(125));
 				i++;
 			} catch (IOException e) {
 	 			LOGGER.log(Level.WARNING, "Unable to update Building label due to IOException", e);
 
 			}
 		}
+	}
+	
+	public int getBackGroundWidth(){
+		return this.backgroundWidth;
 	}
 
 
