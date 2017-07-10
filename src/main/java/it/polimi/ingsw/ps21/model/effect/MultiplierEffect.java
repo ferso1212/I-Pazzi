@@ -69,8 +69,9 @@ public class MultiplierEffect extends Effect {
 		}
 		bonus = new ImmProperties(bonusProperties.getPropertyValue(PropertiesId.COINS) *bonusValue,bonusProperties.getPropertyValue(PropertiesId.WOOD)*bonusValue,
 				bonusProperties.getPropertyValue(PropertiesId.STONES)*bonusValue,
-				 bonusProperties.getPropertyValue(PropertiesId.SERVANTS)*bonusValue, bonusProperties.getPropertyValue(PropertiesId.MILITARYPOINTS)*bonusValue,
-				 bonusProperties.getPropertyValue(PropertiesId.FAITHPOINTS)*bonusValue, bonusProperties.getPropertyValue(PropertiesId.VICTORYPOINTS)*bonusValue);
+				 bonusProperties.getPropertyValue(PropertiesId.SERVANTS)*bonusValue, bonusProperties.getPropertyValue(PropertiesId.VICTORYPOINTS)*bonusValue, 
+				 bonusProperties.getPropertyValue(PropertiesId.MILITARYPOINTS)*bonusValue,
+				 bonusProperties.getPropertyValue(PropertiesId.FAITHPOINTS)*bonusValue);
 		return bonus;
 	}
 	

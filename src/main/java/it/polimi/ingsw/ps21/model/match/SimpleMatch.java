@@ -36,6 +36,7 @@ public class SimpleMatch extends Match {
 	private EnumMap<PlayerColor, Player> players;
 	private ArrayList<Player> order;
 	private ArrayList<ExtraAction> extraActions;
+	private ArrayList<Player> realOrder = new ArrayList<Player>();
 
 	public SimpleMatch(PlayerColor... colors) throws InvalidIDException, BuildingDeckException {
 		super();
@@ -55,8 +56,10 @@ public class SimpleMatch extends Match {
 			tempPlayer.add(players.get(colors[i]));
 		}
 		for (int j = 0; j < 4; j++)
-			for (int i = 0; i < tempPlayer.size(); i++)
+			for (int i = 0; i < tempPlayer.size(); i++){
 				order.add(tempPlayer.get(i));
+				if(j==0) realOrder.add(tempPlayer.get(0));
+			}
 		currentPlayer = 0;
 		period = 1;
 		round = RoundType.INITIAL_ROUND;
@@ -114,10 +117,11 @@ public class SimpleMatch extends Match {
 		Queue<FamilyMember> temp = board.getCouncilPalace().getOccupants();
 		ArrayList<Player> oldOrder = new ArrayList<>();
 		for (int i = 0; i < players.values().size(); i++) {
-			oldOrder.add(order.get(i)); // Evito eventuali scomuniche sulla prima azione
+			oldOrder.add(realOrder.get(i)); // Evito eventuali scomuniche sulla prima azione
 		}
 		ArrayList<Player> newOrder = new ArrayList<>();
 		order.clear();
+		realOrder.clear();
 		while(!temp.isEmpty()) {
 			Player player = players.get(temp.poll().getOwnerId());
 			if (newOrder.contains(player));
@@ -129,8 +133,10 @@ public class SimpleMatch extends Match {
 		for (Player p : oldOrder) {
 			newOrder.add(p);
 		}
-		for (int j = 0; j < newOrder.size(); j++)
+		for (int j = 0; j < newOrder.size(); j++){
 			order.add(newOrder.get(j));
+			realOrder.add(newOrder.get(j));
+		}
 		if (round != RoundType.VATICAN_ROUND) {
 			for (int i = 0; i < 3; i++)
 				for (int j = 0; j < newOrder.size(); j++)
@@ -142,15 +148,16 @@ public class SimpleMatch extends Match {
 			do
 			{
 				if (order.get(i).getModifiers().getActionMods().firstActionDelayed()){
-					currentPlayer++;
-					order.add(order.get(i));
-					i++;
+					Player tempPlayer = order.get(i);
+					order.remove(i);
+					order.add(tempPlayer);
+					
 				}
 				else{
 				i++;
 				}
-			}while (firstPlayer != order.get(currentPlayer));
-			currentPlayer=0;
+			}while (firstPlayer != order.get(i));
+
 			for (Player p : players.values()) {
 				p.getFamily().roundReset();
 			}

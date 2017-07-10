@@ -19,7 +19,7 @@ public class WorkExcommunication extends Excommunication{
 	 */
 	@Override
 	public void activate(Player player) {
-	 player.getModifiers().getWorkMods().setWorkMod(workType, malus);
+	 player.getModifiers().getWorkMods().setWorkMod(workType, player.getModifiers().getWorkMods().getWorkMod(workType)- malus);
 		
 	}
 
