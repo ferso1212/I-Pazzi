@@ -20,7 +20,7 @@ public class ClientMain {
 	public static void main(String [] args)
 	{
 
-		hostaddress = "192.168.0.105";
+		hostaddress = "127.0.0.1";
 		System.out.println("\nClient application started.");
     	Scanner in = new Scanner(System.in);
     	

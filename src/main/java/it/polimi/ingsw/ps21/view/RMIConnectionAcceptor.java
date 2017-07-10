@@ -76,55 +76,48 @@ public class RMIConnectionAcceptor extends UnicastRemoteObject implements RMICon
 	}
 
 	public void setupConnection(RMIConnectionInterface connection) throws RemoteException {
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				int value;
-				try {
-					value = connection.getId();
-				if (!connectionsMap.containsKey(value))
-					return;
-					RMIConnection unsettedConnection = connectionsMap.get(connection.getId());
-					if (unsettedConnection.wantsNewMatch()) {
-						String name;
-						boolean usedName;
-						do {
-							name = unsettedConnection.reqName();
-							if (name == null) {
-								System.out
-										.println("\nConnection interrupted because player canceled on name insertion");
-								return;
-							}
-							synchronized (usedNames) {
-								usedName = usedNames.contains(name);
-								if (!usedName)
-									usedNames.add(name);
-							}
-							if (usedName)
-								unsettedConnection.sendMessage("Already taken name, please choice another one: ");
-						} while (usedName);
-						boolean rules = unsettedConnection.reqWantsAdvRules();
-						addConnectionToQueue(rules, unsettedConnection);
-
-					} else {
-						String name;
-						boolean usedName;
-						do {
-							name = unsettedConnection.reqName();
-							synchronized (playingUsers) {
-								usedName = playingUsers.containsKey(name);
-							}
-						} while (!usedName);
-						playingUsers.get(name).setConnection(unsettedConnection);
-
+		int value;
+		try {
+			value = connection.getId();
+			if (!connectionsMap.containsKey(value))
+				return;
+			RMIConnection unsettedConnection = connectionsMap.get(connection.getId());
+			if (unsettedConnection.wantsNewMatch()) {
+				String name;
+				boolean usedName;
+				do {
+					name = unsettedConnection.reqName();
+					if (name == null) {
+						System.out.println("\nConnection interrupted because player canceled on name insertion");
+						return;
 					}
-				} catch (RemoteException e) {
-					LOGGER.log(Level.SEVERE, "Error in new connection setup, removing unsetted connection", e);
+					synchronized (usedNames) {
+						usedName = usedNames.contains(name);
+						if (!usedName)
+							usedNames.add(name);
+					}
+					if (usedName)
+						unsettedConnection.sendMessage("Already taken name, please choice another one: ");
+				} while (usedName);
+				boolean rules = unsettedConnection.reqWantsAdvRules();
+				addConnectionToQueue(rules, unsettedConnection);
 
-				}
+			} else {
+				String name;
+				boolean usedName;
+				do {
+					name = unsettedConnection.reqName();
+					synchronized (playingUsers) {
+						usedName = playingUsers.containsKey(name);
+					}
+				} while (!usedName);
+				playingUsers.get(name).setConnection(unsettedConnection);
+
 			}
-		});
+		} catch (RemoteException e) {
+			LOGGER.log(Level.SEVERE, "Error in new connection setup, removing unsetted connection", e);
+
+		}
 
 	}
 
