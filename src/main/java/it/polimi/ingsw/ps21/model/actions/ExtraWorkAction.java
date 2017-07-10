@@ -107,7 +107,7 @@ public class ExtraWorkAction extends ExtraAction {
 		}
 
 		for (int i = 0; i < workMessage.getcardsToActivateWithoutChoice().length; i++) {
-			if (workMessage.getChosenCardsWithCost()[i] != 0)
+			if (workMessage.getChosenCardsWithoutCost()[i] != 0)
 				activatedEffects.addAll(workMessage.getcardsToActivateWithoutChoice()[i]
 						.getPossibleEffects()[workMessage.getChosenCardsWithoutCost()[i] - 1].activate(player));
 		}
