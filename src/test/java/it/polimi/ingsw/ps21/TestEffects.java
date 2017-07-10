@@ -72,7 +72,7 @@ public class TestEffects {
 		int i=1;
 		for(MultiplierType type: MultiplierType.values())
 		{
-		MultiplierEffect eff = new MultiplierEffect(new ImmProperties(1), new ImmProperties(0, 1), type, 2);
+		MultiplierEffect eff = new MultiplierEffect(new ImmProperties(0), new ImmProperties(0, 1), type, 2);
 		eff.activate(stdPl);
 		if(type!=MultiplierType.GREEN_CARD && type!=MultiplierType.BLUE_CARD && type!=MultiplierType.YELLOW_CARD && type!=MultiplierType.PURPLE_CARD)
 		{assertEquals(10+ 20*i, stdPl.getProperties().getProperty(PropertiesId.WOOD).getValue());
