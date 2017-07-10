@@ -68,6 +68,7 @@ public class Lobby extends Thread{
 
 		}
 		timer.cancel();
+		startedTimer=false;
 		if (connectionsQueue.size() >= MAX_PLAYERS_NUM)
 			System.out.println("\nThere are enough connections in the queue to fulfill a match.");
 		this.timer.cancel();

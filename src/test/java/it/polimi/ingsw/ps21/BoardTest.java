@@ -124,6 +124,7 @@ public class BoardTest {
 	private boolean checkCouncil() {
 		for (MembersColor color: MembersColor.values()){
 		FamilyMember testMember = simplePlayer.getFamily().getMember(color);
+		simpleTest.getCouncilPalace().checkPlayer(simplePlayer);
 		if (!simpleTest.getCouncilPalace().isOccupable(simplePlayer, testMember))
 		{
 			if (color != MembersColor.NEUTRAL) return false;

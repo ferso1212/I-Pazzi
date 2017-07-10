@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import it.polimi.ingsw.ps21.client.GUI.LorenzoIlMagnifico;
 import it.polimi.ingsw.ps21.controller.AcceptedAction;
 import it.polimi.ingsw.ps21.controller.CostChoice;
 import it.polimi.ingsw.ps21.controller.CouncilChoice;
@@ -23,6 +24,7 @@ import it.polimi.ingsw.ps21.model.actions.CouncilAction;
 import it.polimi.ingsw.ps21.model.actions.DevelopmentAction;
 import it.polimi.ingsw.ps21.model.actions.ExtraAction;
 import it.polimi.ingsw.ps21.model.actions.ExtraWorkAction;
+import it.polimi.ingsw.ps21.model.actions.LeaderCopyMessage;
 import it.polimi.ingsw.ps21.model.actions.MarketAction;
 import it.polimi.ingsw.ps21.model.actions.NotExecutableException;
 import it.polimi.ingsw.ps21.model.actions.NullAction;
@@ -46,8 +48,10 @@ import it.polimi.ingsw.ps21.model.deck.RequirementAndCost;
 import it.polimi.ingsw.ps21.model.deck.TerritoryCard;
 import it.polimi.ingsw.ps21.model.effect.DiscountEffect;
 import it.polimi.ingsw.ps21.model.effect.DiscountLeaderEffect;
+import it.polimi.ingsw.ps21.model.effect.Effect;
 import it.polimi.ingsw.ps21.model.effect.EffectSet;
 import it.polimi.ingsw.ps21.model.effect.InstantWorkEffect;
+import it.polimi.ingsw.ps21.model.effect.LorenzoIlMagnificoEffect;
 import it.polimi.ingsw.ps21.model.effect.PropEffect;
 import it.polimi.ingsw.ps21.model.match.AdvancedMatch;
 import it.polimi.ingsw.ps21.model.match.BuildingDeckException;
@@ -450,6 +454,18 @@ public class TestActions {
 		if (!(mess instanceof RefusedAction)) fail();
 		
 		//test activation of HARVEST
+		Effect[] effects= {new PropEffect(new ImmProperties(1), new ImmProperties(0, 2))};
+		EffectSet[] sets={new EffectSet(effects)};
+		TerritoryCard card= new TerritoryCard("carta", 1, 1, null, sets);
+		Effect[] effects2= {new PropEffect(new ImmProperties(0), new ImmProperties(0, 0, 3))};
+		EffectSet[] sets2={new EffectSet(effects2)};
+		TerritoryCard card2= new TerritoryCard("carta", 1, 1, null, sets2);
+		try {
+			p.getDeck().addCard(card);
+			p.getDeck().addCard(card2);
+		} catch (RequirementNotMetException e1) {
+			fail();
+		}
 		p.getFamily().roundReset();
 		p.getFamily().getMember(MembersColor.BLACK).setValue(10);
 		match.getBoard().getSingleWorkSpace(WorkType.HARVEST).reset();
@@ -548,21 +564,34 @@ public class TestActions {
 	{
 		try {
 			AdvancedMatch advM=new AdvancedMatch(PlayerColor.RED, PlayerColor.GREEN);
-			Player ap= advM.getCurrentPlayer();
-		
+			AdvancedPlayer ap= (AdvancedPlayer) advM.getCurrentPlayer();
+			
+
 		setAllPlayerProperties(20, ap);
 		Requirement[] reqs= {new Requirement(new CardsNumber(0), new ImmProperties(0))};
 		LeaderCard card= new LeaderCard("leader", new DiscountLeaderEffect(reqs));
+		ap.addLeaderCard(card);
 		PlayLeaderCardAction a = new PlayLeaderCardAction(ap.getId(), card, 0);
 		if(!(a.update(ap, advM) instanceof AcceptedAction)) fail();
-		try {
-			a.activate(ap, advM);
-		} catch (NotExecutableException | RequirementNotMetException | InsufficientPropsException e) {
+		a.activate(ap, advM);
+		
+		//tests Lorenzo il Magnifico leader card
+		AdvancedPlayer[] players = advM.getPlayers().toArray(new AdvancedPlayer[0]);
+		AdvancedPlayer ap2= players[1];
+		LeaderCard card2=new LeaderCard("lorenzo", new LorenzoIlMagnificoEffect(reqs));
+		a = new PlayLeaderCardAction(ap2.getId(), card2, 0);
+		Message mess= a.update(ap2, advM);
+		assert(mess instanceof LeaderCopyMessage);
+		((LeaderCopyMessage)mess).setChosenCard(card);
+		mess.setVisited();
+		mess=a.update(ap2, advM);
+		assert(mess instanceof AcceptedAction);
+		} catch (InvalidIDException | BuildingDeckException| NotExecutableException | RequirementNotMetException | InsufficientPropsException e) {
 			fail();
 		}
-		} catch (InvalidIDException | BuildingDeckException e1) {
-			fail();
-		}
+		
+		
+		
 	}
 	
 	@Test
