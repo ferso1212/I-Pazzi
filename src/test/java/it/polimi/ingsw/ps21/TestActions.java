@@ -252,6 +252,14 @@ public class TestActions {
 			((ServantsChoice)mess).setNumberOfServants(2);
 			mess.setVisited();
 			mess = a2.update(this.match.getCurrentPlayer(), match);
+			if(!(mess instanceof WorkMessage)) fail();
+			WorkMessage wmess=(WorkMessage)mess;
+			int[] choices= new int[wmess.getcardsToActivateWithoutChoice().length];
+			wmess.setChosenCardsWithoutCost(choices);
+			choices=new int[wmess.getCardsWithCost().length];
+			wmess.setChosenCardsWithCost(choices);
+			mess.setVisited();
+			mess = a2.update(this.match.getCurrentPlayer(), match);
 			if (!(mess instanceof AcceptedAction))
 				fail();
 
