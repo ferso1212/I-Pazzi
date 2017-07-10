@@ -2,6 +2,6 @@
 <!DOCTYPE ServerConfiguration SYSTEM "server-schema.dtd" >
 <ServerConfiguration>
     <ServerAddress  value="127.0.0.1"/> 
-   <TimeoutLobby value="10000" />
+   <TimeoutLobby value="50000" />
     <TimeoutRound value="600000" />
 </ServerConfiguration>
