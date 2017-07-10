@@ -58,7 +58,7 @@ public class PlayerBoardPanel extends JPanel{
  	
  	public void setImage(BufferedImage img){
  		this.playerBoardImage = img;
- 		this.resizeParam = this.playerBoardImage.getHeight() / (double)this.preferredHeight;
+ 		this.resizeParam = (double)this.preferredHeight / this.playerBoardImage.getHeight() ;
  	}
  	
  	@Override
@@ -120,13 +120,13 @@ public class PlayerBoardPanel extends JPanel{
 		victoryPoints.setHorizontalAlignment(JLabel.CENTER);
 		
 		
-		this.add(coins).setBounds(resize(35), resize(350), resize(25), resize(25));
-		this.add(woods).setBounds(resize(145), resize(350), resize(25), resize(25));
-		this.add(stones).setBounds(resize(250), resize(350), resize(25), resize(25));
-		this.add(servants).setBounds(resize(350), resize(350), resize(25), resize(25));
-		this.add(faithPoints).setBounds(resize(660), resize(100), resize(25), resize(25));
-		this.add(militaryPoints).setBounds(resize(660), resize(220), resize(25), resize(25));
-		this.add(victoryPoints).setBounds(resize(660), resize(350), resize(25), resize(25));
+		this.add(coins).setBounds(resize(45), resize(395), resize(25), resize(25));
+		this.add(woods).setBounds(resize(155), resize(395), resize(25), resize(25));
+		this.add(stones).setBounds(resize(260), resize(395), resize(25), resize(25));
+		this.add(servants).setBounds(resize(360), resize(395), resize(25), resize(25));
+		this.add(faithPoints).setBounds(resize(740), resize(100), resize(25), resize(25));
+		this.add(militaryPoints).setBounds(resize(745), resize(250), resize(25), resize(25));
+		this.add(victoryPoints).setBounds(resize(740), resize(395), resize(25), resize(25));
 	}
 	
 	private int resize(int originalSize){
@@ -154,7 +154,7 @@ public class PlayerBoardPanel extends JPanel{
 				territoryLabel.setIcon(new ImageIcon(cardImage.getScaledInstance(resize(90), resize(125), Image.SCALE_DEFAULT)));
 				territoryLabel.setToolTipText("<html><body><table><tr><td><img style='display: inline;' src=\"file:src/images/DevelopmentCards/"+c.getName().replace(" ", "")+".png\"></td>"+"<td>"+ CardDescFormatter.format(c.toString()) + "</td></tr></table></body></html> ");
 				this.add(territoryLabel);
-				territoryLabel.setBounds(resize(15) + i * resize(97), resize(200), resize(90), resize(125));
+				territoryLabel.setBounds(resize(20) + i * resize(110), resize(210), resize(105), resize(135));
 				i++;
 			} catch (IOException e) {
 	 			LOGGER.log(Level.WARNING, "Unable to update Territory label due to IOException", e);
@@ -172,7 +172,7 @@ public class PlayerBoardPanel extends JPanel{
 				buildingLabel.setIcon(new ImageIcon(cardImage.getScaledInstance(resize(90), resize(125), Image.SCALE_DEFAULT)));
 				buildingLabel.setToolTipText("<html><body><table><tr><td><img style='display: inline;' src=\"file:src/images/DevelopmentCards/"+c.getName().replace(" ", "")+".png\"></td>"+"<td>"+ CardDescFormatter.format(c.toString()) + "</td></tr></table></body></html> ");
 				this.add(buildingLabel);
-				buildingLabel.setBounds(resize(15) + i * resize(97), resize(20), resize(90), resize(125));
+				buildingLabel.setBounds(resize(20) + i * resize(110), resize(20), resize(105), resize(135));
 				i++;
 			} catch (IOException e) {
 	 			LOGGER.log(Level.WARNING, "Unable to update Building label due to IOException", e);

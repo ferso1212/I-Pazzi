@@ -97,7 +97,6 @@ public class PlayerTile extends JSplitPane {
 					
 
 				} catch (IOException e) {
-					e.printStackTrace();
 					characters.setBackground(new Color(0, 127, 255));
 					characters.setOpaque(true);
 					characters.setText("CHARACTERS");

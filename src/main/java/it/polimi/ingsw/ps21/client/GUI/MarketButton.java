@@ -4,6 +4,8 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -17,6 +19,7 @@ public class MarketButton extends JButton{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = Logger.getLogger(MarketButton.class.getSimpleName());
 	private int spaceNumber;
 	
 	public MarketButton(int spaceNumber){
@@ -44,8 +47,8 @@ public class MarketButton extends JButton{
 				this.setIcon(
 						new ImageIcon(memberIcon.getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_SMOOTH)));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				this.setToolTipText("Player: " + occupant.getOwnerId().toString().toLowerCase() + "family member color :"
+								+ occupant.getColor().toString().toLowerCase());
 			}
 		}
 	}
